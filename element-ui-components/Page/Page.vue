@@ -43,9 +43,6 @@ export default {
     handleSizeChange(size) {
       this.value.size = size
       this.$emit('change', this.value)
-      this.$nextTick(() => {
-        window.scroll({ top: 0, behavior: 'smooth' })
-      })
     }
   }
 }
