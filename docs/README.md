@@ -1,8 +1,6 @@
-# vue-components
+# 介绍
 
 为了实现业务逻辑，自己改写的部分 components 组件
-
-[在线预览地址](https://tolking.github.io/vue-components)
 
 ## 使用
 

@@ -23,13 +23,13 @@ export default {
     value: {
       type: Object,
       default: () => {
-        return { current: 1, total: 0, size: 50 }
+        return { current: 1, total: 0, size: 15 }
       }
     }
   },
   data() {
     return {
-      sizeList: [50, 100, 200, 500, 1000]
+      sizeList: [15, 50, 100]
     }
   },
   methods: {
@@ -48,12 +48,12 @@ export default {
 }
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
-  .page {
-    padding: 15px 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
+<style scoped>
+.page {
+  padding: 15px 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 </style>

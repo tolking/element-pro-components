@@ -11,7 +11,7 @@
       >
         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
       </el-upload>
-      <div v-if="value" class="img-warp" @click="showPic">
+      <div v-if="value" class="img-warp">
         <img :src="value" class="img">
       </div>
       <div v-else class="text">未选择任何文件</div>
@@ -134,6 +134,7 @@ export default {
     },
     // 上传文件
     async upFile(file) {
+      // NOTE: 上传代码需要根据情况合理修改
       const formData = new FormData()
       formData.append('file', file, this.imgName)
       const res = await axios({
@@ -143,6 +144,13 @@ export default {
         headers: {
           'ContentType': 'multipart/form-data'
         }
+      }).catch(err => {
+        console.log('模拟返回，修改 url 后可以将 catch 删除')
+        return { data: {
+          code: 2000,
+          data: 'https://ououe.com/img/homescreen96.png',
+          message: '上传成功'
+        }}
       })
       const { code, data, message } = res.data
       this.btnLoading = false
@@ -161,48 +169,44 @@ export default {
     close() {
       this.dialogFixImg = false
       this.cropper.destroy()
-    },
-    // 预览图片
-    showPic() {
-      this.$store.commit('SHOW_PIC', { showPic: true, image: this.value })
     }
   }
 }
 </script>
 
-<style scoped rel="stylesheet/scss" lang="scss">
-  .uploader{
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    .text{
-      font-size: 12px;
-      margin-left: 10px;
-    }
-    .img-warp{
-      margin-left: 10px;
-      max-width: 50px;
-      max-height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      .img{
-        max-width: 50px;
-        max-height: 50px;
-      }
-    }
+<style scoped>
+.uploader {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.uploader .text {
+  font-size: 12px;
+  margin-left: 10px;
   }
-  .uploadPhotoTips {
-    line-height: 14px;
-    color: red;
-    font-size: 12px;
-  }
-  .dialog-tip {
-    margin-bottom: 10px;
-  }
-  .crop-box {
-    max-height: 50vh;
-    overflow: hidden;
-  }
+.uploader .img-warp {
+  margin-left: 10px;
+  max-width: 50px;
+  max-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.uploader .img-warp .img{
+  max-width: 50px;
+  max-height: 50px;
+}
+.uploadPhotoTips {
+  line-height: 14px;
+  color: red;
+  font-size: 12px;
+}
+.dialog-tip {
+  margin-bottom: 10px;
+}
+.crop-box {
+  max-height: 50vh;
+  overflow: hidden;
+}
 </style>
