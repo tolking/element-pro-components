@@ -1,3 +1,9 @@
+---
+title: ImgUpload
+lang: zh-CN
+description: 基于 cropperjs element-ui 的图片裁剪
+--- 
+
 # ImgUpload
 
 > 基于 cropperjs element-ui 的图片裁剪

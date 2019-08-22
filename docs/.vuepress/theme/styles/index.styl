@@ -1,0 +1,279 @@
+@require './palette.styl'
+
+:root
+  --accentColor $accentColor
+  --textColor $textColor
+  --borderColor $borderColor
+  --codeBgColor $codeBgColor
+  --bgColor $bgColor
+  --kbdBgColor $kbdBgColor
+  --blockquoteTextColor $blockquoteTextColor
+  --blockquoteBorderColor $blockquoteBorderColor
+  --tableBorderColor $tableBorderColor
+  --tableStripeBgColor $tableStripeBgColor
+  --preTextColor $preTextColor
+  --highlightedBgColor $highlightedBgColor
+  --languageTextColor $languageTextColor
+  --lineNumbersColor $lineNumbersColor
+  --tipBgColor $tipBgColor
+  --warningBgColor $warningBgColor
+  --dangerBgColor $dangerBgColor
+  --searchBorderColor $searchBorderColor
+  --lighten10AccentColor lighten($accentColor, 10%)
+  --lighten10TextColor lighten($textColor, 10%)
+  --lighten20TextColor lighten($textDarkColor, 20%)
+  --lighten25TextColor lighten($textColor, 25%)
+  --lighten40TextColor lighten($textColor, 40%)
+  --darken10AccentColor darken($accentColor, 10%)
+  @media (prefers-color-scheme: light)
+    --codeBgColor $codeBgLightColor
+    --preTextColor $preTextLightColor
+    --highlightedBgColor $highlightedBgLightColor
+    --languageTextColor $languageTextLightColor
+    --lineNumbersColor $lineNumbersLightColor
+    --lighten20TextColor lighten($textColor, 20%)
+  @media (prefers-color-scheme: dark)
+    --accentColor $accentDarkColor
+    --textColor $textDarkColor
+    --borderColor $borderDarkColor
+    --bgColor $bgDarkColor
+    --kbdBgColor $kbdBgDarkColor
+    --blockquoteTextColor $blockquoteTextDarkColor
+    --blockquoteBorderColor $blockquoteBorderDarkColor
+    --tableBorderColor $tableBorderDarkColor
+    --tableStripeBgColor $tableStripeBgDarkColor
+    --tipBgColor $tipBgDarkColor
+    --warningBgColor $warningBgDarkColor
+    --dangerBgColor $dangerBgDarkColor
+    --searchBorderColor $searchBorderDarkColor
+    --lightenAccentColor lighten($accentColor, 10%)
+    --lighten10TextColor lighten($textColor, 10%)
+    --lighten25TextColor lighten($textDarkColor, 25%)
+    --lighten40TextColor lighten($textColor, 40%)
+    --darken10AccentColor darken($accentColor, 10%)
+
+
+html,
+body,
+.navbar,
+.sidebar
+  background-color var(--bgColor)
+
+body {
+  color var(--textColor)
+}
+
+.navbar,
+h2,
+.sidebar .nav-links
+  border-bottom-color var(--borderColor)
+
+.sidebar
+  border-right-color var(--borderColor)
+
+{$contentClass}:not(.custom) p.demo,
+kbd
+  border-color var(--borderColor)
+
+kbd
+  background var(--kbdBgColor)
+
+blockquote
+  color var(--blockquoteTextColor)
+  border-left-color var(--blockquoteBorderColor)
+
+a,
+p a code
+ color var(--accentColor)
+
+hr,
+.page-nav .inner
+  border-top-color var(--borderColor)
+
+tr
+  border-top-color var(--tableBorderColor)
+  &:nth-child(2n)
+    background-color var(--tableStripeBgColor)
+
+th,
+td
+  border-color var(--tableBorderColor)
+
+.arrow.up
+  border-bottom-color var(--arrowBgColor)
+
+.arrow.down
+  border-top-color var(--arrowBgColor)
+
+.arrow.right,
+  border-left-color var(--arrowBgColor)
+
+.arrow.left
+  border-right-color var(--arrowBgColor)
+
+// code
+{$contentClass} code
+  color var(--lighten20TextColor)
+  .token.inserted
+    color var(--accentColor)
+
+{$contentClass} pre,
+{$contentClass} pre[class*="language-"],
+div[class*="language-"],
+div[class*="language-"].line-numbers-mode::after
+  background-color var(--codeBgColor)
+
+{$contentClass}
+  pre, pre[class*="language-"]
+    code
+      color var(--preTextColor)
+
+div[class*="language-"] .highlight-lines .highlighted,
+div[class*="language-"].line-numbers-mode .highlight-lines .highlighted::before,
+div[class*="language-"].line-numbers-mode::after
+  background-color var(--highlightedBgColor)
+
+div[class*="language-"]::before
+  color var(--languageTextColor)
+
+div[class*="language-"].line-numbers-mode .line-numbers-wrapper
+  color var(--lineNumbersColor)
+
+// custom-block
+.custom-block.tip
+  background-color var(--tipBgColor)
+
+.custom-block.warning
+  background-color var(--warningBgColor)
+
+.custom-block.danger
+  background-color var(--dangerBgColor)
+
+.custom-block.warning,
+.custom-block.danger
+  a
+    color var(--textColor)
+
+
+// search
+.search-box input
+  border-color var(--borderColor)
+  background-color var(--bgColor)
+
+.algolia-search-wrapper
+  .algolia-autocomplete
+    .ds-dropdown-menu
+      background var(--bgColor)
+      border-color var(--searchBorderColor)
+      &::before
+        border-color var(--searchBorderColor)
+      .ds-suggestion
+        border-bottom-color var(--borderColor)
+    .algolia-docsearch-suggestion--highlight
+      color #2c815b
+    .algolia-docsearch-suggestion
+      border-color var(--borderColor)
+      .algolia-docsearch-suggestion--category-header
+        background var(--accentColor)
+        color #fff
+        .algolia-docsearch-suggestion--highlight
+          background rgba(255, 255, 255, 0.6)
+      .algolia-docsearch-suggestion--title
+        color var(--textColor)
+      .algolia-docsearch-suggestion--subcategory-column
+        border-color var(--borderColor)
+        background #f1f3f5
+      .algolia-docsearch-suggestion--subcategory-column-text
+        color #555
+    .algolia-docsearch-footer
+      border-color var(--borderColor)
+    .ds-cursor .algolia-docsearch-suggestion--content
+      background-color #e7edf3 !important
+      color var(--textColor)
+
+.dropdown-wrapper
+  .nav-dropdown
+    .dropdown-item
+      h4
+        border-top-color var(--kbdBgColor)
+      a
+        &:hover
+          color var(--accentColor)
+        &.router-link-active
+          color var(--accentColor)
+          &::after
+            border-left-color var(--accentColor)
+
+@media (min-width: $MQMobile)
+  .dropdown-wrapper .dropdown-title .arrow
+    border-top-color var(--arrowBgColor)
+
+  .dropdown-wrapper .nav-dropdown
+    background-color var(--bgColor)
+    border-color #ddd
+    border-bottom-color #ccc
+
+
+// home
+.home
+  .hero
+    .description
+      color var(--lighten40TextColor)
+    .action-button
+      color #fff
+      background-color var(--accentColor)
+      border-bottom-color var(--darken10AccentColor)
+      &:hover
+        background-color var(--lighten10AccentColor)
+  .features
+    border-top-color var(--borderColor)
+  .feature
+    h2
+      color var(--lighten10TextColor)
+    p
+      color var(--lighten25TextColor)
+  .footer
+    border-top-color var(--borderColor)
+    color var(--lighten25TextColor)
+
+
+// navbar
+.navbar .site-name
+  color var(--textColor)
+
+.navbar .links
+  background var(--bgColor)
+
+.nav-links a
+  &:hover, &.router-link-active
+    color var(--accentColor)
+    @media (min-width: $MQMobile)
+      color var(--textColor)
+
+@media (min-width: $MQMobile)
+  .nav-item > a:not(.external)
+    &:hover, &.router-link-active
+      border-bottom-color var(--accentColor)
+
+// page
+.page-edit .edit-link a,
+.page-edit .last-updated .prefix
+  color var(--lighten25TextColor)
+
+// sidebar
+.sidebar-heading
+  color var(--textColor)
+  &.clickable
+    &.active
+      color var(--accentColor)
+      border-left-color var(--accentColor)
+    &:hover
+      color var(--accentColor)
+
+a.sidebar-link
+  color var(--textColor)
+  &:hover
+    color var(--accentColor)
+  &.active
+    color var(--accentColor)
+    border-left-color var(--accentColor)

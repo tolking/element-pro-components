@@ -1,3 +1,9 @@
+---
+title: Page
+lang: zh-CN
+description: 基于 element-ui 的公用分页组件
+--- 
+
 # AppPage
 
 > 基于 element-ui 的公用分页组件
