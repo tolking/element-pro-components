@@ -4,6 +4,7 @@ module.exports = {
   description: 'vue-components',
   dest: 'dist/',
   evergreen: true,
+  theme: 'default-prefers-color-scheme',
   themeConfig: {
     sidebar: [
       '/',
