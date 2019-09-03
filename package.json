@@ -27,9 +27,6 @@
     "cropperjs": "^1.5.5",
     "element-ui": "^2.11.1",
     "vuepress": "^1.0.3",
-    "vuepress-theme-default-prefers-color-scheme": "^1.0.0"
-  },
-  "devDependencies": {
-    "babel-plugin-component": "^1.1.1"
+    "vuepress-theme-default-prefers-color-scheme": "^1.0.2"
   }
 }
