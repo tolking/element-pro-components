@@ -14,7 +14,8 @@ module.exports = {
         children: [
           '/element-ui/',
           '/element-ui/Page',
-          '/element-ui/ImgUpload'
+          '/element-ui/ImgUpload',
+          '/element-ui/InputTag',
         ]
       }
     ],

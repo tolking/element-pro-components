@@ -59,7 +59,7 @@ export default {
 </script>
 ```
 
-## 效果
+**效果**
 
 <template>
   <img-upload v-model="imgSrc" :width="143" :height="144" :scaling="143 / 144" tip="提示文字" @change="handleChange" />
