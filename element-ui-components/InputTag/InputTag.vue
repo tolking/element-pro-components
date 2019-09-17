@@ -10,13 +10,25 @@
       closable
       @close="closeTag(item)"
     >{{ item }}</el-tag>
+    <el-autocomplete
+      v-if="autocomplete"
+      v-model="input"
+      v-bind="$attrs"
+      @select="addTag"
+      @keyup.enter.native="addTag"
+    >
+      <slot/>
+    </el-autocomplete>
     <el-input
+      v-else
       v-model="input"
       v-bind="$attrs"
       type="text"
       @blur="addTag"
       @keyup.enter.native="addTag"
-    />
+    >
+      <slot/>
+    </el-input>
   </div>
 </template>
 
@@ -31,6 +43,10 @@ export default {
     value: {
       type: Array,
       default: () => []
+    },
+    autocomplete: {
+      type: Boolean,
+      default: false
     },
     tagType: {
       type: String,
@@ -81,7 +97,8 @@ export default {
 .input-tag .el-tag {
   margin: 3px;
 }
-.input-tag .el-input {
+.input-tag .el-input,
+.input-tag .el-autocomplete {
   flex: 1;
 }
 .input-tag .el-input .el-input__inner {

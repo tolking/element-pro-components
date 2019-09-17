@@ -1,6 +1,6 @@
 # InputTag
 
-> 基于 element-ui `input` 和 `tag` 的输入多个标签的输入框(类似 github 上的 `Manage topics`)
+> 基于 element-ui `tag` `input` `autocomplete` 的输入多个标签的输入框(类似 github 上的 `Manage topics`)
 
 ## 作用
 
@@ -53,13 +53,21 @@ export default {
 
 ## 配置
 
-**默认 type="text"，支持除了 type 外的大部 input 的分配置**
+**input 默认 type="text"，支持 type="text" 的大部分配置**
+
+**支持 autocomplete 的大部分配置**
 
 v-model 或者 value
 - type: `Array`
 - default: `[]`
 
 绑定的标签数组
+
+autocomplete
+- type: `Boolean`
+- default: `false`
+
+是否启用自动补全
 
 tagType
 - type: `String`
