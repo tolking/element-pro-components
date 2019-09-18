@@ -12,28 +12,6 @@ description: 基于 element-ui 的公用分页组件
 
 处理分页按钮变动时，返回页面顶部
 
-## 注册
-
-1. 全局注册
-
-``` js
-// src-> main.js
-import Vue from 'vue'
-import AppPage from '@/components/Page'
-
-Vue.use(AppPage)
-```
-
-2. 直接引用
-
-``` js
-import AppPage from '@/components/Page'
-
-export default {
-  components: { AppPage }
-}
-```
-
 ## 使用
 
 ``` html vue

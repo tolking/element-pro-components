@@ -12,33 +12,17 @@ description: 基于 element-ui input tag 的输入多个标签的输入框(类�
 
 通过点击 `Enter` 按键，增加一个标签。然后生成标签数组，并且可以单独删除每个标签
 
-## 注册
-
-1. 全局注册
-
-``` js
-// src-> main.js
-import Vue from 'vue'
-import InputTag from '@/components/InputTag'
-
-Vue.use(InputTag)
-```
-
-2. 直接引用
-
-``` js
-import InputTag from '@/components/InputTag'
-
-export default {
-  components: { InputTag }
-}
-```
-
 ## 使用
 
 ``` html vue
 <template>
-  <input-tag v-model="tags" @change="handleTagsChange"/>
+  <input-tag
+    v-model="tags"
+    :autocomplete="true"
+    :fetch-suggestions="querySearch"
+    placeholder="请输入内容"
+    @change="handleTagsChange"
+  />
 </template>
 
 <script>
@@ -51,6 +35,11 @@ export default {
   methods: {
     handleTagsChange(tags) {
       console.log(tags)
+    },
+    // 搜索相关逻辑
+    querySearch(queryString, callBack) {
+      // code...
+      callBack(results) // 调用 callback 返回建议列表的数据
     }
   }
 }

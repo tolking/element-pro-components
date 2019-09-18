@@ -14,33 +14,18 @@ description: 基于 cropperjs element-ui 的图片裁剪
 
 **通过`直接上传`按钮将直接上传图片，通过`裁剪上传`才会上传选中区域的裁剪图片**
 
-## 注册
-
-1. 全局注册
-
-``` js
-// src-> main.js
-import Vue from 'vue'
-import ImgUpload from '@/components/ImgUpload'
-
-Vue.use(ImgUpload)
-```
-
-2. 直接引用
-
-``` js
-import ImgUpload from '@/components/ImgUpload'
-
-export default {
-  components: { ImgUpload }
-}
-```
-
 ## 使用
 
 ``` html vue
 <template>
-  <img-upload v-model="imgSrc" :width="143" :height="144" :scaling="143 / 144" tip="提示文字" @change="handleChange" />
+  <img-upload
+    v-model="imgSrc"
+    :width="143"
+    :height="144"
+    :scaling="143 / 144"
+    tip="提示文字"
+    @change="handleChange"
+  />
 </template>
 
 <script>
