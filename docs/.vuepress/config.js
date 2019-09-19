@@ -24,5 +24,8 @@ module.exports = {
     docsDir: 'docs',
     editLinks: true,
     editLinkText: '在 GitHub 上编辑此页'
-  }
+  },
+  plugins: [
+    'reading-progress'
+  ]
 }

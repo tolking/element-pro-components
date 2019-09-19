@@ -27,6 +27,7 @@
     "cropperjs": "^1.5.5",
     "element-ui": "^2.11.1",
     "vuepress": "^1.0.3",
+    "vuepress-plugin-reading-progress": "^1.0.7",
     "vuepress-theme-default-prefers-color-scheme": "^1.0.2"
   }
 }
