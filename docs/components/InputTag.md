@@ -20,7 +20,7 @@ description: 基于 element-ui input tag 的输入多个标签的输入框(类�
 <template>
   <input-tag
     v-model="tags"
-    placeholder="请输入内容"
+    placeholder="请输入内容,点击 Enter 按键"
     @change="handleTagsChange"
   />
 </template>
@@ -46,7 +46,7 @@ export default {
 <template>
   <input-tag
     v-model="inputTags"
-    placeholder="请输入内容"
+    placeholder="请输入内容,点击 Enter 按键"
     @change="handleTagsChange"
   />
 </template>
@@ -98,7 +98,7 @@ export default {
 </template>
 
 <script>
-import InputTag from '../../element-ui-components/InputTag'
+import InputTag from '../../src/InputTag'
 
 export default {
   components: { InputTag },

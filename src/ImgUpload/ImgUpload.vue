@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import Cropper from 'cropperjs'
 import 'cropperjs/dist/cropper.min.css'
 
@@ -137,21 +137,21 @@ export default {
       // NOTE: 上传代码需要根据情况合理修改
       const formData = new FormData()
       formData.append('file', file, this.imgName)
-      const res = await axios({
-        method: 'post',
-        url: '', // NOTE: 文件上传 API 地址
-        data: formData,
-        headers: {
-          'ContentType': 'multipart/form-data'
-        }
-      }).catch(err => {
-        console.log('模拟返回，修改 url 后可以将 catch 删除')
-        return { data: {
-          code: 2000,
-          data: 'https://ououe.com/img/homescreen96.png',
-          message: '上传成功'
-        }}
-      })
+      // const res = await axios({
+      //   method: 'post',
+      //   url: '', // NOTE: 文件上传 API 地址
+      //   data: formData,
+      //   headers: {
+      //     'ContentType': 'multipart/form-data'
+      //   }
+      // }).catch(err => {
+      //   console.log('模拟返回，修改 url 后可以将 catch 删除')
+      //   return { data: {
+      //     code: 2000,
+      //     data: 'https://ououe.com/img/homescreen96.png',
+      //     message: '上传成功'
+      //   }}
+      // })
       const { code, data, message } = res.data
       this.btnLoading = false
       message && this.$message({

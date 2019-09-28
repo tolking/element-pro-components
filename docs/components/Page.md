@@ -77,7 +77,7 @@ change
 </template>
 
 <script>
-import AppPage from '../../element-ui-components/Page'
+import AppPage from '../../src/Page'
 
 export default {
   components: { AppPage },

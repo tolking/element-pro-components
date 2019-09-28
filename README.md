@@ -1,8 +1,10 @@
-# vue-components
+# element-pro-components
 
-为了实现业务逻辑，自己改写的部分 components 组件
+> 基于 element-ui 的后台界面公用组建
 
-[在线预览地址](https://tolking.github.io/vue-components)
+**构建中...**
+
+[文档](https://tolking.github.io/element-pro-components)
 
 ## 使用
 

@@ -51,7 +51,7 @@ export default {
 </template>
 
 <script>
-import ImgUpload from '../../element-ui-components/ImgUpload'
+import ImgUpload from '../../src/ImgUpload'
 
 export default {
   components: { ImgUpload },

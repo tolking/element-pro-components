@@ -1,7 +1,7 @@
 module.exports = {
-  base: '/vue-components/',
-  title: 'vue-components',
-  description: 'vue-components',
+  base: '/element-pro-components/',
+  title: 'element-pro-components',
+  description: 'element-pro-components',
   dest: 'dist/',
   evergreen: true,
   theme: 'default-prefers-color-scheme',
@@ -9,18 +9,18 @@ module.exports = {
     sidebar: [
       '/',
       {
-        title: 'element-ui',
-        path: '/element-ui/',
+        title: 'components',
+        path: '/components/',
         children: [
-          '/element-ui/',
-          '/element-ui/Page',
-          '/element-ui/ImgUpload',
-          '/element-ui/InputTag',
+          '/components/',
+          '/components/Page',
+          '/components/ImgUpload',
+          '/components/InputTag',
         ]
       }
     ],
     lastUpdated: '最后更新时间',
-    repo: 'tolking/vue-components',
+    repo: 'tolking/element-pro-components',
     docsDir: 'docs',
     editLinks: true,
     editLinkText: '在 GitHub 上编辑此页'

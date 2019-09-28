@@ -1,29 +1,28 @@
 {
-  "name": "vue-components",
+  "name": "element-pro-components",
   "version": "1.0.0",
-  "description": "vue components demo",
+  "description": "element-pro components demo",
   "scripts": {
     "dev": "vuepress dev docs",
     "build": "vuepress build docs"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tolking/vue-components.git"
+    "url": "git+https://github.com/tolking/element-pro-components.git"
   },
   "keywords": [
-    "vue",
-    "components",
-    "demo",
-    "element-ui"
+    "element-pro",
+    "admin",
+    "element-ui",
+    "components"
   ],
   "author": " <tolking qw13131wang@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tolking/vue-components/issues"
+    "url": "https://github.com/tolking/element-pro-components/issues"
   },
-  "homepage": "https://github.com/tolking/vue-components#readme",
-  "dependencies": {
-    "axios": "^0.19.0",
+  "homepage": "https://github.com/tolking/element-pro-components#readme",
+  "devDependencies": {
     "cropperjs": "^1.5.5",
     "element-ui": "^2.11.1",
     "vuepress": "^1.0.3",
