@@ -9,7 +9,8 @@
       :effect="tagEffect"
       closable
       @close="closeTag(item)"
-    >{{ item }}</el-tag>
+      >{{ item }}</el-tag
+    >
     <el-autocomplete
       v-if="autocomplete"
       v-model="input"
@@ -17,7 +18,7 @@
       @select="addTag"
       @keyup.enter.native="addTag"
     >
-      <slot/>
+      <slot />
     </el-autocomplete>
     <el-input
       v-else
@@ -27,14 +28,14 @@
       @blur="addTag"
       @keyup.enter.native="addTag"
     >
-      <slot/>
+      <slot />
     </el-input>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'InputTag',
+  name: 'ProInputTag',
   model: {
     prop: 'value',
     event: 'change'
@@ -90,7 +91,7 @@ export default {
 .input-tag {
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid #DCDFE6;
+  border: 1px solid #dcdfe6;
   border-radius: 4px;
   background-color: #fff;
 }

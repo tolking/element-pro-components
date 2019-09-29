@@ -4,7 +4,8 @@
   "description": "element-pro components demo",
   "scripts": {
     "dev": "vuepress dev docs",
-    "build": "vuepress build docs"
+    "build": "vuepress build docs",
+    "lint": "eslint --ext .js,.vue src"
   },
   "repository": {
     "type": "git",
@@ -16,16 +17,19 @@
     "element-ui",
     "components"
   ],
-  "author": " <tolking qw13131wang@gmail.com>",
+  "author": "<tolking qw13131wang@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/tolking/element-pro-components/issues"
   },
   "homepage": "https://github.com/tolking/element-pro-components#readme",
   "devDependencies": {
+    "@vue/eslint-config-prettier": "^4.0.1",
     "cropperjs": "^1.5.5",
     "element-ui": "^2.11.1",
-    "vuepress": "^1.0.3",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.2.2",
+    "vuepress": "^1.1.0",
     "vuepress-plugin-reading-progress": "^1.0.7",
     "vuepress-theme-default-prefers-color-scheme": "^1.0.2"
   }

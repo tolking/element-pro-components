@@ -18,7 +18,7 @@ description: 基于 element-ui input tag 的输入多个标签的输入框(类�
 
 ``` html vue
 <template>
-  <input-tag
+  <pro-input-tag
     v-model="tags"
     placeholder="请输入内容,点击 Enter 按键"
     @change="handleTagsChange"
@@ -44,7 +44,7 @@ export default {
 **效果**
 
 <template>
-  <input-tag
+  <pro-input-tag
     v-model="inputTags"
     placeholder="请输入内容,点击 Enter 按键"
     @change="handleTagsChange"
@@ -55,7 +55,7 @@ export default {
 
 ``` html vue
 <template>
-  <input-tag
+  <pro-input-tag
     v-model="tags"
     :autocomplete="true"
     :fetch-suggestions="querySearch"
@@ -88,7 +88,7 @@ export default {
 **效果**
 
 <template>
-  <input-tag
+  <pro-input-tag
     v-model="autoTags"
     :autocomplete="true"
     :fetch-suggestions="querySearch"
@@ -98,10 +98,7 @@ export default {
 </template>
 
 <script>
-import InputTag from '../../src/InputTag'
-
 export default {
-  components: { InputTag },
   data() {
     return {
       inputTags: [],

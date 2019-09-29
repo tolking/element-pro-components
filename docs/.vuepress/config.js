@@ -13,8 +13,10 @@ module.exports = {
         path: '/components/',
         children: [
           '/components/',
-          '/components/Page',
-          '/components/ImgUpload',
+          '/components/Layout',
+          '/components/Aside',
+
+          '/components/ImgCropper',
           '/components/InputTag',
         ]
       }
