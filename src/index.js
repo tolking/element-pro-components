@@ -1,14 +1,17 @@
-import Aside from './Aside'
 import Footer from './Footer'
 import Header from './Header'
 import ImgCropper from './ImgCropper'
 import InputTag from './InputTag'
 import Layout from './Layout'
 import Link from './Link'
+import Menu from './Menu'
+import Svg from './Svg'
 
-const components = [Aside, Footer, Header, ImgCropper, InputTag, Layout, Link]
+const components = [Footer, Header, ImgCropper, InputTag, Layout, Menu, Svg]
 
-const install = function(Vue) {
+const install = function(Vue, options = {}) {
+  Vue.use(Link, { linkClick: options.linkClick })
+
   components.forEach(item => {
     Vue.component(item.name, item)
   })
@@ -17,5 +20,6 @@ const install = function(Vue) {
 export default {
   version: '1.0.0',
   install,
+  Link,
   ...components
 }

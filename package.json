@@ -1,7 +1,8 @@
 {
   "name": "element-pro-components",
   "version": "1.0.0",
-  "description": "element-pro components demo",
+  "main": "src/index.js",
+  "description": "element-pro components",
   "scripts": {
     "dev": "vuepress dev docs",
     "build": "vuepress build docs",

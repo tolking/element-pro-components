@@ -1,37 +1,28 @@
-# Layout
+# Menu
 
 ## 作用
 
-默认的界面布局
+根据路由情况生成菜单栏
 
 ## 使用
 
 ``` html vue
 <template>
-  <pro-layout />
+  <pro-menu mode="horizontal"/>
+  <br>
+  <div style="width: 250px">
+    <pro-menu :routers="routers" />
+  </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      tags: []
-    }
-  },
-  methods: {
-    handleTagsChange(tags) {
-      console.log(tags)
-    }
-  }
-}
-</script>
 ```
 
 **效果**
 
 <template>
-  <div style="border: 1px solid var(--borderColor, #ccc)">
-    <pro-layout :routers="routers" />
+  <pro-menu :routers="routers" mode="horizontal">123</pro-menu>
+  <br>
+  <div style="width: 250px">
+    <pro-menu :routers="routers" />
   </div>
 </template>
 
@@ -70,3 +61,19 @@ export default {
   }
 }
 </script>
+
+## 配置
+
+routers
+- type: `Array`
+- default: `this.$router.options.routes`
+
+需要生成菜单的路由数组 (默认移除 `hidden: true` 的路由)，如果是动态生成的路由需要传入此参数，或者将生成的路由增加到 `this.$router.options.routes`
+
+default-active
+- type: `String`
+- default: `this.$route.path`
+
+当前激活菜单的 index
+
+其它同 `NavMenu` 

@@ -1,13 +1,13 @@
 <template>
-  <section>
+  <section class="pro-menu-item">
     <template v-if="!checkItemChildren(item)">
       <pro-link :to="item.path">
         <el-menu-item :index="item.path">
-          <!-- <slot v-if="$slot.asideItem" name="asideItem" /> -->
           <item
             v-if="item.meta"
             :icon="item.meta.icon"
             :title="item.meta.title"
+            :useSvg="useSvg"
           />
         </el-menu-item>
       </pro-link>
@@ -15,27 +15,27 @@
 
     <el-submenu v-else :index="item.path">
       <template slot="title">
-        <!-- <slot v-if="$slot.asideItem" name="asideItem" /> -->
         <item
           v-if="item.meta"
           :icon="item.meta.icon"
           :title="item.meta.title"
+          :useSvg="useSvg"
         />
       </template>
 
       <template v-for="child in item.children">
-        <aside-item
+        <menu-item
           v-if="checkItemChildren(child)"
           :item="child"
           :key="child.path"
         />
         <pro-link v-else :to="child.path" :key="child.name">
           <el-menu-item :index="child.path">
-            <!-- <slot v-if="$slot.asideItem" name="asideItem" /> -->
             <item
               v-if="item.meta"
               :icon="child.meta.icon"
               :title="child.meta.title"
+              :useSvg="useSvg"
             />
           </el-menu-item>
         </pro-link>
@@ -49,17 +49,16 @@ import ProLink from '../Link'
 import Item from './Item'
 
 export default {
-  name: 'asideItem',
+  name: 'MenuItem',
   components: { ProLink, Item },
   props: {
     item: {
       type: Object,
       required: true
-    }
-  },
-  data() {
-    return {
-      onlyOneChild: null
+    },
+    useSvg: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -69,3 +68,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.el-menu--horizontal .pro-menu-item {
+  display: inline-block;
+}
+</style>

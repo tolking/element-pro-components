@@ -1,7 +1,7 @@
 <template>
-  <component :is="whatType" v-bind="whatProps" @click.native="linkClick">
+  <a :rel="rel" @click="handleClick">
     <slot />
-  </component>
+  </a>
 </template>
 
 <script>
@@ -16,18 +16,20 @@ export default {
     }
   },
   computed: {
-    whatType() {
-      return checkUrl(this.to) ? 'a' : 'router-link'
-    },
-    whatProps() {
-      return checkUrl(this.to)
-        ? { href: this.to, target: '_blank', rel: 'noopener' }
-        : { to: this.to }
+    rel() {
+      return checkUrl(this.to) ? 'noopener' : null
     }
   },
   methods: {
-    linkClick() {
-      this.$emit('linkClick')
+    handleClick() {
+      this.linkClick(this.to) && this.linkTo()
+    },
+    linkTo() {
+      if (checkUrl(this.to)) {
+        window.open(this.to)
+      } else {
+        this.$router.push(this.to)
+      }
     }
   }
 }

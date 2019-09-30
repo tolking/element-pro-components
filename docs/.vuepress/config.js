@@ -14,7 +14,8 @@ module.exports = {
         children: [
           '/components/',
           '/components/Layout',
-          '/components/Aside',
+          '/components/Menu',
+          '/components/Link',
 
           '/components/ImgCropper',
           '/components/InputTag',
