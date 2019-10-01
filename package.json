@@ -30,6 +30,8 @@
     "element-ui": "^2.11.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.2",
+    "file-loader": "^4.2.0",
+    "svg-sprite-loader": "^4.1.6",
     "vuepress": "^1.1.0",
     "vuepress-plugin-reading-progress": "^1.0.7",
     "vuepress-theme-default-prefers-color-scheme": "^1.0.2"

@@ -12,6 +12,11 @@ import ProSvg from '../Svg'
 export default {
   name: 'Item',
   components: { ProSvg },
+  inject: {
+    useSvg: {
+      default: false
+    }
+  },
   props: {
     icon: {
       type: String,
@@ -20,10 +25,6 @@ export default {
     title: {
       type: String,
       default: ''
-    },
-    useSvg: {
-      type: Boolean,
-      default: false
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <section class="pro-menu-item">
+  <li class="pro-menu-item">
     <template v-if="!checkItemChildren(item)">
       <pro-link :to="item.path">
         <el-menu-item :index="item.path">
@@ -7,7 +7,6 @@
             v-if="item.meta"
             :icon="item.meta.icon"
             :title="item.meta.title"
-            :useSvg="useSvg"
           />
         </el-menu-item>
       </pro-link>
@@ -19,7 +18,6 @@
           v-if="item.meta"
           :icon="item.meta.icon"
           :title="item.meta.title"
-          :useSvg="useSvg"
         />
       </template>
 
@@ -35,13 +33,12 @@
               v-if="item.meta"
               :icon="child.meta.icon"
               :title="child.meta.title"
-              :useSvg="useSvg"
             />
           </el-menu-item>
         </pro-link>
       </template>
     </el-submenu>
-  </section>
+  </li>
 </template>
 
 <script>
@@ -55,10 +52,6 @@ export default {
     item: {
       type: Object,
       required: true
-    },
-    useSvg: {
-      type: Boolean,
-      default: false
     }
   },
   methods: {

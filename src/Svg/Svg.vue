@@ -3,9 +3,8 @@
     :style="{ width: width, height: height, fill: fill }"
     aria-hidden="true"
     class="pro-svg"
-    v-on="$listeners"
   >
-    <use :xlink:href="icon" />
+    <use :xlink:href="'#icon-' + icon" />
   </svg>
 </template>
 

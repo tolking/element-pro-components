@@ -16,6 +16,11 @@ import { routerFilterByHidden } from '../utils/router'
 export default {
   name: 'ProMenu',
   components: { MenuItem },
+  provide() {
+    return {
+      useSvg: this.useSvg
+    }
+  },
   props: {
     routers: {
       type: Array,

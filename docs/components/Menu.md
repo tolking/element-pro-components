@@ -19,7 +19,7 @@
 **效果**
 
 <template>
-  <pro-menu :routers="routers" mode="horizontal">123</pro-menu>
+  <pro-menu :routers="routers" mode="horizontal" />
   <br>
   <div style="width: 250px">
     <pro-menu :routers="routers" />
