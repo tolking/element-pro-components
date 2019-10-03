@@ -1,4 +1,12 @@
+---
+title: Link
+lang: zh-CN
+description: 处理全局的路由
+--- 
+
 # Link
+
+> 处理全局的路由
 
 ## 作用
 
@@ -6,19 +14,14 @@
 
 ## 使用
 
-``` html
-<template>
-  <pro-link to="/">首页</pro-link>
-  <pro-link to="https://ououe.com">ououe</pro-link>
-</template>
-```
-
 **效果**
 
+::: demo
 <template>
   <pro-link to="/">首页</pro-link>
   <pro-link to="https://ououe.com">ououe</pro-link>
 </template>
+:::
 
 ## 选项
 

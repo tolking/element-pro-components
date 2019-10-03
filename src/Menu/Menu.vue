@@ -1,5 +1,5 @@
 <template>
-  <el-menu :default-active="$route.path" v-bind="$attrs">
+  <el-menu :default-active="$route.path" v-bind="$attrs" class="pro-menu">
     <menu-item
       v-for="route in $menuList"
       :key="route.path"
@@ -11,7 +11,7 @@
 
 <script>
 import MenuItem from './MenuItem'
-import { routerFilterByHidden } from '../utils/router'
+import { routerFilterByHidden } from 'element-pro-components/src/utils/router'
 
 export default {
   name: 'ProMenu',
@@ -41,3 +41,13 @@ export default {
   }
 }
 </script>
+
+<style>
+.pro-menu .el-menu-item {
+  padding: 0;
+}
+.pro-menu.el-menu--horizontal .el-menu-item .pro-link {
+  display: block;
+  padding: 0 20px;
+}
+</style>

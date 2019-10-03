@@ -1,6 +1,6 @@
 <template>
   <el-container class="pro-layout">
-    <el-aside>
+    <el-aside :width="collapse ? 'auto' : asideWidth">
       <el-scrollbar>
         <template v-if="$slots.asideTop">
           <slot name="asideTop" />
@@ -12,7 +12,7 @@
       </el-scrollbar>
     </el-aside>
     <el-container>
-      <el-header class="pro-layout-header">
+      <el-header :height="headerHeight" class="pro-layout-header">
         <div>
           <span
             class="pro-layout-header-fold-btn"
@@ -35,18 +35,52 @@
         </div>
       </el-header>
       <el-main>Main</el-main>
-      <el-footer>Footer</el-footer>
+      <el-footer
+        v-if="showFooter"
+        :height="footerHeight"
+        :style="'line-height:' + footerHeight"
+        class="pro-footer"
+      >
+        <template v-if="$slots.footer">
+          <slot name="footer" />
+        </template>
+        <template v-else>
+          <span>&copy; {{ year }} </span>
+          <a
+            href="https://tolking.github.io/element-pro-components"
+            target="_blank"
+            rel="noopener noreferrer"
+            >element-pro-components</a
+          >
+        </template>
+      </el-footer>
     </el-container>
   </el-container>
 </template>
 
 <script>
-import ProMenu from '../Menu'
+import ProMenu from 'element-pro-components/src/Menu'
 
 export default {
   name: 'ProLayout',
   components: { ProMenu },
   props: {
+    asideWidth: {
+      type: String,
+      default: '300px'
+    },
+    headerHeight: {
+      type: String,
+      default: '60px'
+    },
+    showFooter: {
+      type: Boolean,
+      default: true
+    },
+    footerHeight: {
+      type: String,
+      default: '60px'
+    },
     routers: {
       type: Array,
       default: () => []
@@ -54,6 +88,11 @@ export default {
     useSvg: {
       type: Boolean,
       default: false
+    }
+  },
+  computed: {
+    year() {
+      return new Date().getFullYear()
     }
   },
   data() {
@@ -72,5 +111,8 @@ export default {
 .pro-layout .pro-layout-header-fold-btn .el-icon-s-fold,
 .pro-layout .pro-layout-header-fold-btn .el-icon-s-unfold {
   font-size: 2.5rem;
+}
+.pro-layout .pro-footer {
+  text-align: center;
 }
 </style>

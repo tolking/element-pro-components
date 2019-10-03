@@ -1,11 +1,11 @@
 <template>
-  <a :rel="rel" @click="handleClick">
+  <a :rel="rel" class="pro-link" @click="handleClick">
     <slot />
   </a>
 </template>
 
 <script>
-import { checkUrl } from '../utils/validate'
+import { checkUrl } from 'element-pro-components/src/utils/validate'
 
 export default {
   name: 'ProLink',
@@ -17,7 +17,7 @@ export default {
   },
   computed: {
     rel() {
-      return checkUrl(this.to) ? 'noopener' : null
+      return checkUrl(this.to) ? 'noopener noreferrer' : null
     }
   },
   methods: {

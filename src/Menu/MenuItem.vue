@@ -1,53 +1,44 @@
 <template>
-  <li class="pro-menu-item">
-    <template v-if="!checkItemChildren(item)">
-      <pro-link :to="item.path">
-        <el-menu-item :index="item.path">
-          <item
-            v-if="item.meta"
-            :icon="item.meta.icon"
-            :title="item.meta.title"
-          />
-        </el-menu-item>
-      </pro-link>
+  <el-menu-item v-if="!checkItemChildren(item)" :index="item.path">
+    <item :item="item" />
+  </el-menu-item>
+
+  <el-submenu v-else :index="item.path">
+    <template v-if="item.meta" slot="title">
+      <pro-svg v-if="useSvg" :icon="item.meta.icon"></pro-svg>
+      <i v-else :class="item.meta.icon" />
+      <span>{{ item.meta.title }}</span>
     </template>
 
-    <el-submenu v-else :index="item.path">
-      <template slot="title">
-        <item
-          v-if="item.meta"
-          :icon="item.meta.icon"
-          :title="item.meta.title"
-        />
-      </template>
-
-      <template v-for="child in item.children">
-        <menu-item
-          v-if="checkItemChildren(child)"
-          :item="child"
-          :key="child.path"
-        />
-        <pro-link v-else :to="child.path" :key="child.name">
-          <el-menu-item :index="child.path">
-            <item
-              v-if="item.meta"
-              :icon="child.meta.icon"
-              :title="child.meta.title"
-            />
-          </el-menu-item>
-        </pro-link>
-      </template>
-    </el-submenu>
-  </li>
+    <template v-for="child in item.children">
+      <menu-item
+        v-if="checkItemChildren(child)"
+        :item="child"
+        :key="child.path"
+      />
+      <el-menu-item
+        v-else
+        :to="child.path"
+        :key="child.name"
+        :index="child.path"
+      >
+        <item :item="child" />
+      </el-menu-item>
+    </template>
+  </el-submenu>
 </template>
 
 <script>
-import ProLink from '../Link'
 import Item from './Item'
 
 export default {
   name: 'MenuItem',
-  components: { ProLink, Item },
+  components: { Item },
+  inject: {
+    useSvg: {
+      default: false
+    }
+  },
   props: {
     item: {
       type: Object,
@@ -61,9 +52,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.el-menu--horizontal .pro-menu-item {
-  display: inline-block;
-}
-</style>

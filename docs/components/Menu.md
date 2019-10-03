@@ -1,4 +1,12 @@
+---
+title: Menu
+lang: zh-CN
+description: 封装默认的NavMenu，通过路由生成菜单栏
+--- 
+
 # Menu
+
+> 封装默认的 `NavMenu`，通过路由生成菜单栏
 
 ## 作用
 
@@ -6,18 +14,9 @@
 
 ## 使用
 
-``` html vue
-<template>
-  <pro-menu mode="horizontal"/>
-  <br>
-  <div style="width: 250px">
-    <pro-menu :routers="routers" />
-  </div>
-</template>
-```
-
 **效果**
 
+::: demo 通过 `mode` 来控制显示模式
 <template>
   <pro-menu :routers="routers" mode="horizontal" />
   <br>
@@ -30,6 +29,7 @@
 export default {
   data() {
     return {
+      // 路由的大致结构
       routers: [
         { path: '/login', hidden: true },
         { path: '/404', hidden: true },
@@ -61,6 +61,7 @@ export default {
   }
 }
 </script>
+:::
 
 ## 配置
 

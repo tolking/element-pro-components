@@ -79,17 +79,13 @@ module.exports = {
 }
 ```
 
-``` html
-<template>
-  <pro-svg icon="search" width="2rem" height="2rem" />
-</template>
-```
-
 **效果**
 
+::: demo
 <template>
   <pro-svg icon="search" width="2rem" height="2rem" />
 </template>
+:::
 
 ## 配置
 

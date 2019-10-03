@@ -1,4 +1,12 @@
 const path = require('path')
+const md = require('markdown-it')
+const highlight = require('@vuepress/markdown/lib/highlight')
+
+const filterHtml = (demoMap, tokens) => {
+  return demoMap ? tokens.filter(item => {
+    return item.type === 'html_block' && item.map[0] >= demoMap[0] && item.map[1] <= demoMap[1]
+  }) : []
+}
 
 module.exports = {
   base: '/element-pro-components/',
@@ -6,6 +14,7 @@ module.exports = {
   description: 'element-pro-components',
   dest: 'dist/',
   evergreen: true,
+  cache: false,
   theme: 'default-prefers-color-scheme',
   themeConfig: {
     sidebar: [
@@ -32,9 +41,44 @@ module.exports = {
     editLinkText: '在 GitHub 上编辑此页'
   },
   plugins: [
-    'reading-progress'
+    'reading-progress',
+    ['container', {
+      type: 'demo',
+      render: (tokens, idx) => {
+        const { nesting, info = '', map } = tokens[idx]
+
+        if (nesting === -1) {
+          return '</template></pro-code>'
+        }
+
+        const matchedInfo = info.trim().match(/^demo\s+(.*)$/)
+        const description = matchedInfo && matchedInfo[1]
+        const descTemplate = md().render(description || '')
+        let str = ''
+        let lastLine = ''
+        const demoTokens = filterHtml(map, tokens)
+
+        demoTokens.forEach(item => {
+          const { map } = item
+          const delta = map[0] - (lastLine || map[1])
+          if (delta > 0) {
+            str += '\n'.repeat(delta)
+          }
+          str += item.content
+          lastLine = map[1]
+        })
+
+        return `
+          <pro-code>
+            <span slot="description">${descTemplate}</span>
+            <template slot="code">${highlight(str, 'vue')}</template>
+            <template>
+        `
+      }
+    }],
   ],
   chainWebpack: config => {
+    config.resolve.alias.set('element-pro-components', path.resolve(__dirname, '../../'))
     const svgRule = config.module.rule('svg')
     svgRule.uses.clear()
     svgRule
