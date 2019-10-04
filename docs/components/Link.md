@@ -2,7 +2,7 @@
 title: Link
 lang: zh-CN
 description: 处理全局的路由
---- 
+---
 
 # Link
 
@@ -27,6 +27,7 @@ description: 处理全局的路由
 
 linkClick
 - type: `linkClick(to: String | Object): Boolean`
+- default: `true`
 
 链接点击后判断是否需要跳转
 

@@ -26,6 +26,7 @@ module.exports = {
           '/components/',
           '/components/Layout',
           '/components/Menu',
+          '/components/Breadcrumb',
           '/components/Link',
           '/components/Svg',
 

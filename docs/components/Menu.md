@@ -2,7 +2,7 @@
 title: Menu
 lang: zh-CN
 description: 封装默认的NavMenu，通过路由生成菜单栏
---- 
+---
 
 # Menu
 
@@ -38,7 +38,7 @@ export default {
           redirect: '/index',
           meta: { title: '首页', icon: 'el-icon-s-home' },
           children: [{
-            path: 'index'
+            path: '/index'
           }]
         },
         {
@@ -47,11 +47,11 @@ export default {
           meta: { title: '设置', icon: 'el-icon-setting' },
           children: [
              {
-              path: 'index',
+              path: '/setting/index',
               meta: { title: '个人资料', icon: 'el-icon-user' }
             },
             {
-              path: 'password',
+              path: '/setting/password',
               meta: { title: '修改密码' }
             }
           ]

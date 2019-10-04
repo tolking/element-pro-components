@@ -22,7 +22,7 @@
 			class="control"
       @click="isExpanded = !isExpanded"
 		>
-      <i :class="[isExpanded ? 'el-icon-caret-top' : 'el-icon-caret-bottom', isHover ? 'is-hover' : '']"></i>
+      <i :class="[isExpanded ? 'el-icon-caret-top' : 'el-icon-caret-bottom', isHover ? 'is-hover' : '']" />
       <transition name="text-slide">
         <span v-show="isHover" :class="{ 'is-hover': isHover }">{{ controlText }}</span>
       </transition>

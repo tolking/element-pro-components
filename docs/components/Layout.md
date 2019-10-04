@@ -31,10 +31,24 @@ export default {
         {
           path: '/',
           redirect: '/index',
-          meta: { title: '首页', icon: 'el-icon-s-home' },
+          meta: { title: '首页', icon: 'el-icon-house' },
           children: [{
-            path: 'index'
+            path: '/index'
           }]
+        },
+        {
+          path: '/components',
+          meta: { title: '组建', icon: 'el-icon-files' },
+          children: [
+            {
+              path: '/components/Layout.html',
+              meta: { title: '布局组建' }
+            },
+            {
+              path: '/components/Breadcrumb.html',
+              meta: { title: '面包屑' }
+            }
+          ]
         },
         {
           path: '/setting',
@@ -47,7 +61,7 @@ export default {
             },
             {
               path: '/setting/password',
-              meta: { title: '修改密码' }
+              meta: { title: '修改密码', icon: 'el-icon-edit' }
             }
           ]
         }
@@ -90,6 +104,6 @@ footerHeight
 
 - asideTop
 - asideBottom
-- headerLeft 会替换默认
+- headerLeft 会替换默认 ProBreadcrumb
 - headerRight
 - footer 会替换默认

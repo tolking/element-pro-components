@@ -11,7 +11,7 @@
 
 <script>
 import MenuItem from './MenuItem'
-import { routerFilterByHidden } from 'element-pro-components/src/utils/router'
+import { filterRouterByHidden } from 'element-pro-components/src/utils/router'
 
 export default {
   name: 'ProMenu',
@@ -36,7 +36,7 @@ export default {
       const routerList = this.routers.length
         ? this.routers
         : this.$router.options.routes
-      return routerFilterByHidden(routerList)
+      return filterRouterByHidden(routerList)
     }
   }
 }
@@ -46,8 +46,10 @@ export default {
 .pro-menu .el-menu-item {
   padding: 0;
 }
-.pro-menu.el-menu--horizontal .el-menu-item .pro-link {
+.pro-menu .el-menu-item .pro-link {
   display: block;
+}
+.pro-menu.el-menu--horizontal .el-menu-item .pro-link {
   padding: 0 20px;
 }
 </style>

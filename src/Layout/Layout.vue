@@ -24,7 +24,7 @@
             <slot name="headerLeft" />
           </template>
           <template v-else>
-            bsss
+            <pro-breadcrumb :routers="routers" />
           </template>
         </div>
         <div>
@@ -60,10 +60,11 @@
 
 <script>
 import ProMenu from 'element-pro-components/src/Menu'
+import ProBreadcrumb from 'element-pro-components/src/Breadcrumb'
 
 export default {
   name: 'ProLayout',
-  components: { ProMenu },
+  components: { ProMenu, ProBreadcrumb },
   props: {
     asideWidth: {
       type: String,
