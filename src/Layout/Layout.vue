@@ -1,12 +1,9 @@
 <template>
   <el-container class="pro-layout">
-    <el-drawer
-      v-if="isMobile"
-      direction="ltr"
-      size="60%"
-      append-to-body
-      :visible.sync="drawer"
-      :close-on-press-escape="false"
+    <component
+      :is="sideType"
+      v-bind="setSide()"
+      @close="isMobile && (drawer = false)"
     >
       <el-scrollbar>
         <template v-if="$slots.asideTop">
@@ -17,18 +14,7 @@
           <slot name="asideBottom" />
         </template>
       </el-scrollbar>
-    </el-drawer>
-    <el-aside v-else :width="collapse ? 'auto' : asideWidth">
-      <el-scrollbar>
-        <template v-if="$slots.asideTop">
-          <slot name="asideTop" />
-        </template>
-        <pro-menu :routers="routers" :collapse="collapse" :useSvg="useSvg" />
-        <template v-if="$slots.asideBottom">
-          <slot name="asideBottom" />
-        </template>
-      </el-scrollbar>
-    </el-aside>
+    </component>
     <el-container>
       <el-header :height="headerHeight" class="pro-layout-header">
         <div>
@@ -123,12 +109,33 @@ export default {
     },
     isMobile() {
       return /(iPhone|iPod|iOS|Android)/i.test(navigator.userAgent)
+    },
+    sideType() {
+      return this.isMobile ? 'el-drawer' : 'el-aside'
     }
   },
   data() {
     return {
       drawer: false,
       collapse: false
+    }
+  },
+  methods: {
+    setSide() {
+      if (this.isMobile) {
+        this.collapse = false
+        return {
+          visible: this.drawer,
+          size: '60%',
+          direction: 'ltr',
+          appendToBody: true,
+          closeOnPressEscape: false
+        }
+      } else {
+        return {
+          width: this.collapse ? 'auto' : this.asideWidth
+        }
+      }
     }
   }
 }
