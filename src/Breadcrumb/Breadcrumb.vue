@@ -1,12 +1,10 @@
 <template>
   <el-breadcrumb v-bind="$attrs" class="pro-breadcrumb">
-    <transition-group name="breadcrumb">
-      <el-breadcrumb-item v-for="item in $itemList" :key="item.path">
-        <pro-link :to="item.redirect || item.path">{{
-          item.meta.title
-        }}</pro-link>
-      </el-breadcrumb-item>
-    </transition-group>
+    <el-breadcrumb-item v-for="item in $itemList" :key="item.path">
+      <pro-link :to="item.redirect || item.path">{{
+        item.meta.title
+      }}</pro-link>
+    </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
 

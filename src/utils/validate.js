@@ -1,6 +1,7 @@
 /**
  * Check the integrity of the url
  * @param {*} url checkUrl
+ * @returns {Boolean}
  */
 export function checkUrl(url) {
   if (typeof url === 'object') {

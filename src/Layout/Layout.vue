@@ -1,6 +1,24 @@
 <template>
   <el-container class="pro-layout">
-    <el-aside :width="collapse ? 'auto' : asideWidth">
+    <el-drawer
+      v-if="isMobile"
+      direction="ltr"
+      size="60%"
+      append-to-body
+      :visible.sync="drawer"
+      :close-on-press-escape="false"
+    >
+      <el-scrollbar>
+        <template v-if="$slots.asideTop">
+          <slot name="asideTop" />
+        </template>
+        <pro-menu :routers="routers" :collapse="collapse" :useSvg="useSvg" />
+        <template v-if="$slots.asideBottom">
+          <slot name="asideBottom" />
+        </template>
+      </el-scrollbar>
+    </el-drawer>
+    <el-aside v-else :width="collapse ? 'auto' : asideWidth">
       <el-scrollbar>
         <template v-if="$slots.asideTop">
           <slot name="asideTop" />
@@ -15,6 +33,14 @@
       <el-header :height="headerHeight" class="pro-layout-header">
         <div>
           <span
+            v-if="isMobile"
+            class="pro-layout-header-fold-btn"
+            @click="drawer = true"
+          >
+            <i class="el-icon-s-unfold"></i>
+          </span>
+          <span
+            v-else
             class="pro-layout-header-fold-btn"
             @click="collapse = !collapse"
           >
@@ -94,10 +120,14 @@ export default {
   computed: {
     year() {
       return new Date().getFullYear()
+    },
+    isMobile() {
+      return /(iPhone|iPod|iOS|Android)/i.test(navigator.userAgent)
     }
   },
   data() {
     return {
+      drawer: false,
       collapse: false
     }
   }
