@@ -71,10 +71,29 @@ module.exports = {
     fileRule.uses.clear()
     fileRule
       .test(/\.svg$/)
-      .exclude.add(path.resolve(__dirname, './public/icons'))
+      .exclude.add(path.resolve(__dirname, './src/assets/icons'))
       .end()
       .use('file-loader')
       .loader('file-loader')
+  }
+}
+```
+
+- vue-cli 2
+
+``` js
+// build-> webpack.base.conf.js
+module.exports = {
+  module: {
+    {
+      test: /\.svg$/,
+      loader: 'svg-sprite-loader',
+      include: [path.resolve(__dirname, './src/assets/icons')],
+      options: {
+        symbolId: 'icon-[name]'
+      }
+    }
+    // ...
   }
 }
 ```

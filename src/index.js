@@ -5,8 +5,9 @@ import Layout from './Layout'
 import Link from './Link'
 import Menu from './Menu'
 import Svg from './Svg'
+import Tabs from './Tabs'
 
-const components = [Breadcrumb, ImgCropper, InputTag, Layout, Menu, Svg]
+const components = [Breadcrumb, ImgCropper, InputTag, Layout, Menu, Svg, Tabs]
 
 const install = function(Vue, options = {}) {
   Vue.use(Link, { linkClick: options.linkClick })

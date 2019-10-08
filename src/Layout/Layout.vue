@@ -46,7 +46,11 @@
           Header
         </div>
       </el-header>
-      <el-main>Main</el-main>
+      <el-main>
+        <transition name="transition-main" mode="out-in">
+          <router-view :key="pageKey" />
+        </transition>
+      </el-main>
       <el-footer
         v-if="showFooter"
         :height="footerHeight"
@@ -112,6 +116,9 @@ export default {
     },
     sideType() {
       return this.isMobile ? 'el-drawer' : 'el-aside'
+    },
+    pageKey() {
+      return this.$route.path
     }
   },
   data() {
