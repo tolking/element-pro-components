@@ -111,9 +111,6 @@ export default {
     year() {
       return new Date().getFullYear()
     },
-    isMobile() {
-      return /(iPhone|iPod|iOS|Android)/i.test(navigator.userAgent)
-    },
     sideType() {
       return this.isMobile ? 'el-drawer' : 'el-aside'
     },
@@ -123,9 +120,15 @@ export default {
   },
   data() {
     return {
+      isMobile: false,
       drawer: false,
       collapse: false
     }
+  },
+  mounted() {
+    this.isMobile = navigator.userAgent.match(
+      /(phone|pod|iPhone|iPod|Android|Mobile|BlackBerry|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+    )
   },
   methods: {
     setSide() {
