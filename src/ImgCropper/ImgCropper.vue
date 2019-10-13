@@ -9,10 +9,12 @@
         :before-upload="() => false"
         action=""
       >
-        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+        <el-button slot="trigger" size="small" type="primary"
+          >选取文件</el-button
+        >
       </el-upload>
       <div v-if="value" class="img-warp">
-        <img :src="value" class="img">
+        <img :src="value" class="img" />
       </div>
       <div v-else class="text">未选择任何文件</div>
     </div>
@@ -29,11 +31,15 @@
     >
       <div v-if="tip" class="uploadPhotoTips dialog-tip">{{ tip }}</div>
       <div class="crop-box">
-        <img :id="imgId">
+        <img :id="imgId" />
       </div>
       <div slot="footer" class="dialog-footer">
-        <el-button :loading="btnLoading" type="primary" @click="native">直接上传</el-button>
-        <el-button :loading="btnLoading" type="primary" @click="crop">裁剪上传</el-button>
+        <el-button :loading="btnLoading" type="primary" @click="native"
+          >直接上传</el-button
+        >
+        <el-button :loading="btnLoading" type="primary" @click="crop"
+          >裁剪上传</el-button
+        >
         <el-button @click="dialogFixImg = false">取消</el-button>
       </div>
     </el-dialog>
@@ -46,7 +52,7 @@ import Cropper from 'cropperjs'
 import 'cropperjs/dist/cropper.min.css'
 
 export default {
-  name: 'ImgUpload',
+  name: 'ProImgCropper',
   model: {
     prop: 'value',
     event: 'change'
@@ -104,7 +110,7 @@ export default {
     setCrop() {
       const reader = new FileReader()
       reader.readAsDataURL(this.file.raw)
-      reader.onload = (event) => {
+      reader.onload = event => {
         this.cropper.replace(event.srcElement.result)
       }
       this.$nextTick(() => {
@@ -125,12 +131,14 @@ export default {
     // 裁剪图片
     crop() {
       this.btnLoading = true
-      this.cropper.getCroppedCanvas({
-        width: this.width,
-        height: this.height
-      }).toBlob(blob => {
-        this.upFile(blob)
-      }, this.imgType || 'image/jpeg')
+      this.cropper
+        .getCroppedCanvas({
+          width: this.width,
+          height: this.height
+        })
+        .toBlob(blob => {
+          this.upFile(blob)
+        }, this.imgType || 'image/jpeg')
     },
     // 上传文件
     async upFile(file) {
@@ -152,12 +160,17 @@ export default {
       //     message: '上传成功'
       //   }}
       // })
-      const { code, data, message } = res.data
+      const { code, data, message } = {
+        code: 2000,
+        data: 'https://ououe.com/img/homescreen96.png',
+        message: '上传成功'
+      }
       this.btnLoading = false
-      message && this.$message({
-        message: message,
-        type: code === 2000 ? 'success' : 'error'
-      })
+      message &&
+        this.$message({
+          message: message,
+          type: code === 2000 ? 'success' : 'error'
+        })
       if (code === 2000) {
         this.file = null
         this.imgName = null
@@ -183,7 +196,7 @@ export default {
 .uploader .text {
   font-size: 12px;
   margin-left: 10px;
-  }
+}
 .uploader .img-warp {
   margin-left: 10px;
   max-width: 50px;
@@ -193,7 +206,7 @@ export default {
   justify-content: center;
   cursor: pointer;
 }
-.uploader .img-warp .img{
+.uploader .img-warp .img {
   max-width: 50px;
   max-height: 50px;
 }

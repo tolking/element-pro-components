@@ -16,92 +16,46 @@ description: 基于 element-ui input tag 的输入多个标签的输入框(类�
 
 1. 基于 `input` 使用
 
-``` html vue
+::: demo
 <template>
-  <input-tag
-    v-model="tags"
-    placeholder="请输入内容,点击 Enter 按键"
-    @change="handleTagsChange"
-  />
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      tags: []
-    }
-  },
-  methods: {
-    handleTagsChange(tags) {
-      console.log(tags)
-    }
-  }
-}
-</script>
-```
-
-**效果**
-
-<template>
-  <input-tag
+  <pro-input-tag
     v-model="inputTags"
     placeholder="请输入内容,点击 Enter 按键"
     @change="handleTagsChange"
   />
 </template>
 
-2. 基于 `autocomplete` 使用
-
-``` html vue
-<template>
-  <input-tag
-    v-model="tags"
-    :autocomplete="true"
-    :fetch-suggestions="querySearch"
-    placeholder="请输入内容"
-    @change="handleTagsChange"
-  />
-</template>
-
 <script>
 export default {
   data() {
     return {
-      tags: []
+      inputTags: []
     }
   },
   methods: {
     handleTagsChange(tags) {
       console.log(tags)
-    },
-    // 搜索相关逻辑
-    querySearch(queryString, callBack) {
-      // code...
-      callBack(results) // 调用 callback 返回建议列表的数据
     }
   }
 }
 </script>
-```
+:::
 
-**效果**
+2. 基于 `autocomplete` 使用
 
+::: demo
 <template>
-  <input-tag
+  <pro-input-tag
     v-model="autoTags"
-    :autocomplete="true"
     :fetch-suggestions="querySearch"
+    autocomplete
     placeholder="请输入内容"
     @change="handleTagsChange"
   />
 </template>
 
 <script>
-import InputTag from '../../src/InputTag'
-
 export default {
-  components: { InputTag },
   data() {
     return {
       inputTags: [],
@@ -182,7 +136,7 @@ export default {
   }
 }
 </script>
-
+:::
 
 ## 配置
 
