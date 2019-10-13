@@ -1,5 +1,5 @@
 <template>
-  <pro-link v-if="item.meta" :to="item.path">
+  <pro-link :to="item">
     <pro-svg v-if="useSvg" :icon="item.meta.icon"></pro-svg>
     <i v-else :class="item.meta.icon" />
     <span>{{ item.meta.title }}</span>

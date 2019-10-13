@@ -14,6 +14,7 @@ description: 基于 svg-sprite-loader
 
 ## 使用
 
+::: tip
 **使用这个组建你还需要进行下面额外配置**
 
 ``` sh
@@ -97,6 +98,7 @@ module.exports = {
   }
 }
 ```
+:::
 
 **效果**
 

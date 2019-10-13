@@ -19,7 +19,7 @@ description: 基于 element-ui input tag 的输入多个标签的输入框(类�
 ::: demo
 <template>
   <pro-input-tag
-    v-model="tags"
+    v-model="inputTags"
     placeholder="请输入内容,点击 Enter 按键"
     @change="handleTagsChange"
   />
@@ -29,17 +29,12 @@ description: 基于 element-ui input tag 的输入多个标签的输入框(类�
 export default {
   data() {
     return {
-      tags: []
+      inputTags: []
     }
   },
   methods: {
     handleTagsChange(tags) {
       console.log(tags)
-    },
-    // 搜索相关逻辑
-    querySearch(queryString, callBack) {
-      // code...
-      callBack(results) // 调用 callback 返回建议列表的数据
     }
   }
 }

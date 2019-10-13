@@ -1,12 +1,13 @@
 <template>
-  <el-scrollbar class="pro-tabs">
-    <span v-for="item in tabsList" :key="item.path">
-      <pro-link :to="item.path">
-        <span>{{ item.meta.title || item.name }}</span>
-      </pro-link>
-      <i class="el-icon-close" @click="() => closeTag(item)" />
-      <i class="el-icon-more" />
-    </span>
+  <el-scrollbar :vertical="false" class="pro-tabs">
+    <pro-link
+      v-for="item in tabsList"
+      :key="item.name || item.redirect || item.path"
+      :to="item"
+    >
+      <span>{{ item.meta.title || item.name }}</span>
+      <i class="el-icon-close" @click.prevent.stop="() => closeTag(item)" />
+    </pro-link>
   </el-scrollbar>
 </template>
 
@@ -18,7 +19,7 @@ export default {
   components: { ProLink },
   watch: {
     $route: {
-      handler: function(val) {
+      handler(val) {
         this.addTag(val)
       },
       immediate: true

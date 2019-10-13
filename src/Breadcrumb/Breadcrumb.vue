@@ -1,9 +1,10 @@
 <template>
   <el-breadcrumb v-bind="$attrs" class="pro-breadcrumb">
-    <el-breadcrumb-item v-for="item in $itemList" :key="item.path">
-      <pro-link :to="item.redirect || item.path">{{
-        item.meta.title
-      }}</pro-link>
+    <el-breadcrumb-item
+      v-for="item in breadcrumbList"
+      :key="item.name || item.redirect || item.path"
+    >
+      <pro-link :to="item">{{ item.meta.title || item.name }}</pro-link>
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
@@ -22,7 +23,7 @@ export default {
     }
   },
   computed: {
-    $itemList() {
+    breadcrumbList() {
       const path = this.$route.path
       const routers = this.routers || this.$router.options.routes
       return findRouterItemListByPath(routers, path)

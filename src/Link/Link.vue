@@ -16,8 +16,13 @@ export default {
     }
   },
   computed: {
+    linkPath() {
+      return typeof this.to === 'object'
+        ? this.to.redirect || this.to.path
+        : this.to
+    },
     rel() {
-      return checkUrl(this.to) ? 'noopener noreferrer' : null
+      return checkUrl(this.linkPath) ? 'noopener noreferrer' : null
     }
   },
   methods: {
@@ -25,10 +30,10 @@ export default {
       this.linkClick(this.to) && this.linkTo()
     },
     linkTo() {
-      if (checkUrl(this.to)) {
-        window.open(this.to)
+      if (checkUrl(this.linkPath)) {
+        window.open(this.linkPath)
       } else {
-        this.$router.push(this.to)
+        this.$router.push(this.linkPath)
       }
     }
   }

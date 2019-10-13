@@ -26,24 +26,31 @@ description: 处理全局的路由
 ## 选项
 
 linkClick
-- type: `linkClick(to: String | Object): Boolean`
-- default: `true`
+- type: `linkClick(to: Object | String): Boolean`
+- default: `() => true`
 
 链接点击后判断是否需要跳转
+
+
+::: tip
+内部统一传 `Object`, 方便拦截处理
+:::
+
 
 ``` js
 import Vue from 'vue'
 import Link from 'element-pro-components/src/Link'
 
 Vue.use(Link, { linkClick: to => {
-  return to === '/'
+  const link = typeof to === 'object' ? to.redirect || to.path : to
+  return link === '/'
 }})
 ```
 
 ## 配置
 
 to
-- type: `String`, `Object`
+- type: `Object`, `String`
 - required: `true`
 
 地址

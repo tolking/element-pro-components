@@ -8,11 +8,12 @@ export default ({ Vue }) => {
   Vue.use(ElementUI)
   Vue.use(ElementPro, {
     linkClick: to => {
+      const link = typeof to === 'object' ? to.redirect || to.path : to
       Message({
-        message: 'link to ' + to,
+        message: 'link to ' + link,
         type: 'success'
       })
-      return to === '/'
+      return link === '/' || link === '/index'
     }
   })
   Vue.component(ProCode.name, ProCode)
