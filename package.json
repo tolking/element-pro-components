@@ -1,39 +1,39 @@
 {
-  "name": "element-pro-components",
-  "version": "1.0.0",
+  "name": "element-pro",
+  "version": "0.0.0",
   "main": "src/index.js",
   "description": "element-pro components",
   "scripts": {
-    "dev": "vuepress dev docs",
-    "build": "vuepress build docs",
-    "lint": "eslint --ext .js,.vue src"
+    "dev": "vite",
+    "build": "vite build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tolking/element-pro-components.git"
+    "url": "git+https://github.com/tolking/element-pro.git"
   },
   "keywords": [
     "element-pro",
     "admin",
-    "element-ui",
+    "element-plus",
     "components"
   ],
   "author": "<tolking qw13131wang@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tolking/element-pro-components/issues"
+    "url": "https://github.com/tolking/element-pro/issues"
   },
-  "homepage": "https://github.com/tolking/element-pro-components#readme",
+  "homepage": "https://github.com/tolking/element-pro#readme",
+  "dependencies": {
+    "element-plus": "^1.0.1-beta.2",
+    "vue": "^3.0.3"
+  },
   "devDependencies": {
-    "@vue/eslint-config-prettier": "^4.0.1",
-    "cropperjs": "^1.5.5",
-    "element-ui": "^2.11.1",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.2.2",
-    "file-loader": "^4.2.0",
-    "svg-sprite-loader": "^4.1.6",
-    "vuepress": "^1.1.0",
-    "vuepress-plugin-reading-progress": "^1.0.7",
-    "vuepress-theme-default-prefers-color-scheme": "^1.0.2"
-  }
+    "@vue/compiler-sfc": "^3.0.3",
+    "vite": "^1.0.0-rc.13"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ]
 }

@@ -1,13 +1,12 @@
 <template>
   <el-menu-item v-if="!checkItemChildren(item)" :index="item.path">
-    <item :item="item" />
+    <menu-link :item="item" />
   </el-menu-item>
 
   <el-submenu v-else :index="item.path">
-    <template v-if="item.meta" slot="title">
-      <pro-svg v-if="useSvg" :icon="item.meta.icon"></pro-svg>
-      <i v-else :class="item.meta.icon" />
-      <span>{{ item.meta.title }}</span>
+    <template v-if="item.meta" #title>
+      <i v-if="item.meta.icon" :class="item.meta.icon" />
+      <span v-if="item.meta.title">{{ item.meta.title }}</span>
     </template>
 
     <template v-for="child in item.children">
@@ -22,23 +21,19 @@
         :key="child.name"
         :index="child.path"
       >
-        <item :item="child" />
+        <menu-link :item="child" />
       </el-menu-item>
     </template>
   </el-submenu>
 </template>
 
 <script>
-import Item from './Item'
+import { ElMenuItem, ElSubmenu } from 'element-plus'
+import MenuLink from './MenuLink.vue'
 
 export default {
   name: 'MenuItem',
-  components: { Item },
-  inject: {
-    useSvg: {
-      default: false
-    }
-  },
+  components: { ElMenuItem, ElSubmenu, MenuLink },
   props: {
     item: {
       type: Object,

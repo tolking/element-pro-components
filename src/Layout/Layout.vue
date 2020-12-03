@@ -9,7 +9,7 @@
         <template v-if="$slots.asideTop">
           <slot name="asideTop" />
         </template>
-        <pro-menu :routers="routers" :collapse="collapse" :useSvg="useSvg" />
+        <pro-menu :routers="routers" :collapse="collapse" />
         <template v-if="$slots.asideBottom">
           <slot name="asideBottom" />
         </template>
@@ -34,9 +34,6 @@
           </span>
           <template v-if="$slots.headerLeft">
             <slot name="headerLeft" />
-          </template>
-          <template v-else>
-            <pro-breadcrumb :routers="routers" />
           </template>
         </div>
         <div>
@@ -74,13 +71,30 @@
   </el-container>
 </template>
 
-<script>
-import ProMenu from 'element-pro-components/src/Menu'
-import ProBreadcrumb from 'element-pro-components/src/Breadcrumb'
+<script lang="ts">
+import {
+  ElContainer,
+  ElDrawer,
+  ElAside,
+  ElScrollBar,
+  ElHeader,
+  ElMain,
+  ElFooter,
+} from 'element-plus'
+import ProMenu from '../Menu/index'
 
 export default {
   name: 'ProLayout',
-  components: { ProMenu, ProBreadcrumb },
+  components: {
+    ElContainer,
+    ElDrawer,
+    ElAside,
+    ElScrollBar,
+    ElHeader,
+    ElMain,
+    ElFooter,
+    ProMenu,
+  },
   props: {
     asideWidth: {
       type: String,
@@ -115,7 +129,7 @@ export default {
       return this.isMobile ? 'el-drawer' : 'el-aside'
     },
     pageKey() {
-      return this.$route.path
+      return 'this.$route.path'
     }
   },
   data() {
@@ -125,11 +139,11 @@ export default {
       collapse: false
     }
   },
-  mounted() {
-    this.isMobile = navigator.userAgent.match(
-      /(phone|pod|iPhone|iPod|Android|Mobile|BlackBerry|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
-    )
-  },
+  // mounted() {
+  //   this.isMobile = navigator.userAgent.match(
+  //     /(phone|pod|iPhone|iPod|Android|Mobile|BlackBerry|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+  //   )
+  // },
   methods: {
     setSide() {
       if (this.isMobile) {
@@ -152,6 +166,9 @@ export default {
 </script>
 
 <style>
+.pro-layout {
+  min-height: 100vh;
+}
 .pro-layout .pro-layout-header {
   display: flex;
   justify-content: space-between;
