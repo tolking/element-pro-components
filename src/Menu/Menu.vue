@@ -1,6 +1,5 @@
 <template>
-  <!-- <el-menu :default-active="$route.path" v-bind="$attrs" class="pro-menu"> -->
-  <el-menu v-bind="$attrs" class="pro-menu">
+  <el-menu v-bind="$attrs" :default-active="route.path" class="pro-menu" @select="handleSelect">
     <menu-item
       v-for="route in routers"
       :key="route.path"
@@ -9,33 +8,34 @@
   </el-menu>
 </template>
 
-<script>
+<script setup lang="ts">
+import { computed, defineProps } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { ElMenu } from 'element-plus'
 import MenuItem from './MenuItem.vue'
-// import { filterRouterByHidden } from 'element-pro-components/src/utils/router'
+import { checkUrl, filterRouterByHidden } from '../utils/index'
 
-export default {
-  name: 'ProMenu',
-  components: { ElMenu, MenuItem },
-  props: {
-    routers: {
-      type: Array,
-      default: () => []
-    }
-  },
-  // computed: {
-  //   $menuList() {
-  //     // const routerList = this.routers.length
-  //     //   ? this.routers
-  //     //   : this.$router.options.routes
-  //     // return filterRouterByHidden(routerList)
-  //     return this.routers
-  //   }
-  // }
+const { routers = [] } = defineProps<{ routers: any }>()
+const route = useRoute()
+const router = useRouter()
+const menuRouters = computed(() => {
+  const _routers = routers.length ? routers : router.options.routes
+  return filterRouterByHidden(_routers)
+})
+
+function handleSelect(path) {
+  if (checkUrl(path)) {
+    window.open(path)
+  } else {
+    router.push(path)
+  }
 }
 </script>
 
 <style>
+.pro-menu.el-menu {
+  border-right: 0;
+}
 .pro-menu .el-menu-item {
   padding: 0;
 }

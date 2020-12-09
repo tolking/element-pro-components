@@ -1,7 +1,6 @@
 {
   "name": "element-pro",
   "version": "0.0.0",
-  "main": "src/index.js",
   "description": "element-pro components",
   "scripts": {
     "dev": "vite",
@@ -24,16 +23,12 @@
   },
   "homepage": "https://github.com/tolking/element-pro#readme",
   "dependencies": {
-    "element-plus": "^1.0.1-beta.2",
-    "vue": "^3.0.3"
+    "element-plus": "^1.0.1-beta.5",
+    "vue": "^3.0.4",
+    "vue-router": "^4.0.1"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.0.3",
+    "@vue/compiler-sfc": "^3.0.4",
     "vite": "^1.0.0-rc.13"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 10"
-  ]
+  }
 }

@@ -44,9 +44,11 @@
         </div>
       </el-header>
       <el-main>
-        <transition name="transition-main" mode="out-in">
-          <router-view :key="pageKey" />
-        </transition>
+        <router-view v-slot="{ Component }">
+          <transition name="transition-main" mode="out-in">
+            <component :is="Component" />
+          </transition>
+        </router-view>
       </el-main>
       <el-footer
         v-if="showFooter"
@@ -58,7 +60,6 @@
           <slot name="footer" />
         </template>
         <template v-else>
-          <span>&copy; {{ year }} </span>
           <a
             href="https://tolking.github.io/element-pro-components"
             target="_blank"
@@ -76,7 +77,7 @@ import {
   ElContainer,
   ElDrawer,
   ElAside,
-  ElScrollBar,
+  ElScrollbar,
   ElHeader,
   ElMain,
   ElFooter,
@@ -89,7 +90,7 @@ export default {
     ElContainer,
     ElDrawer,
     ElAside,
-    ElScrollBar,
+    ElScrollbar,
     ElHeader,
     ElMain,
     ElFooter,
@@ -115,22 +116,12 @@ export default {
     routers: {
       type: Array,
       default: () => []
-    },
-    useSvg: {
-      type: Boolean,
-      default: false
     }
   },
   computed: {
-    year() {
-      return new Date().getFullYear()
-    },
     sideType() {
       return this.isMobile ? 'el-drawer' : 'el-aside'
     },
-    pageKey() {
-      return 'this.$route.path'
-    }
   },
   data() {
     return {
@@ -168,6 +159,9 @@ export default {
 <style>
 .pro-layout {
   min-height: 100vh;
+}
+.pro-layout .el-aside {
+  border-right: 1px solid rgb(230, 230, 230);
 }
 .pro-layout .pro-layout-header {
   display: flex;

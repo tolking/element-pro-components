@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "esnext",
+    "target": "esnext",
+    "paths": {
+      "/element-pro/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "src",
+    "example"
+  ]
+}
