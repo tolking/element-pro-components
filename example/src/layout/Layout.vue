@@ -1,10 +1,7 @@
 <template>
-  <pro-layout :routers="routes" />
+  <pro-layout />
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import { ProLayout } from '/element-pro/'
 
-const { options: { routes }} = useRouter()
 </script>

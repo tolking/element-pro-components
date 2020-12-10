@@ -9,7 +9,7 @@
       <span v-if="item.meta.title">{{ item.meta.title }}</span>
     </template>
     <template v-for="child in item.children">
-      <menu-item
+      <pro-menu-item
         v-if="checkItemChildren(child)"
         :item="child"
         :key="child.path"
@@ -30,10 +30,11 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
 import { ElMenuItem, ElSubmenu } from 'element-plus'
+import type { RouteRecordRaw } from 'vue-router'
 
-const { item } = defineProps<{ item: any }>()
+const { item } = defineProps<{ item: RouteRecordRaw }>()
 
-function checkItemChildren(item) {
+function checkItemChildren(item: RouteRecordRaw) {
   return item.children ? item.children.length > 1 : false
 }
 </script>

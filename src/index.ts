@@ -1,21 +1,27 @@
+import type { App, ComponentOptions } from 'vue'
 // import Breadcrumb from './Breadcrumb'
 // import ImgCropper from './ImgCropper'
 // import InputTag from './InputTag'
-import ProLayout from './Layout'
-// import Menu from './Menu'
+import ProLayout from './ProLayout'
+import ProMenu from './ProMenu'
 // import Svg from './Svg'
 // import Tabs from './Tabs'
 
-// const components = [Breadcrumb, ImgCropper, InputTag, Layout, Menu, Svg, Tabs]
+const components: Record<string, ComponentOptions> = {
+  ProLayout,
+  ProMenu,
+}
 
-const install = function(Vue) {
-  // components.forEach(item => {
-    Vue.component(ProLayout.name, ProLayout)
-  // })
+const install = (app: App) => {
+  for (const key in components) {
+    const item = components[key]
+    app.component(item.name! || key, item)
+  }
 }
 
 export {
   ProLayout,
+  ProMenu,
 }
 
 export default {

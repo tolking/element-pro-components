@@ -1,21 +1,22 @@
 <template>
   <el-menu v-bind="$attrs" :default-active="route.path" class="pro-menu" @select="handleSelect">
-    <menu-item
-      v-for="route in routers"
-      :key="route.path"
-      :item="route"
+    <pro-menu-item
+      v-for="item in menuRouters"
+      :key="item.path"
+      :item="item"
     />
   </el-menu>
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps } from 'vue'
+import { computed, defineProps, toRaw, toRefs } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMenu } from 'element-plus'
-import MenuItem from './MenuItem.vue'
+import ProMenuItem from './ProMenuItem.vue'
 import { checkUrl, filterRouterByHidden } from '../utils/index'
+import type { RouteRecordRaw } from 'vue-router'
 
-const { routers = [] } = defineProps<{ routers: any }>()
+const { routers = [] } = defineProps<{ routers?: RouteRecordRaw[] }>()
 const route = useRoute()
 const router = useRouter()
 const menuRouters = computed(() => {
@@ -23,7 +24,7 @@ const menuRouters = computed(() => {
   return filterRouterByHidden(_routers)
 })
 
-function handleSelect(path) {
+function handleSelect(path: string) {
   if (checkUrl(path)) {
     window.open(path)
   } else {

@@ -3,6 +3,9 @@
     "baseUrl": ".",
     "module": "esnext",
     "target": "esnext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "lib": ["ESNext", "DOM"],
     "paths": {
       "/element-pro/*": ["./src/*"]
     }

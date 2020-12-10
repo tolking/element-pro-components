@@ -1,10 +1,11 @@
 <template>
   <el-container class="pro-layout">
-    <component
+    <!-- <component
       :is="sideType"
       v-bind="setSide()"
       @close="isMobile && (drawer = false)"
-    >
+    > -->
+    <el-aside>
       <el-scrollbar>
         <template v-if="$slots.asideTop">
           <slot name="asideTop" />
@@ -14,7 +15,8 @@
           <slot name="asideBottom" />
         </template>
       </el-scrollbar>
-    </component>
+    </el-aside>
+    <!-- </component> -->
     <el-container>
       <el-header :height="headerHeight" class="pro-layout-header">
         <div>
@@ -72,7 +74,8 @@
   </el-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { defineProps, ref } from 'vue'
 import {
   ElContainer,
   ElDrawer,
@@ -82,78 +85,96 @@ import {
   ElMain,
   ElFooter,
 } from 'element-plus'
-import ProMenu from '../Menu/index'
+import ProMenu from '../ProMenu/index'
+import type { RouteRecordRaw } from 'vue-router'
 
-export default {
-  name: 'ProLayout',
-  components: {
-    ElContainer,
-    ElDrawer,
-    ElAside,
-    ElScrollbar,
-    ElHeader,
-    ElMain,
-    ElFooter,
-    ProMenu,
-  },
-  props: {
-    asideWidth: {
-      type: String,
-      default: '300px'
-    },
-    headerHeight: {
-      type: String,
-      default: '60px'
-    },
-    showFooter: {
-      type: Boolean,
-      default: true
-    },
-    footerHeight: {
-      type: String,
-      default: '60px'
-    },
-    routers: {
-      type: Array,
-      default: () => []
-    }
-  },
-  computed: {
-    sideType() {
-      return this.isMobile ? 'el-drawer' : 'el-aside'
-    },
-  },
-  data() {
-    return {
-      isMobile: false,
-      drawer: false,
-      collapse: false
-    }
-  },
-  // mounted() {
-  //   this.isMobile = navigator.userAgent.match(
-  //     /(phone|pod|iPhone|iPod|Android|Mobile|BlackBerry|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
-  //   )
-  // },
-  methods: {
-    setSide() {
-      if (this.isMobile) {
-        this.collapse = false
-        return {
-          visible: this.drawer,
-          size: '60%',
-          direction: 'ltr',
-          appendToBody: true,
-          closeOnPressEscape: false
-        }
-      } else {
-        return {
-          width: this.collapse ? 'auto' : this.asideWidth
-        }
-      }
-    }
-  }
-}
+const {
+  asideWidth = '300px',
+  headerHeight = '60px',
+  showFooter = true,
+  footerHeight = '60px',
+  routers = []
+} = defineProps<{
+  asideWidth?: string
+  headerHeight?: string
+  showFooter?: boolean
+  footerHeight?: string
+  routers?: RouteRecordRaw[]
+}>()
+const isMobile = ref(false)
+const drawer = ref(false)
+const collapse = ref(false)
+
+// export default {
+//   name: 'ProLayout',
+//   components: {
+//     ElContainer,
+//     ElDrawer,
+//     ElAside,
+//     ElScrollbar,
+//     ElHeader,
+//     ElMain,
+//     ElFooter,
+//     ProMenu,
+//   },
+//   props: {
+//     asideWidth: {
+//       type: String,
+//       default: '300px'
+//     },
+//     headerHeight: {
+//       type: String,
+//       default: '60px'
+//     },
+//     showFooter: {
+//       type: Boolean,
+//       default: true
+//     },
+//     footerHeight: {
+//       type: String,
+//       default: '60px'
+//     },
+//     routers: {
+//       type: Array,
+//       default: () => []
+//     }
+//   },
+//   computed: {
+//     sideType() {
+//       return this.isMobile ? 'el-drawer' : 'el-aside'
+//     },
+//   },
+//   data() {
+//     return {
+//       isMobile: false,
+//       drawer: false,
+//       collapse: false
+//     }
+//   },
+//   // mounted() {
+//   //   this.isMobile = navigator.userAgent.match(
+//   //     /(phone|pod|iPhone|iPod|Android|Mobile|BlackBerry|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+//   //   )
+//   // },
+//   methods: {
+//     setSide() {
+//       if (this.isMobile) {
+//         this.collapse = false
+//         return {
+//           visible: this.drawer,
+//           size: '60%',
+//           direction: 'ltr',
+//           appendToBody: true,
+//           closeOnPressEscape: false
+//         }
+//       } else {
+//         return {
+//           width: this.collapse ? 'auto' : this.asideWidth
+//         }
+//       }
+//     }
+//   }
+// }
 </script>
 
 <style>
