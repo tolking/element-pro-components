@@ -1,0 +1,14 @@
+:root {
+  /* color */
+  --c-background: #ffffff;
+  --c-border:  rgb(230, 230, 230);
+
+  /* size */
+  --aside-width: 240px;
+  --layout-height: 100vh;
+  --header-height: 60px;
+  --footer-height: 50px;
+
+  /* z-index */
+  --z-index-sidebar: 100;
+}

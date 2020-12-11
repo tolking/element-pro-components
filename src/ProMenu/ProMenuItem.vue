@@ -28,11 +28,12 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
-import { ElMenuItem, ElSubmenu } from 'element-plus'
+import { defineProps, toRefs } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
+import { ElMenuItem, ElSubmenu } from 'element-plus'
 
-const { item } = defineProps<{ item: RouteRecordRaw }>()
+const props = defineProps<{ item: RouteRecordRaw }>()
+const { item } = toRefs(props)
 
 function checkItemChildren(item: RouteRecordRaw) {
   return item.children ? item.children.length > 1 : false

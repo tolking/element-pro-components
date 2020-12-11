@@ -15,7 +15,7 @@ const components: Record<string, ComponentOptions> = {
 const install = (app: App) => {
   for (const key in components) {
     const item = components[key]
-    app.component(item.name! || key, item)
+    app.component(item.name || key, item)
   }
 }
 

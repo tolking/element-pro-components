@@ -11,17 +11,19 @@
 <script setup lang="ts">
 import { computed, defineProps, toRaw, toRefs } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 import { ElMenu } from 'element-plus'
 import ProMenuItem from './ProMenuItem.vue'
 import { checkUrl, filterRouterByHidden } from '../utils/index'
-import type { RouteRecordRaw } from 'vue-router'
 
-const { routers = [] } = defineProps<{ routers?: RouteRecordRaw[] }>()
+const props = defineProps<{ routers?: RouteRecordRaw[] }>()
+const { routers } = toRefs(props)
 const route = useRoute()
 const router = useRouter()
 const menuRouters = computed(() => {
-  const _routers = routers.length ? routers : router.options.routes
-  return filterRouterByHidden(_routers)
+  const _routers = toRaw(routers!.value)
+  const _menuRouters = _routers && _routers.length ? _routers : router.options.routes
+  return filterRouterByHidden(_menuRouters)
 })
 
 function handleSelect(path: string) {
