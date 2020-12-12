@@ -1,10 +1,16 @@
 <template>
   <pro-layout>
-    <template #headerLeft>
-      <p>headerLeft</p>
+    <template #logo="{ collapse }">
+      <p>{{ collapse ? 'E' : 'element-pro'}}</p>
     </template>
-    <template #headerRight>
-      <p>headerRight</p>
+    <template #left-header>
+      <p>left-header</p>
+    </template>
+    <template #right-header>
+      <p>right-header</p>
+    </template>
+    <template #footer>
+      footer
     </template>
   </pro-layout>
 </template>

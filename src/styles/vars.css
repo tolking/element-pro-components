@@ -1,6 +1,7 @@
 :root {
   /* color */
   --c-background: #ffffff;
+  --c-aside-background: var(--c-background);
   --c-border:  rgb(230, 230, 230);
 
   /* size */
@@ -11,4 +12,8 @@
 
   /* z-index */
   --z-index-sidebar: 100;
+
+  /* transition */
+  --t-duration: .3s;
+  --t-timing-function: ease-out;
 }
