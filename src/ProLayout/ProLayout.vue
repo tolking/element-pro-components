@@ -1,8 +1,11 @@
 <template>
   <el-container class="pro-layout">
     <pro-layout-aside :routers="routers" :collapse="show" @toggle-collapse="toggleShow">
-      <template v-if="slots.logo" #default="{ collapse }">
+      <template v-if="slots.logo" #logo="{ collapse }">
         <slot :collapse="collapse" name="logo" />
+      </template>
+      <template v-if="slots.menu" #menu="item">
+        <slot v-bind="item" name="menu" />
       </template>
     </pro-layout-aside>
     <el-container class="pro-container is-vertical">

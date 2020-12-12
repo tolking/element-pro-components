@@ -1,28 +1,15 @@
 <template>
-  <el-menu-item v-if="!checkItemChildren(item)" :index="item.path">
-    <i v-if="item.meta.icon" :class="item.meta.icon" />
-    <span v-if="item.meta.title">{{ item.meta.title }}</span>
+  <el-menu-item v-if="!hasMultiChild(item)" :index="item.path">
+    <slot v-bind="item" />
   </el-menu-item>
   <el-submenu v-else :index="item.path">
-    <template v-if="item.meta" #title>
-      <i v-if="item.meta.icon" :class="item.meta.icon" />
-      <span v-if="item.meta.title">{{ item.meta.title }}</span>
+    <template v-if="item.meta.icon || item.meta.title" #title>
+      <slot v-bind="item" />
     </template>
-    <template v-for="child in item.children">
-      <pro-menu-item
-        v-if="checkItemChildren(child)"
-        :item="child"
-        :key="child.path"
-      />
-      <el-menu-item
-        v-else
-        :to="child.path"
-        :key="child.name"
-        :index="child.path"
-      >
-        <i v-if="child.meta.icon" :class="child.meta.icon" />
-        <span v-if="child.meta.title">{{ child.meta.title }}</span>
-      </el-menu-item>
+    <template v-for="child in item.children" :key="child.path">
+      <pro-menu-item :item="child">
+        <slot v-bind="child" />
+      </pro-menu-item>
     </template>
   </el-submenu>
 </template>
@@ -35,7 +22,7 @@ import { ElMenuItem, ElSubmenu } from 'element-plus'
 const props = defineProps<{ item: RouteRecordRaw }>()
 const { item } = toRefs(props)
 
-function checkItemChildren(item: RouteRecordRaw) {
+function hasMultiChild(item: RouteRecordRaw) {
   return item.children ? item.children.length > 1 : false
 }
 </script>
