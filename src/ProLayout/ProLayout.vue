@@ -38,8 +38,8 @@ import ProLayoutFooter from './ProLayoutFooter.vue'
 import { useShow } from '../composables/index'
 
 const props = defineProps<{
-hiddenFooter?: boolean
-routers?: RouteRecordRaw[]
+  hiddenFooter?: boolean
+  routers?: RouteRecordRaw[]
 }>()
 const { hiddenFooter, routers } = toRefs(props)
 const { show, toggleShow } = useShow()

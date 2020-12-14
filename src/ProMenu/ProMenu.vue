@@ -25,11 +25,10 @@ import { checkUrl, filterRouterByHidden } from '../utils/index'
 
 const props = defineProps<{ routers?: RouteRecordRaw[] }>()
 const { routers } = toRefs(props)
-const { slots } = useContext()
 const route = useRoute()
 const router = useRouter()
 const menuRouters = computed(() => {
-  const _routers = toRaw(routers!.value)
+  const _routers = toRaw(routers!.value as RouteRecordRaw[])
   const _menuRouters = _routers && _routers.length ? _routers : router.options.routes
   return filterRouterByHidden(_menuRouters)
 })

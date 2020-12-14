@@ -1,11 +1,12 @@
 export * from './composables/index'
-export * from './utils/index'
+import './styles/index.css'
 import type { App, ComponentOptions } from 'vue'
+
 // import Breadcrumb from './Breadcrumb'
 // import ImgCropper from './ImgCropper'
 // import InputTag from './InputTag'
-import ProLayout from './ProLayout'
-import ProMenu from './ProMenu'
+import ProLayout from './ProLayout/index'
+import ProMenu from './ProMenu/index'
 // import Svg from './Svg'
 // import Tabs from './Tabs'
 
@@ -19,6 +20,10 @@ const install = (app: App) => {
     const item = components[key]
     app.component(item.name || key, item)
   }
+}
+
+if (typeof window !== undefined && window.Vue) {
+  install(window.Vue)
 }
 
 export {
