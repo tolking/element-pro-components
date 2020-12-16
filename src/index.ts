@@ -1,6 +1,6 @@
-export * from './composables/index'
 import './styles/index.css'
 import type { App, ComponentOptions } from 'vue'
+export * from './composables/index'
 
 // import Breadcrumb from './Breadcrumb'
 // import ImgCropper from './ImgCropper'
@@ -9,6 +9,8 @@ import ProLayout from './ProLayout/index'
 import ProMenu from './ProMenu/index'
 // import Svg from './Svg'
 // import Tabs from './Tabs'
+
+const version = process.env.VERSION || '0.0.0'
 
 const components: Record<string, ComponentOptions> = {
   ProLayout,
@@ -22,16 +24,14 @@ const install = (app: App) => {
   }
 }
 
-if (typeof window !== undefined && window.Vue) {
-  install(window.Vue)
-}
-
 export {
   ProLayout,
   ProMenu,
+  version,
+  install,
 }
 
 export default {
-  version: '0.0.0',
+  version,
   install,
 }

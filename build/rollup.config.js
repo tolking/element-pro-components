@@ -1,59 +1,17 @@
 // rollup.config.js
 import fs from 'fs';
-// import path from 'path';
 import vue from 'rollup-plugin-vue';
 import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
 import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
-import typescript from 'rollup-plugin-typescript2';
-import css from 'rollup-plugin-css-only'
+import esbuild from 'rollup-plugin-esbuild';
+import json from 'rollup-plugin-json';
+import css from 'rollup-plugin-css-only';
 import minimist from 'minimist';
+import { name, version } from '../package.json'
 
-// Get browserslist config and remove ie from es build targets
-const esbrowserslist = fs.readFileSync('./.browserslistrc')
-  .toString()
-  .split('\n')
-  .filter((entry) => entry && entry.substring(0, 2) !== 'ie');
-
-const argv = minimist(process.argv.slice(2));
-
-// const projectRoot = path.resolve(__dirname, '..');
-
-const baseConfig = {
-  input: 'src/index.ts',
-  plugins: {
-    preVue: [
-      typescript({
-        extensions: ['.ts', '.tsx', '.vue'],
-        abortOnError: false,
-        clean: true,
-      }),
-      css({
-        output: 'index.css',
-      }),
-    ],
-    replace: {
-      'process.env.NODE_ENV': JSON.stringify('production'),
-      'process.env.ES_BUILD': JSON.stringify('false'),
-    },
-    vue: {
-      exposeFilename: true,
-      preprocessStyles: true,
-      defaultLang: {
-        script: 'ts',
-      },
-      css: false,
-      template: {
-        isProduction: true,
-      },
-    },
-    babel: {
-      exclude: 'node_modules/**',
-      extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
-    },
-  },
-};
+const pluginName = name.replace(/(^|-)(\w)/g, (a,b,c) => c.toUpperCase());
 
 // ESM/UMD/IIFE shared settings: externals
 // Refer to https://rollupjs.org/guide/en/#warning-treating-module-as-external-dependency
@@ -63,10 +21,47 @@ const external = ['vue', 'vue-router', 'element-plus'];
 // Refer to https://rollupjs.org/guide/en#output-globals for details
 const globals = {
   vue: 'Vue',
+  'vue-router': 'VueRouter',
+  'element-plus': 'ElementPlus',
+};
+
+// Get browserslist config and remove ie from es build targets
+const esbrowserslist = fs.readFileSync('./.browserslistrc')
+  .toString()
+  .split('\n')
+  .filter((entry) => entry && entry.substring(0, 2) !== 'ie');
+
+const argv = minimist(process.argv.slice(2));
+
+const baseConfig = {
+  input: 'src/index.ts',
+  plugins: {
+    preVue: [
+      json(),
+      css({ output: 'index.css' }),
+      esbuild({ tsconfig: '../tsconfig.json' }),
+    ],
+    replace: {
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.ES_BUILD': JSON.stringify('false'),
+      'process.env.VERSION': JSON.stringify(version),
+    },
+    vue: {
+      defaultLang: {
+        script: 'ts',
+      },
+      css: false,
+    },
+    babel: {
+      exclude: 'node_modules/**',
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
+    },
+  },
 };
 
 // Customize configs for individual targets
 const buildFormats = [];
+
 if (!argv.format || argv.format === 'es') {
   const esConfig = {
     ...baseConfig,
@@ -108,7 +103,7 @@ if (!argv.format || argv.format === 'cjs') {
       compact: true,
       file: 'lib/index.ssr.js',
       format: 'cjs',
-      name: 'Test',
+      name: pluginName,
       exports: 'named',
       globals,
     },
@@ -137,7 +132,7 @@ if (!argv.format || argv.format === 'iife') {
       compact: true,
       file: 'lib/index.min.js',
       format: 'iife',
-      name: 'Test',
+      name: pluginName,
       exports: 'named',
       globals,
     },
