@@ -1,10 +1,11 @@
-import type { RouteRecordRaw } from 'vue-router'
+import type { RouteMeta, RouteRecordRaw } from 'vue-router'
 
 export type ProRouteRecordRaw = RouteRecordRaw & {
-  meta: {
-    title?: string
-    icon?: string
-    hidden?: boolean
-    keepAlive?: boolean
-  }
+  meta: ProRouteMeta
+}
+interface ProRouteMeta extends RouteMeta {
+  title?: string
+  icon?: string
+  hidden?: boolean
+  keepAlive?: boolean
 }

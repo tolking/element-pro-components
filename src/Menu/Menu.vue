@@ -16,22 +16,20 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, toRaw, toRefs, useContext } from 'vue'
+import { computed, defineProps, toRefs } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import type { RouteRecordRaw } from 'vue-router'
 import { ElMenu } from 'element-plus'
-import ProMenuItem from './ProMenuItem.vue'
+import ProMenuItem from './MenuItem.vue'
+import { useCurrentRoutes } from '../composables/index'
 import { checkUrl, filterRouterByHidden } from '../utils/index'
+import type { ProRouteRecordRaw } from '../types/index'
 
-const props = defineProps<{ routers?: RouteRecordRaw[] }>()
-const { routers } = toRefs(props)
+const props = defineProps<{ routes?: ProRouteRecordRaw[] }>()
+const { routes } = toRefs(props)
 const route = useRoute()
 const router = useRouter()
-const menuRouters = computed(() => {
-  const _routers = toRaw(routers!.value as RouteRecordRaw[])
-  const _menuRouters = _routers && _routers.length ? _routers : router.options.routes
-  return filterRouterByHidden(_menuRouters)
-})
+const currentRoutes = useCurrentRoutes(routes?.value as ProRouteRecordRaw[])
+const menuRouters = computed(() => filterRouterByHidden(currentRoutes.value))
 
 function handleSelect(path: string) {
   if (checkUrl(path)) {

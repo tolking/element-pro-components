@@ -7,7 +7,7 @@
       <span>{{ meta.title + meta.icon }}</span>
     </template> -->
     <template #left-header>
-      <p>left-header</p>
+      <pro-breadcrumb />
     </template>
     <template #right-header>
       <p>right-header</p>

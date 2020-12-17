@@ -1,39 +1,25 @@
 <template>
-  <el-breadcrumb v-bind="$attrs" class="pro-breadcrumb">
-    <el-breadcrumb-item
-      v-for="item in breadcrumbList"
-      :key="item.name || item.redirect || item.path"
-    >
-      <pro-link :to="item">{{ item.meta.title || item.name }}</pro-link>
+  <el-breadcrumb class="pro-breadcrumb">
+    <el-breadcrumb-item v-for="item in breadcrumbList" :key="item.name || item.path">
+      <router-link :to="item.path">
+        {{ item.meta.title }}
+      </router-link>
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
 
-<script>
-import ProLink from 'element-pro-components/src/Link'
-import { findRouterItemListByPath } from 'element-pro-components/src/utils/router'
+<script setup lang="ts">
+import { computed, defineComponent, defineProps, toRaw, toRefs } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
+import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'
+import { findRouterItemListByPath } from '../utils/index'
+import { useCurrentRoutes } from '../composables/index'
+import type { ProRouteRecordRaw } from '../types/index'
 
-export default {
-  name: 'ProBreadcrumb',
-  components: { ProLink },
-  props: {
-    routers: {
-      type: Array,
-      default: () => []
-    }
-  },
-  computed: {
-    breadcrumbList() {
-      const path = this.$route.path
-      const routers = this.routers || this.$router.options.routes
-      return findRouterItemListByPath(routers, path)
-    }
-  }
-}
+const props = defineProps<{ routes?: ProRouteRecordRaw[] }>()
+const { routes } = toRefs(props)
+const route = useRoute()
+const currentRoutes = useCurrentRoutes(routes?.value as ProRouteRecordRaw[])
+const breadcrumbList = computed(() => findRouterItemListByPath(currentRoutes.value, route.path))
 </script>
-
-<style>
-.pro-breadcrumb {
-  display: inline-block;
-}
-</style>

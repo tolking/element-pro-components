@@ -7,9 +7,9 @@
       <slot v-bind="item" />
     </template>
     <template v-for="child in item.children" :key="child.path">
-      <pro-menu-item :item="child">
+      <menu-item :item="child">
         <slot v-bind="child" />
-      </pro-menu-item>
+      </menu-item>
     </template>
   </el-submenu>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <el-container class="pro-layout">
-    <pro-layout-aside :routers="routers" :collapse="show" @toggle-collapse="toggleShow">
+    <pro-layout-aside :routes="routes" :collapse="show" @toggle-collapse="toggleShow">
       <template v-if="slots.logo" #logo="{ collapse }">
         <slot :collapse="collapse" name="logo" />
       </template>
@@ -31,17 +31,17 @@
 import { defineProps, ref, toRefs, useContext } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { ElContainer, ElScrollbar } from 'element-plus'
-import ProLayoutAside from './ProLayoutAside.vue'
-import ProLayoutHeader from './ProLayoutHeader.vue'
-import ProLayoutMain from './ProLayoutMain.vue'
-import ProLayoutFooter from './ProLayoutFooter.vue'
+import ProLayoutAside from './LayoutAside.vue'
+import ProLayoutHeader from './LayoutHeader.vue'
+import ProLayoutMain from './LayoutMain.vue'
+import ProLayoutFooter from './LayoutFooter.vue'
 import { useShow } from '../composables/index'
 
 const props = defineProps<{
   hiddenFooter?: boolean
-  routers?: RouteRecordRaw[]
+  routes?: RouteRecordRaw[]
 }>()
-const { hiddenFooter, routers } = toRefs(props)
+const { hiddenFooter, routes } = toRefs(props)
 const { show, toggleShow } = useShow()
 const { slots } = useContext()
 </script>

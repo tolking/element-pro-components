@@ -1,18 +1,17 @@
 import './styles/index.css'
 import type { App, ComponentOptions } from 'vue'
-export * from './composables/index'
 
-// import Breadcrumb from './Breadcrumb'
-// import ImgCropper from './ImgCropper'
-// import InputTag from './InputTag'
-import ProLayout from './ProLayout/index'
-import ProMenu from './ProMenu/index'
-// import Svg from './Svg'
-// import Tabs from './Tabs'
+import ProBreadcrumb from './Breadcrumb/index'
+import ProInputTag from './InputTag/index'
+import ProLayout from './Layout/index'
+import ProMenu from './Menu/index'
+// import ProTabs from './ProTabs/index'
 
 const version = process.env.VERSION || '0.0.0'
 
 const components: Record<string, ComponentOptions> = {
+  ProBreadcrumb,
+  ProInputTag,
   ProLayout,
   ProMenu,
 }
@@ -25,6 +24,8 @@ const install = (app: App) => {
 }
 
 export {
+  ProBreadcrumb,
+  ProInputTag,
   ProLayout,
   ProMenu,
   version,

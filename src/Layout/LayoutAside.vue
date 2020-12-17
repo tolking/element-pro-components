@@ -20,7 +20,7 @@
 import { toRefs, defineEmit, defineProps, useContext } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { ElScrollbar } from 'element-plus'
-import ProMenu from '../ProMenu/index'
+import ProMenu from '../Menu/index'
 
 const props = defineProps<{
   collapse: boolean
