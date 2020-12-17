@@ -39,6 +39,8 @@ const baseConfig = {
     preVue: [
       json(),
       css({ output: 'index.css' }),
+    ],
+    postVue: [
       esbuild({ tsconfig: '../tsconfig.json' }),
     ],
     replace: {
@@ -78,6 +80,7 @@ if (!argv.format || argv.format === 'es') {
       }),
       ...baseConfig.plugins.preVue,
       vue(baseConfig.plugins.vue),
+      ...baseConfig.plugins.postVue,
       babel({
         ...baseConfig.plugins.babel,
         presets: [
@@ -117,6 +120,7 @@ if (!argv.format || argv.format === 'cjs') {
           optimizeSSR: true,
         },
       }),
+      ...baseConfig.plugins.postVue,
       babel(baseConfig.plugins.babel),
       commonjs(),
     ],
@@ -140,6 +144,7 @@ if (!argv.format || argv.format === 'iife') {
       replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
       vue(baseConfig.plugins.vue),
+      ...baseConfig.plugins.postVue,
       babel(baseConfig.plugins.babel),
       commonjs(),
       terser({
