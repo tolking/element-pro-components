@@ -1,5 +1,5 @@
 <template>
-  <el-menu-item v-if="!hasMultiChild(item)" :index="item.path">
+  <el-menu-item v-if="!hasMultiChild(item)" :index="item.redirect || item.path">
     <slot v-bind="item" />
   </el-menu-item>
   <el-submenu v-else :index="item.path">
@@ -16,13 +16,13 @@
 
 <script setup lang="ts">
 import { defineProps, toRefs } from 'vue'
-import type { RouteRecordRaw } from 'vue-router'
 import { ElMenuItem, ElSubmenu } from 'element-plus'
+import type { ProRouteRecordRaw } from '../types/index'
 
-const props = defineProps<{ item: RouteRecordRaw }>()
+const props = defineProps<{ item: ProRouteRecordRaw }>()
 const { item } = toRefs(props)
 
-function hasMultiChild(item: RouteRecordRaw) {
+function hasMultiChild(item: ProRouteRecordRaw) {
   return item.children ? item.children.length > 1 : false
 }
 </script>

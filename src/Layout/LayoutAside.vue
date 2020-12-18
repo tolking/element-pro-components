@@ -1,12 +1,12 @@
 <template>
-  <aside :class="collapse && 'aside-collapse'" class="pro-aside el-aside">
+  <aside :class="collapse && 'aside-collapse'" class="pro-aside">
     <div class="mask" @click="toggleCollapse"></div>
     <div class="pro-aside-wrapper">
       <div v-if="slots.logo" class="pro-aside-logo">
-        <slot :collapse="collapse" name="logo" />
+        <slot :collapse="menuCollapse" name="logo" />
       </div>
       <el-scrollbar>
-        <pro-menu :routers="routers" :collapse="collapse">
+        <pro-menu :routes="routes" :collapse="menuCollapse">
           <template v-if="slots.menu" #default="item">
             <slot v-bind="item" name="menu" />
           </template>
@@ -17,21 +17,21 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, defineEmit, defineProps, useContext } from 'vue'
-import type { RouteRecordRaw } from 'vue-router'
+import { toRefs, defineEmit, defineProps, useContext, computed } from 'vue'
 import { ElScrollbar } from 'element-plus'
 import ProMenu from '../Menu/index'
+import { useScreenSize } from '../composables/index'
+import type { ProRouteRecordRaw } from '../types/index'
 
 const props = defineProps<{
   collapse: boolean
-  routers?: RouteRecordRaw[]
+  routes?: ProRouteRecordRaw[]
 }>()
-const {
-  collapse,
-  routers
-} = toRefs(props)
+const { collapse, routes } = toRefs(props)
 const emit = defineEmit(['toggle-collapse'])
 const { slots } = useContext()
+const size = useScreenSize()
+const menuCollapse = computed(() => size.value === 'xs' ? false : collapse.value)
 
 function toggleCollapse() {
   emit('toggle-collapse')
@@ -61,11 +61,9 @@ function toggleCollapse() {
 }
 .pro-aside .pro-aside-logo {
   padding-left: 20px;
-  width: 100%;
   height: var(--header-height);
   border-bottom: 1px solid var(--c-border);
   background: var(--c-aside-background);
-  box-sizing: border-box;
   overflow: hidden;
 }
 @media screen and (max-width: 768px) {
@@ -74,32 +72,33 @@ function toggleCollapse() {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 100%;
+    width: 0;
     z-index: var(--z-index-sidebar);
+  }
+  .pro-aside.aside-collapse {
+    width: 100%;
   }
   .pro-aside .mask {
     display: block;
     position: absolute;
+    opacity: 0;
+    transition: opacity var(--t-duration) var(--t-timing-function);
+  }
+  .pro-aside.aside-collapse .mask {
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, .4);
+    background: var(--c-mask-background);
+    opacity: 1;
   }
   .pro-aside .pro-aside-wrapper {
-    transform: translateX(0);
-    transition: transform var(--t-duration) var(--t-timing-function);
-  }
-  .pro-aside.aside-collapse {
-    width: 0;
-    transition-duration: var(--t-duration);
-  }
-  .pro-aside.aside-collapse .mask {
-    display: none;
-  }
-  .pro-aside.aside-collapse .pro-aside-wrapper {
     transform: translateX(-100%);
     transition: transform var(--t-duration) var(--t-timing-function);
+  }
+  .pro-aside.aside-collapse .pro-aside-wrapper {
+    width: var(--aside-width);
+    transform: translateX(0);
   }
 }
 </style>

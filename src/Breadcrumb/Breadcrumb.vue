@@ -1,6 +1,6 @@
 <template>
   <el-breadcrumb class="pro-breadcrumb">
-    <el-breadcrumb-item v-for="item in breadcrumbList" :key="item.name || item.path">
+    <el-breadcrumb-item v-for="item in breadcrumbList" :key="item.path">
       <router-link :to="item.path">
         {{ item.meta.title }}
       </router-link>
@@ -11,7 +11,6 @@
 <script setup lang="ts">
 import { computed, defineComponent, defineProps, toRaw, toRefs } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import type { RouteRecordRaw } from 'vue-router'
 import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'
 import { findRouterItemListByPath } from '../utils/index'
 import { useCurrentRoutes } from '../composables/index'

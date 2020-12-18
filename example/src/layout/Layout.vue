@@ -12,9 +12,6 @@
     <template #right-header>
       <p>right-header</p>
     </template>
-    <template #footer>
-      footer
-    </template>
   </pro-layout>
 </template>
 

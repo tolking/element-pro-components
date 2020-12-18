@@ -1,5 +1,5 @@
 <template>
-  <main class="pro-main el-main">
+  <main class="pro-main">
     <router-view v-slot="{ Component, route }">
       <!-- <transition name="transition-main" mode="out-in"> -->
         <keep-alive v-if="route.meta?.keepAlive">
@@ -17,6 +17,15 @@
 
 <style>
 .pro-main {
-  min-height: calc(var(--layout-height) - var(--header-height) - var(--footer-height));
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--border-radius);
+  background: var(--c-aside-background);
+}
+@media screen and (max-width: 768px) {
+  .pro-main {
+    padding: 6px;
+  }
 }
 </style>

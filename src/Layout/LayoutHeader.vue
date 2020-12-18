@@ -1,5 +1,5 @@
 <template>
-  <header class="pro-header el-header">
+  <header class="pro-header">
     <div class="header-slot">
       <span class="header-fold-btn" @click="toggleCollapse">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -29,8 +29,10 @@ function toggleCollapse() {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 20px;
   height: var(--header-height);
   border-bottom: 1px solid var(--c-border);
+  background: var(--c-header-background);
 }
 .pro-header .header-slot {
   display: flex;
@@ -38,7 +40,7 @@ function toggleCollapse() {
 }
 .pro-header .header-fold-btn {
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 20px;
   width: 22px;
   height: 22px;
   cursor: pointer;

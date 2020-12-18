@@ -19,9 +19,6 @@
       </pro-layout-header>
       <el-scrollbar class="pro-layout-wrapper">
         <pro-layout-main />
-        <pro-layout-footer v-if="!hiddenFooter">
-          <slot name="footer" />
-        </pro-layout-footer>
       </el-scrollbar>
     </el-container>
   </el-container>
@@ -29,21 +26,17 @@
 
 <script setup lang="ts">
 import { defineProps, ref, toRefs, useContext } from 'vue'
-import type { RouteRecordRaw } from 'vue-router'
 import { ElContainer, ElScrollbar } from 'element-plus'
 import ProLayoutAside from './LayoutAside.vue'
 import ProLayoutHeader from './LayoutHeader.vue'
 import ProLayoutMain from './LayoutMain.vue'
-import ProLayoutFooter from './LayoutFooter.vue'
 import { useShow } from '../composables/index'
+import type { ProRouteRecordRaw } from '../types/index'
 
-const props = defineProps<{
-  hiddenFooter?: boolean
-  routes?: RouteRecordRaw[]
-}>()
-const { hiddenFooter, routes } = toRefs(props)
-const { show, toggleShow } = useShow()
+const props = defineProps<{ routes?: ProRouteRecordRaw[] }>()
+const { routes } = toRefs(props)
 const { slots } = useContext()
+const { show, toggleShow } = useShow()
 </script>
 
 <style>
@@ -51,8 +44,20 @@ const { slots } = useContext()
   position: relative;
   height: var(--layout-height);
 }
+.pro-layout .pro-container,
+.pro-layout .pro-layout-wrapper {
+  flex: 1;
+}
+.pro-layout .pro-container {
+  background: var(--c-page-background);
+}
 .pro-layout .pro-layout-wrapper.el-scrollbar .el-scrollbar__wrap {
   margin-bottom: 0 !important;
   overflow-x: hidden;
+}
+@media screen and (max-width: 768px) {
+  .pro-layout .pro-layout-wrapper.el-scrollbar .el-scrollbar__wrap {
+    margin-right: 0 !important;
+  }
 }
 </style>

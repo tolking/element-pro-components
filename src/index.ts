@@ -1,3 +1,5 @@
+export * from './composables/index'
+export * from './utils/index'
 import './styles/index.css'
 import type { App, ComponentOptions } from 'vue'
 
