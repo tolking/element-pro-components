@@ -3,6 +3,7 @@
   --c-background: #ffffff;
   --c-header-background: var(--c-background);
   --c-aside-background: var(--c-background);
+  --c-tabs-background: var(--c-background);
   --c-page-background: #f0f2f5;
   --c-mask-background:  rgba(0, 0, 0, .4);
   --c-border:  #ebeef5;

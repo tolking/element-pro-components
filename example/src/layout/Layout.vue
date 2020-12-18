@@ -12,6 +12,9 @@
     <template #right-header>
       <p>right-header</p>
     </template>
+    <template #bottom-header>
+      <pro-tabs />
+    </template>
   </pro-layout>
 </template>
 

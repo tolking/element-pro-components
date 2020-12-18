@@ -17,6 +17,7 @@
           <slot name="right-header" />
         </template>
       </pro-layout-header>
+      <slot name="bottom-header" />
       <el-scrollbar class="pro-layout-wrapper">
         <pro-layout-main />
       </el-scrollbar>
