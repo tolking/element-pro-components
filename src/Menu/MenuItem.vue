@@ -1,54 +1,40 @@
 <template>
-  <el-menu-item v-if="!checkItemChildren(item)" :index="item.path">
-    <item :item="item" />
+  <el-menu-item
+    v-if="!hasMultiChild(item)"
+    :index="item.redirect || item.path"
+  >
+    <slot v-bind="item" />
   </el-menu-item>
-
-  <el-submenu v-else :index="item.path">
-    <template v-if="item.meta" slot="title">
-      <pro-svg v-if="useSvg" :icon="item.meta.icon"></pro-svg>
-      <i v-else :class="item.meta.icon" />
-      <span>{{ item.meta.title }}</span>
+  <el-submenu
+    v-else
+    :index="item.path"
+  >
+    <template
+      v-if="item.meta.icon || item.meta.title"
+      #title
+    >
+      <slot v-bind="item" />
     </template>
-
-    <template v-for="child in item.children">
-      <menu-item
-        v-if="checkItemChildren(child)"
-        :item="child"
-        :key="child.path"
-      />
-      <el-menu-item
-        v-else
-        :to="child.path"
-        :key="child.name"
-        :index="child.path"
-      >
-        <item :item="child" />
-      </el-menu-item>
+    <template
+      v-for="child in item.children"
+      :key="child.path"
+    >
+      <menu-item :item="child">
+        <slot v-bind="child" />
+      </menu-item>
     </template>
   </el-submenu>
 </template>
 
-<script>
-import Item from './Item'
+<script setup lang="ts">
+import { defineProps, toRefs } from 'vue'
+import { ElMenuItem, ElSubmenu } from 'element-plus'
+import type { ProRouteRecordRaw } from '../types/index'
 
-export default {
-  name: 'MenuItem',
-  components: { Item },
-  inject: {
-    useSvg: {
-      default: false
-    }
-  },
-  props: {
-    item: {
-      type: Object,
-      required: true
-    }
-  },
-  methods: {
-    checkItemChildren(item) {
-      return item.children ? item.children.length > 1 : false
-    }
-  }
+const props = defineProps<{ item: ProRouteRecordRaw }>()
+const { item } = toRefs(props)
+
+function hasMultiChild(item: ProRouteRecordRaw) {
+  return item.children ? item.children.length > 1 : false
 }
 </script>

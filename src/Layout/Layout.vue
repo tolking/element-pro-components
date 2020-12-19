@@ -1,166 +1,80 @@
 <template>
   <el-container class="pro-layout">
-    <component
-      :is="sideType"
-      v-bind="setSide()"
-      @close="isMobile && (drawer = false)"
+    <pro-layout-aside
+      :routes="routes"
+      :collapse="show"
+      @toggle-collapse="toggleShow"
     >
-      <el-scrollbar>
-        <template v-if="$slots.asideTop">
-          <slot name="asideTop" />
-        </template>
-        <pro-menu :routers="routers" :collapse="collapse" :useSvg="useSvg" />
-        <template v-if="$slots.asideBottom">
-          <slot name="asideBottom" />
-        </template>
-      </el-scrollbar>
-    </component>
-    <el-container>
-      <el-header :height="headerHeight" class="pro-layout-header">
-        <div>
-          <span
-            v-if="isMobile"
-            class="pro-layout-header-fold-btn"
-            @click="drawer = true"
-          >
-            <i class="el-icon-s-unfold"></i>
-          </span>
-          <span
-            v-else
-            class="pro-layout-header-fold-btn"
-            @click="collapse = !collapse"
-          >
-            <i :class="collapse ? 'el-icon-s-fold' : 'el-icon-s-unfold'"></i>
-          </span>
-          <template v-if="$slots.headerLeft">
-            <slot name="headerLeft" />
-          </template>
-          <template v-else>
-            <pro-breadcrumb :routers="routers" />
-          </template>
-        </div>
-        <div>
-          <template v-if="$slots.headerRight">
-            <slot name="headerRight" />
-          </template>
-          Header
-        </div>
-      </el-header>
-      <el-main>
-        <transition name="transition-main" mode="out-in">
-          <router-view :key="pageKey" />
-        </transition>
-      </el-main>
-      <el-footer
-        v-if="showFooter"
-        :height="footerHeight"
-        :style="'line-height:' + footerHeight"
-        class="pro-footer"
+      <template
+        v-if="slots.logo"
+        #logo="{ collapse }"
       >
-        <template v-if="$slots.footer">
-          <slot name="footer" />
+        <slot
+          :collapse="collapse"
+          name="logo"
+        />
+      </template>
+      <template
+        v-if="slots.menu"
+        #menu="item"
+      >
+        <slot
+          v-bind="item"
+          name="menu"
+        />
+      </template>
+    </pro-layout-aside>
+    <el-container class="pro-container is-vertical">
+      <pro-layout-header @toggle-collapse="toggleShow">
+        <template #left>
+          <slot name="left-header" />
         </template>
-        <template v-else>
-          <span>&copy; {{ year }} </span>
-          <a
-            href="https://tolking.github.io/element-pro-components"
-            target="_blank"
-            rel="noopener noreferrer"
-            >element-pro-components</a
-          >
+        <template #right>
+          <slot name="right-header" />
         </template>
-      </el-footer>
+      </pro-layout-header>
+      <slot name="bottom-header" />
+      <el-scrollbar class="pro-layout-wrapper">
+        <pro-layout-main />
+      </el-scrollbar>
     </el-container>
   </el-container>
 </template>
 
-<script>
-import ProMenu from 'element-pro-components/src/Menu'
-import ProBreadcrumb from 'element-pro-components/src/Breadcrumb'
+<script setup lang="ts">
+import { defineProps, toRefs, useContext } from 'vue'
+import { ElContainer, ElScrollbar } from 'element-plus'
+import ProLayoutAside from './LayoutAside.vue'
+import ProLayoutHeader from './LayoutHeader.vue'
+import ProLayoutMain from './LayoutMain.vue'
+import { useShow } from '../composables/index'
+import type { ProRouteRecordRaw } from '../types/index'
 
-export default {
-  name: 'ProLayout',
-  components: { ProMenu, ProBreadcrumb },
-  props: {
-    asideWidth: {
-      type: String,
-      default: '300px'
-    },
-    headerHeight: {
-      type: String,
-      default: '60px'
-    },
-    showFooter: {
-      type: Boolean,
-      default: true
-    },
-    footerHeight: {
-      type: String,
-      default: '60px'
-    },
-    routers: {
-      type: Array,
-      default: () => []
-    },
-    useSvg: {
-      type: Boolean,
-      default: false
-    }
-  },
-  computed: {
-    year() {
-      return new Date().getFullYear()
-    },
-    sideType() {
-      return this.isMobile ? 'el-drawer' : 'el-aside'
-    },
-    pageKey() {
-      return this.$route.path
-    }
-  },
-  data() {
-    return {
-      isMobile: false,
-      drawer: false,
-      collapse: false
-    }
-  },
-  mounted() {
-    this.isMobile = navigator.userAgent.match(
-      /(phone|pod|iPhone|iPod|Android|Mobile|BlackBerry|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
-    )
-  },
-  methods: {
-    setSide() {
-      if (this.isMobile) {
-        this.collapse = false
-        return {
-          visible: this.drawer,
-          size: '60%',
-          direction: 'ltr',
-          appendToBody: true,
-          closeOnPressEscape: false
-        }
-      } else {
-        return {
-          width: this.collapse ? 'auto' : this.asideWidth
-        }
-      }
-    }
-  }
-}
+const props = defineProps<{ routes?: ProRouteRecordRaw[] }>()
+const { routes } = toRefs(props)
+const { slots } = useContext()
+const { show, toggleShow } = useShow()
 </script>
 
 <style>
-.pro-layout .pro-layout-header {
-  display: flex;
-  justify-content: space-between;
+.pro-layout {
+  position: relative;
+  height: var(--layout-height);
 }
-.pro-layout .pro-layout-header-fold-btn .el-icon-s-fold,
-.pro-layout .pro-layout-header-fold-btn .el-icon-s-unfold {
-  font-size: 2.5rem;
+.pro-layout .pro-container,
+.pro-layout .pro-layout-wrapper {
+  flex: 1;
 }
-.pro-layout .pro-footer {
-  text-align: center;
+.pro-layout .pro-container {
+  background: var(--c-page-background);
+}
+.pro-layout .pro-layout-wrapper.el-scrollbar .el-scrollbar__wrap {
+  margin-bottom: 0 !important;
+  overflow-x: hidden;
+}
+@media screen and (max-width: 768px) {
+  .pro-layout .pro-layout-wrapper.el-scrollbar .el-scrollbar__wrap {
+    margin-right: 0 !important;
+  }
 }
 </style>

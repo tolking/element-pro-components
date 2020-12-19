@@ -1,13 +1,26 @@
-# element-pro-components
+# element-pro-components (WIP)
 
-> 基于 element-ui 的后台界面公用组建
+> 基于 element-plus 的后台界面公用组建
 
-**构建中...**
+构建中...
 
-[文档](https://tolking.github.io/element-pro-components)
+**docs 文档暂时未更新，参考 example 文件夹**
 
-## 使用
+## TODO:
 
-直接将需要组件放置于 `src-> components` 下面，一般按照 README.md 使用即可，部分会修改组件内部部分内容
+- components
+  + [x] ProLayout
+  + [x] ProMenu
+  + [x] ProBreadcrumb
+  + [x] ProTabs
+  + [x] ProInputTag
+  + [ ] ProForm
+  + [ ] ProSerach
+  + [ ] ProTable
+  + [ ] ProList
+  + [ ] ProCrud
+  + ...
 
-**使用需要注意组件的依赖**
+- [ ] test
+- [ ] docs (rebuild)
+- ...

@@ -1,0 +1,29 @@
+:root {
+  /* color */
+  --c-background: #ffffff;
+  --c-header-background: var(--c-background);
+  --c-aside-background: var(--c-background);
+  --c-tabs-background: var(--c-background);
+  --c-page-background: #f0f2f5;
+  --c-mask-background:  rgba(0, 0, 0, .4);
+  --c-border:  #ebeef5;
+
+  /* size */
+  --aside-width: 240px;
+  --layout-height: 100vh;
+  --header-height: 60px;
+  --footer-height: 50px;
+  --border-radius: 4px;
+
+  /* z-index */
+  --z-index-sidebar: 100;
+
+  /* transition */
+  --t-duration: .3s;
+  --t-timing-function: ease-out;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}

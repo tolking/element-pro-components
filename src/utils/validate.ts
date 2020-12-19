@@ -1,8 +1,7 @@
 /**
  * Check the integrity of the url
- * @param {*} url checkUrl
- * @returns {Boolean}
+ * @param url checkUrl
  */
-export function checkUrl(url) {
+export function checkUrl(url: string): boolean {
   return /^((ht|f)tps?):\/\/?/.test(url)
 }
