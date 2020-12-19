@@ -19,7 +19,7 @@ const components: Record<string, ComponentOptions> = {
   ProTabs,
 }
 
-const install = (app: App) => {
+const install = (app: App): void => {
   for (const key in components) {
     const item = components[key]
     app.component(item.name || key, item)

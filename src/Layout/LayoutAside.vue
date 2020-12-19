@@ -1,14 +1,35 @@
 <template>
-  <aside :class="collapse && 'aside-collapse'" class="pro-aside">
-    <div class="mask" @click="toggleCollapse"></div>
+  <aside
+    :class="collapse && 'aside-collapse'"
+    class="pro-aside"
+  >
+    <div
+      class="mask"
+      @click="toggleCollapse"
+    />
     <div class="pro-aside-wrapper">
-      <div v-if="slots.logo" class="pro-aside-logo">
-        <slot :collapse="menuCollapse" name="logo" />
+      <div
+        v-if="slots.logo"
+        class="pro-aside-logo"
+      >
+        <slot
+          :collapse="menuCollapse"
+          name="logo"
+        />
       </div>
       <el-scrollbar>
-        <pro-menu :routes="routes" :collapse="menuCollapse">
-          <template v-if="slots.menu" #default="item">
-            <slot v-bind="item" name="menu" />
+        <pro-menu
+          :routes="routes"
+          :collapse="menuCollapse"
+        >
+          <template
+            v-if="slots.menu"
+            #default="item"
+          >
+            <slot
+              v-bind="item"
+              name="menu"
+            />
           </template>
         </pro-menu>
       </el-scrollbar>

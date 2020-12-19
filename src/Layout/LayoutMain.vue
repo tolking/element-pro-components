@@ -2,10 +2,17 @@
   <main class="pro-main">
     <router-view v-slot="{ Component, route }">
       <!-- <transition name="transition-main" mode="out-in"> -->
-        <keep-alive v-if="route.meta?.keepAlive">
-          <component :is="Component" :key="route.path" />
-        </keep-alive>
-        <component v-else :is="Component" :key="route.path" />
+      <keep-alive v-if="route.meta?.keepAlive">
+        <component
+          :is="Component"
+          :key="route.path"
+        />
+      </keep-alive>
+      <component
+        :is="Component"
+        v-else
+        :key="route.path"
+      />
       <!-- </transition> -->
     </router-view>
   </main>

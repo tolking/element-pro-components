@@ -1,6 +1,9 @@
 <template>
   <el-breadcrumb class="pro-breadcrumb">
-    <el-breadcrumb-item v-for="item in breadcrumbList" :key="item.path">
+    <el-breadcrumb-item
+      v-for="item in breadcrumbList"
+      :key="item.path"
+    >
       <router-link :to="item.path">
         {{ item.meta.title }}
       </router-link>

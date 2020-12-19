@@ -1,12 +1,24 @@
 <template>
-  <el-menu-item v-if="!hasMultiChild(item)" :index="item.redirect || item.path">
+  <el-menu-item
+    v-if="!hasMultiChild(item)"
+    :index="item.redirect || item.path"
+  >
     <slot v-bind="item" />
   </el-menu-item>
-  <el-submenu v-else :index="item.path">
-    <template v-if="item.meta.icon || item.meta.title" #title>
+  <el-submenu
+    v-else
+    :index="item.path"
+  >
+    <template
+      v-if="item.meta.icon || item.meta.title"
+      #title
+    >
       <slot v-bind="item" />
     </template>
-    <template v-for="child in item.children" :key="child.path">
+    <template
+      v-for="child in item.children"
+      :key="child.path"
+    >
       <menu-item :item="child">
         <slot v-bind="child" />
       </menu-item>

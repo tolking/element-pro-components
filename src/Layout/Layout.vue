@@ -1,11 +1,27 @@
 <template>
   <el-container class="pro-layout">
-    <pro-layout-aside :routes="routes" :collapse="show" @toggle-collapse="toggleShow">
-      <template v-if="slots.logo" #logo="{ collapse }">
-        <slot :collapse="collapse" name="logo" />
+    <pro-layout-aside
+      :routes="routes"
+      :collapse="show"
+      @toggle-collapse="toggleShow"
+    >
+      <template
+        v-if="slots.logo"
+        #logo="{ collapse }"
+      >
+        <slot
+          :collapse="collapse"
+          name="logo"
+        />
       </template>
-      <template v-if="slots.menu" #menu="item">
-        <slot v-bind="item" name="menu" />
+      <template
+        v-if="slots.menu"
+        #menu="item"
+      >
+        <slot
+          v-bind="item"
+          name="menu"
+        />
       </template>
     </pro-layout-aside>
     <el-container class="pro-container is-vertical">
@@ -26,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, toRefs, useContext } from 'vue'
+import { defineProps, toRefs, useContext } from 'vue'
 import { ElContainer, ElScrollbar } from 'element-plus'
 import ProLayoutAside from './LayoutAside.vue'
 import ProLayoutHeader from './LayoutHeader.vue'

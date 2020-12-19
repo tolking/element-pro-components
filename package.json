@@ -1,6 +1,6 @@
 {
-  "name": "element-pro",
-  "version": "0.0.1",
+  "name": "element-pro-components",
+  "version": "0.1.0",
   "description": "element-pro components",
   "main": "lib/index.ssr.js",
   "browser": "lib/index.esm.js",
@@ -10,7 +10,6 @@
   "style": "lib/index.min.css",
   "scripts": {
     "dev": "vite",
-    "watch": "yarn build:es -w",
     "build": "yarn build:ts && yarn build:types && yarn build:style",
     "build:ts": "rimraf lib && cross-env NODE_ENV=production rollup --config build/rollup.config.js",
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
@@ -18,24 +17,28 @@
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
     "build:types": "rimraf types && tsc -d",
     "build:style": "postcss lib/index.css -o lib/index.min.css",
-    "build:example": "vite build"
+    "build:example": "vite build",
+    "lint": "eslint . --fix --ext .ts,.vue"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tolking/element-pro.git"
+    "url": "git+https://github.com/tolking/element-pro-components.git"
   },
   "keywords": [
     "element-pro",
+    "pro-components",
     "admin",
     "element-plus",
-    "components"
+    "components",
+    "vue3",
+    "ui"
   ],
   "author": "<tolking qw13131wang@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tolking/element-pro/issues"
+    "url": "https://github.com/tolking/element-pro-components/issues"
   },
-  "homepage": "https://github.com/tolking/element-pro#readme",
+  "homepage": "https://github.com/tolking/element-pro-components#readme",
   "dependencies": {
     "element-plus": "^1.0.1-beta.5",
     "vue": "^3.0.4",
@@ -47,9 +50,13 @@
     "@babel/preset-typescript": "^7.12.7",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-replace": "^2.3.4",
+    "@typescript-eslint/eslint-plugin": "^4.9.1",
+    "@typescript-eslint/parser": "^4.9.1",
     "@vue/compiler-sfc": "^3.0.4",
     "cross-env": "^7.0.3",
     "cssnano": "^4.1.10",
+    "eslint": "^7.15.0",
+    "eslint-plugin-vue": "^7.2.0",
     "minimist": "^1.2.5",
     "postcss": "^8.2.1",
     "postcss-cli": "^8.3.1",

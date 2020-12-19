@@ -1,12 +1,17 @@
-import { computed, onMounted, ref } from 'vue'
+import { ComputedRef, computed, onMounted, Ref, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import type { ProRouteRecordRaw } from '../types/index'
+
+type ScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 /**
  * toggle show
  * @param state init value (default `false`)
  */
-export function useShow(state: boolean = false) {
+export function useShow(state = false): {
+  show: Ref<boolean>
+  toggleShow: () => void
+} {
   const show = ref(state)
 
   function toggleShow() {
@@ -20,8 +25,8 @@ export function useShow(state: boolean = false) {
 }
 
 /** Gets the responsive breakpoint of the current screen */
-export function useScreenSize() {
-  const size = ref<'xs' | 'sm' | 'md' | 'lg' | 'xl'>('xl')
+export function useScreenSize(): Ref<ScreenSize> {
+  const size = ref<ScreenSize>('xl')
 
   onMounted(() => {
     getScreenSize()
@@ -53,7 +58,7 @@ export function useScreenSize() {
  * routes with no value will get `vue-router` routes
  * @param routes router list
  */
-export function useCurrentRoutes(routes?: ProRouteRecordRaw[]) {
+export function useCurrentRoutes(routes?: ProRouteRecordRaw[]): ComputedRef<ProRouteRecordRaw[]> {
   return computed(() => {
     if (routes && routes.length) {
       return routes

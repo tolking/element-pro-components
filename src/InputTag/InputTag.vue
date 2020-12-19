@@ -2,8 +2,8 @@
   <div class="pro-input-tag">
     <el-tag
       v-for="(item, index) in value"
-      v-bind="tagConfig"
       :key="index"
+      v-bind="tagConfig"
       closable
       @close="closeTag(item)"
     >
