@@ -31,13 +31,18 @@ const router = useRouter()
 const active = ref('')
 const tabsList = ref<ProTabs[]>([])
 
-watch(() => route.path, path => {
-  const title = route.meta.title
-  addTab({ title, path })
-}, { immediate: true })
+watch(
+  () => route.path,
+  (path) => {
+    const title = route.meta.title
+    addTab({ title, path })
+  },
+  { immediate: true }
+)
 
 function addTab(tab: ProTabs) {
-  !tabsList.value.find(item => item.path === tab.path) && tabsList.value.push(tab)
+  !tabsList.value.find((item) => item.path === tab.path) &&
+    tabsList.value.push(tab)
   active.value = tab.path
 }
 
@@ -48,8 +53,8 @@ function toTab(item: { paneName: string }) {
 }
 
 function closeTab(path: string) {
-  const index = tabsList.value.findIndex(item => item.path === path)
-  tabsList.value = tabsList.value.filter(item => item.path !== path)
+  const index = tabsList.value.findIndex((item) => item.path === path)
+  tabsList.value = tabsList.value.filter((item) => item.path !== path)
 
   if (route.path === path && tabsList.value.length) {
     if (index >= 1) {

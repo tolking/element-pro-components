@@ -23,5 +23,7 @@ const props = defineProps<{ routes?: ProRouteRecordRaw[] }>()
 const { routes } = toRefs(props)
 const route = useRoute()
 const currentRoutes = useCurrentRoutes(routes?.value as ProRouteRecordRaw[])
-const breadcrumbList = computed(() => findRouterItemListByPath(currentRoutes.value, route.path))
+const breadcrumbList = computed(() =>
+  findRouterItemListByPath(currentRoutes.value, route.path)
+)
 </script>

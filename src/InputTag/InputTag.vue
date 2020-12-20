@@ -49,7 +49,9 @@ const { modelValue, autocomplete, tag } = toRefs(props)
 const emit = defineEmit(['update:modelValue', 'change'])
 const input = ref('')
 const value = ref(modelValue?.value || [])
-const tagConfig = computed(() => Object.assign({}, tag?.value, { effect: 'light' }))
+const tagConfig = computed(() =>
+  Object.assign({}, tag?.value, { effect: 'light' })
+)
 
 function addTag() {
   if (input.value.trim()) {

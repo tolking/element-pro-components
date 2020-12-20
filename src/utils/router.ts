@@ -4,8 +4,10 @@ import type { RouteRecordRaw } from 'vue-router'
  * Filter out router with `meta.hidden` values
  * @param router router list
  */
-export function filterRouterByHidden(router: RouteRecordRaw[]): RouteRecordRaw[] {
-  return router.filter(item => {
+export function filterRouterByHidden(
+  router: RouteRecordRaw[]
+): RouteRecordRaw[] {
+  return router.filter((item) => {
     if (Array.isArray(item.children)) {
       filterRouterByHidden(item.children)
     }
@@ -18,7 +20,10 @@ export function filterRouterByHidden(router: RouteRecordRaw[]): RouteRecordRaw[]
  * @param router router list
  * @param path route path
  */
-export function findRouterItemListByPath(router: RouteRecordRaw[], path: string): RouteRecordRaw[] {
+export function findRouterItemListByPath(
+  router: RouteRecordRaw[],
+  path: string
+): RouteRecordRaw[] {
   let _router: RouteRecordRaw[] = []
   for (let i = 0; i < router.length; i++) {
     const item = router[i]
