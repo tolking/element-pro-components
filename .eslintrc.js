@@ -9,7 +9,7 @@ module.exports = {
     sourceType: 'module',
     ecmaVersion: 10,
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'prettier'],
   extends: [
     'eslint:recommended',
     'plugin:vue/vue3-recommended',
@@ -18,9 +18,9 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'quotes': ['error', 'single'],
-    'semi': ['error', 'never'],
+    quotes: ['error', 'single'],
+    semi: ['error', 'never'],
     'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': 'off'
-  }
+    '@typescript-eslint/no-unused-vars': 'off',
+  },
 }

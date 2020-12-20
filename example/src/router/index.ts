@@ -14,8 +14,8 @@ const routes = [
         path: '/index',
         component: Home,
         meta: { title: 'Home' },
-      }
-    ]
+      },
+    ],
   },
   {
     path: '/components',
@@ -37,9 +37,9 @@ const routes = [
         path: '/components/ProBreadcrumb',
         component: ProLayout,
         meta: { title: 'ProBreadcrumb' },
-      }
-    ]
-  }
+      },
+    ],
+  },
 ]
 
 const router = createRouter({

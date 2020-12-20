@@ -5,8 +5,8 @@
   --c-aside-background: var(--c-background);
   --c-tabs-background: var(--c-background);
   --c-page-background: #f0f2f5;
-  --c-mask-background:  rgba(0, 0, 0, .4);
-  --c-border:  #ebeef5;
+  --c-mask-background: rgba(0, 0, 0, 0.4);
+  --c-border: #ebeef5;
 
   /* size */
   --aside-width: 240px;
@@ -19,7 +19,7 @@
   --z-index-sidebar: 100;
 
   /* transition */
-  --t-duration: .3s;
+  --t-duration: 0.3s;
   --t-timing-function: ease-out;
 }
 

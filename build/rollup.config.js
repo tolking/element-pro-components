@@ -26,7 +26,8 @@ const globals = {
 }
 
 // Get browserslist config and remove ie from es build targets
-const esbrowserslist = fs.readFileSync('./.browserslistrc')
+const esbrowserslist = fs
+  .readFileSync('./.browserslistrc')
   .toString()
   .split('\n')
   .filter((entry) => entry && entry.substring(0, 2) !== 'ie')
@@ -36,13 +37,8 @@ const argv = minimist(process.argv.slice(2))
 const baseConfig = {
   input: 'src/index.ts',
   plugins: {
-    preVue: [
-      json(),
-      css({ output: 'index.css' }),
-    ],
-    postVue: [
-      esbuild({ tsconfig: '../tsconfig.json' }),
-    ],
+    preVue: [json(), css({ output: 'index.css' })],
+    postVue: [esbuild({ tsconfig: '../tsconfig.json' })],
     replace: {
       'process.env.NODE_ENV': JSON.stringify('production'),
       'process.env.ES_BUILD': JSON.stringify('false'),

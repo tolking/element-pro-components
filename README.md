@@ -9,17 +9,18 @@
 ## TODO:
 
 - components
-  + [x] ProLayout
-  + [x] ProMenu
-  + [x] ProBreadcrumb
-  + [x] ProTabs
-  + [x] ProInputTag
-  + [ ] ProForm
-  + [ ] ProSerach
-  + [ ] ProTable
-  + [ ] ProList
-  + [ ] ProCrud
-  + ...
+
+  - [x] ProLayout
+  - [x] ProMenu
+  - [x] ProBreadcrumb
+  - [x] ProTabs
+  - [x] ProInputTag
+  - [ ] ProForm
+  - [ ] ProSerach
+  - [ ] ProTable
+  - [ ] ProList
+  - [ ] ProCrud
+  - ...
 
 - [ ] test
 - [ ] docs (rebuild)

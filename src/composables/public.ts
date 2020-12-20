@@ -8,7 +8,9 @@ type ScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
  * toggle show
  * @param state init value (default `false`)
  */
-export function useShow(state = false): {
+export function useShow(
+  state = false
+): {
   show: Ref<boolean>
   toggleShow: () => void
 } {
@@ -58,7 +60,9 @@ export function useScreenSize(): Ref<ScreenSize> {
  * routes with no value will get `vue-router` routes
  * @param routes router list
  */
-export function useCurrentRoutes(routes?: ProRouteRecordRaw[]): ComputedRef<ProRouteRecordRaw[]> {
+export function useCurrentRoutes(
+  routes?: ProRouteRecordRaw[]
+): ComputedRef<ProRouteRecordRaw[]> {
   return computed(() => {
     if (routes && routes.length) {
       return routes
