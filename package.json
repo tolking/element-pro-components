@@ -1,7 +1,7 @@
 {
   "name": "element-pro-components",
   "version": "0.1.0",
-  "description": "element-pro components",
+  "description": "a component library for Vue 3 base on element-plus",
   "main": "lib/index.ssr.js",
   "browser": "lib/index.esm.js",
   "module": "lib/index.esm.js",
@@ -18,7 +18,7 @@
     "build:types": "rimraf types && tsc -d",
     "build:style": "postcss lib/index.css -o lib/index.min.css",
     "build:example": "vite build",
-    "lint": "eslint . --fix --ext .ts,.vue,.js --ignore-pattern '/lib/' --ignore-pattern '/types/'",
+    "lint": "eslint . --fix --ext .ts,.vue,.js --ignore-pattern \"/lib/\" --ignore-pattern \"/types/\"",
     "prettier": "prettier --check --write --ignore-unknown \"{build,example,src}/**\""
   },
   "repository": {
@@ -31,7 +31,7 @@
     "admin",
     "element-plus",
     "components",
-    "vue3",
+    "vue",
     "ui"
   ],
   "author": "<tolking qw13131wang@gmail.com>",

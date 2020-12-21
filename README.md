@@ -1,6 +1,6 @@
 # element-pro-components (WIP)
 
-> 基于 element-plus 的后台界面公用组建
+> a component library for Vue 3 base on element-plus
 
 构建中...
 
@@ -25,3 +25,32 @@
 - [ ] test
 - [ ] docs (rebuild)
 - ...
+
+## Installation
+
+```sh
+yarn add element-pro-components
+# or
+npm i element-pro-components
+```
+
+## Usage
+
+```js
+import { createApp } from 'vue'
+import App from './App.vue'
+import ElementPro from 'element-pro-components'
+import 'element-pro-components/lib/index.min.css'
+
+createApp(App).use(ElementPro).mount('#app')
+```
+
+```vue
+<template>
+  <pro-layout />
+</template>
+```
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)

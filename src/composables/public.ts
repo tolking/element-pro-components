@@ -1,5 +1,6 @@
 import { ComputedRef, computed, onMounted, Ref, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { filterRouterByHidden } from '../utils/index'
 import type { ProRouteRecordRaw } from '../types/index'
 
 type ScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
@@ -61,15 +62,17 @@ export function useScreenSize(): Ref<ScreenSize> {
  * @param routes router list
  */
 export function useCurrentRoutes(
-  routes?: ProRouteRecordRaw[]
+  routes?: ProRouteRecordRaw[],
+  roles?: string | string[]
 ): ComputedRef<ProRouteRecordRaw[]> {
   return computed(() => {
     if (routes && routes.length) {
       return routes
     } else {
       const router = useRouter()
+      const _routes = router.options.routes as ProRouteRecordRaw[]
 
-      return router.options.routes as ProRouteRecordRaw[]
+      return filterRouterByHidden(_routes)
     }
   })
 }
