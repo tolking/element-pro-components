@@ -62,8 +62,7 @@ export function useScreenSize(): Ref<ScreenSize> {
  * @param routes router list
  */
 export function useCurrentRoutes(
-  routes?: ProRouteRecordRaw[],
-  roles?: string | string[]
+  routes?: ProRouteRecordRaw[]
 ): ComputedRef<ProRouteRecordRaw[]> {
   return computed(() => {
     if (routes && routes.length) {
