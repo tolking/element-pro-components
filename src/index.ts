@@ -7,6 +7,7 @@ import ProBreadcrumb from './Breadcrumb/index'
 import ProInputTag from './InputTag/index'
 import ProLayout from './Layout/index'
 import ProMenu from './Menu/index'
+import ProTable from './Table/index'
 import ProTabs from './Tabs/index'
 
 const version = process.env.VERSION || '0.0.0'
@@ -16,6 +17,7 @@ const components: Record<string, ComponentOptions> = {
   ProInputTag,
   ProLayout,
   ProMenu,
+  ProTable,
   ProTabs,
 }
 
@@ -31,6 +33,7 @@ export {
   ProInputTag,
   ProLayout,
   ProMenu,
+  ProTable,
   ProTabs,
   version,
   install,
