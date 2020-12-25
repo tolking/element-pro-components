@@ -3,13 +3,22 @@
     :data="data"
     :columns="columns"
     selection
+    expand
     index
     @cell-click="test"
   >
+    <template #date-header="{ column }">
+      <i class="el-icon-time" />
+      <span>{{ column.label }}</span>
+    </template>
     <template #date="{ row }">
       - {{ row.date }} -
     </template>
   </pro-table>
+  <pro-table
+    :data="data"
+    :columns="columns1"
+  />
 </template>
 
 <script setup lang="ts">
@@ -27,6 +36,26 @@ const columns = [
   {
     label: 'Address',
     prop: 'address',
+  },
+]
+const columns1 = [
+  {
+    label: 'Date',
+    prop: 'date',
+  },
+  {
+    label: 'User',
+    children: [
+      {
+        label: 'Name',
+        prop: 'name',
+        slot: true,
+      },
+      {
+        label: 'Address',
+        prop: 'address',
+      },
+    ],
   },
 ]
 const data = [
