@@ -10,3 +10,11 @@ interface ProRouteMeta extends RouteMeta {
   hidden?: boolean
   keepAlive?: boolean
 }
+
+interface ProColumnItem {
+  slot?: boolean
+  children?: ProColumns
+  [key: string]: unknown
+}
+
+export type ProColumns = ProColumnItem[]

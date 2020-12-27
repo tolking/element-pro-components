@@ -17,7 +17,7 @@
   - [x] ProInputTag
   - [ ] ProForm
   - [ ] ProSerach
-  - [ ] ProTable
+  - [x] ProTable
   - [ ] ProList
   - [ ] ProCrud
   - ...
