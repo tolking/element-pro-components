@@ -9,19 +9,21 @@ import esbuild from 'rollup-plugin-esbuild'
 import json from 'rollup-plugin-json'
 import css from 'rollup-plugin-css-only'
 import minimist from 'minimist'
-import { name, version } from '../package.json'
+import { name, version } from './package.json'
 
+// Gets the components name and converts it to camelize
 const pluginName = name.replace(/(^|-)(\w)/g, (a, b, c) => c.toUpperCase())
 
 // ESM/UMD/IIFE shared settings: externals
 // Refer to https://rollupjs.org/guide/en/#warning-treating-module-as-external-dependency
-const external = ['vue', 'vue-router', 'element-plus']
+const external = ['vue', 'vue-router', '@vue/shared', 'element-plus']
 
 // UMD/IIFE shared settings: output.globals
 // Refer to https://rollupjs.org/guide/en#output-globals for details
 const globals = {
   vue: 'Vue',
   'vue-router': 'VueRouter',
+  '@vue/shared': 'Vue',
   'element-plus': 'ElementPlus',
 }
 
@@ -38,7 +40,7 @@ const baseConfig = {
   input: 'src/index.ts',
   plugins: {
     preVue: [json(), css({ output: 'index.css' })],
-    postVue: [esbuild({ tsconfig: '../tsconfig.json' })],
+    postVue: [esbuild({ tsconfig: './tsconfig.json' })],
     replace: {
       'process.env.NODE_ENV': JSON.stringify('production'),
       'process.env.ES_BUILD': JSON.stringify('false'),
