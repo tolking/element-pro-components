@@ -2,6 +2,7 @@ export * from './composables/index'
 export * from './utils/index'
 import './styles/index.css'
 import type { App, ComponentOptions } from 'vue'
+import { config, InstallOptions } from './config'
 
 import ProBreadcrumb from './Breadcrumb/index'
 import ProInputTag from './InputTag/index'
@@ -21,7 +22,11 @@ const components: Record<string, ComponentOptions> = {
   ProTabs,
 }
 
-const install = (app: App): void => {
+const install = (app: App, options?: InstallOptions): void => {
+  const _options = Object.assign({}, config, options)
+
+  app.provide('ProOptions', _options)
+
   for (const key in components) {
     const item = components[key]
     app.component(item.name || key, item)

@@ -17,7 +17,7 @@
           :item="child"
         >
           <template
-            v-for="slot in slotItem"
+            v-for="slot in slotList"
             :key="slot.prop"
             #[slot.header]="childScope"
           >
@@ -29,7 +29,7 @@
             </slot>
           </template>
           <template
-            v-for="slot in slotItem"
+            v-for="slot in slotList"
             :key="slot.prop"
             #[slot.prop]="childScope"
           >
@@ -56,19 +56,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, toRefs } from 'vue'
+import { defineProps, inject, toRefs } from 'vue'
 import { ElTableColumn } from 'element-plus'
-import { useColumnsSlotList } from '../composables'
-import type { ProColumns } from '../types/index'
+import { useColumnsBind, useColumnsSlotList } from '../composables'
+import type { ProColumns, ProColumnsDefaultBind } from '../types/index'
 
 const props = defineProps<{
   item: Record<string, unknown>
 }>()
 const { item } = toRefs(props)
-const slotItem = useColumnsSlotList(item.value.children as ProColumns)
-const bindColumn = computed(() => {
-  const _item = { ...item.value }
-  delete _item.children
-  return _item
-})
+const defaultBind = inject<ProColumnsDefaultBind>('defaultBind')
+const slotList = useColumnsSlotList(item.value.children as ProColumns)
+const bindColumn = useColumnsBind(item, defaultBind)
 </script>

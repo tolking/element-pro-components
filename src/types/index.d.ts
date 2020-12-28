@@ -18,3 +18,10 @@ interface ProColumnItem {
 }
 
 export type ProColumns = ProColumnItem[]
+
+export interface ProColumnsDefaultBind {
+  size?: 'medium' | 'small' | 'mini'
+  showOverflowTooltip: boolean
+  align?: 'left' | 'center' | 'right'
+  headerAlign?: 'left' | 'center' | 'right'
+}

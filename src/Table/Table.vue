@@ -10,6 +10,7 @@
     />
     <el-table-column
       v-if="expand"
+      v-bind="bindExpand"
       type="expand"
     >
       <template #default="scope">
@@ -30,7 +31,7 @@
       :item="item"
     >
       <template
-        v-for="slot in slotItem"
+        v-for="slot in slotList"
         :key="slot.prop"
         #[slot.header]="scope"
       >
@@ -42,7 +43,7 @@
         </slot>
       </template>
       <template
-        v-for="slot in slotItem"
+        v-for="slot in slotList"
         :key="slot.prop"
         #[slot.prop]="scope"
       >
@@ -55,6 +56,21 @@
       </template>
     </pro-table-item>
     <slot />
+    <template #append>
+      <slot name="append" />
+    </template>
+    <el-table-column
+      v-if="menu"
+      v-bind="bindMenu"
+      type="menu"
+    >
+      <template #default="scope">
+        <slot
+          v-bind="scope"
+          name="menu"
+        />
+      </template>
+    </el-table-column>
   </el-table>
   <el-pagination
     v-bind="bindPagination"
@@ -70,21 +86,29 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineEmit, defineProps, toRefs, useContext } from 'vue'
+import { defineProps, provide, toRefs, useContext, defineEmit } from 'vue'
 import { ElTable, ElTableColumn, ElPagination } from 'element-plus'
-import { isObject } from '@vue/shared'
-import { useColumnsSlotList } from '../composables'
+import {
+  useColumnsBind,
+  useColumnsDefaultBind,
+  useColumnsSlotList,
+  usePaginationBind,
+} from '../composables'
 import ProTableItem from './TableItem.vue'
 
 const props = defineProps<{
   selection: boolean | Record<string, unknown>
-  expand: boolean
+  expand: boolean | Record<string, unknown>
   index: boolean | Record<string, unknown>
+  menu: boolean | Record<string, unknown>
   columns: Record<string, unknown>[]
   total: number
   pageSize: number
   currentPage: number
   pagination?: Record<string, unknown>
+  showOverflowTooltip: boolean
+  align?: 'left' | 'center' | 'right'
+  headerAlign?: 'left' | 'center' | 'right'
 }>()
 const emit = defineEmit([
   'update:currentPage',
@@ -99,27 +123,22 @@ const {
   selection,
   expand,
   index,
+  menu,
   columns,
   total,
   pageSize,
   currentPage,
   pagination,
 } = toRefs(props)
-const slotItem = useColumnsSlotList(columns.value)
-const bindSelection = computed(() => {
-  return selection.value && isObject(selection.value) && selection.value
-})
-const bindIndex = computed(() => {
-  return index.value && isObject(index.value) && index.value
-})
-const bindPagination = computed(() => {
-  const _default = {
-    background: true,
-    layout: 'total, sizes, prev, pager, next, jumper',
-  }
+const slotList = useColumnsSlotList(columns)
+const defaultBind = useColumnsDefaultBind(props)
+const bindSelection = useColumnsBind(selection, defaultBind)
+const bindExpand = useColumnsBind(expand, defaultBind)
+const bindIndex = useColumnsBind(index, defaultBind)
+const bindMenu = useColumnsBind(menu, defaultBind)
+const bindPagination = usePaginationBind(pagination)
 
-  return Object.assign(_default, pagination?.value)
-})
+provide('defaultBind', defaultBind)
 
 function sizeChange(size: number) {
   emit('update:pageSize', size)

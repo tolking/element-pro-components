@@ -5,9 +5,11 @@
     :data="data"
     :columns="columns"
     :total="total"
+    :index="{ label: '#' }"
+    :menu="{ label: 'Menu' }"
     selection
     expand
-    index
+    align="center"
     @cell-click="test"
     @current-change="test"
   >
@@ -20,6 +22,14 @@
     </template>
     <template #date="{ row }">
       - {{ row.date }} -
+    </template>
+    <template #menu="{ size }">
+      <el-button
+        type="text"
+        :size="size"
+      >
+        test{{ size }}
+      </el-button>
     </template>
   </pro-table>
   <pro-table
@@ -37,6 +47,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { ElButton } from 'element-plus'
 
 const columns = [
   {
