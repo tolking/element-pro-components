@@ -60,16 +60,16 @@ export function usePaginationBind(
     if (_pagination) {
       return _pagination
     } else {
-      const options = inject<{ pagination: Record<string, unknown> }>(
-        'ProOptions'
-      )
+      const options = inject<{
+        pagination: Record<string, unknown>
+      }>('ProOptions')
 
       if (options) {
         return options.pagination
       } else {
-        const tableOptions = inject<{ pagination: Record<string, unknown> }>(
-          'ProTableOptions'
-        )
+        const tableOptions = inject<{
+          pagination: Record<string, unknown>
+        }>('ProTableOptions')
 
         return tableOptions ? tableOptions.pagination : config.pagination
       }

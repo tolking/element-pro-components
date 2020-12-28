@@ -1,4 +1,4 @@
-import { ComputedRef, computed, onMounted, Ref, ref } from 'vue'
+import { ComputedRef, computed, onMounted, Ref, ref, unref } from 'vue'
 import { useRouter } from 'vue-router'
 import { filterRouterByHidden } from '../utils/index'
 import type { ProRouteRecordRaw } from '../types/index'
@@ -62,11 +62,13 @@ export function useScreenSize(): Ref<ScreenSize> {
  * @param routes router list
  */
 export function useCurrentRoutes(
-  routes?: ProRouteRecordRaw[]
+  routes?: ProRouteRecordRaw[] | Ref<ProRouteRecordRaw[]>
 ): ComputedRef<ProRouteRecordRaw[]> {
+  const _routes = unref(routes)
+
   return computed(() => {
-    if (routes && routes.length) {
-      return routes
+    if (_routes && _routes.length) {
+      return _routes
     } else {
       const router = useRouter()
       const _routes = router.options.routes as ProRouteRecordRaw[]

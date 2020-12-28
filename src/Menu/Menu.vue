@@ -24,6 +24,7 @@
 
 <script setup lang="ts">
 import { computed, defineProps, toRefs } from 'vue'
+import type { Ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMenu } from 'element-plus'
 import ProMenuItem from './MenuItem.vue'
@@ -35,7 +36,7 @@ const props = defineProps<{ routes?: ProRouteRecordRaw[] }>()
 const { routes } = toRefs(props)
 const route = useRoute()
 const router = useRouter()
-const currentRoutes = useCurrentRoutes(routes?.value as ProRouteRecordRaw[])
+const currentRoutes = useCurrentRoutes(routes as Ref<ProRouteRecordRaw[]>)
 
 function handleSelect(path: string) {
   if (checkUrl(path)) {

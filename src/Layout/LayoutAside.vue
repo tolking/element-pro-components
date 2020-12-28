@@ -52,9 +52,9 @@ const { collapse, routes } = toRefs(props)
 const emit = defineEmit(['toggle-collapse'])
 const { slots } = useContext()
 const size = useScreenSize()
-const menuCollapse = computed(() =>
-  size.value === 'xs' ? false : collapse.value
-)
+const menuCollapse = computed(() => {
+  return size.value === 'xs' ? false : collapse.value
+})
 
 function toggleCollapse() {
   emit('toggle-collapse')
