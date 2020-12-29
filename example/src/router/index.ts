@@ -3,6 +3,7 @@ import BaseLayout from '../layout/Layout.vue'
 import Home from '../views/Home.vue'
 import Layout from '../views/Layout.vue'
 import Table from '../views/Table.vue'
+import Form from '../views/Form.vue'
 
 const routes = [
   {
@@ -35,9 +36,9 @@ const routes = [
         meta: { title: 'Table' },
       },
       {
-        path: '/components/ProBreadcrumb',
-        component: Layout,
-        meta: { title: 'ProBreadcrumb' },
+        path: '/components/Form',
+        component: Form,
+        meta: { title: 'Form' },
       },
     ],
   },
