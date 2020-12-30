@@ -24,13 +24,15 @@ export function useFormItemBind(
     | Ref<boolean | Record<string, unknown>>
 ): ComputedRef<Record<string, unknown>> {
   const _currentBind = unref(currentBind)
-  const _option = isObject(_currentBind) ? { ..._currentBind } : undefined
+  const _option = isObject(_currentBind) ? { ..._currentBind } : {}
 
   if (_option) {
     delete _option.slot
     delete _option.component
+    delete _option.max
+    delete _option.props
     delete _option.children
   }
 
-  return computed(() => Object.assign({}, _option))
+  return computed(() => _option)
 }
