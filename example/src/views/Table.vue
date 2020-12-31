@@ -10,6 +10,7 @@
     selection
     expand
     align="center"
+    size="small"
     @cell-click="test"
     @current-change="test"
   >
@@ -25,8 +26,8 @@
     </template>
     <template #menu="{ size }">
       <el-button
-        type="text"
         :size="size"
+        type="text"
       >
         test{{ size }}
       </el-button>

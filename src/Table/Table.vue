@@ -67,6 +67,7 @@
       <template #default="scope">
         <slot
           v-bind="scope"
+          :size="attrs.size"
           name="menu"
         />
       </template>

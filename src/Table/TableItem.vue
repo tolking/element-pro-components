@@ -42,11 +42,13 @@
           </template>
         </table-item>
       </template>
-      <template v-if="item.slot">
+      <template v-else-if="item.slot">
         <slot
           v-bind="scope"
           :name="item.prop"
-        />
+        >
+          {{ scope.row[item.prop] }}
+        </slot>
       </template>
       <template v-else>
         {{ scope.row[item.prop] }}
