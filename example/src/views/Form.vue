@@ -8,11 +8,14 @@
       <i class="el-icon-time" />
       <span>Date</span>
     </template>
-    <template #date>
-      <span>- date -</span>
+    <template #date="{ item, value, setValue }">
+      <span>{{ item }} - {{ value }} - {{ setValue }}</span>
     </template>
-    <template #address>
-      <el-input type="number" />
+    <template #address="{ value, setValue }">
+      <el-input
+        :model-value="value"
+        @update:modelValue="setValue"
+      />
     </template>
     <template #menu>
       <el-button type="primary">
@@ -26,6 +29,12 @@
     :columns="columns1"
     label-width="120px"
   >
+    <template #address="{ value, setValue }">
+      <el-input
+        :model-value="value"
+        @update:modelValue="setValue"
+      />
+    </template>
     <template #menu>
       <el-button type="primary">
         Submit
@@ -83,6 +92,7 @@ const columns1 = [
         label: 'Address',
         prop: 'address',
         component: 'el-input',
+        slot: true,
       },
     ],
   },

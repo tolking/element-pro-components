@@ -7,7 +7,10 @@
       v-if="item.slot"
       #label
     >
-      <slot :name="item.prop + '-label'" />
+      <slot
+        :name="item.prop + '-label'"
+        :item="item"
+      />
     </template>
     <template
       v-if="item.slot"
@@ -16,6 +19,7 @@
       <slot
         v-bind="scope"
         :name="item.prop + '-error'"
+        :item="item"
       />
     </template>
     <template #default>
@@ -49,9 +53,12 @@
                 <template
                   v-for="slot in slotList"
                   :key="slot.prop"
-                  #[slot.labelSlot]
+                  #[slot.labelSlot]="scope"
                 >
-                  <slot :name="slot.labelSlot" />
+                  <slot
+                    v-bind="scope"
+                    :name="slot.labelSlot"
+                  />
                 </template>
                 <template
                   v-for="slot in slotList"
@@ -66,9 +73,12 @@
                 <template
                   v-for="slot in slotList"
                   :key="slot.prop"
-                  #[slot.prop]
+                  #[slot.prop]="scope"
                 >
-                  <slot :name="slot.prop" />
+                  <slot
+                    v-bind="scope"
+                    :name="slot.prop"
+                  />
                 </template>
               </form-item>
             </div>
@@ -94,7 +104,12 @@
         </template>
       </template>
       <template v-else-if="item.slot">
-        <slot :name="item.prop">
+        <slot
+          :name="item.prop"
+          :item="item"
+          :value="modelValue[item.prop]"
+          :setValue="(value) => upData(item.prop, value)"
+        >
           <pro-form-component
             :is="item.component"
             :model-value="modelValue[item.prop]"

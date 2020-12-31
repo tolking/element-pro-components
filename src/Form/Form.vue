@@ -14,9 +14,12 @@
       <template
         v-for="slot in slotList"
         :key="slot.prop"
-        #[slot.labelSlot]
+        #[slot.labelSlot]="scope"
       >
-        <slot :name="slot.labelSlot" />
+        <slot
+          v-bind="scope"
+          :name="slot.labelSlot"
+        />
       </template>
       <template
         v-for="slot in slotList"
@@ -31,9 +34,12 @@
       <template
         v-for="slot in slotList"
         :key="slot.prop"
-        #[slot.prop]
+        #[slot.prop]="scope"
       >
-        <slot :name="slot.prop" />
+        <slot
+          v-bind="scope"
+          :name="slot.prop"
+        />
       </template>
     </pro-form-item>
     <slot />
