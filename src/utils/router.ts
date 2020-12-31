@@ -1,12 +1,12 @@
-import type { RouteRecordRaw } from 'vue-router'
+import type { ProRouteRecordRaw } from '../types/index'
 
 /**
  * Filter out router with `meta.hidden` values
  * @param router router list
  */
 export function filterRouterByHidden(
-  router: RouteRecordRaw[]
-): RouteRecordRaw[] {
+  router: ProRouteRecordRaw[]
+): ProRouteRecordRaw[] {
   return router.filter((item) => {
     if (Array.isArray(item.children)) {
       filterRouterByHidden(item.children)
@@ -21,10 +21,10 @@ export function filterRouterByHidden(
  * @param path route path
  */
 export function findRouterItemListByPath(
-  router: RouteRecordRaw[],
+  router: ProRouteRecordRaw[],
   path: string
-): RouteRecordRaw[] {
-  let _router: RouteRecordRaw[] = []
+): ProRouteRecordRaw[] {
+  let _router: ProRouteRecordRaw[] = []
   for (let i = 0; i < router.length; i++) {
     const item = router[i]
     if (item.path === path) {

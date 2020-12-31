@@ -1,13 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Layout from '../layout/Layout.vue'
+import BaseLayout from '../layout/Layout.vue'
 import Home from '../views/Home.vue'
-import ProLayout from '../views/ProLayout.vue'
+import Layout from '../views/Layout.vue'
+import Table from '../views/Table.vue'
+import Form from '../views/Form.vue'
 
 const routes = [
   {
     path: '/',
     redirect: '/index',
-    component: Layout,
+    component: BaseLayout,
     meta: { title: 'Home', icon: 'el-icon-house' },
     children: [
       {
@@ -19,24 +21,24 @@ const routes = [
   },
   {
     path: '/components',
-    redirect: '/components/ProLayout',
-    component: Layout,
+    redirect: '/components/Layout',
+    component: BaseLayout,
     meta: { title: 'Components', icon: 'el-icon-takeaway-box' },
     children: [
       {
-        path: '/components/ProLayout',
-        component: ProLayout,
-        meta: { title: 'ProLayout' },
+        path: '/components/Layout',
+        component: Layout,
+        meta: { title: 'Layout' },
       },
       {
-        path: '/components/ProMenu',
-        component: ProLayout,
-        meta: { title: 'ProMenu' },
+        path: '/components/Table',
+        component: Table,
+        meta: { title: 'Table' },
       },
       {
-        path: '/components/ProBreadcrumb',
-        component: ProLayout,
-        meta: { title: 'ProBreadcrumb' },
+        path: '/components/Form',
+        component: Form,
+        meta: { title: 'Form' },
       },
     ],
   },

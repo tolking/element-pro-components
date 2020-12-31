@@ -8,6 +8,7 @@
 babel.config.js
 postcss.config.js
 tsconfig.json
+rollup.config.js
 vite.config.ts
 
 .github/
