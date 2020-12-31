@@ -1,12 +1,28 @@
 ---
 title: 介绍
-lang: zh-CN
 description: 为了实现业务逻辑，自己改写的部分 components 组件
 ---
 
 # 介绍 (TODO: rebuild)
 
 为了实现业务逻辑，自己改写的部分 components 组件
+
+::: demo 简单介绍
+
+<p>{{ list }}</p>
+<pro-input-tag v-model="list" />
+
+<script>
+export default {
+  data() {
+    return {
+      list: []
+    }
+  }
+}
+</script>
+
+:::
 
 ## 下载
 
@@ -18,7 +34,7 @@ description: 为了实现业务逻辑，自己改写的部分 components 组件
 
 1. 全局注册
 
-``` js
+```js
 // src-> main.js
 import Vue from 'vue'
 import XXX from '@/components/XXX'
@@ -28,11 +44,11 @@ Vue.use(XXX)
 
 2. 直接引用
 
-``` js
+```js
 import XXX from '@/components/XXX'
 
 export default {
-  components: { XXX }
+  components: { XXX },
 }
 ```
 
