@@ -1,109 +1,54 @@
 ---
 title: Layout
-lang: zh-CN
-description: 默认的布局组建
 ---
 
 # Layout
 
-> 默认的布局组建
-
-## 作用
-
-默认的界面布局
+> 基础的中后台布局界面组件，与 `vue-router` 高度绑定
 
 ## 使用
 
-**默认效果**
+**效果**
 
-::: demo 部分颜色会与实际有所不同
-<template>
-  <pro-layout :routers="routers" />
-</template>
+TODO: 截图
 
-<script>
-export default {
-  data() {
-    return {
-      routers: [
-        { path: '/login', hidden: true },
-        { path: '/404', hidden: true },
-        {
-          path: '/',
-          redirect: '/index',
-          meta: { title: '首页', icon: 'el-icon-house' },
-          children: [{
-            path: '/index'
-          }]
-        },
-        {
-          path: '/components',
-          meta: { title: '组建', icon: 'el-icon-files' },
-          children: [
-            {
-              path: '/components/Layout.html',
-              meta: { title: '布局组建' }
-            },
-            {
-              path: '/components/Breadcrumb.html',
-              meta: { title: '面包屑' }
-            }
-          ]
-        },
-        {
-          path: '/setting',
-          redirect: '/setting/index',
-          meta: { title: '设置', icon: 'el-icon-setting' },
-          children: [
-             {
-              path: '/setting/index',
-              meta: { title: '个人资料', icon: 'el-icon-user' }
-            },
-            {
-              path: '/setting/password',
-              meta: { title: '修改密码', icon: 'el-icon-edit' }
-            }
-          ]
-        }
-      ]
-    }
-  }
-}
-</script>
-:::
+@[code lang=vue](@/example/src/layout/layout.vue)
 
 ## 配置
 
-asideWidth
-- type: `String`
-- default: `300px`
+### routes (可选)
 
-侧边宽度
+自定义生成侧边菜单栏的路由
 
-headerHeight
-- type: `String`
-- default: `60px`
+::: tip 提示如果没有传值，将自动从 `vue-router` 中获取路由并排除 `meta: { hidden: true }` 的路由 :::
 
-顶栏高度
+类型:
 
-showFooter
-- type: `Boolean`
-- default: `true`
+仅扩展 meta，其它同 `vue-router`
 
-是否显示底栏
+```ts
+interface ProRouteMeta extends RouteMeta {
+  title?: string // 用于显示菜单标题
+  icon?: string // 用于显示菜单图标
+  hidden?: boolean // 用于判断是否显示
+  keepAlive?: boolean // 控制 keepAlive
+}
+```
 
-footerHeight
-- type: `String`
-- default: `60px`
+##### 参考
 
-底栏高度
-
-**其它参考 `Menu`**
+@[code](@/example/src/router/index.ts)
 
 ## 插槽
 
-- asideTop
-- asideBottom
-- headerLeft 会替换默认 ProBreadcrumb
-- headerRight
-- footer 会替换默认
+| name          | 说明                                                         |
+| :------------ | :----------------------------------------------------------- |
+| logo          | 自定义 Logo，参数为 { collapse } collapse-当前菜单栏是否折叠 |
+| menu          | 控制菜单显示，参数为 { meta, path, redirect } 等             |
+| left-header   | 头部左侧内容                                                 |
+| right-header  | 头部右侧内容                                                 |
+| bottom-header | 头部下面内容                                                 |
+
+## 样式配置
+
+[参考](../guide/theme#提供配置的参数)

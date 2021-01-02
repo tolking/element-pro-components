@@ -1,5 +1,5 @@
 export interface InstallOptions {
-  pagination?: Record<string, unknown>
+  pagination?: Record<string, unknown> // pagination Attributes
 }
 
 export const config: Required<InstallOptions> = {

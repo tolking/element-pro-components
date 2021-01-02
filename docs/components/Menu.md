@@ -1,80 +1,35 @@
 ---
 title: Menu
-lang: zh-CN
-description: 封装默认的NavMenu，通过路由生成菜单栏
 ---
 
 # Menu
 
-> 封装默认的 `NavMenu`，通过路由生成菜单栏
-
-## 作用
-
-根据路由情况生成菜单栏
+> 封装默认 Menu 通过传入路由或者自动获取路由生成导航，与 `vue-router` 高度绑定
 
 ## 使用
 
-**效果**
-
-::: demo 通过 `mode` 来控制显示模式
+```vue
 <template>
-  <pro-menu :routers="routers" mode="horizontal" />
-  <br>
-  <div style="width: 250px">
-    <pro-menu :routers="routers" />
-  </div>
+  <pro-menu />
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      // 路由的大致结构
-      routers: [
-        { path: '/login', hidden: true },
-        { path: '/404', hidden: true },
-        {
-          path: '/',
-          redirect: '/index',
-          meta: { title: '首页', icon: 'el-icon-s-home' },
-          children: [{
-            path: '/index'
-          }]
-        },
-        {
-          path: '/setting',
-          redirect: '/setting/index',
-          meta: { title: '设置', icon: 'el-icon-setting' },
-          children: [
-             {
-              path: '/setting/index',
-              meta: { title: '个人资料', icon: 'el-icon-user' }
-            },
-            {
-              path: '/setting/password',
-              meta: { title: '修改密码' }
-            }
-          ]
-        }
-      ]
-    }
-  }
-}
-</script>
-:::
+```
 
 ## 配置
 
-routers
-- type: `Array`
-- default: `this.$router.options.routes`
+### routes (可选)
 
-需要生成菜单的路由数组 (默认移除 `hidden: true` 的路由)，如果是动态生成的路由需要传入此参数，或者将生成的路由增加到 `this.$router.options.routes`
+自定义生成侧边菜单栏的路由
 
-default-active
-- type: `String`
-- default: `this.$route.path`
+::: tip 提示如果没有传值，将自动从 `vue-router` 中获取路由并排除 `meta: { hidden: true }` 的路由 :::
 
-当前激活菜单的 index
+类型: 同 Layout
 
-其它同 `NavMenu` 
+### 其它配置
+
+同 [ElMenu](https://element-plus.gitee.io/#/zh-CN/component/menu)
+
+## 插槽
+
+| name | 说明                                             |
+| :--- | :----------------------------------------------- |
+| -    | 控制菜单显示，参数为 { meta, path, redirect } 等 |

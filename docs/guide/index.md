@@ -1,57 +1,71 @@
 ---
-title: 介绍
-description: 为了实现业务逻辑，自己改写的部分 components 组件
+title: 快速上手
 ---
 
-# 介绍 (TODO: rebuild)
+# 快速上手
 
-为了实现业务逻辑，自己改写的部分 components 组件
+## 安装
 
-::: demo 简单介绍
-
-<p>{{ list }}</p>
-<pro-input-tag v-model="list" />
-
-<script>
-export default {
-  data() {
-    return {
-      list: []
-    }
-  }
-}
-</script>
-
-:::
-
-## 下载
-
-**使用需要注意组件的依赖**
-
-直接将需要组件放置于 `src-> components` 下面
-
-## 注册
-
-1. 全局注册
-
-```js
-// src-> main.js
-import Vue from 'vue'
-import XXX from '@/components/XXX'
-
-Vue.use(XXX)
+```sh
+yarn add element-pro-components
+# or
+npm i element-pro-components
 ```
 
-2. 直接引用
+## 完整引入
 
 ```js
-import XXX from '@/components/XXX'
+import { createApp } from 'vue'
+import App from './App.vue'
+import ElementPro from 'element-pro-components'
+import 'element-pro-components/lib/index.min.css'
 
-export default {
-  components: { XXX },
-}
+const app = createApp(App)
+
+app.use(ElementPro)
+app.mount('#app')
 ```
 
-## 使用
+## 按需引入
 
-**使用需要注意，部分组件可能需要修改内部（例如：ImgUpload）**
+```js
+import { createApp } from 'vue'
+import App from './App.vue'
+import { ProLayout } from 'element-pro-components'
+import 'element-pro-components/lib/index.min.css'
+
+const app = createApp(App)
+
+app.use(ProLayout)
+// 或者
+app.component('ProLayout', ProLayout)
+app.mount('#app')
+```
+
+::: tip 提示与 `Element Plus` 不同，样式不支持按需引入，由于只包含少量必要样式，不太会提供相同功能。
+
+完整组件列表[参考里面的 components](https://github.com/tolking/element-pro-components/blob/master/src/index.ts) :::
+
+::: tip 提示在导出组件的同时，一起导出的还包括内部使用的[utils](https://github.com/tolking/element-pro-components/blob/master/src/utils/index.ts)与[composables](https://github.com/tolking/element-pro-components/blob/master/src/composables/public.ts)，如果需要可以引用使用 :::
+
+## 全局配置
+
+##### 参考
+
+@[code](@/src/config.ts)
+
+##### 配置
+
+```js
+app.use(ElementPro, {
+  pagination: {
+    small: true,
+    hideOnSinglePage: true,
+    layout: 'prev, pager, next',
+  },
+})
+```
+
+## 开始使用
+
+@[code lang=vue](@/example/src/layout/layout.vue)

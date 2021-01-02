@@ -1,55 +1,33 @@
 ---
 title: Breadcrumb
-lang: zh-CN
-description: 封装的面包屑组建
 ---
 
 # Breadcrumb
 
-> 基于 breadcrumb breadcrumb-item 的自动生成面包屑组建
-
-## 作用
-
-根据路由自动生成面包屑
+> 根据当前页面路由自动生成面包屑，与 `vue-router` 高度绑定
 
 ## 使用
 
-**效果**
-
-::: demo
+```vue
 <template>
-  <pro-breadcrumb :routers="routers" />
+  <pro-layout>
+    <template #left-header>
+      <pro-breadcrumb />
+    </template>
+  </pro-layout>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      // test ProBreadcrumb
-      routers: [
-        {
-          path: '/components',
-          meta: { title: '组建' },
-          children: [
-            {
-              path: '/components/Breadcrumb.html',
-              meta: { title: '面包屑' }
-            }
-          ]
-        }
-      ]
-    }
-  }
-}
-</script>
-:::
+```
 
 ## 配置
 
-routers
-- type: `Array`
-- default: `this.$router.options.routes`
+### routes (可选)
 
-需要生成面包屑的路由数组，如果是动态生成的路由需要传入此参数，或者将生成的路由增加到 `this.$router.options.routes`
+自定义生成侧边菜单栏的路由
 
-其它同 `Breadcrumb`
+::: tip 提示如果没有传值，将自动从 `vue-router` 中获取路由并排除 `meta: { hidden: true }` 的路由 :::
+
+类型: 同 Layout
+
+### 其它配置
+
+同 [ElBreadcrumb](https://element-plus.gitee.io/#/zh-CN/component/breadcrumb)

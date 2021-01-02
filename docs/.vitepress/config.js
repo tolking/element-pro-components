@@ -17,6 +17,7 @@ const filterHtml = (demoMap, tokens) => {
 }
 
 module.exports = {
+  // NOTE: Only Chinese documentation are provided for the time being, and English documentation may be added in the future
   lang: 'zh-CN',
   base:
     process.env.NODE_ENV === 'development' ? '/' : '/element-pro-components/',
@@ -25,9 +26,36 @@ module.exports = {
   themeConfig: {
     nav: [
       { text: '指南', link: '/guide/' },
-      { text: '组件', link: '/components/' },
+      { text: '组件', link: '/components/Layout' },
     ],
-    sidebar: 'auto',
+    sidebar: {
+      '/guide/': [
+        { text: '快速上手', link: '/guide/' },
+        { text: '自定义主题', link: '/guide/theme' },
+      ],
+      '/components/': [
+        {
+          text: 'Layout',
+          children: [
+            { text: 'Layout', link: '/components/Layout' },
+            { text: 'Menu', link: '/components/Menu' },
+            { text: 'Breadcrumb', link: '/components/Breadcrumb' },
+            { text: 'Tabs', link: '/components/Tabs' },
+          ],
+        },
+        {
+          text: 'Form',
+          children: [
+            { text: 'Form', link: '/components/Form' },
+            { text: 'InputTag', link: '/components/InputTag' },
+          ],
+        },
+        {
+          text: 'Table',
+          children: [{ text: 'Table', link: '/components/Table' }],
+        },
+      ],
+    },
     repo: 'tolking/element-pro-components',
     docsDir: 'docs',
     editLinks: true,
