@@ -1,6 +1,6 @@
 ---
 title: Table
----
+--- 
 
 # Table
 
@@ -10,10 +10,21 @@ title: Table
 
 1. 普通表格
 
-::: demo 通过传入 columns 实现生成表单 <template> <pro-table v-model:current-page="currentPage" v-model:page-size="pageSize" :data="data" :columns="columns" :total="50" :index="{ label: '#' }" :menu="{ label: 'Menu' }" selection expand align="center" size="small"
-
->
-
+::: demo 通过传入 columns 实现生成表单
+<template>
+  <pro-table
+    v-model:current-page="currentPage"
+    v-model:page-size="pageSize"
+    :data="data"
+    :columns="columns"
+    :total="50"
+    :index="{ label: '#' }"
+    :menu="{ label: 'Menu' }"
+    selection
+    expand
+    align="center"
+    size="small"
+  >
     <template #expand="{ row }">
       {{ row }}
     </template>
@@ -32,7 +43,6 @@ title: Table
         test{{ size }}
       </el-button>
     </template>
-
   </pro-table>
 </template>
 
@@ -84,19 +94,22 @@ export default {
   }
 }
 </script>
-
 :::
 
 2. 多级表头
 
-::: demo 通过配置 columns 的 children 配置多级表头 <template> <pro-table v-model:current-page="currentPage" v-model:page-size="pageSize" :data="data" :columns="columns1" :total="total"
-
->
-
+::: demo 通过配置 columns 的 children 配置多级表头
+<template>
+  <pro-table
+    v-model:current-page="currentPage"
+    v-model:page-size="pageSize"
+    :data="data"
+    :columns="columns1"
+    :total="total"
+  >
     <template #name="{ row }">
       - {{ row.name }} -
     </template>
-
   </pro-table>
 </template>
 
@@ -149,7 +162,6 @@ const data = [
   },
 ]
 </script>
-
 :::
 
 ## 配置 TODO:
@@ -158,10 +170,11 @@ const data = [
 
 自动生成表单的参数，由下面字段组成的数组
 
-| 参数     | 说明                   | 类型    | 默认值 |
-| :------- | :--------------------- | :------ | :----- |
-| slot     | 是否开启自定义插槽功能 | boolean | false  |
-| children | 实现多级表头           | array   | -      |
+| 参数 | 说明 | 类型 | 默认值 |
+| :-- | :-- | :-- | :-- |
+| slot | 是否开启自定义插槽功能 | boolean | false |
+| children | 实现多级表头 | array | - |
+
 
 ### 其它配置
 
@@ -178,4 +191,6 @@ const data = [
 | [prop] | 当前这列的内容，参数为 { row, column, $index } |
 | [prop]-header | 当前这列表头的内容，参数为 { column, $index } |
 
-::: tip 提示 [prop] 为 columns 中定义的 prop :::
+::: tip 提示
+[prop] 为 columns中定义的prop
+:::

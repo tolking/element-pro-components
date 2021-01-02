@@ -21,7 +21,7 @@
     "build:example": "vite build",
     "build:docs": "cross-env NODE_ENV=production vitepress build docs",
     "lint": "eslint . --fix --ext .ts,.vue,.js --ignore-pattern \"/lib/\" --ignore-pattern \"/types/\"",
-    "prettier": "prettier --check --write --ignore-unknown \"{docs,example,src}/**\""
+    "prettier": "prettier --check --write --ignore-unknown \"{example,src}/**\""
   },
   "repository": {
     "type": "git",

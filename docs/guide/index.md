@@ -42,11 +42,15 @@ app.component('ProLayout', ProLayout)
 app.mount('#app')
 ```
 
-::: tip 提示与 `Element Plus` 不同，样式不支持按需引入，由于只包含少量必要样式，不太会提供相同功能。
+::: tip 提示
+与 `Element Plus` 不同，样式不支持按需引入，由于只包含少量必要样式，不太会提供相同功能。
 
-完整组件列表[参考里面的 components](https://github.com/tolking/element-pro-components/blob/master/src/index.ts) :::
+完整组件列表[参考里面的 components](https://github.com/tolking/element-pro-components/blob/master/src/index.ts)
+:::
 
-::: tip 提示在导出组件的同时，一起导出的还包括内部使用的[utils](https://github.com/tolking/element-pro-components/blob/master/src/utils/index.ts)与[composables](https://github.com/tolking/element-pro-components/blob/master/src/composables/public.ts)，如果需要可以引用使用 :::
+::: tip 提示
+在导出组件的同时，一起导出的还包括内部使用的[utils](https://github.com/tolking/element-pro-components/blob/master/src/utils/index.ts)与[composables](https://github.com/tolking/element-pro-components/blob/master/src/composables/public.ts)，如果需要可以引用使用
+:::
 
 ## 全局配置
 

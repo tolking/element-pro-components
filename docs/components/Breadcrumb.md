@@ -24,7 +24,9 @@ title: Breadcrumb
 
 自定义生成侧边菜单栏的路由
 
-::: tip 提示如果没有传值，将自动从 `vue-router` 中获取路由并排除 `meta: { hidden: true }` 的路由 :::
+::: tip 提示
+如果没有传值，将自动从 `vue-router` 中获取路由并排除 `meta: { hidden: true }` 的路由
+:::
 
 类型: 同 Layout
 
