@@ -2,17 +2,14 @@
   <div
     :class="{ hover: isHover }"
     class="pro-code"
-    @mouseenter="isHover = true"
-    @mouseleave="isHover = false"
+    @mouseenter="enter"
+    @mouseleave="leave"
   >
     <div class="source">
       <slot />
     </div>
-    <div class="meta">
-      <div
-        v-if="$slots.description && $slots.description[0].children"
-        class="description"
-      >
+    <div ref="meta" class="meta">
+      <div v-if="$slots.description" class="description">
         <slot name="description" />
       </div>
       <div class="language-html">
@@ -23,125 +20,98 @@
       :class="{ 'is-fixed': isFixContorl }"
       ref="control"
       class="control"
-      @click="isExpanded = !isExpanded"
+      @click="toggleShow"
     >
       <i
         :class="[
-          isExpanded ? 'el-icon-caret-top' : 'el-icon-caret-bottom',
+          show ? 'el-icon-caret-top' : 'el-icon-caret-bottom',
           isHover ? 'is-hover' : '',
         ]"
       />
       <transition name="text-slide">
-        <span v-show="isHover" :class="{ 'is-hover': isHover }">{{
-          controlText
-        }}</span>
+        <span v-show="isHover" :class="{ 'is-hover': isHover }">
+          {{ show ? 'Hide' : 'Expand' }}
+        </span>
       </transition>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'ProCode',
-  data() {
-    return {
-      isHover: false,
-      isExpanded: false,
-      scrollView: null,
-      isFixContorl: false,
-    }
-  },
-  computed: {
-    controlText() {
-      return this.isExpanded ? 'Hide' : 'Expand'
-    },
-    codeArea() {
-      return this.$el.getElementsByClassName('meta')[0]
-    },
-    codeAreaHeight() {
-      const foundDescs = this.$el.getElementsByClassName('description')
-      const foundCodes = this.$el.getElementsByClassName('language-html')
-      if (foundDescs.length) {
-        return foundDescs[0].clientHeight + foundCodes[0].clientHeight + 20
-      }
-      return foundCodes[0].clientHeight + 20
-    },
-  },
-  watch: {
-    isExpanded(val) {
-      this.codeArea.style.height = val ? `${this.codeAreaHeight + 1}px` : '0'
-      this.$nextTick(() => {
-        setTimeout(() => this.handleScroll(), 300)
-      })
-    },
-  },
-  mounted() {
-    this.scrollView = document.querySelector('html')
-    if (this.scrollView && this.scrollView === document.firstElementChild) {
-      this.scrollView = window
-    }
-    if (this.scrollView) {
-      this.scrollView.addEventListener('scroll', this.handleScroll)
-      window.addEventListener('resize', this.handleScroll)
-    }
-    console.log(this.$slots)
-  },
-  beforeUnmount() {
-    this.scrollView &&
-      this.scrollView.removeEventListener('scroll', this.handleScroll)
-    window.removeEventListener('resize', this.handleScroll)
-  },
-  methods: {
-    handleScroll() {
-      const rect = this.codeArea ? this.codeArea.getBoundingClientRect() : {}
-      const { top, bottom, left, width } = rect
-      this.isFixContorl =
-        bottom + 44 > document.documentElement.clientHeight &&
-        top <= document.documentElement.clientHeight
-      this.$refs.control.style.left = this.isFixContorl ? `${left}px` : '0'
-      this.$refs.control.style.width = this.isFixContorl ? `${width}px` : ''
-    },
-  },
+<script setup lang="ts">
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { useShow, useHover, useScroll, useResize } from '/element-pro/index'
+
+const { show, toggleShow } = useShow()
+const { isHover, enter, leave } = useHover()
+const meta = ref(null)
+const control = ref(null)
+const isFixContorl = ref(false)
+const codeAreaHeight = ref(0)
+
+useScroll(handleScroll)
+useResize(handleScroll)
+
+onMounted(() => {
+  const foundDescs = meta.value.getElementsByClassName('description')
+  const foundCodes = meta.value.getElementsByClassName('language-html')
+
+  if (foundDescs.length) {
+    codeAreaHeight.value =
+      foundDescs[0].clientHeight + foundCodes[0].clientHeight + 30
+  } else {
+    codeAreaHeight.value = foundCodes[0].clientHeight + 20
+  }
+})
+
+watch(show, (value) => {
+  meta.value.style.height = value ? `${codeAreaHeight.value}px` : '0'
+  nextTick(() => {
+    setTimeout(handleScroll, 100)
+  })
+})
+
+function handleScroll() {
+  const { top, bottom, left, width } = meta.value.getBoundingClientRect()
+  isFixContorl.value =
+    bottom > window.innerHeight && top + 44 <= window.innerHeight
+  control.value.style.left = isFixContorl.value ? `${left}px` : '0'
+  control.value.style.width = isFixContorl.value ? `${width}px` : ''
 }
 </script>
 
 <style>
-:root {
-  --borderColor: #ebeef5;
-  --showColor: rgba(232, 237, 250, 0.6);
-  --controlHoverColor: #f9fafc;
-}
-
 .pro-code {
-  position: relative;
-  padding-bottom: 44px;
-  border: 1px solid var(--borderColor);
+  margin-bottom: 1rem;
+  border: 1px solid var(--c-border);
   border-radius: 3px;
-  background: var(--codeBgColor);
+  background: var(--c-bg);
   transition: all 0.2s;
 }
 .pro-code.hover {
-  box-shadow: 0 3px 8px var(--box-shadow);
+  box-shadow: var(--shadow-2);
 }
 .pro-code .source {
   padding: 24px;
 }
+.pro-code .source template {
+  display: block;
+}
 .pro-code .meta {
-  padding: 0 1rem;
+  padding: 0 10px;
   height: 0;
-  border-top: 1px solid var(--borderColor);
+  background-color: var(--c-page-background);
   overflow: hidden;
   transition: height 0.2s;
 }
 .pro-code .meta .description {
   padding: 20px;
-  margin: 10px;
-  border: 1px solid var(--borderColor);
+  margin: 10px 0;
+  border: 1px solid var(--c-border);
   box-sizing: border-box;
-  background: var(--tipBgColor);
+  background: var(--c-bg);
   font-size: 14px;
   line-height: 22px;
-  color: var(--textColor);
+  color: var(--c-text-light-1);
   word-break: break-word;
 }
 .pro-code .meta .description p {
@@ -154,22 +124,20 @@ export default {
   margin: 0 4px;
   height: 18px;
   border-radius: 3px;
-  background-color: var(--miniCodeBgColor);
+  background-color: var(--code-inline-bg-color);
   font-size: 12px;
   line-height: 18px;
-  color: var(--lighten20TextColor);
+  color: var(--c-text-light);
 }
 .pro-code .control {
-  position: absolute;
-  margin-top: -1px;
   height: 44px;
   box-sizing: border-box;
-  border-top: 1px solid var(--borderColor);
+  border-top: 1px solid var(--c-border);
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
-  background: var(--codeBgColor);
+  background: var(--c-bg);
   text-align: center;
-  color: var(--textColor);
+  color: var(--c-text);
   cursor: pointer;
   width: 100%;
   user-select: none;
@@ -180,8 +148,8 @@ export default {
   bottom: 0;
 }
 .pro-code .control:hover {
-  background-color: var(--controlHoverColor);
-  color: var(--accentColor);
+  background-color: var(--c-page-background);
+  color: var(--c-brand);
 }
 .pro-code .control > i {
   display: inline-block;

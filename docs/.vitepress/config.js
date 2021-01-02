@@ -1,6 +1,7 @@
 const path = require('path')
 const markdown = require('markdown-it')
 const container = require('markdown-it-container')
+const codeSnippet = require('markdown-it-vuepress-code-snippet-enhanced')
 const { highlight } = require('vitepress/dist/node/markdown/plugins/highlight')
 
 const filterHtml = (demoMap, tokens) => {
@@ -37,8 +38,8 @@ module.exports = {
     '/element-pro/': path.resolve(__dirname, '../../src'),
   },
   markdown: {
-    lineNumbers: true,
     config(md) {
+      md.use(codeSnippet)
       md.use(container, 'demo', {
         render: (tokens, idx) => {
           const { nesting, info = '', map } = tokens[idx]
@@ -66,7 +67,11 @@ module.exports = {
 
           return `
           <pro-code>
-            <transition #description>${descTemplate}</transition>
+            ${
+              description
+                ? `<template #description>${descTemplate}</template>`
+                : ''
+            }
             <template #code>${highlight(str, 'vue')}</template>
           `
         },
