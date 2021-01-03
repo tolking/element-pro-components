@@ -14,5 +14,6 @@
       "/element-pro/*": ["./src/*"]
     }
   },
-  "include": ["src", "example", "docs", "shims-vue.d.ts"]
+  "include": ["src", "example", "docs", "shims-vue.d.ts"],
+  "exclude": ["node_modules", "lib", "types"]
 }

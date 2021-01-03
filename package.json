@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "vite",
     "dev:docs": "cross-env NODE_ENV=development vitepress dev docs",
-    "build": "npm run build:ts && npm run build:types && npm run build:style",
+    "build": "npm run build:ts && npm run build:style && npm run build:types",
     "build:ts": "rimraf lib && cross-env NODE_ENV=production rollup --config rollup.config.js",
     "build:ssr": "cross-env NODE_ENV=production rollup --config rollup.config.js --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config rollup.config.js --format es",
