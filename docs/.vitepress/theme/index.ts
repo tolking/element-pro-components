@@ -4,6 +4,7 @@ import { ElButton, ElInput } from 'element-plus'
 import ElementPro from '/element-pro/index'
 import 'element-plus/lib/theme-chalk/index.css'
 import '/element-pro/styles/index.css'
+import './index.css'
 
 export default {
   ...DefaultTheme,

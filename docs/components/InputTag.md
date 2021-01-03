@@ -1,7 +1,3 @@
----
-title: InputTag
---- 
-
 # InputTag
 
 > 基于 `tag` `input` `autocomplete` 的输入多个标签的输入框

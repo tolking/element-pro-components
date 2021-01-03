@@ -1,7 +1,3 @@
----
-title: Menu
----
-
 # Menu
 
 > 封装默认 Menu 通过传入路由或者自动获取路由生成导航，与 `vue-router` 高度绑定

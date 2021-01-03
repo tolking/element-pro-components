@@ -1,7 +1,3 @@
----
-title: Breadcrumb
----
-
 # Breadcrumb
 
 > 根据当前页面路由自动生成面包屑，与 `vue-router` 高度绑定

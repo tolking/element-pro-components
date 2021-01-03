@@ -1,7 +1,3 @@
----
-title: Layout
----
-
 # Layout
 
 > 基础的中后台布局界面组件，与 `vue-router` 高度绑定
@@ -10,7 +6,7 @@ title: Layout
 
 **效果**
 
-TODO: 截图
+![pro-layout](/img/pro-layout.jpg)
 
 @[code lang=vue](@/example/src/layout/layout.vue)
 
