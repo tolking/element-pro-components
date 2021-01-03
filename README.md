@@ -2,9 +2,7 @@
 
 > a component library for Vue 3 base on element-plus
 
-构建中...
-
-**docs 文档暂时未更新，参考 example 文件夹**
+[Documentation](https://tolking.github.io/element-pro-components)
 
 ## TODO:
 
@@ -15,15 +13,19 @@
   - [x] ProBreadcrumb
   - [x] ProTabs
   - [x] ProInputTag
-  - [ ] ProForm
-  - [ ] ProSerach
   - [x] ProTable
+  - [x] ProForm
+  - [ ] ProSerach
   - [ ] ProList
   - [ ] ProCrud
+  - [ ] ProRadio
+  - [ ] ProCheckbox
+  - [ ] ProSelect
+  - [ ] ProUpload
   - ...
 
 - [ ] test
-- [ ] docs (rebuild)
+- [x] docs
 - ...
 
 ## Installation

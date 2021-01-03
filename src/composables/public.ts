@@ -1,4 +1,12 @@
-import { ComputedRef, computed, onMounted, Ref, ref, unref } from 'vue'
+import {
+  ComputedRef,
+  computed,
+  onMounted,
+  Ref,
+  ref,
+  unref,
+  onUnmounted,
+} from 'vue'
 import { useRouter } from 'vue-router'
 import { filterRouterByHidden } from '../utils/index'
 import type { ProRouteRecordRaw } from '../types/index'
@@ -27,16 +35,54 @@ export function useShow(
   }
 }
 
+export function useHover(): {
+  isHover: Ref<boolean>
+  enter: () => void
+  leave: () => void
+} {
+  const isHover = ref(false)
+
+  function enter() {
+    isHover.value = true
+  }
+
+  function leave() {
+    isHover.value = false
+  }
+
+  return {
+    isHover,
+    enter,
+    leave,
+  }
+}
+
+export function useScroll(callback: () => void): void {
+  onMounted(() => {
+    window.addEventListener('scroll', callback)
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('scroll', callback)
+  })
+}
+
+export function useResize(callback: () => void): void {
+  onMounted(() => {
+    callback()
+    window.addEventListener('resize', callback)
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('resize', callback)
+  })
+}
+
 /** Gets the responsive breakpoint of the current screen */
 export function useScreenSize(): Ref<ScreenSize> {
   const size = ref<ScreenSize>('xl')
 
-  onMounted(() => {
-    getScreenSize()
-    window.onresize = () => {
-      setTimeout(getScreenSize, 0)
-    }
-  })
+  useResize(getScreenSize)
 
   function getScreenSize() {
     const width = document.body.clientWidth

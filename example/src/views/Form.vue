@@ -3,6 +3,7 @@
     v-model="form"
     :columns="columns"
     label-width="120px"
+    size="small"
   >
     <template #date-label>
       <i class="el-icon-time" />
@@ -10,12 +11,6 @@
     </template>
     <template #date="{ item, value, setValue }">
       <span>{{ item }} - {{ value }} - {{ setValue }}</span>
-    </template>
-    <template #address="{ value, setValue }">
-      <el-input
-        :model-value="value"
-        @update:modelValue="setValue"
-      />
     </template>
     <template #menu>
       <el-button type="primary">
@@ -30,7 +25,7 @@
     label-width="120px"
   >
     <template #address="{ value, setValue }">
-      <el-input
+      <pro-input-tag
         :model-value="value"
         @update:modelValue="setValue"
       />
@@ -68,8 +63,7 @@ const columns = [
   {
     label: 'Address',
     prop: 'address',
-    component: 'el-input',
-    slot: true,
+    component: 'pro-input-tag',
   },
 ]
 const columns1 = [

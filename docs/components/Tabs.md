@@ -1,31 +1,15 @@
----
-title: Tabs
-lang: zh-CN
-description: 显示打开记录
---- 
+# Tabs
 
-# Tabs <Badge text="1.0.0" />
-
-> 基于 `el-scrollbar` `pro-link`
-
-## 作用
-
-显示打开记录
+> 根据浏览记录自动记录历史 tab，与 `vue-router` 高度绑定
 
 ## 使用
 
-**效果**
-
-::: demo
+```vue
 <template>
-  <pro-tabs />
+  <pro-layout>
+    <template #bottom-header>
+      <pro-tabs />
+    </template>
+  </pro-layout>
 </template>
-:::
-
-## 配置
-
-icon
-- type: `String`
-- required: `true`
-
-需要显示的svg图片
+```
