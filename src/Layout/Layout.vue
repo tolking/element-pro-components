@@ -60,6 +60,7 @@ const { show, toggleShow } = useShow()
 .pro-layout {
   position: relative;
   height: var(--layout-height);
+  overflow: hidden;
 }
 .pro-layout .pro-container,
 .pro-layout .pro-layout-wrapper {

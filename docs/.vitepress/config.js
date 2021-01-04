@@ -1,4 +1,3 @@
-const path = require('path')
 const markdown = require('markdown-it')
 const container = require('markdown-it-container')
 const codeSnippet = require('markdown-it-vuepress-code-snippet-enhanced')
@@ -71,15 +70,46 @@ module.exports = {
           children: [{ text: 'Table', link: '/components/Table' }],
         },
       ],
+      '/': [
+        {
+          text: '指南',
+          children: [
+            { text: '快速上手', link: '/guide/' },
+            { text: '自定义主题', link: '/guide/theme' },
+          ],
+        },
+        {
+          text: '组件',
+          children: [
+            {
+              text: 'Layout',
+              children: [
+                { text: 'Layout', link: '/components/Layout' },
+                { text: 'Menu', link: '/components/Menu' },
+                { text: 'Breadcrumb', link: '/components/Breadcrumb' },
+                { text: 'Tabs', link: '/components/Tabs' },
+              ],
+            },
+            {
+              text: 'Form',
+              children: [
+                { text: 'Form', link: '/components/Form' },
+                { text: 'InputTag', link: '/components/InputTag' },
+              ],
+            },
+            {
+              text: 'Table',
+              children: [{ text: 'Table', link: '/components/Table' }],
+            },
+          ],
+        },
+      ],
     },
     repo: 'tolking/element-pro-components',
     docsDir: 'docs',
     editLinks: true,
     lastUpdated: '最后更新时间',
     editLinkText: '在 GitHub 上编辑此页',
-  },
-  alias: {
-    '/element-pro/': path.resolve(__dirname, '../../src'),
   },
   markdown: {
     config(md) {
