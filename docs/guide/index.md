@@ -68,4 +68,4 @@ app.use(ElementPro, {
 
 ## 开始使用
 
-@[code lang=vue](@/example/src/layout/layout.vue)
+@[code](@/example/src/layout/Layout.vue)
