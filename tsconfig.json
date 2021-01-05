@@ -2,17 +2,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "module": "esnext",
-    "target": "esnext",
+    "target": "es2015",
     "moduleResolution": "Node",
     "strict": true,
     "resolveJsonModule": true,
     "declaration": true,
     "emitDeclarationOnly": true,
     "declarationDir": "types",
-    "lib": ["ESNext", "DOM"],
-    "paths": {
-      "/element-pro/*": ["./src/*"]
-    }
+    "lib": ["ESNext", "DOM"]
   },
   "include": ["src", "example", "docs", "shims-vue.d.ts"],
   "exclude": ["node_modules", "lib", "types"]

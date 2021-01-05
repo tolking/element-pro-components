@@ -18,7 +18,6 @@ example/
 node_modules/
 src/
 test/
-types/example/
 
 npm-debug.log
 yarn-error.log

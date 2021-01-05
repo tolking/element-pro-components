@@ -8,7 +8,7 @@
 
 ![pro-layout](/img/pro-layout.jpg)
 
-@[code lang=vue](@/example/src/layout/layout.vue)
+@[code](@/example/src/layout/Layout.vue)
 
 ## 配置
 
@@ -20,7 +20,7 @@
 如果没有传值，将自动从 `vue-router` 中获取路由并排除 `meta: { hidden: true }` 的路由
 :::
 
-类型: 
+类型:
 
 仅扩展 meta，其它同 `vue-router`
 
