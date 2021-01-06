@@ -52,7 +52,7 @@ app.mount('#app')
 
 ##### 参考
 
-@[code](@/src/config.ts)
+@[code](@/src/utils/config.ts)
 
 ##### 配置
 

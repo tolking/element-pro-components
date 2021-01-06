@@ -2,7 +2,7 @@ export * from './composables/public'
 export * from './utils/index'
 import './styles/index.css'
 import type { App, ComponentOptions } from 'vue'
-import { config, InstallOptions } from './config'
+import { config, InstallOptions } from './utils/config'
 
 import ProBreadcrumb from './Breadcrumb/index'
 import ProForm from './Form/index'
