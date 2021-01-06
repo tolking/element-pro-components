@@ -1,5 +1,6 @@
 export * from './composables/public'
 export * from './utils/index'
+export * from './types/index'
 import './styles/index.css'
 import type { App, ComponentOptions } from 'vue'
 import { config, InstallOptions } from './utils/config'

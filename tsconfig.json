@@ -12,6 +12,6 @@
     "declarationDir": "types",
     "lib": ["ESNext", "DOM"]
   },
-  "include": ["src/**/*", "example/**/*", "docs/**/*", "test/**/*", "shims-vue.d.ts"],
-  "exclude": ["node_modules", "lib", "types"]
+  "include": ["src/**/*", "shims-vue.d.ts"],
+  "exclude": ["node_modules"]
 }
