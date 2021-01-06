@@ -16,7 +16,7 @@
     "build:docs": "cross-env NODE_ENV=production vitepress build docs",
     "test": "jest",
     "lint": "eslint . --fix --ext .ts,.vue,.js --ignore-pattern \"/lib/\" --ignore-pattern \"/types/\"",
-    "prettier": "prettier --check --write --ignore-unknown \"{example,src}/**\""
+    "prettier": "prettier --check --write --ignore-unknown \"{example,src,docs,test}/**\""
   },
   "repository": {
     "type": "git",

@@ -22,12 +22,12 @@
 
 类型: 同 Layout
 
-### 其它配置 
+### 其它配置
 
-同 [ElMenu](https://element-plus.gitee.io/#/zh-CN/component/menu) 
+同 [ElMenu](https://element-plus.gitee.io/#/zh-CN/component/menu)
 
 ## 插槽
 
-| name | 说明 |
-| :-- | :-- |
-| - | 控制菜单显示，参数为 { meta, path, redirect } 等 |
+| name | 说明                                             |
+| :--- | :----------------------------------------------- |
+| -    | 控制菜单显示，参数为 { meta, path, redirect } 等 |

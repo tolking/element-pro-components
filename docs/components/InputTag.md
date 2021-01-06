@@ -7,6 +7,7 @@
 1. 基于 `input` 使用
 
 ::: demo input 默认 type="text"，支持 type="text" 的大部分配置
+
 <template>
   <pro-input-tag
     v-model="inputTags"
@@ -29,6 +30,7 @@ export default {
   }
 }
 </script>
+
 :::
 
 ## 配置 TODO: rebuild
@@ -38,36 +40,42 @@ export default {
 **支持 autocomplete 的大部分配置**
 
 v-model 或者 value
+
 - type: `Array`
 - default: `[]`
 
 绑定的标签数组
 
 autocomplete
+
 - type: `Boolean`
 - default: `false`
 
 是否启用自动补全
 
 tagType
+
 - type: `String`
 - default: `null`
 
 tag 类型
 
 tagSize
+
 - type: `String`
 - default: `null`
 
-tag 尺寸	
+tag 尺寸
 
 tagHit
+
 - type: `Boolean`
 - default: `false`
 
 tag 是否有边框描边
 
 tagEffect
+
 - type: `String`
 - default: `light`
 

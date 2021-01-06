@@ -39,13 +39,13 @@ interface ProRouteMeta extends RouteMeta {
 
 ## 插槽
 
-| name | 说明 |
-| :-- | :-- |
-| logo | 自定义Logo，参数为 { collapse } collapse-当前菜单栏是否折叠 |
-| menu | 控制菜单显示，参数为 { meta, path, redirect } 等 |
-| left-header | 头部左侧内容 |
-| right-header | 头部右侧内容 |
-| bottom-header | 头部下面内容 |
+| name          | 说明                                                         |
+| :------------ | :----------------------------------------------------------- |
+| logo          | 自定义 Logo，参数为 { collapse } collapse-当前菜单栏是否折叠 |
+| menu          | 控制菜单显示，参数为 { meta, path, redirect } 等             |
+| left-header   | 头部左侧内容                                                 |
+| right-header  | 头部右侧内容                                                 |
+| bottom-header | 头部下面内容                                                 |
 
 ## 样式配置
 
