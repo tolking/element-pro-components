@@ -5,11 +5,11 @@
     label-width="120px"
     size="small"
   >
-    <template #date-label>
+    <template #slot-label>
       <i class="el-icon-time" />
-      <span>Date</span>
+      <span>Slot</span>
     </template>
-    <template #date="{ item, value, setValue }">
+    <template #slot="{ item, value, setValue }">
       <span>{{ item }} - {{ value }} - {{ setValue }}</span>
     </template>
     <template #menu>
@@ -46,14 +46,14 @@ const form = ref<Record<string, unknown>>({})
 const form1 = ref<Record<string, unknown>>({})
 const columns = [
   {
-    // label: 'Date',
-    prop: 'date',
+    // label: 'Slot',
+    prop: 'slot',
     component: 'el-input',
     slot: true,
   },
   {
-    label: 'Name',
-    prop: 'name',
+    label: 'el-input',
+    prop: 'input',
     component: 'el-input',
     props: {
       clearable: true,
@@ -61,9 +61,14 @@ const columns = [
     },
   },
   {
-    label: 'Address',
-    prop: 'address',
+    label: 'pro-input-tag',
+    prop: 'inputTag',
     component: 'pro-input-tag',
+    props: {
+      autocomplete: true,
+      fetchSuggestions: querySearch,
+      placeholder: 'Click the space after input',
+    },
   },
 ]
 const columns1 = [
@@ -91,4 +96,19 @@ const columns1 = [
     ],
   },
 ]
+const list = [
+  { value: 'Go', tag: 'go' },
+  { value: 'JavaScript', tag: 'javascript' },
+  { value: 'Python', tag: 'python' },
+]
+
+function querySearch(queryString: string, cb: (...arg: unknown[]) => void) {
+  cb(
+    queryString
+      ? list.filter((i) => {
+          return i.value.indexOf(queryString.toLowerCase()) === 0
+        })
+      : list
+  )
+}
 </script>

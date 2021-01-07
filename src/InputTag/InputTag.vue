@@ -1,30 +1,30 @@
 <template>
   <div class="pro-input-tag">
     <el-tag
-      v-for="(item, index) in value"
+      v-for="(item, index) in modelValue"
       :key="index"
       v-bind="tagConfig"
       closable
-      @close="closeTag(item)"
+      @close="close(index)"
     >
       {{ item }}
     </el-tag>
     <el-autocomplete
       v-if="autocomplete"
       v-model="input"
-      v-bind="$attrs"
-      @select="addTag"
-      @keyup.space="addTag"
+      v-bind="attrs"
+      @select="add"
+      @keyup.space="add"
     >
       <slot />
     </el-autocomplete>
     <el-input
       v-else
       v-model="input"
-      v-bind="$attrs"
+      v-bind="attrs"
       type="text"
-      @blur="addTag"
-      @keyup.space="addTag"
+      @blur="add"
+      @keyup.space="add"
     >
       <slot />
     </el-input>
@@ -32,40 +32,28 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, defineEmit, defineProps, computed } from 'vue'
+import { ref, toRefs, defineEmit, defineProps, computed, useContext } from 'vue'
 import { ElInput, ElTag, ElAutocomplete } from 'element-plus'
+import { useInputTag } from '../composables/index'
 
 const props = defineProps<{
   modelValue?: string[]
-  autocomplete?: boolean
+  autocomplete: boolean
   tag?: {
     type?: 'success' | 'info' | 'warning' | 'danger'
     size?: 'medium' | 'small' | 'mini'
     hit?: boolean
+    color?: string
     effect: 'light' | 'dark' | 'plain'
   }
 }>()
+const emit = defineEmit(['update:modelValue'])
 const { modelValue, autocomplete, tag } = toRefs(props)
-const emit = defineEmit(['update:modelValue', 'change'])
-const input = ref('')
-const value = ref(modelValue?.value || [])
+const { attrs } = useContext()
+const { input, add, close } = useInputTag(emit, modelValue)
 const tagConfig = computed(() => {
   return Object.assign({ effect: 'light' }, tag?.value)
 })
-
-function addTag() {
-  if (input.value.trim()) {
-    value.value.push(input.value.trim())
-    emit('update:modelValue', value)
-    emit('change', value)
-    input.value = ''
-  }
-}
-function closeTag(item: string) {
-  value.value.splice(value.value.indexOf(item), 1)
-  emit('update:modelValue', value)
-  emit('change', value)
-}
 </script>
 
 <style>
@@ -83,7 +71,12 @@ function closeTag(item: string) {
 .pro-input-tag .el-autocomplete {
   flex: 1;
 }
+.pro-input-tag .el-input {
+  height: 100%;
+}
 .pro-input-tag .el-input .el-input__inner {
+  height: 100%;
+  min-height: 32px;
   border: 0;
 }
 </style>
