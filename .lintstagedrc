@@ -1,4 +1,3 @@
 {
-  "*.{html,css,md,json}": "npm run prettier",
-  "*.{ts,vue,js}": ["npm run prettier --no-verify ", "npm run lint"],
+  "*.{ts,vue,js,tsx,jsx,html,css,md,json}": ["npm run prettier --no-verify ", "npm run lint"],
 }
