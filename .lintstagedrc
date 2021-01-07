@@ -1,3 +1,4 @@
 {
-  "*.{ts,vue,js,tsx,jsx,html,css,md,json}": ["npm run prettier --no-verify ", "npm run lint"],
+  "*.{ts,vue,js,tsx,jsx}": ["prettier --write --no-verify ", "eslint --fix"],
+  "*.{html,css,md,json}": "prettier --write",
 }
