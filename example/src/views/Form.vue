@@ -2,7 +2,7 @@
   <pro-form
     v-model="form"
     :columns="columns"
-    label-width="120px"
+    label-width="160px"
     size="small"
   >
     <template #slot-label>
@@ -22,7 +22,7 @@
   <pro-form
     v-model="form1"
     :columns="columns1"
-    label-width="120px"
+    label-width="160px"
   >
     <template #address="{ value, setValue }">
       <pro-input-tag
@@ -44,6 +44,11 @@ import { ref } from 'vue'
 
 const form = ref<Record<string, unknown>>({})
 const form1 = ref<Record<string, unknown>>({})
+const list = [
+  { value: 'Go', tag: 'go', disabled: true },
+  { value: 'JavaScript', tag: 'javascript' },
+  { value: 'Python', tag: 'python' },
+]
 const columns = [
   {
     // label: 'Slot',
@@ -68,6 +73,51 @@ const columns = [
       autocomplete: true,
       fetchSuggestions: querySearch,
       placeholder: 'Click the space after input',
+    },
+  },
+  {
+    label: 'pro-radio',
+    prop: 'radio',
+    component: 'pro-radio',
+    props: {
+      data: list,
+      config: { label: 'tag' },
+    },
+  },
+  {
+    label: 'pro-radio-button',
+    prop: 'radioButton',
+    component: 'pro-radio-button',
+    props: {
+      data: list,
+      config: { label: 'tag' },
+    },
+  },
+  {
+    label: 'pro-checkbox',
+    prop: 'checkbox',
+    component: 'pro-checkbox',
+    props: {
+      data: list,
+      config: { label: 'tag' },
+    },
+  },
+  {
+    label: 'pro-checkbox-button',
+    prop: 'checkboxButton',
+    component: 'pro-checkbox-button',
+    props: {
+      data: list,
+      config: { label: 'tag' },
+    },
+  },
+  {
+    label: 'pro-select',
+    prop: 'select',
+    component: 'pro-select',
+    props: {
+      data: list,
+      config: { label: 'tag' },
     },
   },
 ]
@@ -96,11 +146,6 @@ const columns1 = [
       },
     ],
   },
-]
-const list = [
-  { value: 'Go', tag: 'go' },
-  { value: 'JavaScript', tag: 'javascript' },
-  { value: 'Python', tag: 'python' },
 ]
 
 function querySearch(queryString: string, cb: (...arg: unknown[]) => void) {
