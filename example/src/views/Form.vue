@@ -81,6 +81,7 @@ const columns1 = [
     label: 'User',
     prop: 'user',
     // max: 3,
+    size: 'mini',
     children: [
       {
         label: 'Name',

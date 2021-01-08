@@ -2,8 +2,9 @@
   <div class="pro-input-tag">
     <el-tag
       v-for="(item, index) in modelValue"
-      :key="index"
       v-bind="tagConfig"
+      :key="index"
+      :size="size"
       closable
       @close="close(index)"
     >
@@ -13,35 +14,33 @@
       v-if="autocomplete"
       v-model="input"
       v-bind="attrs"
+      :size="size"
       @select="add"
       @keyup.space="add"
-    >
-      <slot />
-    </el-autocomplete>
+    />
     <el-input
       v-else
       v-model="input"
       v-bind="attrs"
+      :size="size"
       type="text"
       @blur="add"
       @keyup.space="add"
-    >
-      <slot />
-    </el-input>
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, defineEmit, defineProps, computed, useContext } from 'vue'
+import { toRefs, defineEmit, defineProps, computed, useContext } from 'vue'
 import { ElInput, ElTag, ElAutocomplete } from 'element-plus'
-import { useInputTag } from '../composables/index'
+import { useInputTag, useFormSize } from '../composables/index'
 
 const props = defineProps<{
   modelValue?: string[]
   autocomplete: boolean
+  size?: 'medium' | 'small' | 'mini'
   tag?: {
     type?: 'success' | 'info' | 'warning' | 'danger'
-    size?: 'medium' | 'small' | 'mini'
     hit?: boolean
     color?: string
     effect: 'light' | 'dark' | 'plain'
@@ -50,6 +49,7 @@ const props = defineProps<{
 const emit = defineEmit(['update:modelValue'])
 const { modelValue, autocomplete, tag } = toRefs(props)
 const { attrs } = useContext()
+const size = useFormSize(props)
 const { input, add, close } = useInputTag(emit, modelValue)
 const tagConfig = computed(() => {
   return Object.assign({ effect: 'light' }, tag?.value)
@@ -60,6 +60,7 @@ const tagConfig = computed(() => {
 .pro-input-tag {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   border: 1px solid var(--c-border);
   border-radius: 4px;
   background-color: var(--c-background);
@@ -70,13 +71,9 @@ const tagConfig = computed(() => {
 .pro-input-tag .el-input,
 .pro-input-tag .el-autocomplete {
   flex: 1;
-}
-.pro-input-tag .el-input {
-  height: 100%;
+  min-width: 80px;
 }
 .pro-input-tag .el-input .el-input__inner {
-  height: 100%;
-  min-height: 32px;
   border: 0;
 }
 </style>
