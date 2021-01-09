@@ -4,17 +4,16 @@
 
 ## 使用
 
-1. 普通表格
-
-::: demo 通过传入 columns 实现生成表单
+::: demo 通过传入 columns 实现生成表单；通过配置 columns 的 children 配置多级表头
 
 <template>
+  <p>1. 普通表格</p>
   <pro-table
     v-model:current-page="currentPage"
     v-model:page-size="pageSize"
     :data="data"
     :columns="columns"
-    :total="50"
+    :total="total"
     :index="{ label: '#' }"
     :menu="{ label: 'Menu' }"
     selection
@@ -41,125 +40,92 @@
       </el-button>
     </template>
   </pro-table>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      currentPage: 1,
-      pageSize: 10,
-      data: [
-        {
-          date: '2016-05-03',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-02',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-04',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-01',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-      ],
-      columns: [
-        {
-          label: 'Date',
-          prop: 'date',
-          slot: true,
-          sortable: true,
-        },
-        {
-          label: 'Name',
-          prop: 'name',
-        },
-        {
-          label: 'Address',
-          prop: 'address',
-        },
-      ]
-    }
-  }
-}
-</script>
-
-:::
-
-2. 多级表头
-
-::: demo 通过配置 columns 的 children 配置多级表头
-
-<template>
+  <p>2. 多级表头</p>
   <pro-table
     v-model:current-page="currentPage"
     v-model:page-size="pageSize"
     :data="data"
     :columns="columns1"
     :total="total"
-  >
-    <template #name="{ row }">
-      - {{ row.name }} -
-    </template>
-  </pro-table>
+  />
 </template>
 
-<script setup>
+<script>
 import { ref } from 'vue'
 
-const columns1 = [
-  {
-    label: 'Date',
-    prop: 'date',
-  },
-  {
-    label: 'User',
-    children: [
+export default {
+  setup() {
+    const currentPage = ref(1)
+    const pageSize = ref(10)
+    const total = ref(50)
+    const columns = ref([
+      {
+        label: 'Date',
+        prop: 'date',
+        slot: true,
+        sortable: true,
+      },
       {
         label: 'Name',
         prop: 'name',
-        slot: true,
       },
       {
         label: 'Address',
         prop: 'address',
       },
-    ],
-  },
-]
-const total = 50
-const currentPage = ref(1)
-const pageSize = ref(10)
-const data = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-]
+    ])
+    const columns1 = ref([
+      {
+        label: 'Date',
+        prop: 'date',
+      },
+      {
+        label: 'User',
+        children: [
+          {
+            label: 'Name',
+            prop: 'name',
+          },
+          {
+            label: 'Address',
+            prop: 'address',
+          },
+        ],
+      },
+    ])
+    const data = ref([
+      {
+        date: '2016-05-03',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles',
+      },
+      {
+        date: '2016-05-02',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles',
+      },
+      {
+        date: '2016-05-04',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles',
+      },
+      {
+        date: '2016-05-01',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles',
+      },
+    ])
+
+    return {
+      currentPage,
+      pageSize,
+      total,
+      data,
+      columns,
+      columns1,
+    }
+  }
+}
 </script>
 
 :::

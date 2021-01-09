@@ -62,6 +62,9 @@ module.exports = {
           text: 'Form',
           children: [
             { text: 'Form', link: '/components/Form' },
+            { text: 'Radio', link: '/components/Radio' },
+            { text: 'Checkbox', link: '/components/Checkbox' },
+            { text: 'Select', link: '/components/Select' },
             { text: 'InputTag', link: '/components/InputTag' },
           ],
         },
@@ -94,6 +97,9 @@ module.exports = {
               text: 'Form',
               children: [
                 { text: 'Form', link: '/components/Form' },
+                { text: 'Radio', link: '/components/Radio' },
+                { text: 'Checkbox', link: '/components/Checkbox' },
+                { text: 'Select', link: '/components/Select' },
                 { text: 'InputTag', link: '/components/InputTag' },
               ],
             },

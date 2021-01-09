@@ -5,9 +5,11 @@
 ::: tip 提示
 可以自动代理支持通过 `v-model` 绑定值的单一节点组件，例如：
 
-- 支持 `el-input` `el-switch` `pro-input-tag` 等
+- 支持 `el-input` `el-switch` 等
 - 不支持 `el-upload` `el-select` `el-radio-group` `el-checkbox-group` 等
-  :::
+
+可以使用相关 `pro-select` `pro-radio` `pro-checkbox` 等代替
+:::
 
 ::: warning 警告
 组件内部并不包括相关能够使用的组件，所以在使用相关组件前，你必须通过全局注册它
@@ -20,26 +22,25 @@ app.use(ElInput)
 app.component(ElInput.name, ElInput)
 ```
 
-TODO: 未来将封装不支持的常用组件，但现在你需要通过插槽使用不支持的组件
 :::
 
 ## 使用
 
-1. 普通表单
-
-::: demo 通过传入 columns 实现生成表单
+::: demo 通过传入 columns 实现生成表单；通过配置 columns 的 children 配置子表单
 
 <template>
+  <p>1. 普通表单</p>
   <pro-form
     v-model="form"
     :columns="columns"
     label-width="120px"
+    size="small"
   >
-    <template #date-label>
+    <template #slot-label>
       <i class="el-icon-time" />
       <span>Date</span>
     </template>
-    <template #date="{ item, value, setValue }">
+    <template #slot="{ item, value, setValue }">
       <span>{{ item }} - {{ value }} - {{ setValue }}</span>
     </template>
     <template #menu>
@@ -49,49 +50,7 @@ TODO: 未来将封装不支持的常用组件，但现在你需要通过插槽�
       <el-button>Cancel</el-button>
     </template>
   </pro-form>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      form: {
-        date: 'date'
-      },
-      columns: [
-        {
-          label: 'Date',
-          prop: 'date',
-          component: 'el-input',
-          slot: true,
-        },
-        {
-          label: 'Name',
-          prop: 'name',
-          component: 'el-input',
-          props: {
-            clearable: true,
-            placeholder: 'placeholder',
-          },
-        },
-        {
-          label: 'Address',
-          prop: 'address',
-          component: 'pro-input-tag',
-        },
-      ]
-    }
-  }
-}
-</script>
-
-:::
-
-2. 嵌套组件
-
-::: demo 通过配置 columns 的 children 自动生成子表单
-
-<template>
+  <p>2. 子表单</p>
   <pro-form
     v-model="form1"
     :columns="columns1"
@@ -112,35 +71,141 @@ export default {
   </pro-form>
 </template>
 
-<script setup>
+<script>
 import { ref } from 'vue'
 
-const form1 = ref({})
-const columns1 = [
-  {
-    label: 'Date',
-    prop: 'date',
-    component: 'el-input',
-  },
-  {
-    label: 'User',
-    prop: 'user',
-    max: 3,
-    children: [
+export default {
+  setup() {
+    const form = ref({})
+    const form1 = ref({})
+    const list = [
+      { value: 'Go', tag: 'go', disabled: true },
+      { value: 'JavaScript', tag: 'javascript' },
+      { value: 'Python', tag: 'python' },
+    ]
+    const columns = ref([
       {
-        label: 'Name',
-        prop: 'name',
-        component: 'el-input',
-      },
-      {
-        label: 'Address',
-        prop: 'address',
+        // label: 'Slot',
+        prop: 'slot',
         component: 'el-input',
         slot: true,
       },
-    ],
-  },
-]
+      {
+        label: 'input',
+        prop: 'input',
+        component: 'el-input',
+        props: {
+          clearable: true,
+          placeholder: 'placeholder',
+        },
+      },
+      {
+        label: 'input-tag',
+        prop: 'inputTag',
+        component: 'pro-input-tag',
+        props: {
+          placeholder: 'Click the space after input',
+        },
+      },
+      {
+        label: 'autocomplete-tag',
+        prop: 'autocompleteTag',
+        component: 'pro-autocomplete-tag',
+        props: {
+          fetchSuggestions: querySearch,
+          placeholder: 'Click the space after input',
+        },
+      },
+      {
+        label: 'radio',
+        prop: 'radio',
+        component: 'pro-radio',
+        props: {
+          data: list,
+          config: { label: 'tag' },
+        },
+      },
+      {
+        label: 'radio-button',
+        prop: 'radioButton',
+        component: 'pro-radio-button',
+        props: {
+          data: list,
+          config: { label: 'tag' },
+        },
+      },
+      {
+        label: 'checkbox',
+        prop: 'checkbox',
+        component: 'pro-checkbox',
+        props: {
+          data: list,
+          config: { label: 'tag' },
+        },
+      },
+      {
+        label: 'checkbox-button',
+        prop: 'checkboxButton',
+        component: 'pro-checkbox-button',
+        props: {
+          data: list,
+          config: { label: 'tag' },
+        },
+      },
+      {
+        label: 'select',
+        prop: 'select',
+        component: 'pro-select',
+        props: {
+          data: list,
+          config: { label: 'tag' },
+        },
+      },
+    ])
+    const columns1 = ref([
+      {
+        label: 'Date',
+        prop: 'date',
+        component: 'el-input',
+      },
+      {
+        label: 'User',
+        prop: 'user',
+        // max: 3,
+        size: 'mini',
+        children: [
+          {
+            label: 'Name',
+            prop: 'name',
+            component: 'el-input',
+          },
+          {
+            label: 'Address',
+            prop: 'address',
+            component: 'el-input',
+          },
+        ],
+      },
+    ])
+
+    function querySearch(queryString, cb) {
+      cb(
+        queryString
+          ? list.filter((i) => {
+              return i.value.indexOf(queryString.toLowerCase()) === 0
+            })
+          : list
+      )
+    }
+
+    return {
+      form,
+      columns,
+      form1,
+      columns1,
+    }
+  }
+}
 </script>
 
 :::

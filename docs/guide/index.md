@@ -2,7 +2,7 @@
 
 ## 安装
 
-```sh
+```
 yarn add element-pro-components
 # or
 npm i element-pro-components

@@ -4,9 +4,9 @@
 
 ## 使用
 
-1. 基于 `input` 使用
+1. 基础用法
 
-::: demo input 默认 type="text"，支持 type="text" 的大部分配置
+::: demo 使用 `pro-input-tag` 支持 type="text" 的大部分配置
 
 <template>
   <pro-input-tag
@@ -27,15 +27,14 @@ export default {
 
 :::
 
-2. 基于 `autocomplete` 使用
+2. 带输入建议
 
-::: demo 支持 autocomplete 的大部分配置
+::: demo 使用 `pro-autocomplete-tag` 支持 autocomplete 的大部分配置
 
 <template>
-  <pro-input-tag
+  <pro-autocomplete-tag
     v-model="inputTags1"
     :fetch-suggestions="querySearch"
-    autocomplete
     placeholder="请输入内容,点击空格按键"
   />
 </template>
@@ -61,18 +60,17 @@ function querySearch(queryString, cb) {
 
 ## 配置
 
-| 参数         | 说明                     | 类型    | 可选值                | 默认值              |
-| :----------- | :----------------------- | :------ | :-------------------- | :------------------ |
-| v-model      | 绑定值                   | array   | -                     | -                   |
-| autocomplete | 是否启用自动补全         | boolran | -                     | false               |
-| size         | 尺寸                     | string  | medium / small / mini | —                   |
-| tag          | tag 标签的配置，参考 tag | object  | -                     | { effect: 'light' } |
+| 参数    | 说明                     | 类型   | 可选值                | 默认值              |
+| :------ | :----------------------- | :----- | :-------------------- | :------------------ |
+| v-model | 绑定值                   | array  | -                     | -                   |
+| size    | 尺寸                     | string | medium / small / mini | —                   |
+| tag     | tag 标签的配置，参考 tag | object | -                     | { effect: 'light' } |
 
 #### 其它配置
 
-autocomplete: false 时，同 type="text" [ElInput](https://element-plus.gitee.io/#/zh-CN/component/input)
+`pro-input-tag` 时，同 type="text" [ElInput](https://element-plus.gitee.io/#/zh-CN/component/input)
 
-autocomplete: true 时，同 [ElAutocomplete](https://element-plus.gitee.io/#/zh-CN/component/input)
+`pro-autocomplete-tag` 时，同 [ElAutocomplete](https://element-plus.gitee.io/#/zh-CN/component/input)
 
 ### tag
 
