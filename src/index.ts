@@ -5,6 +5,7 @@ import './styles/index.css'
 import type { App, ComponentOptions } from 'vue'
 import { config, InstallOptions } from './utils/config'
 
+import ProAutocompleteTag from './AutocompleteTag/index'
 import ProBreadcrumb from './Breadcrumb/index'
 import ProCheckbox from './Checkbox/index'
 import ProCheckboxButton from './CheckboxButton/index'
@@ -21,6 +22,7 @@ import ProTabs from './Tabs/index'
 const version = process.env.VERSION || '0.0.0'
 
 const components: Record<string, ComponentOptions> = {
+  ProAutocompleteTag,
   ProBreadcrumb,
   ProCheckbox,
   ProCheckboxButton,
@@ -47,6 +49,7 @@ const install = (app: App, options?: InstallOptions): void => {
 }
 
 export {
+  ProAutocompleteTag,
   ProBreadcrumb,
   ProCheckbox,
   ProCheckboxButton,

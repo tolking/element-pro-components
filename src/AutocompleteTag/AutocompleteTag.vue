@@ -10,11 +10,11 @@
     >
       {{ item }}
     </el-tag>
-    <el-input
+    <el-autocomplete
       v-model="input"
       v-bind="attrs"
       :size="size"
-      type="text"
+      @select="add"
       @blur="add"
       @keyup.space="add"
     />
@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { toRefs, defineEmit, defineProps, computed, useContext } from 'vue'
-import { ElInput, ElTag } from 'element-plus'
+import { ElTag, ElAutocomplete } from 'element-plus'
 import { useInputTag, useFormSize } from '../composables/index'
 
 const props = defineProps<{
@@ -58,7 +58,7 @@ const tagConfig = computed(() => {
 .pro-input-tag .el-tag {
   margin: 3px;
 }
-.pro-input-tag .el-input {
+.pro-input-tag .el-autocomplete {
   flex: 1;
   min-width: 80px;
 }

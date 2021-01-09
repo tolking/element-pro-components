@@ -2,7 +2,7 @@
   <pro-form
     v-model="form"
     :columns="columns"
-    label-width="160px"
+    label-width="180px"
     size="small"
   >
     <template #slot-label>
@@ -22,7 +22,7 @@
   <pro-form
     v-model="form1"
     :columns="columns1"
-    label-width="160px"
+    label-width="180px"
   >
     <template #address="{ value, setValue }">
       <pro-input-tag
@@ -70,7 +70,14 @@ const columns = [
     prop: 'inputTag',
     component: 'pro-input-tag',
     props: {
-      autocomplete: true,
+      placeholder: 'Click the space after input',
+    },
+  },
+  {
+    label: 'pro-autocomplete-tag',
+    prop: 'autocompleteTag',
+    component: 'pro-autocomplete-tag',
+    props: {
       fetchSuggestions: querySearch,
       placeholder: 'Click the space after input',
     },

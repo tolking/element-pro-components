@@ -1,20 +1,20 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import ProInputTag from '../src/InputTag/InputTag.vue'
+import ProAutocompleteTag from '../src/AutocompleteTag/AutocompleteTag.vue'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
-    components: { ProInputTag },
+    components: { ProAutocompleteTag },
     ...options,
   })
 const getList = (wrapper: VueWrapper<ComponentPublicInstance>) => {
   return wrapper.findAll('.el-tag').map((item) => item.text())
 }
 
-describe('InputTag.vue', () => {
+describe('AutocompleteTag.vue', () => {
   test('empty', () => {
     const wrapper = _mount({
-      template: '<pro-input-tag />',
+      template: '<pro-autocomplete-tag />',
     })
 
     expect(wrapper.find('input').element.value).toBe('')
@@ -23,12 +23,44 @@ describe('InputTag.vue', () => {
 
   test('test modelValue', async () => {
     const wrapper = _mount({
-      template: '<pro-input-tag v-model="list" />',
+      template: `
+        <pro-autocomplete-tag
+          v-model="value"
+          :fetch-suggestions="querySearch"
+          :popper-append-to-body="false"
+        />
+      `,
       setup() {
-        const list = ref(['test'])
-        return { list }
+        const value = ref(['test'])
+        const list = [
+          { value: 'Go', tag: 'go' },
+          { value: 'JavaScript', tag: 'javascript' },
+          { value: 'Python', tag: 'python' },
+        ]
+
+        function querySearch(
+          queryString: string,
+          cb: (...arg: unknown[]) => void
+        ) {
+          cb(
+            queryString
+              ? list.filter((i) => {
+                  return i.value.indexOf(queryString.toLowerCase()) === 0
+                })
+              : list
+          )
+        }
+
+        return {
+          value,
+          list,
+          querySearch,
+        }
       },
     })
+
+    expect(wrapper.find('.pro-input-tag .el-autocomplete')).not.toBeNull()
+    expect(wrapper.find('.el-autocomplete-suggestion__list')).not.toBeNull()
 
     /** init */
     expect(wrapper.find('input').element.value).toBe('')
