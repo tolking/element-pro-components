@@ -39,7 +39,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
-import { useShow, useHover, useScroll, useResize } from '../../../src/index'
+import { useShow, useHover, useScroll, useResize } from '/@src/index'
 
 const { show, toggleShow } = useShow()
 const { isHover, enter, leave } = useHover()

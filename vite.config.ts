@@ -12,6 +12,9 @@ const pluginName = name.replace(/(^|-)(\w)/g, (a, b, c) => c.toUpperCase())
  */
 export default defineConfig({
   root: path.resolve(__dirname, 'example'),
+  alias: {
+    '/@src': path.resolve(__dirname, 'src'),
+  },
   build: {
     target: 'es2015',
     outDir: path.resolve(__dirname, 'lib'),

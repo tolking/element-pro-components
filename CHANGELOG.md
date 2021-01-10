@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.3.0
+
+feat
+
+- add ProAutocompleteTag
+- add ProCheckbox
+- add ProCheckboxButton
+- add ProRadio
+- add ProRadioButton
+- add ProSelect
+
+fix
+
+- without types
+
 ## 0.2.0
 
 feat
