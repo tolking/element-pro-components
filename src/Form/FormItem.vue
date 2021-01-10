@@ -195,10 +195,8 @@ function upChildData(
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-end;
-  width: 50px;
 }
 .pro-form-item .children-form .children-form-control .el-button {
-  margin: 0 0 20px 0;
-  padding: 10px;
+  margin: 0 0 20px 10px;
 }
 </style>

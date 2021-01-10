@@ -1,6 +1,6 @@
 import { ComputedRef, computed, Ref, toRefs, unref, inject } from 'vue'
 import { isObject } from '@vue/shared'
-import { config } from '../config'
+import { config } from '../utils/config'
 import { filterSlotDeep } from '../utils/index'
 import type { ProColumns, ProColumnsDefaultBind } from '../types/index'
 

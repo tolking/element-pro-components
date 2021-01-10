@@ -2,14 +2,14 @@
   <pro-form
     v-model="form"
     :columns="columns"
-    label-width="120px"
+    label-width="180px"
     size="small"
   >
-    <template #date-label>
+    <template #slot-label>
       <i class="el-icon-time" />
-      <span>Date</span>
+      <span>Slot</span>
     </template>
-    <template #date="{ item, value, setValue }">
+    <template #slot="{ item, value, setValue }">
       <span>{{ item }} - {{ value }} - {{ setValue }}</span>
     </template>
     <template #menu>
@@ -22,7 +22,7 @@
   <pro-form
     v-model="form1"
     :columns="columns1"
-    label-width="120px"
+    label-width="180px"
   >
     <template #address="{ value, setValue }">
       <pro-input-tag
@@ -44,16 +44,21 @@ import { ref } from 'vue'
 
 const form = ref<Record<string, unknown>>({})
 const form1 = ref<Record<string, unknown>>({})
+const list = [
+  { value: 'Go', tag: 'go', disabled: true },
+  { value: 'JavaScript', tag: 'javascript' },
+  { value: 'Python', tag: 'python' },
+]
 const columns = [
   {
-    // label: 'Date',
-    prop: 'date',
+    // label: 'Slot',
+    prop: 'slot',
     component: 'el-input',
     slot: true,
   },
   {
-    label: 'Name',
-    prop: 'name',
+    label: 'el-input',
+    prop: 'input',
     component: 'el-input',
     props: {
       clearable: true,
@@ -61,9 +66,66 @@ const columns = [
     },
   },
   {
-    label: 'Address',
-    prop: 'address',
+    label: 'pro-input-tag',
+    prop: 'inputTag',
     component: 'pro-input-tag',
+    props: {
+      placeholder: 'Click the space after input',
+    },
+  },
+  {
+    label: 'pro-autocomplete-tag',
+    prop: 'autocompleteTag',
+    component: 'pro-autocomplete-tag',
+    props: {
+      fetchSuggestions: querySearch,
+      placeholder: 'Click the space after input',
+    },
+  },
+  {
+    label: 'pro-radio',
+    prop: 'radio',
+    component: 'pro-radio',
+    props: {
+      data: list,
+      config: { label: 'tag' },
+    },
+  },
+  {
+    label: 'pro-radio-button',
+    prop: 'radioButton',
+    component: 'pro-radio-button',
+    props: {
+      data: list,
+      config: { label: 'tag' },
+    },
+  },
+  {
+    label: 'pro-checkbox',
+    prop: 'checkbox',
+    component: 'pro-checkbox',
+    props: {
+      data: list,
+      config: { label: 'tag' },
+    },
+  },
+  {
+    label: 'pro-checkbox-button',
+    prop: 'checkboxButton',
+    component: 'pro-checkbox-button',
+    props: {
+      data: list,
+      config: { label: 'tag' },
+    },
+  },
+  {
+    label: 'pro-select',
+    prop: 'select',
+    component: 'pro-select',
+    props: {
+      data: list,
+      config: { label: 'tag' },
+    },
   },
 ]
 const columns1 = [
@@ -76,6 +138,7 @@ const columns1 = [
     label: 'User',
     prop: 'user',
     // max: 3,
+    size: 'mini',
     children: [
       {
         label: 'Name',
@@ -91,4 +154,14 @@ const columns1 = [
     ],
   },
 ]
+
+function querySearch(queryString: string, cb: (...arg: unknown[]) => void) {
+  cb(
+    queryString
+      ? list.filter((i) => {
+          return i.value.indexOf(queryString.toLowerCase()) === 0
+        })
+      : list
+  )
+}
 </script>

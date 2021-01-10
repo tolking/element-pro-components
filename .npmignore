@@ -16,7 +16,7 @@ dist/
 docs/
 example/
 node_modules/
-src/
+/src/
 test/
 
 npm-debug.log

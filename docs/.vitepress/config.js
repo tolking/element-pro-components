@@ -1,3 +1,4 @@
+const path = require('path')
 const markdown = require('markdown-it')
 const container = require('markdown-it-container')
 const codeSnippet = require('markdown-it-vuepress-code-snippet-enhanced')
@@ -62,6 +63,9 @@ module.exports = {
           text: 'Form',
           children: [
             { text: 'Form', link: '/components/Form' },
+            { text: 'Radio', link: '/components/Radio' },
+            { text: 'Checkbox', link: '/components/Checkbox' },
+            { text: 'Select', link: '/components/Select' },
             { text: 'InputTag', link: '/components/InputTag' },
           ],
         },
@@ -94,6 +98,9 @@ module.exports = {
               text: 'Form',
               children: [
                 { text: 'Form', link: '/components/Form' },
+                { text: 'Radio', link: '/components/Radio' },
+                { text: 'Checkbox', link: '/components/Checkbox' },
+                { text: 'Select', link: '/components/Select' },
                 { text: 'InputTag', link: '/components/InputTag' },
               ],
             },
@@ -110,6 +117,9 @@ module.exports = {
     editLinks: true,
     lastUpdated: '最后更新时间',
     editLinkText: '在 GitHub 上编辑此页',
+  },
+  alias: {
+    '/@src': path.resolve(__dirname, '../../src'),
   },
   markdown: {
     config(md) {

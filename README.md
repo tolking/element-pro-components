@@ -12,20 +12,22 @@
   - [x] ProMenu
   - [x] ProBreadcrumb
   - [x] ProTabs
-  - [x] ProInputTag
   - [x] ProTable
   - [x] ProForm
+  - [x] ProInputTag
+  - [x] ProRadio
+  - [x] ProRadioButton
+  - [x] ProCheckbox
+  - [x] ProCheckboxButton
+  - [x] ProSelect
   - [ ] ProSerach
   - [ ] ProList
   - [ ] ProCrud
-  - [ ] ProRadio
-  - [ ] ProCheckbox
-  - [ ] ProSelect
   - [ ] ProUpload
   - ...
 
-- [ ] test
 - [x] docs
+- [-] test
 - ...
 
 ## Installation

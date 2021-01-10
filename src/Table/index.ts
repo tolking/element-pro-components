@@ -1,5 +1,5 @@
 import type { App } from 'vue'
-import { config, InstallOptions } from '../config'
+import { config, InstallOptions } from '../utils/config'
 import ProTable from './Table.vue'
 
 ProTable.installl = (app: App, options?: InstallOptions) => {

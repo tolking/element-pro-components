@@ -2,7 +2,7 @@
 
 ## 安装
 
-```sh
+```
 yarn add element-pro-components
 # or
 npm i element-pro-components
@@ -52,7 +52,7 @@ app.mount('#app')
 
 ##### 参考
 
-@[code](@/src/config.ts)
+@[code](@/src/utils/config.ts)
 
 ##### 配置
 

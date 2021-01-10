@@ -4,14 +4,14 @@
 
 ## 使用
 
-1. 基于 `input` 使用
+1. 基础用法
 
-::: demo input 默认 type="text"，支持 type="text" 的大部分配置
+::: demo 使用 `pro-input-tag` 支持 type="text" 的大部分配置
+
 <template>
   <pro-input-tag
     v-model="inputTags"
     placeholder="请输入内容,点击空格按键"
-    @change="handleTagsChange"
   />
 </template>
 
@@ -21,60 +21,62 @@ export default {
     return {
       inputTags: []
     }
-  },
-  methods: {
-    handleTagsChange(tags) {
-      console.log(tags)
-    }
   }
 }
 </script>
+
 :::
 
-## 配置 TODO: rebuild
+2. 带输入建议
 
-**input 默认 type="text"，支持 type="text" 的大部分配置**
+::: demo 使用 `pro-autocomplete-tag` 支持 autocomplete 的大部分配置
 
-**支持 autocomplete 的大部分配置**
+<template>
+  <pro-autocomplete-tag
+    v-model="inputTags1"
+    :fetch-suggestions="querySearch"
+    placeholder="请输入内容,点击空格按键"
+  />
+</template>
 
-v-model 或者 value
-- type: `Array`
-- default: `[]`
+<script setup>
+import { onMounted, ref } from 'vue'
 
-绑定的标签数组
+const inputTags1 = ref([])
+const list = [
+  { value: 'Go', tag: 'go' },
+  { value: 'JavaScript', tag: 'javascript' },
+  { value: 'Python', tag: 'python' },
+]
 
-autocomplete
-- type: `Boolean`
-- default: `false`
+function querySearch(queryString, cb) {
+  cb(queryString ? list.filter(i => {
+    return i.value.indexOf(queryString.toLowerCase()) === 0
+  }) : list)
+}
+</script>
 
-是否启用自动补全
+:::
 
-tagType
-- type: `String`
-- default: `null`
+## 配置
 
-tag 类型
+| 参数    | 说明                     | 类型   | 可选值                | 默认值              |
+| :------ | :----------------------- | :----- | :-------------------- | :------------------ |
+| v-model | 绑定值                   | array  | -                     | -                   |
+| size    | 尺寸                     | string | medium / small / mini | —                   |
+| tag     | tag 标签的配置，参考 tag | object | -                     | { effect: 'light' } |
 
-tagSize
-- type: `String`
-- default: `null`
+#### 其它配置
 
-tag 尺寸	
+`pro-input-tag` 时，同 type="text" [ElInput](https://element-plus.gitee.io/#/zh-CN/component/input)
 
-tagHit
-- type: `Boolean`
-- default: `false`
+`pro-autocomplete-tag` 时，同 [ElAutocomplete](https://element-plus.gitee.io/#/zh-CN/component/input)
 
-tag 是否有边框描边
+### tag
 
-tagEffect
-- type: `String`
-- default: `light`
-
-tag 主题
-
-## 事件
-
-change
-
-标签数组变化时返回 `tags`
+| 参数   | 说明           | 类型    | 可选值                      | 默认值 |
+| :----- | :------------- | :------ | :-------------------------- | :----- |
+| type   | 类型           | string  | success/info/warning/danger | —      |
+| hit    | 是否有边框描边 | boolean | —                           | false  |
+| color  | 背景色         | string  | —                           | —      |
+| effect | 主题           | string  | dark / light / plain        | light  |

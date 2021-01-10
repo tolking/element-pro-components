@@ -1,10 +1,10 @@
 import { createApp } from 'vue'
 import router from './router/index'
 import { ElButton, ElInput } from 'element-plus'
-import ElementPro from '../../src/index'
+import ElementPro from '/@src/index'
 import App from './App.vue'
-import '../../node_modules/element-plus/lib/theme-chalk/index.css'
-import '../../src/styles/index.css'
+import 'element-plus/lib/theme-chalk/index.css'
+import '/@src/styles/index.css'
 
 const app = createApp(App)
 
