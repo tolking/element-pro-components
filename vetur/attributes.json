@@ -1,0 +1,13 @@
+{
+  "modelValue": {
+    "description": "baind value"
+  },
+  "size": {
+    "options": ["medium", "small", "mini"],
+    "description": "components size"
+  },
+  "tag": {
+    "type": "object",
+    "description": "config the tag style. e.g. { effect: 'plain' }"
+  }
+}

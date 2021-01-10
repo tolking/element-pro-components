@@ -27,7 +27,8 @@
   - ...
 
 - [x] docs
-- [-] test
+- [ ] test WIP:
+- [ ] vetur WIP:
 - ...
 
 ## Installation

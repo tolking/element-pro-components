@@ -1,0 +1,10 @@
+{
+  "pro-autocomplete-tag": {
+    "attributes": ["modelValue", "size", "tag"],
+    "description": "Enter an array of tags by autocomplete."
+  },
+  "pro-input-tag": {
+    "attributes": ["modelValue", "size", "tag"],
+    "description": "Enter an array of tags."
+  }
+}
