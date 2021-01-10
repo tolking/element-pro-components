@@ -1,6 +1,7 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import ProAutocompleteTag from '../src/AutocompleteTag/AutocompleteTag.vue'
+import { dicList } from './mock'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
@@ -32,11 +33,7 @@ describe('AutocompleteTag.vue', () => {
       `,
       setup() {
         const value = ref(['test'])
-        const list = [
-          { value: 'Go', tag: 'go' },
-          { value: 'JavaScript', tag: 'javascript' },
-          { value: 'Python', tag: 'python' },
-        ]
+        const list = dicList
 
         function querySearch(
           queryString: string,
@@ -58,6 +55,7 @@ describe('AutocompleteTag.vue', () => {
         }
       },
     })
+    const vm = (wrapper.vm as unknown) as { value: string[] }
 
     expect(wrapper.find('.pro-input-tag .el-autocomplete')).not.toBeNull()
     expect(wrapper.find('.el-autocomplete-suggestion__list')).not.toBeNull()
@@ -81,5 +79,9 @@ describe('AutocompleteTag.vue', () => {
     /** close */
     await wrapper.find('.el-tag .el-tag__close').trigger('click')
     expect(getList(wrapper)).not.toContain('test')
+
+    /** change model-value */
+    await vm.value.push('model')
+    expect(getList(wrapper)).toContain('model')
   })
 })

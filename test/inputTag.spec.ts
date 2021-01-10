@@ -23,12 +23,13 @@ describe('InputTag.vue', () => {
 
   test('test modelValue', async () => {
     const wrapper = _mount({
-      template: '<pro-input-tag v-model="list" />',
+      template: '<pro-input-tag v-model="value" />',
       setup() {
-        const list = ref(['test'])
-        return { list }
+        const value = ref(['test'])
+        return { value }
       },
     })
+    const vm = (wrapper.vm as unknown) as { value: string[] }
 
     /** init */
     expect(wrapper.find('input').element.value).toBe('')
@@ -49,5 +50,9 @@ describe('InputTag.vue', () => {
     /** close */
     await wrapper.find('.el-tag .el-tag__close').trigger('click')
     expect(getList(wrapper)).not.toContain('test')
+
+    /** change model-value */
+    await vm.value.push('model')
+    expect(getList(wrapper)).toContain('model')
   })
 })
