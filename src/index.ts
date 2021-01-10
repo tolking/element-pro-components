@@ -19,8 +19,6 @@ import ProSelect from './Select/index'
 import ProTable from './Table/index'
 import ProTabs from './Tabs/index'
 
-const version = process.env.VERSION || '0.0.0'
-
 const components: Record<string, ComponentOptions> = {
   ProAutocompleteTag,
   ProBreadcrumb,
@@ -62,11 +60,9 @@ export {
   ProSelect,
   ProTable,
   ProTabs,
-  version,
   install,
 }
 
 export default {
-  version,
   install,
 }

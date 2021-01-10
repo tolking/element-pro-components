@@ -1,9 +1,8 @@
 import path from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import replace from '@rollup/plugin-replace'
 import babel from 'rollup-plugin-babel'
-import { name, version } from './package.json'
+import { name } from './package.json'
 
 // Gets the components name and converts it to camelize
 const pluginName = name.replace(/(^|-)(\w)/g, (a, b, c) => c.toUpperCase())
@@ -27,7 +26,6 @@ export default defineConfig({
       },
       external: ['vue', 'vue-router', '@vue/shared', 'element-plus'],
       plugins: [
-        replace({ 'process.env.VERSION': JSON.stringify(version) }),
         babel({
           exclude: 'node_modules/**',
           extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
