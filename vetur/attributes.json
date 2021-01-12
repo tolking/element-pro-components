@@ -1,7 +1,6 @@
 {
-  "modelValue": {
-    "description": "baind value"
-  },
+  "model-value": {},
+  "columns": {},
   "size": {
     "options": ["medium", "small", "mini"],
     "description": "components size"
@@ -9,5 +8,208 @@
   "tag": {
     "type": "object",
     "description": "config the tag style. e.g. { effect: 'plain' }"
+  },
+  "fill": {
+    "description": "border and background color when button is active"
+  },
+  "min": {
+    "type": "number",
+    "description": "minimum number of checkbox checked"
+  },
+  "max": {
+    "type": "number",
+    "description": "maximum number of checkbox checked"
+  },
+  "maxlength": { "type": "number", "description": "maximum Input text length" },
+  "minlength": { "type": "number", "description": "minimum Input text length" },
+  "value-key": {
+    "description": "unique identity key name for value, required when value is an object"
+  },
+  "debounce": { "description": "debounce delay when typing, in millisecond" },
+  "palcement": {
+    "options": [
+      "top",
+      "top-start",
+      "top-end",
+      "bottom",
+      "bottom-start",
+      "bottom-end"
+    ],
+    "description": "placement of the popup menu, default: 'bottom-start"
+  },
+  "fetch-suggestions": {
+    "description": "a method to fetch input suggestions. When suggestions are ready, invoke callback(data:[]) to return them to Autocomplete"
+  },
+  "trigger-on-focus": {
+    "description": "whether show suggestions when input focus"
+  },
+  "name": { "description": "native 'name' attribute" },
+  "select-when-unmatched": {
+    "type": "boolean",
+    "description": "whether to emit a 'select' event on enter when there is no autocomplete match, default: false"
+  },
+  "hide-loading": {
+    "type": "boolean",
+    "description": "whether to hide the loading icon in remote search, default: false"
+  },
+  "popper-append-to-body": {
+    "type": "boolean",
+    "description": "whether to append the popper menu to body. If the positioning of the popper is wrong, you can try to set this prop to false, default: true"
+  },
+  "highlight-first-item": {
+    "type": "boolean",
+    "description": "whether to highlight first item in remote search suggestions by default, default: false"
+  },
+  "multiple": {
+    "type": "booleaan",
+    "description": "whether multiple-select is activated, default: false"
+  },
+  "data": { "type": "array" },
+  "collapse-tags": {
+    "type": "boolean",
+    "description": "whether to collapse tags to a text when multiple selecting, default: false"
+  },
+  "multiple-limit": {
+    "description": "maximum number of options user can select when multiple is true. No limit when set to 0"
+  },
+  "filterable": {
+    "type": "boolean",
+    "descript": "whether Select is filterable, default: false"
+  },
+  "allow-create": {
+    "type": "boolean",
+    "descript": "whether creating new items is allowed. To use this, filterable must be true, default: false"
+  },
+  "loading-text": {
+    "description": "displayed text while loading data from server"
+  },
+  "no-match-text": {
+    "description": "displayed text when no data matches the filtering query"
+  },
+  "no-data-text": { "description": "displayed text when there is no options" },
+  "reserve-keyword": {
+    "type": "boolean",
+    "description": "when 'multiple' and 'filter' is true, whether to reserve current keyword after selecting an option, default: false"
+  },
+  "default-first-option": {
+    "type": "boolean",
+    "description": "select first matching option on enter key. Use with 'filterable' or 'remote', default: false"
+  },
+  "automatic-dropdown": {
+    "type": "boolean",
+    "description": "for non-filterable Select, this prop decides if the option menu pops up when the input is focused, default: false"
+  },
+  "config": { "type": "object" },
+  "rules": { "description": "validation rules of form" },
+  "label-position": {
+    "options": ["left", "right", "top"],
+    "description": "position of label, default: 'right'"
+  },
+  "inline": { "type": "boolean", "description": "whether the form is inline" },
+  "hide-required-asterisk": {
+    "type": "boolean",
+    "description": "whether required fields should have a red asterisk (star) beside their labels, defaults: false"
+  },
+  "inline-message": {
+    "type": "boolean",
+    "description": "whether to display the error message inline with the form item"
+  },
+  "status-icon": {
+    "type": "boolean",
+    "description": "whether to display an icon indicating the validation result"
+  },
+  "validate-on-rule-change": {
+    "type": "boolean",
+    "description": "whether to trigger validation when the 'rules' prop is changed, default: true"
+  },
+  "stripe": {
+    "type": "boolean",
+    "description": "whether Table is striped, default: false"
+  },
+  "fit": {
+    "type": "boolean",
+    "description": "whether width of column automatically fits its container"
+  },
+  "show-header": {
+    "type": "boolean",
+    "description": "whether Table header is visible, default: true"
+  },
+  "highlight-current-row": {
+    "type": "boolean",
+    "description": "whether current row is highlighted, default: false"
+  },
+  "current-row-key": { "description": "key of current row, a set only prop" },
+  "row-class-name": {
+    "description": "function that returns custom class names for a row, or a string assigning class names for every row"
+  },
+  "row-style": {
+    "description": "function that returns custom style for a row, or a string assigning custom style for every row"
+  },
+  "cell-class-name": {
+    "description": "function that returns custom class names for a cell, or a string assigning class names for every cell"
+  },
+  "cell-style": {
+    "description": "function that returns custom style for a cell, or an object assigning custom style for every cell"
+  },
+  "header-row-class-name": {
+    "description": "function that returns custom class names for a row in table header, or a string assigning class names for every row in table header"
+  },
+  "header-row-style": {
+    "description": "function that returns custom style for a row in table header, or an object assigning custom style for every row in table header"
+  },
+  "header-cell-class-name": {
+    "description": "function that returns custom class names for a cell in table header, or a string assigning class names for every cell in table header"
+  },
+  "header-cell-style": {
+    "description": "function that returns custom style for a cell in table header, or an object assigning custom style for every cell in table header"
+  },
+  "row-key": {
+    "description": "key of row data, used for optimizing rendering. Required if 'reserve-selection' is on"
+  },
+  "disabled": { "type": "boolean" },
+  "text-color": { "type": "string" },
+  "placeholder": { "type": "string" },
+  "autofocus": { "type": "boolean" },
+  "clearable": { "type": "boolean" },
+  "loading": { "type": "boolean" },
+  "remote": { "type": "boolean" },
+  "show-message": { "type": "boolean" },
+  "border": { "type": "boolean" },
+  "filter-method": {},
+  "remote-method": {},
+  "popper-class": {},
+  "label-suffix": {},
+  "label-width": {},
+  "pro-radio/config": {
+    "description": "config the data key, default: {value: 'value',label: 'label',disabled: 'disabled',name: 'name'}"
+  },
+  "update:modelValue": { "type": "method" },
+  "change": { "type": "method" },
+  "select": { "type": "method" },
+  "input": { "type": "method" },
+  "blur": { "type": "method" },
+  "focus": { "type": "method" },
+  "visible-change": { "type": "method" },
+  "remove-tag": { "type": "method" },
+  "validate": {
+    "type": "method",
+    "description": "triggers after a form item is validated"
+  },
+  "pro-input-tag/clear": {
+    "type": "method",
+    "description": "triggers when the Input is cleared by the button which generated by the 'clearable' attribute"
+  },
+  "pro-select/clear": {
+    "type": "method",
+    "description": "triggers when the clear icon is clicked in a clearable Select"
+  },
+  "el-table/empty-text": {
+    "description": "Displayed text when data is empty. You can customize this area with slot='empty'"
+  },
+  "pro-table/height": {
+    "description": "Table's height. By default it has an auto height. If its value is a number, the height is measured in pixels; if its value is a string, the height is affected by external styles"
+  },
+  "pro-table/max-height": {
+    "description": "Table's max-height. The height of the table starts from 'auto' until it reaches the maxHeight limit. The 'maxHeight' is measured in pixels, same as 'height'"
   }
 }

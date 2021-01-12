@@ -49,7 +49,7 @@ const list = [
   { value: 'JavaScript', tag: 'javascript' },
   { value: 'Python', tag: 'python' },
 ]
-const columns = [
+const columns = ref([
   {
     // label: 'Slot',
     prop: 'slot',
@@ -127,8 +127,8 @@ const columns = [
       config: { label: 'tag' },
     },
   },
-]
-const columns1 = [
+])
+const columns1 = ref([
   {
     label: 'Date',
     prop: 'date',
@@ -153,7 +153,7 @@ const columns1 = [
       },
     ],
   },
-]
+])
 
 function querySearch(queryString: string, cb: (...arg: unknown[]) => void) {
   cb(
