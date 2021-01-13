@@ -1,6 +1,12 @@
 {
   "model-value": {},
   "columns": {},
+  "selection": {},
+  "expand": {},
+  "index": {},
+  "menu": {},
+  "pagination": {},
+  "routes": {},
   "size": {
     "options": ["medium", "small", "mini"],
     "description": "components size"
@@ -166,6 +172,78 @@
   "row-key": {
     "description": "key of row data, used for optimizing rendering. Required if 'reserve-selection' is on"
   },
+  "default-expand-all": {
+    "type": "boolean",
+    "description": "whether expand all rows by default, works when the table has a column type='expand' or contains tree structure data"
+  },
+  "expand-row-keys": {
+    "description": "set expanded rows by this prop, prop's value is the keys of expand rows, you should set row-key before using this prop, type: Array"
+  },
+  "default-sort": {
+    "description": "set the default sort column and order. property prop is used to set default sort column, property order is used to set default sort order"
+  },
+  "tooltip-effect": {
+    "options": ["dark", "light"],
+    "description": "tooltip 'effect' property"
+  },
+  "show-summary": {
+    "type": "boolean",
+    "description": "whether to display a summary row, default: false"
+  },
+  "sum-text": {
+    "description": "displayed text for the first column of summary row, default: Sum"
+  },
+  "summary-method": { "description": "custom summary method" },
+  "span-method": { "description": "method that returns rowspan and colspan" },
+  "select-on-indeterminate": {
+    "type": "boolean",
+    "description": "controls the behavior of master checkbox in multi-select tables when only some rows are selected (but not all). If true, all rows will be selected, else deselected. default: true"
+  },
+  "indent": {
+    "description": "horizontal indentation of nodes in adjacent levels in pixels, default: 16"
+  },
+  "lazy": { "description": "whether to lazy loading data" },
+  "load": {
+    "description": "method for loading child row data, only works when lazy is true"
+  },
+  "tree-props": {
+    "description": "configuration for rendering nested data, default: {hasChildren:'hasChildren',children:'children'}"
+  },
+  "show-overflow-tooltip": {
+    "type": "boolean",
+    "description": "whether to hide extra content and show them in a tooltip when hovering on the cell"
+  },
+  "align": { "options": ["left", "center", "right"] },
+  "header-align": {
+    "options": ["left", "center", "right"],
+    "description": "alignment of the table header. If omitted, the value of the 'align' attribute will be applied"
+  },
+  "mode": {
+    "options": ["vertical", "horizontal"],
+    "description": "menu display mode, default: vertical"
+  },
+  "collapse": {
+    "type": "boolean",
+    "description": "whether the menu is collapsed (available only in vertical mode)"
+  },
+  "default-openeds": {
+    "description": "array that contains keys of currently active sub-menus"
+  },
+  "default-active": { "description": "index of currently active menu" },
+  "unique-opened": {
+    "type": "boolean",
+    "description": "whether only one sub-menu can be active"
+  },
+  "menu-trigger": {
+    "description": "how sub-menus are triggered, only works when mode is 'horizontal', default: hover"
+  },
+  "route": { "description": "Vue Router object" },
+  "collapse-transition": {
+    "type": "boolean",
+    "description": "whether to enable the collapse transition, default: true"
+  },
+  "separator": { "description": "separator character, default: '/'" },
+  "separator-class": { "description": "class name of icon separator" },
   "disabled": { "type": "boolean" },
   "text-color": { "type": "string" },
   "placeholder": { "type": "string" },
@@ -183,27 +261,101 @@
   "pro-radio/config": {
     "description": "config the data key, default: {value: 'value',label: 'label',disabled: 'disabled',name: 'name'}"
   },
-  "update:modelValue": { "type": "method" },
+  "update:model-value": { "type": "method" },
+  "update:current-page": { "type": "method" },
+  "update:page-size": { "type": "method" },
   "change": { "type": "method" },
   "select": { "type": "method" },
   "input": { "type": "method" },
   "blur": { "type": "method" },
   "focus": { "type": "method" },
+  "size-change": { "type": "method" },
+  "prev-click": { "type": "method" },
+  "next-click": { "type": "method" },
   "visible-change": { "type": "method" },
   "remove-tag": { "type": "method" },
   "validate": {
     "type": "method",
     "description": "triggers after a form item is validated"
   },
+  "select-all": {
+    "type": "method",
+    "description": "triggers when user clicks the checkbox in table header, arg: selection"
+  },
+  "selection-change": {
+    "type": "method",
+    "description": "triggers when selection changes, arg: selection"
+  },
+  "cell-mouse-enter": {
+    "type": "method",
+    "description": "triggers when hovering into a cell, arg: row, column, cell, event"
+  },
+  "cell-mouse-leave": {
+    "type": "method",
+    "description": "triggers when hovering out of a cell, arg: row column, cell, event"
+  },
+  "cell-click": {
+    "type": "method",
+    "description": "triggers when clicking a cell, arg: row, column, cell, event"
+  },
+  "cell-dbclick": {
+    "type": "method",
+    "description": "triggers when double clicking a cell, arg: row, column, cell, event"
+  },
+  "row-click": {
+    "type": "method",
+    "description": "triggers when clicking a row, arg: row, event, column"
+  },
+  "row-contextmenu": {
+    "type": "method",
+    "description": "triggers when user right clicks on a row, arg: row, event"
+  },
+  "row-dbclick": {
+    "type": "method",
+    "description": "triggers when double clicking a row, arg: row, event"
+  },
+  "header-click": {
+    "type": "method",
+    "description": "triggers when clicking a column header, arg: column, event"
+  },
+  "sort-change": {
+    "type": "method",
+    "description": "triggers when Table's sorting changes, arg: { column, prop, order }"
+  },
+  "filter-change": {
+    "type": "method",
+    "description": "column's key. If you need to use the filter-change event, this attribute is mandatory to identify which column is being filtered, arg: filters"
+  },
+  "current-change": {
+    "type": "method",
+    "description": "triggers when current row changes, arg: currentRow, oldCurrentRow"
+  },
+  "header-draggend": {
+    "type": "method",
+    "description": "triggers when finish dragging header, arg: newWidth, oldWidth, column, event"
+  },
+  "expand-change": {
+    "type": "method",
+    "description": "triggers when expand option changes"
+  },
   "pro-input-tag/clear": {
     "type": "method",
     "description": "triggers when the Input is cleared by the button which generated by the 'clearable' attribute"
+  },
+  "pro-menu/background-color": {
+    "description": "background color of Menu (hex format), default: #ffffff"
+  },
+  "pro-menu/text-color": {
+    "description": "text color of Menu (hex format), default: #303133"
+  },
+  "pro-menu/active-text-color": {
+    "description": "text color of currently active menu item (hex format), default: #409EFF"
   },
   "pro-select/clear": {
     "type": "method",
     "description": "triggers when the clear icon is clicked in a clearable Select"
   },
-  "el-table/empty-text": {
+  "pro-table/empty-text": {
     "description": "Displayed text when data is empty. You can customize this area with slot='empty'"
   },
   "pro-table/height": {
@@ -211,5 +363,9 @@
   },
   "pro-table/max-height": {
     "description": "Table's max-height. The height of the table starts from 'auto' until it reaches the maxHeight limit. The 'maxHeight' is measured in pixels, same as 'height'"
+  },
+  "pro-table/current-change": {
+    "type": "method",
+    "description": "triggers when 'current-page' changes"
   }
 }

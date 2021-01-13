@@ -18,7 +18,7 @@
       "hide-loading",
       "popper-append-to-body",
       "highlight-first-item",
-      "update:modelValue",
+      "update:model-value",
       "blur",
       "focus",
       "change",
@@ -27,6 +27,10 @@
       "select"
     ],
     "description": "Enter an array of tags by autocomplete"
+  },
+  "pro-breadcrumb": {
+    "attributes": ["separator", "separator-class"],
+    "description": "Displays the location of the current page, making it easier to browser back."
   },
   "pro-checkbox": {
     "attributes": [
@@ -39,7 +43,7 @@
       "min",
       "max",
       "disabled",
-      "update:modelValue",
+      "update:model-value",
       "change"
     ],
     "defaults": ["v-model"],
@@ -56,13 +60,13 @@
       "min",
       "max",
       "disabled",
-      "update:modelValue",
+      "update:model-value",
       "change"
     ],
     "defaults": ["v-model"],
     "description": "Single selection among multiple options"
   },
-  "el-form": {
+  "pro-form": {
     "attributes": [
       "model-value",
       "columns",
@@ -78,7 +82,7 @@
       "validate-on-rule-change",
       "size",
       "disabled",
-      "update:modelValue",
+      "update:model-value",
       "validate"
     ],
     "defaults": ["v-model", ":columns"],
@@ -96,7 +100,7 @@
       "clearable",
       "disabled",
       "name",
-      "update:modelValue",
+      "update:model-value",
       "blur",
       "focus",
       "change",
@@ -104,6 +108,26 @@
       "clear"
     ],
     "description": "Enter an array of tags"
+  },
+  "pro-menu": {
+    "attributes": [
+      "routes",
+      "mode",
+      "collapse",
+      "background-color",
+      "text-color",
+      "active-text-color",
+      "default-active",
+      "default-openeds",
+      "unique-opened",
+      "menu-trigger",
+      "router",
+      "collapse-transition",
+      "select",
+      "open",
+      "close"
+    ],
+    "description": "Menu that provides navigation for your website"
   },
   "pro-radio": {
     "attributes": [
@@ -114,7 +138,7 @@
       "disabled",
       "text-color",
       "fill",
-      "update:modelValue",
+      "update:model-value",
       "change"
     ],
     "defaults": ["v-model"],
@@ -129,13 +153,13 @@
       "disabled",
       "text-color",
       "fill",
-      "update:modelValue",
+      "update:model-value",
       "change"
     ],
     "defaults": ["v-model"],
     "description": "Single selection among multiple options"
   },
-  "el-select": {
+  "pro-select": {
     "attributes": [
       "model-value",
       "data",
@@ -165,7 +189,7 @@
       "popper-append-to-body",
       "automatic-dropdown",
       "clear-icon",
-      "update:modelValue",
+      "update:model-value",
       "change",
       "visible-change",
       "remove-tag",
@@ -176,9 +200,20 @@
     "defaults": ["v-model"],
     "description": "When there are plenty of options, use a drop-down menu to display and select desired ones."
   },
-  "el-table": {
+  "pro-table": {
     "attributes": [
       "columns",
+      "selection",
+      "expand",
+      "index",
+      "menu",
+      "total",
+      "page-size",
+      "current-page",
+      "pagination",
+      "show-overflow-tooltip",
+      "align",
+      "header-align",
       "data",
       "height",
       "max-height",
@@ -228,10 +263,15 @@
       "filter-change",
       "current-change",
       "header-draggend",
-      "expand-change"
+      "expand-change",
+      "update:current-page",
+      "update:page-size",
+      "size-change",
+      "current-change",
+      "prev-click",
+      "next-click"
     ],
     "defaults": [":columns", ":data"],
-    "subtags": ["el-table-column"],
     "description": "Display multiple data with similar format. You can sort, filter, compare your data in a table."
   }
 }
