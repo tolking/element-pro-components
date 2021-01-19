@@ -109,6 +109,10 @@
     ],
     "description": "Enter an array of tags"
   },
+  "pro-layout": {
+    "attributes": ["routes"],
+    "description": "default global layout interface"
+  },
   "pro-menu": {
     "attributes": [
       "routes",
@@ -261,7 +265,6 @@
       "header-contextmenu",
       "sort-change",
       "filter-change",
-      "current-change",
       "header-draggend",
       "expand-change",
       "update:current-page",
@@ -271,7 +274,14 @@
       "prev-click",
       "next-click"
     ],
-    "defaults": [":columns", ":data"],
+    "defaults": [
+      "v-model:current-page",
+      "v-model:page-size",
+      ":columns",
+      ":data",
+      ":total"
+    ],
     "description": "Display multiple data with similar format. You can sort, filter, compare your data in a table."
-  }
+  },
+  "pro-tabs": { "description": "display page access history" }
 }
