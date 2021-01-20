@@ -16,10 +16,14 @@
 </template>
 
 <script>
+import { ref } from 'vue'
+
 export default {
-  data() {
+  setup() {
+    const inputTags = ref([])
+
     return {
-      inputTags: []
+      inputTags
     }
   }
 }
@@ -33,26 +37,36 @@ export default {
 
 <template>
   <pro-autocomplete-tag
-    v-model="inputTags1"
+    v-model="autocompleteTags"
     :fetch-suggestions="querySearch"
     placeholder="请输入内容,点击空格按键"
   />
 </template>
 
-<script setup>
-import { onMounted, ref } from 'vue'
+<script>
+import { ref } from 'vue'
 
-const inputTags1 = ref([])
-const list = [
-  { value: 'Go', tag: 'go' },
-  { value: 'JavaScript', tag: 'javascript' },
-  { value: 'Python', tag: 'python' },
-]
+export default {
+  setup() {
+    const autocompleteTags = ref([])
+    const list = [
+      { value: 'Go', tag: 'go' },
+      { value: 'JavaScript', tag: 'javascript' },
+      { value: 'Python', tag: 'python' },
+    ]
 
-function querySearch(queryString, cb) {
-  cb(queryString ? list.filter(i => {
-    return i.value.indexOf(queryString.toLowerCase()) === 0
-  }) : list)
+    function querySearch(queryString, cb) {
+      cb(queryString ? list.filter(i => {
+        return i.value.indexOf(queryString.toLowerCase()) === 0
+      }) : list)
+    }
+
+    return {
+      autocompleteTags,
+      list,
+      querySearch,
+    }
+  }
 }
 </script>
 

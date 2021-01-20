@@ -82,7 +82,7 @@ function handleScroll() {
 <style>
 .pro-code {
   margin-bottom: 1rem;
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-divider);
   border-radius: 3px;
   background: var(--c-bg);
   transition: all 0.2s;
@@ -106,7 +106,7 @@ function handleScroll() {
 .pro-code .meta .description {
   padding: 20px;
   margin: 10px 0;
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-divider);
   box-sizing: border-box;
   background: var(--c-bg);
   font-size: 14px;
@@ -132,7 +132,7 @@ function handleScroll() {
 .pro-code .control {
   height: 44px;
   box-sizing: border-box;
-  border-top: 1px solid var(--c-border);
+  border-top: 1px solid var(--c-divider);
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   background: var(--c-bg);
