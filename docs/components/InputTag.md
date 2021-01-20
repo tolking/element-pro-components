@@ -43,8 +43,8 @@ export default {
   />
 </template>
 
-<script setup>
-import { onMounted, ref } from 'vue'
+<script>
+import { ref } from 'vue'
 
 export default {
   setup() {
