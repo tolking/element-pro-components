@@ -75,6 +75,10 @@
     "vue-jest": "^5.0.0-alpha.7",
     "vue-template-compiler": "^2.6.12"
   },
+  "vetur": {
+    "tags": "vetur/tags.json",
+    "attributes": "vetur/attributes.json"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
