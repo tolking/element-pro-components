@@ -17,11 +17,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { ElSelect, ElOption } from 'element-plus'
-import { selectMixin } from '../utils/mixins'
+import { select } from '../mixins/index'
 
 export default defineComponent({
   name: 'ProSelect',
   components: { ElSelect, ElOption },
-  mixins: [selectMixin],
+  mixins: [select],
 })
 </script>

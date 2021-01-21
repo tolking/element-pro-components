@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue'
 
-export const selectMixin = defineComponent({
+export const select = defineComponent({
   props: {
     modelValue: {
       type: null,
