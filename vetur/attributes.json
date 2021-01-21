@@ -19,13 +19,25 @@
   },
   "pagination": { "type": "object", "description": "pagination config" },
   "routes": { "description": "Vue Router list" },
+  "trigger": {
+    "options": ["space", "enter"],
+    "description": "the key to trigger input tag"
+  },
   "size": {
     "options": ["medium", "small", "mini"],
     "description": "components size"
   },
-  "tag": {
-    "type": "object",
-    "description": "config the tag style. e.g. { effect: 'plain' }"
+  "type": {
+    "options": ["info", "success", "warning", "danger"],
+    "description": "the input tag theme"
+  },
+  "hit": {
+    "type": "boolean",
+    "description": "whether Tag has a highlighted border, default: false"
+  },
+  "effect": {
+    "options": ["dark", "light", "plain"],
+    "description": "the input tag component theme"
   },
   "fill": {
     "description": "border and background color when button is active"
@@ -270,12 +282,13 @@
   "popper-class": {},
   "label-suffix": {},
   "label-width": {},
+  "color": {},
   "pro-radio/config": {
     "description": "config the data key, default: {value: 'value',label: 'label',disabled: 'disabled',name: 'name'}"
   },
-  "update:model-value": { "type": "event" },
-  "update:current-page": { "type": "event" },
-  "update:page-size": { "type": "event" },
+  "update:modelValue": { "type": "event" },
+  "update:currentPage": { "type": "event" },
+  "update:pageSize": { "type": "event" },
   "change": { "type": "event" },
   "select": { "type": "event" },
   "input": { "type": "event" },

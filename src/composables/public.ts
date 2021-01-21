@@ -1,6 +1,7 @@
 import {
   ComputedRef,
   computed,
+  getCurrentInstance,
   onMounted,
   Ref,
   ref,
@@ -121,5 +122,28 @@ export function useCurrentRoutes(
 
       return filterRouterByHidden(_routes)
     }
+  })
+}
+
+/**
+ * exclusion `class` `style` for attrs
+ * @param excludeKeys Additional exclusion value
+ */
+export function usrFilterAttrs(
+  excludeKeys: string[] = []
+): ComputedRef<Record<string, unknown>> {
+  const instance = getCurrentInstance() || { attrs: {} }
+  const exclude = excludeKeys.concat(['class', 'style'])
+
+  return computed(() => {
+    const attrs = { ...instance.attrs }
+
+    exclude.forEach((item: string) => {
+      if (item in attrs) {
+        attrs[item] = undefined
+      }
+    })
+
+    return attrs
   })
 }

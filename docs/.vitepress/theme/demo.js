@@ -93,6 +93,14 @@ module.exports = {
         if (i === 0) {
           script = ''
         }
+        // Remove top <template>
+        if (/^<template>/.test(content)) {
+          const reContent = content.match(
+            /^<template>((\s|\S)*)<\/template>/m
+          )[1]
+
+          htmlBlock[i].content = reContent
+        }
         // Extract the <script> label content
         if (content.includes('<script')) {
           if (/export\sdefault\s?\{/m.test(content)) {

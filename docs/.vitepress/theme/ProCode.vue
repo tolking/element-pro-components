@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { nextTick, onMounted, ref, watch } from 'vue'
 import { useShow, useHover, useScroll, useResize } from '/@src/index'
 
 const { show, toggleShow } = useShow()
@@ -92,9 +92,6 @@ function handleScroll() {
 }
 .pro-code .source {
   padding: 24px;
-}
-.pro-code .source template {
-  display: block;
 }
 .pro-code .meta {
   padding: 0 10px;
