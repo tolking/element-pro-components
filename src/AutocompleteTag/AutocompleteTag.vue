@@ -1,10 +1,13 @@
 <template>
-  <div class="pro-input-tag">
+  <div class="pro-autocomplete-tag pro-input-tag">
     <el-tag
-      v-for="(item, index) in modelValue"
+      v-for="(item, index) in list"
       :key="index"
-      v-bind="tagConfig"
       :size="size"
+      :type="type"
+      :hit="hit"
+      :color="color"
+      :effect="effect"
       closable
       @close="close(index)"
     >
@@ -16,34 +19,30 @@
       :size="size"
       @select="add"
       @blur="add"
-      @keyup.space="add"
+      @keyup="keyup"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { toRefs, defineEmit, defineProps, computed, useContext } from 'vue'
+import { toRefs, defineEmit, defineProps, useContext } from 'vue'
 import { ElTag, ElAutocomplete } from 'element-plus'
-import { useInputTag, useFormSize } from '../composables/index'
+import { useInputTag, useFormSize, usrFilterAttrs } from '../composables/index'
 
 const props = defineProps<{
   modelValue?: string[]
+  trigger?: 'space' | 'enter'
   size?: 'medium' | 'small' | 'mini'
-  tag?: {
-    type?: 'success' | 'info' | 'warning' | 'danger'
-    hit?: boolean
-    color?: string
-    effect: 'light' | 'dark' | 'plain'
-  }
+  type?: 'success' | 'info' | 'warning' | 'danger'
+  hit?: boolean
+  color?: string
+  effect?: 'light' | 'dark' | 'plain'
 }>()
 const emit = defineEmit(['update:modelValue'])
-const { modelValue, tag } = toRefs(props)
-const { attrs } = useContext()
+const { type, hit, color, effect } = toRefs(props)
+const attrs = usrFilterAttrs()
 const size = useFormSize(props)
-const { input, add, close } = useInputTag(emit, modelValue)
-const tagConfig = computed(() => {
-  return Object.assign({ effect: 'light' }, tag?.value)
-})
+const { input, list, add, close, keyup } = useInputTag(props, emit)
 </script>
 
 <style>
