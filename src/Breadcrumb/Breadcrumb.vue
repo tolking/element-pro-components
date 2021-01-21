@@ -1,7 +1,7 @@
 <template>
   <el-breadcrumb class="pro-breadcrumb">
     <el-breadcrumb-item
-      v-for="item in breadcrumbList"
+      v-for="item in list"
       :key="item.path"
     >
       <router-link :to="item.path">
@@ -12,19 +12,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineComponent, defineProps, toRaw, toRefs } from 'vue'
-import type { Ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { computed, defineProps } from 'vue'
+import { useRoute } from 'vue-router'
 import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'
 import { findRouterItemListByPath } from '../utils/index'
 import { useCurrentRoutes } from '../composables/index'
 import type { ProRouteRecordRaw } from '../types/index'
 
 const props = defineProps<{ routes?: ProRouteRecordRaw[] }>()
-const { routes } = toRefs(props)
 const route = useRoute()
-const currentRoutes = useCurrentRoutes(routes as Ref<ProRouteRecordRaw[]>)
-const breadcrumbList = computed(() => {
-  return findRouterItemListByPath(currentRoutes.value, route.path)
+const routes = useCurrentRoutes(props)
+const list = computed(() => {
+  return findRouterItemListByPath(routes.value, route.path)
 })
 </script>

@@ -31,7 +31,7 @@
             icon="el-icon-plus"
             type="primary"
             circle
-            @click="plusItem(item.prop)"
+            @click="add"
           />
         </template>
         <template v-else>
@@ -46,9 +46,7 @@
                 :key="child.prop"
                 :model-value="modelValue[item.prop][index]"
                 :item="child"
-                @update:modelValue="
-                  (value) => upChildData(item.prop, index, value)
-                "
+                @update:modelValue="(value) => upChildData(value, index)"
               >
                 <template
                   v-for="slot in slotList"
@@ -87,7 +85,7 @@
                 icon="el-icon-minus"
                 type="danger"
                 circle
-                @click="minusItem(item.prop, index)"
+                @click="del(index)"
               />
               <el-button
                 v-if="
@@ -97,7 +95,7 @@
                 icon="el-icon-plus"
                 type="primary"
                 circle
-                @click="plusItem(item.prop)"
+                @click="add"
               />
             </div>
           </div>
@@ -108,13 +106,13 @@
           :name="item.prop"
           :item="item"
           :value="modelValue[item.prop]"
-          :setValue="(value) => upData(item.prop, value)"
+          :setValue="upData"
         >
           <pro-form-component
             :is="item.component"
             :model-value="modelValue[item.prop]"
             v-bind="item.props"
-            @update:modelValue="(value) => upData(item.prop, value)"
+            @update:modelValue="upData"
           />
         </slot>
       </template>
@@ -123,7 +121,7 @@
           :is="item.component"
           :model-value="modelValue[item.prop]"
           v-bind="item.props"
-          @update:modelValue="(value) => upData(item.prop, value)"
+          @update:modelValue="upData"
         />
       </template>
     </template>
@@ -131,50 +129,31 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, toRefs, defineEmit, computed } from 'vue'
+import { defineProps, toRefs, defineEmit } from 'vue'
 import { ElFormItem, ElButton } from 'element-plus'
-import { useFormSlotList, useFormItemBind } from '../composables/index'
+import {
+  useFormSlotList,
+  useFormItemBind,
+  useFormChild,
+} from '../composables/index'
 import ProFormComponent from './FormCompont.vue'
 import type { ProColumns } from '../types/index'
 
 type ModelChildValue = Record<string, Record<string, unknown>[]>
 
 const props = defineProps<{
-  item: Record<string, unknown>
+  item: Record<string, unknown> & { prop: string }
   modelValue: Record<string, unknown>
 }>()
 const emit = defineEmit(['update:modelValue'])
 const { item, modelValue } = toRefs(props)
 const slotList = useFormSlotList(item.value.children as ProColumns)
 const bindItem = useFormItemBind(item)
+const { add, del, upChildData } = useFormChild(props, emit)
 
-function plusItem(key: string) {
-  const _model = { ...modelValue.value } as ModelChildValue
-  if (modelValue.value[key]) {
-    _model[key].push({})
-  } else {
-    _model[key] = [{}]
-  }
-  emit('update:modelValue', _model)
-}
-function minusItem(key: string, index: number) {
-  const _model = { ...modelValue.value } as ModelChildValue
-  _model[key].splice(index, 1)
-  emit('update:modelValue', _model)
-}
-
-function upData(key: string, value: unknown) {
+function upData(value: unknown) {
   const _model = { ...modelValue.value }
-  _model[key] = value
-  emit('update:modelValue', _model)
-}
-function upChildData(
-  key: string,
-  index: number,
-  value: Record<string, unknown>
-) {
-  const _model = { ...modelValue.value } as ModelChildValue
-  _model[key][index] = value
+  _model[item.value.prop] = value
   emit('update:modelValue', _model)
 }
 </script>

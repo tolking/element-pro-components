@@ -9,7 +9,7 @@ export function filterSlotDeep(list: ProColumns): ProColumns {
     let _list: ProColumns = []
     if (_item.children && _item.children.length) {
       _list = filterSlotDeep(_item.children)
-      delete _item.children
+      _item.children = undefined
     }
     if (_item.slot) {
       _list.push(_item)

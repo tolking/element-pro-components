@@ -41,7 +41,7 @@ export function useColumnsBind(
   const _option = isObject(_currentBind) ? { ..._currentBind } : undefined
 
   if (_option) {
-    delete _option.slot
+    _option.slot = undefined
     delete _option.children
   }
 
