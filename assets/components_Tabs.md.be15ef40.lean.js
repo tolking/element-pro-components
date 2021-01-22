@@ -1,0 +1,1 @@
+import{l as a,f as n,aa as s}from"./framework.d4718fe3.js";const t='{"title":"Tabs","description":"","frontmatter":{},"headers":[{"level":2,"title":"使用","slug":"使用"}],"relativePath":"components/Tabs.md","lastUpdated":1611282228475}',p={},e=s('',4);p.render=function(s,t,p,o,l,c){return a(),n("div",null,[e])};export default p;export{t as __pageData};
