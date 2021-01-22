@@ -28,7 +28,6 @@ describe('AutocompleteTag.vue', () => {
         <pro-autocomplete-tag
           v-model="value"
           :fetch-suggestions="querySearch"
-          :popper-append-to-body="false"
         />
       `,
       setup() {
