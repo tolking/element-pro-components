@@ -1,26 +1,17 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import ProCheckboxButton from '../src/CheckboxButton/CheckboxButton.vue'
-import { dicList } from './mock'
+import { dicList, DicItem } from './mock'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
     components: { ProCheckboxButton },
     ...options,
   })
-const getList = (wrapper: VueWrapper<ComponentPublicInstance>) => {
+const getList = (wrapper: VueWrapper<ComponentPublicInstance>, calss = '') => {
+  const className = '.pro-checkbox-button .el-checkbox-button' + calss
   return wrapper
-    .findAll('.pro-checkbox-button .el-checkbox-button')
-    .map((item) => item.find('.el-checkbox-button__inner').text())
-}
-const getDisableList = (wrapper: VueWrapper<ComponentPublicInstance>) => {
-  return wrapper
-    .findAll('.pro-checkbox-button .el-checkbox-button.is-disabled')
-    .map((item) => item.find('.el-checkbox-button__inner').text())
-}
-const getCheckList = (wrapper: VueWrapper<ComponentPublicInstance>) => {
-  return wrapper
-    .findAll('.pro-checkbox-button .el-checkbox-button.is-checked')
+    .findAll(className)
     .map((item) => item.find('.el-checkbox-button__inner').text())
 }
 
@@ -47,13 +38,29 @@ describe('CheckboxButton.vue', () => {
     expect(getList(wrapper)).toContain('javascript')
     expect(getList(wrapper)).toContain('python')
     expect(getList(wrapper)).toContain('dart')
-    expect(getDisableList(wrapper)).toContain('go')
-    expect(getCheckList(wrapper)).toContain('javascript')
-    expect(getCheckList(wrapper)).not.toContain('python')
-    expect(getCheckList(wrapper)).not.toContain('dart')
+    expect(getList(wrapper, '.is-disabled')).toContain('go')
+    expect(getList(wrapper, '.is-checked')).toContain('javascript')
+    expect(getList(wrapper, '.is-checked')).not.toContain('python')
+    expect(getList(wrapper, '.is-checked')).not.toContain('dart')
 
     /** change model-value */
     await vm.value.push('Dart')
-    expect(getCheckList(wrapper)).toContain('dart')
+    expect(getList(wrapper, '.is-checked')).toContain('dart')
+  })
+
+  test('change data', async () => {
+    const wrapper = _mount({
+      template: '<pro-checkbox-button v-model="value" :data="data" />',
+      setup() {
+        const value = ref(['JavaScript'])
+        const data = ref(dicList)
+        return { value, data }
+      },
+    })
+    const vm = (wrapper.vm as unknown) as { data: DicItem[] }
+
+    expect(getList(wrapper)).not.toContain('vue')
+    await vm.data.push({ value: 'Vue', label: 'vue' })
+    expect(getList(wrapper)).toContain('vue')
   })
 })
