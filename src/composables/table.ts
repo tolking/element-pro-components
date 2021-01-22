@@ -41,7 +41,7 @@ export function useColumnsBind(
   const _option = isObject(_currentBind) ? { ..._currentBind } : undefined
 
   if (_option) {
-    delete _option.slot
+    _option.slot = undefined
     delete _option.children
   }
 
@@ -75,4 +75,44 @@ export function usePaginationBind(
       }
     }
   })
+}
+
+export function usePaginationEmit(
+  emit: (
+    event:
+      | 'update:currentPage'
+      | 'update:pageSize'
+      | 'size-change'
+      | 'current-change'
+      | 'prev-click'
+      | 'next-click',
+    ...args: unknown[]
+  ) => void
+): {
+  sizeChange: (size: number) => void
+  currentChange: (current: number) => void
+  prevClick: (current: number) => void
+  nextClick: (current: number) => void
+} {
+  function sizeChange(size: number) {
+    emit('update:pageSize', size)
+    emit('size-change', size)
+  }
+  function currentChange(current: number) {
+    emit('update:currentPage', current)
+    emit('current-change', current)
+  }
+  function prevClick(current: number) {
+    emit('current-change', current)
+  }
+  function nextClick(current: number) {
+    emit('current-change', current)
+  }
+
+  return {
+    sizeChange,
+    currentChange,
+    prevClick,
+    nextClick,
+  }
 }

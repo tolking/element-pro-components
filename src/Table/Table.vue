@@ -94,6 +94,7 @@ import {
   useColumnsDefaultBind,
   useColumnsSlotList,
   usePaginationBind,
+  usePaginationEmit,
 } from '../composables'
 import ProTableItem from './TableItem.vue'
 
@@ -138,23 +139,11 @@ const bindExpand = useColumnsBind(expand, defaultBind)
 const bindIndex = useColumnsBind(index, defaultBind)
 const bindMenu = useColumnsBind(menu, defaultBind)
 const bindPagination = usePaginationBind(pagination)
+const { sizeChange, currentChange, prevClick, nextClick } = usePaginationEmit(
+  emit
+)
 
 provide('defaultBind', defaultBind)
-
-function sizeChange(size: number) {
-  emit('update:pageSize', size)
-  emit('size-change', size)
-}
-function currentChange(current: number) {
-  emit('update:currentPage', current)
-  emit('current-change', current)
-}
-function prevClick(current: number) {
-  emit('current-change', current)
-}
-function nextClick(current: number) {
-  emit('current-change', current)
-}
 </script>
 
 <style>

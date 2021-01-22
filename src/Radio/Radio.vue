@@ -19,11 +19,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { ElRadioGroup, ElRadio } from 'element-plus'
-import { selectMixin } from '../utils/mixins'
+import { select } from '../mixins/index'
 
 export default defineComponent({
   name: 'ProRadio',
   components: { ElRadioGroup, ElRadio },
-  mixins: [selectMixin],
+  mixins: [select],
 })
 </script>

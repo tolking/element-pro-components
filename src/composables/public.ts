@@ -5,14 +5,11 @@ import {
   onMounted,
   Ref,
   ref,
-  unref,
   onUnmounted,
 } from 'vue'
 import { useRouter } from 'vue-router'
 import { filterRouterByHidden } from '../utils/index'
 import type { ProRouteRecordRaw } from '../types/index'
-
-type ScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 /**
  * toggle show
@@ -58,6 +55,10 @@ export function useHover(): {
   }
 }
 
+/**
+ * Monitor window scroll changes
+ * @param callback callback function
+ */
 export function useScroll(callback: () => void): void {
   onMounted(() => {
     window.addEventListener('scroll', callback)
@@ -68,6 +69,10 @@ export function useScroll(callback: () => void): void {
   })
 }
 
+/**
+ * Monitor window size changes
+ * @param callback callback function
+ */
 export function useResize(callback: () => void): void {
   onMounted(() => {
     callback()
@@ -78,6 +83,8 @@ export function useResize(callback: () => void): void {
     window.removeEventListener('resize', callback)
   })
 }
+
+type ScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 /** Gets the responsive breakpoint of the current screen */
 export function useScreenSize(): Ref<ScreenSize> {
@@ -106,16 +113,16 @@ export function useScreenSize(): Ref<ScreenSize> {
 
 /**
  * routes with no value will get `vue-router` routes
- * @param routes router list
+ * @param props components props
  */
 export function useCurrentRoutes(
-  routes?: ProRouteRecordRaw[] | Ref<ProRouteRecordRaw[]>
+  props: Readonly<{
+    routes?: ProRouteRecordRaw[]
+  }>
 ): ComputedRef<ProRouteRecordRaw[]> {
-  const _routes = unref(routes)
-
   return computed(() => {
-    if (_routes && _routes.length) {
-      return _routes
+    if (props.routes && props.routes.length) {
+      return props.routes
     } else {
       const router = useRouter()
       const _routes = router.options.routes as ProRouteRecordRaw[]

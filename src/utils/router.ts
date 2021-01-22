@@ -8,8 +8,8 @@ export function filterRouterByHidden(
   router: ProRouteRecordRaw[]
 ): ProRouteRecordRaw[] {
   return router.filter((item) => {
-    if (Array.isArray(item.children)) {
-      filterRouterByHidden(item.children)
+    if (!item.meta?.hidden && Array.isArray(item.children)) {
+      item.children = filterRouterByHidden(item.children)
     }
     return !item.meta?.hidden
   })

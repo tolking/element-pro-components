@@ -25,19 +25,16 @@ export function useFormSlotList(
 }
 
 export function useFormItemBind(
-  currentBind:
-    | boolean
-    | Record<string, unknown>
-    | Ref<boolean | Record<string, unknown>>
+  currentBind: Record<string, unknown> | Ref<Record<string, unknown>>
 ): ComputedRef<Record<string, unknown>> {
   const _currentBind = unref(currentBind)
   const _option = isObject(_currentBind) ? { ..._currentBind } : {}
 
   if (_option) {
-    delete _option.slot
-    delete _option.component
-    delete _option.max
-    delete _option.props
+    _option.slot = undefined
+    _option.component = undefined
+    _option.max = undefined
+    _option.props = undefined
     delete _option.children
   }
 
@@ -73,4 +70,46 @@ export function useFormSize(
   return computed(() => {
     return props?.size || elFormItem.size || elForm.size || $ElEMENT.size
   })
+}
+
+type ModelChildValue = Record<string, Record<string, unknown>[]>
+
+export function useFormChild(
+  props: Readonly<{
+    item: Record<string, unknown> & { prop: string }
+    modelValue: Record<string, unknown>
+  }>,
+  emit: (event: 'update:modelValue', ...args: unknown[]) => void
+): {
+  add: () => void
+  del: (index: number) => void
+  upChildData: (value: Record<string, unknown>, index: number) => void
+} {
+  function add() {
+    const _model = { ...props.modelValue } as ModelChildValue
+    if (props.modelValue[props.item.prop]) {
+      _model[props.item.prop].push({})
+    } else {
+      _model[props.item.prop] = [{}]
+    }
+    emit('update:modelValue', _model)
+  }
+
+  function del(index: number) {
+    const _model = { ...props.modelValue } as ModelChildValue
+    _model[props.item.prop].splice(index, 1)
+    emit('update:modelValue', _model)
+  }
+
+  function upChildData(value: Record<string, unknown>, index: number) {
+    const _model = { ...props.modelValue } as ModelChildValue
+    _model[props.item.prop][index] = value
+    emit('update:modelValue', _model)
+  }
+
+  return {
+    add,
+    del,
+    upChildData,
+  }
 }

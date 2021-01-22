@@ -19,11 +19,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { ElCheckboxGroup, ElCheckboxButton } from 'element-plus'
-import { selectMixin } from '../utils/mixins'
+import { select } from '../mixins/index'
 
 export default defineComponent({
   name: 'ProCheckboxButton',
   components: { ElCheckboxGroup, ElCheckboxButton },
-  mixins: [selectMixin],
+  mixins: [select],
 })
 </script>
