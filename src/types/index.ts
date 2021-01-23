@@ -1,3 +1,4 @@
+import type { App, DefineComponent } from 'vue'
 import type { RouteMeta, RouteRecordRaw } from 'vue-router'
 
 export interface ProRouteMeta extends RouteMeta {
@@ -22,4 +23,10 @@ export interface ProColumnsDefaultBind {
   showOverflowTooltip: boolean
   align?: 'left' | 'center' | 'right'
   headerAlign?: 'left' | 'center' | 'right'
+}
+
+export type ProDefineComponent<
+  Props = Record<string, unknown>
+> = DefineComponent<Props> & {
+  install: (app: App) => void
 }
