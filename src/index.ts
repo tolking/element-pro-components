@@ -2,7 +2,8 @@ export * from './composables/public'
 export * from './utils/index'
 export * from './types/index'
 import './styles/index.css'
-import type { App, ComponentOptions } from 'vue'
+import type { App } from 'vue'
+import { ProDefineComponent } from './types/index'
 import { config, InstallOptions } from './utils/config'
 
 import ProAutocompleteTag from './AutocompleteTag/index'
@@ -19,7 +20,7 @@ import ProSelect from './Select/index'
 import ProTable from './Table/index'
 import ProTabs from './Tabs/index'
 
-const components: Record<string, ComponentOptions> = {
+const components: Record<string, ProDefineComponent> = {
   ProAutocompleteTag,
   ProBreadcrumb,
   ProCheckbox,
