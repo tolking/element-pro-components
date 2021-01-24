@@ -29,10 +29,11 @@ module.exports = {
   themeConfig: {
     nav: [
       { text: '指南', link: '/guide/' },
-      { text: '组件', link: '/components/Layout' },
+      { text: '组件', link: '/components/' },
     ],
     sidebar: {
       '/guide/': [
+        { text: '介绍', link: '/guide/introduction' },
         { text: '快速上手', link: '/guide/' },
         { text: '自定义主题', link: '/guide/theme' },
       ],
@@ -40,7 +41,7 @@ module.exports = {
         {
           text: 'Layout',
           children: [
-            { text: 'Layout', link: '/components/Layout' },
+            { text: 'Layout', link: '/components/' },
             { text: 'Menu', link: '/components/Menu' },
             { text: 'Breadcrumb', link: '/components/Breadcrumb' },
             { text: 'Tabs', link: '/components/Tabs' },
@@ -65,6 +66,7 @@ module.exports = {
         {
           text: '指南',
           children: [
+            { text: '介绍', link: '/guide/introduction' },
             { text: '快速上手', link: '/guide/' },
             { text: '自定义主题', link: '/guide/theme' },
           ],
@@ -75,7 +77,7 @@ module.exports = {
             {
               text: 'Layout',
               children: [
-                { text: 'Layout', link: '/components/Layout' },
+                { text: 'Layout', link: '/components/' },
                 { text: 'Menu', link: '/components/Menu' },
                 { text: 'Breadcrumb', link: '/components/Breadcrumb' },
                 { text: 'Tabs', link: '/components/Tabs' },
