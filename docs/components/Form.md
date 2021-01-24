@@ -26,46 +26,18 @@ app.component(ElInput.name, ElInput)
 
 ## 使用
 
-::: demo 通过传入 columns 实现生成表单；通过配置 columns 的 children 配置子表单
+- 基础用法
+
+::: demo 传入 columns 数据，自动生成表单。操作按钮需要通过 menu 插槽传入
 
 <template>
-  <p>1. 普通表单</p>
   <pro-form
     v-model="form"
     :columns="columns"
-    label-width="120px"
-    size="small"
+    label-width="100px"
   >
-    <template #slot-label>
-      <i class="el-icon-time" />
-      <span>Date</span>
-    </template>
-    <template #slot="{ item, value, setValue }">
-      <span>{{ item }} - {{ value }} - {{ setValue }}</span>
-    </template>
     <template #menu>
-      <el-button type="primary">
-        Submit
-      </el-button>
-      <el-button>Cancel</el-button>
-    </template>
-  </pro-form>
-  <p>2. 子表单</p>
-  <pro-form
-    v-model="form1"
-    :columns="columns1"
-    label-width="120px"
-  >
-    <template #address="{ value, setValue }">
-      <pro-input-tag
-        :model-value="value"
-        @update:modelValue="setValue"
-      />
-    </template>
-    <template #menu>
-      <el-button type="primary">
-        Submit
-      </el-button>
+      <el-button type="primary">Submit</el-button>
       <el-button>Cancel</el-button>
     </template>
   </pro-form>
@@ -77,26 +49,67 @@ import { ref } from 'vue'
 export default {
   setup() {
     const form = ref({})
-    const form1 = ref({})
-    const list = [
-      { value: 'Go', tag: 'go', disabled: true },
-      { value: 'JavaScript', tag: 'javascript' },
-      { value: 'Python', tag: 'python' },
-    ]
     const columns = ref([
       {
-        // label: 'Slot',
-        prop: 'slot',
+        label: '名字',
+        prop: 'name',
         component: 'el-input',
-        slot: true,
       },
+      {
+        label: '地址',
+        prop: 'address',
+        component: 'el-input',
+      },
+    ])
+
+    return {
+      form,
+      columns,
+    }
+  }
+}
+</script>
+
+:::
+
+- 指定对应的组件
+
+::: demo 通过 columns 的 `component` 定义该项生成什么组件。要求对应组件可以通过 v-model 绑定值
+
+<template>
+  <pro-form
+    v-model="form1"
+    :columns="columns1"
+    label-width="100px"
+  >
+    <template #menu>
+      <el-button type="primary">Submit</el-button>
+      <el-button>Cancel</el-button>
+    </template>
+  </pro-form>
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const form1 = ref({})
+    const list = ref([
+      { value: 'Go', label: 'go' },
+      { value: 'JavaScript', label: 'javascript' },
+      { value: 'Python', label: 'python' },
+      { value: 'Dart', label: 'dart' },
+      { value: 'V', label: 'v' },
+    ])
+    const columns1 = ref([
       {
         label: 'input',
         prop: 'input',
         component: 'el-input',
         props: {
           clearable: true,
-          placeholder: 'placeholder',
+          placeholder: '请输入内容',
         },
       },
       {
@@ -104,16 +117,7 @@ export default {
         prop: 'inputTag',
         component: 'pro-input-tag',
         props: {
-          placeholder: 'Click the space after input',
-        },
-      },
-      {
-        label: 'autocomplete-tag',
-        prop: 'autocompleteTag',
-        component: 'pro-autocomplete-tag',
-        props: {
-          fetchSuggestions: querySearch,
-          placeholder: 'Click the space after input',
+          placeholder: '请输入内容后点击空格按键',
         },
       },
       {
@@ -122,16 +126,6 @@ export default {
         component: 'pro-radio',
         props: {
           data: list,
-          config: { label: 'tag' },
-        },
-      },
-      {
-        label: 'radio-button',
-        prop: 'radioButton',
-        component: 'pro-radio-button',
-        props: {
-          data: list,
-          config: { label: 'tag' },
         },
       },
       {
@@ -140,16 +134,6 @@ export default {
         component: 'pro-checkbox',
         props: {
           data: list,
-          config: { label: 'tag' },
-        },
-      },
-      {
-        label: 'checkbox-button',
-        prop: 'checkboxButton',
-        component: 'pro-checkbox-button',
-        props: {
-          data: list,
-          config: { label: 'tag' },
         },
       },
       {
@@ -158,29 +142,153 @@ export default {
         component: 'pro-select',
         props: {
           data: list,
-          config: { label: 'tag' },
         },
       },
     ])
-    const columns1 = ref([
+
+    return {
+      form1,
+      columns1,
+    }
+  }
+}
+</script>
+
+:::
+
+- 启用插槽
+
+::: demo 通过 columns 的 slot 配置是否开启自定义插槽功能。虽然在启用插槽后可以通过 `v-model="form.slot"` 这种方式绑定值，但我们更推荐使用 `value` 与 `setValue` 这种方式。这样能够更好的与子表单配合
+
+<template>
+  <pro-form
+    v-model="form2"
+    :columns="columns2"
+    label-width="100px"
+  >
+    <template #slot-label>
+      <i class="el-icon-picture-outline" />
+      <span>图片</span>
+    </template>
+    <template #slot="{ item, value, setValue }">
+      <el-upload
+        class="avatar-uploader"
+        action=""
+        :show-file-list="false"
+        :before-upload="(file) => beforeUpload(file, setValue)"
+      >
+        <img
+          v-if="value"
+          :src="value"
+          class="avatar"
+        >
+        <i
+          v-else
+          class="el-icon-plus avatar-uploader-icon"
+        />
+      </el-upload>
+    </template>
+  </pro-form>
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const form2 = ref({})
+    const columns2 = ref([
       {
-        label: 'Date',
+        prop: 'slot',
+        slot: true,
+      },
+    ])
+
+    function beforeUpload(file, setValue) {
+      // 模拟上传图片
+      const fileReader = new FileReader()
+      fileReader.onloadend = e => setValue(e.target.result)
+      fileReader.readAsDataURL(file)
+      return false
+    }
+
+    return {
+      form2,
+      columns2,
+      beforeUpload,
+    }
+  }
+}
+</script>
+
+<style>
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+.avatar-uploader .avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar-uploader .avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+</style>
+
+:::
+
+- 配置子表单
+
+::: demo 通过 columns 的 children 配置子表单
+
+<template>
+  <pro-form
+    v-model="form3"
+    :columns="columns3"
+    label-width="100px"
+  >
+    <template #menu>
+      <el-button type="primary">Submit</el-button>
+      <el-button>Cancel</el-button>
+    </template>
+  </pro-form>
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const form3 = ref({})
+    const columns3 = ref([
+      {
+        label: '日期',
         prop: 'date',
         component: 'el-input',
       },
       {
-        label: 'User',
+        label: '用户',
         prop: 'user',
-        // max: 3,
-        size: 'mini',
+        max: 3,
+        size: 'small',
         children: [
           {
-            label: 'Name',
+            label: '名字',
             prop: 'name',
             component: 'el-input',
           },
           {
-            label: 'Address',
+            label: '地址',
             prop: 'address',
             component: 'el-input',
           },
@@ -188,21 +296,9 @@ export default {
       },
     ])
 
-    function querySearch(queryString, cb) {
-      cb(
-        queryString
-          ? list.filter((i) => {
-              return i.value.indexOf(queryString.toLowerCase()) === 0
-            })
-          : list
-      )
-    }
-
     return {
-      form,
-      columns,
-      form1,
-      columns1,
+      form3,
+      columns3,
     }
   }
 }

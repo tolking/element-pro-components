@@ -11,7 +11,7 @@
 <template>
   <pro-input-tag
     v-model="inputTags"
-    placeholder="请输入内容,点击空格按键"
+    placeholder="请输入内容后点击空格按键"
   />
 </template>
 
@@ -39,7 +39,7 @@ export default {
   <pro-input-tag
     v-model="inputTags1"
     trigger="enter"
-    placeholder="请输入内容,点击回车按键"
+    placeholder="请输入内容后点击回车按键"
   />
 </template>
 
@@ -69,7 +69,7 @@ export default {
     v-model="inputTags2"
     :key="item"
     :size="item"
-    placeholder="请输入内容,点击空格按键"
+    placeholder="请输入内容后点击空格按键"
   />
 </template>
 
@@ -108,7 +108,7 @@ export default {
   <pro-autocomplete-tag
     v-model="autocompleteTags"
     :fetch-suggestions="querySearch"
-    placeholder="请输入内容,点击空格按键"
+    placeholder="请输入内容后点击空格按键"
   />
 </template>
 

@@ -2,8 +2,10 @@
 home: true
 heroText: element-pro-components
 tagline: 基于 element-plus 封装的中后台组件库
-actionText: 快速上手 →
+actionText: 快速上手
 actionLink: /guide/
+altActionText: 了解更多
+altActionLink: /guide/introduction
 features:
   - title: 上手容易
     details: 当你使用过element-ui/element-plu，只需了解部分差异

@@ -12,17 +12,9 @@
 
 ## 配置
 
-### routes (可选)
-
-自定义生成侧边菜单栏的路由
-
-::: tip 提示
-如果没有传值，将自动从 `vue-router` 中获取路由并排除 `meta: { hidden: true }` 的路由
-:::
-
-类型:
-
-仅扩展 meta，其它同 `vue-router`
+| 参数   | 说明                                                                | 类型  | 默认值                 |
+| :----- | :------------------------------------------------------------------ | :---- | :--------------------- |
+| routes | 自定义生成侧边菜单栏的路由，同 `vue-router` 中 routes (仅扩展 meta) | array | 从 `vue-router` 中获取 |
 
 ```ts
 interface ProRouteMeta extends RouteMeta {
@@ -33,7 +25,7 @@ interface ProRouteMeta extends RouteMeta {
 }
 ```
 
-##### 参考
+##### 参考路由
 
 @[code](@/example/src/router/index.ts)
 
@@ -42,7 +34,7 @@ interface ProRouteMeta extends RouteMeta {
 | name          | 说明                                                         |
 | :------------ | :----------------------------------------------------------- |
 | logo          | 自定义 Logo，参数为 { collapse } collapse-当前菜单栏是否折叠 |
-| menu          | 控制菜单显示，参数为 { meta, path, redirect } 等             |
+| menu          | 控制菜单显示内容，参数为 { meta, path, redirect } 等         |
 | left-header   | 头部左侧内容                                                 |
 | right-header  | 头部右侧内容                                                 |
 | bottom-header | 头部下面内容                                                 |

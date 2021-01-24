@@ -1,5 +1,13 @@
 # 快速上手
 
+## 准备
+
+在开始前你需要安装脚手架工具，需要 vue3 版本
+
+- [vite](https://vitejs.dev/)
+- [vue-cli](https://cli.vuejs.org/zh/)
+- [nuxt](https://zh.nuxtjs.org/)
+
 ## 安装
 
 ```
