@@ -35,6 +35,7 @@ export function useFormItemBind(
     _option.component = undefined
     _option.max = undefined
     _option.props = undefined
+    _option.prop = undefined
     delete _option.children
   }
 
