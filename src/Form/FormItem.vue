@@ -1,6 +1,7 @@
 <template>
   <el-form-item
     v-bind="bindItem"
+    :prop="prop"
     class="pro-form-item"
   >
     <template
@@ -46,6 +47,7 @@
                 :key="child.prop"
                 :model-value="modelValue[item.prop][index]"
                 :item="child"
+                :prop="`${prop}.${index}.${child.prop}`"
                 @update:modelValue="(value) => upChildData(value, index)"
               >
                 <template
@@ -143,10 +145,11 @@ type ModelChildValue = Record<string, Record<string, unknown>[]>
 
 const props = defineProps<{
   item: Record<string, unknown> & { prop: string }
+  prop: string
   modelValue: Record<string, unknown>
 }>()
 const emit = defineEmit(['update:modelValue'])
-const { item, modelValue } = toRefs(props)
+const { item, prop, modelValue } = toRefs(props)
 const slotList = useFormSlotList(item.value.children as ProColumns)
 const bindItem = useFormItemBind(item)
 const { add, del, upChildData } = useFormChild(props, emit)

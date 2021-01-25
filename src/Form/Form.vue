@@ -9,6 +9,7 @@
       :key="item.prop"
       :model-value="modelValue"
       :item="item"
+      :prop="item.prop"
       @update:modelValue="upData"
     >
       <template
