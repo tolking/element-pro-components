@@ -1,7 +1,7 @@
 <template>
   <el-container class="pro-layout">
     <pro-layout-aside
-      :routes="routes"
+      v-bind="attrs"
       :collapse="show"
       @toggle-collapse="toggleShow"
     >
@@ -47,13 +47,14 @@ import { ElContainer, ElScrollbar } from 'element-plus'
 import ProLayoutAside from './LayoutAside.vue'
 import ProLayoutHeader from './LayoutHeader.vue'
 import ProLayoutMain from './LayoutMain.vue'
-import { useShow } from '../composables/index'
+import { usrFilterAttrs, useShow } from '../composables/index'
 import type { ProRouteRecordRaw } from '../types/index'
 
-const props = defineProps<{ routes?: ProRouteRecordRaw[] }>()
-const { routes } = toRefs(props)
+const props = defineProps<{ collapse: boolean }>()
+const { collapse } = toRefs(props)
 const { slots } = useContext()
-const { show, toggleShow } = useShow()
+const attrs = usrFilterAttrs()
+const { show, toggleShow } = useShow(collapse)
 </script>
 
 <style>

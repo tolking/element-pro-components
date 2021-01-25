@@ -19,7 +19,7 @@
       </div>
       <el-scrollbar>
         <pro-menu
-          :routes="routes"
+          v-bind="attrs"
           :collapse="menuCollapse"
         >
           <template
@@ -41,7 +41,7 @@
 import { toRefs, defineEmit, defineProps, useContext, computed } from 'vue'
 import { ElScrollbar } from 'element-plus'
 import ProMenu from '../Menu/index'
-import { useScreenSize } from '../composables/index'
+import { usrFilterAttrs, useScreenSize } from '../composables/index'
 import type { ProRouteRecordRaw } from '../types/index'
 
 const props = defineProps<{
@@ -51,6 +51,7 @@ const props = defineProps<{
 const { collapse, routes } = toRefs(props)
 const emit = defineEmit(['toggle-collapse'])
 const { slots } = useContext()
+const attrs = usrFilterAttrs()
 const size = useScreenSize()
 const menuCollapse = computed(() => {
   return size.value === 'xs' ? false : collapse.value
