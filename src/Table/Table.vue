@@ -74,6 +74,7 @@
     </el-table-column>
   </el-table>
   <el-pagination
+    v-if="total"
     v-bind="bindPagination"
     :current-page="currentPage"
     :page-size="pageSize"
@@ -104,9 +105,9 @@ const props = defineProps<{
   index: boolean | Record<string, unknown>
   menu: boolean | Record<string, unknown>
   columns: Record<string, unknown>[]
-  total: number
-  pageSize: number
-  currentPage: number
+  total?: number
+  pageSize?: number
+  currentPage?: number
   pagination?: Record<string, unknown>
   showOverflowTooltip: boolean
   align?: 'left' | 'center' | 'right'
