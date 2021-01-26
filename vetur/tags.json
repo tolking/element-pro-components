@@ -118,7 +118,13 @@
     "description": "Enter an array of tags"
   },
   "pro-layout": {
-    "attributes": ["routes", "collapse", "default-openeds", "unique-opened"],
+    "attributes": [
+      "routes",
+      "transition",
+      "collapse",
+      "default-openeds",
+      "unique-opened"
+    ],
     "description": "default global layout interface"
   },
   "pro-menu": {

@@ -266,6 +266,7 @@
   },
   "separator": { "description": "separator character, default: '/'" },
   "separator-class": { "description": "class name of icon separator" },
+  "transition": { "description": "animation name" },
   "disabled": { "type": "boolean" },
   "text-color": { "type": "string" },
   "placeholder": { "type": "string" },
