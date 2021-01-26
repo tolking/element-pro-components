@@ -8,4 +8,8 @@ ProLayout.install = (app: App) => {
 
 export default ProLayout as ProDefineComponent<{
   routes?: ProRouteRecordRaw[]
+  transition?: string
+  collapse: boolean
+  defaultOpeneds?: number[]
+  uniqueOpened: boolean
 }>

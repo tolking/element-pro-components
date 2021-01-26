@@ -39,6 +39,7 @@ function toggleCollapse() {
   align-items: center;
   padding: 0 20px;
   height: var(--header-height);
+  min-height: var(--header-height);
   border-bottom: 1px solid var(--c-border);
   background: var(--c-header-background);
 }

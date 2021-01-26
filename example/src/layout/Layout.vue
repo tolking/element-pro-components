@@ -1,11 +1,8 @@
 <template>
-  <pro-layout>
+  <pro-layout transition="el-fade-in-linear">
     <template #logo="{ collapse }">
       <p>{{ collapse ? 'E' : 'element-pro' }}</p>
     </template>
-    <!-- <template #menu="{ meta }">
-      <span>{{ meta.title + meta.icon }}</span>
-    </template> -->
     <template #left-header>
       <pro-breadcrumb />
     </template>
