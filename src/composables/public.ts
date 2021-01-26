@@ -6,6 +6,7 @@ import {
   Ref,
   ref,
   onUnmounted,
+  unref,
 } from 'vue'
 import { useRouter } from 'vue-router'
 import { filterRouterByHidden } from '../utils/index'
@@ -16,12 +17,13 @@ import type { ProRouteRecordRaw } from '../types/index'
  * @param state init value (default `false`)
  */
 export function useShow(
-  state = false
+  state: boolean | Ref<boolean> = false
 ): {
   show: Ref<boolean>
   toggleShow: () => void
 } {
-  const show = ref(state)
+  const _state = unref(state)
+  const show = ref(_state)
 
   function toggleShow() {
     show.value = !show.value

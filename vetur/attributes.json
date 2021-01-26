@@ -253,7 +253,6 @@
   "default-openeds": {
     "description": "array that contains keys of currently active sub-menus"
   },
-  "default-active": { "description": "index of currently active menu" },
   "unique-opened": {
     "type": "boolean",
     "description": "whether only one sub-menu can be active"
@@ -261,13 +260,13 @@
   "menu-trigger": {
     "description": "how sub-menus are triggered, only works when mode is 'horizontal', default: hover"
   },
-  "route": { "description": "Vue Router object" },
   "collapse-transition": {
     "type": "boolean",
     "description": "whether to enable the collapse transition, default: true"
   },
   "separator": { "description": "separator character, default: '/'" },
   "separator-class": { "description": "class name of icon separator" },
+  "transition": { "description": "animation name" },
   "disabled": { "type": "boolean" },
   "text-color": { "type": "string" },
   "placeholder": { "type": "string" },

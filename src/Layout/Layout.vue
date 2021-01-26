@@ -1,7 +1,7 @@
 <template>
-  <el-container class="pro-layout">
+  <section class="pro-layout">
     <pro-layout-aside
-      :routes="routes"
+      v-bind="attrs"
       :collapse="show"
       @toggle-collapse="toggleShow"
     >
@@ -24,7 +24,7 @@
         />
       </template>
     </pro-layout-aside>
-    <el-container class="pro-container is-vertical">
+    <section class="pro-container">
       <pro-layout-header @toggle-collapse="toggleShow">
         <template #left>
           <slot name="left-header" />
@@ -34,48 +34,38 @@
         </template>
       </pro-layout-header>
       <slot name="bottom-header" />
-      <el-scrollbar class="pro-layout-wrapper">
-        <pro-layout-main />
-      </el-scrollbar>
-    </el-container>
-  </el-container>
+      <pro-layout-main :transition="transition" />
+    </section>
+  </section>
 </template>
 
 <script setup lang="ts">
 import { defineProps, toRefs, useContext } from 'vue'
-import { ElContainer, ElScrollbar } from 'element-plus'
 import ProLayoutAside from './LayoutAside.vue'
 import ProLayoutHeader from './LayoutHeader.vue'
 import ProLayoutMain from './LayoutMain.vue'
-import { useShow } from '../composables/index'
-import type { ProRouteRecordRaw } from '../types/index'
+import { usrFilterAttrs, useShow } from '../composables/index'
 
-const props = defineProps<{ routes?: ProRouteRecordRaw[] }>()
-const { routes } = toRefs(props)
+const props = defineProps<{
+  collapse: boolean
+  transition?: string
+}>()
+const { collapse, transition } = toRefs(props)
 const { slots } = useContext()
-const { show, toggleShow } = useShow()
+const attrs = usrFilterAttrs()
+const { show, toggleShow } = useShow(collapse)
 </script>
 
 <style>
 .pro-layout {
-  position: relative;
+  display: flex;
   height: var(--layout-height);
   overflow: hidden;
 }
-.pro-layout .pro-container,
-.pro-layout .pro-layout-wrapper {
-  flex: 1;
-}
 .pro-layout .pro-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   background: var(--c-page-background);
-}
-.pro-layout .pro-layout-wrapper.el-scrollbar .el-scrollbar__wrap {
-  margin-bottom: 0 !important;
-  overflow-x: hidden;
-}
-@media screen and (max-width: 768px) {
-  .pro-layout .pro-layout-wrapper.el-scrollbar .el-scrollbar__wrap {
-    margin-right: 0 !important;
-  }
 }
 </style>
