@@ -118,7 +118,7 @@
     "description": "Enter an array of tags"
   },
   "pro-layout": {
-    "attributes": ["routes"],
+    "attributes": ["routes", "collapse", "default-openeds", "unique-opened"],
     "description": "default global layout interface"
   },
   "pro-menu": {
@@ -129,11 +129,9 @@
       "background-color",
       "text-color",
       "active-text-color",
-      "default-active",
       "default-openeds",
       "unique-opened",
       "menu-trigger",
-      "router",
       "collapse-transition",
       "select",
       "open",
