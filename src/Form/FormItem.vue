@@ -25,83 +25,69 @@
     </template>
     <template #default>
       <template v-if="item.children && item.children.length">
-        <template
-          v-if="!modelValue[item.prop] || !modelValue[item.prop].length"
+        <div
+          v-for="(value, index) in modelValue[item.prop]"
+          :key="index"
+          class="children-form"
         >
-          <el-button
-            icon="el-icon-plus"
-            type="primary"
-            circle
-            @click="add"
-          />
-        </template>
-        <template v-else>
-          <div
-            v-for="(value, index) in modelValue[item.prop]"
-            :key="index"
-            class="children-form"
-          >
-            <div class="children-form-item">
-              <form-item
-                v-for="child in item.children"
-                :key="child.prop"
-                :model-value="modelValue[item.prop][index]"
-                :item="child"
-                :prop="`${prop}.${index}.${child.prop}`"
-                @update:modelValue="(value) => upChildData(value, index)"
+          <div class="children-form-item">
+            <form-item
+              v-for="child in item.children"
+              :key="child.prop"
+              :model-value="modelValue[item.prop][index]"
+              :item="child"
+              :prop="`${prop}.${index}.${child.prop}`"
+              @update:modelValue="(value) => upChildData(value, index)"
+            >
+              <template
+                v-for="slot in slotList"
+                :key="slot.prop"
+                #[slot.labelSlot]="scope"
               >
-                <template
-                  v-for="slot in slotList"
-                  :key="slot.prop"
-                  #[slot.labelSlot]="scope"
-                >
-                  <slot
-                    v-bind="scope"
-                    :name="slot.labelSlot"
-                  />
-                </template>
-                <template
-                  v-for="slot in slotList"
-                  :key="slot.prop"
-                  #[slot.errorSlot]="scope"
-                >
-                  <slot
-                    v-bind="scope"
-                    :name="slot.errorSlot"
-                  />
-                </template>
-                <template
-                  v-for="slot in slotList"
-                  :key="slot.prop"
-                  #[slot.prop]="scope"
-                >
-                  <slot
-                    v-bind="scope"
-                    :name="slot.prop"
-                  />
-                </template>
-              </form-item>
-            </div>
-            <div class="children-form-control">
-              <el-button
-                icon="el-icon-minus"
-                type="danger"
-                circle
-                @click="del(index)"
-              />
-              <el-button
-                v-if="
-                  (item.max ? index + 1 < item.max : true) &&
-                    index + 1 === modelValue[item.prop].length
-                "
-                icon="el-icon-plus"
-                type="primary"
-                circle
-                @click="add"
-              />
-            </div>
+                <slot
+                  v-bind="scope"
+                  :name="slot.labelSlot"
+                />
+              </template>
+              <template
+                v-for="slot in slotList"
+                :key="slot.prop"
+                #[slot.errorSlot]="scope"
+              >
+                <slot
+                  v-bind="scope"
+                  :name="slot.errorSlot"
+                />
+              </template>
+              <template
+                v-for="slot in slotList"
+                :key="slot.prop"
+                #[slot.prop]="scope"
+              >
+                <slot
+                  v-bind="scope"
+                  :name="slot.prop"
+                />
+              </template>
+            </form-item>
           </div>
-        </template>
+          <el-button
+            icon="el-icon-minus"
+            type="danger"
+            circle
+            class="delete-bth"
+            @click="del(index)"
+          />
+        </div>
+        <el-button
+          v-if="
+            item.max ? item.max > (modelValue[item.prop]?.length || 0) : true
+          "
+          icon="el-icon-plus"
+          type="primary"
+          circle
+          @click="add"
+        />
       </template>
       <template v-else-if="item.slot">
         <slot
@@ -141,8 +127,6 @@ import {
 import ProFormComponent from './FormCompont.vue'
 import type { ProColumns } from '../types/index'
 
-type ModelChildValue = Record<string, Record<string, unknown>[]>
-
 const props = defineProps<{
   item: Record<string, unknown> & { prop: string }
   prop: string
@@ -163,8 +147,11 @@ function upData(value: unknown) {
 
 <style>
 .pro-form-item .children-form {
+  position: relative;
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
 }
 .pro-form-item .children-form .children-form-item {
   flex: 1;
@@ -172,13 +159,7 @@ function upData(value: unknown) {
 .pro-form-item .children-form .children-form-item .pro-form-item {
   margin-bottom: 22px;
 }
-.pro-form-item .children-form .children-form-control {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-.pro-form-item .children-form .children-form-control .el-button {
+.pro-form-item .children-form .delete-bth {
   margin: 0 0 20px 10px;
 }
 </style>

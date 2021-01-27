@@ -3,6 +3,7 @@
     v-bind="attrs"
     ref="form"
     :model="modelValue"
+    :label-position="position"
     class="pro-form"
   >
     <pro-form-item
@@ -52,18 +53,23 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, toRefs, useContext, defineEmit } from 'vue'
+import { defineProps, toRefs, useContext, defineEmit, computed } from 'vue'
 import { ElForm, ElFormItem } from 'element-plus'
 import ProFormItem from './FormItem.vue'
-import { useFormSlotList, useFormMethods } from '../composables/index'
+import {
+  useFormSlotList,
+  useFormMethods,
+  useScreenSize,
+} from '../composables/index'
 
 const props = defineProps<{
   columns: Record<string, unknown>[]
   modelValue: Record<string, unknown>
+  labelPosition?: 'right' | 'left' | 'top'
 }>()
 const emit = defineEmit(['update:modelValue'])
 const { attrs, expose } = useContext()
-const { columns, modelValue } = toRefs(props)
+const { columns, modelValue, labelPosition } = toRefs(props)
 const slotList = useFormSlotList(columns)
 const {
   form,
@@ -72,6 +78,10 @@ const {
   clearValidate,
   validateField,
 } = useFormMethods(upData)
+const size = useScreenSize()
+const position = computed(() => {
+  return size.value === 'xs' ? 'top' : labelPosition?.value
+})
 
 function upData(value: unknown) {
   emit('update:modelValue', value)
