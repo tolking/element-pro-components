@@ -18,11 +18,33 @@ interface ProColumnItem {
 
 export type ProColumns = ProColumnItem[]
 
+export type ComponentSize = 'medium' | 'small' | 'mini' | undefined
+
 export interface ProColumnsDefaultBind {
-  size?: 'medium' | 'small' | 'mini'
+  size?: ComponentSize
   showOverflowTooltip: boolean
   align?: 'left' | 'center' | 'right'
   headerAlign?: 'left' | 'center' | 'right'
+}
+
+type FieldErrorList = Record<string, unknown>
+
+export interface ProFormValidateCallback {
+  (isValid: boolean, invalidFields?: FieldErrorList): void
+}
+
+export interface ProFormValidateFieldCallback {
+  (message?: string, invalidFields?: Record<string, unknown>): void
+}
+
+export interface ProFormExpose {
+  validate: (callback?: ProFormValidateCallback) => Promise<boolean>
+  resetFields: () => void
+  clearValidate: (props?: string | string[]) => void
+  validateField: (
+    props: string | string[],
+    cb: ProFormValidateFieldCallback
+  ) => void
 }
 
 export type ProDefineComponent<
