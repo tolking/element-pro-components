@@ -5,10 +5,18 @@ import {
   unref,
   inject,
   getCurrentInstance,
+  ref,
+  nextTick,
 } from 'vue'
 import { isObject } from '@vue/shared'
 import { filterSlotDeep } from '../utils/index'
-import type { ProColumns } from '../types/index'
+import type {
+  ProColumns,
+  ComponentSize,
+  ProFormExpose,
+  ProFormValidateCallback,
+  ProFormValidateFieldCallback,
+} from '../types/index'
 
 export function useFormSlotList(
   columns: ProColumns | Ref<ProColumns>
@@ -44,7 +52,42 @@ export function useFormItemBind(
   return computed(() => _option)
 }
 
-type ComponentSize = 'medium' | 'small' | 'mini' | undefined
+export function useFormMethods(
+  upData: (value: unknown) => void
+): { form: Ref<ProFormExpose> } & ProFormExpose {
+  const form = ref<ProFormExpose>({} as ProFormExpose)
+
+  function validate(callback?: ProFormValidateCallback) {
+    return form.value.validate(callback)
+  }
+
+  function resetFields() {
+    upData({})
+    nextTick(() => {
+      form.value.resetFields()
+    })
+  }
+
+  function clearValidate(props?: string | string[]) {
+    form.value.clearValidate(props)
+  }
+
+  function validateField(
+    props: string | string[],
+    cb: ProFormValidateFieldCallback
+  ) {
+    form.value.validateField(props, cb)
+  }
+
+  return {
+    form,
+    validate,
+    resetFields,
+    clearValidate,
+    validateField,
+  }
+}
+
 interface ElInstallOptions {
   size: ComponentSize
   zIndex: number

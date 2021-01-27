@@ -1,6 +1,7 @@
 <template>
   <el-form
     v-bind="attrs"
+    ref="form"
     :model="modelValue"
     class="pro-form"
   >
@@ -53,19 +54,33 @@
 <script setup lang="ts">
 import { defineProps, toRefs, useContext, defineEmit } from 'vue'
 import { ElForm, ElFormItem } from 'element-plus'
-import { useFormSlotList } from '../composables/index'
 import ProFormItem from './FormItem.vue'
+import { useFormSlotList, useFormMethods } from '../composables/index'
 
 const props = defineProps<{
   columns: Record<string, unknown>[]
   modelValue: Record<string, unknown>
 }>()
 const emit = defineEmit(['update:modelValue'])
-const { attrs } = useContext()
+const { attrs, expose } = useContext()
 const { columns, modelValue } = toRefs(props)
 const slotList = useFormSlotList(columns)
+const {
+  form,
+  validate,
+  resetFields,
+  clearValidate,
+  validateField,
+} = useFormMethods(upData)
 
 function upData(value: unknown) {
   emit('update:modelValue', value)
 }
+
+expose({
+  validate,
+  resetFields,
+  clearValidate,
+  validateField,
+})
 </script>
