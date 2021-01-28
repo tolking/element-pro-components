@@ -111,17 +111,22 @@ export function usePaginationBind(
 ): ComputedRef<ProPagination> {
   return computed(() => {
     const _pagination = unref(pagination)
-    const options = inject<{ pagination: ProPagination }>('ProOptions')
-    const tableOptions = inject<{ pagination: ProPagination }>(
-      'ProTableOptions'
-    )
 
-    return (
-      _pagination ||
-      options?.pagination ||
-      tableOptions?.pagination ||
-      config.pagination
-    )
+    if (_pagination) {
+      return _pagination
+    } else {
+      const options = inject<{ pagination: ProPagination }>('ProOptions')
+
+      if (options) {
+        return options.pagination
+      } else {
+        const tableOptions = inject<{ pagination: ProPagination }>(
+          'ProTableOptions'
+        )
+
+        return tableOptions?.pagination || config.pagination
+      }
+    }
   })
 }
 
