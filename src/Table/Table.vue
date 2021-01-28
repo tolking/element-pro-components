@@ -1,5 +1,6 @@
 <template>
   <el-table
+    ref="table"
     v-bind="attrs"
     class="pro-table"
   >
@@ -94,6 +95,7 @@ import {
   useColumnsBind,
   useColumnsDefaultBind,
   useColumnsSlotList,
+  useTableMethods,
   usePaginationBind,
   usePaginationEmit,
 } from '../composables'
@@ -121,7 +123,7 @@ const emit = defineEmit([
   'prev-click',
   'next-click',
 ])
-const { attrs } = useContext()
+const { attrs, expose } = useContext()
 const {
   selection,
   expand,
@@ -140,11 +142,35 @@ const bindExpand = useColumnsBind(expand, defaultBind)
 const bindIndex = useColumnsBind(index, defaultBind)
 const bindMenu = useColumnsBind(menu, defaultBind)
 const bindPagination = usePaginationBind(pagination)
+const {
+  table,
+  clearSelection,
+  toggleRowSelection,
+  toggleAllSelection,
+  toggleRowExpansion,
+  setCurrentRow,
+  clearSort,
+  clearFilter,
+  doLayout,
+  sort,
+} = useTableMethods()
 const { sizeChange, currentChange, prevClick, nextClick } = usePaginationEmit(
   emit
 )
 
 provide('defaultBind', defaultBind)
+
+expose({
+  clearSelection,
+  toggleRowSelection,
+  toggleAllSelection,
+  toggleRowExpansion,
+  setCurrentRow,
+  clearSort,
+  clearFilter,
+  doLayout,
+  sort,
+})
 </script>
 
 <style>

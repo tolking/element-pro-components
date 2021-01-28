@@ -1,8 +1,13 @@
-import { ComputedRef, computed, Ref, toRefs, unref, inject } from 'vue'
+import { ComputedRef, computed, Ref, toRefs, unref, inject, ref } from 'vue'
 import { isObject } from '@vue/shared'
 import { config } from '../utils/config'
 import { filterSlotDeep } from '../utils/index'
-import type { ProColumns, ProColumnsDefaultBind } from '../types/index'
+import type {
+  ProColumns,
+  ProColumnsDefaultBind,
+  ProTableExpose,
+  UnknownObject,
+} from '../types/index'
 
 export function useColumnsSlotList(
   columns: ProColumns | Ref<ProColumns>
@@ -46,6 +51,61 @@ export function useColumnsBind(
   }
 
   return computed(() => Object.assign({}, _defaultBind, _option))
+}
+
+export function useTableMethods(): {
+  table: Ref<ProTableExpose>
+} & ProTableExpose {
+  const table = ref<ProTableExpose>({} as ProTableExpose)
+
+  function clearSelection() {
+    table.value.clearSelection()
+  }
+
+  function toggleRowSelection(row: UnknownObject, selected?: boolean) {
+    table.value.toggleRowSelection(row, selected)
+  }
+
+  function toggleAllSelection() {
+    table.value.toggleAllSelection()
+  }
+
+  function toggleRowExpansion(row: UnknownObject, expanded?: boolean) {
+    table.value.toggleRowExpansion(row, expanded)
+  }
+
+  function setCurrentRow(row?: UnknownObject) {
+    table.value.setCurrentRow(row)
+  }
+
+  function clearSort() {
+    table.value.clearSort()
+  }
+
+  function clearFilter(columnKeys?: string[]) {
+    table.value.clearFilter(columnKeys)
+  }
+
+  function doLayout() {
+    table.value.doLayout()
+  }
+
+  function sort(prop: string, order: string) {
+    table.value.sort(prop, order)
+  }
+
+  return {
+    table,
+    clearSelection,
+    toggleRowSelection,
+    toggleAllSelection,
+    toggleRowExpansion,
+    setCurrentRow,
+    clearSort,
+    clearFilter,
+    doLayout,
+    sort,
+  }
 }
 
 export function usePaginationBind(
