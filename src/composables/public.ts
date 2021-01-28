@@ -10,7 +10,7 @@ import {
 } from 'vue'
 import { useRouter } from 'vue-router'
 import { filterRouterByHidden } from '../utils/index'
-import type { ProRouteRecordRaw } from '../types/index'
+import type { ProRouteRecordRaw, UnknownObject } from '../types/index'
 
 /**
  * toggle show
@@ -140,7 +140,7 @@ export function useCurrentRoutes(
  */
 export function usrFilterAttrs(
   excludeKeys: string[] = []
-): ComputedRef<Record<string, unknown>> {
+): ComputedRef<UnknownObject> {
   const instance = getCurrentInstance() || { attrs: {} }
   const exclude = excludeKeys.concat(['class', 'style'])
 

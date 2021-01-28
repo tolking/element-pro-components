@@ -4,8 +4,9 @@ import { config } from '../utils/config'
 import { filterSlotDeep } from '../utils/index'
 import type {
   ProColumns,
-  ProColumnsDefaultBind,
+  ProTableColumnsProps,
   ProTableExpose,
+  ProPagination,
   UnknownObject,
 } from '../types/index'
 
@@ -23,8 +24,8 @@ export function useColumnsSlotList(
 }
 
 export function useColumnsDefaultBind(
-  props: Readonly<ProColumnsDefaultBind>
-): ComputedRef<ProColumnsDefaultBind> {
+  props: Readonly<ProTableColumnsProps>
+): ComputedRef<ProTableColumnsProps> {
   const { showOverflowTooltip, align, headerAlign } = toRefs(props)
 
   return computed(() => ({
@@ -35,12 +36,9 @@ export function useColumnsDefaultBind(
 }
 
 export function useColumnsBind(
-  currentBind:
-    | boolean
-    | Record<string, unknown>
-    | Ref<boolean | Record<string, unknown>>,
-  defaultBind?: ProColumnsDefaultBind | Ref<ProColumnsDefaultBind>
-): ComputedRef<Record<string, unknown>> {
+  currentBind: boolean | UnknownObject | Ref<boolean | UnknownObject>,
+  defaultBind?: ProTableColumnsProps | Ref<ProTableColumnsProps>
+): ComputedRef<UnknownObject> {
   const _currentBind = unref(currentBind)
   const _defaultBind = unref(defaultBind)
   const _option = isObject(_currentBind) ? { ..._currentBind } : undefined
@@ -109,31 +107,21 @@ export function useTableMethods(): {
 }
 
 export function usePaginationBind(
-  pagination:
-    | undefined
-    | Record<string, unknown>
-    | Ref<undefined | Record<string, unknown>>
-): ComputedRef<Record<string, unknown>> {
+  pagination: undefined | ProPagination | Ref<undefined | ProPagination>
+): ComputedRef<ProPagination> {
   return computed(() => {
     const _pagination = unref(pagination)
+    const options = inject<{ pagination: ProPagination }>('ProOptions')
+    const tableOptions = inject<{ pagination: ProPagination }>(
+      'ProTableOptions'
+    )
 
-    if (_pagination) {
-      return _pagination
-    } else {
-      const options = inject<{
-        pagination: Record<string, unknown>
-      }>('ProOptions')
-
-      if (options) {
-        return options.pagination
-      } else {
-        const tableOptions = inject<{
-          pagination: Record<string, unknown>
-        }>('ProTableOptions')
-
-        return tableOptions ? tableOptions.pagination : config.pagination
-      }
-    }
+    return (
+      _pagination ||
+      options?.pagination ||
+      tableOptions?.pagination ||
+      config.pagination
+    )
   })
 }
 
