@@ -16,6 +16,7 @@ import type {
   ProFormExpose,
   ProFormValidateCallback,
   ProFormValidateFieldCallback,
+  UnknownObject,
 } from '../types/index'
 
 export function useFormSlotList(
@@ -33,8 +34,8 @@ export function useFormSlotList(
 }
 
 export function useFormItemBind(
-  currentBind: Record<string, unknown> | Ref<Record<string, unknown>>
-): ComputedRef<Record<string, unknown>> {
+  currentBind: UnknownObject | Ref<UnknownObject>
+): ComputedRef<UnknownObject> {
   const _currentBind = unref(currentBind)
   const _option = isObject(_currentBind) ? { ..._currentBind } : {}
 
@@ -95,13 +96,9 @@ interface ElInstallOptions {
 }
 
 function useGlobalConfig(): ElInstallOptions {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const vm: any = getCurrentInstance()
-  const proxy: { $ELEMENT: ElInstallOptions } = vm.proxy
-  if ('$ELEMENT' in proxy) {
-    return proxy.$ELEMENT
-  }
-  return {} as ElInstallOptions
+  const vm = getCurrentInstance()
+  const proxy = (vm?.proxy || {}) as { $ELEMENT: ElInstallOptions }
+  return (proxy?.$ELEMENT || {}) as ElInstallOptions
 }
 
 export function useFormSize(
@@ -116,18 +113,18 @@ export function useFormSize(
   })
 }
 
-type ModelChildValue = Record<string, Record<string, unknown>[]>
+type ModelChildValue = Record<string, UnknownObject[]>
 
 export function useFormChild(
   props: Readonly<{
-    item: Record<string, unknown> & { prop: string }
-    modelValue: Record<string, unknown>
+    item: UnknownObject & { prop: string }
+    modelValue: UnknownObject
   }>,
   emit: (event: 'update:modelValue', ...args: unknown[]) => void
 ): {
   add: () => void
   del: (index: number) => void
-  upChildData: (value: Record<string, unknown>, index: number) => void
+  upChildData: (value: UnknownObject, index: number) => void
 } {
   function add() {
     const _model = { ...props.modelValue } as ModelChildValue
@@ -145,7 +142,7 @@ export function useFormChild(
     emit('update:modelValue', _model)
   }
 
-  function upChildData(value: Record<string, unknown>, index: number) {
+  function upChildData(value: UnknownObject, index: number) {
     const _model = { ...props.modelValue } as ModelChildValue
     _model[props.item.prop][index] = value
     emit('update:modelValue', _model)
