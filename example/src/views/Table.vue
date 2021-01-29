@@ -5,8 +5,8 @@
     :data="data"
     :columns="columns"
     :total="total"
-    :index="{ label: '#' }"
-    :menu="{ label: 'Menu' }"
+    :index="index"
+    :menu="menu"
     selection
     expand
     align="center"
@@ -48,8 +48,21 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import type {
+  ProTableColumns,
+  ProTableIndexColumns,
+  ProTableMenuColumns,
+} from '/@src/index'
 
-const columns = [
+const index: ProTableIndexColumns = {
+  label: '#',
+  index: (index) => index + 10,
+}
+const menu: ProTableMenuColumns = {
+  label: 'Menu',
+  align: 'right',
+}
+const columns: ProTableColumns = [
   {
     label: 'Date',
     prop: 'date',
@@ -65,7 +78,7 @@ const columns = [
     prop: 'address',
   },
 ]
-const columns1 = [
+const columns1: ProTableColumns = [
   {
     label: 'Date',
     prop: 'date',

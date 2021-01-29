@@ -3,7 +3,7 @@ import { isObject } from '@vue/shared'
 import { config } from '../utils/config'
 import { filterSlotDeep } from '../utils/index'
 import type {
-  ProColumns,
+  ProTableColumns,
   ProTableColumnsProps,
   ProTableExpose,
   ProPagination,
@@ -11,12 +11,12 @@ import type {
 } from '../types/index'
 
 export function useColumnsSlotList(
-  columns: ProColumns | Ref<ProColumns>
-): ComputedRef<ProColumns> {
+  columns: ProTableColumns | Ref<ProTableColumns>
+): ComputedRef<ProTableColumns> {
   const _columns = unref(columns)
 
   return computed(() => {
-    return filterSlotDeep(_columns).map((item) => {
+    return filterSlotDeep<ProTableColumns>(_columns).map((item) => {
       item.header = item.prop + '-header'
       return item
     })
@@ -29,26 +29,31 @@ export function useColumnsDefaultBind(
   const { showOverflowTooltip, align, headerAlign } = toRefs(props)
 
   return computed(() => ({
-    showOverflowTooltip: showOverflowTooltip.value,
+    showOverflowTooltip: showOverflowTooltip?.value || false,
     align: align?.value,
     headerAlign: headerAlign?.value,
   }))
 }
 
-export function useColumnsBind(
-  currentBind: boolean | UnknownObject | Ref<boolean | UnknownObject>,
+interface ColumnsBind {
+  slot?: boolean
+  children?: unknown
+  [key: string]: unknown
+}
+export function useColumnsBind<T extends ColumnsBind>(
+  currentBind: boolean | T | Ref<boolean | T>,
   defaultBind?: ProTableColumnsProps | Ref<ProTableColumnsProps>
-): ComputedRef<UnknownObject> {
+): ComputedRef<T> {
   const _currentBind = unref(currentBind)
   const _defaultBind = unref(defaultBind)
   const _option = isObject(_currentBind) ? { ..._currentBind } : undefined
 
   if (_option) {
-    _option.slot = undefined
-    delete _option.children
+    _option.slot && (_option.slot = undefined)
+    _option.children && delete _option.children
   }
 
-  return computed(() => Object.assign({}, _defaultBind, _option))
+  return computed(() => Object.assign({} as T, _defaultBind, _option))
 }
 
 export function useTableMethods(): {

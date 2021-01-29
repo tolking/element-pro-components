@@ -12,7 +12,7 @@ export interface ProRouteMeta extends RouteMeta {
 
 export type ProRouteRecordRaw = RouteRecordRaw
 
-interface ProColumn {
+export interface ProColumn {
   slot?: boolean
   children?: ProColumns
   [key: string]: unknown
@@ -22,7 +22,23 @@ export type ProColumns = ProColumn[]
 
 export type ComponentSize = 'medium' | 'small' | 'mini' | undefined
 
-export type UnknownObject = Record<string, unknown>
+export type Placement =
+  | 'top'
+  | 'top-start'
+  | 'top-end'
+  | 'bottom'
+  | 'bottom-start'
+  | 'bottom-end'
+  | 'left'
+  | 'left-start'
+  | 'left-end'
+  | 'right'
+  | 'right-start'
+  | 'right-end'
+
+export type UnknownObject = Record<string | number | symbol, unknown>
+
+export type UnknownFunction = (...arg: unknown[]) => unknown
 
 export type ProDefineComponent<
   Props = UnknownObject
