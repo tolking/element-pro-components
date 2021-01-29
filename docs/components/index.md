@@ -12,9 +12,15 @@
 
 ## 配置
 
-| 参数   | 说明                                                                | 类型  | 默认值                 |
-| :----- | :------------------------------------------------------------------ | :---- | :--------------------- |
-| routes | 自定义生成侧边菜单栏的路由，同 `vue-router` 中 routes (仅扩展 meta) | array | 从 `vue-router` 中获取 |
+| 参数            | 说明                                                                | 类型    | 默认值                 |
+| :-------------- | :------------------------------------------------------------------ | :------ | :--------------------- |
+| routes          | 自定义生成侧边菜单栏的路由，同 `vue-router` 中 routes (仅扩展 meta) | array   | 从 `vue-router` 中获取 |
+| transition      | 定义页面过度渐变动画                                                | string  | -                      |
+| collapse        | 默认是否收起菜单                                                    | boolean | false                  |
+| default-openeds | 当前打开的 sub-menu 的 index 的数组                                 | Array   | -                      |
+| unique-opened   | 是否只保持一个子菜单的展开                                          | boolean | false                  |
+
+- 参考 meta
 
 ```ts
 interface ProRouteMeta extends RouteMeta {
@@ -25,7 +31,7 @@ interface ProRouteMeta extends RouteMeta {
 }
 ```
 
-##### 参考路由
+- 参考路由
 
 @[code](@/example/src/router/index.ts)
 

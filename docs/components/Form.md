@@ -3,16 +3,16 @@
 > 封装表单组件实现通过配置动态生成表单
 
 ::: tip 提示
-可以自动代理支持通过 `v-model` 绑定值的单一节点组件，例如：
+自动代理通过 `v-model` 绑定值且不带插槽就能够实现功能的任意组件，例如：
 
 - 支持 `el-input` `el-switch` 等
 - 不支持 `el-upload` `el-select` `el-radio-group` `el-checkbox-group` 等
 
-可以使用相关 `pro-select` `pro-radio` `pro-checkbox` 等代替
+使用相关 `pro-select` `pro-radio` `pro-checkbox` 或第三方组件代替不支持组件
 :::
 
 ::: warning 警告
-组件内部并不包括相关能够使用的组件，所以在使用相关组件前，你必须通过全局注册它
+在使用组件前，你必须通过全局注册它
 
 ```js
 import { ElInput } from 'element-plus'
@@ -37,8 +37,8 @@ app.component(ElInput.name, ElInput)
     label-width="100px"
   >
     <template #menu>
-      <el-button type="primary">Submit</el-button>
-      <el-button>Cancel</el-button>
+      <el-button type="primary">提交</el-button>
+      <el-button>取消</el-button>
     </template>
   </pro-form>
 </template>
@@ -74,7 +74,7 @@ export default {
 
 - 指定对应的组件
 
-::: demo 通过 columns 的 `component` 定义该项生成什么组件。要求对应组件可以通过 v-model 绑定值
+::: demo 通过 columns 的 `component` 定义该项生成什么组件，通过 `props` 可以向组件中传值。要求对应组件可以通过 v-model 绑定值
 
 <template>
   <pro-form
@@ -83,8 +83,8 @@ export default {
     label-width="100px"
   >
     <template #menu>
-      <el-button type="primary">Submit</el-button>
-      <el-button>Cancel</el-button>
+      <el-button type="primary">提交</el-button>
+      <el-button>取消</el-button>
     </template>
   </pro-form>
 </template>
@@ -158,7 +158,7 @@ export default {
 
 - 启用插槽
 
-::: demo 通过 columns 的 slot 配置是否开启自定义插槽功能。虽然在启用插槽后可以通过 `v-model="form.slot"` 这种方式绑定值，但我们更推荐使用 `value` 与 `setValue` 这种方式。这样能够更好的与子表单配合
+::: demo 通过 columns 的 slot 配置是否开启自定义插槽功能。虽然在启用插槽后可以通过 `v-model="form.slot"` 这种方式绑定值，但更推荐使用 `value` 与 `setValue`
 
 <template>
   <pro-form
@@ -170,7 +170,7 @@ export default {
       <i class="el-icon-picture-outline" />
       <span>图片</span>
     </template>
-    <template #slot="{ item, value, setValue }">
+    <template #slot="{ value, setValue }">
       <el-upload
         class="avatar-uploader"
         action=""
@@ -249,7 +249,7 @@ export default {
 
 - 配置子表单
 
-::: demo 通过 columns 的 children 配置子表单
+::: demo 通过 columns 的 `children` 配置子表单，当然你也可以配置多层的 `children` 结构实现反复套娃
 
 <template>
   <pro-form
@@ -258,8 +258,8 @@ export default {
     label-width="100px"
   >
     <template #menu>
-      <el-button type="primary">Submit</el-button>
-      <el-button>Cancel</el-button>
+      <el-button type="primary">提交</el-button>
+      <el-button>取消</el-button>
     </template>
   </pro-form>
 </template>
@@ -272,25 +272,42 @@ export default {
     const form3 = ref({})
     const columns3 = ref([
       {
-        label: '日期',
-        prop: 'date',
+        label: '商品名',
+        prop: 'name',
         component: 'el-input',
       },
       {
-        label: '用户',
-        prop: 'user',
-        max: 3,
+        label: '规格',
+        prop: 'spec',
         size: 'small',
+        max: 3,
         children: [
           {
-            label: '名字',
-            prop: 'name',
+            label: '重量',
+            prop: 'weight',
             component: 'el-input',
           },
           {
-            label: '地址',
-            prop: 'address',
-            component: 'el-input',
+            label: '尺寸',
+            prop: 'size',
+            max: 1,
+            children: [
+              {
+                label: '长',
+                prop: 'length',
+                component: 'el-input',
+              },
+              {
+                label: '宽',
+                prop: 'width',
+                component: 'el-input',
+              },
+              {
+                label: '高',
+                prop: 'height',
+                component: 'el-input',
+              },
+            ]
           },
         ],
       },
@@ -306,29 +323,240 @@ export default {
 
 :::
 
+- 表单验证
+
+::: demo 像 el-form 一样可以通过 `rules` 配置表单验证。对于子表单更推荐使用 columns 里面的 `rules` 字段实现验证。否则你需要通过 `${父级的 prop}.${当前项的 index}.${当前的 prop}` 这种方式配置子表单的验证
+
+<template>
+  <pro-form
+    ref="ruleForm"
+    v-model="form4"
+    :columns="columns4"
+    :rules="rules"
+    label-width="100px"
+  >
+    <template #menu>
+      <el-button
+        type="primary"
+        @click="submitForm"
+      >
+        提交
+      </el-button>
+      <el-button @click="resetForm">
+        取消
+      </el-button>
+    </template>
+  </pro-form>
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const ruleForm = ref({})
+    const form4 = ref({})
+    const rules = ref({
+      date: { required: true, message: '日期不能为空', trigger: 'blur' },
+      user: { required: true, message: '用户不能为空', trigger: 'blur' },
+    })
+    const columns4 = ref([
+      {
+        label: '日期',
+        prop: 'date',
+        component: 'el-input',
+      },
+      {
+        label: '用户',
+        prop: 'user',
+        max: 3,
+        size: 'small',
+        children: [
+          {
+            label: '名字',
+            prop: 'name',
+            component: 'el-input',
+            rules: { required: true, message: '名字不能为空', trigger: 'blur' },
+          },
+          {
+            label: '地址',
+            prop: 'address',
+            component: 'el-input',
+          },
+        ],
+      },
+    ])
+
+    function submitForm() {
+      ruleForm.value.validate().then(() => {
+        alert('submit!')
+      }).catch(() => {
+        console.log('error submit!!')
+      })
+    }
+
+    function resetForm() {
+      ruleForm.value.resetFields()
+    }
+
+    return {
+      form4,
+      columns4,
+      submitForm,
+      resetForm,
+    }
+  }
+}
+</script>
+
+:::
+
+- 动态表单
+
+::: demo 如果传入的 `columns` 是一个响应性数据，动态的修改 columns 表单也会随之改变。由此你可以根据需要动态的控制表单的内容，或者实现从后台加载数据实现表单
+
+<template>
+  <pro-form
+    v-model="form5"
+    :columns="columns5"
+    label-width="100px"
+  >
+    <template #menu>
+      <el-button
+        v-show="columns5.length < 5"
+        @click="add"
+      >
+        增加
+      </el-button>
+      <el-button
+        v-show="columns5.length"
+        @click="del"
+      >
+        减少
+      </el-button>
+    </template>
+  </pro-form>
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const count = ref(0)
+    const form5 = ref({})
+    const columns5 = ref([
+      {
+        label: '项-0',
+        prop: 'prop0',
+        component: 'el-input',
+      },
+    ])
+
+    function add() {
+      count.value++
+      columns5.value.push({
+        label: '项-' + count.value,
+        prop: 'prop' + count.value,
+        component: 'el-input',
+      })
+    }
+
+    function del() {
+      const index = Math.floor(Math.random() * columns5.value.length)
+      columns5.value.splice(index, 1)
+    }
+
+    return {
+      form5,
+      columns5,
+      add,
+      del,
+    }
+  }
+}
+</script>
+
+:::
+
 ## 配置
 
-### v-model
+| 参数                    | 说明                                                                    | 类型    | 可选值                | 默认值 |
+| :---------------------- | :---------------------------------------------------------------------- | :------ | :-------------------- | :----- |
+| v-model                 | 绑定值                                                                  | array   | -                     | -      |
+| columns                 | 表单配置参考下面 `columns`                                              | array   | -                     | -      |
+| rules                   | 表单验证规则                                                            | object  | -                     | -      |
+| inline                  | 行内表单模式                                                            | boolean | -                     | false  |
+| label-position          | 表单域标签的位置，如果值为 left 或者 right 时，则需要设置 `label-width` | string  | right / left / top    | right  |
+| label-width             | 表单域标签的宽度，例如 '50px' 或 'auto'                                 | string  | -                     | -      |
+| label-suffix            | 表单域标签的后缀                                                        | string  | -                     | -      |
+| hide-required-asterisk  | 是否显示必填字段的标签旁边的红色星号                                    | boolean | -                     | false  |
+| show-message            | 是否显示校验错误信息                                                    | boolean | -                     | true   |
+| inline-message          | 是否以行内形式展示校验信息                                              | boolean | -                     | false  |
+| status-icon             | 是否在输入框中显示校验结果反馈图标                                      | boolean | -                     | false  |
+| validate-on-rule-change | 是否在 `rules` 属性改变后立即触发一次验证                               | boolean | -                     | true   |
+| size                    | 用于控制该表单内组件的尺寸                                              | string  | medium / small / mini | -      |
+| disabled                | 是否禁用该表单内的所有组件                                              | boolean | -                     | false  |
 
-绑定表单数据，替代 `ElForm` 的 model
+- columns 的参数
 
-### columns
+| 参数          | 说明                                                                      | 类型           | 可选值                | 默认值 |
+| :------------ | :------------------------------------------------------------------------ | :------------- | :-------------------- | :----- |
+| prop          | v-model 绑定的字段名                                                      | string         | -                     | -      |
+| label         | 标签文本                                                                  | string         | -                     | -      |
+| component     | 当前项对应的组件                                                          | string         | -                     | -      |
+| props         | 传递的对应的组件的参数                                                    | object         | -                     | -      |
+| slot          | 是否开启自定义插槽功能                                                    | boolean        | -                     | false  |
+| children      | 实现子表单                                                                | array          | -                     | -      |
+| max           | 与 children 一起使用，限制子表单的最大数量                                | number         | -                     | -      |
+| labelWidth    | 表单域标签的宽度，例如 '50px' 或 'auto'                                   | string         | -                     | -      |
+| required      | 是否必填，如不设置，则会根据校验规则自动生成                              | boolean        | -                     | false  |
+| rules         | 表单验证规则                                                              | object / array | -                     | -      |
+| error         | 表单域验证错误信息, 设置该值会使表单验证状态变为`error`，并显示该错误信息 | string         | -                     | -      |
+| showMessage   | 是否显示校验错误信息                                                      | boolean        | -                     | true   |
+| inlineMessage | 以行内形式展示校验信息                                                    | boolean        | -                     | false  |
+| size          | 用于控制该表单域下组件的尺寸                                              | string         | medium / small / mini | -      |
 
-自动生成表单的参数，由下面字段组成的数组
+## 事件
 
-| 参数      | 说明                                       | 类型    | 默认值 |
-| :-------- | :----------------------------------------- | :------ | :----- |
-| slot      | 是否开启自定义插槽功能                     | boolean | false  |
-| component | 当前项对应的组件                           | string  | -      |
-| props     | 传递的对应的组件的参数                     | object  | -      |
-| children  | 实现子表单                                 | array   | -      |
-| max       | 与 children 一起使用，限制子表单的最大数量 | number  | -      |
+| 事件名   | 说明                   | 参数                                                       |
+| -------- | ---------------------- | ---------------------------------------------------------- |
+| validate | 任一表单项被校验后触发 | 被校验的表单项 prop 值，校验是否通过，错误消息（如果存在） |
 
-以及 ElFormItem 的配置
+## 方法
 
-### 其它配置
+| 方法名        | 说明                                                                                                                                                                 | 参数                                                                       |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| validate      | 对整个表单进行校验的方法，参数为一个回调函数。该回调函数会在校验结束后被调用，并传入两个参数：是否校验成功和未通过校验的字段。若不传入回调函数，则会返回一个 promise | Function(callback: Function(boolean, object))                              |
+| validateField | 对部分表单字段进行校验的方法                                                                                                                                         | Function(props: array \| string, callback: Function(errorMessage: string)) |
+| resetFields   | 对整个表单进行重置，将所有字段值重置为初始值并移除校验结果                                                                                                           | -                                                                          |
+| clearValidate | 移除表单项的校验结果。传入待移除的表单项的 prop 属性或者 prop 组成的数组，如不传则移除整个表单的校验结果                                                             | Function(props: array \| string)                                           |
 
-同 [ElForm](https://element-plus.gitee.io/#/zh-CN/component/form)
+::: tip 提示
+如果使用 `typescript` 可以从组件中导出 `ProFormExpose` 提供更好的类型推导。参考如下在 setup 中使用
+
+```ts
+import type { ProFormExpose } from 'element-pro-components'
+
+const ruleForm = ref<ProFormExpose>({} as ProFormExpose)
+
+function submitForm() {
+  ruleForm.value
+    .validate()
+    .then(() => {
+      alert('submit!')
+    })
+    .catch(() => {
+      console.log('error submit!!')
+    })
+}
+
+function resetForm() {
+  ruleForm.value.resetFields()
+}
+```
+
+:::
 
 ## 插槽
 
