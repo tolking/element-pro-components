@@ -1,4 +1,4 @@
-import { UnknownObject, UnknownFunction, Placement } from './index'
+import type { UnknownObject, UnknownFunction, Placement } from './index'
 
 /** Table Column Options for pro-table */
 export interface ProTableColumnsProps {

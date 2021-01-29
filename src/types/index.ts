@@ -12,14 +12,6 @@ export interface ProRouteMeta extends RouteMeta {
 
 export type ProRouteRecordRaw = RouteRecordRaw
 
-export interface ProColumn {
-  slot?: boolean
-  children?: ProColumns
-  [key: string]: unknown
-}
-
-export type ProColumns = ProColumn[]
-
 export type ComponentSize = 'medium' | 'small' | 'mini' | undefined
 
 export type Placement =

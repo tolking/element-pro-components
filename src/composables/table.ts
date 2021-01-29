@@ -40,6 +40,7 @@ interface ColumnsBind {
   children?: unknown
   [key: string]: unknown
 }
+
 export function useColumnsBind<T extends ColumnsBind>(
   currentBind: boolean | T | Ref<boolean | T>,
   defaultBind?: ProTableColumnsProps | Ref<ProTableColumnsProps>

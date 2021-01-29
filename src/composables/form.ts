@@ -11,7 +11,8 @@ import {
 import { isObject } from '@vue/shared'
 import { filterSlotDeep } from '../utils/index'
 import type {
-  ProColumns,
+  ProFormColumn,
+  ProFormColumns,
   ComponentSize,
   ProFormExpose,
   ProFormValidateCallback,
@@ -20,8 +21,8 @@ import type {
 } from '../types/index'
 
 export function useFormSlotList(
-  columns: ProColumns | Ref<ProColumns>
-): ComputedRef<ProColumns> {
+  columns: ProFormColumns | Ref<ProFormColumns>
+): ComputedRef<ProFormColumns> {
   const _columns = unref(columns)
 
   return computed(() => {
@@ -33,11 +34,18 @@ export function useFormSlotList(
   })
 }
 
+type FormItemBind = Omit<
+  ProFormColumn,
+  'slot' | 'component' | 'max' | 'props' | 'prop' | 'children'
+>
+
 export function useFormItemBind(
-  currentBind: UnknownObject | Ref<UnknownObject>
-): ComputedRef<UnknownObject> {
+  currentBind: ProFormColumn | Ref<ProFormColumn>
+): ComputedRef<FormItemBind> {
   const _currentBind = unref(currentBind)
-  const _option = isObject(_currentBind) ? { ..._currentBind } : {}
+  const _option = isObject(_currentBind)
+    ? { ..._currentBind }
+    : ({} as FormItemBind)
 
   if (_option) {
     _option.slot = undefined

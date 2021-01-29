@@ -109,10 +109,10 @@ import type {
 } from '../types/index'
 
 const props = defineProps<{
-  selection: boolean | (Record<string, unknown> & ProTableSelectionColumns)
-  expand: boolean | (Record<string, unknown> & ProTableExpandColumns)
-  index: boolean | (Record<string, unknown> & ProTableIndexColumns)
-  menu: boolean | (Record<string, unknown> & ProTableMenuColumns)
+  selection: boolean | Record<string, unknown>
+  expand: boolean | Record<string, unknown>
+  index: boolean | Record<string, unknown>
+  menu: boolean | Record<string, unknown>
   columns: Array<Record<string, unknown> & ProTableColumn>
   total?: number
   pageSize?: number

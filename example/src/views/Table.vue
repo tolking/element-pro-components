@@ -54,15 +54,15 @@ import type {
   ProTableMenuColumns,
 } from '/@src/index'
 
-const index: ProTableIndexColumns = {
+const index = ref<ProTableIndexColumns>({
   label: '#',
   index: (index) => index + 10,
-}
-const menu: ProTableMenuColumns = {
+})
+const menu = ref<ProTableMenuColumns>({
   label: 'Menu',
   align: 'right',
-}
-const columns: ProTableColumns = [
+})
+const columns = ref<ProTableColumns>([
   {
     label: 'Date',
     prop: 'date',
@@ -77,8 +77,8 @@ const columns: ProTableColumns = [
     label: 'Address',
     prop: 'address',
   },
-]
-const columns1: ProTableColumns = [
+])
+const columns1 = ref<ProTableColumns>([
   {
     label: 'Date',
     prop: 'date',
@@ -97,7 +97,7 @@ const columns1: ProTableColumns = [
       },
     ],
   },
-]
+])
 const total = 50
 const currentPage = ref(1)
 const pageSize = ref(10)

@@ -67,9 +67,7 @@ import type {
   ProTableColumnsProps,
 } from '../types/index'
 
-const props = defineProps<{
-  item: Record<string, unknown> & ProTableColumn
-}>()
+const props = defineProps<{ item: Record<string, unknown> }>()
 const { item } = toRefs(props)
 const defaultBind = inject<ProTableColumnsProps>('defaultBind')
 const slotList = useColumnsSlotList(item.value.children as ProTableColumns)
