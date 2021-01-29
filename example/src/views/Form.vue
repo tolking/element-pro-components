@@ -20,8 +20,10 @@
     </template>
   </pro-form>
   <pro-form
+    ref="ruleForm"
     v-model="form1"
     :columns="columns1"
+    :rules="rules"
     label-width="180px"
   >
     <template #address="{ value, setValue }">
@@ -31,25 +33,36 @@
       />
     </template>
     <template #menu>
-      <el-button type="primary">
+      <el-button
+        type="primary"
+        @click="submitForm"
+      >
         Submit
       </el-button>
-      <el-button>Cancel</el-button>
+      <el-button @click="resetForm">
+        Cancel
+      </el-button>
     </template>
   </pro-form>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { ProFormColumns, ProFormExpose } from '/@src/index'
 
 const form = ref<Record<string, unknown>>({})
 const form1 = ref<Record<string, unknown>>({})
+const ruleForm = ref<ProFormExpose>({} as ProFormExpose)
+const rules = ref({
+  date: { required: true, message: 'please input data', trigger: 'blur' },
+  user: { required: true, message: 'please input user', trigger: 'blur' },
+})
 const list = [
   { value: 'Go', tag: 'go', disabled: true },
   { value: 'JavaScript', tag: 'javascript' },
   { value: 'Python', tag: 'python' },
 ]
-const columns = ref([
+const columns = ref<ProFormColumns>([
   {
     // label: 'Slot',
     prop: 'slot',
@@ -128,7 +141,7 @@ const columns = ref([
     },
   },
 ])
-const columns1 = ref([
+const columns1 = ref<ProFormColumns>([
   {
     label: 'Date',
     prop: 'date',
@@ -144,6 +157,11 @@ const columns1 = ref([
         label: 'Name',
         prop: 'name',
         component: 'el-input',
+        rules: {
+          required: true,
+          message: 'please input name',
+          trigger: 'blur',
+        },
       },
       {
         label: 'Address',
@@ -163,5 +181,20 @@ function querySearch(queryString: string, cb: (...arg: unknown[]) => void) {
         })
       : list
   )
+}
+
+function submitForm() {
+  ruleForm.value
+    .validate()
+    .then(() => {
+      alert('submit!')
+    })
+    .catch(() => {
+      console.log('error submit!!')
+    })
+}
+
+function resetForm() {
+  ruleForm.value.resetFields()
 }
 </script>

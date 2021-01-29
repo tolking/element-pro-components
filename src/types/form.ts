@@ -1,4 +1,39 @@
-import { UnknownObject } from './index'
+import type { UnknownObject, ComponentSize } from './index'
+
+export interface ProFormColumn {
+  /** whether column has a slot */
+  slot?: boolean
+  /** component name */
+  component?: string
+  /** props for component */
+  props?: UnknownObject
+  /** sub-form */
+  children?: ProFormColumns
+  /** max number of sub-form */
+  max?: number
+  /** keys of model that passed to form */
+  prop: string
+  /** label name */
+  label?: string
+  /** width of label, e.g. '50px'. Width auto is supported */
+  labelWidth?: string
+  /** whether the field is required or not, will be determined by validation rules if omitted */
+  required?: boolean
+  /** validation rules of form */
+  rules?: UnknownObject | UnknownObject[]
+  /** field error message, set its value and the field will validate error and show this message immediately */
+  error?: string
+  /** whether to show the error message */
+  showMessage?: boolean
+  /** inline style validate message */
+  inlineMessage?: boolean
+  /** control the size of components in this form-item */
+  size?: ComponentSize
+  [key: string]: unknown
+}
+
+/** Form Columns Option */
+export type ProFormColumns = ProFormColumn[]
 
 export interface ProFormValidateCallback {
   (isValid: boolean, invalidFields?: UnknownObject): void

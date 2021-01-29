@@ -1,12 +1,11 @@
 import { isArray } from '@vue/shared'
-import type { ProColumns } from '../types/index'
 
-export function filterSlotDeep(list: ProColumns): ProColumns {
-  if (!isArray(list)) return []
+export function filterSlotDeep<T>(list: T): T {
+  if (!isArray(list)) return ([] as unknown) as T
 
   return list.reduce((all, item) => {
     const _item = { ...item }
-    let _list: ProColumns = []
+    let _list = []
     if (_item.children && _item.children.length) {
       _list = filterSlotDeep(_item.children)
       _item.children = undefined
@@ -15,5 +14,5 @@ export function filterSlotDeep(list: ProColumns): ProColumns {
       _list.push(_item)
     }
     return [...all, ..._list]
-  }, [] as ProColumns)
+  }, ([] as unknown) as T)
 }

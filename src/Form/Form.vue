@@ -61,9 +61,10 @@ import {
   useFormMethods,
   useScreenSize,
 } from '../composables/index'
+import type { ProFormColumn } from '../types/index'
 
 const props = defineProps<{
-  columns: Record<string, unknown>[]
+  columns: Array<Record<string, unknown> & ProFormColumn>
   modelValue: Record<string, unknown>
   labelPosition?: 'right' | 'left' | 'top'
 }>()
