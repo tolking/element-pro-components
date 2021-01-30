@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.5.0
+
+feat
+
+- Layput: add prop for Menu, add transition animation
+- Table: ignore pagination when without `total`, expose Table meahods
+- Form: optimize the display on phone, expose form methods
+
+fix
+
+- Form: rules not work on sub-form
+
 ## 0.4.0
 
 feat

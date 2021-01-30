@@ -2,7 +2,7 @@
 
 ## 准备
 
-在开始前你需要安装脚手架工具，需要 vue3 版本
+在开始前你需要安装 vue3 版本脚手架工具
 
 - [vite](https://vitejs.dev/)
 - [vue-cli](https://cli.vuejs.org/zh/)
@@ -58,11 +58,11 @@ app.mount('#app')
 
 ## 全局配置
 
-##### 参考
+- 参考
 
 @[code](@/src/utils/config.ts)
 
-##### 配置
+- 配置
 
 ```js
 app.use(ElementPro, {
@@ -75,5 +75,13 @@ app.use(ElementPro, {
 ```
 
 ## 开始使用
+
+::: tip 提示
+文档示例基于 [组合式 API](https://v3.cn.vuejs.org/guide/composition-api-introduction.html) 语法，如果不熟悉语法请前往官方文档查看
+
+如果使用 VS Code 开发，配合 Vetur 使用提供完整的组件、属性、事件补全。例如：输入 `<pro-` 将罗列出所有组件库组件
+
+如果使用 TypeScript 编写，可以参考 [example](https://github.com/tolking/element-pro-components/tree/master/example)。内部提供部分类型方便使用
+:::
 
 @[code](@/example/src/layout/Layout.vue)
