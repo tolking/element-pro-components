@@ -4,7 +4,13 @@
   "description": "a component library for Vue 3 base on element-plus",
   "main": "lib/element-pro-components.umd.js",
   "module": "lib/element-pro-components.es.js",
-  "exports": "./lib/element-pro-components.es.js",
+  "exports": {
+    ".": {
+      "import": "./lib/element-pro-components.es.js",
+      "require": "./lib/element-pro-components.umd.js"
+    },
+    "./lib/": "./lib/"
+  },
   "types": "types/index.d.ts",
   "style": "lib/index.min.css",
   "scripts": {
