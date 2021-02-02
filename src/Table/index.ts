@@ -11,7 +11,7 @@ import type {
   ProPagination,
 } from '../types/index'
 
-ProTable.installl = (app: App, options?: InstallOptions) => {
+ProTable.install = (app: App, options?: InstallOptions) => {
   const _options = Object.assign({}, config, options)
 
   app.provide('ProTableOptions', _options)
