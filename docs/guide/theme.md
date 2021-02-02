@@ -75,8 +75,8 @@ html[theme='other'] {
 在入口文件中引入你的样式配置文件
 
 ```js
-// 当你自定义主题时，你可以使用 `index.css` 代替 `index.min.css`
-import 'element-pro-components/lib/index.css'
+// 当你自定义主题时，你可以使用 `style.css` 代替 `index.min.css`
+import 'element-pro-components/lib/style.css'
 import 'your/css/file'
 ```
 
