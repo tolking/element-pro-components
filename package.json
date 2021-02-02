@@ -16,7 +16,7 @@
   "scripts": {
     "dev": "vite",
     "dev:docs": "cross-env NODE_ENV=development vitepress dev docs",
-    "build": "vite build && npm run build:style && npm run build:types",
+    "build": "vite build --emptyOutDir && npm run build:style && npm run build:types",
     "build:types": "rimraf types && tsc -d",
     "build:style": "postcss lib/index.css -o lib/index.min.css",
     "build:docs": "cross-env NODE_ENV=production vitepress build docs",
@@ -78,8 +78,7 @@
     "typescript": "^4.1.3",
     "vite": "^2.0.0-beta.14",
     "vitepress": "^0.10.7",
-    "vue-jest": "^5.0.0-alpha.7",
-    "vue-template-compiler": "^2.6.12"
+    "vue-jest": "^5.0.0-alpha.7"
   },
   "vetur": {
     "tags": "vetur/tags.json",

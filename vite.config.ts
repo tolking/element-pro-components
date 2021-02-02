@@ -7,9 +7,6 @@ import { name } from './package.json'
 // Gets the components name and converts it to camelize
 const pluginName = name.replace(/(^|-)(\w)/g, (a, b, c) => c.toUpperCase())
 
-/**
- * type {import('vite').UserConfig}
- */
 export default defineConfig({
   root: path.resolve(__dirname, 'example'),
   alias: {
@@ -26,6 +23,12 @@ export default defineConfig({
     rollupOptions: {
       output: {
         exports: 'named',
+        globals: {
+          vue: 'Vue',
+          'vue-router': 'VueRouter',
+          '@vue/shared': 'Vue',
+          'element-plus': 'ElementPlus',
+        },
       },
       external: ['vue', 'vue-router', '@vue/shared', 'element-plus'],
       plugins: [
