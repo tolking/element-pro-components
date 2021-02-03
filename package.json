@@ -18,7 +18,7 @@
     "dev:docs": "cross-env NODE_ENV=development vitepress dev docs",
     "build": "vite build --emptyOutDir && npm run build:style && npm run build:types",
     "build:types": "rimraf types && tsc -d",
-    "build:style": "postcss lib/index.css -o lib/index.min.css",
+    "build:style": "postcss lib/style.css -o lib/index.min.css",
     "build:docs": "cross-env NODE_ENV=production vitepress build docs",
     "test": "jest",
     "lint": "eslint . --fix --ext .ts,.vue,.js --ignore-pattern \"/lib/\" --ignore-pattern \"/types/\"",

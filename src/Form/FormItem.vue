@@ -145,21 +145,21 @@ function upData(value: unknown) {
 }
 </script>
 
-<style>
+<style lang="postcss">
 .pro-form-item .children-form {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   width: 100%;
-}
-.pro-form-item .children-form .children-form-item {
-  flex: 1;
-}
-.pro-form-item .children-form .children-form-item .pro-form-item {
-  margin-bottom: 22px;
-}
-.pro-form-item .children-form .delete-bth {
-  margin: 0 0 20px 10px;
+  & .children-form-item {
+    flex: 1;
+    & .pro-form-item {
+      margin-bottom: 22px;
+    }
+  }
+  & .delete-bth {
+    margin: 0 0 20px 10px;
+  }
 }
 </style>

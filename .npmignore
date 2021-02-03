@@ -5,10 +5,10 @@
 .gitignore
 .lintstagedrc
 .npmignore
+.postcssrc.json
 .prettierrc
 babel.config.js
 jest.config.js
-postcss.config.js
 shims-vue.d.ts
 tsconfig.json
 rollup.config.js
