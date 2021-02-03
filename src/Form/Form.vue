@@ -81,7 +81,7 @@ const {
 } = useFormMethods(upData)
 const size = useScreenSize()
 const position = computed(() => {
-  return size.value === 'xs' ? 'top' : labelPosition?.value
+  return size.value === 'xs' && !attrs.inline ? 'top' : labelPosition?.value
 })
 
 function upData(value: unknown) {
