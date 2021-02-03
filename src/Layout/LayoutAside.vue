@@ -91,7 +91,7 @@ function toggleCollapse() {
     }
   }
   &.aside-collapse .pro-aside-wrapper {
-    width: 60px;
+    width: var(--aside-collapse-width);
   }
   @media screen and (max-width: 768px) {
     position: absolute;

@@ -10,6 +10,7 @@
 
   /* size */
   --aside-width: 240px;
+  --aside-collapse-width: 60px;
   --layout-height: 100vh;
   --header-height: 54px;
   --footer-height: 50px;
