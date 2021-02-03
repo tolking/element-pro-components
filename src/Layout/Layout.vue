@@ -56,16 +56,16 @@ const attrs = usrFilterAttrs()
 const { show, toggleShow } = useShow(collapse)
 </script>
 
-<style>
+<style lang="postcss">
 .pro-layout {
   display: flex;
   height: var(--layout-height);
   overflow: hidden;
-}
-.pro-layout .pro-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background: var(--c-page-background);
+  & .pro-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--c-page-background);
+  }
 }
 </style>

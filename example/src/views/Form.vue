@@ -76,6 +76,7 @@ const columns = ref<ProFormColumns>([
     props: {
       clearable: true,
       placeholder: 'placeholder',
+      onChange: (e: string) => console.log(e),
     },
   },
   {

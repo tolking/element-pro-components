@@ -28,24 +28,23 @@ const props = defineProps<{ transition?: string }>()
 const { transition } = toRefs(props)
 </script>
 
-<style>
+<style lang="postcss">
 .pro-main {
-  margin: 10px;
-  padding: 20px;
+  margin: var(--main-margin);
+  padding: var(--main-padding);
   border: 1px solid var(--c-border);
   border-radius: var(--border-radius);
   background: var(--c-aside-background);
-}
-.pro-main.el-scrollbar .el-scrollbar__wrap {
-  margin-bottom: 0 !important;
-  overflow-x: hidden;
-}
-@media screen and (max-width: 768px) {
-  .pro-main {
-    padding: 6px;
+  &.el-scrollbar .el-scrollbar__wrap {
+    margin-bottom: 0 !important;
+    overflow-x: hidden;
   }
-  .pro-main.el-scrollbar .el-scrollbar__wrap {
-    margin-right: 0 !important;
+  @media screen and (max-width: 768px) {
+    margin: var(--xs-main-margin);
+    padding: var(--xs-main-padding);
+    &.el-scrollbar .el-scrollbar__wrap {
+      margin-right: 0 !important;
+    }
   }
 }
 </style>

@@ -14,6 +14,10 @@
   --header-height: 54px;
   --footer-height: 50px;
   --border-radius: 4px;
+  --main-margin: 10px;
+  --main-padding: 20px;
+  --xs-main-margin: 4px;
+  --xs-main-padding: 10px;
 
   /* z-index */
   --z-index-sidebar: 100;

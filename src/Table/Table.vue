@@ -183,7 +183,7 @@ expose({
 })
 </script>
 
-<style>
+<style lang="postcss">
 .pro-table + .pro-pagination {
   padding: 15px 0;
   text-align: right;

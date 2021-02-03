@@ -45,7 +45,7 @@ const size = useFormSize(props)
 const { input, list, add, close, keyup } = useInputTag(props, emit)
 </script>
 
-<style>
+<style lang="postcss">
 .pro-input-tag {
   display: flex;
   flex-wrap: wrap;
@@ -53,15 +53,15 @@ const { input, list, add, close, keyup } = useInputTag(props, emit)
   border: 1px solid var(--c-border);
   border-radius: 4px;
   background-color: var(--c-background);
-}
-.pro-input-tag .el-tag {
-  margin: 3px;
-}
-.pro-input-tag .el-input {
-  flex: 1;
-  min-width: 80px;
-}
-.pro-input-tag .el-input .el-input__inner {
-  border: 0;
+  & .el-tag {
+    margin: 3px;
+  }
+  & .el-input {
+    flex: 1;
+    min-width: 80px;
+  }
+  & .el-input .el-input__inner {
+    border: 0;
+  }
 }
 </style>

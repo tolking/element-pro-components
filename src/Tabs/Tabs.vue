@@ -22,12 +22,12 @@ import { useTabs } from '../composables'
 const { active, list, to, close } = useTabs()
 </script>
 
-<style>
+<style lang="postcss">
 .pro-tabs {
   padding: 0 20px;
   background: var(--c-tabs-background);
-}
-.pro-tabs .el-tabs__header {
-  margin: 0;
+  & .el-tabs__header {
+    margin: 0;
+  }
 }
 </style>
