@@ -65,7 +65,11 @@ const { show, toggleShow } = useShow(collapse)
     flex: 1;
     display: flex;
     flex-direction: column;
+    width: calc(100% - var(--aside-width));
     background: var(--c-page-background);
+  }
+  & .aside-collapse + .pro-container {
+    width: calc(100% - var(--aside-collapse-width));
   }
 }
 </style>
