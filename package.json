@@ -12,13 +12,12 @@
     "./lib/": "./lib/"
   },
   "types": "types/index.d.ts",
-  "style": "lib/index.min.css",
+  "style": "lib/style.css",
   "scripts": {
     "dev": "vite",
     "dev:docs": "cross-env NODE_ENV=development vitepress dev docs",
-    "build": "vite build --emptyOutDir && npm run build:style && npm run build:types",
+    "build": "vite build --emptyOutDir && npm run build:types",
     "build:types": "rimraf types && tsc -d",
-    "build:style": "postcss lib/style.css -o lib/index.min.css",
     "build:docs": "cross-env NODE_ENV=production vitepress build docs",
     "test": "jest",
     "lint": "eslint . --fix --ext .ts,.vue,.js --ignore-pattern \"/lib/\" --ignore-pattern \"/types/\"",
@@ -69,7 +68,6 @@
     "lint-staged": "^10.5.3",
     "markdown-it-vuepress-code-snippet-enhanced": "^1.0.1",
     "postcss": "^8.2.1",
-    "postcss-cli": "^8.3.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "2.2.1",
     "rimraf": "^3.0.2",

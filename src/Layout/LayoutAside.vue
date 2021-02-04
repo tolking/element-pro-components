@@ -93,7 +93,7 @@ function toggleCollapse() {
   &.aside-collapse .pro-aside-wrapper {
     width: var(--aside-collapse-width);
   }
-  @media screen and (max-width: 768px) {
+  @media (--xs-medium) {
     position: absolute;
     left: 0;
     top: 0;

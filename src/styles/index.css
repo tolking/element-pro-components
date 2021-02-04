@@ -1,3 +1,5 @@
+@custom-media --xs-medium (width < 768px);
+
 :root {
   /* color */
   --c-background: #ffffff;
