@@ -34,7 +34,7 @@ export default defineConfig({
         babel({
           exclude: 'node_modules/**',
           extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
-          presets: [['@babel/preset-env']],
+          presets: ['@babel/preset-env', '@babel/preset-typescript'],
         }),
       ],
     },

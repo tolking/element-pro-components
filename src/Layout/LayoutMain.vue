@@ -39,7 +39,7 @@ const { transition } = toRefs(props)
     margin-bottom: 0 !important;
     overflow-x: hidden;
   }
-  @media screen and (max-width: 768px) {
+  @media (--xs-medium) {
     margin: var(--xs-main-margin);
     padding: var(--xs-main-padding);
     &.el-scrollbar .el-scrollbar__wrap {

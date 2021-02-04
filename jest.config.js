@@ -1,8 +1,8 @@
 module.exports = {
   roots: ['<rootDir>/test'],
   preset: 'ts-jest',
-  globals: {},
   testEnvironment: 'jsdom',
+  moduleFileExtensions: ['ts', 'vue', 'js', 'jsx', 'tsx', 'json', 'node'],
   transform: {
     '^.+\\.vue$': 'vue-jest',
     '^.+\\.(t|j)sx?$': [
@@ -22,5 +22,4 @@ module.exports = {
       },
     ],
   },
-  moduleFileExtensions: ['vue', 'js', 'json', 'jsx', 'ts', 'tsx', 'node'],
 }

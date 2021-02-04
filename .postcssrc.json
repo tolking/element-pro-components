@@ -2,7 +2,8 @@
   "map": false,
   "plugins": {
     "postcss-preset-env": {
-      "stage": 1
+      "stage": 1,
+      "importFrom": "./src/styles/index.css"
     },
     "autoprefixer": {},
     "cssnano": {}
