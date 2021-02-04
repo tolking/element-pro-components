@@ -4,7 +4,6 @@ import ProCode from './ProCode.vue'
 import { ElButton, ElInput, ElUpload } from 'element-plus'
 import ElementPro from '/@src/index'
 import 'element-plus/lib/theme-chalk/index.css'
-import '/@src/styles/index.css'
 import './index.css'
 
 export default {

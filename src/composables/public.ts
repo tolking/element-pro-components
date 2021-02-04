@@ -51,8 +51,8 @@ export function useScreenSize(): Ref<ScreenSize> {
 
   onMounted(() => {
     el.value = document.getElementsByTagName('body')[0]
-    setSize()
     addResizeListener(el.value, setSize)
+    setSize()
   })
 
   onUnmounted(() => {
