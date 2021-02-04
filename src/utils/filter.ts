@@ -1,4 +1,4 @@
-import { isArray } from '@vue/shared'
+import { isArray } from './index'
 
 export function filterSlotDeep<T>(list: T): T {
   if (!isArray(list)) return ([] as unknown) as T

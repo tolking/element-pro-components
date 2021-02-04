@@ -1,7 +1,6 @@
 import { ComputedRef, computed, Ref, toRefs, unref, inject, ref } from 'vue'
-import { isObject } from '@vue/shared'
 import { config } from '../utils/config'
-import { filterSlotDeep } from '../utils/index'
+import { filterSlotDeep, isObject } from '../utils/index'
 import type {
   ProTableColumns,
   ProTableColumnsProps,

@@ -14,6 +14,8 @@ export type ProRouteRecordRaw = RouteRecordRaw
 
 export type ComponentSize = 'medium' | 'small' | 'mini' | undefined
 
+export type ScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+
 export type Placement =
   | 'top'
   | 'top-start'

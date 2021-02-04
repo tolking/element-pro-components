@@ -1,10 +1,5 @@
 <template>
-  <div
-    :class="{ hover: isHover }"
-    class="pro-code"
-    @mouseenter="enter"
-    @mouseleave="leave"
-  >
+  <div class="pro-code">
     <div class="source">
       <slot />
     </div>
@@ -22,34 +17,20 @@
       class="control"
       @click="toggleShow"
     >
-      <i
-        :class="[
-          show ? 'el-icon-caret-top' : 'el-icon-caret-bottom',
-          isHover ? 'is-hover' : '',
-        ]"
-      />
-      <transition name="text-slide">
-        <span v-show="isHover" :class="{ 'is-hover': isHover }">
-          {{ show ? 'Hide' : 'Expand' }}
-        </span>
-      </transition>
+      <i :class="[show ? 'el-icon-caret-top' : 'el-icon-caret-bottom']" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { nextTick, onMounted, ref, watch } from 'vue'
-import { useShow, useHover, useScroll, useResize } from '/@src/index'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { useShow } from '/@src/index'
 
 const { show, toggleShow } = useShow()
-const { isHover, enter, leave } = useHover()
 const meta = ref(null)
 const control = ref(null)
 const isFixContorl = ref(false)
 const codeAreaHeight = ref(0)
-
-useScroll(handleScroll)
-useResize(handleScroll)
 
 onMounted(() => {
   const foundDescs = meta.value.getElementsByClassName('description')
@@ -63,19 +44,25 @@ onMounted(() => {
   }
 })
 
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
+
 watch(show, (value) => {
-  meta.value.style.height = value ? `${codeAreaHeight.value}px` : '0'
-  nextTick(() => {
+  if (value) {
+    meta.value.style.height = `${codeAreaHeight.value}px`
+    window.addEventListener('scroll', handleScroll)
     setTimeout(handleScroll, 100)
-  })
+  } else {
+    meta.value.style.height = '0'
+    window.removeEventListener('scroll', handleScroll)
+  }
 })
 
 function handleScroll() {
-  const { top, bottom, left, width } = meta.value.getBoundingClientRect()
+  const { top, bottom } = meta.value.getBoundingClientRect()
   isFixContorl.value =
     bottom > window.innerHeight && top + 44 <= window.innerHeight
-  control.value.style.left = isFixContorl.value ? `${left}px` : '0'
-  control.value.style.width = isFixContorl.value ? `${width}px` : ''
 }
 </script>
 
@@ -87,7 +74,7 @@ function handleScroll() {
   background: var(--c-bg);
   transition: all 0.2s;
 }
-.pro-code.hover {
+.pro-code:hover {
   box-shadow: var(--shadow-2);
 }
 .pro-code .source {
@@ -140,7 +127,7 @@ function handleScroll() {
   user-select: none;
 }
 .pro-code .control.is-fixed {
-  position: fixed;
+  position: sticky;
   z-index: 11;
   bottom: 0;
 }
@@ -153,21 +140,5 @@ function handleScroll() {
   font-size: 16px;
   line-height: 44px;
   transition: all 0.3s;
-}
-.pro-code .control > i.is-hover {
-  transform: translateX(-40px);
-}
-.pro-code .control > span {
-  position: absolute;
-  display: inline-block;
-  font-size: 14px;
-  line-height: 44px;
-  transform: translateX(-30px);
-  transition: 0.3s;
-}
-.pro-code .control .text-slide-enter,
-.pro-code .control .text-slide-leave-active {
-  opacity: 0;
-  transform: translateX(10px);
 }
 </style>
