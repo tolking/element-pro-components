@@ -8,8 +8,7 @@ import {
   ref,
   nextTick,
 } from 'vue'
-import { isObject } from '@vue/shared'
-import { filterSlotDeep } from '../utils/index'
+import { filterSlotDeep, isObject } from '../utils/index'
 import type {
   ProFormColumn,
   ProFormColumns,

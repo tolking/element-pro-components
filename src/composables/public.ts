@@ -9,8 +9,17 @@ import {
   unref,
 } from 'vue'
 import { useRouter } from 'vue-router'
-import { filterRouterByHidden } from '../utils/index'
-import type { ProRouteRecordRaw, UnknownObject } from '../types/index'
+import {
+  filterRouterByHidden,
+  getScreenSize,
+  addResizeListener,
+  removeResizeListener,
+} from '../utils/index'
+import type {
+  ProRouteRecordRaw,
+  UnknownObject,
+  ScreenSize,
+} from '../types/index'
 
 /**
  * toggle show
@@ -35,79 +44,24 @@ export function useShow(
   }
 }
 
-export function useHover(): {
-  isHover: Ref<boolean>
-  enter: () => void
-  leave: () => void
-} {
-  const isHover = ref(false)
-
-  function enter() {
-    isHover.value = true
-  }
-
-  function leave() {
-    isHover.value = false
-  }
-
-  return {
-    isHover,
-    enter,
-    leave,
-  }
-}
-
-/**
- * Monitor window scroll changes
- * @param callback callback function
- */
-export function useScroll(callback: () => void): void {
-  onMounted(() => {
-    window.addEventListener('scroll', callback)
-  })
-
-  onUnmounted(() => {
-    window.removeEventListener('scroll', callback)
-  })
-}
-
-/**
- * Monitor window size changes
- * @param callback callback function
- */
-export function useResize(callback: () => void): void {
-  onMounted(() => {
-    callback()
-    window.addEventListener('resize', callback)
-  })
-
-  onUnmounted(() => {
-    window.removeEventListener('resize', callback)
-  })
-}
-
-type ScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-
 /** Gets the responsive breakpoint of the current screen */
 export function useScreenSize(): Ref<ScreenSize> {
   const size = ref<ScreenSize>('xl')
+  const el = ref<Element>()
 
-  useResize(getScreenSize)
+  onMounted(() => {
+    el.value = document.getElementsByTagName('body')[0]
+    setSize()
+    addResizeListener(el.value, setSize)
+  })
 
-  function getScreenSize() {
-    const width = document.body.clientWidth
+  onUnmounted(() => {
+    removeResizeListener(el.value, setSize)
+  })
 
-    if (width >= 1920) {
-      size.value = 'xl'
-    } else if (width >= 1200) {
-      size.value = 'lg'
-    } else if (width >= 992) {
-      size.value = 'md'
-    } else if (width >= 768) {
-      size.value = 'sm'
-    } else {
-      size.value = 'xs'
-    }
+  function setSize() {
+    if (!el.value) return
+    size.value = getScreenSize(el.value.clientWidth)
   }
 
   return size
