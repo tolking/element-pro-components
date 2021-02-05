@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import { toRefs, defineEmit, defineProps } from 'vue'
 import { ElTag, ElAutocomplete } from 'element-plus'
-import { useInputTag, useFormSize, usrFilterAttrs } from '../composables/index'
+import { useInputTag, useFormSize, useAttrs } from '../composables/index'
 
 const props = defineProps<{
   modelValue?: string[]
@@ -40,7 +40,7 @@ const props = defineProps<{
 }>()
 const emit = defineEmit(['update:modelValue'])
 const { type, hit, color, effect } = toRefs(props)
-const attrs = usrFilterAttrs()
+const attrs = useAttrs()
 const size = useFormSize(props)
 const { input, list, add, close, keyup } = useInputTag(props, emit)
 </script>

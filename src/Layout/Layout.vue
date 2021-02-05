@@ -44,7 +44,7 @@ import { defineProps, toRefs, useContext } from 'vue'
 import ProLayoutAside from './LayoutAside.vue'
 import ProLayoutHeader from './LayoutHeader.vue'
 import ProLayoutMain from './LayoutMain.vue'
-import { usrFilterAttrs, useShow } from '../composables/index'
+import { useAttrs, useShow } from '../composables/index'
 
 const props = defineProps<{
   collapse: boolean
@@ -52,7 +52,7 @@ const props = defineProps<{
 }>()
 const { collapse, transition } = toRefs(props)
 const { slots } = useContext()
-const attrs = usrFilterAttrs()
+const attrs = useAttrs()
 const { show, toggleShow } = useShow(collapse)
 </script>
 

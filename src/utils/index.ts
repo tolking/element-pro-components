@@ -1,4 +1,5 @@
 export { isArray, isObject } from '@vue/shared'
+export { useGlobalConfig } from 'element-plus/es/utils/util'
 export {
   addResizeListener,
   removeResizeListener,
