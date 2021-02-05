@@ -1,6 +1,6 @@
 import type { App } from 'vue'
 import ProCheckboxButton from './CheckboxButton.vue'
-import { ProDefineComponent } from '../types/index'
+import type { ProDefineComponent } from '../types/index'
 
 ProCheckboxButton.install = (app: App) => {
   app.component(
