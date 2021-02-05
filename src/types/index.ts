@@ -2,6 +2,12 @@ export * from './form'
 export * from './table'
 import type { App, DefineComponent } from 'vue'
 import type { RouteMeta, RouteRecordRaw } from 'vue-router'
+import type { ProPagination } from './table'
+
+export interface InstallOptions {
+  /** Pagination Attributes */
+  pagination?: ProPagination
+}
 
 export interface ProRouteMeta extends RouteMeta {
   title?: string

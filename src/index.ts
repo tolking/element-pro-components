@@ -1,10 +1,23 @@
 export * from './composables/public'
 export * from './utils/index'
-export * from './types/index'
+export type {
+  InstallOptions,
+  ProRouteMeta,
+  ProRouteRecordRaw,
+  ProFormColumns,
+  ProFormExpose,
+  ProTableColumns,
+  ProTableExpandColumns,
+  ProTableMenuColumns,
+  ProTableIndexColumns,
+  ProTableSelectionColumns,
+  ProTableExpose,
+  ProPagination,
+} from './types/index'
 import './styles/index.css'
 import type { App } from 'vue'
-import { ProDefineComponent } from './types/index'
-import { config, InstallOptions } from './utils/config'
+import type { ProDefineComponent, InstallOptions } from './types/index'
+import { config } from './utils/config'
 
 import ProAutocompleteTag from './AutocompleteTag/index'
 import ProBreadcrumb from './Breadcrumb/index'

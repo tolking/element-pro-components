@@ -1,9 +1,10 @@
 import type { App } from 'vue'
-import { config, InstallOptions } from '../utils/config'
+import { config } from '../utils/config'
 import ProTable from './Table.vue'
 import type {
+  InstallOptions,
   ProDefineComponent,
-  ProTableColumn,
+  ProTableColumns,
   ProTableIndexColumns,
   ProTableSelectionColumns,
   ProTableExpandColumns,
@@ -24,7 +25,7 @@ export default ProTable as ProDefineComponent<{
   expand: boolean | ProTableExpandColumns
   index: boolean | ProTableIndexColumns
   menu: boolean | ProTableMenuColumns
-  columns: ProTableColumn
+  columns: ProTableColumns
   total?: number
   pageSize?: number
   currentPage?: number
