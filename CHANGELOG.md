@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.6.0
+
+breaking changes
+
+- remove `index.min.css` `index.css`, need to use `style.css` instead
+- remove `useHover` `useScroll` `useResize`
+- change `usrFilterAttrs` to `useAttrs`
+
+fix
+
+- Layput: Table widening causes width error
+- Form: display on phone when use inline
+- Table|Tabs: whitout install function
+
+other
+
+- optimize export type
+
 ## 0.5.1
 
 fix
