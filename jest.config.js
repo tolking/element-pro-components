@@ -3,6 +3,7 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   moduleFileExtensions: ['ts', 'vue', 'js', 'jsx', 'tsx', 'json', 'node'],
+  transformIgnorePatterns: ['node_modules/(?!(@vue/shared|element-plus)/)'],
   transform: {
     '^.+\\.vue$': 'vue-jest',
     '^.+\\.(t|j)sx?$': [
