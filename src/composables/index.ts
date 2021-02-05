@@ -1,3 +1,4 @@
+export { useAttrs } from 'element-plus/es/hooks/index'
 export * from './form'
 export * from './inputTag'
 export * from './public'

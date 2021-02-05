@@ -1,6 +1,6 @@
 import type { App } from 'vue'
 import ProMenu from './Menu.vue'
-import { ProDefineComponent, ProRouteRecordRaw } from '../types/index'
+import type { ProDefineComponent, ProRouteRecordRaw } from '../types/index'
 
 ProMenu.install = (app: App) => {
   app.component(ProMenu.name || 'ProMenu', ProMenu)

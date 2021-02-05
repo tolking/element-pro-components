@@ -1,6 +1,6 @@
 import type { App } from 'vue'
 import ProAutocompleteTag from './AutocompleteTag.vue'
-import { ProDefineComponent } from '../types/index'
+import type { ProDefineComponent } from '../types/index'
 
 ProAutocompleteTag.install = (app: App) => {
   app.component(

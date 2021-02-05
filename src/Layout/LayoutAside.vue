@@ -41,7 +41,7 @@
 import { toRefs, defineEmit, defineProps, useContext, computed } from 'vue'
 import { ElScrollbar } from 'element-plus'
 import ProMenu from '../Menu/index'
-import { usrFilterAttrs, useScreenSize } from '../composables/index'
+import { useAttrs, useScreenSize } from '../composables/index'
 import type { ProRouteRecordRaw } from '../types/index'
 
 const props = defineProps<{
@@ -51,7 +51,7 @@ const props = defineProps<{
 const { collapse, routes } = toRefs(props)
 const emit = defineEmit(['toggle-collapse'])
 const { slots } = useContext()
-const attrs = usrFilterAttrs()
+const attrs = useAttrs()
 const size = useScreenSize()
 const menuCollapse = computed(() => {
   return size.value === 'xs' ? false : collapse.value

@@ -1,9 +1,4 @@
-import type { ProPagination } from '../types/index'
-
-export interface InstallOptions {
-  /** Pagination Attributes */
-  pagination?: ProPagination
-}
+import type { InstallOptions } from '../types/index'
 
 export const config: Required<InstallOptions> = {
   pagination: {

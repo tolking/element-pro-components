@@ -1,7 +1,6 @@
 import {
   ComputedRef,
   computed,
-  getCurrentInstance,
   onMounted,
   Ref,
   ref,
@@ -15,11 +14,7 @@ import {
   addResizeListener,
   removeResizeListener,
 } from '../utils/index'
-import type {
-  ProRouteRecordRaw,
-  UnknownObject,
-  ScreenSize,
-} from '../types/index'
+import type { ProRouteRecordRaw, ScreenSize } from '../types/index'
 
 /**
  * toggle show
@@ -85,28 +80,5 @@ export function useCurrentRoutes(
 
       return filterRouterByHidden(_routes)
     }
-  })
-}
-
-/**
- * exclusion `class` `style` for attrs
- * @param excludeKeys Additional exclusion value
- */
-export function usrFilterAttrs(
-  excludeKeys: string[] = []
-): ComputedRef<UnknownObject> {
-  const instance = getCurrentInstance() || { attrs: {} }
-  const exclude = excludeKeys.concat(['class', 'style'])
-
-  return computed(() => {
-    const attrs = { ...instance.attrs }
-
-    exclude.forEach((item: string) => {
-      if (item in attrs) {
-        attrs[item] = undefined
-      }
-    })
-
-    return attrs
   })
 }

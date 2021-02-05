@@ -1,6 +1,6 @@
 import type { App } from 'vue'
 import ProRadio from './Radio.vue'
-import { ProDefineComponent } from '../types/index'
+import type { ProDefineComponent } from '../types/index'
 
 ProRadio.install = (app: App) => {
   app.component(ProRadio.name || 'ProRadio', ProRadio)
