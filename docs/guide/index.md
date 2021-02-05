@@ -22,7 +22,7 @@ npm i element-pro-components
 import { createApp } from 'vue'
 import App from './App.vue'
 import ElementPro from 'element-pro-components'
-import 'element-pro-components/lib/index.min.css'
+import 'element-pro-components/lib/style.css'
 
 const app = createApp(App)
 
@@ -36,7 +36,7 @@ app.mount('#app')
 import { createApp } from 'vue'
 import App from './App.vue'
 import { ProLayout } from 'element-pro-components'
-import 'element-pro-components/lib/index.min.css'
+import 'element-pro-components/lib/style.css'
 
 const app = createApp(App)
 
@@ -47,7 +47,7 @@ app.mount('#app')
 ```
 
 ::: tip 提示
-与 `Element Plus` 不同，样式不支持按需引入，由于只包含少量必要样式，不太会提供相同功能。
+与 `Element Plus` 不同，样式不支持按需引入。由于只包含少量必要样式，可能不会提供相同功能
 
 完整组件列表[参考里面的 components](https://github.com/tolking/element-pro-components/blob/master/src/index.ts)
 :::
