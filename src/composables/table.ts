@@ -1,4 +1,4 @@
-import { ComputedRef, computed, Ref, toRefs, unref, inject, ref } from 'vue'
+import { ComputedRef, computed, Ref, unref, inject, ref } from 'vue'
 import { config } from '../utils/config'
 import { filterSlotDeep, isObject } from '../utils/index'
 import type {
@@ -12,9 +12,9 @@ import type {
 export function useColumnsSlotList(
   columns: ProTableColumns | Ref<ProTableColumns>
 ): ComputedRef<ProTableColumns> {
-  const _columns = unref(columns)
-
   return computed(() => {
+    const _columns = unref(columns)
+
     return filterSlotDeep<ProTableColumns>(_columns).map((item) => {
       item.header = item.prop + '-header'
       return item
@@ -25,12 +25,10 @@ export function useColumnsSlotList(
 export function useColumnsDefaultBind(
   props: Readonly<ProTableColumnsProps>
 ): ComputedRef<ProTableColumnsProps> {
-  const { showOverflowTooltip, align, headerAlign } = toRefs(props)
-
   return computed(() => ({
-    showOverflowTooltip: showOverflowTooltip?.value || false,
-    align: align?.value,
-    headerAlign: headerAlign?.value,
+    showOverflowTooltip: props.showOverflowTooltip || false,
+    align: props.align,
+    headerAlign: props.headerAlign,
   }))
 }
 
@@ -44,16 +42,18 @@ export function useColumnsBind<T extends ColumnsBind>(
   currentBind: boolean | T | Ref<boolean | T>,
   defaultBind?: ProTableColumnsProps | Ref<ProTableColumnsProps>
 ): ComputedRef<T> {
-  const _currentBind = unref(currentBind)
-  const _defaultBind = unref(defaultBind)
-  const _option = isObject(_currentBind) ? { ..._currentBind } : undefined
+  return computed(() => {
+    const _currentBind = unref(currentBind)
+    const _defaultBind = unref(defaultBind)
+    const _option = isObject(_currentBind) ? { ..._currentBind } : undefined
 
-  if (_option) {
-    _option.slot && (_option.slot = undefined)
-    _option.children && delete _option.children
-  }
+    if (_option) {
+      _option.slot && (_option.slot = undefined)
+      _option.children && delete _option.children
+    }
 
-  return computed(() => Object.assign({} as T, _defaultBind, _option))
+    return Object.assign({} as T, _defaultBind, _option)
+  })
 }
 
 export function useTableMethods(): {

@@ -13,9 +13,9 @@ import type {
 export function useFormSlotList(
   columns: ProFormColumns | Ref<ProFormColumns>
 ): ComputedRef<ProFormColumns> {
-  const _columns = unref(columns)
-
   return computed(() => {
+    const _columns = unref(columns)
+
     return filterSlotDeep(_columns).map((item) => {
       item.labelSlot = item.prop + '-label'
       item.errorSlot = item.prop + '-error'
@@ -32,23 +32,24 @@ type FormItemBind = Omit<
 export function useFormItemBind(
   currentBind: ProFormColumn | Ref<ProFormColumn>
 ): ComputedRef<FormItemBind> {
-  const _currentBind = unref(currentBind)
-  const _option = isObject(_currentBind)
-    ? { ..._currentBind }
-    : ({} as FormItemBind)
+  return computed(() => {
+    const _currentBind = unref(currentBind)
+    const _option = isObject(_currentBind)
+      ? { ..._currentBind }
+      : ({} as FormItemBind)
 
-  if (_option) {
-    _option.slot = undefined
-    _option.component = undefined
-    _option.max = undefined
-    _option.props = undefined
-    _option.prop = undefined
-    delete _option.children
-  }
+    if (_option) {
+      _option.slot = undefined
+      _option.component = undefined
+      _option.max = undefined
+      _option.props = undefined
+      _option.prop = undefined
+      delete _option.children
+    }
 
-  _option.size = _option.size || useFormSize().value
-
-  return computed(() => _option)
+    _option.size = _option.size || useFormSize().value
+    return _option
+  })
 }
 
 export function useFormMethods(
