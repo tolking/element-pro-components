@@ -14,6 +14,35 @@ export const dicList: DicItem[] = [
   { value: 'V', label: 'v' },
 ]
 
+export interface TableItem {
+  date: string
+  name: string
+  address: string
+}
+
+export const tableData: TableItem[] = [
+  {
+    date: '2016-05-03',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-02',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-04',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-01',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+]
+
 export const routes: ProRouteRecordRaw[] = [
   {
     path: '/',
