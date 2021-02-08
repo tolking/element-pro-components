@@ -1,32 +1,20 @@
-import { ComponentPublicInstance, nextTick, ref } from 'vue'
+import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import ProForm from '../src/Form/Form.vue'
-// import ProInputTag from '../src/InputTag/InputTag.vue'
-// import { ElInput, ElSwitch } from 'element-plus'
 import { ProFormColumns } from '../src/types/index'
 
 const columns: ProFormColumns = [
   {
     label: 'input',
     prop: 'input',
-    component: 'el-input',
-  },
-  {
-    label: 'switch',
-    prop: 'switch',
-    component: 'el-switch',
+    component: 'input',
+    props: {
+      type: 'input',
+    },
   },
 ]
 const _mount = (options: Record<string, unknown>) =>
   mount({
-    // NOTE: not work on vue-jest 5.0.0-alpha.8 ?
-    // global: {
-    //   components: {
-    //     ProInputTag,
-    //     'el-input': ElInput,
-    //     'el-swwitch': ElSwitch,
-    //   }
-    // },
     components: { ProForm },
     ...options,
   })
@@ -54,31 +42,35 @@ describe('Table.vue', () => {
       template: '<pro-form v-model="form" :columns="columns" />',
       setup() {
         const form = ref({})
-        return { form, columns: ref(columns) }
+        return { form, columns: ref([...columns]) }
       },
     })
     const vm = (wrapper.vm as unknown) as { columns: ProFormColumns }
 
-    expect(getFormItem(wrapper)).toHaveLength(2)
-    expect(haveItem(wrapper, 'el-input')).toBeTruthy()
-    expect(haveItem(wrapper, 'el-switch')).toBeTruthy()
+    expect(getFormItem(wrapper)).toHaveLength(1)
+    expect(haveItem(wrapper, '<input')).toBeTruthy()
+    expect(haveItem(wrapper, '<textarea')).toBeFalsy()
 
     await vm.columns.push({
-      label: 'input-tag',
-      prop: 'inputTag',
-      component: 'el-input-tag',
+      label: 'textarea',
+      prop: 'textarea',
+      component: 'textarea',
     })
-    expect(getFormItem(wrapper)).toHaveLength(3)
-    expect(haveItem(wrapper, '<el-input-tag>')).toBeTruthy()
-
-    await vm.columns.splice(2, 1)
     expect(getFormItem(wrapper)).toHaveLength(2)
-    expect(haveItem(wrapper, '<el-input-tag>')).toBeFalsy()
+    expect(haveItem(wrapper, '<textarea')).toBeTruthy()
 
-    await (vm.columns[0].component = 'el-input-tag')
-    expect(getFormItem(wrapper)).toHaveLength(2)
-    expect(haveItem(wrapper, '<el-input>')).toBeFalsy()
-    expect(haveItem(wrapper, '<el-input-tag>')).toBeTruthy()
+    await vm.columns.splice(0, 1)
+    expect(getFormItem(wrapper)).toHaveLength(1)
+    expect(haveItem(wrapper, '<input')).toBeFalsy()
+
+    await (vm.columns[0].component = 'input')
+    expect(getFormItem(wrapper)).toHaveLength(1)
+    expect(haveItem(wrapper, '<textarea')).toBeFalsy()
+    expect(haveItem(wrapper, '<input')).toBeTruthy()
+
+    await (vm.columns[0].props = { type: 'radio' })
+    expect(haveItem(wrapper, '<input')).toBeTruthy()
+    expect(haveItem(wrapper, '<input type="radio"')).toBeTruthy()
   })
 
   test('sub-form', async () => {
@@ -90,7 +82,7 @@ describe('Table.vue', () => {
           {
             label: 'Date',
             prop: 'date',
-            component: 'el-input',
+            component: 'input',
           },
           {
             label: 'User',
@@ -100,12 +92,12 @@ describe('Table.vue', () => {
               {
                 label: 'Name',
                 prop: 'name',
-                component: 'el-input',
+                component: 'input',
               },
               {
                 label: 'Address',
                 prop: 'address',
-                component: 'el-input',
+                component: 'input',
               },
             ],
           },
@@ -124,5 +116,72 @@ describe('Table.vue', () => {
     await (vm.columns = columns)
     expect(getFormContent(wrapper, '.children-form').exists()).toBe(false)
     expect(getFormContent(wrapper, '.el-button.is-circle').exists()).toBe(false)
+  })
+
+  test('slots', async () => {
+    const wrapper = await _mount({
+      template: `
+        <pro-form
+          v-model="form"
+          :columns="columns"
+        >
+          <template #slot-label>
+            slot-label
+          </template>
+          <template #slot="{ value, setValue }">
+            <input
+              :model-value="value"
+              calss="slot"
+              @input="e => setValue(e.taget.value)"
+            />
+          </template>
+          <template #menu>
+            <button>Submit</button>
+          </template>
+        </pro-form>
+      `,
+      setup() {
+        const form = ref<{ slot: string }>({ slot: '' })
+        const _colums: ProFormColumns = [
+          {
+            prop: 'slot',
+            slot: true,
+          },
+        ]
+        return { form, columns: _colums }
+      },
+    })
+    const vm = (wrapper.vm as unknown) as { form: { slot: string } }
+
+    expect(getFormItem(wrapper)).toHaveLength(1)
+    expect(haveItem(wrapper, '<input')).toBeTruthy()
+    expect(wrapper.find('label[for="slot"]').text()).toBe('slot-label')
+    expect(wrapper.find('button').text()).toBe('Submit')
+  })
+
+  test('test modelValue', async () => {
+    const wrapper = _mount({
+      template: '<pro-form v-model="form" :columns="columns" />',
+      setup() {
+        const form = ref<Record<string, string>>({})
+        const _colums: ProFormColumns = [
+          ...columns,
+          {
+            label: 'textarea',
+            prop: 'textarea',
+            component: 'textarea',
+          },
+        ]
+        return { form, columns: _colums }
+      },
+    })
+    const vm = (wrapper.vm as unknown) as {
+      form: Record<string, string>
+      columns: ProFormColumns
+    }
+
+    expect(getFormItem(wrapper)).toHaveLength(2)
+    expect(wrapper.find('input').element.value).toBe('')
+    expect(vm.form.input).toBe(undefined)
   })
 })
