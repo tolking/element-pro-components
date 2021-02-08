@@ -2,6 +2,7 @@ import {
   checkUrl,
   filterRouterByHidden,
   findRouterItemListByPath,
+  getScreenSize,
 } from '../src/utils/index'
 import { routes } from './mock'
 import type { ProRouteRecordRaw } from '../src/types/index'
@@ -62,5 +63,13 @@ describe('all utils', () => {
     expect(getRouterTitle(indexPath)).toContain('Home')
     expect(getRouterTitle(twoPath)).toContain('two')
     expect(getRouterTitle(twoPath)).toContain('twoInfo')
+  })
+
+  describe('getScreenSize', () => {
+    expect(getScreenSize(1920)).toBe('xl')
+    expect(getScreenSize(1500)).toBe('lg')
+    expect(getScreenSize(1100)).toBe('md')
+    expect(getScreenSize(920)).toBe('sm')
+    expect(getScreenSize(375)).toBe('xs')
   })
 })
