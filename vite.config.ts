@@ -9,8 +9,10 @@ const camelize = (name: string) =>
 
 export default defineConfig({
   root: path.resolve(__dirname, 'example'),
-  alias: {
-    '/@src': path.resolve(__dirname, 'src'),
+  resolve: {
+    alias: {
+      '/@src': path.resolve(__dirname, 'src'),
+    },
   },
   build: {
     target: 'es2015',
