@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.1
+
+fix
+
+- Form|Table: loss of reactivity
+
 ## 0.6.0
 
 breaking changes

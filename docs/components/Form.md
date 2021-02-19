@@ -3,10 +3,10 @@
 > 封装表单组件实现通过配置动态生成表单
 
 ::: tip 提示
-自动代理通过 `v-model` 绑定值且不带插槽就能够实现功能的任意组件，例如：
+自动代理通过 `v-model` 绑定值且不带插槽就能够实现功能的任意第三方组件，例如：
 
 - 支持 `el-input` `el-switch` 等
-- 不支持 `el-upload` `el-select` `el-radio-group` `el-checkbox-group` 等
+- 不支持 `el-upload` `el-select` `el-radio-group` `el-checkbox-group` `input` 等
 
 使用相关 `pro-select` `pro-radio` `pro-checkbox` 或第三方组件代替不支持组件
 :::
@@ -516,6 +516,20 @@ export default {
 | showMessage   | 是否显示校验错误信息                                                      | boolean        | -                     | true   |
 | inlineMessage | 以行内形式展示校验信息                                                    | boolean        | -                     | false  |
 | size          | 用于控制该表单域下组件的尺寸                                              | string         | medium / small / mini | -      |
+
+::: tip 关于 props
+props 的属性将全部传递给 component 指定的组件。**对于事件需要通过 `on[event]` 驼峰这种形式绑定。如：`change` -> `onChange`, `input` -> `onInput`**
+
+```js
+props: {
+  clearable: true,
+  'prefix-icon': 'el-icon-search',
+  suffixIcon: 'el-icon-date',
+  onChange: e => console.log(e),
+}
+```
+
+:::
 
 ## 事件
 

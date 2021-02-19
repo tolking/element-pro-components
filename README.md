@@ -2,7 +2,7 @@
 
 > a component library for Vue 3 base on element-plus
 
-[Documentation](https://tolking.github.io/element-pro-components)
+[Documentation](https://tolking.github.io/element-pro-components) | [Changelog](./CHANGELOG.md)
 
 ## TODO:
 
