@@ -5,7 +5,6 @@
       "stage": 1,
       "importFrom": "./src/styles/index.css"
     },
-    "autoprefixer": {},
-    "cssnano": {}
+    "autoprefixer": {}
   }
 }
