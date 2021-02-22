@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.2
+
+fix
+
+- referencing functions directly from element-plus generates errors
+
 ## 0.6.1
 
 fix
