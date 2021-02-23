@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Layout from '../views/Layout.vue'
 import Table from '../views/Table.vue'
 import Form from '../views/Form.vue'
+import Crud from '../views/Crud.vue'
 
 const routes = [
   {
@@ -39,6 +40,11 @@ const routes = [
         path: '/components/Form',
         component: Form,
         meta: { title: 'Form' },
+      },
+      {
+        path: '/components/Crud',
+        component: Crud,
+        meta: { title: 'Crud' },
       },
     ],
   },

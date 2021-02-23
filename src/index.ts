@@ -4,6 +4,8 @@ export type {
   InstallOptions,
   ProRouteMeta,
   ProRouteRecordRaw,
+  ProCrudColumns,
+  ProCrudMenuColumns,
   ProFormColumns,
   ProFormExpose,
   ProTableColumns,
@@ -23,6 +25,7 @@ import ProAutocompleteTag from './AutocompleteTag/index'
 import ProBreadcrumb from './Breadcrumb/index'
 import ProCheckbox from './Checkbox/index'
 import ProCheckboxButton from './CheckboxButton/index'
+import ProCrud from './Crud/index'
 import ProForm from './Form/index'
 import ProInputTag from './InputTag/index'
 import ProLayout from './Layout/index'
@@ -38,6 +41,7 @@ const components: Record<string, ProDefineComponent> = {
   ProBreadcrumb,
   ProCheckbox,
   ProCheckboxButton,
+  ProCrud,
   ProForm,
   ProInputTag,
   ProLayout,
@@ -65,6 +69,7 @@ export {
   ProBreadcrumb,
   ProCheckbox,
   ProCheckboxButton,
+  ProCrud,
   ProForm,
   ProInputTag,
   ProLayout,
@@ -77,6 +82,4 @@ export {
   install,
 }
 
-export default {
-  install,
-}
+export default { install }
