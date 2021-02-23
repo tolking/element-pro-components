@@ -6,6 +6,7 @@ import {
   ref,
   onUnmounted,
   unref,
+  getCurrentInstance,
 } from 'vue'
 import { useRouter } from 'vue-router'
 import {
@@ -13,8 +14,13 @@ import {
   getScreenSize,
   addResizeListener,
   removeResizeListener,
+  ResizableElement,
 } from '../utils/index'
-import type { ProRouteRecordRaw, ScreenSize } from '../types/index'
+import type {
+  ProRouteRecordRaw,
+  ScreenSize,
+  UnknownObject,
+} from '../types/index'
 
 /**
  * toggle show
@@ -42,10 +48,12 @@ export function useShow(
 /** Gets the responsive breakpoint of the current screen */
 export function useScreenSize(): Ref<ScreenSize> {
   const size = ref<ScreenSize>('xl')
-  const el = ref<Element>()
+  const el = ref<ResizableElement>({} as ResizableElement)
 
   onMounted(() => {
-    el.value = document.getElementsByTagName('body')[0]
+    el.value = (document.getElementsByTagName(
+      'body'
+    )[0] as unknown) as ResizableElement
     addResizeListener(el.value, setSize)
     setSize()
   })
@@ -80,5 +88,28 @@ export function useCurrentRoutes(
 
       return filterRouterByHidden(_routes)
     }
+  })
+}
+
+/**
+ * exclusion `class` `style` for attrs
+ * @param excludeKeys Additional exclusion value
+ */
+export function useAttrs(
+  excludeKeys: string[] = []
+): ComputedRef<UnknownObject> {
+  const instance = getCurrentInstance() || { attrs: {} }
+  const exclude = excludeKeys.concat(['class', 'style'])
+
+  return computed(() => {
+    const attrs = { ...instance.attrs }
+
+    exclude.forEach((item: string) => {
+      if (item in attrs) {
+        attrs[item] = undefined
+      }
+    })
+
+    return attrs
   })
 }

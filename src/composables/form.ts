@@ -1,5 +1,14 @@
-import { ComputedRef, computed, Ref, unref, inject, ref, nextTick } from 'vue'
-import { filterSlotDeep, isObject, useGlobalConfig } from '../utils/index'
+import {
+  ComputedRef,
+  computed,
+  Ref,
+  unref,
+  inject,
+  ref,
+  nextTick,
+  getCurrentInstance,
+} from 'vue'
+import { filterSlotDeep, isObject } from '../utils/index'
 import type {
   ProFormColumn,
   ProFormColumns,
@@ -86,6 +95,18 @@ export function useFormMethods(
     clearValidate,
     validateField,
   }
+}
+
+interface ElInstallOptions {
+  size: ComponentSize
+  zIndex: number
+  locale?: unknown
+}
+
+function useGlobalConfig(): ElInstallOptions {
+  const vm = getCurrentInstance()
+  const proxy = (vm?.proxy || {}) as { $ELEMENT: ElInstallOptions }
+  return ('$ELEMENT' in proxy ? proxy.$ELEMENT : {}) as ElInstallOptions
 }
 
 export function useFormSize(

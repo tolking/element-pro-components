@@ -6,8 +6,7 @@ const demo = require('./theme/demo')
 module.exports = {
   // NOTE: Only Chinese documentation are provided for the time being, and English documentation may be added in the future
   lang: 'zh-CN',
-  base:
-    process.env.NODE_ENV === 'development' ? '/' : '/element-pro-components/',
+  base: '/element-pro-components/',
   title: 'element-pro-components',
   description: 'a component library for Vue 3 base on element-plus',
   head: [
