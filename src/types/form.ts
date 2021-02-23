@@ -1,6 +1,6 @@
 import type { UnknownObject, ComponentSize } from './index'
 
-export interface ProFormColumn {
+export interface ProFormColumn<T = UnknownObject> {
   /** whether column has a slot */
   slot?: boolean
   /** component name */
@@ -8,11 +8,11 @@ export interface ProFormColumn {
   /** props for component */
   props?: UnknownObject
   /** sub-form */
-  children?: ProFormColumns
+  children?: ProFormColumns<T>
   /** max number of sub-form */
   max?: number
   /** keys of model that passed to form */
-  prop: string
+  prop: keyof T
   /** label name */
   label?: string
   /** width of label, e.g. '50px'. Width auto is supported */
@@ -33,7 +33,7 @@ export interface ProFormColumn {
 }
 
 /** Form Columns Option */
-export type ProFormColumns = ProFormColumn[]
+export type ProFormColumns<T = UnknownObject> = ProFormColumn<T>[]
 
 export interface ProFormValidateCallback {
   (isValid: boolean, invalidFields?: UnknownObject): void

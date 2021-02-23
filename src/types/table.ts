@@ -10,7 +10,7 @@ export interface ProTableColumnsProps {
   headerAlign?: 'left' | 'center' | 'right'
 }
 
-interface TableCommonColumn extends ProTableColumnsProps {
+interface TableCommonColumn<T = UnknownObject> extends ProTableColumnsProps {
   /** column label */
   label?: string
   /** column width */
@@ -26,7 +26,7 @@ interface TableCommonColumn extends ProTableColumnsProps {
   /** sorting method, works when sortable is true */
   sortMethod?: (a: unknown, b: unknown) => number
   /** specify which property to sort by, works when sortable is true and sort-method is undefined. If set to an Array, the column will sequentially sort by the next property if the previous one is equal */
-  sortBy?: string | string[] | ((row: UnknownObject, index: number) => void)
+  sortBy?: string | string[] | ((row: T, index: number) => void)
   /** the order of the sorting strategies used when sorting the data, works when sortable is true. Accepts an array, as the user clicks on the header, the column is sorted in order of the elements in the array */
   sortOrders?: Array<'ascending' | 'descending' | null>
   /** whether column width can be resized, works when border of pro-table is true */
@@ -51,23 +51,33 @@ interface TableCommonColumn extends ProTableColumnsProps {
 }
 
 /** Table Column Options */
-export interface ProTableColumn extends TableCommonColumn {
+export interface ProTableColumn<T = UnknownObject> extends TableCommonColumn {
   /** field name */
-  prop?: string
+  prop?: keyof T
   /** whether column has a slot */
   slot?: boolean
   /** When the data structure is complex, you can use children to show the data hierarchy */
-  children?: ProTableColumns
+  children?: ProTableColumns<T>
 }
 
 /** Table Columns Options */
-export type ProTableColumns = ProTableColumn[]
+export type ProTableColumns<T = UnknownObject> = ProTableColumn<T>[]
 
 /** Table Expand Options */
 export type ProTableExpandColumns = TableCommonColumn
 
 /** Table Menu Options */
-export type ProTableMenuColumns = TableCommonColumn
+export interface ProTableMenuColumns extends TableCommonColumn {
+  /** button type */
+  type?:
+    | 'primary'
+    | 'success'
+    | 'warning'
+    | 'danger'
+    | 'info'
+    | 'text'
+    | 'default'
+}
 
 /** Table Index Columns Options */
 export interface ProTableIndexColumns extends TableCommonColumn {
@@ -76,25 +86,26 @@ export interface ProTableIndexColumns extends TableCommonColumn {
 }
 
 /** Table Selection Columns Options */
-export interface ProTableSelectionColumns extends TableCommonColumn {
+export interface ProTableSelectionColumns<T = UnknownObject>
+  extends TableCommonColumn<T> {
   /** function that determines if a certain row can be selected */
-  selectable?: (row: UnknownObject, index: number) => unknown
+  selectable?: (row: T, index: number) => unknown
   /** whether to reserve selection after data refreshing. Note that row-key is required for this to work */
   reserveSelection?: boolean
 }
 
 /** Table Expose Methods */
-export interface ProTableExpose {
+export interface ProTableExpose<T = UnknownObject> {
   /** used in multiple selection Table, clear user selection */
   clearSelection: () => void
   /** used in multiple selection Table, toggle if a certain row is selected. With the second parameter, you can directly set if this row is selected */
-  toggleRowSelection: (row: UnknownObject, selected?: boolean) => void
+  toggleRowSelection: (row: T, selected?: boolean) => void
   /** used in multiple selection Table, toggle select all and deselect all */
   toggleAllSelection: () => void
   /** used in expandable Table or tree Table, toggle if a certain row is expanded. With the second parameter, you can directly set if this row is expanded or collapsed */
-  toggleRowExpansion: (row: UnknownObject, expanded?: boolean) => void
+  toggleRowExpansion: (row: T, expanded?: boolean) => void
   /** used in single selection Table, set a certain row selected. If called without any parameter, it will clear selection */
-  setCurrentRow: (row?: UnknownObject) => void
+  setCurrentRow: (row?: T) => void
   /** clear sorting, restore data to the original order */
   clearSort: () => void
   /** clear filters of the columns whose columnKey are passed in. If no params, clear all filters */
