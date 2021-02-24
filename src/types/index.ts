@@ -37,7 +37,7 @@ export type Placement =
   | 'right-start'
   | 'right-end'
 
-export type UnknownObject = Record<string | number | symbol, unknown>
+export type UnknownObject = Record<string | number, unknown>
 
 export type UnknownFunction = (...arg: unknown[]) => unknown
 

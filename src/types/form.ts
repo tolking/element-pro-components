@@ -1,5 +1,24 @@
 import type { UnknownObject, ComponentSize } from './index'
 
+/** Form Options */
+export interface ProFormOptions {
+  modelValue: Record<string, unknown>
+  columns: ProFormColumns
+  menu?: ProFormMenuColumns
+  rules?: UnknownObject
+  inline?: boolean
+  labelPosition?: 'right' | 'left' | 'top'
+  labelWidth?: string
+  labelSuffix?: string
+  hideRequiredAsterisk?: boolean
+  showMessage?: boolean
+  inlineMessage?: boolean
+  statusIcon?: boolean
+  validateOnRuleChange?: boolean
+  size?: ComponentSize
+  disabled?: boolean
+}
+
 export interface ProFormColumn<T = UnknownObject> {
   /** whether column has a slot */
   slot?: boolean
@@ -34,6 +53,22 @@ export interface ProFormColumn<T = UnknownObject> {
 
 /** Form Columns Option */
 export type ProFormColumns<T = UnknownObject> = ProFormColumn<T>[]
+
+/** Form Menu Option */
+export interface ProFormMenuColumns {
+  /** show submit button */
+  submit?: boolean
+  /** text of submit button */
+  submitText?: string
+  /** props of submit button */
+  submitProps?: UnknownObject
+  /** show reset button */
+  reset?: boolean
+  /** text of reset button */
+  resetText?: string
+  /** props of reset button */
+  resetProps?: UnknownObject
+}
 
 export interface ProFormValidateCallback {
   (isValid: boolean, invalidFields?: UnknownObject): void

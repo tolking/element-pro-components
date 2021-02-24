@@ -17,6 +17,7 @@ import type {
   ProFormValidateCallback,
   ProFormValidateFieldCallback,
   UnknownObject,
+  ProFormMenuColumns,
 } from '../types/index'
 
 export function useFormSlotList(
@@ -61,9 +62,32 @@ export function useFormItemBind(
   })
 }
 
+export function useFormMenu(
+  props: Readonly<{ menu?: ProFormMenuColumns }>
+): ComputedRef<ProFormMenuColumns> {
+  const defaultMenu: ProFormMenuColumns = {
+    submit: true,
+    submitText: 'submit',
+    submitProps: {
+      type: 'primary',
+    },
+    reset: true,
+    resetText: 'reset',
+  }
+
+  return computed(() => {
+    return Object.assign(defaultMenu, props.menu)
+  })
+}
+
 export function useFormMethods(
+  emit: (event: 'submit' | 'reset', ...args: unknown[]) => void,
   upData: (value: unknown) => void
-): { form: Ref<ProFormExpose> } & ProFormExpose {
+): {
+  form: Ref<ProFormExpose>
+  submitForm: () => void
+  resetForm: () => void
+} & ProFormExpose {
   const form = ref<ProFormExpose>({} as ProFormExpose)
 
   function validate(callback?: ProFormValidateCallback) {
@@ -88,12 +112,33 @@ export function useFormMethods(
     form.value.validateField(props, cb)
   }
 
+  function submitForm() {
+    form.value
+      .validate()
+      .then((state) => {
+        emit('submit', state)
+      })
+      .catch((err) => {
+        emit('submit', false, err)
+      })
+  }
+
+  function resetForm() {
+    upData({})
+    nextTick(() => {
+      form.value.resetFields()
+      emit('reset')
+    })
+  }
+
   return {
     form,
     validate,
     resetFields,
     clearValidate,
     validateField,
+    submitForm,
+    resetForm,
   }
 }
 

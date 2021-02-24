@@ -2,8 +2,10 @@
   <pro-form
     v-model="form"
     :columns="columns"
+    :menu="menu"
     label-width="180px"
     size="small"
+    @submit="submitForm"
   >
     <template #slot-label>
       <i class="el-icon-time" />
@@ -11,12 +13,6 @@
     </template>
     <template #slot="{ item, value, setValue }">
       <span>{{ item }} - {{ value }} - {{ setValue }}</span>
-    </template>
-    <template #menu>
-      <el-button type="primary">
-        Submit
-      </el-button>
-      <el-button>Cancel</el-button>
     </template>
   </pro-form>
   <pro-form
@@ -32,26 +28,27 @@
         @update:modelValue="setValue"
       />
     </template>
-    <template #menu>
-      <el-button
-        type="primary"
-        @click="submitForm"
-      >
-        Submit
-      </el-button>
-      <el-button @click="resetForm">
-        Cancel
-      </el-button>
-    </template>
   </pro-form>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { ProFormColumns, ProFormExpose } from '/@src/index'
+import type {
+  ProFormColumns,
+  ProFormMenuColumns,
+  ProFormExpose,
+} from '/@src/index'
 
 const form = ref<Record<string, unknown>>({})
 const form1 = ref<Record<string, unknown>>({})
+const menu = ref<ProFormMenuColumns>({
+  submitText: 'Create',
+  submitProps: {
+    type: 'primary',
+    loading: false,
+  },
+  reset: false,
+})
 const ruleForm = ref<ProFormExpose>({} as ProFormExpose)
 const rules = ref({
   date: { required: true, message: 'please input data', trigger: 'blur' },
@@ -185,17 +182,13 @@ function querySearch(queryString: string, cb: (...arg: unknown[]) => void) {
 }
 
 function submitForm() {
-  ruleForm.value
-    .validate()
-    .then(() => {
-      alert('submit!')
-    })
-    .catch(() => {
-      console.log('error submit!!')
-    })
-}
-
-function resetForm() {
-  ruleForm.value.resetFields()
+  if (menu.value.submitProps) {
+    menu.value.submitProps.loading = true
+    setTimeout(() => {
+      if (menu.value.submitProps) {
+        menu.value.submitProps.loading = false
+      }
+    }, 1000)
+  }
 }
 </script>
