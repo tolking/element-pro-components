@@ -7,20 +7,46 @@ import {
   onUnmounted,
   unref,
   getCurrentInstance,
+  inject,
 } from 'vue'
 import { useRouter } from 'vue-router'
+import { config } from '../utils/config'
 import {
   filterRouterByHidden,
   getScreenSize,
   addResizeListener,
   removeResizeListener,
   ResizableElement,
+  objectDeepMerge,
 } from '../utils/index'
 import type {
   ProRouteRecordRaw,
   ScreenSize,
   UnknownObject,
+  InstallOptions,
 } from '../types/index'
+
+type Keys = 'ProTableOptions'
+
+/**
+ * get the global config
+ * @param key the key of components inject
+ */
+export function useProOptions(key?: Keys): Required<InstallOptions> {
+  const proOptions = inject<InstallOptions>('ProOptions')
+  let options: InstallOptions | undefined = undefined
+
+  if (proOptions) {
+    options = proOptions
+  } else if (key) {
+    const componentCptions = inject<InstallOptions>(key)
+    componentCptions && (options = componentCptions)
+  }
+
+  return options
+    ? objectDeepMerge<Required<InstallOptions>>(options, config)
+    : config
+}
 
 /**
  * toggle show

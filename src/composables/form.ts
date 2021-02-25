@@ -8,7 +8,13 @@ import {
   nextTick,
   getCurrentInstance,
 } from 'vue'
-import { filterSlotDeep, isObject } from '../utils/index'
+import { useProOptions } from './index'
+import {
+  filterSlotDeep,
+  isObject,
+  objectDeepMerge,
+  objectPick,
+} from '../utils/index'
 import type {
   ProFormColumn,
   ProFormColumns,
@@ -18,6 +24,7 @@ import type {
   ProFormValidateFieldCallback,
   UnknownObject,
   ProFormMenuColumns,
+  MenuOptions,
 } from '../types/index'
 
 export function useFormSlotList(
@@ -65,18 +72,23 @@ export function useFormItemBind(
 export function useFormMenu(
   props: Readonly<{ menu?: ProFormMenuColumns }>
 ): ComputedRef<ProFormMenuColumns> {
-  const defaultMenu: ProFormMenuColumns = {
-    submit: true,
-    submitText: 'submit',
-    submitProps: {
-      type: 'primary',
-    },
-    reset: true,
-    resetText: 'reset',
-  }
-
   return computed(() => {
-    return Object.assign(defaultMenu, props.menu)
+    const options = useProOptions()
+    const pickKeys = [
+      'submit',
+      'submitText',
+      'submitProps',
+      'reset',
+      'resetText',
+      'resetProps',
+    ]
+    const formMenu = objectPick<MenuOptions, ProFormMenuColumns>(
+      options.menu,
+      pickKeys
+    )
+    return props.menu
+      ? objectDeepMerge<ProFormMenuColumns>(formMenu, props.menu)
+      : formMenu
   })
 }
 

@@ -1,4 +1,9 @@
-import type { UnknownObject, UnknownFunction, Placement } from './index'
+import type {
+  UnknownObject,
+  UnknownFunction,
+  Placement,
+  StringObject,
+} from './index'
 
 /** Table Column Options for pro-table */
 export interface ProTableColumnsProps {
@@ -10,7 +15,9 @@ export interface ProTableColumnsProps {
   headerAlign?: 'left' | 'center' | 'right'
 }
 
-interface TableCommonColumn<T = UnknownObject> extends ProTableColumnsProps {
+interface TableCommonColumn<T = UnknownObject>
+  extends StringObject,
+    ProTableColumnsProps {
   /** column label */
   label?: string
   /** column width */
@@ -47,7 +54,6 @@ interface TableCommonColumn<T = UnknownObject> extends ProTableColumnsProps {
   filterMethod?: UnknownFunction
   /** filter value for selected data, might be useful when table header is rendered with render-header */
   filteredValue?: unknown[]
-  [key: string]: unknown
 }
 
 /** Table Column Options */

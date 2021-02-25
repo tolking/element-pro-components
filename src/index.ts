@@ -6,7 +6,7 @@ export type {
   ProRouteRecordRaw,
   ProCrudColumns,
   ProCrudMenuColumns,
-  ProFormOptions,
+  ProFormProps,
   ProFormColumns,
   ProFormMenuColumns,
   ProFormExpose,
@@ -21,6 +21,7 @@ export type {
 import './styles/index.css'
 import type { App } from 'vue'
 import type { ProDefineComponent, InstallOptions } from './types/index'
+import { objectDeepMerge } from './utils'
 import { config } from './utils/config'
 
 import ProAutocompleteTag from './AutocompleteTag/index'
@@ -56,7 +57,9 @@ const components: Record<string, ProDefineComponent> = {
 }
 
 const install = (app: App, options?: InstallOptions): void => {
-  const _options = Object.assign({}, config, options)
+  const _options = options
+    ? objectDeepMerge<Required<InstallOptions>>(config, options)
+    : config
 
   app.provide('ProOptions', _options)
 

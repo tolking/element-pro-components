@@ -1,8 +1,13 @@
-import type { UnknownObject, ComponentSize } from './index'
+import type {
+  UnknownObject,
+  ComponentSize,
+  IButtonProps,
+  StringObject,
+} from './index'
 
-/** Form Options */
-export interface ProFormOptions {
-  modelValue: Record<string, unknown>
+/** Form Props */
+export interface ProFormProps {
+  modelValue: StringObject
   columns: ProFormColumns
   menu?: ProFormMenuColumns
   rules?: UnknownObject
@@ -19,7 +24,7 @@ export interface ProFormOptions {
   disabled?: boolean
 }
 
-export interface ProFormColumn<T = UnknownObject> {
+export interface ProFormColumn<T = UnknownObject> extends StringObject {
   /** whether column has a slot */
   slot?: boolean
   /** component name */
@@ -48,27 +53,29 @@ export interface ProFormColumn<T = UnknownObject> {
   inlineMessage?: boolean
   /** control the size of components in this form-item */
   size?: ComponentSize
-  [key: string]: unknown
 }
 
 /** Form Columns Option */
 export type ProFormColumns<T = UnknownObject> = ProFormColumn<T>[]
 
 /** Form Menu Option */
-export interface ProFormMenuColumns {
+export interface ProFormMenu {
   /** show submit button */
   submit?: boolean
   /** text of submit button */
   submitText?: string
   /** props of submit button */
-  submitProps?: UnknownObject
+  submitProps?: IButtonProps
   /** show reset button */
   reset?: boolean
   /** text of reset button */
   resetText?: string
   /** props of reset button */
-  resetProps?: UnknownObject
+  resetProps?: IButtonProps
 }
+
+/** Form Menu Option */
+export type ProFormMenuColumns = StringObject & ProFormMenu
 
 export interface ProFormValidateCallback {
   (isValid: boolean, invalidFields?: UnknownObject): void
