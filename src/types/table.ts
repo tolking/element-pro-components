@@ -67,17 +67,7 @@ export type ProTableColumns<T = UnknownObject> = ProTableColumn<T>[]
 export type ProTableExpandColumns = TableCommonColumn
 
 /** Table Menu Options */
-export interface ProTableMenuColumns extends TableCommonColumn {
-  /** button type */
-  type?:
-    | 'primary'
-    | 'success'
-    | 'warning'
-    | 'danger'
-    | 'info'
-    | 'text'
-    | 'default'
-}
+export type ProTableMenuColumns = TableCommonColumn
 
 /** Table Index Columns Options */
 export interface ProTableIndexColumns extends TableCommonColumn {
