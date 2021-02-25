@@ -5,8 +5,12 @@
     :columns="columns"
     :data="data"
     :menu="menu"
+    :before-open="beforeOpen"
     selection
     border
+    @serach="serach"
+    @submit="submit"
+    @delete="deleteRow"
   >
     <template #menu-right>
       <el-button
@@ -30,10 +34,9 @@ interface DataItem {
 const form = ref<Record<string, unknown>>({})
 const serachForm = ref<Record<string, unknown>>({})
 const menu = ref<ProCrudMenuColumns<DataItem>>({
+  addProps: { icon: 'el-icon-plus' },
   label: 'Menu',
-  type: 'text',
   edit: (row) => row.date !== '2016-05-02',
-  del: true,
 })
 const columns: ProCrudColumns<DataItem> = [
   {
@@ -79,4 +82,23 @@ const data: DataItem[] = [
     address: 'No. 189, Grove St, Los Angeles',
   },
 ]
+
+function beforeOpen(next: () => void, type: 'add' | 'edit', row?: DataItem) {
+  console.log('beforeOpen', type, row)
+  setTimeout(() => {
+    next()
+  }, 500)
+}
+
+function serach(state: boolean, err: unknown) {
+  console.log('serach', state, err)
+}
+
+function submit(type: 'add' | 'edit', state: boolean, err: unknown) {
+  console.log('submit', type, state, err)
+}
+
+function deleteRow(row: DataItem) {
+  console.log('deleteRow', row)
+}
 </script>

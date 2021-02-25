@@ -3,29 +3,25 @@
     v-if="searchColumns && searchColumns.length"
     :model-value="search"
     :columns="searchColumns"
+    :menu="serachMenu"
     :inline="true"
     @update:modelValue="upSearchData"
+    @submit="serachForm"
   >
     <template #default>
       <slot name="search" />
-    </template>
-    <template #menu>
-      <el-button
-        icon="el-icon-search"
-        type="primary"
-      />
-      <slot name="menu-serach" />
     </template>
   </pro-form>
   <div class="pro-crud-menu">
     <div class="pro-menu-item">
       <slot name="menu-left" />
       <el-button
-        v-if="addColumns && addColumns.length"
-        icon="el-icon-plus"
-        type="primary"
+        v-if="menuColumns.add"
+        v-bind="menuColumns.addProps"
         @click="openForm('add')"
-      />
+      >
+        {{ menuColumns.addText }}
+      </el-button>
       <slot name="menu-right" />
     </div>
     <div class="pro-menu-item">
@@ -35,7 +31,6 @@
     </div>
   </div>
   <pro-table
-    v-if="tableColumns && tableColumns.length"
     v-bind="attrs"
     :columns="tableColumns"
     :menu="menuColumns"
@@ -46,64 +41,55 @@
     <template #append>
       <slot name="append" />
     </template>
-    <template #menu="{ size, type, row }">
+    <template #menu="{ size, row }">
       <el-button
         v-if="menuColumns.showEdit(row)"
+        v-bind="menuColumns.editProps"
         :size="size"
-        :type="type"
-        icon="el-icon-edit"
-        @click="openForm('edit')"
+        @click="openForm('edit', row)"
       >
-        edit
+        {{ menuColumns.editText }}
       </el-button>
       <el-button
         v-if="menuColumns.showDel(row)"
+        v-bind="menuColumns.delProps"
         :size="size"
-        :type="type"
-        icon="el-icon-delete"
+        @click="delRow(row)"
       >
-        delete
+        {{ menuColumns.delText }}
       </el-button>
       <slot name="menu" />
     </template>
   </pro-table>
   <el-dialog
     v-model="dialogVisible"
-    :title="formType"
+    :title="dialogTitle"
   >
     <pro-form
-      v-if="formColumns && formColumns.length"
       :model-value="modelValue"
       :columns="formColumns"
       @update:modelValue="upFormData"
+      @submit="submitForm"
     >
       <template #default>
         <slot name="form" />
-      </template>
-      <template #menu>
-        <el-button type="primary">
-          Submit
-        </el-button>
-        <el-button>Cancel</el-button>
-        <slot name="menu-form" />
       </template>
     </pro-form>
   </el-dialog>
 </template>
 
 <script setup lang="ts">
-import { ref, useContext, defineEmit, defineProps, computed } from 'vue'
+import { useContext, defineEmit, defineProps } from 'vue'
 import { ElDialog } from 'element-plus'
-import { useCrudColumns } from '../composables/index'
+import { useCrudColumns, useCrudForm } from '../composables/index'
 import ProForm from '../Form/index'
 import ProTable from '../Table/index'
 import type {
   ProCrudColumn,
   ProFormColumn,
   ProTableColumn,
+  UnknownObject,
 } from '../types/index'
-
-type FormType = 'add' | 'edit'
 
 const props = defineProps<{
   columns?: Array<Record<string, unknown> & ProCrudColumn>
@@ -112,33 +98,39 @@ const props = defineProps<{
   searchColumns?: Array<Record<string, unknown> & ProFormColumn>
   tableColumns?: Array<Record<string, unknown> & ProTableColumn>
   menu: boolean | Record<string, unknown>
-  modelValue: Record<string, unknown>
-  search: Record<string, unknown>
+  modelValue?: Record<string, unknown>
+  search?: Record<string, unknown>
+  beforeOpen?: (
+    next: () => void,
+    type: 'add' | 'edit',
+    row?: UnknownObject
+  ) => void
 }>()
-const emit = defineEmit(['update:modelValue', 'update:search'])
+const emit = defineEmit([
+  'update:modelValue',
+  'update:search',
+  'submit',
+  'delete',
+  'serach',
+])
 const { attrs } = useContext()
+const { searchColumns, tableColumns, menuColumns, serachMenu } = useCrudColumns(
+  props
+)
 const {
-  addColumns,
-  editColumns,
-  searchColumns,
-  tableColumns,
-  menuColumns,
-} = useCrudColumns(props)
-const dialogVisible = ref(false)
-const formType = ref<FormType>('add')
-const formColumns = computed(() => {
-  return formType.value === 'add' ? addColumns.value : editColumns.value
-})
+  dialogVisible,
+  dialogTitle,
+  formType,
+  formColumns,
+  openForm,
+  serachForm,
+  submitForm,
+  upSearchData,
+  upFormData,
+} = useCrudForm(props, emit, menuColumns)
 
-function openForm(type: FormType) {
-  formType.value = type
-  dialogVisible.value = true
-}
-function upSearchData(value: unknown) {
-  emit('update:search', value)
-}
-function upFormData(value: unknown) {
-  emit('update:modelValue', value)
+function delRow(row: UnknownObject) {
+  emit('delete', row)
 }
 </script>
 
