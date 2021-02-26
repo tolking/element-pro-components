@@ -16,20 +16,20 @@ import {
   objectPick,
 } from '../utils/index'
 import type {
-  ProFormColumn,
-  ProFormColumns,
-  ComponentSize,
-  ProFormExpose,
-  ProFormValidateCallback,
-  ProFormValidateFieldCallback,
+  FormColumn,
+  IFormColumns,
+  IComponentSize,
+  IFormExpose,
+  IFormValidateCallback,
+  IFormValidateFieldCallback,
   UnknownObject,
-  ProFormMenuColumns,
+  IFormMenuColumns,
   MenuOptions,
 } from '../types/index'
 
 export function useFormSlotList(
-  columns: ProFormColumns | Ref<ProFormColumns>
-): ComputedRef<ProFormColumns> {
+  columns: IFormColumns | Ref<IFormColumns>
+): ComputedRef<IFormColumns> {
   return computed(() => {
     const _columns = unref(columns)
 
@@ -42,12 +42,12 @@ export function useFormSlotList(
 }
 
 type FormItemBind = Omit<
-  ProFormColumn,
+  FormColumn,
   'slot' | 'component' | 'max' | 'props' | 'prop' | 'children'
 >
 
 export function useFormItemBind(
-  currentBind: ProFormColumn | Ref<ProFormColumn>
+  currentBind: FormColumn | Ref<FormColumn>
 ): ComputedRef<FormItemBind> {
   return computed(() => {
     const _currentBind = unref(currentBind)
@@ -70,8 +70,8 @@ export function useFormItemBind(
 }
 
 export function useFormMenu(
-  props: Readonly<{ menu?: ProFormMenuColumns }>
-): ComputedRef<ProFormMenuColumns> {
+  props: Readonly<{ menu?: IFormMenuColumns }>
+): ComputedRef<IFormMenuColumns> {
   return computed(() => {
     const options = useProOptions()
     const pickKeys = [
@@ -82,12 +82,12 @@ export function useFormMenu(
       'resetText',
       'resetProps',
     ]
-    const formMenu = objectPick<MenuOptions, ProFormMenuColumns>(
+    const formMenu = objectPick<MenuOptions, IFormMenuColumns>(
       options.menu,
       pickKeys
     )
     return props.menu
-      ? objectDeepMerge<ProFormMenuColumns>(formMenu, props.menu)
+      ? objectDeepMerge<IFormMenuColumns>(formMenu, props.menu)
       : formMenu
   })
 }
@@ -96,13 +96,13 @@ export function useFormMethods(
   emit: (event: 'submit' | 'reset', ...args: unknown[]) => void,
   upData: (value: unknown) => void
 ): {
-  form: Ref<ProFormExpose>
+  form: Ref<IFormExpose>
   submitForm: () => void
   resetForm: () => void
-} & ProFormExpose {
-  const form = ref<ProFormExpose>({} as ProFormExpose)
+} & IFormExpose {
+  const form = ref<IFormExpose>({} as IFormExpose)
 
-  function validate(callback?: ProFormValidateCallback) {
+  function validate(callback?: IFormValidateCallback) {
     return form.value.validate(callback)
   }
 
@@ -119,7 +119,7 @@ export function useFormMethods(
 
   function validateField(
     props: string | string[],
-    cb: ProFormValidateFieldCallback
+    cb: IFormValidateFieldCallback
   ) {
     form.value.validateField(props, cb)
   }
@@ -155,7 +155,7 @@ export function useFormMethods(
 }
 
 interface ElInstallOptions {
-  size: ComponentSize
+  size: IComponentSize
   zIndex: number
   locale?: unknown
 }
@@ -167,10 +167,10 @@ function useGlobalConfig(): ElInstallOptions {
 }
 
 export function useFormSize(
-  props?: Readonly<{ size?: ComponentSize }>
-): ComputedRef<ComponentSize> {
-  const elForm = inject<{ size?: ComponentSize }>('elForm', {})
-  const elFormItem = inject<{ size?: ComponentSize }>('elFormItem', {})
+  props?: Readonly<{ size?: IComponentSize }>
+): ComputedRef<IComponentSize> {
+  const elForm = inject<{ size?: IComponentSize }>('elForm', {})
+  const elFormItem = inject<{ size?: IComponentSize }>('elFormItem', {})
   const elConfig = useGlobalConfig()
 
   return computed(() => {
@@ -182,7 +182,7 @@ type ModelChildValue = Record<string, UnknownObject[]>
 
 export function useFormChild(
   props: Readonly<{
-    item: UnknownObject & { prop: string }
+    item: FormColumn
     modelValue: UnknownObject
   }>,
   emit: (event: 'update:modelValue', ...args: unknown[]) => void

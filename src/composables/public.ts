@@ -20,8 +20,8 @@ import {
   objectDeepMerge,
 } from '../utils/index'
 import type {
-  ProRouteRecordRaw,
-  ScreenSize,
+  IRouteRecordRaw,
+  IScreenSize,
   UnknownObject,
   InstallOptions,
 } from '../types/index'
@@ -72,8 +72,8 @@ export function useShow(
 }
 
 /** Gets the responsive breakpoint of the current screen */
-export function useScreenSize(): Ref<ScreenSize> {
-  const size = ref<ScreenSize>('xl')
+export function useScreenSize(): Ref<IScreenSize> {
+  const size = ref<IScreenSize>('xl')
   const el = ref<ResizableElement>({} as ResizableElement)
 
   onMounted(() => {
@@ -102,15 +102,15 @@ export function useScreenSize(): Ref<ScreenSize> {
  */
 export function useCurrentRoutes(
   props: Readonly<{
-    routes?: ProRouteRecordRaw[]
+    routes?: IRouteRecordRaw[]
   }>
-): ComputedRef<ProRouteRecordRaw[]> {
+): ComputedRef<IRouteRecordRaw[]> {
   return computed(() => {
     if (props.routes && props.routes.length) {
       return props.routes
     } else {
       const router = useRouter()
-      const _routes = router.options.routes as ProRouteRecordRaw[]
+      const _routes = router.options.routes as IRouteRecordRaw[]
 
       return filterRouterByHidden(_routes)
     }

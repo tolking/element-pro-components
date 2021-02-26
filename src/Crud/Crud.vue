@@ -85,18 +85,18 @@ import { useCrudColumns, useCrudForm } from '../composables/index'
 import ProForm from '../Form/index'
 import ProTable from '../Table/index'
 import type {
-  ProCrudColumn,
-  ProFormColumn,
-  ProTableColumn,
+  CrudColumn,
+  FormColumn,
+  TableColumn,
   UnknownObject,
 } from '../types/index'
 
 const props = defineProps<{
-  columns?: Array<Record<string, unknown> & ProCrudColumn>
-  addColumns?: Array<Record<string, unknown> & ProFormColumn>
-  editColumns?: Array<Record<string, unknown> & ProFormColumn>
-  searchColumns?: Array<Record<string, unknown> & ProFormColumn>
-  tableColumns?: Array<Record<string, unknown> & ProTableColumn>
+  columns?: Array<Record<string, unknown> & CrudColumn>
+  addColumns?: Array<Record<string, unknown> & FormColumn>
+  editColumns?: Array<Record<string, unknown> & FormColumn>
+  searchColumns?: Array<Record<string, unknown> & FormColumn>
+  tableColumns?: Array<Record<string, unknown> & TableColumn>
   menu: boolean | Record<string, unknown>
   modelValue?: Record<string, unknown>
   search?: Record<string, unknown>

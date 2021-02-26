@@ -29,12 +29,12 @@
 <script setup lang="ts">
 import { defineProps, toRefs } from 'vue'
 import { ElMenuItem, ElSubmenu } from 'element-plus'
-import type { ProRouteRecordRaw } from '../types/index'
+import type { IRouteRecordRaw } from '../types/index'
 
-const props = defineProps<{ item: ProRouteRecordRaw }>()
+const props = defineProps<{ item: IRouteRecordRaw }>()
 const { item } = toRefs(props)
 
-function hasMultiChild(item: ProRouteRecordRaw) {
+function hasMultiChild(item: IRouteRecordRaw) {
   return item.children ? item.children.length > 1 : false
 }
 </script>

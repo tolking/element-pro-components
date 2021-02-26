@@ -3,33 +3,34 @@ export * from './form'
 export * from './table'
 import type { App, DefineComponent } from 'vue'
 import type { RouteMeta, RouteRecordRaw } from 'vue-router'
-import type { ProCrudMenu } from './crud'
-import type { ProFormMenu } from './form'
-import type { ProPagination } from './table'
+import type { CrudMenu } from './crud'
+import type { FormMenu } from './form'
+import type { IPagination } from './table'
 
-export type MenuOptions = ProCrudMenu & ProFormMenu & StringObject
+export type MenuOptions = CrudMenu & FormMenu & StringObject
 
 export interface InstallOptions extends StringObject {
   /** Pagination Attributes */
-  pagination?: ProPagination
+  pagination?: IPagination
   /** Menu Attributes */
   menu?: MenuOptions
 }
 
-export interface ProRouteMeta extends RouteMeta {
+export interface IRouteMeta extends RouteMeta {
   title?: string
   icon?: string
   hidden?: boolean
   keepAlive?: boolean
 }
 
-export type ProRouteRecordRaw = RouteRecordRaw
+// TODO: Better type inference
+export type IRouteRecordRaw = RouteRecordRaw
 
-export type ComponentSize = 'medium' | 'small' | 'mini' | undefined
+export type IComponentSize = 'medium' | 'small' | 'mini' | undefined
 
-export type ScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+export type IScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
-export type Placement =
+export type IPlacementType =
   | 'top'
   | 'top-start'
   | 'top-end'
@@ -51,11 +52,12 @@ type IButtonType =
   | 'info'
   | 'text'
   | 'default'
+
 type IButtonNativeType = 'button' | 'submit' | 'reset'
 
 export interface IButtonProps {
   type?: IButtonType
-  size?: ComponentSize
+  size?: IComponentSize
   icon?: string
   nativeType?: IButtonNativeType
   loading?: boolean
@@ -72,8 +74,6 @@ export type UnknownObject = Record<string | number, unknown>
 
 export type UnknownFunction = (...arg: unknown[]) => unknown
 
-export type ProDefineComponent<
-  Props = UnknownObject
-> = DefineComponent<Props> & {
+export type IDefineComponent<Props = UnknownObject> = DefineComponent<Props> & {
   install: (app: App) => void
 }

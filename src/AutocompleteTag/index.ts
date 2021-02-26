@@ -1,6 +1,6 @@
 import type { App } from 'vue'
 import ProAutocompleteTag from './AutocompleteTag.vue'
-import type { ProDefineComponent } from '../types/index'
+import type { IDefineComponent } from '../types/index'
 
 ProAutocompleteTag.install = (app: App) => {
   app.component(
@@ -9,7 +9,7 @@ ProAutocompleteTag.install = (app: App) => {
   )
 }
 
-export default ProAutocompleteTag as ProDefineComponent<{
+export default ProAutocompleteTag as IDefineComponent<{
   modelValue?: string[]
   trigger?: 'space' | 'enter'
   size?: 'medium' | 'small' | 'mini'

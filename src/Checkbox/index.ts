@@ -1,12 +1,12 @@
 import type { App } from 'vue'
 import ProCheckbox from './Checkbox.vue'
-import type { ProDefineComponent } from '../types/index'
+import type { IDefineComponent } from '../types/index'
 
 ProCheckbox.install = (app: App) => {
   app.component(ProCheckbox.name || 'ProCheckbox', ProCheckbox)
 }
 
-export default ProCheckbox as ProDefineComponent<{
+export default ProCheckbox as IDefineComponent<{
   modelValue: string[]
   data: Record<string, unknown>
   config: {

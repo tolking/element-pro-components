@@ -1,7 +1,7 @@
 import { isObject } from './index'
-import type { ScreenSize, UnknownObject } from '../types/index'
+import type { IScreenSize, UnknownObject } from '../types/index'
 
-export function getScreenSize(width: number): ScreenSize {
+export function getScreenSize(width: number): IScreenSize {
   if (width >= 1920) {
     return 'xl'
   } else if (width >= 1200) {

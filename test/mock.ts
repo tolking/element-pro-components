@@ -1,4 +1,4 @@
-import type { ProRouteRecordRaw } from '../src/types/index'
+import type { IRouteRecordRaw } from '../src/types/index'
 
 export interface DicItem {
   value: string
@@ -43,7 +43,7 @@ export const tableData: TableItem[] = [
   },
 ]
 
-export const routes: ProRouteRecordRaw[] = [
+export const routes: IRouteRecordRaw[] = [
   {
     path: '/',
     redirect: '/index',

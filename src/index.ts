@@ -1,26 +1,9 @@
-export * from './composables/public'
+export * from './composables/index'
 export * from './utils/index'
-export type {
-  InstallOptions,
-  ProRouteMeta,
-  ProRouteRecordRaw,
-  ProCrudColumns,
-  ProCrudMenuColumns,
-  ProFormProps,
-  ProFormColumns,
-  ProFormMenuColumns,
-  ProFormExpose,
-  ProTableColumns,
-  ProTableExpandColumns,
-  ProTableMenuColumns,
-  ProTableIndexColumns,
-  ProTableSelectionColumns,
-  ProTableExpose,
-  ProPagination,
-} from './types/index'
+export * from './types/index'
 import './styles/index.css'
 import type { App } from 'vue'
-import type { ProDefineComponent, InstallOptions } from './types/index'
+import type { IDefineComponent, InstallOptions } from './types/index'
 import { objectDeepMerge } from './utils'
 import { config } from './utils/config'
 
@@ -39,7 +22,7 @@ import ProSelect from './Select/index'
 import ProTable from './Table/index'
 import ProTabs from './Tabs/index'
 
-const components: Record<string, ProDefineComponent> = {
+const components: Record<string, IDefineComponent> = {
   ProAutocompleteTag,
   ProBreadcrumb,
   ProCheckbox,

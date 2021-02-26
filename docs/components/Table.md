@@ -605,7 +605,7 @@ export default {
 | sort               | 手动对 Table 进行排序。参数`prop`属性指定排序列，`order`指定排序顺序。                                                  | prop: string, order: string |
 
 ::: tip 提示
-如果使用 `typescript` 可以从组件中导出 `ProTableExpose` 提供更好的类型推导
+如果使用 `typescript` 可以从组件中导出 `ITableExpose` 提供更好的类型推导
 :::
 
 ## 插槽

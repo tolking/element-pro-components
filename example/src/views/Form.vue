@@ -33,15 +33,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import type {
-  ProFormColumns,
-  ProFormMenuColumns,
-  ProFormExpose,
-} from '/@src/index'
+import type { IFormColumns, IFormMenuColumns, IFormExpose } from '/@src/index'
 
 const form = ref<Record<string, unknown>>({})
 const form1 = ref<Record<string, unknown>>({})
-const menu = ref<ProFormMenuColumns>({
+const menu = ref<IFormMenuColumns>({
   submitText: 'Create',
   submitProps: {
     type: 'primary',
@@ -49,7 +45,7 @@ const menu = ref<ProFormMenuColumns>({
   },
   reset: false,
 })
-const ruleForm = ref<ProFormExpose>({} as ProFormExpose)
+const ruleForm = ref<IFormExpose>({} as IFormExpose)
 const rules = ref({
   date: { required: true, message: 'please input data', trigger: 'blur' },
   user: { required: true, message: 'please input user', trigger: 'blur' },
@@ -59,7 +55,7 @@ const list = [
   { value: 'JavaScript', tag: 'javascript' },
   { value: 'Python', tag: 'python' },
 ]
-const columns = ref<ProFormColumns>([
+const columns = ref<IFormColumns>([
   {
     // label: 'Slot',
     prop: 'slot',
@@ -139,7 +135,7 @@ const columns = ref<ProFormColumns>([
     },
   },
 ])
-const columns1 = ref<ProFormColumns>([
+const columns1 = ref<IFormColumns>([
   {
     label: 'Date',
     prop: 'date',

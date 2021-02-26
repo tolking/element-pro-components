@@ -3,13 +3,8 @@ import { config } from '../utils/config'
 import ProTable from './Table.vue'
 import type {
   InstallOptions,
-  ProDefineComponent,
-  ProTableColumns,
-  ProTableIndexColumns,
-  ProTableSelectionColumns,
-  ProTableExpandColumns,
-  ProTableMenuColumns,
-  ProPagination,
+  IDefineComponent,
+  ITableProps,
 } from '../types/index'
 
 ProTable.install = (app: App, options?: InstallOptions) => {
@@ -20,17 +15,4 @@ ProTable.install = (app: App, options?: InstallOptions) => {
   app.component(ProTable.name || 'ProTable', ProTable)
 }
 
-export default ProTable as ProDefineComponent<{
-  selection: boolean | ProTableSelectionColumns
-  expand: boolean | ProTableExpandColumns
-  index: boolean | ProTableIndexColumns
-  menu: boolean | ProTableMenuColumns
-  columns: ProTableColumns
-  total?: number
-  pageSize?: number
-  currentPage?: number
-  pagination?: ProPagination
-  showOverflowTooltip?: boolean
-  align?: 'left' | 'center' | 'right'
-  headerAlign?: 'left' | 'center' | 'right'
-}>
+export default ProTable as IDefineComponent<ITableProps>

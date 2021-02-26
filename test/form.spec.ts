@@ -1,9 +1,9 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import ProForm from '../src/Form/Form.vue'
-import { ProFormColumns } from '../src/types/index'
+import { IFormColumns } from '../src/types/index'
 
-const columns: ProFormColumns = [
+const columns: IFormColumns = [
   {
     label: 'input',
     prop: 'input',
@@ -45,7 +45,7 @@ describe('Table.vue', () => {
         return { form, columns: ref([...columns]) }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: ProFormColumns }
+    const vm = (wrapper.vm as unknown) as { columns: IFormColumns }
 
     expect(getFormItem(wrapper)).toHaveLength(1)
     expect(haveItem(wrapper, '<input')).toBeTruthy()
@@ -78,7 +78,7 @@ describe('Table.vue', () => {
       template: '<pro-form v-model="form" :columns="columns" />',
       setup() {
         const form = ref({})
-        const _columns = ref<ProFormColumns>([
+        const _columns = ref<IFormColumns>([
           {
             label: 'Date',
             prop: 'date',
@@ -105,7 +105,7 @@ describe('Table.vue', () => {
         return { form, columns: _columns }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: ProFormColumns }
+    const vm = (wrapper.vm as unknown) as { columns: IFormColumns }
 
     expect(getFormContent(wrapper, '.children-form').exists()).toBe(false)
     expect(getFormContent(wrapper, '.el-button.is-circle').exists()).toBe(true)
@@ -142,7 +142,7 @@ describe('Table.vue', () => {
       `,
       setup() {
         const form = ref<{ slot: string }>({ slot: '' })
-        const _colums: ProFormColumns = [
+        const _colums: IFormColumns = [
           {
             prop: 'slot',
             slot: true,
@@ -164,7 +164,7 @@ describe('Table.vue', () => {
       template: '<pro-form v-model="form" :columns="columns" />',
       setup() {
         const form = ref<Record<string, string>>({})
-        const _colums: ProFormColumns = [
+        const _colums: IFormColumns = [
           ...columns,
           {
             label: 'textarea',
@@ -177,7 +177,7 @@ describe('Table.vue', () => {
     })
     const vm = (wrapper.vm as unknown) as {
       form: Record<string, string>
-      columns: ProFormColumns
+      columns: IFormColumns
     }
 
     expect(getFormItem(wrapper)).toHaveLength(2)

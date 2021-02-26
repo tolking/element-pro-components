@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { ProCrudColumns, ProCrudMenuColumns } from '/@src/index'
+import type { ICrudColumns, ICrudMenuColumns } from '/@src/index'
 
 interface DataItem {
   date: string
@@ -33,12 +33,12 @@ interface DataItem {
 
 const form = ref<Record<string, unknown>>({})
 const serachForm = ref<Record<string, unknown>>({})
-const menu = ref<ProCrudMenuColumns<DataItem>>({
+const menu = ref<ICrudMenuColumns<DataItem>>({
   addProps: { icon: 'el-icon-plus' },
   label: 'Menu',
   edit: (row) => row.date !== '2016-05-02',
 })
-const columns: ProCrudColumns<DataItem> = [
+const columns: ICrudColumns<DataItem> = [
   {
     label: 'Date',
     prop: 'date',

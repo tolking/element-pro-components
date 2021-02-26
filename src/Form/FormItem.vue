@@ -125,16 +125,16 @@ import {
   useFormChild,
 } from '../composables/index'
 import ProFormComponent from './FormCompont.vue'
-import type { ProFormColumn, ProFormColumns } from '../types/index'
+import type { FormColumn, IFormColumns } from '../types/index'
 
 const props = defineProps<{
-  item: Record<string, unknown> & ProFormColumn
+  item: Record<string, unknown> & FormColumn
   prop: string
   modelValue: Record<string, unknown>
 }>()
 const emit = defineEmit(['update:modelValue'])
 const { item, prop, modelValue } = toRefs(props)
-const slotList = useFormSlotList(item.value.children as ProFormColumns)
+const slotList = useFormSlotList(item.value.children as IFormColumns)
 const bindItem = useFormItemBind(item)
 const { add, del, upChildData } = useFormChild(props, emit)
 

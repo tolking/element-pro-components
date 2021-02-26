@@ -1,26 +1,26 @@
 import type {
-  ProFormColumn,
-  ProFormMenuColumns,
-  ProTableColumn,
-  ProTableMenuColumns,
+  FormColumn,
+  IFormMenuColumns,
+  TableColumn,
+  ITableMenuColumns,
   UnknownObject,
   IButtonProps,
 } from './index'
 
-export interface ProCrudColumn<T = UnknownObject>
-  extends ProFormColumn<T>,
-    ProTableColumn<T> {
+export interface CrudColumn<T = UnknownObject>
+  extends FormColumn<T>,
+    TableColumn<T> {
   prop: keyof T
-  children?: ProCrudColumns<T>
+  children?: ICrudColumns<T>
   add?: boolean
   edit?: boolean
   search?: boolean
   hide?: boolean
 }
 
-export type ProCrudColumns<T = UnknownObject> = ProCrudColumn<T>[]
+export type ICrudColumns<T = UnknownObject> = CrudColumn<T>[]
 
-export interface ProCrudMenu<T = UnknownObject> {
+export interface CrudMenu<T = UnknownObject> {
   /** show add button */
   add?: boolean
   /** text of add button */
@@ -53,6 +53,6 @@ export interface ProCrudMenu<T = UnknownObject> {
   searchResetProps?: IButtonProps
 }
 
-export type ProCrudMenuColumns<T = UnknownObject> = ProCrudMenu &
-  ProTableMenuColumns &
-  ProFormMenuColumns
+export type ICrudMenuColumns<T = UnknownObject> = CrudMenu &
+  ITableMenuColumns &
+  IFormMenuColumns

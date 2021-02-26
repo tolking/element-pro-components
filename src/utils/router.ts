@@ -1,12 +1,12 @@
-import type { ProRouteRecordRaw } from '../types/index'
+import type { IRouteRecordRaw } from '../types/index'
 
 /**
  * Filter out router with `meta.hidden` values
  * @param router router list
  */
 export function filterRouterByHidden(
-  router: ProRouteRecordRaw[]
-): ProRouteRecordRaw[] {
+  router: IRouteRecordRaw[]
+): IRouteRecordRaw[] {
   return router.filter((item) => {
     if (!item.meta?.hidden && Array.isArray(item.children)) {
       item.children = filterRouterByHidden(item.children)
@@ -21,10 +21,10 @@ export function filterRouterByHidden(
  * @param path route path
  */
 export function findRouterItemListByPath(
-  router: ProRouteRecordRaw[],
+  router: IRouteRecordRaw[],
   path: string
-): ProRouteRecordRaw[] {
-  let _router: ProRouteRecordRaw[] = []
+): IRouteRecordRaw[] {
+  let _router: IRouteRecordRaw[] = []
   for (let i = 0; i < router.length; i++) {
     const item = router[i]
     if (item.path === path) {

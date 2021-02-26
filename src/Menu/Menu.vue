@@ -29,9 +29,9 @@ import { ElMenu } from 'element-plus'
 import ProMenuItem from './MenuItem.vue'
 import { useCurrentRoutes } from '../composables/index'
 import { checkUrl } from '../utils/index'
-import type { ProRouteRecordRaw } from '../types/index'
+import type { IRouteRecordRaw } from '../types/index'
 
-const props = defineProps<{ routes?: ProRouteRecordRaw[] }>()
+const props = defineProps<{ routes?: IRouteRecordRaw[] }>()
 const route = useRoute()
 const router = useRouter()
 const routes = useCurrentRoutes(props)

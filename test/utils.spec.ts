@@ -5,9 +5,9 @@ import {
   getScreenSize,
 } from '../src/utils/index'
 import { routes } from './mock'
-import type { ProRouteRecordRaw } from '../src/types/index'
+import type { IRouteRecordRaw } from '../src/types/index'
 
-function getRouterTitle(list: ProRouteRecordRaw[]) {
+function getRouterTitle(list: IRouteRecordRaw[]) {
   return list.map((item) => item.meta?.title || '')
 }
 

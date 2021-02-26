@@ -1,15 +1,15 @@
 import type {
   UnknownObject,
-  ComponentSize,
+  IComponentSize,
   IButtonProps,
   StringObject,
 } from './index'
 
 /** Form Props */
-export interface ProFormProps {
+export interface IFormProps {
   modelValue: StringObject
-  columns: ProFormColumns
-  menu?: ProFormMenuColumns
+  columns: IFormColumns
+  menu?: IFormMenuColumns
   rules?: UnknownObject
   inline?: boolean
   labelPosition?: 'right' | 'left' | 'top'
@@ -20,11 +20,11 @@ export interface ProFormProps {
   inlineMessage?: boolean
   statusIcon?: boolean
   validateOnRuleChange?: boolean
-  size?: ComponentSize
+  size?: IComponentSize
   disabled?: boolean
 }
 
-export interface ProFormColumn<T = UnknownObject> extends StringObject {
+export interface FormColumn<T = UnknownObject> extends StringObject {
   /** whether column has a slot */
   slot?: boolean
   /** component name */
@@ -32,7 +32,7 @@ export interface ProFormColumn<T = UnknownObject> extends StringObject {
   /** props for component */
   props?: UnknownObject
   /** sub-form */
-  children?: ProFormColumns<T>
+  children?: IFormColumns<T>
   /** max number of sub-form */
   max?: number
   /** keys of model that passed to form */
@@ -52,14 +52,14 @@ export interface ProFormColumn<T = UnknownObject> extends StringObject {
   /** inline style validate message */
   inlineMessage?: boolean
   /** control the size of components in this form-item */
-  size?: ComponentSize
+  size?: IComponentSize
 }
 
 /** Form Columns Option */
-export type ProFormColumns<T = UnknownObject> = ProFormColumn<T>[]
+export type IFormColumns<T = UnknownObject> = FormColumn<T>[]
 
 /** Form Menu Option */
-export interface ProFormMenu {
+export interface FormMenu {
   /** show submit button */
   submit?: boolean
   /** text of submit button */
@@ -75,20 +75,20 @@ export interface ProFormMenu {
 }
 
 /** Form Menu Option */
-export type ProFormMenuColumns = StringObject & ProFormMenu
+export type IFormMenuColumns = StringObject & FormMenu
 
-export interface ProFormValidateCallback {
+export interface IFormValidateCallback {
   (isValid: boolean, invalidFields?: UnknownObject): void
 }
 
-export interface ProFormValidateFieldCallback {
+export interface IFormValidateFieldCallback {
   (message?: string, invalidFields?: UnknownObject): void
 }
 
 /** Form Expose Methods */
-export interface ProFormExpose {
+export interface IFormExpose {
   /** validate the whole form. Takes a callback as a param. After validation, the callback will be executed with two params: a boolean indicating if the validation has passed, and an object containing all fields that fail the validation. Returns a promise if callback is omitted */
-  validate: (callback?: ProFormValidateCallback) => Promise<boolean>
+  validate: (callback?: IFormValidateCallback) => Promise<boolean>
   /** reset all the fields and remove validation result */
   resetFields: () => void
   /** clear validation message for certain fields. The parameter is prop name or an array of prop names of the form items whose validation messages will be removed. When omitted, all fields' validation messages will be cleared */
@@ -96,6 +96,6 @@ export interface ProFormExpose {
   /** validate one or several form items */
   validateField: (
     props: string | string[],
-    cb: ProFormValidateFieldCallback
+    cb: IFormValidateFieldCallback
   ) => void
 }

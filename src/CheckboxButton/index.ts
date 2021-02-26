@@ -1,6 +1,6 @@
 import type { App } from 'vue'
 import ProCheckboxButton from './CheckboxButton.vue'
-import type { ProDefineComponent } from '../types/index'
+import type { IDefineComponent } from '../types/index'
 
 ProCheckboxButton.install = (app: App) => {
   app.component(
@@ -9,7 +9,7 @@ ProCheckboxButton.install = (app: App) => {
   )
 }
 
-export default ProCheckboxButton as ProDefineComponent<{
+export default ProCheckboxButton as IDefineComponent<{
   modelValue: string[]
   data: Record<string, unknown>
   config: {

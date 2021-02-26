@@ -2,20 +2,20 @@ import { ComputedRef, computed, Ref, unref, inject, ref } from 'vue'
 import { config } from '../utils/config'
 import { filterSlotDeep, isObject } from '../utils/index'
 import type {
-  ProTableColumns,
-  ProTableColumnsProps,
-  ProTableExpose,
-  ProPagination,
+  ITableColumns,
+  TableColumnsProps,
+  ITableExpose,
+  IPagination,
   UnknownObject,
 } from '../types/index'
 
 export function useColumnsSlotList(
-  columns: ProTableColumns | Ref<ProTableColumns>
-): ComputedRef<ProTableColumns> {
+  columns: ITableColumns | Ref<ITableColumns>
+): ComputedRef<ITableColumns> {
   return computed(() => {
     const _columns = unref(columns)
 
-    return filterSlotDeep<ProTableColumns>(_columns).map((item) => {
+    return filterSlotDeep<ITableColumns>(_columns).map((item) => {
       item.header = item.prop + '-header'
       return item
     })
@@ -23,8 +23,8 @@ export function useColumnsSlotList(
 }
 
 export function useColumnsDefaultBind(
-  props: Readonly<ProTableColumnsProps>
-): ComputedRef<ProTableColumnsProps> {
+  props: Readonly<TableColumnsProps>
+): ComputedRef<TableColumnsProps> {
   return computed(() => ({
     showOverflowTooltip: props.showOverflowTooltip || false,
     align: props.align,
@@ -40,7 +40,7 @@ interface ColumnsBind {
 
 export function useColumnsBind<T extends ColumnsBind>(
   currentBind: boolean | T | Ref<boolean | T>,
-  defaultBind?: ProTableColumnsProps | Ref<ProTableColumnsProps>
+  defaultBind?: TableColumnsProps | Ref<TableColumnsProps>
 ): ComputedRef<T> {
   return computed(() => {
     const _currentBind = unref(currentBind)
@@ -57,9 +57,9 @@ export function useColumnsBind<T extends ColumnsBind>(
 }
 
 export function useTableMethods(): {
-  table: Ref<ProTableExpose>
-} & ProTableExpose {
-  const table = ref<ProTableExpose>({} as ProTableExpose)
+  table: Ref<ITableExpose>
+} & ITableExpose {
+  const table = ref<ITableExpose>({} as ITableExpose)
 
   function clearSelection() {
     table.value.clearSelection()
@@ -112,20 +112,20 @@ export function useTableMethods(): {
 }
 
 export function usePaginationBind(
-  pagination: undefined | ProPagination | Ref<undefined | ProPagination>
-): ComputedRef<ProPagination> {
+  pagination: undefined | IPagination | Ref<undefined | IPagination>
+): ComputedRef<IPagination> {
   return computed(() => {
     const _pagination = unref(pagination)
 
     if (_pagination) {
       return _pagination
     } else {
-      const options = inject<{ pagination: ProPagination }>('ProOptions')
+      const options = inject<{ pagination: IPagination }>('ProOptions')
 
       if (options) {
         return options.pagination
       } else {
-        const tableOptions = inject<{ pagination: ProPagination }>(
+        const tableOptions = inject<{ pagination: IPagination }>(
           'ProTableOptions'
         )
 

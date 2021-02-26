@@ -49,20 +49,20 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type {
-  ProTableColumns,
-  ProTableIndexColumns,
-  ProTableMenuColumns,
+  ITableColumns,
+  ITableIndexColumns,
+  ITableMenuColumns,
 } from '/@src/index'
 
-const index = ref<ProTableIndexColumns>({
+const index = ref<ITableIndexColumns>({
   label: '#',
   index: (index) => index + 10,
 })
-const menu = ref<ProTableMenuColumns>({
+const menu = ref<ITableMenuColumns>({
   label: 'Menu',
   align: 'right',
 })
-const columns = ref<ProTableColumns>([
+const columns = ref<ITableColumns>([
   {
     label: 'Date',
     prop: 'date',
@@ -78,7 +78,7 @@ const columns = ref<ProTableColumns>([
     prop: 'address',
   },
 ])
-const columns1 = ref<ProTableColumns>([
+const columns1 = ref<ITableColumns>([
   {
     label: 'Date',
     prop: 'date',

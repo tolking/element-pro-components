@@ -547,12 +547,12 @@ props: {
 | clearValidate | 移除表单项的校验结果。传入待移除的表单项的 prop 属性或者 prop 组成的数组，如不传则移除整个表单的校验结果                                                             | Function(props: array \| string)                                           |
 
 ::: tip 提示
-如果使用 `typescript` 可以从组件中导出 `ProFormExpose` 提供更好的类型推导。参考如下在 setup 中使用
+如果使用 `typescript` 可以从组件中导出 `IFormExpose` 提供更好的类型推导。参考如下在 setup 中使用
 
 ```ts
-import type { ProFormExpose } from 'element-pro-components'
+import type { IFormExpose } from 'element-pro-components'
 
-const ruleForm = ref<ProFormExpose>({} as ProFormExpose)
+const ruleForm = ref<IFormExpose>({} as IFormExpose)
 
 function submitForm() {
   ruleForm.value

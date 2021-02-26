@@ -101,11 +101,11 @@ import {
 } from '../composables'
 import ProTableItem from './TableItem.vue'
 import type {
-  ProTableColumn,
-  ProTableSelectionColumns,
-  ProTableExpandColumns,
-  ProTableIndexColumns,
-  ProTableMenuColumns,
+  TableColumn,
+  ITableSelectionColumns,
+  ITableExpandColumns,
+  ITableIndexColumns,
+  ITableMenuColumns,
 } from '../types/index'
 
 const props = defineProps<{
@@ -113,7 +113,7 @@ const props = defineProps<{
   expand: boolean | Record<string, unknown>
   index: boolean | Record<string, unknown>
   menu: boolean | Record<string, unknown>
-  columns: Array<Record<string, unknown> & ProTableColumn>
+  columns: Array<Record<string, unknown> & TableColumn>
   total?: number
   pageSize?: number
   currentPage?: number
@@ -144,13 +144,13 @@ const {
 } = toRefs(props)
 const slotList = useColumnsSlotList(columns)
 const defaultBind = useColumnsDefaultBind(props)
-const bindSelection = useColumnsBind<ProTableSelectionColumns>(
+const bindSelection = useColumnsBind<ITableSelectionColumns>(
   selection,
   defaultBind
 )
-const bindExpand = useColumnsBind<ProTableExpandColumns>(expand, defaultBind)
-const bindIndex = useColumnsBind<ProTableIndexColumns>(index, defaultBind)
-const bindMenu = useColumnsBind<ProTableMenuColumns>(menu, defaultBind)
+const bindExpand = useColumnsBind<ITableExpandColumns>(expand, defaultBind)
+const bindIndex = useColumnsBind<ITableIndexColumns>(index, defaultBind)
+const bindMenu = useColumnsBind<ITableMenuColumns>(menu, defaultBind)
 const bindPagination = usePaginationBind(pagination)
 const {
   table,

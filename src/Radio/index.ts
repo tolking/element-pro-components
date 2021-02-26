@@ -1,12 +1,12 @@
 import type { App } from 'vue'
 import ProRadio from './Radio.vue'
-import type { ProDefineComponent } from '../types/index'
+import type { IDefineComponent } from '../types/index'
 
 ProRadio.install = (app: App) => {
   app.component(ProRadio.name || 'ProRadio', ProRadio)
 }
 
-export default ProRadio as ProDefineComponent<{
+export default ProRadio as IDefineComponent<{
   modelValue: string
   data: Record<string, unknown>
   config: {

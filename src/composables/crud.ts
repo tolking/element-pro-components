@@ -7,39 +7,39 @@ import {
 } from '../utils/index'
 import { useProOptions } from './index'
 import type {
-  ProCrudColumns,
-  ProCrudMenuColumns,
-  ProFormColumns,
-  ProFormMenuColumns,
-  ProTableColumns,
+  ICrudColumns,
+  ICrudMenuColumns,
+  IFormColumns,
+  IFormMenuColumns,
+  ITableColumns,
   UnknownObject,
 } from '../types/index'
 
 export function useCrudColumns(
   props: Readonly<{
-    columns?: ProCrudColumns
-    searchColumns?: ProFormColumns
-    tableColumns?: ProTableColumns
-    menu: boolean | ProCrudMenuColumns
+    columns?: ICrudColumns
+    searchColumns?: IFormColumns
+    tableColumns?: ITableColumns
+    menu: boolean | ICrudMenuColumns
   }>
 ): {
-  searchColumns: ComputedRef<ProFormColumns | undefined>
-  tableColumns: ComputedRef<ProTableColumns | undefined>
-  menuColumns: ComputedRef<ProCrudMenuColumns | boolean>
-  serachMenu: ComputedRef<ProFormMenuColumns | undefined>
+  searchColumns: ComputedRef<IFormColumns | undefined>
+  tableColumns: ComputedRef<ITableColumns | undefined>
+  menuColumns: ComputedRef<ICrudMenuColumns | boolean>
+  serachMenu: ComputedRef<IFormMenuColumns | undefined>
 } {
   const searchColumns = computed(() => {
     return props.searchColumns
       ? props.searchColumns
       : props.columns
-      ? filterDeep<ProFormColumns>(props.columns, 'search')
+      ? filterDeep<IFormColumns>(props.columns, 'search')
       : undefined
   })
   const tableColumns = computed(() => {
     return props.tableColumns
       ? props.tableColumns
       : props.columns
-      ? filterDeep<ProTableColumns>(props.columns, 'hide', false)
+      ? filterDeep<ITableColumns>(props.columns, 'hide', false)
       : undefined
   })
   const menuColumns = computed(() => {
@@ -47,7 +47,7 @@ export function useCrudColumns(
     const menu = props.menu
 
     if (isObject(menu)) {
-      const _menu = objectDeepMerge<ProCrudMenuColumns>(options.menu, menu)
+      const _menu = objectDeepMerge<ICrudMenuColumns>(options.menu, menu)
       _menu.showEdit = isFunction(_menu.edit)
         ? _menu.edit
         : (row: UnknownObject) => !!_menu.edit
@@ -59,7 +59,7 @@ export function useCrudColumns(
       return menu ? options.menu : menu
     }
   })
-  const serachMenu = computed<ProFormMenuColumns | undefined>(() => {
+  const serachMenu = computed<IFormMenuColumns | undefined>(() => {
     return menuColumns.value
       ? {
           submit: menuColumns.value.search,
@@ -84,20 +84,20 @@ type FormType = 'add' | 'edit'
 
 export function useCrudForm(
   props: Readonly<{
-    columns?: ProCrudColumns
-    addColumns?: ProFormColumns
-    editColumns?: ProFormColumns
+    columns?: ICrudColumns
+    addColumns?: IFormColumns
+    editColumns?: IFormColumns
     beforeOpen?: (next: () => void, type: FormType, row?: UnknownObject) => void
   }>,
   emit: (
     event: 'update:modelValue' | 'update:search' | 'submit' | 'serach',
     ...args: unknown[]
   ) => void,
-  menuColumns?: ProCrudMenuColumns | ComputedRef<ProCrudMenuColumns | boolean>
+  menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | boolean>
 ): {
   dialogVisible: Ref<boolean>
   formType: Ref<FormType>
-  formColumns: ComputedRef<ProFormColumns | undefined>
+  formColumns: ComputedRef<IFormColumns | undefined>
   dialogTitle: ComputedRef<string | undefined>
   openForm: (type: FormType, row?: UnknownObject) => void
   serachForm: (state: boolean, err: UnknownObject) => void
@@ -111,14 +111,14 @@ export function useCrudForm(
     return props.addColumns
       ? props.addColumns
       : props.columns
-      ? filterDeep<ProFormColumns>(props.columns, 'add')
+      ? filterDeep<IFormColumns>(props.columns, 'add')
       : undefined
   })
   const editColumns = computed(() => {
     return props.editColumns
       ? props.editColumns
       : props.columns
-      ? filterDeep<ProFormColumns>(props.columns, 'edit')
+      ? filterDeep<IFormColumns>(props.columns, 'edit')
       : undefined
   })
   const formColumns = computed(() => {
