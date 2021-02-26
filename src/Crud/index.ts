@@ -1,14 +1,21 @@
 import type { App } from 'vue'
+import { objectDeepMerge } from '../utils/index'
 import { config } from '../utils/config'
 import ProCrud from './Crud.vue'
-import type { InstallOptions, IDefineComponent } from '../types/index'
+import type {
+  InstallOptions,
+  IDefineComponent,
+  ICrudProps,
+} from '../types/index'
 
 ProCrud.install = (app: App, options?: InstallOptions) => {
-  const _options = Object.assign({}, config, options)
+  const _options = options
+    ? objectDeepMerge<Required<InstallOptions>>(config, options)
+    : config
 
-  app.provide('ProTableOptions', _options)
+  app.provide('ProCrudOptions', _options)
 
   app.component(ProCrud.name || 'ProCrud', ProCrud)
 }
 
-export default ProCrud as IDefineComponent
+export default ProCrud as IDefineComponent<ICrudProps>

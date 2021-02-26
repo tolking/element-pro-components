@@ -26,7 +26,7 @@ import type {
   InstallOptions,
 } from '../types/index'
 
-type Keys = 'ProTableOptions'
+type Keys = 'ProCrudOptions' | 'ProTableOptions' | 'ProFormOptions'
 
 /**
  * get the global config
@@ -39,8 +39,8 @@ export function useProOptions(key?: Keys): Required<InstallOptions> {
   if (proOptions) {
     options = proOptions
   } else if (key) {
-    const componentCptions = inject<InstallOptions>(key)
-    componentCptions && (options = componentCptions)
+    const componentOptions = inject<InstallOptions>(key)
+    componentOptions && (options = componentOptions)
   }
 
   return options

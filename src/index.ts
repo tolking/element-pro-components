@@ -4,7 +4,7 @@ export * from './types/index'
 import './styles/index.css'
 import type { App } from 'vue'
 import type { IDefineComponent, InstallOptions } from './types/index'
-import { objectDeepMerge } from './utils'
+import { objectDeepMerge } from './utils/index'
 import { config } from './utils/config'
 
 import ProAutocompleteTag from './AutocompleteTag/index'
