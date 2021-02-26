@@ -76,7 +76,7 @@
   </el-table>
   <el-pagination
     v-if="total"
-    v-bind="bindPagination"
+    v-bind="pagination"
     :current-page="currentPage"
     :page-size="pageSize"
     :total="total"
@@ -92,12 +92,11 @@
 import { defineProps, provide, toRefs, useContext, defineEmit } from 'vue'
 import { ElTable, ElTableColumn, ElPagination } from 'element-plus'
 import {
-  useColumnsBind,
-  useColumnsDefaultBind,
-  useColumnsSlotList,
+  useTableBind,
+  useTableDefaultBind,
+  useTableSlotList,
   useTableMethods,
-  usePaginationBind,
-  usePaginationEmit,
+  usePagination,
 } from '../composables'
 import ProTableItem from './TableItem.vue'
 import type {
@@ -140,18 +139,23 @@ const {
   total,
   pageSize,
   currentPage,
-  pagination,
 } = toRefs(props)
-const slotList = useColumnsSlotList(columns)
-const defaultBind = useColumnsDefaultBind(props)
-const bindSelection = useColumnsBind<ITableSelectionColumns>(
+const slotList = useTableSlotList(columns)
+const defaultBind = useTableDefaultBind(props)
+const bindSelection = useTableBind<ITableSelectionColumns>(
   selection,
   defaultBind
 )
-const bindExpand = useColumnsBind<ITableExpandColumns>(expand, defaultBind)
-const bindIndex = useColumnsBind<ITableIndexColumns>(index, defaultBind)
-const bindMenu = useColumnsBind<ITableMenuColumns>(menu, defaultBind)
-const bindPagination = usePaginationBind(pagination)
+const bindExpand = useTableBind<ITableExpandColumns>(expand, defaultBind)
+const bindIndex = useTableBind<ITableIndexColumns>(index, defaultBind)
+const bindMenu = useTableBind<ITableMenuColumns>(menu, defaultBind)
+const {
+  pagination,
+  sizeChange,
+  currentChange,
+  prevClick,
+  nextClick,
+} = usePagination(props, emit)
 const {
   table,
   clearSelection,
@@ -164,9 +168,6 @@ const {
   doLayout,
   sort,
 } = useTableMethods()
-const { sizeChange, currentChange, prevClick, nextClick } = usePaginationEmit(
-  emit
-)
 
 provide('defaultBind', defaultBind)
 

@@ -60,7 +60,7 @@
 <script setup lang="ts">
 import { defineProps, inject, toRefs } from 'vue'
 import { ElTableColumn } from 'element-plus'
-import { useColumnsBind, useColumnsSlotList } from '../composables'
+import { useTableBind, useTableSlotList } from '../composables'
 import type {
   TableColumn,
   ITableColumns,
@@ -70,6 +70,6 @@ import type {
 const props = defineProps<{ item: Record<string, unknown> }>()
 const { item } = toRefs(props)
 const defaultBind = inject<TableColumnsProps>('defaultBind')
-const slotList = useColumnsSlotList(item.value.children as ITableColumns)
-const bindColumn = useColumnsBind<TableColumn>(item, defaultBind)
+const slotList = useTableSlotList(item.value.children as ITableColumns)
+const bindColumn = useTableBind<TableColumn>(item, defaultBind)
 </script>

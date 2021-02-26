@@ -1,4 +1,5 @@
 import type { App } from 'vue'
+import { objectDeepMerge } from '../utils/index'
 import { config } from '../utils/config'
 import ProTable from './Table.vue'
 import type {
@@ -8,7 +9,9 @@ import type {
 } from '../types/index'
 
 ProTable.install = (app: App, options?: InstallOptions) => {
-  const _options = Object.assign({}, config, options)
+  const _options = options
+    ? objectDeepMerge<Required<InstallOptions>>(config, options)
+    : config
 
   app.provide('ProTableOptions', _options)
 

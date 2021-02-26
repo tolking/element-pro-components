@@ -125,7 +125,7 @@ export interface ITableExpose<T = UnknownObject> {
 }
 
 /** Pagination Attributes */
-export interface IPagination {
+export interface IPagination extends StringObject {
   /** whether to use small pagination */
   small?: boolean
   /** number of pagers. Pagination collapses when the total page count exceeds this value */

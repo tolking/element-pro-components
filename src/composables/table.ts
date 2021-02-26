@@ -1,15 +1,16 @@
-import { ComputedRef, computed, Ref, unref, inject, ref } from 'vue'
-import { config } from '../utils/config'
-import { filterSlotDeep, isObject } from '../utils/index'
+import { ComputedRef, computed, Ref, unref, ref } from 'vue'
+import { filterSlotDeep, isObject, objectDeepMerge } from '../utils/index'
 import type {
   ITableColumns,
   TableColumnsProps,
   ITableExpose,
   IPagination,
   UnknownObject,
+  StringObject,
 } from '../types/index'
+import { useProOptions } from './public'
 
-export function useColumnsSlotList(
+export function useTableSlotList(
   columns: ITableColumns | Ref<ITableColumns>
 ): ComputedRef<ITableColumns> {
   return computed(() => {
@@ -22,7 +23,7 @@ export function useColumnsSlotList(
   })
 }
 
-export function useColumnsDefaultBind(
+export function useTableDefaultBind(
   props: Readonly<TableColumnsProps>
 ): ComputedRef<TableColumnsProps> {
   return computed(() => ({
@@ -32,13 +33,12 @@ export function useColumnsDefaultBind(
   }))
 }
 
-interface ColumnsBind {
+interface ColumnsBind extends StringObject {
   slot?: boolean
   children?: unknown
-  [key: string]: unknown
 }
 
-export function useColumnsBind<T extends ColumnsBind>(
+export function useTableBind<T extends ColumnsBind>(
   currentBind: boolean | T | Ref<boolean | T>,
   defaultBind?: TableColumnsProps | Ref<TableColumnsProps>
 ): ComputedRef<T> {
@@ -111,31 +111,8 @@ export function useTableMethods(): {
   }
 }
 
-export function usePaginationBind(
-  pagination: undefined | IPagination | Ref<undefined | IPagination>
-): ComputedRef<IPagination> {
-  return computed(() => {
-    const _pagination = unref(pagination)
-
-    if (_pagination) {
-      return _pagination
-    } else {
-      const options = inject<{ pagination: IPagination }>('ProOptions')
-
-      if (options) {
-        return options.pagination
-      } else {
-        const tableOptions = inject<{ pagination: IPagination }>(
-          'ProTableOptions'
-        )
-
-        return tableOptions?.pagination || config.pagination
-      }
-    }
-  })
-}
-
-export function usePaginationEmit(
+export function usePagination(
+  props: Readonly<{ pagination?: IPagination }>,
   emit: (
     event:
       | 'update:currentPage'
@@ -147,27 +124,40 @@ export function usePaginationEmit(
     ...args: unknown[]
   ) => void
 ): {
+  pagination: ComputedRef<IPagination>
   sizeChange: (size: number) => void
   currentChange: (current: number) => void
   prevClick: (current: number) => void
   nextClick: (current: number) => void
 } {
+  const pagination = computed(() => {
+    const options = useProOptions('ProTableOptions')
+
+    return props.pagination
+      ? objectDeepMerge<IPagination>(options.pagination, props.pagination)
+      : options.pagination
+  })
+
   function sizeChange(size: number) {
     emit('update:pageSize', size)
     emit('size-change', size)
   }
+
   function currentChange(current: number) {
     emit('update:currentPage', current)
     emit('current-change', current)
   }
+
   function prevClick(current: number) {
     emit('current-change', current)
   }
+
   function nextClick(current: number) {
     emit('current-change', current)
   }
 
   return {
+    pagination,
     sizeChange,
     currentChange,
     prevClick,
