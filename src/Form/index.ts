@@ -1,8 +1,20 @@
 import type { App } from 'vue'
+import { objectDeepMerge } from '../utils/index'
+import { config } from '../utils/config'
 import ProForm from './Form.vue'
-import type { IDefineComponent, IFormProps } from '../types/index'
+import type {
+  InstallOptions,
+  IDefineComponent,
+  IFormProps,
+} from '../types/index'
 
-ProForm.install = (app: App) => {
+ProForm.install = (app: App, options?: InstallOptions) => {
+  const _options = options
+    ? objectDeepMerge<Required<InstallOptions>>(config, options)
+    : config
+
+  app.provide('ProFormOptions', _options)
+
   app.component(ProForm.name || 'ProForm', ProForm)
 }
 

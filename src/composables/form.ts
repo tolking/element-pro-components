@@ -73,7 +73,7 @@ export function useFormMenu(
   props: Readonly<{ menu?: IFormMenuColumns }>
 ): ComputedRef<IFormMenuColumns> {
   return computed(() => {
-    const options = useProOptions()
+    const options = useProOptions('ProFormOptions')
     const pickKeys = [
       'submit',
       'submitText',
