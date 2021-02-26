@@ -7,7 +7,9 @@ import {
 } from '../utils/index'
 import { useProOptions } from './index'
 import type {
+  ICrudBeforeOpen,
   ICrudColumns,
+  ICrudFormType,
   ICrudMenuColumns,
   IFormColumns,
   IFormMenuColumns,
@@ -43,7 +45,7 @@ export function useCrudColumns(
       : undefined
   })
   const menuColumns = computed(() => {
-    const options = useProOptions()
+    const options = useProOptions('ProCrudOptions')
     const menu = props.menu
 
     if (isObject(menu)) {
@@ -80,14 +82,12 @@ export function useCrudColumns(
   }
 }
 
-type FormType = 'add' | 'edit'
-
 export function useCrudForm(
   props: Readonly<{
     columns?: ICrudColumns
     addColumns?: IFormColumns
     editColumns?: IFormColumns
-    beforeOpen?: (next: () => void, type: FormType, row?: UnknownObject) => void
+    beforeOpen?: ICrudBeforeOpen
   }>,
   emit: (
     event: 'update:modelValue' | 'update:search' | 'submit' | 'serach',
@@ -96,17 +96,17 @@ export function useCrudForm(
   menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | boolean>
 ): {
   dialogVisible: Ref<boolean>
-  formType: Ref<FormType>
+  formType: Ref<ICrudFormType>
   formColumns: ComputedRef<IFormColumns | undefined>
   dialogTitle: ComputedRef<string | undefined>
-  openForm: (type: FormType, row?: UnknownObject) => void
+  openForm: (type: ICrudFormType, row?: UnknownObject) => void
   serachForm: (state: boolean, err: UnknownObject) => void
   submitForm: (state: boolean, err: UnknownObject) => void
   upSearchData: (value: unknown) => void
   upFormData: (value: unknown) => void
 } {
   const dialogVisible = ref(false)
-  const formType = ref<FormType>('add')
+  const formType = ref<ICrudFormType>('add')
   const addColumns = computed(() => {
     return props.addColumns
       ? props.addColumns
@@ -133,7 +133,7 @@ export function useCrudForm(
       : formType.value
   })
 
-  function openForm(type: FormType, row?: UnknownObject) {
+  function openForm(type: ICrudFormType, row?: UnknownObject) {
     function next() {
       formType.value = type
       dialogVisible.value = true

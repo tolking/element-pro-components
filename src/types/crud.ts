@@ -1,11 +1,26 @@
 import type {
   FormColumn,
+  IFormColumns,
   IFormMenuColumns,
   TableColumn,
+  ITableProps,
+  ITableColumns,
   ITableMenuColumns,
-  UnknownObject,
   IButtonProps,
+  UnknownObject,
 } from './index'
+
+export interface ICrudProps extends Partial<ITableProps> {
+  columns?: ICrudColumns
+  addColumns?: IFormColumns
+  editColumns?: IFormColumns
+  searchColumns?: IFormColumns
+  tableColumns?: ITableColumns
+  menu: boolean | ICrudMenuColumns
+  modelValue?: UnknownObject
+  search?: UnknownObject
+  beforeOpen?: ICrudBeforeOpen
+}
 
 export interface CrudColumn<T = UnknownObject>
   extends FormColumn<T>,
@@ -56,3 +71,11 @@ export interface CrudMenu<T = UnknownObject> {
 export type ICrudMenuColumns<T = UnknownObject> = CrudMenu &
   ITableMenuColumns &
   IFormMenuColumns
+
+export type ICrudFormType = 'add' | 'edit'
+
+export type ICrudBeforeOpen<T = UnknownObject> = (
+  next: () => void,
+  type: ICrudFormType,
+  row?: T
+) => void

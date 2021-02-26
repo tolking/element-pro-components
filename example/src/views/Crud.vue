@@ -23,7 +23,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { ICrudColumns, ICrudMenuColumns } from '/@src/index'
+import type {
+  ICrudBeforeOpen,
+  ICrudColumns,
+  ICrudMenuColumns,
+} from '/@src/index'
 
 interface DataItem {
   date: string
@@ -83,7 +87,7 @@ const data: DataItem[] = [
   },
 ]
 
-function beforeOpen(next: () => void, type: 'add' | 'edit', row?: DataItem) {
+const beforeOpen: ICrudBeforeOpen<DataItem> = (next, type, row) => {
   console.log('beforeOpen', type, row)
   setTimeout(() => {
     next()

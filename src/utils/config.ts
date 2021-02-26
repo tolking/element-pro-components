@@ -10,7 +10,7 @@ export const config: Required<InstallOptions> = {
     addText: 'Add',
     addProps: { type: 'primary' },
     edit: true,
-    editText: 'Edit',
+    editText: 'edit',
     editProps: { type: 'text', icon: 'el-icon-edit' },
     del: true,
     delText: 'delete',
