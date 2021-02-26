@@ -26,7 +26,7 @@ export function useCrudColumns(
   searchColumns: ComputedRef<IFormColumns | undefined>
   tableColumns: ComputedRef<ITableColumns | undefined>
   menuColumns: ComputedRef<ICrudMenuColumns | boolean>
-  serachMenu: ComputedRef<IFormMenuColumns | undefined>
+  searchMenu: ComputedRef<IFormMenuColumns | undefined>
 } {
   const searchColumns = computed(() => {
     return props.searchColumns
@@ -59,7 +59,7 @@ export function useCrudColumns(
       return menu ? options.menu : menu
     }
   })
-  const serachMenu = computed<IFormMenuColumns | undefined>(() => {
+  const searchMenu = computed<IFormMenuColumns | undefined>(() => {
     return menuColumns.value
       ? {
           submit: menuColumns.value.search,
@@ -76,7 +76,7 @@ export function useCrudColumns(
     searchColumns,
     tableColumns,
     menuColumns,
-    serachMenu,
+    searchMenu,
   }
 }
 

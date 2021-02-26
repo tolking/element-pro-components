@@ -3,7 +3,7 @@
     v-if="searchColumns && searchColumns.length"
     :model-value="search"
     :columns="searchColumns"
-    :menu="serachMenu"
+    :menu="searchMenu"
     :inline="true"
     @update:modelValue="upSearchData"
     @submit="serachForm"
@@ -114,7 +114,7 @@ const emit = defineEmit([
   'serach',
 ])
 const { attrs } = useContext()
-const { searchColumns, tableColumns, menuColumns, serachMenu } = useCrudColumns(
+const { searchColumns, tableColumns, menuColumns, searchMenu } = useCrudColumns(
   props
 )
 const {
