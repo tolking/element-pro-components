@@ -3,12 +3,13 @@ import type {
   IComponentSize,
   IButtonProps,
   StringObject,
+  DeepTypeof,
 } from './index'
 
 /** Form Props */
-export interface IFormProps {
+export interface IFormProps<T = UnknownObject> {
   modelValue: StringObject
-  columns: IFormColumns
+  columns: IFormColumns<T>
   menu?: IFormMenuColumns
   rules?: UnknownObject
   inline?: boolean
@@ -36,7 +37,7 @@ export interface FormColumn<T = UnknownObject> extends StringObject {
   /** max number of sub-form */
   max?: number
   /** keys of model that passed to form */
-  prop: keyof T
+  prop: DeepTypeof<T>
   /** label name */
   label?: string
   /** width of label, e.g. '50px'. Width auto is supported */
@@ -77,25 +78,25 @@ export interface FormMenu {
 /** Form Menu Option */
 export type IFormMenuColumns = StringObject & FormMenu
 
-export interface IFormValidateCallback {
+export interface IFormValidateCallback<T = UnknownObject> {
   (isValid: boolean, invalidFields?: UnknownObject): void
 }
 
-export interface IFormValidateFieldCallback {
+export interface IFormValidateFieldCallback<T = UnknownObject> {
   (message?: string, invalidFields?: UnknownObject): void
 }
 
 /** Form Expose Methods */
-export interface IFormExpose {
+export interface IFormExpose<T = UnknownObject> {
   /** validate the whole form. Takes a callback as a param. After validation, the callback will be executed with two params: a boolean indicating if the validation has passed, and an object containing all fields that fail the validation. Returns a promise if callback is omitted */
-  validate: (callback?: IFormValidateCallback) => Promise<boolean>
+  validate: (callback?: IFormValidateCallback<T>) => Promise<boolean>
   /** reset all the fields and remove validation result */
   resetFields: () => void
   /** clear validation message for certain fields. The parameter is prop name or an array of prop names of the form items whose validation messages will be removed. When omitted, all fields' validation messages will be cleared */
-  clearValidate: (props?: string | string[]) => void
+  clearValidate: (props?: DeepTypeof<T> | Array<DeepTypeof<T>>) => void
   /** validate one or several form items */
   validateField: (
-    props: string | string[],
-    cb: IFormValidateFieldCallback
+    props: DeepTypeof<T> | Array<DeepTypeof<T>>,
+    cb: IFormValidateFieldCallback<T>
   ) => void
 }

@@ -32,11 +32,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { IFormColumns, IFormMenuColumns, IFormExpose } from '/@src/index'
+import { onMounted, ref } from 'vue'
+import type {
+  IFormColumns,
+  IFormMenuColumns,
+  IFormExpose,
+  StringObject,
+} from '/@src/index'
 
-const form = ref<Record<string, unknown>>({})
-const form1 = ref<Record<string, unknown>>({})
+interface RuleForm {
+  date: string
+  user: {
+    name: string
+    address: string
+  }
+}
+
+const form = ref<StringObject>({})
+const form1 = ref<RuleForm>({} as RuleForm)
 const menu = ref<IFormMenuColumns>({
   submitText: 'Create',
   submitProps: {
@@ -45,7 +58,7 @@ const menu = ref<IFormMenuColumns>({
   },
   reset: false,
 })
-const ruleForm = ref<IFormExpose>({} as IFormExpose)
+const ruleForm = ref<IFormExpose<RuleForm>>({} as IFormExpose<RuleForm>)
 const rules = ref({
   date: { required: true, message: 'please input data', trigger: 'blur' },
   user: { required: true, message: 'please input user', trigger: 'blur' },
@@ -135,7 +148,7 @@ const columns = ref<IFormColumns>([
     },
   },
 ])
-const columns1 = ref<IFormColumns>([
+const columns1 = ref<IFormColumns<RuleForm>>([
   {
     label: 'Date',
     prop: 'date',
@@ -166,6 +179,10 @@ const columns1 = ref<IFormColumns>([
     ],
   },
 ])
+
+onMounted(() => {
+  console.log(ruleForm.value)
+})
 
 function querySearch(queryString: string, cb: (...arg: unknown[]) => void) {
   cb(

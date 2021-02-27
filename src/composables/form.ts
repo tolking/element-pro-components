@@ -25,6 +25,7 @@ import type {
   UnknownObject,
   IFormMenuColumns,
   MenuOptions,
+  DeepTypeof,
 } from '../types/index'
 
 export function useFormSlotList(
@@ -92,36 +93,43 @@ export function useFormMenu(
   })
 }
 
-export function useFormMethods(
-  emit: (event: 'submit' | 'reset', ...args: unknown[]) => void,
-  upData: (value: unknown) => void
+export function useFormMethods<T = UnknownObject>(
+  emit: (
+    event: 'update:modelValue' | 'submit' | 'reset',
+    ...args: unknown[]
+  ) => void
 ): {
-  form: Ref<IFormExpose>
+  form: Ref<IFormExpose<T>>
+  upFormData: (value: unknown) => void
   submitForm: () => void
   resetForm: () => void
-} & IFormExpose {
-  const form = ref<IFormExpose>({} as IFormExpose)
+} & IFormExpose<T> {
+  const form = ref<IFormExpose<T>>({} as IFormExpose<T>)
 
-  function validate(callback?: IFormValidateCallback) {
+  function validate(callback?: IFormValidateCallback<T>) {
     return form.value.validate(callback)
   }
 
   function resetFields() {
-    upData({})
+    upFormData({})
     nextTick(() => {
       form.value.resetFields()
     })
   }
 
-  function clearValidate(props?: string | string[]) {
+  function clearValidate(props?: DeepTypeof<T> | DeepTypeof<T>[]) {
     form.value.clearValidate(props)
   }
 
   function validateField(
-    props: string | string[],
-    cb: IFormValidateFieldCallback
+    props: DeepTypeof<T> | DeepTypeof<T>[],
+    cb: IFormValidateFieldCallback<T>
   ) {
     form.value.validateField(props, cb)
+  }
+
+  function upFormData(value: unknown) {
+    emit('update:modelValue', value)
   }
 
   function submitForm() {
@@ -130,13 +138,13 @@ export function useFormMethods(
       .then((state) => {
         emit('submit', state)
       })
-      .catch((err) => {
+      .catch((err: UnknownObject) => {
         emit('submit', false, err)
       })
   }
 
   function resetForm() {
-    upData({})
+    upFormData({})
     nextTick(() => {
       form.value.resetFields()
       emit('reset')
@@ -149,6 +157,7 @@ export function useFormMethods(
     resetFields,
     clearValidate,
     validateField,
+    upFormData,
     submitForm,
     resetForm,
   }

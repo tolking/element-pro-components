@@ -12,7 +12,7 @@
       :model-value="modelValue"
       :item="item"
       :prop="item.prop"
-      @update:modelValue="upData"
+      @update:modelValue="upFormData"
     >
       <template
         v-for="slot in slotList"
@@ -95,18 +95,15 @@ const {
   resetFields,
   clearValidate,
   validateField,
+  upFormData,
   submitForm,
   resetForm,
-} = useFormMethods(emit, upData)
+} = useFormMethods(emit)
 const menu = useFormMenu(props)
 const size = useScreenSize()
 const position = computed(() => {
   return size.value === 'xs' && !attrs.inline ? 'top' : labelPosition?.value
 })
-
-function upData(value: unknown) {
-  emit('update:modelValue', value)
-}
 
 expose({
   validate,
