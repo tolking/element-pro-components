@@ -103,7 +103,6 @@ export function useCrudForm(
   serachForm: (state: boolean, err: UnknownObject) => void
   submitForm: (state: boolean, err: UnknownObject) => void
   upSearchData: (value: unknown) => void
-  upFormData: (value: unknown) => void
 } {
   const dialogVisible = ref(false)
   const formType = ref<ICrudFormType>('add')
@@ -158,10 +157,6 @@ export function useCrudForm(
     emit('update:search', value)
   }
 
-  function upFormData(value: unknown) {
-    emit('update:modelValue', value)
-  }
-
   return {
     dialogVisible,
     formType,
@@ -171,6 +166,5 @@ export function useCrudForm(
     serachForm,
     submitForm,
     upSearchData,
-    upFormData,
   }
 }

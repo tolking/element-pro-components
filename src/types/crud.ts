@@ -2,30 +2,33 @@ import type {
   FormColumn,
   IFormColumns,
   IFormMenuColumns,
+  IFormExpose,
   TableColumn,
   ITableProps,
   ITableColumns,
   ITableMenuColumns,
+  ITableExpose,
   IButtonProps,
   UnknownObject,
+  DeepTypeof,
 } from './index'
 
-export interface ICrudProps extends Partial<ITableProps> {
-  columns?: ICrudColumns
-  addColumns?: IFormColumns
-  editColumns?: IFormColumns
-  searchColumns?: IFormColumns
-  tableColumns?: ITableColumns
-  menu: boolean | ICrudMenuColumns
+export interface ICrudProps<T = UnknownObject> extends Partial<ITableProps<T>> {
+  columns?: ICrudColumns<T>
+  addColumns?: IFormColumns<T>
+  editColumns?: IFormColumns<T>
+  searchColumns?: IFormColumns<T>
+  tableColumns?: ITableColumns<T>
+  menu: boolean | ICrudMenuColumns<T>
   modelValue?: UnknownObject
   search?: UnknownObject
-  beforeOpen?: ICrudBeforeOpen
+  beforeOpen?: ICrudBeforeOpen<T>
 }
 
 export interface CrudColumn<T = UnknownObject>
   extends FormColumn<T>,
     TableColumn<T> {
-  prop: keyof T
+  prop: DeepTypeof<T>
   children?: ICrudColumns<T>
   add?: boolean
   edit?: boolean
@@ -68,7 +71,7 @@ export interface CrudMenu<T = UnknownObject> {
   searchResetProps?: IButtonProps
 }
 
-export type ICrudMenuColumns<T = UnknownObject> = CrudMenu &
+export type ICrudMenuColumns<T = UnknownObject> = CrudMenu<T> &
   ITableMenuColumns &
   IFormMenuColumns
 
@@ -79,3 +82,5 @@ export type ICrudBeforeOpen<T = UnknownObject> = (
   type: ICrudFormType,
   row?: T
 ) => void
+
+export type ICrudExpose<T = UnknownObject> = IFormExpose<T> & ITableExpose<T>

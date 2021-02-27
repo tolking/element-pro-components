@@ -5,6 +5,7 @@
     :columns="searchColumns"
     :menu="searchMenu"
     :inline="true"
+    class="pro-crud-search"
     @update:modelValue="upSearchData"
     @submit="serachForm"
   >
@@ -32,8 +33,10 @@
   </div>
   <pro-table
     v-bind="attrs"
+    ref="table"
     :columns="tableColumns"
     :menu="menuColumns"
+    class="pro-crud-table"
   >
     <template #default>
       <slot name="table" />
@@ -66,10 +69,13 @@
     :title="dialogTitle"
   >
     <pro-form
+      ref="form"
       :model-value="modelValue"
       :columns="formColumns"
+      class="pro-crud-form"
       @update:modelValue="upFormData"
       @submit="submitForm"
+      @reset="resetForm"
     >
       <template #default>
         <slot name="form" />
@@ -81,7 +87,12 @@
 <script setup lang="ts">
 import { useContext, defineEmit, defineProps } from 'vue'
 import { ElDialog } from 'element-plus'
-import { useCrudColumns, useCrudForm } from '../composables/index'
+import {
+  useCrudColumns,
+  useCrudForm,
+  useTableMethods,
+  useFormMethods,
+} from '../composables/index'
 import ProForm from '../Form/index'
 import ProTable from '../Table/index'
 import type {
@@ -110,10 +121,11 @@ const emit = defineEmit([
   'update:modelValue',
   'update:search',
   'submit',
+  'reset',
   'delete',
   'serach',
 ])
-const { attrs } = useContext()
+const { attrs, expose } = useContext()
 const { searchColumns, tableColumns, menuColumns, searchMenu } = useCrudColumns(
   props
 )
@@ -126,12 +138,48 @@ const {
   serachForm,
   submitForm,
   upSearchData,
-  upFormData,
 } = useCrudForm(props, emit, menuColumns)
+const {
+  table,
+  clearSelection,
+  toggleRowSelection,
+  toggleAllSelection,
+  toggleRowExpansion,
+  setCurrentRow,
+  clearSort,
+  clearFilter,
+  doLayout,
+  sort,
+} = useTableMethods()
+const {
+  form,
+  validate,
+  resetFields,
+  clearValidate,
+  validateField,
+  upFormData,
+  resetForm,
+} = useFormMethods(emit)
 
 function delRow(row: UnknownObject) {
   emit('delete', row)
 }
+
+expose({
+  clearSelection,
+  toggleRowSelection,
+  toggleAllSelection,
+  toggleRowExpansion,
+  setCurrentRow,
+  clearSort,
+  clearFilter,
+  doLayout,
+  sort,
+  validate,
+  resetFields,
+  clearValidate,
+  validateField,
+})
 </script>
 
 <style lang="postcss">

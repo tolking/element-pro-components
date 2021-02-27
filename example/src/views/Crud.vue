@@ -1,5 +1,6 @@
 <template>
   <pro-crud
+    ref="crud"
     v-model="form"
     v-model:search="serachForm"
     :columns="columns"
@@ -22,11 +23,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import type {
   ICrudBeforeOpen,
   ICrudColumns,
   ICrudMenuColumns,
+  ICrudExpose,
 } from '/@src/index'
 
 interface DataItem {
@@ -35,8 +37,12 @@ interface DataItem {
   address: string
 }
 
-const form = ref<Record<string, unknown>>({})
-const serachForm = ref<Record<string, unknown>>({})
+type SerachForm = Pick<DataItem, 'date'>
+type CrudForm = Pick<DataItem, 'date' | 'name'>
+
+const crud = ref<ICrudExpose<DataItem>>({} as ICrudExpose<DataItem>)
+const form = ref<CrudForm>({} as CrudForm)
+const serachForm = ref<SerachForm>({} as SerachForm)
 const menu = ref<ICrudMenuColumns<DataItem>>({
   addProps: { icon: 'el-icon-plus' },
   label: 'Menu',
@@ -50,6 +56,11 @@ const columns: ICrudColumns<DataItem> = [
     add: true,
     edit: true,
     search: true,
+    rules: {
+      required: true,
+      message: 'please input name',
+      trigger: 'blur',
+    },
   },
   {
     label: 'Name',
@@ -93,6 +104,10 @@ const beforeOpen: ICrudBeforeOpen<DataItem> = (next, type, row) => {
     next()
   }, 500)
 }
+
+onMounted(() => {
+  console.log(crud.value)
+})
 
 function serach(state: boolean, err: unknown) {
   console.log('serach', state, err)
