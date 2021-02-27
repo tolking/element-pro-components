@@ -7,6 +7,7 @@ import type {
   IPagination,
   UnknownObject,
   StringObject,
+  DeepTypeof,
 } from '../types/index'
 import { useProOptions } from './public'
 
@@ -56,16 +57,16 @@ export function useTableBind<T extends ColumnsBind>(
   })
 }
 
-export function useTableMethods(): {
-  table: Ref<ITableExpose>
-} & ITableExpose {
-  const table = ref<ITableExpose>({} as ITableExpose)
+export function useTableMethods<T = UnknownObject>(): {
+  table: Ref<ITableExpose<T>>
+} & ITableExpose<T> {
+  const table = ref<ITableExpose<T>>({} as ITableExpose<T>)
 
   function clearSelection() {
     table.value.clearSelection()
   }
 
-  function toggleRowSelection(row: UnknownObject, selected?: boolean) {
+  function toggleRowSelection(row: T, selected?: boolean) {
     table.value.toggleRowSelection(row, selected)
   }
 
@@ -73,11 +74,11 @@ export function useTableMethods(): {
     table.value.toggleAllSelection()
   }
 
-  function toggleRowExpansion(row: UnknownObject, expanded?: boolean) {
+  function toggleRowExpansion(row: T, expanded?: boolean) {
     table.value.toggleRowExpansion(row, expanded)
   }
 
-  function setCurrentRow(row?: UnknownObject) {
+  function setCurrentRow(row?: T) {
     table.value.setCurrentRow(row)
   }
 
@@ -85,7 +86,7 @@ export function useTableMethods(): {
     table.value.clearSort()
   }
 
-  function clearFilter(columnKeys?: string[]) {
+  function clearFilter(columnKeys?: DeepTypeof<T> | Array<DeepTypeof<T>>) {
     table.value.clearFilter(columnKeys)
   }
 
@@ -93,7 +94,7 @@ export function useTableMethods(): {
     table.value.doLayout()
   }
 
-  function sort(prop: string, order: string) {
+  function sort(prop: DeepTypeof<T>, order: string) {
     table.value.sort(prop, order)
   }
 

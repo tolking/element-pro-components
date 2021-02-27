@@ -3,14 +3,15 @@ import type {
   UnknownFunction,
   IPlacementType,
   StringObject,
+  DeepTypeof,
 } from './index'
 
-export interface ITableProps extends TableColumnsProps {
-  selection: boolean | ITableSelectionColumns
+export interface ITableProps<T = UnknownObject> extends TableColumnsProps {
+  selection: boolean | ITableSelectionColumns<T>
   expand: boolean | ITableExpandColumns
   index: boolean | ITableIndexColumns
   menu: boolean | ITableMenuColumns
-  columns: ITableColumns
+  columns: ITableColumns<T>
   total?: number
   pageSize?: number
   currentPage?: number
@@ -71,7 +72,7 @@ interface TableCommonColumn<T = UnknownObject>
 /** Table Column Options */
 export interface TableColumn<T = UnknownObject> extends TableCommonColumn {
   /** field name */
-  prop?: keyof T
+  prop?: DeepTypeof<T>
   /** whether column has a slot */
   slot?: boolean
   /** When the data structure is complex, you can use children to show the data hierarchy */
@@ -117,11 +118,11 @@ export interface ITableExpose<T = UnknownObject> {
   /** clear sorting, restore data to the original order */
   clearSort: () => void
   /** clear filters of the columns whose columnKey are passed in. If no params, clear all filters */
-  clearFilter: (columnKeys?: string[]) => void
+  clearFilter: (columnKeys?: DeepTypeof<T> | Array<DeepTypeof<T>>) => void
   /** refresh the layout of Table. When the visibility of Table changes, you may need to call this method to get a correct layout */
   doLayout: () => void
   /** sort Table manually. Property prop is used to set sort column, property order is used to set sort order */
-  sort: (prop: string, order: string) => void
+  sort: (prop: DeepTypeof<T>, order: string) => void
 }
 
 /** Pagination Attributes */
