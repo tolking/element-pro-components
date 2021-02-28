@@ -8,7 +8,7 @@ import type {
 
 /** Form Props */
 export interface IFormProps<T = UnknownObject> {
-  modelValue: StringObject
+  modelValue: T
   columns: IFormColumns<T>
   menu?: IFormMenuColumns
   rules?: UnknownObject

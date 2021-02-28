@@ -9,6 +9,8 @@
     :before-open="beforeOpen"
     selection
     border
+    inline
+    append-to-body
     @serach="serach"
     @submit="submit"
     @delete="deleteRow"

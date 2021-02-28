@@ -24,6 +24,8 @@ export interface InstallOptions extends StringObject {
   menu?: MenuOptions
 }
 
+// TODO: will use element-plus types (the current type is not perfect)
+
 export type IComponentSize = 'medium' | 'small' | 'mini' | undefined
 
 export type IScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
@@ -64,4 +66,23 @@ export interface IButtonProps {
   autofocus?: boolean
   round?: boolean
   circle?: boolean
+}
+
+export interface IDialogProps {
+  title?: string
+  width?: string | number
+  fullscreen: boolean
+  top?: string
+  modal: boolean
+  appendToBody: boolean
+  lockScroll: boolean
+  customClass?: string
+  openDelay?: number
+  closeDelay?: number
+  closeOnClickModal: boolean
+  closeOnPressEscape: boolean
+  showClose: boolean
+  beforeClose?: (done: () => void) => void
+  center: boolean
+  destroyOnClose: boolean
 }

@@ -1,87 +1,90 @@
 <template>
-  <pro-form
-    v-if="searchColumns && searchColumns.length"
-    :model-value="search"
-    :columns="searchColumns"
-    :menu="searchMenu"
-    :inline="true"
-    class="pro-crud-search"
-    @update:modelValue="upSearchData"
-    @submit="serachForm"
-  >
-    <template #default>
-      <slot name="search" />
-    </template>
-  </pro-form>
-  <div class="pro-crud-menu">
-    <div class="pro-menu-item">
-      <slot name="menu-left" />
-      <el-button
-        v-if="menuColumns.add"
-        v-bind="menuColumns.addProps"
-        @click="openForm('add')"
-      >
-        {{ menuColumns.addText }}
-      </el-button>
-      <slot name="menu-right" />
-    </div>
-    <div class="pro-menu-item">
-      <slot name="action-left" />
-      <!-- TODO: add setting(change hide in columns) ..? -->
-      <slot name="action-right" />
-    </div>
-  </div>
-  <pro-table
-    v-bind="attrs"
-    ref="table"
-    :columns="tableColumns"
-    :menu="menuColumns"
-    class="pro-crud-table"
-  >
-    <template #default>
-      <slot name="table" />
-    </template>
-    <template #append>
-      <slot name="append" />
-    </template>
-    <template #menu="{ size, row }">
-      <el-button
-        v-if="menuColumns.showEdit(row)"
-        v-bind="menuColumns.editProps"
-        :size="size"
-        @click="openForm('edit', row)"
-      >
-        {{ menuColumns.editText }}
-      </el-button>
-      <el-button
-        v-if="menuColumns.showDel(row)"
-        v-bind="menuColumns.delProps"
-        :size="size"
-        @click="delRow(row)"
-      >
-        {{ menuColumns.delText }}
-      </el-button>
-      <slot name="menu" />
-    </template>
-  </pro-table>
-  <el-dialog
-    v-model="dialogVisible"
-    :title="dialogTitle"
-  >
+  <section class="pro-crud">
     <pro-form
-      ref="form"
-      :model-value="modelValue"
-      :columns="formColumns"
-      class="pro-crud-form"
-      @update:modelValue="upFormData"
-      @submit="submitForm"
-      @reset="resetForm"
+      v-if="searchColumns && searchColumns.length"
+      :model-value="search"
+      :columns="searchColumns"
+      :menu="searchMenu"
+      :inline="true"
+      class="pro-crud-search"
+      @update:modelValue="upSearchData"
+      @submit="serachForm"
     >
       <template #default>
-        <slot name="form" />
+        <slot name="search" />
       </template>
     </pro-form>
-  </el-dialog>
+    <div class="pro-crud-menu">
+      <div class="pro-menu-item">
+        <slot name="menu-left" />
+        <el-button
+          v-if="menuColumns.add"
+          v-bind="menuColumns.addProps"
+          @click="openForm('add')"
+        >
+          {{ menuColumns.addText }}
+        </el-button>
+        <slot name="menu-right" />
+      </div>
+      <div class="pro-menu-item">
+        <slot name="action-left" />
+        <!-- TODO: add setting(change hide in columns) ..? -->
+        <slot name="action-right" />
+      </div>
+    </div>
+    <pro-table
+      v-bind="attrs"
+      ref="table"
+      :columns="tableColumns"
+      :menu="menuColumns"
+      class="pro-crud-table"
+    >
+      <template #default>
+        <slot name="table" />
+      </template>
+      <template #append>
+        <slot name="append" />
+      </template>
+      <template #menu="{ size, row }">
+        <el-button
+          v-if="menuColumns.showEdit(row)"
+          v-bind="menuColumns.editProps"
+          :size="size"
+          @click="openForm('edit', row)"
+        >
+          {{ menuColumns.editText }}
+        </el-button>
+        <el-button
+          v-if="menuColumns.showDel(row)"
+          v-bind="menuColumns.delProps"
+          :size="size"
+          @click="delRow(row)"
+        >
+          {{ menuColumns.delText }}
+        </el-button>
+        <slot name="menu" />
+      </template>
+    </pro-table>
+    <el-dialog
+      v-model="dialogVisible"
+      v-bind="bindDialog"
+    >
+      <pro-form
+        v-bind="attrs"
+        ref="form"
+        :model-value="modelValue"
+        :columns="formColumns"
+        class="pro-crud-form"
+        @update:modelValue="upFormData"
+        @submit="submitForm"
+        @reset="resetForm"
+      >
+        <template #default>
+          <slot name="form" />
+        </template>
+      </pro-form>
+    </el-dialog>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -90,6 +93,7 @@ import { ElDialog } from 'element-plus'
 import {
   useCrudColumns,
   useCrudForm,
+  useCrudAttrs,
   useTableMethods,
   useFormMethods,
 } from '../composables/index'
@@ -112,7 +116,7 @@ const props = defineProps<{
   modelValue?: Record<string, unknown>
   search?: Record<string, unknown>
   beforeOpen?: (
-    next: () => void,
+    done: () => void,
     type: 'add' | 'edit',
     row?: UnknownObject
   ) => void
@@ -125,20 +129,19 @@ const emit = defineEmit([
   'delete',
   'serach',
 ])
-const { attrs, expose } = useContext()
+const { expose } = useContext()
 const { searchColumns, tableColumns, menuColumns, searchMenu } = useCrudColumns(
   props
 )
 const {
   dialogVisible,
-  dialogTitle,
   formType,
   formColumns,
   openForm,
   serachForm,
   submitForm,
   upSearchData,
-} = useCrudForm(props, emit, menuColumns)
+} = useCrudForm(props, emit)
 const {
   table,
   clearSelection,
@@ -160,6 +163,7 @@ const {
   upFormData,
   resetForm,
 } = useFormMethods(emit)
+const { attrs, bindDialog } = useCrudAttrs(formType, resetForm, menuColumns)
 
 function delRow(row: UnknownObject) {
   emit('delete', row)

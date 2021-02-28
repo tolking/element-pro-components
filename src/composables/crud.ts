@@ -1,11 +1,12 @@
 import { ComputedRef, computed, ref, unref, Ref } from 'vue'
+import { useProOptions, useAttrs } from './index'
 import {
   isFunction,
   isObject,
   filterDeep,
   objectDeepMerge,
+  objectPick,
 } from '../utils/index'
-import { useProOptions } from './index'
 import type {
   ICrudBeforeOpen,
   ICrudColumns,
@@ -92,13 +93,11 @@ export function useCrudForm(
   emit: (
     event: 'update:modelValue' | 'update:search' | 'submit' | 'serach',
     ...args: unknown[]
-  ) => void,
-  menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | boolean>
+  ) => void
 ): {
   dialogVisible: Ref<boolean>
   formType: Ref<ICrudFormType>
   formColumns: ComputedRef<IFormColumns | undefined>
-  dialogTitle: ComputedRef<string | undefined>
   openForm: (type: ICrudFormType, row?: UnknownObject) => void
   serachForm: (state: boolean, err: UnknownObject) => void
   submitForm: (state: boolean, err: UnknownObject) => void
@@ -123,25 +122,17 @@ export function useCrudForm(
   const formColumns = computed(() => {
     return formType.value === 'add' ? addColumns.value : editColumns.value
   })
-  const dialogTitle = computed(() => {
-    const _menuColumns = unref(menuColumns)
-    return isObject(_menuColumns)
-      ? formType.value === 'add'
-        ? _menuColumns.addText
-        : _menuColumns.editText
-      : formType.value
-  })
 
   function openForm(type: ICrudFormType, row?: UnknownObject) {
-    function next() {
+    function done() {
       formType.value = type
       dialogVisible.value = true
     }
 
     if (props.beforeOpen && isFunction(props.beforeOpen)) {
-      props.beforeOpen(next, type, row)
+      props.beforeOpen(done, type, row)
     } else {
-      next()
+      done()
     }
   }
 
@@ -161,10 +152,66 @@ export function useCrudForm(
     dialogVisible,
     formType,
     formColumns,
-    dialogTitle,
     openForm,
     serachForm,
     submitForm,
     upSearchData,
+  }
+}
+
+export function useCrudAttrs(
+  formType: ICrudFormType | Ref<ICrudFormType>,
+  resetForm: () => void,
+  menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | boolean>
+): {
+  attrs: ComputedRef<UnknownObject>
+  bindDialog: ComputedRef<UnknownObject>
+} {
+  const attrs = useAttrs()
+  const bindDialog = computed(() => {
+    const _menuColumns = unref(menuColumns)
+    const _formType = unref(formType)
+    const title = isObject(_menuColumns)
+      ? _formType === 'add'
+        ? _menuColumns.addText
+        : _menuColumns.editText
+      : _formType
+    const beforeClose = (done: () => void) => {
+      resetForm()
+      done()
+    }
+    const keys = [
+      'title',
+      'width',
+      'fullscreen',
+      'top',
+      'modal',
+      'append-to-body',
+      'lock-scroll',
+      'custom-class',
+      'open-delay',
+      'close-delay',
+      'close-on-click-modal',
+      'close-on-press-escape',
+      'show-close',
+      'before-close',
+      'center',
+      'destroy-on-close',
+    ]
+    const bindDialog = objectPick<UnknownObject, UnknownObject>(
+      attrs.value,
+      keys
+    )
+
+    bindDialog.title = bindDialog.title ?? title
+    bindDialog['custom-class'] = bindDialog['custom-class'] ?? 'pro-crud-dialog'
+    bindDialog['before-close'] = bindDialog['before-close'] ?? beforeClose
+
+    return bindDialog
+  })
+
+  return {
+    attrs,
+    bindDialog,
   }
 }
