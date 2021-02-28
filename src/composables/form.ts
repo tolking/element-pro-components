@@ -17,6 +17,7 @@ import {
 } from '../utils/index'
 import type {
   FormColumn,
+  FormMenu,
   IFormColumns,
   IComponentSize,
   IFormExpose,
@@ -75,7 +76,7 @@ export function useFormMenu(
 ): ComputedRef<IFormMenuColumns> {
   return computed(() => {
     const options = useProOptions('ProFormOptions')
-    const pickKeys = [
+    const pickKeys: Array<keyof FormMenu> = [
       'submit',
       'submitText',
       'submitProps',

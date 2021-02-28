@@ -34,7 +34,10 @@ export function objectDeepMerge<T extends UnknownObject>(
   return _obj as T
 }
 
-export function objectPick<T extends Q, Q>(obj: T, keys: Array<keyof Q>): Q {
+export function objectPick<T extends Q, Q = UnknownObject>(
+  obj: T,
+  keys: Array<keyof Q>
+): Q {
   const _obj = {} as Q
 
   keys.forEach((item) => {
