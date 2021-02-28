@@ -9,9 +9,9 @@
     :before-open="beforeOpen"
     selection
     border
-    inline
+    label-width="100px"
     append-to-body
-    @serach="serach"
+    @search="search"
     @submit="submit"
     @delete="deleteRow"
   >
@@ -20,6 +20,12 @@
         icon="el-icon-delete"
         type="danger"
       />
+    </template>
+    <template #form-name>
+      <span>test form slot</span>
+    </template>
+    <template #table-name="{ row }">
+      <el-tag>{{ row.name }}</el-tag>
     </template>
   </pro-crud>
 </template>
@@ -68,6 +74,7 @@ const columns: ICrudColumns<DataItem> = [
     label: 'Name',
     prop: 'name',
     component: 'el-input',
+    slot: true,
     add: true,
     // hide: true,
   },
@@ -111,8 +118,8 @@ onMounted(() => {
   console.log(crud.value)
 })
 
-function serach(state: boolean, err: unknown) {
-  console.log('serach', state, err)
+function search(state: boolean, err: unknown) {
+  console.log('search', state, err)
 }
 
 function submit(type: 'add' | 'edit', state: boolean, err: unknown) {
