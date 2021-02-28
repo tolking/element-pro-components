@@ -5,7 +5,7 @@ import type {
   RouteLocationNormalized,
   RouteRecordRedirectOption,
 } from 'vue-router'
-import { StringObject } from './index'
+import type { StringObject } from './index'
 
 type Lazy<T> = () => Promise<T>
 

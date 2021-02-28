@@ -20,7 +20,7 @@ export function useTabs(): {
   watch(
     () => route.path,
     (path) => {
-      const title = route.meta.title
+      const title = route.meta.title as string
       addTab({ title, path })
     },
     { immediate: true }
