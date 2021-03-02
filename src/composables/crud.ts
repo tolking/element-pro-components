@@ -1,4 +1,4 @@
-import { ComputedRef, computed, ref, unref, Ref } from 'vue'
+import { ComputedRef, computed, ref, unref, Ref, nextTick } from 'vue'
 import { useProOptions, useAttrs } from './index'
 import {
   isFunction,
@@ -14,6 +14,7 @@ import type {
   ICrudMenuColumns,
   IFormColumns,
   IFormMenuColumns,
+  IFormSubmit,
   ITableColumns,
   UnknownObject,
 } from '../types/index'
@@ -28,8 +29,7 @@ export function useCrudColumns(
 ): {
   searchColumns: ComputedRef<IFormColumns | undefined>
   tableColumns: ComputedRef<ITableColumns | undefined>
-  menuColumns: ComputedRef<ICrudMenuColumns | boolean>
-  searchMenu: ComputedRef<IFormMenuColumns | undefined>
+  menuColumns: ComputedRef<ICrudMenuColumns | false>
 } {
   const searchColumns = computed(() => {
     return props.searchColumns
@@ -62,24 +62,11 @@ export function useCrudColumns(
       return menu ? options.menu : menu
     }
   })
-  const searchMenu = computed<IFormMenuColumns | undefined>(() => {
-    return menuColumns.value
-      ? {
-          submit: menuColumns.value.search,
-          submitText: menuColumns.value.searchText,
-          submitProps: menuColumns.value.searchProps,
-          reset: menuColumns.value.searchReset,
-          resetText: menuColumns.value.searchResetText,
-          resetProps: menuColumns.value.searchResetProps,
-        }
-      : undefined
-  })
 
   return {
     searchColumns,
     tableColumns,
     menuColumns,
-    searchMenu,
   }
 }
 
@@ -90,18 +77,14 @@ export function useCrudForm(
     editColumns?: IFormColumns
     beforeOpen?: ICrudBeforeOpen
   }>,
-  emit: (
-    event: 'update:modelValue' | 'update:search' | 'submit' | 'serach',
-    ...args: unknown[]
-  ) => void
+  emit: (event: 'submit', ...args: unknown[]) => void,
+  resetForm: () => void
 ): {
   dialogVisible: Ref<boolean>
   formType: Ref<ICrudFormType>
   formColumns: ComputedRef<IFormColumns | undefined>
   openForm: (type: ICrudFormType, row?: UnknownObject) => void
-  serachForm: (state: boolean, err: UnknownObject) => void
-  submitForm: (state: boolean, err: UnknownObject) => void
-  upSearchData: (value: unknown) => void
+  submitForm: IFormSubmit
 } {
   const dialogVisible = ref(false)
   const formType = ref<ICrudFormType>('add')
@@ -122,6 +105,17 @@ export function useCrudForm(
   const formColumns = computed(() => {
     return formType.value === 'add' ? addColumns.value : editColumns.value
   })
+  const submitForm: IFormSubmit = (done, isValid, invalidFields) => {
+    function close() {
+      dialogVisible.value = false
+      nextTick(() => {
+        done()
+        resetForm()
+      })
+    }
+
+    emit('submit', formType.value, close, done, isValid, invalidFields)
+  }
 
   function openForm(type: ICrudFormType, row?: UnknownObject) {
     function done() {
@@ -136,12 +130,40 @@ export function useCrudForm(
     }
   }
 
-  function serachForm(state: boolean, err: UnknownObject) {
-    emit('serach', state, err)
+  return {
+    dialogVisible,
+    formType,
+    formColumns,
+    openForm,
+    submitForm,
   }
+}
 
-  function submitForm(state: boolean, err: UnknownObject) {
-    emit('submit', formType.value, state, err)
+export function useCrudSearchForm(
+  emit: (event: 'update:search' | 'search', ...args: unknown[]) => void,
+  menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | false>
+): {
+  searchMenu: ComputedRef<IFormMenuColumns | undefined>
+  searchForm: IFormSubmit
+  upSearchData: (value: unknown) => void
+} {
+  const searchMenu = computed<IFormMenuColumns | undefined>(() => {
+    const _menuColumns = unref(menuColumns)
+
+    return _menuColumns
+      ? {
+          submit: _menuColumns.search,
+          submitText: _menuColumns.searchText,
+          submitProps: _menuColumns.searchProps,
+          reset: _menuColumns.searchReset,
+          resetText: _menuColumns.searchResetText,
+          resetProps: _menuColumns.searchResetProps,
+        }
+      : undefined
+  })
+
+  const searchForm: IFormSubmit = (done, isValid, invalidFields) => {
+    emit('search', done, isValid, invalidFields)
   }
 
   function upSearchData(value: unknown) {
@@ -149,12 +171,8 @@ export function useCrudForm(
   }
 
   return {
-    dialogVisible,
-    formType,
-    formColumns,
-    openForm,
-    serachForm,
-    submitForm,
+    searchMenu,
+    searchForm,
     upSearchData,
   }
 }
@@ -162,9 +180,9 @@ export function useCrudForm(
 export function useCrudAttrs(
   formType: ICrudFormType | Ref<ICrudFormType>,
   resetForm: () => void,
-  menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | boolean>
+  menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | false>
 ): {
-  attrs: ComputedRef<UnknownObject>
+  attrs: Ref<UnknownObject>
   bindDialog: ComputedRef<UnknownObject>
 } {
   const attrs = useAttrs()
@@ -176,10 +194,6 @@ export function useCrudAttrs(
         ? _menuColumns.addText
         : _menuColumns.editText
       : _formType
-    const beforeClose = (done: () => void) => {
-      resetForm()
-      done()
-    }
     const keys = [
       'title',
       'width',
@@ -202,10 +216,20 @@ export function useCrudAttrs(
       attrs.value,
       keys
     )
+    const _beforeClose = bindDialog['before-close']
+
+    function beforeClose(done: () => void) {
+      function callback() {
+        done()
+        resetForm()
+      }
+
+      isFunction(_beforeClose) ? _beforeClose(callback) : callback()
+    }
 
     bindDialog.title = bindDialog.title ?? title
     bindDialog['custom-class'] = bindDialog['custom-class'] ?? 'pro-crud-dialog'
-    bindDialog['before-close'] = bindDialog['before-close'] ?? beforeClose
+    bindDialog['before-close'] = beforeClose
 
     return bindDialog
   })

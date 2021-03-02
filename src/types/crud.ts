@@ -4,6 +4,7 @@ import type {
   IFormColumns,
   IFormMenuColumns,
   IFormExpose,
+  IFormSubmit,
   TableColumn,
   ITableProps,
   ITableColumns,
@@ -26,6 +27,7 @@ export interface ICrudProps<T = UnknownObject>
   tableColumns?: ITableColumns<T>
   menu: boolean | ICrudMenuColumns<T>
   search?: T
+  searchRules?: UnknownObject
   beforeOpen?: ICrudBeforeOpen<T>
 }
 
@@ -83,8 +85,18 @@ export type ICrudFormType = 'add' | 'edit'
 
 export type ICrudBeforeOpen<T = UnknownObject> = (
   done: () => void,
-  type: ICrudFormType,
+  formType: ICrudFormType,
   row?: T
+) => void
+
+export type ICrudSearch = IFormSubmit
+
+export type ICrudSubmit = (
+  formType: ICrudFormType,
+  close: () => void,
+  done: () => void,
+  isValid: boolean,
+  invalidFields?: UnknownObject
 ) => void
 
 export type ICrudExpose<T = UnknownObject> = IFormExpose<T> & ITableExpose<T>

@@ -5,10 +5,12 @@
       :model-value="search"
       :columns="searchColumns"
       :menu="searchMenu"
+      :size="attrs.size"
+      :rules="searchRules"
       :inline="true"
       class="pro-crud-search"
       @update:modelValue="upSearchData"
-      @submit="serachForm"
+      @submit="searchForm"
     >
       <template
         v-for="slot in searchSlotList"
@@ -52,15 +54,22 @@
     </pro-form>
     <div class="pro-crud-menu">
       <div class="pro-menu-item">
-        <slot name="menu-left" />
+        <slot
+          :size="attrs.size"
+          name="menu-left"
+        />
         <el-button
-          v-if="menuColumns.add"
+          v-if="menuColumns && menuColumns.add"
           v-bind="menuColumns.addProps"
+          :size="attrs.size"
           @click="openForm('add')"
         >
           {{ menuColumns.addText }}
         </el-button>
-        <slot name="menu-right" />
+        <slot
+          :size="attrs.size"
+          name="menu-right"
+        />
       </div>
       <div class="pro-menu-item">
         <slot name="action-left" />
@@ -185,11 +194,12 @@
 </template>
 
 <script setup lang="ts">
-import { useContext, defineEmit, defineProps } from 'vue'
+import { useContext, defineEmit, defineProps, toRefs } from 'vue'
 import { ElDialog } from 'element-plus'
 import {
   useCrudColumns,
   useCrudForm,
+  useCrudSearchForm,
   useCrudAttrs,
   useTableMethods,
   useTableSlotList,
@@ -214,6 +224,7 @@ const props = defineProps<{
   menu: boolean | Record<string, unknown>
   modelValue?: Record<string, unknown>
   search?: Record<string, unknown>
+  searchRules?: Record<string, unknown>
   beforeOpen?: (
     done: () => void,
     type: 'add' | 'edit',
@@ -226,21 +237,11 @@ const emit = defineEmit([
   'submit',
   'reset',
   'delete',
-  'serach',
+  'search',
 ])
 const { expose } = useContext()
-const { searchColumns, tableColumns, menuColumns, searchMenu } = useCrudColumns(
-  props
-)
-const {
-  dialogVisible,
-  formType,
-  formColumns,
-  openForm,
-  serachForm,
-  submitForm,
-  upSearchData,
-} = useCrudForm(props, emit)
+const { searchRules } = toRefs(props)
+const { searchColumns, tableColumns, menuColumns } = useCrudColumns(props)
 const {
   table,
   clearSelection,
@@ -262,6 +263,17 @@ const {
   upFormData,
   resetForm,
 } = useFormMethods(emit)
+const {
+  dialogVisible,
+  formType,
+  formColumns,
+  openForm,
+  submitForm,
+} = useCrudForm(props, emit, resetForm)
+const { searchMenu, searchForm, upSearchData } = useCrudSearchForm(
+  emit,
+  menuColumns
+)
 const { attrs, bindDialog } = useCrudAttrs(formType, resetForm, menuColumns)
 const tableSlotList = tableColumns.value
   ? useTableSlotList(tableColumns.value)
