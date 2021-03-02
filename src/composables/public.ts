@@ -8,6 +8,9 @@ import {
   unref,
   getCurrentInstance,
   inject,
+  reactive,
+  watchEffect,
+  shallowRef,
 } from 'vue'
 import { useRouter } from 'vue-router'
 import { config } from '../utils/config'
@@ -121,21 +124,24 @@ export function useCurrentRoutes(
  * exclusion `class` `style` for attrs
  * @param excludeKeys Additional exclusion value
  */
-export function useAttrs(
-  excludeKeys: string[] = []
-): ComputedRef<UnknownObject> {
+export function useAttrs(excludeKeys: string[] = []): Ref<UnknownObject> {
   const instance = getCurrentInstance() || { attrs: {} }
+  const attrs = shallowRef({})
   const exclude = excludeKeys.concat(['class', 'style'])
 
-  return computed(() => {
-    const attrs = { ...instance.attrs }
+  instance.attrs = reactive(instance.attrs)
+
+  watchEffect(() => {
+    const _attrs = { ...instance.attrs }
 
     exclude.forEach((item: string) => {
-      if (item in attrs) {
-        attrs[item] = undefined
+      if (item in _attrs) {
+        _attrs[item] = undefined
       }
     })
 
-    return attrs
+    attrs.value = _attrs
   })
+
+  return attrs
 }
