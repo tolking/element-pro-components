@@ -78,6 +78,12 @@ export interface FormMenu {
 /** Form Menu Option */
 export type IFormMenuColumns = StringObject & FormMenu
 
+export type IFormSubmit = (
+  done: () => void,
+  isValid: boolean,
+  invalidFields?: UnknownObject
+) => void
+
 export interface IFormValidateCallback<T = UnknownObject> {
   (isValid: boolean, invalidFields?: UnknownObject): void
 }

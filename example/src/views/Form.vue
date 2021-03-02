@@ -38,6 +38,7 @@ import type {
   IFormMenuColumns,
   IFormExpose,
   StringObject,
+  IFormSubmit,
 } from '/@src/index'
 
 interface RuleForm {
@@ -179,6 +180,12 @@ const columns1 = ref<IFormColumns<RuleForm>>([
     ],
   },
 ])
+const submitForm: IFormSubmit = (done, isValid, invalidFields) => {
+  console.log(isValid, invalidFields)
+  setTimeout(() => {
+    done()
+  }, 1000)
+}
 
 onMounted(() => {
   console.log(ruleForm.value)
@@ -192,16 +199,5 @@ function querySearch(queryString: string, cb: (...arg: unknown[]) => void) {
         })
       : list
   )
-}
-
-function submitForm() {
-  if (menu.value.submitProps) {
-    menu.value.submitProps.loading = true
-    setTimeout(() => {
-      if (menu.value.submitProps) {
-        menu.value.submitProps.loading = false
-      }
-    }, 1000)
-  }
 }
 </script>

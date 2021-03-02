@@ -101,11 +101,17 @@ export function useFormMethods<T = UnknownObject>(
   ) => void
 ): {
   form: Ref<IFormExpose<T>>
+  loading: Ref<boolean>
   upFormData: (value: unknown) => void
   submitForm: () => void
   resetForm: () => void
 } & IFormExpose<T> {
   const form = ref<IFormExpose<T>>({} as IFormExpose<T>)
+  const loading = ref(false)
+
+  function done() {
+    loading.value = false
+  }
 
   function validate(callback?: IFormValidateCallback<T>) {
     return form.value.validate(callback)
@@ -134,13 +140,14 @@ export function useFormMethods<T = UnknownObject>(
   }
 
   function submitForm() {
+    loading.value = true
     form.value
       .validate()
-      .then((state) => {
-        emit('submit', state)
+      .then((isValid) => {
+        emit('submit', done, isValid)
       })
-      .catch((err: UnknownObject) => {
-        emit('submit', false, err)
+      .catch((invalidFields: UnknownObject) => {
+        emit('submit', done, false, invalidFields)
       })
   }
 
@@ -154,6 +161,7 @@ export function useFormMethods<T = UnknownObject>(
 
   return {
     form,
+    loading,
     validate,
     resetFields,
     clearValidate,

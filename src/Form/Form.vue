@@ -51,6 +51,7 @@
       <el-button
         v-if="menu.submit"
         v-bind="menu.submitProps"
+        :loading="loading"
         @click="submitForm"
       >
         {{ menu.submitText }}
@@ -91,6 +92,7 @@ const { columns, modelValue, labelPosition } = toRefs(props)
 const slotList = useFormSlotList(columns)
 const {
   form,
+  loading,
   validate,
   resetFields,
   clearValidate,
