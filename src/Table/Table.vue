@@ -51,6 +51,7 @@
         <slot
           v-bind="scope"
           :name="slot.prop"
+          :size="attrs.size"
         >
           {{ scope.row[slot.prop] }}
         </slot>
