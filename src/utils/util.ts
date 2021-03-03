@@ -1,6 +1,10 @@
 import { isObject } from './index'
 import type { IScreenSize, UnknownObject } from '../types/index'
 
+/**
+ * determine the current screen size
+ * @param width current screen width
+ */
 export function getScreenSize(width: number): IScreenSize {
   if (width >= 1920) {
     return 'xl'
@@ -15,6 +19,11 @@ export function getScreenSize(width: number): IScreenSize {
   }
 }
 
+/**
+ * deep merge two objects
+ * @param obj1 object 1
+ * @param obj2 object 2
+ */
 export function objectDeepMerge<T extends UnknownObject>(
   obj1: UnknownObject,
   obj2: UnknownObject
@@ -34,6 +43,11 @@ export function objectDeepMerge<T extends UnknownObject>(
   return _obj as T
 }
 
+/**
+ * Select keys from object to form new object
+ * @param obj object
+ * @param keys pick keys
+ */
 export function objectPick<T extends Q, Q = UnknownObject>(
   obj: T,
   keys: Array<keyof Q>

@@ -35,9 +35,13 @@ interface RouteRecordRedirect extends _RouteRecordBase {
 }
 
 interface IRouteMeta extends RouteMeta {
+  /** the Menu title */
   title?: string
+  /** the Menu icon */
   icon?: string
+  /** whether to show in the Menu */
   hidden?: boolean
+  /** whether the current route is keepAlive */
   keepAlive?: boolean
 }
 
@@ -45,7 +49,7 @@ type ReplaceMeta<T> = {
   [Q in keyof T]: Q extends 'meta'
     ? IRouteMeta
     : Q extends 'children'
-    ? ReplaceMeta<T>[]
+    ? IRouteRecordRaw[]
     : T[Q]
 }
 
