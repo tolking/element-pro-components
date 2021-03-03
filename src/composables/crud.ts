@@ -92,8 +92,6 @@ export function useCrudForm(
   const addColumns = computed(() => {
     return props.addColumns
       ? props.addColumns
-      : props.formColumns
-      ? props.formColumns
       : props.columns
       ? filterDeep<IFormColumns>(props.columns, 'add')
       : undefined
@@ -101,14 +99,23 @@ export function useCrudForm(
   const editColumns = computed(() => {
     return props.editColumns
       ? props.editColumns
-      : props.formColumns
-      ? props.formColumns
       : props.columns
       ? filterDeep<IFormColumns>(props.columns, 'edit')
       : undefined
   })
+  const _formColumns = computed(() => {
+    return props.formColumns
+      ? props.formColumns
+      : props.columns
+      ? filterDeep<IFormColumns>(props.columns, 'form')
+      : undefined
+  })
   const formColumns = computed(() => {
-    return formType.value === 'add' ? addColumns.value : editColumns.value
+    return _formColumns.value && _formColumns.value.length
+      ? _formColumns.value
+      : formType.value === 'add'
+      ? addColumns.value
+      : editColumns.value
   })
   const submitForm: IFormSubmit = (done, isValid, invalidFields) => {
     function close() {
