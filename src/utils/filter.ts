@@ -5,22 +5,35 @@ type ListDeep = Array<{
   [key: string]: unknown
 }>
 
+/**
+ * deep filter list
+ * @param list list to be filter
+ * @param key check key
+ * @param value check the value is true or false
+ */
 export function filterDeep<T extends ListDeep>(
   list: T,
   key: string,
   value = true
 ): T {
-  return list.filter((item) => {
-    const _item = { ...item }
-    const isFilter = value ? _item[key] : !_item[key]
-
-    if (!isFilter && _item.children && _item.children.length) {
-      _item.children = filterDeep(_item.children, key)
+  const _list = ([] as unknown) as T
+  for (let i = 0; i < list.length; i++) {
+    const item = { ...list[i] }
+    const isFilter = value ? item[key] : !item[key]
+    if (isFilter) {
+      if (item.children && item.children.length) {
+        item.children = filterDeep(item.children, key, value)
+      }
+      _list.push(item)
     }
-    return isFilter
-  }) as T
+  }
+  return _list
 }
 
+/**
+ * deeply find the slots in the list and convert them into a single-level array
+ * @param list slot list
+ */
 export function filterSlotDeep<T>(list: T): T {
   if (!isArray(list)) return ([] as unknown) as T
 

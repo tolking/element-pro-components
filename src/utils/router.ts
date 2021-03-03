@@ -7,12 +7,17 @@ import type { IRouteRecordRaw } from '../types/index'
 export function filterRouterByHidden(
   router: IRouteRecordRaw[]
 ): IRouteRecordRaw[] {
-  return router.filter((item) => {
-    if (!item.meta?.hidden && Array.isArray(item.children)) {
-      item.children = filterRouterByHidden(item.children)
+  const list: IRouteRecordRaw[] = []
+  for (let i = 0; i < router.length; i++) {
+    const item = { ...router[i] }
+    if (!item.meta?.hidden) {
+      if (item.children && item.children.length) {
+        item.children = filterRouterByHidden(item.children)
+      }
+      list.push(item)
     }
-    return !item.meta?.hidden
-  })
+  }
+  return list
 }
 
 /**
