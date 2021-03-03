@@ -44,7 +44,6 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { ElMessageBox } from 'element-plus'
 import type {
   ICrudBeforeOpen,
   ICrudColumns,
@@ -150,13 +149,8 @@ onMounted(() => {
 })
 
 function beforeClose(done: () => void) {
-  ElMessageBox.confirm('Close the current window', 'tip')
-    .then(() => {
-      done()
-    })
-    .catch(() => {
-      console.log('cancel')
-    })
+  console.log('beforeClose')
+  done()
 }
 
 function deleteRow(row: DataItem) {

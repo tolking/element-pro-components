@@ -12,10 +12,12 @@ export function filterDeep<T extends ListDeep>(
 ): T {
   return list.filter((item) => {
     const _item = { ...item }
-    if (_item[key] && _item.children && _item.children.length) {
+    const isFilter = value ? _item[key] : !_item[key]
+
+    if (!isFilter && _item.children && _item.children.length) {
       _item.children = filterDeep(_item.children, key)
     }
-    return value ? _item[key] : !_item[key]
+    return isFilter
   }) as T
 }
 

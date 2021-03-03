@@ -75,6 +75,7 @@ export function useCrudForm(
     columns?: ICrudColumns
     addColumns?: IFormColumns
     editColumns?: IFormColumns
+    formColumns?: IFormColumns
     beforeOpen?: ICrudBeforeOpen
   }>,
   emit: (event: 'submit', ...args: unknown[]) => void,
@@ -91,6 +92,8 @@ export function useCrudForm(
   const addColumns = computed(() => {
     return props.addColumns
       ? props.addColumns
+      : props.formColumns
+      ? props.formColumns
       : props.columns
       ? filterDeep<IFormColumns>(props.columns, 'add')
       : undefined
@@ -98,6 +101,8 @@ export function useCrudForm(
   const editColumns = computed(() => {
     return props.editColumns
       ? props.editColumns
+      : props.formColumns
+      ? props.formColumns
       : props.columns
       ? filterDeep<IFormColumns>(props.columns, 'edit')
       : undefined

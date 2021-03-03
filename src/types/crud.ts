@@ -23,6 +23,7 @@ export interface ICrudProps<T = UnknownObject>
   columns?: ICrudColumns<T>
   addColumns?: IFormColumns<T>
   editColumns?: IFormColumns<T>
+  formColumns?: IFormColumns<T>
   searchColumns?: IFormColumns<T>
   tableColumns?: ITableColumns<T>
   menu: boolean | ICrudMenuColumns<T>

@@ -219,6 +219,7 @@ const props = defineProps<{
   columns?: Array<Record<string, unknown> & CrudColumn>
   addColumns?: Array<Record<string, unknown> & FormColumn>
   editColumns?: Array<Record<string, unknown> & FormColumn>
+  formColumns?: Array<Record<string, unknown> & FormColumn>
   searchColumns?: Array<Record<string, unknown> & FormColumn>
   tableColumns?: Array<Record<string, unknown> & TableColumn>
   menu: boolean | Record<string, unknown>
