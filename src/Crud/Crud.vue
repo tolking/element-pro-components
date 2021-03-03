@@ -114,24 +114,27 @@
       <template #append>
         <slot name="append" />
       </template>
-      <template #menu="{ size, row }">
+      <template #menu="scope">
         <el-button
-          v-if="menuColumns.showEdit(row)"
+          v-if="menuColumns.showEdit(scope.row)"
           v-bind="menuColumns.editProps"
-          :size="size"
-          @click="openForm('edit', row)"
+          :size="scope.size"
+          @click="openForm('edit', scope.row)"
         >
           {{ menuColumns.editText }}
         </el-button>
         <el-button
-          v-if="menuColumns.showDel(row)"
+          v-if="menuColumns.showDel(scope.row)"
           v-bind="menuColumns.delProps"
-          :size="size"
-          @click="delRow(row)"
+          :size="scope.size"
+          @click="delRow(scope.row)"
         >
           {{ menuColumns.delText }}
         </el-button>
-        <slot name="menu" />
+        <slot
+          v-bind="scope"
+          name="menu"
+        />
       </template>
     </pro-table>
     <el-dialog
