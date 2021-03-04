@@ -13,7 +13,7 @@ ProCrud.install = (app: App, options?: InstallOptions) => {
     ? objectDeepMerge<Required<InstallOptions>>(config, options)
     : config
 
-  app.provide('ProCrudOptions', _options)
+  app.config.globalProperties.$PROOPTIONS = _options
 
   app.component(ProCrud.name || 'ProCrud', ProCrud)
 }

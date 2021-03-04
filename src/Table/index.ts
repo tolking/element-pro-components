@@ -13,7 +13,7 @@ ProTable.install = (app: App, options?: InstallOptions) => {
     ? objectDeepMerge<Required<InstallOptions>>(config, options)
     : config
 
-  app.provide('ProTableOptions', _options)
+  app.config.globalProperties.$PROOPTIONS = _options
 
   app.component(ProTable.name || 'ProTable', ProTable)
 }

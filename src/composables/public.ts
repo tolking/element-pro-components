@@ -7,7 +7,6 @@ import {
   onUnmounted,
   unref,
   getCurrentInstance,
-  inject,
   reactive,
   watchEffect,
   shallowRef,
@@ -20,7 +19,6 @@ import {
   addResizeListener,
   removeResizeListener,
   ResizableElement,
-  objectDeepMerge,
 } from '../utils/index'
 import type {
   IRouteRecordRaw,
@@ -29,26 +27,14 @@ import type {
   InstallOptions,
 } from '../types/index'
 
-type Keys = 'ProCrudOptions' | 'ProTableOptions' | 'ProFormOptions'
-
 /**
  * get the global config
- * @param key the key of components inject
  */
-export function useProOptions(key?: Keys): Required<InstallOptions> {
-  const proOptions = inject<InstallOptions>('ProOptions')
-  let options: InstallOptions | undefined = undefined
+export function useProOptions(): Required<InstallOptions> {
+  const vm = getCurrentInstance()
+  const proxy = (vm?.proxy || {}) as { $PROOPTIONS: Required<InstallOptions> }
 
-  if (proOptions) {
-    options = proOptions
-  } else if (key) {
-    const componentOptions = inject<InstallOptions>(key)
-    componentOptions && (options = componentOptions)
-  }
-
-  return options
-    ? objectDeepMerge<Required<InstallOptions>>(options, config)
-    : config
+  return '$PROOPTIONS' in proxy ? proxy.$PROOPTIONS : config
 }
 
 /**

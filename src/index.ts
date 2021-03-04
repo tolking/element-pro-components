@@ -44,7 +44,7 @@ const install = (app: App, options?: InstallOptions): void => {
     ? objectDeepMerge<Required<InstallOptions>>(config, options)
     : config
 
-  app.provide('ProOptions', _options)
+  app.config.globalProperties.$PROOPTIONS = _options
 
   for (const key in components) {
     const item = components[key]

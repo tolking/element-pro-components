@@ -132,7 +132,7 @@ export function usePagination(
   nextClick: (current: number) => void
 } {
   const pagination = computed(() => {
-    const options = useProOptions('ProTableOptions')
+    const options = useProOptions()
 
     return props.pagination
       ? objectDeepMerge<IPagination>(options.pagination, props.pagination)

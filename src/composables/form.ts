@@ -75,7 +75,7 @@ export function useFormMenu(
   props: Readonly<{ menu?: IFormMenuColumns }>
 ): ComputedRef<IFormMenuColumns> {
   return computed(() => {
-    const options = useProOptions('ProFormOptions')
+    const options = useProOptions()
     const pickKeys: Array<keyof FormMenu> = [
       'submit',
       'submitText',

@@ -13,7 +13,7 @@ ProForm.install = (app: App, options?: InstallOptions) => {
     ? objectDeepMerge<Required<InstallOptions>>(config, options)
     : config
 
-  app.provide('ProFormOptions', _options)
+  app.config.globalProperties.$PROOPTIONS = _options
 
   app.component(ProForm.name || 'ProForm', ProForm)
 }

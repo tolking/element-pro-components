@@ -46,7 +46,7 @@ export function useCrudColumns(
       : undefined
   })
   const menuColumns = computed(() => {
-    const options = useProOptions('ProCrudOptions')
+    const options = useProOptions()
     const menu = props.menu
 
     if (isObject(menu)) {
