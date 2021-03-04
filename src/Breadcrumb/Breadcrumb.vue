@@ -17,9 +17,9 @@ import { useRoute } from 'vue-router'
 import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'
 import { findRouterItemListByPath } from '../utils/index'
 import { useCurrentRoutes } from '../composables/index'
-import type { ProRouteRecordRaw } from '../types/index'
+import type { IRouteRecordRaw } from '../types/index'
 
-const props = defineProps<{ routes?: ProRouteRecordRaw[] }>()
+const props = defineProps<{ routes?: IRouteRecordRaw[] }>()
 const route = useRoute()
 const routes = useCurrentRoutes(props)
 const list = computed(() => {

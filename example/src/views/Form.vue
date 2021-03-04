@@ -2,8 +2,10 @@
   <pro-form
     v-model="form"
     :columns="columns"
+    :menu="menu"
     label-width="180px"
     size="small"
+    @submit="submitForm"
   >
     <template #slot-label>
       <i class="el-icon-time" />
@@ -11,12 +13,6 @@
     </template>
     <template #slot="{ item, value, setValue }">
       <span>{{ item }} - {{ value }} - {{ setValue }}</span>
-    </template>
-    <template #menu>
-      <el-button type="primary">
-        Submit
-      </el-button>
-      <el-button>Cancel</el-button>
     </template>
   </pro-form>
   <pro-form
@@ -32,27 +28,38 @@
         @update:modelValue="setValue"
       />
     </template>
-    <template #menu>
-      <el-button
-        type="primary"
-        @click="submitForm"
-      >
-        Submit
-      </el-button>
-      <el-button @click="resetForm">
-        Cancel
-      </el-button>
-    </template>
   </pro-form>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { ProFormColumns, ProFormExpose } from '/@src/index'
+import { onMounted, ref } from 'vue'
+import type {
+  IFormColumns,
+  IFormMenuColumns,
+  IFormExpose,
+  StringObject,
+  IFormSubmit,
+} from '/@src/index'
 
-const form = ref<Record<string, unknown>>({})
-const form1 = ref<Record<string, unknown>>({})
-const ruleForm = ref<ProFormExpose>({} as ProFormExpose)
+interface RuleForm {
+  date: string
+  user: {
+    name: string
+    address: string
+  }
+}
+
+const form = ref<StringObject>({})
+const form1 = ref<RuleForm>({} as RuleForm)
+const menu = ref<IFormMenuColumns>({
+  submitText: 'Create',
+  submitProps: {
+    type: 'primary',
+    loading: false,
+  },
+  reset: false,
+})
+const ruleForm = ref<IFormExpose<RuleForm>>({} as IFormExpose<RuleForm>)
 const rules = ref({
   date: { required: true, message: 'please input data', trigger: 'blur' },
   user: { required: true, message: 'please input user', trigger: 'blur' },
@@ -62,7 +69,7 @@ const list = [
   { value: 'JavaScript', tag: 'javascript' },
   { value: 'Python', tag: 'python' },
 ]
-const columns = ref<ProFormColumns>([
+const columns = ref<IFormColumns>([
   {
     // label: 'Slot',
     prop: 'slot',
@@ -142,7 +149,7 @@ const columns = ref<ProFormColumns>([
     },
   },
 ])
-const columns1 = ref<ProFormColumns>([
+const columns1 = ref<IFormColumns<RuleForm>>([
   {
     label: 'Date',
     prop: 'date',
@@ -173,6 +180,16 @@ const columns1 = ref<ProFormColumns>([
     ],
   },
 ])
+const submitForm: IFormSubmit = (done, isValid, invalidFields) => {
+  console.log(isValid, invalidFields)
+  setTimeout(() => {
+    done()
+  }, 1000)
+}
+
+onMounted(() => {
+  console.log(ruleForm.value)
+})
 
 function querySearch(queryString: string, cb: (...arg: unknown[]) => void) {
   cb(
@@ -182,20 +199,5 @@ function querySearch(queryString: string, cb: (...arg: unknown[]) => void) {
         })
       : list
   )
-}
-
-function submitForm() {
-  ruleForm.value
-    .validate()
-    .then(() => {
-      alert('submit!')
-    })
-    .catch(() => {
-      console.log('error submit!!')
-    })
-}
-
-function resetForm() {
-  ruleForm.value.resetFields()
 }
 </script>

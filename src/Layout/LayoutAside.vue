@@ -42,11 +42,11 @@ import { toRefs, defineEmit, defineProps, useContext, computed } from 'vue'
 import { ElScrollbar } from 'element-plus'
 import ProMenu from '../Menu/index'
 import { useAttrs, useScreenSize } from '../composables/index'
-import type { ProRouteRecordRaw } from '../types/index'
+import type { IRouteRecordRaw } from '../types/index'
 
 const props = defineProps<{
   collapse: boolean
-  routes?: ProRouteRecordRaw[]
+  routes?: IRouteRecordRaw[]
 }>()
 const { collapse, routes } = toRefs(props)
 const emit = defineEmit(['toggle-collapse'])

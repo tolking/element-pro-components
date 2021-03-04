@@ -7,8 +7,12 @@ import {
   onUnmounted,
   unref,
   getCurrentInstance,
+  reactive,
+  watchEffect,
+  shallowRef,
 } from 'vue'
 import { useRouter } from 'vue-router'
+import { config } from '../utils/config'
 import {
   filterRouterByHidden,
   getScreenSize,
@@ -17,10 +21,21 @@ import {
   ResizableElement,
 } from '../utils/index'
 import type {
-  ProRouteRecordRaw,
-  ScreenSize,
+  IRouteRecordRaw,
+  IScreenSize,
   UnknownObject,
+  InstallOptions,
 } from '../types/index'
+
+/**
+ * get the global config
+ */
+export function useProOptions(): Required<InstallOptions> {
+  const vm = getCurrentInstance()
+  const proxy = (vm?.proxy || {}) as { $PROOPTIONS: Required<InstallOptions> }
+
+  return '$PROOPTIONS' in proxy ? proxy.$PROOPTIONS : config
+}
 
 /**
  * toggle show
@@ -46,8 +61,8 @@ export function useShow(
 }
 
 /** Gets the responsive breakpoint of the current screen */
-export function useScreenSize(): Ref<ScreenSize> {
-  const size = ref<ScreenSize>('xl')
+export function useScreenSize(): Ref<IScreenSize> {
+  const size = ref<IScreenSize>('xl')
   const el = ref<ResizableElement>({} as ResizableElement)
 
   onMounted(() => {
@@ -76,15 +91,15 @@ export function useScreenSize(): Ref<ScreenSize> {
  */
 export function useCurrentRoutes(
   props: Readonly<{
-    routes?: ProRouteRecordRaw[]
+    routes?: IRouteRecordRaw[]
   }>
-): ComputedRef<ProRouteRecordRaw[]> {
+): ComputedRef<IRouteRecordRaw[]> {
   return computed(() => {
     if (props.routes && props.routes.length) {
       return props.routes
     } else {
       const router = useRouter()
-      const _routes = router.options.routes as ProRouteRecordRaw[]
+      const _routes = router.options.routes as IRouteRecordRaw[]
 
       return filterRouterByHidden(_routes)
     }
@@ -95,21 +110,24 @@ export function useCurrentRoutes(
  * exclusion `class` `style` for attrs
  * @param excludeKeys Additional exclusion value
  */
-export function useAttrs(
-  excludeKeys: string[] = []
-): ComputedRef<UnknownObject> {
+export function useAttrs(excludeKeys: string[] = []): Ref<UnknownObject> {
   const instance = getCurrentInstance() || { attrs: {} }
+  const attrs = shallowRef({})
   const exclude = excludeKeys.concat(['class', 'style'])
 
-  return computed(() => {
-    const attrs = { ...instance.attrs }
+  instance.attrs = reactive(instance.attrs)
+
+  watchEffect(() => {
+    const _attrs = { ...instance.attrs }
 
     exclude.forEach((item: string) => {
-      if (item in attrs) {
-        attrs[item] = undefined
+      if (item in _attrs) {
+        _attrs[item] = undefined
       }
     })
 
-    return attrs
+    attrs.value = _attrs
   })
+
+  return attrs
 }

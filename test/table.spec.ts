@@ -4,14 +4,14 @@ import ProTable from '../src/Table/Table.vue'
 import { config } from '../src/utils/config'
 import { tableData, TableItem } from './mock'
 import type {
-  ProTableColumns,
-  ProTableIndexColumns,
-  ProTableExpandColumns,
-  ProTableMenuColumns,
-  ProPagination,
+  ITableColumns,
+  ITableIndexColumns,
+  ITableExpandColumns,
+  ITableMenuColumns,
+  IPagination,
 } from '../src/types/index'
 
-const columns: ProTableColumns = [
+const columns: ITableColumns = [
   {
     label: 'Date',
     prop: 'date',
@@ -72,7 +72,7 @@ describe('Table.vue', () => {
         return { columns: ref(columns) }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: ProTableColumns }
+    const vm = (wrapper.vm as unknown) as { columns: ITableColumns }
 
     expect(getHeaderList(wrapper)).toContain('Date')
     expect(getHeaderList(wrapper)).toContain('Name')
@@ -112,12 +112,12 @@ describe('Table.vue', () => {
     const wrapper = await _mount({
       template: '<pro-table :columns="columns" :index="index" />',
       setup() {
-        const index = ref<boolean | ProTableIndexColumns>({ label: '#' })
+        const index = ref<boolean | ITableIndexColumns>({ label: '#' })
         return { columns, index }
       },
     })
     const vm = (wrapper.vm as unknown) as {
-      index: boolean | ProTableIndexColumns
+      index: boolean | ITableIndexColumns
     }
 
     expect(getHeaderList(wrapper)).toContain('#')
@@ -137,12 +137,12 @@ describe('Table.vue', () => {
     const wrapper = await _mount({
       template: '<pro-table :columns="columns" :expand="expand" />',
       setup() {
-        const expand = ref<boolean | ProTableExpandColumns>({ label: '>' })
+        const expand = ref<boolean | ITableExpandColumns>({ label: '>' })
         return { columns, expand }
       },
     })
     const vm = (wrapper.vm as unknown) as {
-      expand: boolean | ProTableExpandColumns
+      expand: boolean | ITableExpandColumns
     }
 
     expect(getHeaderList(wrapper)).toContain('>')
@@ -180,12 +180,12 @@ describe('Table.vue', () => {
     const wrapper = await _mount({
       template: '<pro-table :columns="columns" :menu="menu" />',
       setup() {
-        const menu = ref<boolean | ProTableMenuColumns>({ label: 'Menu' })
+        const menu = ref<boolean | ITableMenuColumns>({ label: 'Menu' })
         return { columns, menu }
       },
     })
     const vm = (wrapper.vm as unknown) as {
-      menu: boolean | ProTableMenuColumns
+      menu: boolean | ITableMenuColumns
     }
 
     expect(getHeaderList(wrapper)).toHaveLength(4)
@@ -217,7 +217,7 @@ describe('Table.vue', () => {
         const total = ref(50)
         const currentPage = ref(1)
         const pageSize = ref(10)
-        const pagination = ref<ProPagination>(config.pagination)
+        const pagination = ref<IPagination>(config.pagination)
         return { columns, total, currentPage, pageSize, pagination }
       },
     })
@@ -225,7 +225,7 @@ describe('Table.vue', () => {
       total: number
       currentPage: number
       pageSize: number
-      pagination: ProPagination
+      pagination: IPagination
     }
 
     expect(wrapper.find('.pro-pagination')).not.toBeNull()
@@ -335,7 +335,7 @@ describe('Table.vue', () => {
     const wrapper = await _mount({
       template: '<pro-table :columns="columns" />',
       setup() {
-        const _columns = ref<ProTableColumns>([
+        const _columns = ref<ITableColumns>([
           {
             label: 'Date',
             prop: 'date',
@@ -357,7 +357,7 @@ describe('Table.vue', () => {
         return { columns: _columns }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: ProTableColumns }
+    const vm = (wrapper.vm as unknown) as { columns: ITableColumns }
 
     expect(getMultiHeader(wrapper)).toHaveLength(2)
 

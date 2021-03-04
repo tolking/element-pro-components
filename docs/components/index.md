@@ -23,7 +23,7 @@
 - 参考 meta
 
 ```ts
-interface ProRouteMeta extends RouteMeta {
+interface IRouteMeta extends RouteMeta {
   title?: string // 用于显示菜单标题
   icon?: string // 用于显示菜单图标
   hidden?: boolean // 用于判断是否显示

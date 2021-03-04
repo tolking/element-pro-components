@@ -1,30 +1,32 @@
-import { ComputedRef, computed, Ref, unref, inject, ref } from 'vue'
-import { config } from '../utils/config'
-import { filterSlotDeep, isObject } from '../utils/index'
+import { ComputedRef, computed, Ref, unref, ref } from 'vue'
+import { filterSlotDeep, isObject, objectDeepMerge } from '../utils/index'
 import type {
-  ProTableColumns,
-  ProTableColumnsProps,
-  ProTableExpose,
-  ProPagination,
+  ITableColumns,
+  TableColumnsProps,
+  ITableExpose,
+  IPagination,
   UnknownObject,
+  StringObject,
+  DeepTypeof,
 } from '../types/index'
+import { useProOptions } from './public'
 
-export function useColumnsSlotList(
-  columns: ProTableColumns | Ref<ProTableColumns>
-): ComputedRef<ProTableColumns> {
+export function useTableSlotList(
+  columns: ITableColumns | Ref<ITableColumns>
+): ComputedRef<ITableColumns> {
   return computed(() => {
     const _columns = unref(columns)
 
-    return filterSlotDeep<ProTableColumns>(_columns).map((item) => {
+    return filterSlotDeep<ITableColumns>(_columns).map((item) => {
       item.header = item.prop + '-header'
       return item
     })
   })
 }
 
-export function useColumnsDefaultBind(
-  props: Readonly<ProTableColumnsProps>
-): ComputedRef<ProTableColumnsProps> {
+export function useTableDefaultBind(
+  props: Readonly<TableColumnsProps>
+): ComputedRef<TableColumnsProps> {
   return computed(() => ({
     showOverflowTooltip: props.showOverflowTooltip || false,
     align: props.align,
@@ -32,15 +34,14 @@ export function useColumnsDefaultBind(
   }))
 }
 
-interface ColumnsBind {
+interface ColumnsBind extends StringObject {
   slot?: boolean
   children?: unknown
-  [key: string]: unknown
 }
 
-export function useColumnsBind<T extends ColumnsBind>(
+export function useTableBind<T extends ColumnsBind>(
   currentBind: boolean | T | Ref<boolean | T>,
-  defaultBind?: ProTableColumnsProps | Ref<ProTableColumnsProps>
+  defaultBind?: TableColumnsProps | Ref<TableColumnsProps>
 ): ComputedRef<T> {
   return computed(() => {
     const _currentBind = unref(currentBind)
@@ -56,16 +57,16 @@ export function useColumnsBind<T extends ColumnsBind>(
   })
 }
 
-export function useTableMethods(): {
-  table: Ref<ProTableExpose>
-} & ProTableExpose {
-  const table = ref<ProTableExpose>({} as ProTableExpose)
+export function useTableMethods<T = UnknownObject>(): {
+  table: Ref<ITableExpose<T>>
+} & ITableExpose<T> {
+  const table = ref<ITableExpose<T>>({} as ITableExpose<T>)
 
   function clearSelection() {
     table.value.clearSelection()
   }
 
-  function toggleRowSelection(row: UnknownObject, selected?: boolean) {
+  function toggleRowSelection(row: T, selected?: boolean) {
     table.value.toggleRowSelection(row, selected)
   }
 
@@ -73,11 +74,11 @@ export function useTableMethods(): {
     table.value.toggleAllSelection()
   }
 
-  function toggleRowExpansion(row: UnknownObject, expanded?: boolean) {
+  function toggleRowExpansion(row: T, expanded?: boolean) {
     table.value.toggleRowExpansion(row, expanded)
   }
 
-  function setCurrentRow(row?: UnknownObject) {
+  function setCurrentRow(row?: T) {
     table.value.setCurrentRow(row)
   }
 
@@ -85,7 +86,7 @@ export function useTableMethods(): {
     table.value.clearSort()
   }
 
-  function clearFilter(columnKeys?: string[]) {
+  function clearFilter(columnKeys?: DeepTypeof<T> | Array<DeepTypeof<T>>) {
     table.value.clearFilter(columnKeys)
   }
 
@@ -93,7 +94,7 @@ export function useTableMethods(): {
     table.value.doLayout()
   }
 
-  function sort(prop: string, order: string) {
+  function sort(prop: DeepTypeof<T>, order: string) {
     table.value.sort(prop, order)
   }
 
@@ -111,31 +112,8 @@ export function useTableMethods(): {
   }
 }
 
-export function usePaginationBind(
-  pagination: undefined | ProPagination | Ref<undefined | ProPagination>
-): ComputedRef<ProPagination> {
-  return computed(() => {
-    const _pagination = unref(pagination)
-
-    if (_pagination) {
-      return _pagination
-    } else {
-      const options = inject<{ pagination: ProPagination }>('ProOptions')
-
-      if (options) {
-        return options.pagination
-      } else {
-        const tableOptions = inject<{ pagination: ProPagination }>(
-          'ProTableOptions'
-        )
-
-        return tableOptions?.pagination || config.pagination
-      }
-    }
-  })
-}
-
-export function usePaginationEmit(
+export function usePagination(
+  props: Readonly<{ pagination?: IPagination }>,
   emit: (
     event:
       | 'update:currentPage'
@@ -147,27 +125,40 @@ export function usePaginationEmit(
     ...args: unknown[]
   ) => void
 ): {
+  pagination: ComputedRef<IPagination>
   sizeChange: (size: number) => void
   currentChange: (current: number) => void
   prevClick: (current: number) => void
   nextClick: (current: number) => void
 } {
+  const pagination = computed(() => {
+    const options = useProOptions()
+
+    return props.pagination
+      ? objectDeepMerge<IPagination>(options.pagination, props.pagination)
+      : options.pagination
+  })
+
   function sizeChange(size: number) {
     emit('update:pageSize', size)
     emit('size-change', size)
   }
+
   function currentChange(current: number) {
     emit('update:currentPage', current)
     emit('current-change', current)
   }
+
   function prevClick(current: number) {
     emit('current-change', current)
   }
+
   function nextClick(current: number) {
     emit('current-change', current)
   }
 
   return {
+    pagination,
     sizeChange,
     currentChange,
     prevClick,

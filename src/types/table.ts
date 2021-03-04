@@ -1,7 +1,25 @@
-import type { UnknownObject, UnknownFunction, Placement } from './index'
+import type {
+  UnknownObject,
+  UnknownFunction,
+  IPlacementType,
+  StringObject,
+  DeepTypeof,
+} from './index'
+
+export interface ITableProps<T = UnknownObject> extends TableColumnsProps {
+  selection: boolean | ITableSelectionColumns<T>
+  expand: boolean | ITableExpandColumns
+  index: boolean | ITableIndexColumns
+  menu: boolean | ITableMenuColumns
+  columns: ITableColumns<T>
+  total?: number
+  pageSize?: number
+  currentPage?: number
+  pagination?: IPagination
+}
 
 /** Table Column Options for pro-table */
-export interface ProTableColumnsProps {
+export interface TableColumnsProps {
   /** whether to hide extra content and show them in a tooltip when hovering on the cell */
   showOverflowTooltip?: boolean
   /** alignment */
@@ -10,7 +28,9 @@ export interface ProTableColumnsProps {
   headerAlign?: 'left' | 'center' | 'right'
 }
 
-interface TableCommonColumn<T = UnknownObject> extends ProTableColumnsProps {
+interface TableCommonColumn<T = UnknownObject>
+  extends StringObject,
+    TableColumnsProps {
   /** column label */
   label?: string
   /** column width */
@@ -40,53 +60,42 @@ interface TableCommonColumn<T = UnknownObject> extends ProTableColumnsProps {
   /** an array of data filtering options. For each element in this array, text and value are required */
   filters?: Array<'text' | 'value' | string>
   /** placement for the filter dropdown */
-  filterPlacement?: Placement
+  filterPlacement?: IPlacementType
   /** whether data filtering supports multiple options */
   filterMultiple?: boolean
   /** data filtering method. If filter-multiple is on, this method will be called multiple times for each row, and a row will display if one of the calls returns true */
   filterMethod?: UnknownFunction
   /** filter value for selected data, might be useful when table header is rendered with render-header */
   filteredValue?: unknown[]
-  [key: string]: unknown
 }
 
 /** Table Column Options */
-export interface ProTableColumn<T = UnknownObject> extends TableCommonColumn {
+export interface TableColumn<T = UnknownObject> extends TableCommonColumn {
   /** field name */
-  prop?: keyof T
+  prop?: DeepTypeof<T>
   /** whether column has a slot */
   slot?: boolean
   /** When the data structure is complex, you can use children to show the data hierarchy */
-  children?: ProTableColumns<T>
+  children?: ITableColumns<T>
 }
 
 /** Table Columns Options */
-export type ProTableColumns<T = UnknownObject> = ProTableColumn<T>[]
+export type ITableColumns<T = UnknownObject> = TableColumn<T>[]
 
 /** Table Expand Options */
-export type ProTableExpandColumns = TableCommonColumn
+export type ITableExpandColumns = TableCommonColumn
 
 /** Table Menu Options */
-export interface ProTableMenuColumns extends TableCommonColumn {
-  /** button type */
-  type?:
-    | 'primary'
-    | 'success'
-    | 'warning'
-    | 'danger'
-    | 'info'
-    | 'text'
-    | 'default'
-}
+export type ITableMenuColumns = TableCommonColumn
 
 /** Table Index Columns Options */
-export interface ProTableIndexColumns extends TableCommonColumn {
+export interface ITableIndexColumns extends TableCommonColumn {
   /** customize indices for each row */
   index?: number | ((index: number) => number | string)
 }
 
 /** Table Selection Columns Options */
-export interface ProTableSelectionColumns<T = UnknownObject>
+export interface ITableSelectionColumns<T = UnknownObject>
   extends TableCommonColumn<T> {
   /** function that determines if a certain row can be selected */
   selectable?: (row: T, index: number) => unknown
@@ -95,7 +104,7 @@ export interface ProTableSelectionColumns<T = UnknownObject>
 }
 
 /** Table Expose Methods */
-export interface ProTableExpose<T = UnknownObject> {
+export interface ITableExpose<T = UnknownObject> {
   /** used in multiple selection Table, clear user selection */
   clearSelection: () => void
   /** used in multiple selection Table, toggle if a certain row is selected. With the second parameter, you can directly set if this row is selected */
@@ -109,15 +118,15 @@ export interface ProTableExpose<T = UnknownObject> {
   /** clear sorting, restore data to the original order */
   clearSort: () => void
   /** clear filters of the columns whose columnKey are passed in. If no params, clear all filters */
-  clearFilter: (columnKeys?: string[]) => void
+  clearFilter: (columnKeys?: DeepTypeof<T> | Array<DeepTypeof<T>>) => void
   /** refresh the layout of Table. When the visibility of Table changes, you may need to call this method to get a correct layout */
   doLayout: () => void
   /** sort Table manually. Property prop is used to set sort column, property order is used to set sort order */
-  sort: (prop: string, order: string) => void
+  sort: (prop: DeepTypeof<T>, order: string) => void
 }
 
 /** Pagination Attributes */
-export interface ProPagination {
+export interface IPagination extends StringObject {
   /** whether to use small pagination */
   small?: boolean
   /** number of pagers. Pagination collapses when the total page count exceeds this value */

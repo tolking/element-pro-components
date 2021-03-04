@@ -1,11 +1,9 @@
 import type { App } from 'vue'
 import ProBreadcrumb from './Breadcrumb.vue'
-import type { ProDefineComponent, ProRouteRecordRaw } from '../types/index'
+import type { IDefineComponent, IBreadcrumbProps } from '../types/index'
 
 ProBreadcrumb.install = (app: App) => {
   app.component(ProBreadcrumb.name || 'ProBreadcrumb', ProBreadcrumb)
 }
 
-export default ProBreadcrumb as ProDefineComponent<{
-  routes?: ProRouteRecordRaw[]
-}>
+export default ProBreadcrumb as IDefineComponent<IBreadcrumbProps>

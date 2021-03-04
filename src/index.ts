@@ -1,28 +1,17 @@
-export * from './composables/public'
+export * from './composables/index'
 export * from './utils/index'
-export type {
-  InstallOptions,
-  ProRouteMeta,
-  ProRouteRecordRaw,
-  ProFormColumns,
-  ProFormExpose,
-  ProTableColumns,
-  ProTableExpandColumns,
-  ProTableMenuColumns,
-  ProTableIndexColumns,
-  ProTableSelectionColumns,
-  ProTableExpose,
-  ProPagination,
-} from './types/index'
+export * from './types/index'
 import './styles/index.css'
 import type { App } from 'vue'
-import type { ProDefineComponent, InstallOptions } from './types/index'
+import type { IDefineComponent, InstallOptions } from './types/index'
+import { objectDeepMerge } from './utils/index'
 import { config } from './utils/config'
 
 import ProAutocompleteTag from './AutocompleteTag/index'
 import ProBreadcrumb from './Breadcrumb/index'
 import ProCheckbox from './Checkbox/index'
 import ProCheckboxButton from './CheckboxButton/index'
+import ProCrud from './Crud/index'
 import ProForm from './Form/index'
 import ProInputTag from './InputTag/index'
 import ProLayout from './Layout/index'
@@ -33,11 +22,12 @@ import ProSelect from './Select/index'
 import ProTable from './Table/index'
 import ProTabs from './Tabs/index'
 
-const components: Record<string, ProDefineComponent> = {
+const components: Record<string, IDefineComponent> = {
   ProAutocompleteTag,
   ProBreadcrumb,
   ProCheckbox,
   ProCheckboxButton,
+  ProCrud,
   ProForm,
   ProInputTag,
   ProLayout,
@@ -50,9 +40,11 @@ const components: Record<string, ProDefineComponent> = {
 }
 
 const install = (app: App, options?: InstallOptions): void => {
-  const _options = Object.assign({}, config, options)
+  const _options = options
+    ? objectDeepMerge<Required<InstallOptions>>(config, options)
+    : config
 
-  app.provide('ProOptions', _options)
+  app.config.globalProperties.$PROOPTIONS = _options
 
   for (const key in components) {
     const item = components[key]
@@ -65,6 +57,7 @@ export {
   ProBreadcrumb,
   ProCheckbox,
   ProCheckboxButton,
+  ProCrud,
   ProForm,
   ProInputTag,
   ProLayout,
@@ -77,6 +70,4 @@ export {
   install,
 }
 
-export default {
-  install,
-}
+export default { install }

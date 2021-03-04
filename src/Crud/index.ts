@@ -1,21 +1,21 @@
 import type { App } from 'vue'
 import { objectDeepMerge } from '../utils/index'
 import { config } from '../utils/config'
-import ProTable from './Table.vue'
+import ProCrud from './Crud.vue'
 import type {
   InstallOptions,
   IDefineComponent,
-  ITableProps,
+  ICrudProps,
 } from '../types/index'
 
-ProTable.install = (app: App, options?: InstallOptions) => {
+ProCrud.install = (app: App, options?: InstallOptions) => {
   const _options = options
     ? objectDeepMerge<Required<InstallOptions>>(config, options)
     : config
 
   app.config.globalProperties.$PROOPTIONS = _options
 
-  app.component(ProTable.name || 'ProTable', ProTable)
+  app.component(ProCrud.name || 'ProCrud', ProCrud)
 }
 
-export default ProTable as IDefineComponent<ITableProps>
+export default ProCrud as IDefineComponent<ICrudProps>
