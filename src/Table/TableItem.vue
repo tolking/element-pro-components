@@ -13,7 +13,7 @@
       <template v-if="item.children && item.children.length">
         <table-item
           v-for="(child, index) in item.children"
-          :key="index"
+          :key="child.prop || index"
           :item="child"
         >
           <template

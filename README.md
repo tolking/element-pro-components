@@ -20,9 +20,9 @@
   - [x] ProCheckbox
   - [x] ProCheckboxButton
   - [x] ProSelect
+  - [x] ProCrud
   - [ ] ProSerach
   - [ ] ProList
-  - [ ] ProCrud
   - [ ] ProUpload
   - ...
 
