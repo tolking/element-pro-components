@@ -1,6 +1,22 @@
 # Changelog
 
-## 0.6.2
+## 0.7.0
+
+breaking changes
+
+- Form: remove menu slot
+- adjustment type prefix (Pro to I)
+
+feat
+
+- Crud: add ProCrud
+- Form: add default buttons
+- Form: add install options
+- Form: add loading for submit button
+- Form: add menu-left and menu-right slot
+- add global menu config
+- export components props type
+- export all composables and types
 
 fix
 
