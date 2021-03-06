@@ -70,6 +70,7 @@ export default {
     :key="item"
     :size="item"
     placeholder="请输入内容后点击空格按键"
+    class="input-tag-size"
   />
 </template>
 
@@ -88,15 +89,6 @@ export default {
   }
 }
 </script>
-
-<style>
-  .pro-input-tag {
-    margin-bottom: 10px
-  }
-  .pro-input-tag:last-child {
-    margin-bottom: 0
-  }
-</style>
 
 :::
 
