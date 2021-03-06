@@ -3,8 +3,14 @@
     <div class="source">
       <slot />
     </div>
-    <div ref="meta" class="meta">
-      <div v-if="$slots.description" class="description">
+    <div
+      ref="meta"
+      class="meta"
+    >
+      <div
+        v-if="$slots.description"
+        class="description"
+      >
         <slot name="description" />
       </div>
       <div class="language-html">
@@ -12,8 +18,8 @@
       </div>
     </div>
     <div
-      :class="{ 'is-fixed': isFixContorl }"
       ref="control"
+      :class="{ 'is-fixed': isFixContorl }"
       class="control"
       @click="toggleShow"
     >

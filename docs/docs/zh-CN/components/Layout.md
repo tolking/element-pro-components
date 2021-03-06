@@ -6,8 +6,6 @@
 
 **效果**
 
-![pro-layout](/img/pro-layout.jpg)
-
 @[code](@/example/src/layout/Layout.vue)
 
 ## 配置

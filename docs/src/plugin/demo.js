@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const markdown = require('markdown-it')
 const { highlight } = require('vitepress/dist/node/markdown/plugins/highlight')
 
@@ -11,7 +12,7 @@ function assignScript(script) {
   const content = script
     // import { ref } from 'vue' -> ''
     .replace(/import\s?\{.*\}.*/g, (item) => {
-      const key = getInnerString(item.replace(/\'/g, '"'), '"', '"')
+      const key = getInnerString(item.replace(/'/g, '"'), '"', '"')
       const value = getInnerString(item.replace(/\s+/g, ''), '{', '}')
       const list = value ? value.split(',') : []
       if (dependencies[key]) {
