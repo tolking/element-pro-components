@@ -1,23 +1,23 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const markdown = require('markdown-it')
-const { highlight } = require('vitepress/dist/node/markdown/plugins/highlight')
+import markdown from 'markdown-it'
+import highlight from './highlight'
+import type Token from 'markdown-it/lib/token'
 
 /**
  * Combine the script content
  * @param {string} script script string
  */
-function assignScript(script) {
-  const dependencies = {}
-  const attrs = {}
+function assignScript(script: string) {
+  const dependencies = {} as Record<string, string[]>
+  const attrs = {} as Record<string, string>
   const content = script
     // import { ref } from 'vue' -> ''
     .replace(/import\s?\{.*\}.*/g, (item) => {
       const key = getInnerString(item.replace(/'/g, '"'), '"', '"')
       const value = getInnerString(item.replace(/\s+/g, ''), '{', '}')
       const list = value ? value.split(',') : []
-      if (dependencies[key]) {
+      if (key && dependencies[key]) {
         dependencies[key] = dependencies[key].concat(list)
-      } else {
+      } else if (key) {
         dependencies[key] = list
       }
       return ''
@@ -30,11 +30,11 @@ function assignScript(script) {
      */
     .replace(/(const|let|var)\s\w*\s?=/g, (item) => {
       const attr = getInnerString(item, '\\s', '\\s?=')
-      if (attr in attrs) {
-        return attr + ' ='
-      } else {
+      if (attr && !(attr in attrs)) {
         attrs[attr] = attr
         return `let ${attr} =`
+      } else {
+        return attr + ' ='
       }
     })
     // Remove extra line breaks
@@ -55,7 +55,12 @@ function assignScript(script) {
  * @param {string} postfix RegExp string
  * @param {string} type g | m | i
  */
-function getInnerString(string, prefix, postfix = '', type = 'i') {
+function getInnerString(
+  string: string,
+  prefix: string,
+  postfix = '',
+  type: 'i' | 'g' | 'm' = 'i'
+): string | undefined {
   const result = new RegExp(`${prefix}(.*)${postfix}`, type)
   const match = string.match(result)
   return match ? match[1].trim() : undefined
@@ -63,8 +68,8 @@ function getInnerString(string, prefix, postfix = '', type = 'i') {
 
 let script = '' // Record the <script> label of the current page
 
-module.exports = {
-  render: (tokens, idx) => {
+export default {
+  render: (tokens: Token[], idx: number): string => {
     // the `demo` block of the current page
     const htmlBlock = tokens.filter((item) => item.type === 'html_block')
     const { nesting, info = '', map } = tokens[idx]
@@ -77,12 +82,12 @@ module.exports = {
     const description = matchedInfo && matchedInfo[1]
     const descTemplate = markdown().render(description || '')
     let str = '' // copy the current `demo` block code
-    let lastLine = ''
+    let lastLine = NaN
 
     for (let i = 0; i < htmlBlock.length; i++) {
       const item = htmlBlock[i]
 
-      if (item.map[0] >= map[0] && item.map[1] <= map[1]) {
+      if (item.map && map && item.map[0] >= map[0] && item.map[1] <= map[1]) {
         const { map, content } = item
         const delta = map[0] - (lastLine || map[1])
 
@@ -96,26 +101,29 @@ module.exports = {
         }
         // Remove top <template>
         if (/^<template>/.test(content)) {
-          const reContent = content.match(
-            /^<template>((\s|\S)*)<\/template>/m
-          )[1]
+          const reContent = content.match(/^<template>((\s|\S)*)<\/template>/m)
 
-          htmlBlock[i].content = reContent
+          htmlBlock[i].content = (reContent && reContent[1]) || ''
         }
         // Extract the <script> label content
         if (content.includes('<script')) {
           if (/export\sdefault\s?\{/m.test(content)) {
             const setup = content.match(
               /setup\s?\(\)\s?\{((\s|\S)*)return\s?\{/m
-            )[1]
+            )
             const reContent = content.replace(
               /export\sdefault\s?\{((\s|\S)*)\}/m,
-              setup
+              (setup && setup[1]) || ''
             )
-
-            script += reContent.match(/^<script\s?.*?>((\s|\S)*)<\/script>/m)[1]
+            const reScript = reContent.match(
+              /^<script\s?.*?>((\s|\S)*)<\/script>/m
+            )
+            script += (reScript && reScript[1]) || ''
           } else {
-            script += content.match(/^<script\s?.*?>((\s|\S)*)<\/script>/m)[1]
+            const reScript = content.match(
+              /^<script\s?.*?>((\s|\S)*)<\/script>/m
+            )
+            script += (reScript && reScript[1]) || ''
           }
           htmlBlock[i].content = ''
         }

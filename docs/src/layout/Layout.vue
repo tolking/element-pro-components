@@ -6,9 +6,9 @@
     <template #right-header>
       <nav-header />
     </template>
-    <!-- <template #bottom-header>
+    <template #bottom-header>
       <pro-tabs />
-    </template> -->
+    </template>
   </pro-layout>
   <teleport to="title">
     {{ title }}
@@ -22,7 +22,7 @@ import { useRoute, useRouter } from 'vue-router'
 import NavHeader from '../components/NavHeader.vue'
 
 const route = useRoute()
-const router = useRouter()
+// const router = useRouter()
 const title = computed(() => {
   return (route.meta.title || '') + ' | element-pro-components'
 })

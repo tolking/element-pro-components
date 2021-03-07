@@ -29,7 +29,7 @@ const zhCN: IRouteRecordRaw[] = [
     path: '/zh-CN/components/',
     redirect: '/zh-CN/components/layout',
     component: BaseLayout,
-    meta: { title: '组件', icon: 'el-icon-notebook-2' },
+    meta: { title: '组件', icon: 'el-icon-takeaway-box' },
     children: [
       {
         path: '/zh-CN/components/layout',
