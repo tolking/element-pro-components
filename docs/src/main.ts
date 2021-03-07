@@ -1,11 +1,12 @@
 import Layout from './App.vue'
-import { App, createSSRApp } from 'vue'
+import { App, createApp as _createApp, createSSRApp } from 'vue'
 import { createRouter } from './router/index'
 import { Router } from 'vue-router'
 import {
   ElButton,
   ElInput,
   ElUpload,
+  ElTag,
   ElDropdown,
   ElDropdownItem,
   ElDropdownMenu,
@@ -19,7 +20,10 @@ export function createApp(): {
   app: App<Element>
   router: Router
 } {
-  const app = createSSRApp(Layout)
+  const app =
+    import.meta.env.MODE === 'production'
+      ? createSSRApp(Layout)
+      : _createApp(Layout)
   const router = createRouter()
 
   app
@@ -28,6 +32,7 @@ export function createApp(): {
     .use(ElButton)
     .use(ElInput)
     .use(ElUpload)
+    .use(ElTag)
     .use(ElDropdown)
     .use(ElDropdownItem)
     .use(ElDropdownMenu)
