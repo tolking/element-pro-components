@@ -3,6 +3,7 @@ import { defineConfig } from 'vite'
 import plugins from './src/plugin/common-plugins'
 
 export default defineConfig({
+  base: '/element-pro-components/',
   resolve: {
     alias: {
       '/@src': path.resolve(__dirname, '../src'),
