@@ -20,6 +20,8 @@ feat
 
 fix
 
+- Layout: routes is not work
+- Menu: the meta may be undefined
 - referencing functions directly from element-plus generates errors
 
 ## 0.6.1

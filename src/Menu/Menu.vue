@@ -12,10 +12,10 @@
       <template #default="item">
         <slot v-bind="item">
           <i
-            v-if="item.meta.icon"
+            v-if="item.meta?.icon"
             :class="item.meta.icon"
           />
-          <span v-if="item.meta.title">{{ item.meta.title }}</span>
+          <span v-if="item.meta?.title">{{ item.meta.title }}</span>
         </slot>
       </template>
     </pro-menu-item>
@@ -26,9 +26,9 @@
 import { defineProps } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMenu } from 'element-plus'
-import ProMenuItem from './MenuItem.vue'
 import { useCurrentRoutes } from '../composables/index'
 import { checkUrl } from '../utils/index'
+import ProMenuItem from './MenuItem.vue'
 import type { IRouteRecordRaw } from '../types/index'
 
 const props = defineProps<{ routes?: IRouteRecordRaw[] }>()

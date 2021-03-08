@@ -10,7 +10,7 @@
     :index="item.path"
   >
     <template
-      v-if="item.meta.icon || item.meta.title"
+      v-if="item.meta?.icon || item.meta?.title"
       #title
     >
       <slot v-bind="item" />
