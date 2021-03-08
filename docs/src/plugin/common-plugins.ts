@@ -4,6 +4,7 @@ import container from 'markdown-it-container'
 import codeSnippet from 'markdown-it-vuepress-code-snippet-enhanced'
 import demo from './demo'
 import createContainer from './create-container'
+import preWrapper from './pre-wrapper'
 import type Token from 'markdown-it/lib/token'
 
 const plugins = [
@@ -13,6 +14,7 @@ const plugins = [
   Markdown({
     markdownItSetup(md) {
       md.use(codeSnippet)
+        .use(preWrapper)
         .use(container, 'demo', demo)
         .use(...createContainer('tip', 'TIP'))
         .use(...createContainer('warning', 'WARNING'))

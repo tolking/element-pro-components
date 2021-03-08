@@ -1,1 +1,5 @@
+@import './code.css';
+@import './custom-blocks.css';
 @import './docs.css';
+@import './markdown.css';
+@import './vars.css';
