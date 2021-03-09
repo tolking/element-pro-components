@@ -85,4 +85,4 @@ import 'your/css/file'
 
 ## 提供配置的参数
 
-@[code](@/src/styles/index.css)
+<<< @/src/styles/index.css

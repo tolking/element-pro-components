@@ -60,7 +60,7 @@ app.mount('#app')
 
 - 参考
 
-@[code](@/src/utils/config.ts)
+<<< @/src/utils/config.ts
 
 - 配置
 
@@ -81,7 +81,7 @@ app.use(ElementPro, {
 
 如果使用 VS Code 开发，配合 Vetur 使用提供完整的组件、属性、事件补全。例如：输入 `<pro-` 将罗列出所有组件库组件
 
-如果使用 TypeScript 编写，可以参考 [example](https://github.com/tolking/element-pro-components/tree/master/example)。内部提供部分类型方便使用
+如果使用 TypeScript 编写，可以参考 [example](https://github.com/tolking/element-pro-components/tree/master/docs/src/views/)。内部提供部分类型方便使用
 :::
 
-@[code](@/example/src/layout/Layout.vue)
+<<< @/docs/src/layout/Layout.vue

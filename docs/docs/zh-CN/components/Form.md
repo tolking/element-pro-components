@@ -26,7 +26,7 @@ app.component(ElInput.name, ElInput)
 
 ## 使用
 
-- 基础用法
+### 基础用法
 
 ::: demo 传入 columns 数据，自动生成表单。操作按钮需要通过 menu 插槽传入
 
@@ -35,12 +35,8 @@ app.component(ElInput.name, ElInput)
     v-model="form"
     :columns="columns"
     label-width="100px"
-  >
-    <template #menu>
-      <el-button type="primary">提交</el-button>
-      <el-button>取消</el-button>
-    </template>
-  </pro-form>
+    @submit="submit"
+  />
 </template>
 
 <script>
@@ -61,10 +57,17 @@ export default {
         component: 'el-input',
       },
     ])
+    const submit = (done, isValid, invalidFields) => {
+      console.log(isValid, invalidFields)
+      setTimeout(() => {
+        done()
+      }, 1000)
+    }
 
     return {
       form,
       columns,
+      submit,
     }
   }
 }
@@ -72,7 +75,7 @@ export default {
 
 :::
 
-- 指定对应的组件
+### 指定对应的组件
 
 ::: demo 通过 columns 的 `component` 定义该项生成什么组件，通过 `props` 可以向组件中传值。要求对应组件可以通过 v-model 绑定值
 
@@ -81,12 +84,7 @@ export default {
     v-model="form1"
     :columns="columns1"
     label-width="100px"
-  >
-    <template #menu>
-      <el-button type="primary">提交</el-button>
-      <el-button>取消</el-button>
-    </template>
-  </pro-form>
+  />
 </template>
 
 <script>
@@ -156,7 +154,7 @@ export default {
 
 :::
 
-- 启用插槽
+### 启用插槽
 
 ::: demo 通过 columns 的 slot 配置是否开启自定义插槽功能。虽然在启用插槽后可以通过 `v-model="form.slot"` 这种方式绑定值，但更推荐使用 `value` 与 `setValue`
 
@@ -223,7 +221,54 @@ export default {
 
 :::
 
-- 配置子表单
+### 配置按钮
+
+::: demo 通过 menu 配置按钮
+
+<template>
+  <pro-form
+    v-model="form"
+    :columns="columns"
+    :menu="menu"
+    label-width="100px"
+  />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const menu = {
+      submitText: '提交',
+      reset: false,
+    }
+    const form = ref({})
+    const columns = ref([
+      {
+        label: '名字',
+        prop: 'name',
+        component: 'el-input',
+      },
+      {
+        label: '地址',
+        prop: 'address',
+        component: 'el-input',
+      },
+    ])
+
+    return {
+      menu,
+      form,
+      columns,
+    }
+  }
+}
+</script>
+
+:::
+
+### 配置子表单
 
 ::: demo 通过 columns 的 `children` 配置子表单，当然你也可以配置多层的 `children` 结构实现反复套娃
 
@@ -232,12 +277,7 @@ export default {
     v-model="form3"
     :columns="columns3"
     label-width="100px"
-  >
-    <template #menu>
-      <el-button type="primary">提交</el-button>
-      <el-button>取消</el-button>
-    </template>
-  </pro-form>
+  />
 </template>
 
 <script>
@@ -299,30 +339,19 @@ export default {
 
 :::
 
-- 表单验证
+### 表单验证
 
 ::: demo 像 el-form 一样可以通过 `rules` 配置表单验证。对于子表单更推荐使用 columns 里面的 `rules` 字段实现验证。否则你需要通过 `${父级的 prop}.${当前项的 index}.${当前的 prop}` 这种方式配置子表单的验证
 
 <template>
   <pro-form
-    ref="ruleForm"
     v-model="form4"
     :columns="columns4"
     :rules="rules"
     label-width="100px"
-  >
-    <template #menu>
-      <el-button
-        type="primary"
-        @click="submitForm"
-      >
-        提交
-      </el-button>
-      <el-button @click="resetForm">
-        取消
-      </el-button>
-    </template>
-  </pro-form>
+    @submit="submitForm"
+    @reset="resetForm"
+  />
 </template>
 
 <script>
@@ -330,7 +359,6 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const ruleForm = ref({})
     const form4 = ref({})
     const rules = ref({
       date: { required: true, message: '日期不能为空', trigger: 'blur' },
@@ -363,16 +391,17 @@ export default {
       },
     ])
 
-    function submitForm() {
-      ruleForm.value.validate().then(() => {
+    function submitForm(done, isValid, invalidFields) {
+      if (isValid) {
         alert('submit!')
-      }).catch(() => {
+      } else {
         console.log('error submit!!')
-      })
+      }
+      done()
     }
 
     function resetForm() {
-      ruleForm.value.resetFields()
+      console.log('reset form')
     }
 
     return {
@@ -387,7 +416,7 @@ export default {
 
 :::
 
-- 动态表单
+### 动态表单
 
 ::: demo 如果传入的 `columns` 是一个响应性数据，动态的修改 columns 表单也会随之改变。由此你可以根据需要动态的控制表单的内容，或者实现从后台加载数据实现表单
 
@@ -395,15 +424,18 @@ export default {
   <pro-form
     v-model="form5"
     :columns="columns5"
+    :menu="menu5"
     label-width="100px"
   >
-    <template #menu>
+    <template #menu-left>
       <el-button
         v-show="columns5.length < 5"
         @click="add"
       >
         增加
       </el-button>
+    </template>
+    <template #menu-right>
       <el-button
         v-show="columns5.length"
         @click="del"
@@ -419,6 +451,10 @@ import { ref } from 'vue'
 
 export default {
   setup() {
+    const menu5 = {
+      submit: false,
+      reset: false,
+    }
     const count = ref(0)
     const form5 = ref({})
     const columns5 = ref([
@@ -444,6 +480,7 @@ export default {
     }
 
     return {
+      menu5,
       form5,
       columns5,
       add,
@@ -461,6 +498,7 @@ export default {
 | :---------------------- | :---------------------------------------------------------------------- | :------ | :-------------------- | :----- |
 | v-model                 | 绑定值                                                                  | array   | -                     | -      |
 | columns                 | 表单配置参考下面 `columns`                                              | array   | -                     | -      |
+| menu                    | 按钮配置参考下面 `menu`                                                 | object  | -                     | -      |
 | rules                   | 表单验证规则                                                            | object  | -                     | -      |
 | inline                  | 行内表单模式                                                            | boolean | -                     | false  |
 | label-position          | 表单域标签的位置，如果值为 left 或者 right 时，则需要设置 `label-width` | string  | right / left / top    | right  |
@@ -494,7 +532,7 @@ export default {
 | size          | 用于控制该表单域下组件的尺寸                                              | string         | medium / small / mini | -      |
 
 ::: tip 关于 props
-props 的属性将全部传递给 component 指定的组件。**对于事件需要通过 `on[event]` 驼峰这种形式绑定。如：`change` -> `onChange`, `input` -> `onInput`**
+props 的属性将全部传递给 component 指定的组件。**对于事件需要通过 `on[Event]` 驼峰这种形式绑定。如：`change` -> `onChange`, `input` -> `onInput`**
 
 ```js
 props: {
@@ -507,11 +545,24 @@ props: {
 
 :::
 
+- menu 的参数 (可通过全局配置配置)
+
+| 参数        | 说明                              | 类型    | 可选值 | 默认值              |
+| :---------- | :-------------------------------- | :------ | :----- | :------------------ |
+| submit      | 是否显示 submit 按钮              | boolean | -      | true                |
+| submitText  | submit 按钮显示的文字             | string  | -      | Submit              |
+| submitProps | submit 按钮的配置，参考 el-button | object  | -      | { type: 'primary' } |
+| reset       | 是否显示 reset 按钮               | boolean | -      | true                |
+| resetText   | 是否显示 reset 按钮显示的文字     | string  | -      | Reset               |
+| resetProps  | reset 按钮的配置，参考 el-button  | object  | -      | -                   |
+
 ## 事件
 
-| 事件名   | 说明                   | 参数                                                       |
-| -------- | ---------------------- | ---------------------------------------------------------- |
-| validate | 任一表单项被校验后触发 | 被校验的表单项 prop 值，校验是否通过，错误消息（如果存在） |
+| 事件名   | 说明                   | 参数                                           |
+| -------- | ---------------------- | ---------------------------------------------- |
+| submit   | submit 被点击后触发    | done, isValid, invalidFields                   |
+| reset    | reset 按钮被点击后触发 | -                                              |
+| validate | 任一表单项被校验后触发 | 被校验的表单项 prop 值, isValid, invalidFields |
 
 ## 方法
 
@@ -553,7 +604,8 @@ function resetForm() {
 | name         | 说明                                                           |
 | :----------- | :------------------------------------------------------------- |
 | -            | 在底部菜单前插入的任意内容                                     |
-| menu         | 表单底部按钮                                                   |
+| menu-left    | 表单底部按钮左侧                                               |
+| menu-right   | 表单底部按钮右侧                                               |
 | [prop]       | 当前这项的 Form Item 的内容，参数为 { item, value, setValue }  |
 | [prop]-label | 当前这项的标签文本的内容，参数为 { item }                      |
 | [prop]-error | 当前这项的自定义表单校验信息的显示方式，参数为 { error, item } |

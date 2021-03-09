@@ -4,9 +4,67 @@
 
 ## 使用
 
-**效果**
+### 基础用法
 
-@[code](@/example/src/layout/Layout.vue)
+::: demo 组件默认将从 `vue-router` 中获取路由生成路由，格式参考页面下方
+
+<template>
+  <pro-layout class="docs-layout" />
+</template>
+
+:::
+
+### 插槽
+
+::: demo 通过插槽实现更复杂的界面
+
+<template>
+  <pro-layout class="docs-layout">
+    <template #logo="{ collapse }">
+      <span style="line-height: 54px">{{ collapse ? 'L' : 'logo' }}</span>
+    </template>
+    <template #left-header>
+      <span>left-header</span>
+    </template>
+    <template #right-header>
+      <span>right-header</span>
+    </template>
+    <template #bottom-header>
+      <span>bottom-header</span>
+    </template>
+  </pro-layout>
+</template>
+
+:::
+
+### 自定义路由
+
+::: demo 通过传入 `routes` 实现自定义路由显示
+
+<template>
+  <pro-layout :routes="routes" class="docs-layout" />
+</template>
+
+<script>
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+export default {
+  setup() {
+    const router = useRouter()
+    const routes = computed(() => {
+      const _routes = router.options.routes
+      return _routes.filter(item => item.path === '/dev')
+    })
+
+    return {
+      routes,
+    }
+  }
+}
+</script>
+
+:::
 
 ## 配置
 
@@ -17,21 +75,6 @@
 | collapse        | 默认是否收起菜单                                                    | boolean | false                  |
 | default-openeds | 当前打开的 sub-menu 的 index 的数组                                 | Array   | -                      |
 | unique-opened   | 是否只保持一个子菜单的展开                                          | boolean | false                  |
-
-- 参考 meta
-
-```ts
-interface IRouteMeta extends RouteMeta {
-  title?: string // 用于显示菜单标题
-  icon?: string // 用于显示菜单图标
-  hidden?: boolean // 用于判断是否显示
-  keepAlive?: boolean // 控制 keepAlive
-}
-```
-
-- 参考路由
-
-@[code](@/example/src/router/index.ts)
 
 ## 插槽
 
@@ -46,3 +89,20 @@ interface IRouteMeta extends RouteMeta {
 ## 样式配置
 
 [参考](../guide/theme#提供配置的参数)
+
+## 参考
+
+- 参考 meta
+
+```ts
+interface IRouteMeta extends RouteMeta {
+  title?: string // 用于显示菜单标题
+  icon?: string // 用于显示菜单图标
+  hidden?: boolean // 用于判断是否显示 (仅适用于默认路由)
+  keepAlive?: boolean // 控制 keepAlive
+}
+```
+
+- 参考路由
+
+<<< @/docs/src/router/dev.ts

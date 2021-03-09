@@ -18,7 +18,6 @@
       </div>
     </div>
     <div
-      ref="control"
       :class="{ 'is-fixed': isFixContorl }"
       class="control"
       @click="toggleShow"
@@ -33,8 +32,7 @@ import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { useShow } from '/@src/index'
 
 const { show, toggleShow } = useShow()
-const meta = ref(null)
-const control = ref(null)
+const meta = ref<HTMLElement>({} as HTMLElement)
 const isFixContorl = ref(false)
 const codeAreaHeight = ref(0)
 
@@ -74,7 +72,7 @@ function handleScroll() {
 
 <style>
 .pro-code {
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   border: 1px solid var(--c-divider);
   border-radius: 3px;
   background: var(--c-bg);
@@ -123,6 +121,7 @@ function handleScroll() {
   height: 44px;
   box-sizing: border-box;
   border-top: 1px solid var(--c-divider);
+  border-bottom: 1px solid var(--c-divider);
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   background: var(--c-bg);

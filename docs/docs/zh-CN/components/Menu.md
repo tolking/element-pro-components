@@ -4,11 +4,76 @@
 
 ## 使用
 
-```vue
+### 基础用法
+
+::: demo 组件默认将从 `vue-router` 中获取路由生成路由，格式参考页面下方
+
 <template>
   <pro-menu />
 </template>
-```
+
+:::
+
+### 模式
+
+::: demo 通过传入 `mode` 实现自定义菜单模式
+
+<template>
+  <pro-radio-button
+    v-model="mode"
+    :data="data"
+  />
+  <pro-menu :mode="mode" />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const mode = ref('horizontal')
+    const data = [
+      { value: 'vertical', label: '垂直' },
+      { value: 'horizontal', label: '水平' },
+    ]
+
+    return {
+      mode,
+    }
+  }
+}
+</script>
+
+:::
+
+### 自定义路由
+
+::: demo 通过传入 `routes` 实现自定义路由显示
+
+<template>
+  <pro-menu :routes="routes" />
+</template>
+
+<script>
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+export default {
+  setup() {
+    const router = useRouter()
+    const routes = computed(() => {
+      const _routes = router.options.routes
+      return _routes.filter(item => item.path === '/dev')
+    })
+
+    return {
+      routes,
+    }
+  }
+}
+</script>
+
+:::
 
 ## 配置
 

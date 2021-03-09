@@ -4,12 +4,16 @@
 
 ## 使用
 
-```vue
+### 基础用法
+
+::: demo 将自动记录路由变化
+
 <template>
-  <pro-layout>
-    <template #bottom-header>
-      <pro-tabs />
-    </template>
-  </pro-layout>
+  <pro-tabs />
 </template>
-```
+
+<script>
+export default {}
+</script>
+
+:::

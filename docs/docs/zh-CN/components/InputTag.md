@@ -4,7 +4,7 @@
 
 ## 使用
 
-- 基础用法
+### 基础用法
 
 ::: demo 使用 `pro-input-tag` 支持 type="text" 的大部分配置
 
@@ -31,7 +31,7 @@ export default {
 
 :::
 
-- 通过 `Enter` 键触发
+### 通过 `Enter` 键触发
 
 ::: demo 指定 trigger 为 enter 时，将通过回车键触发输入
 
@@ -59,7 +59,7 @@ export default {
 
 :::
 
-- 尺寸
+### 尺寸
 
 ::: demo 可通过 size 属性指定输入框和标签的尺寸
 
@@ -92,7 +92,7 @@ export default {
 
 :::
 
-- 带输入建议
+### 带输入建议
 
 ::: demo 使用 `pro-autocomplete-tag` 支持 autocomplete 的大部分配置
 

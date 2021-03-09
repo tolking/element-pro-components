@@ -4,15 +4,19 @@
 
 ## 使用
 
-```vue
+### 基础用法
+
+::: demo 将根据当前路由自动生成
+
 <template>
-  <pro-layout>
-    <template #left-header>
-      <pro-breadcrumb />
-    </template>
-  </pro-layout>
+  <pro-breadcrumb />
 </template>
-```
+
+<script>
+export default {}
+</script>
+
+:::
 
 ## 配置
 

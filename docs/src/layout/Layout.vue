@@ -35,7 +35,7 @@ const title = computed(() => {
 //   return ss?.children || _routes
 // })
 
-onMounted(() => {
-  console.log(navigator.language)
-})
+// onMounted(() => {
+//   console.log(navigator.language)
+// })
 </script>

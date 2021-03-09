@@ -4,7 +4,7 @@
 
 ## 使用
 
-- 基础用法
+### 基础用法
 
 ::: demo 使用 `pro-checkbox`，并传入 data 数据，自动生成选项
 
@@ -39,7 +39,7 @@ export default {
 
 :::
 
-- 控制不可选项目
+### 控制不可选项目
 
 ::: demo 将传入 data 数据中的某项设置为 `disabled: true` 即可
 
@@ -74,7 +74,7 @@ export default {
 
 :::
 
-- 配置绑定数据键值
+### 配置绑定数据键值
 
 ::: demo 通过 config 配置数据键值。`value`- v-model 绑定的键值、`label`-显示键值、`disabled`-控制不可选的键值、`name`-原生 name 的键值
 
@@ -112,7 +112,7 @@ export default {
 
 :::
 
-- 按钮样式
+### 按钮样式
 
 ::: demo 使用 `pro-checkbox-button` 显示按钮样式的多选框组
 
