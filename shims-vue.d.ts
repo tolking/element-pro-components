@@ -13,7 +13,6 @@ declare module '*.md' {
 declare module 'prismjs'
 declare module 'prismjs/components/index'
 declare module 'escape-html'
-declare module 'markdown-it-vuepress-code-snippet-enhanced'
 
 interface ImportMeta {
   env: {

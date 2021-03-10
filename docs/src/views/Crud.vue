@@ -15,7 +15,9 @@
     append-to-body
     class="ffff"
     @search="search"
+    @searchReset="reset"
     @submit="submit"
+    @reset="reset"
     @delete="deleteRow"
   >
     <template #menu-right="{ size }">
@@ -137,7 +139,7 @@ const search: ICrudSearch = (done, isValid, invalidFields) => {
   }, 1000)
 }
 
-const submit: ICrudSubmit = (formType, close, done, isValid, invalidFields) => {
+const submit: ICrudSubmit = (close, done, formType, isValid, invalidFields) => {
   console.log('submit', formType, isValid, invalidFields)
   setTimeout(() => {
     isValid ? close() : done()
@@ -151,6 +153,10 @@ onMounted(() => {
 function beforeClose(done: () => void) {
   console.log('beforeClose')
   done()
+}
+
+function reset() {
+  console.log('reset')
 }
 
 function deleteRow(row: DataItem) {

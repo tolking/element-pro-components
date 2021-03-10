@@ -1,6 +1,5 @@
 // copy from [vitepress](https://github.com/vuejs/vitepress)
 import fs from 'fs'
-import path from 'path'
 import MarkdownIt from 'markdown-it'
 import { RuleBlock } from 'markdown-it/lib/parser_block'
 
@@ -29,7 +28,7 @@ export default (md: MarkdownIt): void => {
     const rawPath = state.src
       .slice(start, end)
       .trim()
-      .replace(/^@/, path.resolve(__dirname))
+      .replace(/^@/, process.cwd())
     const content = fs.existsSync(rawPath)
       ? fs.readFileSync(rawPath).toString()
       : 'Not found: ' + rawPath

@@ -101,9 +101,9 @@ export type ICrudBeforeOpen<T = UnknownObject> = (
 export type ICrudSearch = IFormSubmit
 
 export type ICrudSubmit = (
-  formType: ICrudFormType,
   close: () => void,
   done: () => void,
+  formType: ICrudFormType,
   isValid: boolean,
   invalidFields?: UnknownObject
 ) => void
