@@ -137,7 +137,7 @@ const search: ICrudSearch = (done, isValid, invalidFields) => {
   }, 1000)
 }
 
-const submit: ICrudSubmit = (formType, close, done, isValid, invalidFields) => {
+const submit: ICrudSubmit = (close, done, formType, isValid, invalidFields) => {
   console.log('submit', formType, isValid, invalidFields)
   setTimeout(() => {
     isValid ? close() : done()

@@ -75,7 +75,7 @@ export default {
       }, 1000)
     }
 
-    function submit(formType, close, done, isValid, invalidFields) {
+    function submit(close, done, formType, isValid, invalidFields) {
       console.log('submit', formType, isValid, invalidFields)
       setTimeout(() => {
         isValid ? close() : done()
@@ -269,7 +269,7 @@ export default {
 
 | 事件名 | 说明                    | 参数                                              |
 | ------ | ----------------------- | ------------------------------------------------- |
-| submit | submit 被点击后触发     | 'add'/'edit', close, done, isValid, invalidFields |
+| submit | submit 被点击后触发     | close, done, 'add'/'edit', isValid, invalidFields |
 | reset  | reset 按钮被点击后触发  | -                                                 |
 | delete | delete 按钮被点击后触发 | row                                               |
 | search | search 按钮被点击后触发 | done, isValid, invalidFields                      |

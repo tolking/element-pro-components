@@ -126,7 +126,7 @@ export function useCrudForm(
       })
     }
 
-    emit('submit', formType.value, close, done, isValid, invalidFields)
+    emit('submit', close, done, formType.value, isValid, invalidFields)
   }
 
   function openForm(type: ICrudFormType, row?: UnknownObject) {
