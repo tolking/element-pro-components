@@ -158,24 +158,24 @@ export function useCrudSearchForm(
   ) => void,
   menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | false>
 ): {
-  searchMenu: ComputedRef<IFormMenuColumns | undefined>
+  searchMenu: ComputedRef<IFormMenuColumns>
   searchForm: IFormSubmit
   searchReset: () => void
   upSearchData: (value: unknown) => void
 } {
-  const searchMenu = computed<IFormMenuColumns | undefined>(() => {
+  const searchMenu = computed<IFormMenuColumns>(() => {
     const _menuColumns = unref(menuColumns)
+    const options = useProOptions()
+    const menu = _menuColumns ? _menuColumns : options.menu
 
-    return _menuColumns
-      ? {
-          submit: _menuColumns.search,
-          submitText: _menuColumns.searchText,
-          submitProps: _menuColumns.searchProps,
-          reset: _menuColumns.searchReset,
-          resetText: _menuColumns.searchResetText,
-          resetProps: _menuColumns.searchResetProps,
-        }
-      : undefined
+    return {
+      submit: menu.search,
+      submitText: menu.searchText,
+      submitProps: menu.searchProps,
+      reset: menu.searchReset,
+      resetText: menu.searchResetText,
+      resetProps: menu.searchResetProps,
+    }
   })
 
   const searchForm: IFormSubmit = (done, isValid, invalidFields) => {
