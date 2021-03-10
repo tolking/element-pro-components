@@ -12,6 +12,13 @@
   <pro-layout class="docs-layout" />
 </template>
 
+<style>
+.docs-layout {
+  border: 1px solid var(--c-border);
+  height: 400px;
+}
+</style>
+
 :::
 
 ### 插槽

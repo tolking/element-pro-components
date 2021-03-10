@@ -90,6 +90,15 @@ export default {
 }
 </script>
 
+<style>
+.input-tag-size {
+  margin-bottom: 10px;
+}
+.input-tag-size:last-child {
+  margin-bottom: 0;
+}
+</style>
+
 :::
 
 ### 带输入建议
