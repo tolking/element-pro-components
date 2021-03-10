@@ -148,6 +148,7 @@
         ref="form"
         :model-value="modelValue"
         :columns="formColumns"
+        :menu="menuColumns"
         class="pro-crud-form"
         @update:modelValue="upFormData"
         @submit="submitForm"
