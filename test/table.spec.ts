@@ -239,12 +239,6 @@ describe('Table.vue', () => {
     await (vm.currentPage = 1)
     await expect(getPager(wrapper, '.active').text()).toBe('1')
 
-    await wrapper
-      .find('.pro-pagination .el-pagination__sizes .select-trigger')
-      .trigger('click')
-    await getSizesItem(':nth-child(2)')?.click()
-    expect(vm.pageSize).toBe(20)
-
     await (vm.pageSize = 10)
     await wrapper
       .find('.pro-pagination .el-pagination__sizes .select-trigger')
