@@ -15,7 +15,7 @@
   },
   "menu": {
     "type": "boolean|object",
-    "description": "add a column will display menu"
+    "description": "config the menu content"
   },
   "pagination": { "type": "object", "description": "pagination config" },
   "routes": { "description": "Vue Router list" },
@@ -264,6 +264,76 @@
     "type": "boolean",
     "description": "whether to enable the collapse transition, default: true"
   },
+  "search-rules": { "description": "validation rules of form" },
+  "add-columns": {
+    "type": "array",
+    "description": "to generate components of add form"
+  },
+  "edit-columns": {
+    "type": "array",
+    "description": "to generate components of edit form"
+  },
+  "form-columns": {
+    "type": "array",
+    "description": "to generate components of add and edit form"
+  },
+  "search-columns": {
+    "type": "array",
+    "description": "to generate components of search form"
+  },
+  "table-columns": {
+    "type": "array",
+    "description": "to generate components of table"
+  },
+  "top": { "description": "value for top of Dialog CSS, default: 15vh" },
+  "width": { "description": "width of Dialog, default: 50%" },
+  "fullscreen": {
+    "type": "boolean",
+    "description": "whether the Dialog takes up full screen, default: false"
+  },
+  "modal": {
+    "type": "boolean",
+    "description": "whether a mask is displayed, default: true"
+  },
+  "append-to-body": {
+    "type": "boolean",
+    "description": "whether to append Dialog itself to body. A nested Dialog should have this attribute set to 'true', default: false"
+  },
+  "lock-scroll": {
+    "type": "boolean",
+    "description": "whether scroll of body is disabled while Dialog is displayed, default: true"
+  },
+  "custom-class": { "description": "custom class names for Dialog" },
+  "open-delay": { "description": "Time(milliseconds) before open, default: 0" },
+  "close-delay": {
+    "description": "Time(milliseconds) before close, default: 0"
+  },
+  "close-on-click-modal": {
+    "type": "boolean",
+    "description": "whether the Dialog can be closed by clicking the mask, default: true"
+  },
+  "close-on-press-escape": {
+    "type": "boolean",
+    "description": "whether the Dialog can be closed by pressing ESC, default: true"
+  },
+  "show-close": {
+    "type": "boolean",
+    "description": "whether to show a close button, default: true"
+  },
+  "before-open": {
+    "description": "callback before Dialog opens, and it will prevent Dialog from open"
+  },
+  "before-close": {
+    "description": "callback before Dialog closes, and it will prevent Dialog from closing"
+  },
+  "center": {
+    "type": "boolean",
+    "description": "whether to align the header and footer in center"
+  },
+  "destroy-on-close": {
+    "type": "boolean",
+    "description": "Destroy elements in Dialog when closed, default: false"
+  },
   "separator": { "description": "separator character, default: '/'" },
   "separator-class": { "description": "class name of icon separator" },
   "transition": { "description": "animation name" },
@@ -282,12 +352,16 @@
   "label-suffix": {},
   "label-width": {},
   "color": {},
+  "title": {},
+  "modal-class": {},
+  "z-index": {},
   "pro-radio/config": {
     "description": "config the data key, default: {value: 'value',label: 'label',disabled: 'disabled',name: 'name'}"
   },
   "update:modelValue": { "type": "event" },
   "update:currentPage": { "type": "event" },
   "update:pageSize": { "type": "event" },
+  "update:search": { "type": "event" },
   "change": { "type": "event" },
   "select": { "type": "event" },
   "input": { "type": "event" },
@@ -298,6 +372,11 @@
   "next-click": { "type": "event" },
   "visible-change": { "type": "event" },
   "remove-tag": { "type": "event" },
+  "submit": { "type": "event" },
+  "reset": { "type": "event" },
+  "delete": { "type": "event" },
+  "search": { "type": "event" },
+  "searchReset": { "type": "event" },
   "validate": {
     "type": "event",
     "description": "triggers after a form item is validated"
@@ -389,6 +468,20 @@
     "description": "Table's max-height. The height of the table starts from 'auto' until it reaches the maxHeight limit. The 'maxHeight' is measured in pixels, same as 'height'"
   },
   "pro-table/current-change": {
+    "type": "event",
+    "description": "triggers when 'current-page' changes"
+  },
+  "pro-crud/search": { "description": "the search form binding value" },
+  "pro-crud/empty-text": {
+    "description": "Displayed text when data is empty. You can customize this area with slot='empty'"
+  },
+  "pro-crud/height": {
+    "description": "Table's height. By default it has an auto height. If its value is a number, the height is measured in pixels; if its value is a string, the height is affected by external styles"
+  },
+  "pro-crud/max-height": {
+    "description": "Table's max-height. The height of the table starts from 'auto' until it reaches the maxHeight limit. The 'maxHeight' is measured in pixels, same as 'height'"
+  },
+  "pro-crud/current-change": {
     "type": "event",
     "description": "triggers when 'current-page' changes"
   }
