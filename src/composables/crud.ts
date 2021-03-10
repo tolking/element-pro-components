@@ -46,21 +46,19 @@ export function useCrudColumns(
       : undefined
   })
   const menuColumns = computed(() => {
+    if (!props.menu) return false
     const options = useProOptions()
-    const menu = props.menu
+    const menu = isObject(props.menu)
+      ? objectDeepMerge<ICrudMenuColumns>(options.menu, props.menu)
+      : options.menu
 
-    if (isObject(menu)) {
-      const _menu = objectDeepMerge<ICrudMenuColumns>(options.menu, menu)
-      _menu.showEdit = isFunction(_menu.edit)
-        ? _menu.edit
-        : (row: UnknownObject) => !!_menu.edit
-      _menu.showDel = isFunction(_menu.del)
-        ? _menu.del
-        : (row: UnknownObject) => !!_menu.del
-      return _menu
-    } else {
-      return menu ? options.menu : menu
-    }
+    menu.showEdit = isFunction(menu.edit)
+      ? menu.edit
+      : (row: UnknownObject) => !!menu.edit
+    menu.showDel = isFunction(menu.del)
+      ? menu.del
+      : (row: UnknownObject) => !!menu.del
+    return menu
   })
 
   return {
