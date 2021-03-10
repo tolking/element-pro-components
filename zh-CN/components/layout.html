@@ -14,8 +14,8 @@
     />
     <link rel="icon" href="/element-pro-components/favicon.ico" />
     <title></title>
-    <link rel="modulepreload" crossorigin href="/element-pro-components/assets/Layout.2bee8579.js"><link rel="stylesheet" href="/element-pro-components/assets/Layout.8e927e30.css">
-  <script type="module" crossorigin src="/element-pro-components/assets/index.175939f7.js"></script>
+    <link rel="modulepreload" crossorigin href="/element-pro-components/assets/Layout.0ce02014.js"><link rel="stylesheet" href="/element-pro-components/assets/Layout.8e927e30.css">
+  <script type="module" crossorigin src="/element-pro-components/assets/index.08e2e994.js"></script>
   <link rel="modulepreload" href="/element-pro-components/assets/vendor.6730c589.js">
   <link rel="stylesheet" href="/element-pro-components/assets/index.2e4906e1.css">
 </head>
@@ -74,7 +74,46 @@
   hidden<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">boolean</span> <span class="token comment">// 用于判断是否显示 (仅适用于默认路由)</span>
   keepAlive<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">boolean</span> <span class="token comment">// 控制 keepAlive</span>
 <span class="token punctuation">}</span>
-</code></pre></div><ul><li>参考路由</li></ul><div class="language-ts"><pre><code>Not found<span class="token operator">:</span> <span class="token operator">/</span>home<span class="token operator">/</span>runner<span class="token operator">/</span>work<span class="token operator">/</span>element<span class="token operator">-</span>pro<span class="token operator">-</span>components<span class="token operator">/</span>element<span class="token operator">-</span>pro<span class="token operator">-</span>components<span class="token operator">/</span>docs<span class="token operator">/</span>docs<span class="token operator">/</span>src<span class="token operator">/</span>router<span class="token operator">/</span>dev<span class="token punctuation">.</span>ts</code></pre></div></div><!--]--></div></div><!--[--><div class="el-scrollbar__bar is-horizontal" style="display:none;"><div class="el-scrollbar__thumb" style="width:0;transform:translateX(0%);ms-transform:translateX(0%);webkit-transform:translateX(0%);"></div></div><div class="el-scrollbar__bar is-vertical" style="display:none;"><div class="el-scrollbar__thumb" style="height:0;transform:translateY(0%);ms-transform:translateY(0%);webkit-transform:translateY(0%);"></div></div><!--]--></div></section></section><!--teleport start--><!--teleport end--><!--]--></div>
+</code></pre></div><ul><li>参考路由</li></ul><div class="language-ts"><pre><code><span class="token keyword">import</span> BaseLayout <span class="token keyword">from</span> <span class="token string">&#39;../layout/Layout.vue&#39;</span>
+<span class="token keyword">import</span> Layout <span class="token keyword">from</span> <span class="token string">&#39;../views/Layout.vue&#39;</span>
+<span class="token keyword">import</span> Table <span class="token keyword">from</span> <span class="token string">&#39;../views/Table.vue&#39;</span>
+<span class="token keyword">import</span> Form <span class="token keyword">from</span> <span class="token string">&#39;../views/Form.vue&#39;</span>
+<span class="token keyword">import</span> Crud <span class="token keyword">from</span> <span class="token string">&#39;../views/Crud.vue&#39;</span>
+<span class="token keyword">import</span> <span class="token keyword">type</span> <span class="token punctuation">{</span> IRouteRecordRaw <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;/@src/index&#39;</span>
+
+<span class="token keyword">const</span> routes<span class="token operator">:</span> IRouteRecordRaw<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">{</span>
+    path<span class="token operator">:</span> <span class="token string">&#39;/dev&#39;</span><span class="token punctuation">,</span>
+    redirect<span class="token operator">:</span> <span class="token string">&#39;/dev/Layout&#39;</span><span class="token punctuation">,</span>
+    component<span class="token operator">:</span> BaseLayout<span class="token punctuation">,</span>
+    meta<span class="token operator">:</span> <span class="token punctuation">{</span> title<span class="token operator">:</span> <span class="token string">&#39;Development&#39;</span><span class="token punctuation">,</span> icon<span class="token operator">:</span> <span class="token string">&#39;el-icon-edit&#39;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    children<span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        path<span class="token operator">:</span> <span class="token string">&#39;/dev/Layout&#39;</span><span class="token punctuation">,</span>
+        component<span class="token operator">:</span> Layout<span class="token punctuation">,</span>
+        meta<span class="token operator">:</span> <span class="token punctuation">{</span> title<span class="token operator">:</span> <span class="token string">&#39;Layout&#39;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        path<span class="token operator">:</span> <span class="token string">&#39;/dev/Table&#39;</span><span class="token punctuation">,</span>
+        component<span class="token operator">:</span> Table<span class="token punctuation">,</span>
+        meta<span class="token operator">:</span> <span class="token punctuation">{</span> title<span class="token operator">:</span> <span class="token string">&#39;Table&#39;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        path<span class="token operator">:</span> <span class="token string">&#39;/dev/Form&#39;</span><span class="token punctuation">,</span>
+        component<span class="token operator">:</span> Form<span class="token punctuation">,</span>
+        meta<span class="token operator">:</span> <span class="token punctuation">{</span> title<span class="token operator">:</span> <span class="token string">&#39;Form&#39;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        path<span class="token operator">:</span> <span class="token string">&#39;/dev/Crud&#39;</span><span class="token punctuation">,</span>
+        component<span class="token operator">:</span> Crud<span class="token punctuation">,</span>
+        meta<span class="token operator">:</span> <span class="token punctuation">{</span> title<span class="token operator">:</span> <span class="token string">&#39;Crud&#39;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> routes
+</code></pre></div></div><!--]--></div></div><!--[--><div class="el-scrollbar__bar is-horizontal" style="display:none;"><div class="el-scrollbar__thumb" style="width:0;transform:translateX(0%);ms-transform:translateX(0%);webkit-transform:translateX(0%);"></div></div><div class="el-scrollbar__bar is-vertical" style="display:none;"><div class="el-scrollbar__thumb" style="height:0;transform:translateY(0%);ms-transform:translateY(0%);webkit-transform:translateY(0%);"></div></div><!--]--></div></section></section><!--teleport start--><!--teleport end--><!--]--></div>
     
   </body>
 </html>
