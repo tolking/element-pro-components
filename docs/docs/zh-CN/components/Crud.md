@@ -267,12 +267,13 @@ export default {
 
 ## 事件
 
-| 事件名 | 说明                    | 参数                                              |
-| ------ | ----------------------- | ------------------------------------------------- |
-| submit | submit 被点击后触发     | close, done, 'add'/'edit', isValid, invalidFields |
-| reset  | reset 按钮被点击后触发  | -                                                 |
-| delete | delete 按钮被点击后触发 | row                                               |
-| search | search 按钮被点击后触发 | done, isValid, invalidFields                      |
+| 事件名      | 说明                          | 参数                                              |
+| ----------- | ----------------------------- | ------------------------------------------------- |
+| submit      | submit 被点击后触发           | close, done, 'add'/'edit', isValid, invalidFields |
+| reset       | reset 按钮被点击后触发        | -                                                 |
+| delete      | delete 按钮被点击后触发       | row                                               |
+| search      | search 按钮被点击后触发       | done, isValid, invalidFields                      |
+| searchReset | search reset 按钮被点击后触发 | -                                                 |
 
 ::: tip 提示
 其它事件与 Table 和 Form 相同

@@ -152,11 +152,15 @@ export function useCrudForm(
 }
 
 export function useCrudSearchForm(
-  emit: (event: 'update:search' | 'search', ...args: unknown[]) => void,
+  emit: (
+    event: 'update:search' | 'search' | 'searchReset',
+    ...args: unknown[]
+  ) => void,
   menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | false>
 ): {
   searchMenu: ComputedRef<IFormMenuColumns | undefined>
   searchForm: IFormSubmit
+  searchReset: () => void
   upSearchData: (value: unknown) => void
 } {
   const searchMenu = computed<IFormMenuColumns | undefined>(() => {
@@ -178,6 +182,10 @@ export function useCrudSearchForm(
     emit('search', done, isValid, invalidFields)
   }
 
+  function searchReset() {
+    emit('searchReset')
+  }
+
   function upSearchData(value: unknown) {
     emit('update:search', value)
   }
@@ -185,6 +193,7 @@ export function useCrudSearchForm(
   return {
     searchMenu,
     searchForm,
+    searchReset,
     upSearchData,
   }
 }

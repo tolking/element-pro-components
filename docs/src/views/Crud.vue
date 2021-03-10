@@ -15,7 +15,9 @@
     append-to-body
     class="ffff"
     @search="search"
+    @searchReset="reset"
     @submit="submit"
+    @reset="reset"
     @delete="deleteRow"
   >
     <template #menu-right="{ size }">
@@ -151,6 +153,10 @@ onMounted(() => {
 function beforeClose(done: () => void) {
   console.log('beforeClose')
   done()
+}
+
+function reset() {
+  console.log('reset')
 }
 
 function deleteRow(row: DataItem) {

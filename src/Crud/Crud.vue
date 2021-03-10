@@ -11,6 +11,7 @@
       class="pro-crud-search"
       @update:modelValue="upSearchData"
       @submit="searchForm"
+      @reset="searchReset"
     >
       <template
         v-for="slot in searchSlotList"
@@ -242,6 +243,7 @@ const emit = defineEmit([
   'reset',
   'delete',
   'search',
+  'searchReset',
 ])
 const { expose } = useContext()
 const { searchRules } = toRefs(props)
@@ -274,7 +276,7 @@ const {
   openForm,
   submitForm,
 } = useCrudForm(props, emit, resetForm)
-const { searchMenu, searchForm, upSearchData } = useCrudSearchForm(
+const { searchMenu, searchForm, searchReset, upSearchData } = useCrudSearchForm(
   emit,
   menuColumns
 )
