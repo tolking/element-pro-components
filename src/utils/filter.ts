@@ -45,7 +45,7 @@ export function filterSlotDeep<T>(list: T): T {
       _item.children = undefined
     }
     if (_item.slot) {
-      _list.push(_item)
+      _list.unshift(_item)
     }
     return [...all, ..._list]
   }, ([] as unknown) as T)
