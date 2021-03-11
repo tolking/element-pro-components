@@ -1,5 +1,9 @@
 <template>
-  <a href="https://github.com/tolking/element-pro-components">github</a>
+  <a
+    href="https://github.com/tolking/element-pro-components"
+    target="_blank"
+    rel="noopener noreferrer"
+  >GitHub</a>
   <!-- TODO: <el-dropdown>
     <span class="el-dropdown-link">
       中文<i class="el-icon-arrow-down el-icon--right" />

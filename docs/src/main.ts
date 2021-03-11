@@ -10,6 +10,7 @@ import {
   ElDropdown,
   ElDropdownItem,
   ElDropdownMenu,
+  ElDatePicker,
 } from 'element-plus'
 import ElementPro from '/@src/index'
 import ProCode from './components/ProCode.vue'
@@ -36,6 +37,7 @@ export function createApp(): {
     .use(ElDropdown)
     .use(ElDropdownItem)
     .use(ElDropdownMenu)
+    .use(ElDatePicker)
     .use(ElementPro)
 
   return { app, router }
