@@ -117,7 +117,7 @@
       </template>
       <template #menu="scope">
         <el-button
-          v-if="menuColumns.showEdit(scope.row)"
+          v-if="menuColumns && menuColumns.showEdit(scope.row)"
           v-bind="menuColumns.editProps"
           :size="scope.size"
           @click="openForm('edit', scope.row)"
@@ -125,7 +125,7 @@
           {{ menuColumns.editText }}
         </el-button>
         <el-button
-          v-if="menuColumns.showDel(scope.row)"
+          v-if="menuColumns && menuColumns.showDel(scope.row)"
           v-bind="menuColumns.delProps"
           :size="scope.size"
           @click="delRow(scope.row)"
@@ -148,6 +148,7 @@
         ref="form"
         :model-value="modelValue"
         :columns="formColumns"
+        :menu="menuColumns"
         class="pro-crud-form"
         @update:modelValue="upFormData"
         @submit="submitForm"

@@ -484,7 +484,7 @@ export default {
 ## 配置
 
 | 参数                    | 说明                                                                | 类型                                                    | 可选值                         | 默认值                                               |
-| :---------------------- | :------------------------------------------------------------------ | :------------------------------------------------------ | :----------------------------- | :--------------------------------------------------- | ---- |
+| :---------------------- | :------------------------------------------------------------------ | :------------------------------------------------------ | :----------------------------- | :--------------------------------------------------- |
 | data                    | 显示的数据                                                          | array                                                   | -                              | -                                                    |
 | columns                 | 自动生成表单的参数，参考下面 columns                                | array                                                   | -                              | -                                                    |
 | selection               | 显示多选框，支持 columns 的配置                                     | boolean / object                                        | -                              | false                                                |
@@ -520,7 +520,7 @@ export default {
 | default-expand-all      | 是否默认展开所有行                                                  | boolean                                                 | -                              | false                                                |
 | expand-row-keys         | Table 目前的展开行，与 row-key 配合使用                             | array                                                   | -                              | -                                                    |
 | default-sort            | 默认的排序列的 prop 和顺序                                          | Object                                                  | `order`: ascending, descending | ascending                                            |
-| tooltip-effect          | tooltip `effect` 属性                                               | String                                                  | dark / light                   | -                                                    | dark |
+| tooltip-effect          | tooltip `effect` 属性                                               | String                                                  | dark / light                   | -                                                    |
 | show-summary            | 是否在表尾显示合计行                                                | Boolean                                                 | -                              | false                                                |
 | sum-text                | 合计行第一列的文本                                                  | String                                                  | -                              | 合计                                                 |
 | summary-method          | 自定义的合计计算方法                                                | Function({ columns, data })                             | -                              | -                                                    |

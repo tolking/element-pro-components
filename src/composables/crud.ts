@@ -46,21 +46,19 @@ export function useCrudColumns(
       : undefined
   })
   const menuColumns = computed(() => {
+    if (!props.menu) return false
     const options = useProOptions()
-    const menu = props.menu
+    const menu = isObject(props.menu)
+      ? objectDeepMerge<ICrudMenuColumns>(options.menu, props.menu)
+      : options.menu
 
-    if (isObject(menu)) {
-      const _menu = objectDeepMerge<ICrudMenuColumns>(options.menu, menu)
-      _menu.showEdit = isFunction(_menu.edit)
-        ? _menu.edit
-        : (row: UnknownObject) => !!_menu.edit
-      _menu.showDel = isFunction(_menu.del)
-        ? _menu.del
-        : (row: UnknownObject) => !!_menu.del
-      return _menu
-    } else {
-      return menu ? options.menu : menu
-    }
+    menu.showEdit = isFunction(menu.edit)
+      ? menu.edit
+      : (row: UnknownObject) => !!menu.edit
+    menu.showDel = isFunction(menu.del)
+      ? menu.del
+      : (row: UnknownObject) => !!menu.del
+    return menu
   })
 
   return {
@@ -158,24 +156,24 @@ export function useCrudSearchForm(
   ) => void,
   menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | false>
 ): {
-  searchMenu: ComputedRef<IFormMenuColumns | undefined>
+  searchMenu: ComputedRef<IFormMenuColumns>
   searchForm: IFormSubmit
   searchReset: () => void
   upSearchData: (value: unknown) => void
 } {
-  const searchMenu = computed<IFormMenuColumns | undefined>(() => {
+  const searchMenu = computed<IFormMenuColumns>(() => {
     const _menuColumns = unref(menuColumns)
+    const options = useProOptions()
+    const menu = _menuColumns ? _menuColumns : options.menu
 
-    return _menuColumns
-      ? {
-          submit: _menuColumns.search,
-          submitText: _menuColumns.searchText,
-          submitProps: _menuColumns.searchProps,
-          reset: _menuColumns.searchReset,
-          resetText: _menuColumns.searchResetText,
-          resetProps: _menuColumns.searchResetProps,
-        }
-      : undefined
+    return {
+      submit: menu.search,
+      submitText: menu.searchText,
+      submitProps: menu.searchProps,
+      reset: menu.searchReset,
+      resetText: menu.searchResetText,
+      resetProps: menu.searchResetProps,
+    }
   })
 
   const searchForm: IFormSubmit = (done, isValid, invalidFields) => {
