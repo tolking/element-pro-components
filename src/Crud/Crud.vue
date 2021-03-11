@@ -200,7 +200,7 @@
 
 <script setup lang="ts">
 import { useContext, defineEmit, defineProps, toRefs } from 'vue'
-import { ElDialog } from 'element-plus'
+import { ElDialog, ElButton } from 'element-plus'
 import {
   useCrudColumns,
   useCrudForm,
