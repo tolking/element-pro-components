@@ -59,6 +59,7 @@
       <el-button
         v-if="menu.reset"
         v-bind="menu.resetProps"
+        :disabled="loading"
         @click="resetForm"
       >
         {{ menu.resetText }}
