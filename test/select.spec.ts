@@ -46,7 +46,8 @@ describe('Select.vue', () => {
     expect(getList(wrapper, '.is-disabled')).toContain('go')
 
     await wrapper.find(selectItemClass + ':last-child').trigger('click')
-    expect(vm.value).toBe('V')
+    expect(wrapper.find('.el-input__inner').element.value).toBe('v')
+    // expect(vm.value).toBe('V')
 
     // change model-value
     await (vm.value = 'Dart')

@@ -47,21 +47,27 @@ const _mount = (options: Record<string, unknown>) =>
       },
     }
   )
-const addClass = '.pro-crud .pro-crud-menu .el-button'
+const addClass = '.pro-crud .pro-crud-menu button'
 const searchClass =
-  '.pro-crud .pro-crud-search .el-form-item:last-child .el-form-item__content .el-button'
+  '.pro-crud .pro-crud-search .el-form-item:last-child .el-form-item__content button'
 const menuClass =
-  '.pro-crud .pro-crud-table .el-table__body-wrapper .el-table__body .el-table__row td:last-child .cell .el-button'
+  '.pro-crud .pro-crud-table .el-table__body-wrapper .el-table__body .el-table__row td:last-child .cell button'
 const formClass =
-  '.pro-crud .pro-crud-dialog .pro-crud-form .el-form-item:last-child .el-button'
+  '.pro-crud .pro-crud-dialog .pro-crud-form .el-form-item:last-child button'
 const dialogClose =
   '.pro-crud .pro-crud-dialog .el-dialog__header .el-dialog__headerbtn'
 const headerClass =
   '.pro-crud .pro-crud-table .el-table__header-wrapper .el-table__header thead tr'
 const getHeader = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   wrapper.findAll(headerClass + ' th')
+const bodyClass =
+  '.pro-crud .pro-crud-table .el-table__body-wrapper .el-table__body tbody tr'
 const getHeaderList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   getHeader(wrapper).map((item) => item.find('.cell').text())
+const getBodyItem = (wrapper: VueWrapper<ComponentPublicInstance>, index = 1) =>
+  wrapper
+    .findAll(`${bodyClass}:nth-child(${index}) td`)
+    .map((item) => item.find('.cell').text())
 const getSearchList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   wrapper.findAll('.pro-crud .pro-crud-search .pro-form-item')
 const getSearchLabelList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
@@ -281,5 +287,148 @@ describe('Crud.vue', () => {
 
     await wrapper.find(searchInput).setValue('value')
     expect(vm.searchForm.date).toBe('value')
+  })
+
+  test('slots', async () => {
+    const wrapper = await _mount({
+      template: `
+        <pro-crud
+          v-model="form"
+          v-model:search="searchForm"
+          :columns="columns"
+          :data="data"
+          :menu="{ label: 'Label' }"
+          :append-to-body="false"
+        >
+          <template #menu-left="{ size }">
+            <button class="size">menu-left</button>
+          </template>
+          <template #menu-right="{ size }">
+            <button class="size">menu-right</button>
+          </template>
+          <template #menu="{ size }">
+            <button class="size">@menu-</button>
+          </template>
+          <template #table-slot="{ row }">
+            @table-{{ row.slot }}
+          </template>
+          <template #slot-header>
+            slot-header
+          </template>
+          <template #form-menu-left>
+            <button>form-menu-left</button>
+          </template>
+          <template #form-menu-right>
+            <button>form-menu-right</button>
+          </template>
+          <template #form-slot="{ value, setValue }">
+            <el-input
+              :model-value="value"
+              class="form-slot"
+              @input="e => setValue(e.taget.value)"
+            />
+          </template>
+          <template #slot-label>
+            slot-label
+          </template>
+          <template #search-menu-left>
+            <button>search-menu-left</button>
+          </template>
+          <template #search-menu-right>
+            <button>search-menu-right</button>
+          </template>
+          <template #search-slot="{ value, setValue }">
+            <el-input
+              :model-value="value"
+              class="search-slot"
+              @input="e => setValue(e.taget.value)"
+            />
+          </template>
+          <template #search-slot-label>
+            search-slot-label
+          </template>
+        </pro-crud>
+      `,
+      setup() {
+        const form = ref({})
+        const searchForm = ref({})
+        const columns = ref<ICrudColumns>([
+          {
+            label: 'Slot',
+            prop: 'slot',
+            component: 'el-switch',
+            form: true,
+            search: true,
+            slot: true,
+          },
+        ])
+
+        return { form, searchForm, columns, data: tableData }
+      },
+    })
+    const vm = (wrapper.vm as unknown) as { columns: ICrudColumns<Form> }
+
+    expect(wrapper.find(searchClass).text()).toBe('search-menu-left')
+    expect(wrapper.find(searchClass + ':nth-child(2)').text()).toBe('Search')
+    expect(wrapper.find(searchClass + ':nth-child(3)').text()).toBe('Reset')
+    expect(wrapper.find(searchClass + ':nth-child(4)').text()).toBe(
+      'search-menu-right'
+    )
+    expect(getSearchList(wrapper)).toHaveLength(1)
+    expect(getSearchLabelList(wrapper)).toContain('search-slot-label')
+    expect(getSearchComponentList(wrapper)[0]).toContain('search-slot')
+
+    expect(wrapper.find(addClass).text()).toBe('menu-left')
+    expect(wrapper.find(addClass + ':nth-child(2)').text()).toBe('Add')
+    expect(wrapper.find(addClass + ':nth-child(3)').text()).toBe('menu-right')
+
+    expect(getHeaderList(wrapper)).toContain('slot-header')
+    expect(getBodyItem(wrapper)[0]).toMatch(/^@table-/)
+    expect(getBodyItem(wrapper)[1]).toMatch(/@menu-/)
+
+    await wrapper.find(addClass + ':nth-child(2)').trigger('click')
+    expect(wrapper.find(formClass).text()).toBe('form-menu-left')
+    expect(wrapper.find(formClass + ':nth-child(2)').text()).toBe('Submit')
+    expect(wrapper.find(formClass + ':nth-child(3)').text()).toBe('Reset')
+    expect(wrapper.find(formClass + ':nth-child(4)').text()).toBe(
+      'form-menu-right'
+    )
+    expect(getFormList(wrapper)).toHaveLength(1)
+    expect(getLabelList(wrapper)).toContain('slot-label')
+    expect(getComponentList(wrapper)[0]).toContain('form-slot')
+    await wrapper.find(dialogClose).trigger('click')
+
+    await (vm.columns[0].slot = false)
+    expect(wrapper.find(searchClass).text()).toBe('search-menu-left')
+    expect(wrapper.find(searchClass + ':nth-child(2)').text()).toBe('Search')
+    expect(wrapper.find(searchClass + ':nth-child(3)').text()).toBe('Reset')
+    expect(wrapper.find(searchClass + ':nth-child(4)').text()).toBe(
+      'search-menu-right'
+    )
+    expect(getSearchLabelList(wrapper)).not.toContain('search-slot-label')
+    expect(getSearchLabelList(wrapper)).toContain('Slot')
+    expect(getSearchComponentList(wrapper)[0]).not.toContain('search-slot')
+    expect(getSearchComponentList(wrapper)[0]).toContain('el-switch')
+
+    expect(wrapper.find(addClass).text()).toBe('menu-left')
+    expect(wrapper.find(addClass + ':nth-child(2)').text()).toBe('Add')
+    expect(wrapper.find(addClass + ':nth-child(3)').text()).toBe('menu-right')
+
+    expect(getHeaderList(wrapper)).not.toContain('slot-header')
+    expect(getHeaderList(wrapper)).toContain('Slot')
+    expect(getBodyItem(wrapper)[0]).not.toMatch(/^@table-/)
+
+    await wrapper.find(addClass + ':nth-child(2)').trigger('click')
+    expect(wrapper.find(formClass).text()).toBe('form-menu-left')
+    expect(wrapper.find(formClass + ':nth-child(2)').text()).toBe('Submit')
+    expect(wrapper.find(formClass + ':nth-child(3)').text()).toBe('Reset')
+    expect(wrapper.find(formClass + ':nth-child(4)').text()).toBe(
+      'form-menu-right'
+    )
+    expect(getLabelList(wrapper)).not.toContain('slot-label')
+    expect(getLabelList(wrapper)).toContain('Slot')
+    expect(getComponentList(wrapper)[0]).not.toContain('form-slot')
+    expect(getComponentList(wrapper)[0]).toContain('el-switch')
+    await wrapper.find(dialogClose).trigger('click')
   })
 })

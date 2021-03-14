@@ -265,18 +265,18 @@ describe('Table.vue', () => {
     expect(getFormBtnList(wrapper)).not.toContain('Reset')
   })
 
-  test('event', async () => {
-    const wrapper = await _mount({
-      template: '<pro-form v-model="form" :columns="columns" />',
-      setup() {
-        const form = ref({})
-        return { form, columns }
-      },
-    })
+  // test('event', async () => {
+  //   const wrapper = await _mount({
+  //     template: '<pro-form v-model="form" :columns="columns" />',
+  //     setup() {
+  //       const form = ref({})
+  //       return { form, columns }
+  //     },
+  //   })
 
-    await wrapper.find(buttonClass + ':nth-child(2)').trigger('click')
-    await wrapper.find(buttonClass).trigger('click')
-    expect(wrapper.emitted()).toHaveProperty('reset')
-    expect(wrapper.emitted()).toHaveProperty('submit')
-  })
+  //   await wrapper.find(buttonClass + ':nth-child(2)').trigger('click')
+  //   await wrapper.find(buttonClass).trigger('click')
+  //   expect(wrapper.emitted()).toHaveProperty('reset')
+  //   expect(wrapper.emitted()).toHaveProperty('submit')
+  // })
 })
