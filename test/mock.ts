@@ -43,6 +43,20 @@ export const tableData: TableItem[] = [
   },
 ]
 
+export const slotList = [
+  { slot: true, label: 'label1' },
+  { label: 'label2' },
+  {
+    slot: true,
+    label: 'label3',
+    children: [{ slot: true, label: 'label4' }, { label: 'label5' }],
+  },
+  {
+    label: 'label6',
+    children: [{ slot: true, label: 'label7' }, { label: 'label8' }],
+  },
+]
+
 export const routes: IRouteRecordRaw[] = [
   {
     path: '/',

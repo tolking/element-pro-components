@@ -1,31 +1,40 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
+import { ElInput, ElSwitch } from 'element-plus'
 import ProForm from '../src/Form/Form.vue'
-import { IFormColumns } from '../src/types/index'
+import type { IFormColumns, IFormMenuColumns } from '../src/types/index'
 
 const columns: IFormColumns = [
   {
     label: 'input',
     prop: 'input',
-    component: 'input',
-    props: {
-      type: 'input',
-    },
+    component: 'el-input',
   },
 ]
 const _mount = (options: Record<string, unknown>) =>
-  mount({
-    components: { ProForm },
-    ...options,
-  })
-const getFormItem = (wrapper: VueWrapper<ComponentPublicInstance>) =>
-  wrapper
-    .findAll('.pro-form .pro-form-item')
-    .map((item) => item.find('.el-form-item__content').html())
-const haveItem = (
-  wrapper: VueWrapper<ComponentPublicInstance>,
-  value: string
-) => getFormItem(wrapper).some((item) => item.indexOf(value) > -1)
+  mount(
+    {
+      components: { ProForm },
+      ...options,
+    },
+    {
+      global: {
+        components: { ElInput, ElSwitch },
+      },
+    }
+  )
+const buttonClass =
+  '.pro-form .el-form-item:last-child .el-form-item__content button'
+const getFormList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
+  wrapper.findAll('.pro-form .pro-form-item')
+const getLabelList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
+  getFormList(wrapper).map((item) => item.find('.el-form-item__label').text())
+const getComponentList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
+  getFormList(wrapper).map((item) =>
+    item.find('.el-form-item__content div').classes()
+  )
+const getFormBtnList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
+  wrapper.findAll(buttonClass).map((item) => item.text())
 const getFormContent = (
   wrapper: VueWrapper<ComponentPublicInstance>,
   className = ''
@@ -47,30 +56,37 @@ describe('Table.vue', () => {
     })
     const vm = (wrapper.vm as unknown) as { columns: IFormColumns }
 
-    expect(getFormItem(wrapper)).toHaveLength(1)
-    expect(haveItem(wrapper, '<input')).toBeTruthy()
-    expect(haveItem(wrapper, '<textarea')).toBeFalsy()
+    expect(getFormList(wrapper)).toHaveLength(1)
+    expect(getLabelList(wrapper)).toContain('input')
+    expect(getComponentList(wrapper)[0]).toContain('el-input')
 
     await vm.columns.push({
       label: 'textarea',
       prop: 'textarea',
-      component: 'textarea',
+      component: 'el-input',
+      props: { type: 'textarea' },
     })
-    expect(getFormItem(wrapper)).toHaveLength(2)
-    expect(haveItem(wrapper, '<textarea')).toBeTruthy()
+    expect(getFormList(wrapper)).toHaveLength(2)
+    expect(getLabelList(wrapper)).toContain('input')
+    expect(getLabelList(wrapper)).toContain('textarea')
+    expect(getComponentList(wrapper)[1]).toContain('el-textarea')
 
     await vm.columns.splice(0, 1)
-    expect(getFormItem(wrapper)).toHaveLength(1)
-    expect(haveItem(wrapper, '<input')).toBeFalsy()
+    expect(getFormList(wrapper)).toHaveLength(1)
+    expect(getLabelList(wrapper)).not.toContain('input')
+    expect(getLabelList(wrapper)).toContain('textarea')
+    expect(getComponentList(wrapper)[0]).not.toContain('el-input')
+    expect(getComponentList(wrapper)[0]).toContain('el-textarea')
 
-    await (vm.columns[0].component = 'input')
-    expect(getFormItem(wrapper)).toHaveLength(1)
-    expect(haveItem(wrapper, '<textarea')).toBeFalsy()
-    expect(haveItem(wrapper, '<input')).toBeTruthy()
+    await (vm.columns[0].props = { type: 'text' })
+    expect(getFormList(wrapper)).toHaveLength(1)
+    expect(getComponentList(wrapper)[0]).not.toContain('el-textarea')
+    expect(getComponentList(wrapper)[0]).toContain('el-input')
 
-    await (vm.columns[0].props = { type: 'radio' })
-    expect(haveItem(wrapper, '<input')).toBeTruthy()
-    expect(haveItem(wrapper, '<input type="radio"')).toBeTruthy()
+    await ((vm.columns[0].component = 'el-switch'),
+    (vm.columns[0].props = undefined))
+    expect(getComponentList(wrapper)[0]).not.toContain('el-input')
+    expect(getComponentList(wrapper)[0]).toContain('el-switch')
   })
 
   test('sub-form', async () => {
@@ -82,7 +98,7 @@ describe('Table.vue', () => {
           {
             label: 'Date',
             prop: 'date',
-            component: 'input',
+            component: 'el-input',
           },
           {
             label: 'User',
@@ -92,12 +108,12 @@ describe('Table.vue', () => {
               {
                 label: 'Name',
                 prop: 'name',
-                component: 'input',
+                component: 'el-input',
               },
               {
                 label: 'Address',
                 prop: 'address',
-                component: 'input',
+                component: 'el-input',
               },
             ],
           },
@@ -129,59 +145,138 @@ describe('Table.vue', () => {
             slot-label
           </template>
           <template #slot="{ value, setValue }">
-            <input
+            <el-input
               :model-value="value"
               calss="slot"
               @input="e => setValue(e.taget.value)"
             />
           </template>
-          <template #menu>
-            <button>Submit</button>
+          <template #menu-left>
+            <button>menu-left</button>
+          </template>
+          <template #menu-right>
+            <button>menu-right</button>
           </template>
         </pro-form>
       `,
       setup() {
         const form = ref<{ slot: string }>({ slot: '' })
-        const _colums: IFormColumns = [
+        const _colums = ref<IFormColumns>([
           {
+            label: 'Label',
             prop: 'slot',
             slot: true,
+            component: 'el-switch',
           },
-        ]
+        ])
         return { form, columns: _colums }
       },
     })
-    const vm = (wrapper.vm as unknown) as { form: { slot: string } }
+    const vm = (wrapper.vm as unknown) as { columns: IFormColumns }
 
-    expect(getFormItem(wrapper)).toHaveLength(1)
-    expect(haveItem(wrapper, '<input')).toBeTruthy()
+    expect(getFormList(wrapper)).toHaveLength(1)
+    expect(getComponentList(wrapper)[0]).not.toContain('el-switch')
+    expect(getComponentList(wrapper)[0]).toContain('el-input')
     expect(wrapper.find('label[for="slot"]').text()).toBe('slot-label')
-    expect(wrapper.find('button').text()).toBe('Submit')
+    expect(getFormBtnList(wrapper)).toContain('menu-left')
+    expect(getFormBtnList(wrapper)).toContain('menu-right')
+
+    await (vm.columns[0].slot = false)
+    expect(getComponentList(wrapper)[0]).toContain('el-switch')
+    expect(getComponentList(wrapper)[0]).not.toContain('el-input')
   })
 
-  test('test modelValue', async () => {
+  test('modelValue', async () => {
+    interface Form {
+      input: string
+      switch: boolean
+    }
+
     const wrapper = _mount({
       template: '<pro-form v-model="form" :columns="columns" />',
       setup() {
-        const form = ref<Record<string, string>>({})
-        const _colums: IFormColumns = [
-          ...columns,
+        const form = ref<Form>({
+          input: '123',
+          switch: false,
+        })
+        const columns: IFormColumns<Form> = [
           {
-            label: 'textarea',
-            prop: 'textarea',
-            component: 'textarea',
+            label: 'input',
+            prop: 'input',
+            component: 'el-input',
+          },
+          {
+            label: 'switch',
+            prop: 'switch',
+            component: 'el-switch',
           },
         ]
-        return { form, columns: _colums }
+        return { form, columns }
       },
     })
     const vm = (wrapper.vm as unknown) as {
-      form: Record<string, string>
+      form: Form
       columns: IFormColumns
     }
 
-    expect(getFormItem(wrapper)).toHaveLength(2)
-    expect(wrapper.find('input').element.value).toBe('')
-    expect(vm.form.input).toBe(undefined)
+    expect(getFormList(wrapper)).toHaveLength(2)
+    expect(wrapper.find('input').element.value).toBe('123')
+    expect(wrapper.find('.el-switch').classes()).not.toContain('is-checked')
+
+    await wrapper.find('.el-switch').trigger('click')
+    expect(vm.form.switch).toBeTruthy()
+    expect(wrapper.find('.el-switch').classes()).toContain('is-checked')
+
+    await wrapper.find('input').setValue('value')
+    expect(vm.form.input).toBe('value')
+
+    await (vm.form = { input: 'input', switch: false })
+    expect(wrapper.find('input').element.value).toBe('input')
+    expect(wrapper.find('.el-switch').classes()).not.toContain('is-checked')
   })
+
+  test('menu', async () => {
+    const wrapper = await _mount({
+      template: '<pro-form v-model="form" :columns="columns" :menu="menu" />',
+      setup() {
+        const form = ref({})
+        const menu = ref<IFormMenuColumns>({})
+        return { form, columns, menu }
+      },
+    })
+    const vm = (wrapper.vm as unknown) as { menu: IFormMenuColumns }
+
+    expect(getFormBtnList(wrapper)).toContain('Submit')
+    expect(getFormBtnList(wrapper)).toContain('Reset')
+
+    await (vm.menu.submitText = 'submit')
+    expect(getFormBtnList(wrapper)).toContain('submit')
+
+    await (vm.menu.submitProps = { type: 'danger' })
+    expect(
+      wrapper
+        .find(
+          '.pro-form .el-form-item:last-child .el-form-item__content button.el-button--danger'
+        )
+        .exists()
+    ).toBeTruthy()
+
+    await (vm.menu.reset = false)
+    expect(getFormBtnList(wrapper)).not.toContain('Reset')
+  })
+
+  // test('event', async () => {
+  //   const wrapper = await _mount({
+  //     template: '<pro-form v-model="form" :columns="columns" />',
+  //     setup() {
+  //       const form = ref({})
+  //       return { form, columns }
+  //     },
+  //   })
+
+  //   await wrapper.find(buttonClass + ':nth-child(2)').trigger('click')
+  //   await wrapper.find(buttonClass).trigger('click')
+  //   expect(wrapper.emitted()).toHaveProperty('reset')
+  //   expect(wrapper.emitted()).toHaveProperty('submit')
+  // })
 })

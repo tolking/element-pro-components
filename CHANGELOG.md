@@ -1,5 +1,39 @@
 # Changelog
 
+## 0.8.0
+
+breaking changes
+
+- change the order of submit arg
+
+```diff
+export type ICrudSubmit = (
+-  formType: ICrudFormType,
+  close: () => void,
+  done: () => void,
++ formType: ICrudFormType,
+  isValid: boolean,
+  invalidFields?: UnknownObject
+) => void
+```
+
+feat
+
+- Crud: add event `searchReset`
+
+fix
+
+- Form: disabled reset button when click submit
+- Crud: miss ElButton
+- Crud: error when menu is true
+- Crud: miss search menu when menu is false
+- Crud: miss form menu
+
+other
+
+- add Crud for vetur
+- refactor docs
+
 ## 0.7.0
 
 breaking changes
