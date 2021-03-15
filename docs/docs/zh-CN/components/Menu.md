@@ -63,7 +63,7 @@ export default {
     const router = useRouter()
     const routes = computed(() => {
       const _routes = router.options.routes
-      return _routes.filter(item => item.path === '/dev')
+      return _routes.find(item => item.path === '/zh-CN/components/').children
     })
 
     return {
