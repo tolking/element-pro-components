@@ -8,7 +8,7 @@
 - 支持 `el-input` `el-switch` 等
 - 不支持 `el-upload` `el-select` `el-radio-group` `el-checkbox-group` `input` 等
 
-使用相关 `pro-select` `pro-radio` `pro-checkbox` 或第三方组件代替不支持组件
+使用相关 `pro-select` `pro-radio` `pro-checkbox` 或其它第三方组件代替
 :::
 
 ::: warning 警告
