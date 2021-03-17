@@ -4,6 +4,9 @@
     ref="form"
     :model="modelValue"
     :label-position="position"
+    :inline="inline"
+    :style="!inline && rowStyle"
+    :class="!inline && rowClass"
     class="pro-form"
   >
     <pro-form-item
@@ -12,6 +15,7 @@
       :model-value="modelValue"
       :item="item"
       :prop="item.prop"
+      :inline="inline"
       @update:modelValue="upFormData"
     >
       <template
@@ -46,7 +50,7 @@
       </template>
     </pro-form-item>
     <slot />
-    <el-form-item>
+    <el-form-item class="pro-form-menu">
       <slot name="menu-left" />
       <el-button
         v-if="menu.submit"
@@ -78,6 +82,7 @@ import {
   useFormMethods,
   useScreenSize,
   useFormMenu,
+  useRow,
 } from '../composables/index'
 import type { FormColumn } from '../types/index'
 
@@ -86,10 +91,15 @@ const props = defineProps<{
   menu?: Record<string, unknown>
   modelValue: Record<string, unknown>
   labelPosition?: 'right' | 'left' | 'top'
+  inline: boolean
+  gutter?: number
+  type?: string
+  justify?: 'start' | 'end' | 'center' | 'space-around' | 'space-between'
+  align?: 'top' | 'middle' | 'bottom'
 }>()
 const emit = defineEmit(['update:modelValue', 'submit', 'reset'])
 const { attrs, expose } = useContext()
-const { columns, modelValue, labelPosition } = toRefs(props)
+const { columns, modelValue, labelPosition, inline } = toRefs(props)
 const slotList = useFormSlotList(columns)
 const {
   form,
@@ -103,9 +113,10 @@ const {
   resetForm,
 } = useFormMethods(emit)
 const menu = useFormMenu(props)
+const { rowStyle, rowClass } = useRow(props)
 const size = useScreenSize()
 const position = computed(() => {
-  return size.value === 'xs' && !attrs.inline ? 'top' : labelPosition?.value
+  return size.value === 'xs' && !inline.value ? 'top' : labelPosition?.value
 })
 
 expose({

@@ -86,3 +86,38 @@ export interface IDialogProps {
   center: boolean
   destroyOnClose: boolean
 }
+
+export interface IRowProps {
+  /** grid spacing */
+  gutter?: number
+  /** layout mode, you can use flex, works in modern browsers */
+  type?: string
+  /** horizontal alignment of flex layout */
+  justify?: 'start' | 'end' | 'center' | 'space-around' | 'space-between'
+  /** vertical alignment of flex layout */
+  align?: 'top' | 'middle' | 'bottom'
+}
+
+export interface IColProps extends IColSizeObject {
+  /** `<768px` Responsive columns or column props object */
+  xs?: number | IColSizeObject
+  /** `≥768px` Responsive columns or column props object */
+  sm?: number | IColSizeObject
+  /** `≥992px` Responsive columns or column props object */
+  md?: number | IColSizeObject
+  /** `≥1200px` Responsive columns or column props object */
+  lg?: number | IColSizeObject
+  /** `≥1920px` Responsive columns or column props object */
+  xl?: number | IColSizeObject
+}
+
+export interface IColSizeObject {
+  /** number of column the grid spans */
+  span?: number
+  /** number of spacing on the left side of the grid */
+  offset?: number
+  /** number of columns that grid moves to the right */
+  pull?: number
+  /** number of columns that grid moves to the left */
+  push?: number
+}

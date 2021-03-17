@@ -63,6 +63,15 @@ export function useFormItemBind(
       _option.max = undefined
       _option.props = undefined
       _option.prop = undefined
+      _option.span = undefined
+      _option.offset = undefined
+      _option.pull = undefined
+      _option.push = undefined
+      _option.xs = undefined
+      _option.sm = undefined
+      _option.md = undefined
+      _option.lg = undefined
+      _option.xl = undefined
       delete _option.children
     }
 
