@@ -850,7 +850,7 @@ export default {
     </template>
     <template #table-name="{ row, size }">
       <el-tag :size="size">
-        {{ row.name }}
+        {{ row?.name }}
       </el-tag>
     </template>
     <template #name-header="{ column }">
