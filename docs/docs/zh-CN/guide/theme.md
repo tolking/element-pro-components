@@ -80,7 +80,7 @@ import 'your/css/file'
 ```
 
 ::: tip 提示
-可以使用 postcss 插件 [postcss-preset-env](https://github.com/csstools/postcss-preset-env) 或者同类的插件转换 `css-variables` 获得更好的兼容性，以便在不支持 `css-variables` 时能够显示默认值样式
+可以使用 postcss 插件 [postcss-custom-properties](https://github.com/postcss/postcss-custom-properties) 或者同类的插件转换 `css-variables` 获得更好的兼容性，以便在不支持 `css-variables` 时能够显示默认值样式
 :::
 
 ## 提供配置的参数

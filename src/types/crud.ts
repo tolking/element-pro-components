@@ -18,7 +18,7 @@ import type {
 
 export interface ICrudProps<T = UnknownObject>
   extends Partial<ITableProps<T>>,
-    Partial<Omit<IFormProps<T>, 'menu'>>,
+    Partial<Omit<IFormProps<T>, 'menu' | 'align'>>,
     IDialogProps {
   columns?: ICrudColumns<T>
   addColumns?: IFormColumns<T>

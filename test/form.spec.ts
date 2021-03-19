@@ -27,6 +27,8 @@ const buttonClass =
   '.pro-form .el-form-item:last-child .el-form-item__content button'
 const getFormList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   wrapper.findAll('.pro-form .pro-form-item')
+const getFormClassList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
+  getFormList(wrapper).map((item) => item.classes())
 const getLabelList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   getFormList(wrapper).map((item) => item.find('.el-form-item__label').text())
 const getComponentList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
@@ -263,6 +265,83 @@ describe('Table.vue', () => {
 
     await (vm.menu.reset = false)
     expect(getFormBtnList(wrapper)).not.toContain('Reset')
+  })
+
+  test('grid layout', async () => {
+    const wrapper = await _mount({
+      template: '<pro-form v-model="form" :columns="columns" />',
+      setup() {
+        const form = ref({})
+        const columns = ref([
+          {
+            label: 'input1',
+            prop: 'input1',
+            component: 'el-input',
+            span: 12,
+          },
+          {
+            label: 'input2',
+            prop: 'input2',
+            component: 'el-input',
+            span: 8,
+            offset: 4,
+          },
+          {
+            label: 'input3',
+            prop: 'input3',
+            component: 'el-input',
+            span: 4,
+            push: 2,
+            pull: 2,
+          },
+          {
+            label: 'input3',
+            prop: 'input3',
+            component: 'el-input',
+            xs: {
+              span: 24,
+            },
+            md: {
+              span: 20,
+              push: 2,
+              pull: 2,
+            },
+            lg: {
+              span: 10,
+              push: 0,
+              pull: 0,
+              offset: 2,
+            },
+          },
+        ])
+        return { form, columns }
+      },
+    })
+    const vm = (wrapper.vm as unknown) as { columns: IFormColumns }
+
+    expect(getFormList(wrapper)).toHaveLength(4)
+    expect(getFormClassList(wrapper)[0]).toContain('el-col')
+    expect(getFormClassList(wrapper)[0]).toContain('el-col-12')
+    expect(getFormClassList(wrapper)[1]).toContain('el-col')
+    expect(getFormClassList(wrapper)[1]).toContain('el-col-8')
+    expect(getFormClassList(wrapper)[1]).toContain('el-col-offset-4')
+    expect(getFormClassList(wrapper)[2]).toContain('el-col')
+    expect(getFormClassList(wrapper)[2]).toContain('el-col-4')
+    expect(getFormClassList(wrapper)[2]).toContain('el-col-push-2')
+    expect(getFormClassList(wrapper)[2]).toContain('el-col-pull-2')
+    expect(getFormClassList(wrapper)[3]).toContain('el-col')
+    expect(getFormClassList(wrapper)[3]).toContain('el-col-xs-24')
+    expect(getFormClassList(wrapper)[3]).toContain('el-col-md-20')
+    expect(getFormClassList(wrapper)[3]).toContain('el-col-md-push-2')
+    expect(getFormClassList(wrapper)[3]).toContain('el-col-md-pull-2')
+    expect(getFormClassList(wrapper)[3]).toContain('el-col-lg-10')
+    expect(getFormClassList(wrapper)[3]).toContain('el-col-lg-push-0')
+    expect(getFormClassList(wrapper)[3]).toContain('el-col-lg-pull-0')
+    expect(getFormClassList(wrapper)[3]).toContain('el-col-lg-offset-2')
+
+    await ((vm.columns[0].span = 8), (vm.columns[0].pull = 2))
+    expect(getFormClassList(wrapper)[0]).toContain('el-col-8')
+    expect(getFormClassList(wrapper)[0]).toContain('el-col-pull-2')
   })
 
   // test('event', async () => {

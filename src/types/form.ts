@@ -4,10 +4,12 @@ import type {
   IButtonProps,
   StringObject,
   DeepTypeof,
+  IRowProps,
+  IColProps,
 } from './index'
 
 /** Form Props */
-export interface IFormProps<T = UnknownObject> {
+export interface IFormProps<T = UnknownObject> extends IRowProps {
   modelValue: T
   columns: IFormColumns<T>
   menu?: IFormMenuColumns
@@ -25,7 +27,7 @@ export interface IFormProps<T = UnknownObject> {
   disabled?: boolean
 }
 
-export interface FormColumn<T = UnknownObject> extends StringObject {
+export interface FormColumn<T = UnknownObject> extends IColProps, StringObject {
   /** whether column has a slot */
   slot?: boolean
   /** component name */

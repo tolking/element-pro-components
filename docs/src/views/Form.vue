@@ -4,6 +4,7 @@
     :columns="columns"
     :menu="menu"
     label-width="180px"
+    :gutter="20"
     size="small"
     @submit="submitForm"
   >
@@ -80,6 +81,7 @@ const columns = ref<IFormColumns>([
     label: 'el-input',
     prop: 'input',
     component: 'el-input',
+    span: 12,
     props: {
       clearable: true,
       placeholder: 'placeholder',
@@ -90,6 +92,7 @@ const columns = ref<IFormColumns>([
     label: 'pro-input-tag',
     prop: 'inputTag',
     component: 'pro-input-tag',
+    span: 12,
     props: {
       placeholder: 'Click the space after input',
     },
@@ -98,6 +101,7 @@ const columns = ref<IFormColumns>([
     label: 'pro-autocomplete-tag',
     prop: 'autocompleteTag',
     component: 'pro-autocomplete-tag',
+    span: 8,
     props: {
       fetchSuggestions: querySearch,
       placeholder: 'Click the space after input',
@@ -107,6 +111,7 @@ const columns = ref<IFormColumns>([
     label: 'pro-radio',
     prop: 'radio',
     component: 'pro-radio',
+    span: 8,
     props: {
       data: list,
       config: { label: 'tag' },
@@ -116,6 +121,7 @@ const columns = ref<IFormColumns>([
     label: 'pro-radio-button',
     prop: 'radioButton',
     component: 'pro-radio-button',
+    span: 8,
     props: {
       data: list,
       config: { label: 'tag' },
@@ -125,6 +131,7 @@ const columns = ref<IFormColumns>([
     label: 'pro-checkbox',
     prop: 'checkbox',
     component: 'pro-checkbox',
+    span: 12,
     props: {
       data: list,
       config: { label: 'tag' },
@@ -134,6 +141,9 @@ const columns = ref<IFormColumns>([
     label: 'pro-checkbox-button',
     prop: 'checkboxButton',
     component: 'pro-checkbox-button',
+    xs: { span: 24, offset: 2 },
+    sm: { span: 12, pull: 2 },
+    md: 12,
     props: {
       data: list,
       config: { label: 'tag' },
@@ -143,6 +153,7 @@ const columns = ref<IFormColumns>([
     label: 'pro-select',
     prop: 'select',
     component: 'pro-select',
+    span: 12,
     props: {
       data: list,
       config: { label: 'tag' },
@@ -165,6 +176,7 @@ const columns1 = ref<IFormColumns<RuleForm>>([
         label: 'Name',
         prop: 'name',
         component: 'el-input',
+        span: 12,
         rules: {
           required: true,
           message: 'please input name',
@@ -176,6 +188,7 @@ const columns1 = ref<IFormColumns<RuleForm>>([
         prop: 'address',
         component: 'el-input',
         slot: true,
+        span: 12,
       },
     ],
   },

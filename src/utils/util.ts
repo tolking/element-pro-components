@@ -60,3 +60,24 @@ export function objectPick<T extends Q, Q = UnknownObject>(
 
   return _obj
 }
+
+/**
+ * Omit keys from object to form new object
+ * @param obj object
+ * @param keys pick keys
+ */
+export function objectOmit<T extends Q, Q = UnknownObject>(
+  obj: T,
+  keys: Array<keyof T>
+): Q {
+  const _obj = {} as Q
+
+  for (const key in obj) {
+    if (!keys.includes(key)) {
+      const _key = (key as unknown) as keyof Q
+      _obj[_key] = obj[_key]
+    }
+  }
+
+  return _obj
+}

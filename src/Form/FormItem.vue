@@ -2,6 +2,8 @@
   <el-form-item
     v-bind="bindItem"
     :prop="prop"
+    :style="!inline && colStyle"
+    :class="!inline && colClass"
     class="pro-form-item"
   >
     <template
@@ -30,7 +32,10 @@
           :key="index"
           class="children-form"
         >
-          <div class="children-form-item">
+          <div
+            :class="!inline && 'el-row'"
+            class="children-form-item"
+          >
             <form-item
               v-for="child in item.children"
               :key="child.prop"
@@ -123,6 +128,7 @@ import {
   useFormSlotList,
   useFormItemBind,
   useFormChild,
+  useCol,
 } from '../composables/index'
 import ProFormComponent from './FormCompont.vue'
 import type { FormColumn, IFormColumns } from '../types/index'
@@ -131,12 +137,14 @@ const props = defineProps<{
   item: Record<string, unknown> & FormColumn
   prop: string
   modelValue: Record<string, unknown>
+  inline: boolean
 }>()
 const emit = defineEmit(['update:modelValue'])
-const { item, prop, modelValue } = toRefs(props)
+const { item, prop, modelValue, inline } = toRefs(props)
 const slotList = useFormSlotList(item.value.children as IFormColumns)
 const bindItem = useFormItemBind(item)
 const { add, del, upChildData } = useFormChild(props, emit)
+const { colStyle, colClass } = useCol(item)
 
 function upData(value: unknown) {
   const _model = { ...modelValue.value }

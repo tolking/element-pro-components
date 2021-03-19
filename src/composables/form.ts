@@ -14,6 +14,7 @@ import {
   isObject,
   objectDeepMerge,
   objectPick,
+  objectOmit,
 } from '../utils/index'
 import type {
   FormColumn,
@@ -45,26 +46,48 @@ export function useFormSlotList(
 
 type FormItemBind = Omit<
   FormColumn,
-  'slot' | 'component' | 'max' | 'props' | 'prop' | 'children'
+  | 'slot'
+  | 'component'
+  | 'max'
+  | 'props'
+  | 'prop'
+  | 'span'
+  | 'offset'
+  | 'pull'
+  | 'push'
+  | 'xs'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl'
+  | 'children'
 >
 
 export function useFormItemBind(
   currentBind: FormColumn | Ref<FormColumn>
 ): ComputedRef<FormItemBind> {
   return computed(() => {
+    const omitKeys: Array<keyof FormColumn> = [
+      'slot',
+      'component',
+      'max',
+      'props',
+      'prop',
+      'children',
+      'span',
+      'offset',
+      'pull',
+      'push',
+      'xs',
+      'sm',
+      'md',
+      'lg',
+      'xl',
+    ]
     const _currentBind = unref(currentBind)
     const _option = isObject(_currentBind)
-      ? { ..._currentBind }
-      : ({} as FormItemBind)
-
-    if (_option) {
-      _option.slot = undefined
-      _option.component = undefined
-      _option.max = undefined
-      _option.props = undefined
-      _option.prop = undefined
-      delete _option.children
-    }
+      ? objectOmit<FormColumn, FormItemBind>(_currentBind, omitKeys)
+      : ({} as FormColumn)
 
     _option.size = _option.size || useFormSize().value
     return _option

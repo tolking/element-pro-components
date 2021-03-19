@@ -53,7 +53,7 @@ app.mount('#app')
 :::
 
 ::: tip 提示
-在导出组件的同时，一起导出的还包括内部使用的[utils](https://github.com/tolking/element-pro-components/blob/master/src/utils/index.ts)与[composables](https://github.com/tolking/element-pro-components/blob/master/src/composables/public.ts)，如果需要可以引用使用
+在导出组件的同时，一起导出的还包括内部使用的[utils](https://github.com/tolking/element-pro-components/blob/master/src/utils/)与[composables](https://github.com/tolking/element-pro-components/blob/master/src/composables/)，如果需要可以引用使用
 :::
 
 ## 全局配置
