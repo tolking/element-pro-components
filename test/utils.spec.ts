@@ -5,6 +5,7 @@ import {
   getScreenSize,
   objectDeepMerge,
   objectPick,
+  objectOmit,
   filterDeep,
   filterSlotDeep,
 } from '../src/utils/index'
@@ -117,6 +118,15 @@ describe('all utils', () => {
     expect(objectPick(obj, ['a', 'b'])).toEqual({ a: 'a', b: 'b' })
     expect(objectPick(obj, ['a', 'b', 'd'])).toEqual({ a: 'a', b: 'b', d: 'd' })
     expect(objectPick(obj, ['a', 'b', 'c', 'd'])).toEqual(obj)
+    expect(obj).toEqual({ a: 'a', b: 'b', c: 'c', d: 'd' })
+  })
+
+  describe('objectOmit', () => {
+    const obj = { a: 'a', b: 'b', c: 'c', d: 'd' }
+    expect(objectOmit(obj, ['a'])).toEqual({ b: 'b', c: 'c', d: 'd' })
+    expect(objectOmit(obj, ['a', 'b'])).toEqual({ c: 'c', d: 'd' })
+    expect(objectOmit(obj, ['a', 'b', 'd'])).toEqual({ c: 'c' })
+    expect(objectOmit(obj, ['a', 'b', 'c', 'd'])).toEqual({})
     expect(obj).toEqual({ a: 'a', b: 'b', c: 'c', d: 'd' })
   })
 
