@@ -341,6 +341,87 @@ export default {
 
 :::
 
+### 插槽
+
+::: demo
+
+<template>
+  <pro-table
+    :data="data"
+    :columns="columns3"
+  >
+    <template #name-header="{ column }">
+      <s>{{ column.label }}</s>
+    </template>
+    <template #name="{ row, size }">
+      <el-tag :size="size">
+        {{ row?.name }}
+      </el-tag>
+    </template>
+    <template #menu="{ size }">
+      <el-button
+        :size="size"
+        type="text"
+      >
+        详情
+      </el-button>
+    </template>
+  </pro-table>
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const columns3 = ref([
+      {
+        label: '日期',
+        prop: 'date',
+      },
+      {
+        label: '姓名',
+        prop: 'name',
+        slot: true,
+      },
+      {
+        label: '地址',
+        prop: 'address',
+      },
+    ])
+    const data = ref([
+      {
+        date: '2016-05-03',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles',
+      },
+      {
+        date: '2016-05-02',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles',
+      },
+      {
+        date: '2016-05-04',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles',
+      },
+      {
+        date: '2016-05-01',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles',
+      },
+    ])
+
+    return {
+      data,
+      columns3,
+    }
+  }
+}
+</script>
+
+:::
+
 ### 显示分页
 
 ::: demo 当传入 total 数据时，将自动显示分页。可以通过 `v-model:current-page` 绑定当前页数、通过 `v-model:page-size` 绑定每页显示条目个数
@@ -616,8 +697,8 @@ export default {
 | menu          | 表格右侧自定义按钮，参数为 { size, row, column, $index }                 |
 | expand        | 当 expand 为 true 时，配置展开显示的内容，参数为 { row, column, $index } |
 | append        | 插入至表格最后一行之后的内容                                             |
-| [prop]        | 当前这列的内容，参数为 { row, column, $index }                           |
-| [prop]-header | 当前这列表头的内容，参数为 { column, $index }                            |
+| [prop]        | 当前这列的内容，参数为 { size, row, column, $index }                     |
+| [prop]-header | 当前这列表头的内容，参数为 { size, column, $index }                      |
 
 ::: tip 提示
 [prop] 为 columns 中定义的 prop
