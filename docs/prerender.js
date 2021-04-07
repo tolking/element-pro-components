@@ -2,7 +2,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const toAbsolute = (p) => path.resolve(__dirname, p)
+const toAbsolute = (p) => path.resolve(__dirname, p).replace(/\\/, '/')
 
 const manifest = require('./dist/static/ssr-manifest.json')
 const template = fs.readFileSync(toAbsolute('dist/static/index.html'), 'utf-8')
@@ -18,7 +18,7 @@ const writeFileRecursive = function (path, buffer) {
 
 const fileDisplay = (file) => {
   fs.readdirSync(toAbsolute(file)).forEach(async (filename) => {
-    const filedir = path.join(file, filename)
+    const filedir = path.join(file, filename).replace(/\\/, '/')
 
     if (fs.statSync(toAbsolute(filedir)).isDirectory()) {
       fileDisplay(filedir)
