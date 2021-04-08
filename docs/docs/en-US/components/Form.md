@@ -2,7 +2,7 @@
 
 > Form consists of `input`, `radio`, `select`, `checkbox` and so on. With form, you can collect, verify and submit data
 
-::: tip 提示
+::: tip Tip
 自动代理通过 `v-model` 绑定值且不带插槽就能够实现功能的任意第三方组件，例如：
 
 - 支持 `el-input` `el-switch` 等
@@ -613,55 +613,55 @@ export default {
 
 ## Props
 
-| Name                    | Description                                                             | Type    | Options                                             | Default |
-| :---------------------- | :---------------------------------------------------------------------- | :------ | :-------------------------------------------------- | :------ |
-| v-model                 | 绑定值                                                                  | array   | -                                                   | -       |
-| columns                 | 表单配置参考下面 `columns`                                              | array   | -                                                   | -       |
-| menu                    | 按钮配置参考下面 `menu`                                                 | object  | -                                                   | -       |
-| rules                   | 表单验证规则                                                            | object  | -                                                   | -       |
-| inline                  | 行内表单模式                                                            | boolean | -                                                   | false   |
-| label-position          | 表单域标签的位置，如果值为 left 或者 right 时，则需要设置 `label-width` | string  | right / left / top                                  | right   |
-| label-width             | 表单域标签的宽度，例如 '50px' 或 'auto'                                 | string  | -                                                   | -       |
-| label-suffix            | 表单域标签的后缀                                                        | string  | -                                                   | -       |
-| hide-required-asterisk  | 是否显示必填字段的标签旁边的红色星号                                    | boolean | -                                                   | false   |
-| show-message            | 是否显示校验错误信息                                                    | boolean | -                                                   | true    |
-| inline-message          | 是否以行内形式展示校验信息                                              | boolean | -                                                   | false   |
-| status-icon             | 是否在输入框中显示校验结果反馈图标                                      | boolean | -                                                   | false   |
-| validate-on-rule-change | 是否在 `rules` 属性改变后立即触发一次验证                               | boolean | -                                                   | true    |
-| size                    | 用于控制该表单内组件的尺寸                                              | string  | medium / small / mini                               | -       |
-| disabled                | 是否禁用该表单内的所有组件                                              | boolean | -                                                   | false   |
-| gutter                  | 栅格间隔                                                                | number  | -                                                   | 0       |
-| type                    | 布局模式，可选 flex，现代浏览器下有效                                   | string  | -                                                   | -       |
-| justify                 | flex 布局下的水平排列方式                                               | string  | start / end / center / space-around / space-between | start   |
-| align                   | flex 布局下的垂直排列方式                                               | string  | top / middle / bottom                               | top     |
+| Name                    | Description                                                                                                                       | Type    | Options                                             | Default |
+| :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------- | :------ |
+| v-model                 | binding value                                                                                                                     | array   | -                                                   | -       |
+| columns                 | to generate form components, reference `columns`                                                                                  | array   | -                                                   | -       |
+| menu                    | config the menu content, reference `menu`                                                                                         | object  | -                                                   | -       |
+| rules                   | validation rules of form                                                                                                          | object  | -                                                   | -       |
+| inline                  | whether the form is inline                                                                                                        | boolean | -                                                   | false   |
+| label-position          | position of label. If set to 'left' or 'right', `label-width` prop is also required                                               | string  | right / left / top                                  | right   |
+| label-width             | width of label, e.g. '50px'. All its direct child form items will inherit this value. Width `auto` is supported.                  | string  | —                                                   | —       |
+| label-suffix            | suffix of the label                                                                                                               | string  | —                                                   | —       |
+| hide-required-asterisk  | whether required fields should have a red asterisk (star) beside their labels                                                     | boolean | —                                                   | false   |
+| show-message            | whether to show the error message                                                                                                 | boolean | —                                                   | true    |
+| inline-message          | whether to display the error message inline with the form item                                                                    | boolean | —                                                   | false   |
+| status-icon             | whether to display an icon indicating the validation result                                                                       | boolean | —                                                   | false   |
+| validate-on-rule-change | whether to trigger validation when the `rules` prop is changed                                                                    | boolean | —                                                   | true    |
+| size                    | control the size of components in this form                                                                                       | string  | medium / small / mini                               | —       |
+| disabled                | whether to disabled all components in this form. If set to true, it cannot be overridden by its inner components' `disabled` prop | boolean | —                                                   | false   |
+| gutter                  | grid spacing                                                                                                                      | number  | —                                                   | 0       |
+| type                    | layout mode, you can use flex, works in modern browsers                                                                           | string  | —                                                   | —       |
+| justify                 | horizontal alignment of flex layout                                                                                               | string  | start / end / center / space-around / space-between | start   |
+| align                   | vertical alignment of flex layout                                                                                                 | string  | top / middle / bottom                               | top     |
 
 - columns
 
-| Name          | Description                                                               | Type            | Options               | Default |
-| :------------ | :------------------------------------------------------------------------ | :-------------- | :-------------------- | :------ |
-| prop          | v-model 绑定的字段名                                                      | string          | -                     | -       |
-| label         | 标签文本                                                                  | string          | -                     | -       |
-| component     | 当前项对应的组件                                                          | string          | -                     | -       |
-| props         | 传递的对应的组件的参数                                                    | object          | -                     | -       |
-| slot          | 是否开启自定义插槽功能                                                    | boolean         | -                     | false   |
-| children      | 实现子表单                                                                | array           | -                     | -       |
-| max           | 与 children 一起使用，限制子表单的最大数量                                | number          | -                     | -       |
-| labelWidth    | 表单域标签的宽度，例如 '50px' 或 'auto'                                   | string          | -                     | -       |
-| required      | 是否必填，如不设置，则会根据校验规则自动生成                              | boolean         | -                     | false   |
-| rules         | 表单验证规则                                                              | object / array  | -                     | -       |
-| error         | 表单域验证错误信息, 设置该值会使表单验证状态变为`error`，并显示该错误信息 | string          | -                     | -       |
-| showMessage   | 是否显示校验错误信息                                                      | boolean         | -                     | true    |
-| inlineMessage | 以行内形式展示校验信息                                                    | boolean         | -                     | false   |
-| size          | 用于控制该表单域下组件的尺寸                                              | string          | medium / small / mini | -       |
-| span          | 栅格占据的列数                                                            | number          | -                     | 24      |
-| offset        | 栅格左侧的间隔格数                                                        | number          | -                     | 0       |
-| push          | 栅格向右移动格数                                                          | number          | -                     | 0       |
-| pull          | 栅格向左移动格数                                                          | number          | -                     | 0       |
-| xs            | `<768px` 响应式栅格数或者栅格属性对象                                     | number / object | -                     | -       |
-| sm            | `≥768px` 响应式栅格数或者栅格属性对象                                     | number / object | -                     | -       |
-| md            | `≥992px` 响应式栅格数或者栅格属性对象                                     | number / object | -                     | -       |
-| lg            | `≥1200px` 响应式栅格数或者栅格属性对象                                    | number / object | -                     | -       |
-| xl            | `≥1920px` 响应式栅格数或者栅格属性对象                                    | number / object | -                     | -       |
+| Name          | Description                                                                                            | Type                                        | Options               | Default |
+| :------------ | :----------------------------------------------------------------------------------------------------- | :------------------------------------------ | :-------------------- | :------ |
+| prop          | a key of `v-model`                                                                                     | string                                      | -                     | -       |
+| label         | label text                                                                                             | string                                      | —                     | —       |
+| component     | binding component                                                                                      | string                                      | -                     | -       |
+| props         | transfer `props` to the current component                                                              | object                                      | -                     | -       |
+| slot          | whether to enable slot                                                                                 | boolean                                     | -                     | false   |
+| children      | sub-columns                                                                                            | array                                       | -                     | -       |
+| max           | limit the maximum number of sub-columns                                                                | number                                      | -                     | -       |
+| labelWidth    | width of label, e.g. '50px'. Width `auto` is supported.                                                | string                                      | —                     | —       |
+| required      | whether the field is required or not, will be determined by validation rules if omitted                | boolean                                     | —                     | false   |
+| rules         | validation rules of form                                                                               | object                                      | —                     | —       |
+| error         | field error message, set its value and the field will validate error and show this message immediately | string                                      | —                     | —       |
+| showMessage   | whether to show the error message                                                                      | boolean                                     | —                     | true    |
+| inlineMessage | inline style validate message                                                                          | boolean                                     | —                     | false   |
+| size          | control the size of components in this form-item                                                       | string                                      | medium / small / mini | -       |
+| span          | number of column the grid spans                                                                        | number                                      | —                     | 24      |
+| offset        | number of spacing on the left side of the grid                                                         | number                                      | —                     | 0       |
+| push          | number of columns that grid moves to the right                                                         | number                                      | —                     | 0       |
+| pull          | number of columns that grid moves to the left                                                          | number                                      | —                     | 0       |
+| xs            | `<768px` Responsive columns or column props object                                                     | number / object (e.g. {span: 4, offset: 4}) | —                     | —       |
+| sm            | `≥768px` Responsive columns or column props object                                                     | number / object (e.g. {span: 4, offset: 4}) | —                     | —       |
+| md            | `≥992px` Responsive columns or column props object                                                     | number / object (e.g. {span: 4, offset: 4}) | —                     | —       |
+| lg            | `≥1200px` Responsive columns or column props object                                                    | number / object (e.g. {span: 4, offset: 4}) | —                     | —       |
+| xl            | `≥1920px` Responsive columns or column props object                                                    | number / object (e.g. {span: 4, offset: 4}) | —                     | —       |
 
 ::: tip 关于 props
 props 的属性将全部传递给 component 指定的组件。**对于事件需要通过 `on[Event]` 驼峰这种形式绑定。如：`change` -> `onChange`, `input` -> `onInput`**
@@ -679,33 +679,33 @@ props: {
 
 - menu
 
-| Name        | Description                       | Type    | Options | Default             |
-| :---------- | :-------------------------------- | :------ | :------ | :------------------ |
-| submit      | 是否显示 submit 按钮              | boolean | -       | true                |
-| submitText  | submit 按钮显示的文字             | string  | -       | Submit              |
-| submitProps | submit 按钮的配置，参考 el-button | object  | -       | { type: 'primary' } |
-| reset       | 是否显示 reset 按钮               | boolean | -       | true                |
-| resetText   | 是否显示 reset 按钮显示的文字     | string  | -       | Reset               |
-| resetProps  | reset 按钮的配置，参考 el-button  | object  | -       | -                   |
+| Name        | Description                                       | Type    | Options | Default             |
+| :---------- | :------------------------------------------------ | :------ | :------ | :------------------ |
+| submit      | whether to display a submit button                | boolean | -       | true                |
+| submitText  | the text of submit button                         | string  | -       | Submit              |
+| submitProps | the props of submit button, reference `el-button` | object  | -       | { type: 'primary' } |
+| reset       | Whether to display a reset button                 | boolean | -       | true                |
+| resetText   | the text of reset button                          | string  | -       | Reset               |
+| resetProps  | the props of reset button, reference `el-button`  | object  | -       | -                   |
 
 ## Events
 
-| Name     | Description            | Parameters                                     |
-| -------- | ---------------------- | ---------------------------------------------- |
-| submit   | submit 被点击后触发    | done, isValid, invalidFields                   |
-| reset    | reset 按钮被点击后触发 | -                                              |
-| validate | 任一表单项被校验后触发 | 被校验的表单项 prop 值, isValid, invalidFields |
+| Name     | Description                             | Parameters                                                                                            |
+| -------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| submit   | triggers when the submit click          | done, isValid, invalidFields                                                                          |
+| reset    | triggers when the reset click           | -                                                                                                     |
+| validate | triggers after a form item is validated | prop name of the form item being validated, whether validation is passed and the error message if not |
 
 ## Methods
 
-| Name          | Description                                                                                                                                                          | Name                                                                       |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| validate      | 对整个表单进行校验的方法，参数为一个回调函数。该回调函数会在校验结束后被调用，并传入两个参数：是否校验成功和未通过校验的字段。若不传入回调函数，则会返回一个 promise | Function(callback: Function(boolean, object))                              |
-| validateField | 对部分表单字段进行校验的方法                                                                                                                                         | Function(props: array \| string, callback: Function(errorMessage: string)) |
-| resetFields   | 对整个表单进行重置，将所有字段值重置为初始值并移除校验结果                                                                                                           | -                                                                          |
-| clearValidate | 移除表单项的校验结果。传入待移除的表单项的 prop 属性或者 prop 组成的数组，如不传则移除整个表单的校验结果                                                             | Function(props: array \| string)                                           |
+| Name          | Description                                                                                                                                                                                                                                                                      | Name                                                                       |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| validate      | validate the whole form. Takes a callback as a param. After validation, the callback will be executed with two params: a boolean indicating if the validation has passed, and an object containing all fields that fail the validation. Returns a promise if callback is omitted | Function(callback: Function(boolean, object))                              |
+| validateField | validate one or several form items                                                                                                                                                                                                                                               | Function(props: string \| array, callback: Function(errorMessage: string)) |
+| resetFields   | reset all the fields and remove validation result                                                                                                                                                                                                                                | —                                                                          |
+| clearValidate | clear validation message for certain fields. The parameter is prop name or an array of prop names of the form items whose validation messages will be removed. When omitted, all fields' validation messages will be cleared                                                     | Function(props: string \| array)                                           |
 
-::: tip 提示
+::: tip Tip
 如果使用 `typescript` 可以从组件中导出 `IFormExpose` 提供更好的类型推导。参考如下在 setup 中使用
 
 ```vue
@@ -743,15 +743,15 @@ export default defineComponent({
 
 ## Slots
 
-| Name         | Description                                                    |
-| :----------- | :------------------------------------------------------------- |
-| -            | 在底部菜单前插入的任意内容                                     |
-| menu-left    | 表单底部按钮左侧                                               |
-| menu-right   | 表单底部按钮右侧                                               |
-| [prop]       | 当前这项的 Form Item 的内容，参数为 { item, value, setValue }  |
-| [prop]-label | 当前这项的标签文本的内容，参数为 { item }                      |
-| [prop]-error | 当前这项的自定义表单校验信息的显示方式，参数为 { error, item } |
+| Name         | Description                                                              |
+| :----------- | :----------------------------------------------------------------------- |
+| -            | anything inserted before the menu                                        |
+| menu-left    | control the menu left display content                                    |
+| menu-right   | control the menu right display content                                   |
+| [prop]       | control the `Item` display content, parameters { item, value, setValue } |
+| [prop]-label | control the `Item` label display content, parameters { item }            |
+| [prop]-error | control the `Item` error display content, parameters { error, item }     |
 
-::: tip 提示
-[prop] 为 columns 中定义的 prop
+::: tip Tip
+[prop] the prop of columns
 :::

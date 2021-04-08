@@ -94,4 +94,4 @@ export default {
 
 | Name | Description                                                       |
 | :--- | :---------------------------------------------------------------- |
-| -    | Control menu display content，Parameters { meta, path, redirect } |
+| -    | Control menu display content, parameters { meta, path, redirect } |

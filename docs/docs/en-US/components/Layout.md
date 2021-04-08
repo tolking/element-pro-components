@@ -85,13 +85,13 @@ export default {
 
 ## Slots
 
-| Name          | Description                                                  |
-| :------------ | :----------------------------------------------------------- |
-| logo          | 自定义 Logo，参数为 { collapse } collapse-当前菜单栏是否折叠 |
-| menu          | 控制菜单显示内容，参数为 { meta, path, redirect } 等         |
-| left-header   | 头部左侧内容                                                 |
-| right-header  | 头部右侧内容                                                 |
-| bottom-header | 头部下面内容                                                 |
+| Name          | Description                                                       |
+| :------------ | :---------------------------------------------------------------- |
+| logo          | control logo display content, parameters { collapse }             |
+| menu          | control menu display content, parameters { meta, path, redirect } |
+| left-header   | control the header left display content                           |
+| right-header  | control the header right display content                          |
+| bottom-header | control the header bottom display content                         |
 
 ## 样式配置
 
@@ -103,10 +103,10 @@ export default {
 
 ```ts
 interface IRouteMeta extends RouteMeta {
-  title?: string // 用于显示菜单标题
-  icon?: string // 用于显示菜单图标
-  hidden?: boolean // 用于判断是否显示 (仅适用于默认路由)
-  keepAlive?: boolean // 控制 keepAlive
+  title?: string // the Menu title
+  icon?: string // the Menu icon
+  hidden?: boolean // whether to show in the Menu
+  keepAlive?: boolean // whether the current route is keepAlive
 }
 ```
 
