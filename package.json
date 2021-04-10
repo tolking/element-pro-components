@@ -15,8 +15,9 @@
   "style": "lib/style.css",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --emptyOutDir && npm run build:types",
+    "build": "vite build --emptyOutDir && npm run build:types && npm run build:helper",
     "build:types": "rimraf types && tsc -d",
+    "build:helper": "node .helperrc.js",
     "build:docs": "vite build docs --ssrManifest --outDir dist/static && vite build docs --ssr src/entry-server.ts --outDir dist/server && node docs/prerender.js",
     "test": "jest",
     "lint": "eslint . --fix --ext .ts,.vue,.js --ignore-pattern \"/lib/\" --ignore-pattern \"/types/\"",
@@ -60,6 +61,7 @@
     "@vue/server-renderer": "^3.0.7",
     "@vue/test-utils": "^2.0.0-rc.4",
     "babel-jest": "^26.6.3",
+    "components-helper": "^1.0.2",
     "escape-html": "^1.0.3",
     "eslint": "^7.21.0",
     "eslint-plugin-prettier": "^3.3.0",
@@ -81,9 +83,14 @@
     "vue-jest": "^5.0.0-alpha.7"
   },
   "vetur": {
-    "tags": "vetur/tags.json",
-    "attributes": "vetur/attributes.json"
+    "tags": "lib/tags.json",
+    "attributes": "lib/attributes.json"
   },
+  "web-types": "lib/web-types.json",
+  "files": [
+    "lib",
+    "types"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
