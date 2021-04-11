@@ -611,7 +611,7 @@ export default {
 
 :::
 
-## Props
+### Props
 
 | Name                    | Description                                                                                                                       | Type    | Options                                             | Default |
 | :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------- | :------ |
@@ -635,7 +635,7 @@ export default {
 | justify                 | horizontal alignment of flex layout                                                                                               | string  | start / end / center / space-around / space-between | start   |
 | align                   | vertical alignment of flex layout                                                                                                 | string  | top / middle / bottom                               | top     |
 
-- columns
+#### columns
 
 | Name          | Description                                                                                            | Type                                        | Options               | Default |
 | :------------ | :----------------------------------------------------------------------------------------------------- | :------------------------------------------ | :-------------------- | :------ |
@@ -677,7 +677,7 @@ props: {
 
 :::
 
-- menu
+#### menu
 
 | Name        | Description                                       | Type    | Options | Default             |
 | :---------- | :------------------------------------------------ | :------ | :------ | :------------------ |
@@ -688,7 +688,7 @@ props: {
 | resetText   | the text of reset button                          | string  | -       | Reset               |
 | resetProps  | the props of reset button, reference `el-button`  | object  | -       | -                   |
 
-## Events
+### Events
 
 | Name     | Description                             | Parameters                                                                                            |
 | -------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------- |
@@ -696,7 +696,7 @@ props: {
 | reset    | triggers when the reset click           | -                                                                                                     |
 | validate | triggers after a form item is validated | prop name of the form item being validated, whether validation is passed and the error message if not |
 
-## Methods
+### Methods
 
 | Name          | Description                                                                                                                                                                                                                                                                      | Name                                                                       |
 | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
@@ -741,7 +741,7 @@ export default defineComponent({
 
 :::
 
-## Slots
+### Slots
 
 | Name         | Description                                                              |
 | :----------- | :----------------------------------------------------------------------- |

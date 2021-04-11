@@ -562,7 +562,7 @@ export default {
 
 :::
 
-## Props
+### Props
 
 | Name                    | Description                                                                                                                                                                                                                                                                 | Type                                                    | Options                        | Default                                                                        |
 | :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------ | :----------------------------- | :----------------------------------------------------------------------------- | ---- |
@@ -612,7 +612,7 @@ export default {
 | load                    | method for loading child row data, only works when `lazy` is true                                                                                                                                                                                                           | Function(row, treeNode, resolve)                        | —                              | —                                                                              |
 | tree-props              | configuration for rendering nested data                                                                                                                                                                                                                                     | Object                                                  | —                              | { hasChildren: 'hasChildren', children: 'children' }                           |
 
-- columns
+#### columns
 
 | Name                | Description                                                                                                                                                                                                     | Type                                    | Options                                                                                                                          | Default                           |
 | :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------- |
@@ -645,7 +645,7 @@ export default {
 | selectable          | function that determines if a certain row can be selected, works when `type` is 'selection'                                                                                                                     | Function(row, index)                    | -                                                                                                                                | -                                 |
 | reserveSelection    | whether to reserve selection after data refreshing, works when `type` is 'selection'. Note that `row-key` is required for this to work                                                                          | boolean                                 | -                                                                                                                                | false                             |
 
-## Events
+### Events
 
 | Name               | Description                                                                                                                                  | Parameters                        |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
@@ -671,7 +671,7 @@ export default {
 | prev-click         | triggers when the prev button is clicked and current page changes                                                                            | the new current page              |
 | next-click         | triggers when the next button is clicked and current page changes                                                                            | the new current page              |
 
-## Methods
+### Methods
 
 | Name               | Description                                                                                                                                                       | Parameters                  |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
@@ -689,7 +689,7 @@ export default {
 如果使用 `typescript` 可以从组件中导出 `ITableExpose` 提供更好的类型推导
 :::
 
-## Slots
+### Slots
 
 | Name          | Description                                                                                                                                                                                   |
 | :------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

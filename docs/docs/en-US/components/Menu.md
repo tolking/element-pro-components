@@ -75,7 +75,7 @@ export default {
 
 :::
 
-## Props
+### Props
 
 | Name                | Description                                                         | Type    | Options               | Default           |
 | :------------------ | :------------------------------------------------------------------ | :------ | :-------------------- | :---------------- |
@@ -90,7 +90,7 @@ export default {
 | menu-trigger        | how sub-menus are triggered, only works when `mode` is 'horizontal' | string  | hover / click         | hover             |
 | collapse-transition | whether to enable the collapse transition                           | boolean | -                     | true              |
 
-## Slots
+### Slots
 
 | Name | Description                                                       |
 | :--- | :---------------------------------------------------------------- |

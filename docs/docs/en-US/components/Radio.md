@@ -147,7 +147,7 @@ export default {
 
 :::
 
-## Props
+### Radio Props
 
 | Name       | Description                                       | Type    | Options               | Default                                                                |
 | :--------- | :------------------------------------------------ | :------ | :-------------------- | :--------------------------------------------------------------------- |
@@ -158,3 +158,27 @@ export default {
 | disabled   | whether disabled                                  | boolean | -                     | false                                                                  |
 | text-color | font color when button is active                  | string  | -                     | #ffffff                                                                |
 | fill       | border and background color when button is active | string  | -                     | #409EFF                                                                |
+
+### Radio Events
+
+| Event Name | Description                           | Parameters                          |
+| ---------- | ------------------------------------- | ----------------------------------- |
+| change     | triggers when the bound value changes | the label value of the chosen radio |
+
+### RadioButton Props
+
+| Name       | Description                                       | Type    | Options               | Default                                                                |
+| :--------- | :------------------------------------------------ | :------ | :-------------------- | :--------------------------------------------------------------------- |
+| v-model    | binding value                                     | array   | -                     | -                                                                      |
+| data       | binding data                                      | array   | -                     | -                                                                      |
+| config     | config the key of data                            | object  | -                     | { value: 'value', label: 'label', disabled: 'disabled', name: 'name' } |
+| size       | component size                                    | string  | medium / small / mini | -                                                                      |
+| disabled   | whether disabled                                  | boolean | -                     | false                                                                  |
+| text-color | font color when button is active                  | string  | -                     | #ffffff                                                                |
+| fill       | border and background color when button is active | string  | -                     | #409EFF                                                                |
+
+### RadioButton Events
+
+| Name   | Description                           | Parameters                          |
+| ------ | ------------------------------------- | ----------------------------------- |
+| change | triggers when the bound value changes | the label value of the chosen radio |

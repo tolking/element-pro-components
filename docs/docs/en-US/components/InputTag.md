@@ -142,7 +142,7 @@ export default {
 
 :::
 
-## InputTag Props
+### InputTag Props
 
 | Name            | Description                          | Type    | Options                           | Default |
 | :-------------- | :----------------------------------- | :------ | :-------------------------------- | :------ |
@@ -170,7 +170,7 @@ export default {
 | tabindex        | input tabindex                       | string  | -                                 | -       |
 | validate-event  | whether to trigger form validation   | boolean | -                                 | true    |
 
-## AutocompleteTag Props
+### AutocompleteTag Props
 
 | Name                  | Description                                                                                                                | Type                            | Options                                                        | Default      |
 | :-------------------- | :------------------------------------------------------------------------------------------------------------------------- | :------------------------------ | :------------------------------------------------------------- | :----------- |
