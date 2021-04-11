@@ -148,7 +148,7 @@ export default {
 
 :::
 
-## Props
+### Props
 
 | Name                  | Description                                                                                                                 | Type     | Options               | Default                                                  |
 | :-------------------- | :-------------------------------------------------------------------------------------------------------------------------- | :------- | :-------------------- | :------------------------------------------------------- |
@@ -180,3 +180,14 @@ export default {
 | popper-append-to-body | whether to append the popper menu to body. If the positioning of the popper is wrong, you can try to set this prop to false | boolean  | -                     | false                                                    |
 | automatic-dropdown    | for non-filterable Select, this prop decides if the option menu pops up when the input is focused                           | boolean  | -                     | false                                                    |
 | clear-icon            | Custom clear icon class                                                                                                     | string   | -                     | el-icon-circle-close                                     |
+
+### Select Events
+
+| Name           | Description                                                   | Parameters                                |
+| -------------- | ------------------------------------------------------------- | ----------------------------------------- |
+| change         | triggers when the selected value changes                      | current selected value                    |
+| visible-change | triggers when the dropdown appears/disappears                 | true when it appears, and false otherwise |
+| remove-tag     | triggers when a tag is removed in multiple mode               | removed tag value                         |
+| clear          | triggers when the clear icon is clicked in a clearable Select | —                                         |
+| blur           | triggers when Input blurs                                     | (event: Event)                            |
+| focus          | triggers when Input focuses                                   | (event: Event)                            |

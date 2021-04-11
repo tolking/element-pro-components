@@ -1,6 +1,6 @@
 # Breadcrumb
 
-> Displays the location of the current page, making it easier to browser back
+> Auto generate breadcrumbs according to the current page router
 
 ## Use
 
@@ -18,10 +18,10 @@ export default {}
 
 :::
 
-## Props
+### Props
 
 | Name            | Description                  | Type   | Options | Default           |
 | :-------------- | :--------------------------- | :----- | :------ | :---------------- |
 | routes          | current routes               | array  | -       | from `vue-router` |
-| separator       | separator character          | string | -       | /                 |
+| separator       | separator character          | string | -       | `/`               |
 | separator-class | class name of icon separator | string | -       | -                 |

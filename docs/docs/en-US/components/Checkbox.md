@@ -147,7 +147,7 @@ export default {
 
 :::
 
-## Props
+### Checkbox Props
 
 | Name       | Description                                       | Type    | Options               | Default                                                                |
 | :--------- | :------------------------------------------------ | :------ | :-------------------- | :--------------------------------------------------------------------- |
@@ -160,3 +160,29 @@ export default {
 | max        | maximum number of checkbox checked                | number  | -                     | -                                                                      |
 | text-color | font color when button is active                  | string  | -                     | #ffffff                                                                |
 | fill       | border and background color when button is active | string  | -                     | #409EFF                                                                |
+
+### Checkbox Events
+
+| Name   | Description                             | Parameters        |
+| ------ | --------------------------------------- | ----------------- |
+| change | triggers when the binding value changes | the updated value |
+
+### CheckboxButton Props
+
+| Name       | Description                                       | Type    | Options               | Default                                                                |
+| :--------- | :------------------------------------------------ | :------ | :-------------------- | :--------------------------------------------------------------------- |
+| v-model    | binding value                                     | array   | -                     | -                                                                      |
+| data       | binding data                                      | array   | -                     | -                                                                      |
+| config     | config the key of data                            | object  | -                     | { value: 'value', label: 'label', disabled: 'disabled', name: 'name' } |
+| size       | component size                                    | string  | medium / small / mini | -                                                                      |
+| disabled   | whether disabled                                  | boolean | -                     | false                                                                  |
+| min        | minimum number of checkbox checked                | number  | -                     | -                                                                      |
+| max        | maximum number of checkbox checked                | number  | -                     | -                                                                      |
+| text-color | font color when button is active                  | string  | -                     | #ffffff                                                                |
+| fill       | border and background color when button is active | string  | -                     | #409EFF                                                                |
+
+### CheckboxButton Events
+
+| Name   | Description                             | Parameters        |
+| ------ | --------------------------------------- | ----------------- |
+| change | triggers when the binding value changes | the updated value |

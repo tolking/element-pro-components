@@ -73,7 +73,7 @@ export default {
 
 :::
 
-## Props
+### Props
 
 | Name            | Description                                            | Type    | Default           |
 | :-------------- | :----------------------------------------------------- | :------ | :---------------- |
@@ -83,7 +83,7 @@ export default {
 | default-openeds | array that contains keys of currently active sub-menus | Array   | -                 |
 | unique-opened   | whether only one sub-menu can be active                | boolean | false             |
 
-## Slots
+### Slots
 
 | Name          | Description                                                       |
 | :------------ | :---------------------------------------------------------------- |
@@ -93,13 +93,9 @@ export default {
 | right-header  | control the header right display content                          |
 | bottom-header | control the header bottom display content                         |
 
-## 样式配置
-
-[参考](../guide/theme#提供配置的参数)
-
 ## 参考
 
-- 参考 meta
+### 参考 meta
 
 ```ts
 interface IRouteMeta extends RouteMeta {
@@ -110,6 +106,10 @@ interface IRouteMeta extends RouteMeta {
 }
 ```
 
-- 参考路由
+### 参考路由
 
 <<< @/docs/src/router/dev.ts
+
+### 样式配置
+
+[参考](../guide/theme#提供配置的参数)

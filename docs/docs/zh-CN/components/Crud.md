@@ -947,57 +947,153 @@ export default {
 
 :::
 
-## 配置
+### 配置
 
-| 参数                  | 说明                                     | 类型                              | 可选值 | 默认值                     |
-| :-------------------- | :--------------------------------------- | :-------------------------------- | :----- | :------------------------- |
-| v-model               | 表单绑定值                               | object                            | -      | -                          |
-| v-model:search        | 搜索表单绑定值                           | object                            | -      | -                          |
-| columns               | 自动生成 Crud 的参数，参考下面 columns   | array                             | -      | -                          |
-| add-columns           | 自动生成新增表单的参数，参考下面 columns | array                             | -      | 从 `columns` 中获取        |
-| edit-columns          | 自动生成编辑表单的参数，参考下面 columns | array                             | -      | 从 `columns` 中获取        |
-| form-columns          | 自动生成表单的参数，参考下面 columns     | array                             | -      | 从 `columns` 中获取        |
-| search-columns        | 自动生成搜索表单的参数，参考下面 columns | array                             | -      | 从 `columns` 中获取        |
-| table-columns         | 自动生成表格的参数，参考下面 columns     | array                             | -      | 从 `columns` 中获取        |
-| menu                  | 按钮配置参考下面 `menu`                  | object                            | -      | -                          |
-| search-rules          | 搜索表单验证规则                         | object                            | -      | -                          |
-| title                 | 弹窗的标题                               | string                            | —      | 同 menu addText / editText |
-| width                 | 弹窗的宽度                               | string / number                   | —      | 50%                        |
-| fullscreen            | 是否为全屏弹窗                           | boolean                           | —      | false                      |
-| top                   | 弹窗 CSS 中的 margin-top 值              | string                            | —      | 15vh                       |
-| modal                 | 是否需要遮罩层                           | boolean                           | —      | true                       |
-| append-to-body        | 弹窗自身是否插入至 body 元素上           | boolean                           | —      | false                      |
-| lock-scroll           | 是否在 弹窗出现时将 body 滚动锁定        | boolean                           | —      | true                       |
-| custom-class          | 弹窗的自定义类名                         | string                            | —      | pro-crud-dialog            |
-| open-delay            | 弹窗打开的延时时间，单位毫秒             | number                            | —      | 0                          |
-| close-delay           | 弹窗关闭的延时时间，单位毫秒             | number                            | —      | 0                          |
-| close-on-click-modal  | 是否可以通过点击 modal 关闭弹窗          | boolean                           | —      | true                       |
-| close-on-press-escape | 是否可以通过按下 ESC 关闭弹窗            | boolean                           | —      | true                       |
-| show-close            | 是否显示关闭按钮                         | boolean                           | —      | true                       |
-| before-open           | 弹窗开启前的回调，会暂停弹窗的开启       | Function(done, formType, row)     | -      | -                          |
-| before-close          | 关闭前的回调，会暂停弹窗的关闭           | Function(done)，done 用于关闭弹窗 | —      | —                          |
-| center                | 是否对头部和底部采用居中布局             | boolean                           | —      | false                      |
-| destroy-on-close      | 关闭时销毁弹窗中的元素                   | boolean                           | —      | false                      |
+| 参数                    | 说明                                                                    | 类型                                                    | 可选值                                              | 默认值                                               |
+| :---------------------- | :---------------------------------------------------------------------- | :------------------------------------------------------ | :-------------------------------------------------- | :--------------------------------------------------- |
+| v-model                 | 表单绑定值                                                              | object                                                  | -                                                   | -                                                    |
+| v-model:search          | 搜索表单绑定值                                                          | object                                                  | -                                                   | -                                                    |
+| columns                 | 自动生成 Crud 的参数，参考下面 columns                                  | array                                                   | -                                                   | -                                                    |
+| add-columns             | 自动生成新增表单的参数，参考下面 columns                                | array                                                   | -                                                   | 从 `columns` 中获取                                  |
+| edit-columns            | 自动生成编辑表单的参数，参考下面 columns                                | array                                                   | -                                                   | 从 `columns` 中获取                                  |
+| form-columns            | 自动生成表单的参数，参考下面 columns                                    | array                                                   | -                                                   | 从 `columns` 中获取                                  |
+| search-columns          | 自动生成搜索表单的参数，参考下面 columns                                | array                                                   | -                                                   | 从 `columns` 中获取                                  |
+| table-columns           | 自动生成表格的参数，参考下面 columns                                    | array                                                   | -                                                   | 从 `columns` 中获取                                  |
+| menu                    | 按钮配置参考下面 `menu`                                                 | object                                                  | -                                                   | -                                                    |
+| search-rules            | 搜索表单验证规则                                                        | object                                                  | -                                                   | -                                                    |
+| data                    | 显示的数据                                                              | array                                                   | -                                                   | -                                                    |
+| selection               | 显示多选框，支持 columns 的配置                                         | boolean / object                                        | -                                                   | false                                                |
+| index                   | 显示索引，支持 columns 的配置                                           | boolean / object                                        | -                                                   | false                                                |
+| expand                  | 开启展开插槽，支持 columns 的配置                                       | boolean / object                                        | -                                                   | false                                                |
+| menu                    | 开启操作按钮插槽，支持 columns 的配置                                   | boolean / object                                        | -                                                   | false                                                |
+| show-overflow-tooltip   | 当内容过长被隐藏时显示 tooltip                                          | boolean                                                 | -                                                   | false                                                |
+| align                   | 对齐方式                                                                | string                                                  | left / center / right                               | left                                                 |
+| header-align            | 表头对齐方式                                                            | string                                                  | left / center / right                               | 同 align                                             |
+| total                   | 总条目数                                                                | number                                                  | -                                                   | -                                                    |
+| current-page            | 当前页数，可以通过 `v-model:current-page` 绑定值                        | number                                                  | -                                                   | -                                                    |
+| page-size               | 每页显示条目个数，可以通过 `v-model:page-size` 绑定值                   | number                                                  | -                                                   | -                                                    |
+| pagination              | pagination 的配置，同 el-pagination                                     | object                                                  | -                                                   | [参考全局配置](../guide/index#全局配置)              |
+| height                  | Table 的高度                                                            | string / number                                         | -                                                   | 自动高度                                             |
+| max-height              | Table 的最大高度                                                        | string / number                                         | -                                                   | -                                                    |
+| stripe                  | 是否为斑马纹 table                                                      | boolean                                                 | -                                                   | false                                                |
+| border                  | 是否带有纵向边框                                                        | boolean                                                 | -                                                   | false                                                |
+| size                    | Table 的尺寸                                                            | string                                                  | medium / small / mini                               | -                                                    |
+| fit                     | 列的宽度是否自撑开                                                      | boolean                                                 | -                                                   | true                                                 |
+| show-header             | 是否显示表头                                                            | boolean                                                 | -                                                   | true                                                 |
+| highlight-current-row   | 是否要高亮当前行                                                        | boolean                                                 | -                                                   | false                                                |
+| current-row-key         | 当前行的 key，只写属性                                                  | string / number                                         | -                                                   | -                                                    |
+| row-class-name          | 为行增加 className                                                      | Function({row, rowIndex}) / string                      | -                                                   | -                                                    |
+| row-style               | 为行增加 style                                                          | Function({row, rowIndex}) / object                      | -                                                   | -                                                    |
+| cell-class-name         | 为单元格增加 className                                                  | Function({row, column, rowIndex, columnIndex}) / string | -                                                   | -                                                    |
+| cell-style              | 为单元格增加 style                                                      | Function({row, column, rowIndex, columnIndex}) / object | -                                                   | -                                                    |
+| header-row-class-name   | 为表头行增加 className                                                  | Function({row, rowIndex}) / string                      | -                                                   | -                                                    |
+| header-row-style        | 为表头行增加 style                                                      | Function({row, rowIndex}) / object                      | -                                                   | -                                                    |
+| header-cell-class-name  | 为表头单元格增加 className                                              | Function({row, column, rowIndex, columnIndex}) / string | -                                                   | -                                                    |
+| header-cell-style       | 为表头单元格增加 style                                                  | Function({row, column, rowIndex, columnIndex}) / object | -                                                   | -                                                    |
+| row-key                 | 行数据的 Key，使用 reserveSelection 功能时必填                          | Function(row) / string                                  | -                                                   | -                                                    |
+| empty-text              | 空数据时显示的文本内容                                                  | string                                                  | -                                                   | 暂无数据                                             |
+| default-expand-all      | 是否默认展开所有行                                                      | boolean                                                 | -                                                   | false                                                |
+| expand-row-keys         | Table 目前的展开行，与 row-key 配合使用                                 | array                                                   | -                                                   | -                                                    |
+| default-sort            | 默认的排序列的 prop 和顺序                                              | Object                                                  | `order`: ascending, descending                      | ascending                                            |
+| tooltip-effect          | tooltip `effect` 属性                                                   | String                                                  | dark / light                                        | -                                                    |
+| show-summary            | 是否在表尾显示合计行                                                    | Boolean                                                 | -                                                   | false                                                |
+| sum-text                | 合计行第一列的文本                                                      | String                                                  | -                                                   | 合计                                                 |
+| summary-method          | 自定义的合计计算方法                                                    | Function({ columns, data })                             | -                                                   | -                                                    |
+| span-method             | 合并行或列的计算方法                                                    | Function({ row, column, rowIndex, columnIndex })        | -                                                   | -                                                    |
+| select-on-indeterminate | 当仅有部分行被选中时，点击表头的多选框时的行为，配合 selection 使用     | boolean                                                 | -                                                   | true                                                 |
+| indent                  | 展示树形数据时，树节点的缩进                                            | number                                                  | -                                                   | 16                                                   |
+| lazy                    | 是否懒加载子节点数据                                                    | boolean                                                 | -                                                   | -                                                    |
+| load                    | 加载子节点数据的函数，lazy 为 true 时生效                               | Function(row, treeNode, resolve)                        | -                                                   | -                                                    |
+| tree-props              | 渲染嵌套数据的配置选项                                                  | Object                                                  | -                                                   | { hasChildren: 'hasChildren', children: 'children' } |
+| rules                   | 表单验证规则                                                            | object                                                  | -                                                   | -                                                    |
+| inline                  | 行内表单模式                                                            | boolean                                                 | -                                                   | false                                                |
+| label-position          | 表单域标签的位置，如果值为 left 或者 right 时，则需要设置 `label-width` | string                                                  | right / left / top                                  | right                                                |
+| label-width             | 表单域标签的宽度，例如 '50px' 或 'auto'                                 | string                                                  | -                                                   | -                                                    |
+| label-suffix            | 表单域标签的后缀                                                        | string                                                  | -                                                   | -                                                    |
+| hide-required-asterisk  | 是否显示必填字段的标签旁边的红色星号                                    | boolean                                                 | -                                                   | false                                                |
+| show-message            | 是否显示校验错误信息                                                    | boolean                                                 | -                                                   | true                                                 |
+| inline-message          | 是否以行内形式展示校验信息                                              | boolean                                                 | -                                                   | false                                                |
+| status-icon             | 是否在输入框中显示校验结果反馈图标                                      | boolean                                                 | -                                                   | false                                                |
+| validate-on-rule-change | 是否在 `rules` 属性改变后立即触发一次验证                               | boolean                                                 | -                                                   | true                                                 |
+| size                    | 用于控制该表单内组件的尺寸                                              | string                                                  | medium / small / mini                               | -                                                    |
+| disabled                | 是否禁用该表单内的所有组件                                              | boolean                                                 | -                                                   | false                                                |
+| gutter                  | 栅格间隔                                                                | number                                                  | -                                                   | 0                                                    |
+| type                    | 布局模式，可选 flex，现代浏览器下有效                                   | string                                                  | -                                                   | -                                                    |
+| justify                 | flex 布局下的水平排列方式                                               | string                                                  | start / end / center / space-around / space-between | start                                                |
+| title                   | 弹窗的标题                                                              | string                                                  | —                                                   | 同 menu addText / editText                           |
+| width                   | 弹窗的宽度                                                              | string / number                                         | —                                                   | 50%                                                  |
+| fullscreen              | 是否为全屏弹窗                                                          | boolean                                                 | —                                                   | false                                                |
+| top                     | 弹窗 CSS 中的 margin-top 值                                             | string                                                  | —                                                   | 15vh                                                 |
+| modal                   | 是否需要遮罩层                                                          | boolean                                                 | —                                                   | true                                                 |
+| append-to-body          | 弹窗自身是否插入至 body 元素上                                          | boolean                                                 | —                                                   | false                                                |
+| lock-scroll             | 是否在 弹窗出现时将 body 滚动锁定                                       | boolean                                                 | —                                                   | true                                                 |
+| custom-class            | 弹窗的自定义类名                                                        | string                                                  | —                                                   | pro-crud-dialog                                      |
+| open-delay              | 弹窗打开的延时时间，单位毫秒                                            | number                                                  | —                                                   | 0                                                    |
+| close-delay             | 弹窗关闭的延时时间，单位毫秒                                            | number                                                  | —                                                   | 0                                                    |
+| close-on-click-modal    | 是否可以通过点击 modal 关闭弹窗                                         | boolean                                                 | —                                                   | true                                                 |
+| close-on-press-escape   | 是否可以通过按下 ESC 关闭弹窗                                           | boolean                                                 | —                                                   | true                                                 |
+| show-close              | 是否显示关闭按钮                                                        | boolean                                                 | —                                                   | true                                                 |
+| before-open             | 弹窗开启前的回调，会暂停弹窗的开启                                      | Function(done, formType, row)                           | -                                                   | -                                                    |
+| before-close            | 关闭前的回调，会暂停弹窗的关闭                                          | Function(done)，done 用于关闭弹窗                       | —                                                   | —                                                    |
+| center                  | 是否对头部和底部采用居中布局                                            | boolean                                                 | —                                                   | false                                                |
+| destroy-on-close        | 关闭时销毁弹窗中的元素                                                  | boolean                                                 | —                                                   | false                                                |
 
-::: tip 提示
-其它属性与 Table 和 Form 相同
-:::
+#### columns 的参数
 
-- columns 的参数
+| 参数                | 说明                                                                      | 类型                                    | 可选值                                                                                                                          | 默认值                            |
+| :------------------ | :------------------------------------------------------------------------ | :-------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ | :-------------------------------- |
+| add                 | 是否在新增表单中显示                                                      | boolean                                 | -                                                                                                                               | false                             |
+| edit                | 是否在编辑表单中显示                                                      | boolean                                 | -                                                                                                                               | false                             |
+| form                | 是否在表单中显示                                                          | boolean                                 | -                                                                                                                               | false                             |
+| search              | 是否在搜索表单中显示                                                      | boolean                                 | -                                                                                                                               | false                             |
+| hide                | 是否在表格中隐藏                                                          | boolean                                 | -                                                                                                                               | false                             |
+| prop                | 对应 data 的字段名                                                        | string                                  | -                                                                                                                               | -                                 |
+| label               | 显示的标题                                                                | string                                  | -                                                                                                                               | -                                 |
+| slot                | 是否开启自定义插槽功能                                                    | boolean                                 | -                                                                                                                               | false                             |
+| children            | 实现多级表头                                                              | array                                   | -                                                                                                                               | -                                 |
+| columnKey           | 当前项的 key，使用 filter-change 事件时需要                               | string                                  | -                                                                                                                               | -                                 |
+| width               | 对应列的宽度                                                              | string                                  | -                                                                                                                               | -                                 |
+| minWidth            | 对应列的最小宽度                                                          | string                                  | -                                                                                                                               | -                                 |
+| fixed               | 列是否固定，true 表示固定在左侧                                           | string / boolean                        | true / left / right                                                                                                             | -                                 |
+| renderHeader        | 列标题 Label 区域渲染使用的 Function                                      | Function(h, { column, $index })         | -                                                                                                                               | -                                 |
+| sortable            | 对应列是否可以排序                                                        | boolean / string                        | true / false / 'custom'                                                                                                         | false                             |
+| sortMethod          | 对数据进行排序的时候使用的方法                                            | Function(a, b)                          | -                                                                                                                               | -                                 |
+| sortBy              | 指定数据按照哪个属性进行排序                                              | string / array / Function(row, index)   | -                                                                                                                               | -                                 |
+| sortOrders          | 数据在排序时所使用排序策略的轮转顺序                                      | array                                   | `ascending` 表示升序，`descending` 表示降序，`null` 表示还原为原始顺序                                                          | ['ascending', 'descending', null] |
+| resizable           | 对应列是否可以通过拖动改变宽度，配合 border 使用                          | boolean                                 | -                                                                                                                               | true                              |
+| formatter           | 用来格式化内容                                                            | Function(row, column, cellValue, index) | -                                                                                                                               | -                                 |
+| showOverflowTooltip | 当内容过长被隐藏时显示 tooltip                                            | Boolean                                 | -                                                                                                                               | false                             |
+| align               | 对齐方式                                                                  | string                                  | left / center / right                                                                                                           | left                              |
+| headerAlign         | 表头对齐方式                                                              | string                                  | left / center / right                                                                                                           | 同 align                          |
+| className           | 列的 className                                                            | string                                  | -                                                                                                                               | -                                 |
+| labelClassName      | 当前列标题的自定义类名                                                    | string                                  | -                                                                                                                               | -                                 |
+| filters             | 数据过滤的选项                                                            | Array[{ text, value }]                  | -                                                                                                                               | -                                 |
+| filterPlacement     | 过滤弹出框的定位                                                          | string                                  | top / top-start / top-end / bottom / bottom-start / bottom-end / left / left-start / left-end / right / right-start / right-end | -                                 |
+| filterMultiple      | 数据过滤的选项是否多选                                                    | boolean                                 | -                                                                                                                               | true                              |
+| filterMethod        | 数据过滤使用的方法                                                        | Function(value, row, column)            | -                                                                                                                               | -                                 |
+| filteredValue       | 选中的数据过滤项                                                          | array                                   | -                                                                                                                               | -                                 |
+| index               | 自定义索引，只能够在 index 中配置                                         | Function(index) / number                | -                                                                                                                               | -                                 |
+| selectable          | 这一行的 CheckBox 是否可以勾选，只能够在 selection 中配置                 | Function(row, index)                    | -                                                                                                                               | -                                 |
+| reserveSelection    | 是否保留之前选中的数据（需指定 `row-key`），只能够在 selection 中配置     | boolean                                 | -                                                                                                                               | false                             |
+| max                 | 与 children 一起使用，限制子表单的最大数量                                | number                                  | -                                                                                                                               | -                                 |
+| labelWidth          | 表单域标签的宽度，例如 '50px' 或 'auto'                                   | string                                  | -                                                                                                                               | -                                 |
+| required            | 是否必填，如不设置，则会根据校验规则自动生成                              | boolean                                 | -                                                                                                                               | false                             |
+| rules               | 表单验证规则                                                              | object / array                          | -                                                                                                                               | -                                 |
+| error               | 表单域验证错误信息, 设置该值会使表单验证状态变为`error`，并显示该错误信息 | string                                  | -                                                                                                                               | -                                 |
+| showMessage         | 是否显示校验错误信息                                                      | boolean                                 | -                                                                                                                               | true                              |
+| inlineMessage       | 以行内形式展示校验信息                                                    | boolean                                 | -                                                                                                                               | false                             |
+| size                | 用于控制该表单域下组件的尺寸                                              | string                                  | medium / small / mini                                                                                                           | -                                 |
+| span                | 栅格占据的列数                                                            | number                                  | -                                                                                                                               | 24                                |
+| offset              | 栅格左侧的间隔格数                                                        | number                                  | -                                                                                                                               | 0                                 |
+| push                | 栅格向右移动格数                                                          | number                                  | -                                                                                                                               | 0                                 |
+| pull                | 栅格向左移动格数                                                          | number                                  | -                                                                                                                               | 0                                 |
+| xs                  | `<768px` 响应式栅格数或者栅格属性对象                                     | number / object                         | -                                                                                                                               | -                                 |
+| sm                  | `≥768px` 响应式栅格数或者栅格属性对象                                     | number / object                         | -                                                                                                                               | -                                 |
+| md                  | `≥992px` 响应式栅格数或者栅格属性对象                                     | number / object                         | -                                                                                                                               | -                                 |
+| lg                  | `≥1200px` 响应式栅格数或者栅格属性对象                                    | number / object                         | -                                                                                                                               | -                                 |
+| xl                  | `≥1920px` 响应式栅格数或者栅格属性对象                                    | number / object                         | -                                                                                                                               | -                                 |
 
-| 参数   | 说明                 | 类型    | 可选值 | 默认值 |
-| :----- | :------------------- | :------ | :----- | :----- |
-| add    | 是否在新增表单中显示 | boolean | -      | false  |
-| edit   | 是否在编辑表单中显示 | boolean | -      | false  |
-| form   | 是否在表单中显示     | boolean | -      | false  |
-| search | 是否在搜索表单中显示 | boolean | -      | false  |
-| hide   | 是否在表格中隐藏     | boolean | -      | false  |
-
-::: tip 提示
-其它属性与 Table columns 和 Form columns 相同
-:::
-
-- menu 的参数 (可通过全局配置配置)
+#### menu 的参数
 
 | 参数             | 说明                              | 类型                    | 可选值 | 默认值              |
 | :--------------- | :-------------------------------- | :---------------------- | :----- | :------------------ |
@@ -1027,21 +1123,41 @@ export default {
 其它属性同 Table columns
 :::
 
-## 事件
+### 事件
 
-| 事件名      | 说明                          | 参数                                              |
-| ----------- | ----------------------------- | ------------------------------------------------- |
-| submit      | submit 被点击后触发           | close, done, 'add'/'edit', isValid, invalidFields |
-| reset       | reset 按钮被点击后触发        | -                                                 |
-| delete      | delete 按钮被点击后触发       | row                                               |
-| search      | search 按钮被点击后触发       | done, isValid, invalidFields                      |
-| searchReset | search reset 按钮被点击后触发 | -                                                 |
+| 事件名             | 说明                                                                                                                                         | 参数                                              |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| submit             | submit 被点击后触发                                                                                                                          | close, done, 'add'/'edit', isValid, invalidFields |
+| reset              | reset 按钮被点击后触发                                                                                                                       | -                                                 |
+| delete             | delete 按钮被点击后触发                                                                                                                      | row                                               |
+| search             | search 按钮被点击后触发                                                                                                                      | done, isValid, invalidFields                      |
+| searchReset        | search reset 按钮被点击后触发                                                                                                                | -                                                 |
+| select             | 当用户手动勾选数据行的 Checkbox 时触发的事件                                                                                                 | selection, row                                    |
+| select-all         | 当用户手动勾选全选 Checkbox 时触发的事件                                                                                                     | selection                                         |
+| selection-change   | 当选择项发生变化时会触发该事件                                                                                                               | selection                                         |
+| cell-mouse-enter   | 当单元格 hover 进入时会触发该事件                                                                                                            | row, column, cell, event                          |
+| cell-mouse-leave   | 当单元格 hover 退出时会触发该事件                                                                                                            | row, column, cell, event                          |
+| cell-click         | 当某个单元格被点击时会触发该事件                                                                                                             | row, column, cell, event                          |
+| cell-dblclick      | 当某个单元格被双击击时会触发该事件                                                                                                           | row, column, cell, event                          |
+| row-click          | 当某一行被点击时会触发该事件                                                                                                                 | row, column, event                                |
+| row-contextmenu    | 当某一行被鼠标右键点击时会触发该事件                                                                                                         | row, column, event                                |
+| row-dblclick       | 当某一行被双击时会触发该事件                                                                                                                 | row, column, event                                |
+| header-click       | 当某一列的表头被点击时会触发该事件                                                                                                           | column, event                                     |
+| header-contextmenu | 当某一列的表头被鼠标右键点击时触发该事件                                                                                                     | column, event                                     |
+| sort-change        | 当表格的排序条件发生变化的时候会触发该事件                                                                                                   | { column, prop, order }                           |
+| filter-change      | 当表格的筛选条件发生变化的时候会触发该事件，参数的值是一个对象，对象的 key 是 column 的 columnKey，对应的 value 为用户选择的筛选条件的数组。 | filters                                           |
+| current-change     | 当表格的当前行发生变化的时候会触发该事件，如果要高亮当前行，请打开表格的 highlight-current-row 属性                                          | currentRow, oldCurrentRow                         |
+| header-dragend     | 当拖动表头改变了列的宽度的时候会触发该事件                                                                                                   | newWidth, oldWidth, column, event                 |
+| expand-change      | 当用户对某一行展开或者关闭的时候会触发该事件（展开行时，回调的第二个参数为 expandedRows；树形表格时第二参数为 expanded）                     | row, (expandedRows \| expanded)                   |
+| size-change        | pageSize 改变时会触发                                                                                                                        | 每页条数                                          |
+| current-change     | currentPage 改变时会触发                                                                                                                     | 当前页                                            |
+| prev-click         | 用户点击上一页按钮改变当前页后触发                                                                                                           | 当前页                                            |
+| next-click         | 用户点击下一页按钮改变当前页后触发                                                                                                           | 当前页                                            |
+| submit             | submit 被点击后触发                                                                                                                          | done, isValid, invalidFields                      |
+| reset              | reset 按钮被点击后触发                                                                                                                       | -                                                 |
+| validate           | 任一表单项被校验后触发                                                                                                                       | 被校验的表单项 prop 值, isValid, invalidFields    |
 
-::: tip 提示
-其它事件与 Table 和 Form 相同
-:::
-
-## 方法
+### 方法
 
 | 方法名             | 说明                                                                                                                                                                 | 参数                                                                       |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
@@ -1063,7 +1179,7 @@ export default {
 如果使用 `typescript` 可以从组件中导出 `ICrudExpose` 提供更好的类型推导
 :::
 
-## 插槽
+### 插槽
 
 | name                | 说明                                                                     |
 | :------------------ | :----------------------------------------------------------------------- |
