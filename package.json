@@ -15,7 +15,7 @@
   "style": "lib/style.css",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --emptyOutDir && npm run build:types && npm run build:helper",
+    "build": "vite build --emptyOutDir && npm run build:helper && npm run build:types",
     "build:types": "rimraf types && tsc -d",
     "build:helper": "node .helperrc.js",
     "build:docs": "vite build docs --ssrManifest --outDir dist/static && vite build docs --ssr src/entry-server.ts --outDir dist/server && node docs/prerender.js",
