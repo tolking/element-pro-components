@@ -61,6 +61,7 @@
 import { defineProps, inject, toRefs } from 'vue'
 import { ElTableColumn } from 'element-plus'
 import { useTableBind, useTableSlotList } from '../composables'
+import TableItem from './TableItem.vue'
 import type {
   TableColumn,
   ITableColumns,

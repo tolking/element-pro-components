@@ -29,6 +29,7 @@
 <script setup lang="ts">
 import { defineProps, toRefs } from 'vue'
 import { ElMenuItem, ElSubmenu } from 'element-plus'
+import MenuItem from './MenuItem.vue'
 import type { IRouteRecordRaw } from '../types/index'
 
 const props = defineProps<{ item: IRouteRecordRaw }>()

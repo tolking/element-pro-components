@@ -109,10 +109,10 @@ import type {
 } from '../types/index'
 
 const props = defineProps<{
-  selection: boolean | Record<string, unknown>
-  expand: boolean | Record<string, unknown>
-  index: boolean | Record<string, unknown>
-  menu: boolean | Record<string, unknown>
+  selection?: boolean | Record<string, unknown>
+  expand?: boolean | Record<string, unknown>
+  index?: boolean | Record<string, unknown>
+  menu?: boolean | Record<string, unknown>
   columns: Array<Record<string, unknown> & TableColumn>
   total?: number
   pageSize?: number

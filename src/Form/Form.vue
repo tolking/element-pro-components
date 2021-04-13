@@ -74,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, toRefs, useContext, defineEmit, computed } from 'vue'
+import { defineProps, toRefs, useContext, defineEmit, computed, ref } from 'vue'
 import { ElForm, ElFormItem, ElButton } from 'element-plus'
 import ProFormItem from './FormItem.vue'
 import {
@@ -91,7 +91,7 @@ const props = defineProps<{
   menu?: Record<string, unknown>
   modelValue: Record<string, unknown>
   labelPosition?: 'right' | 'left' | 'top'
-  inline: boolean
+  inline?: boolean
   gutter?: number
   type?: string
   justify?: 'start' | 'end' | 'center' | 'space-around' | 'space-between'
@@ -116,7 +116,7 @@ const menu = useFormMenu(props)
 const { rowStyle, rowClass } = useRow(props)
 const size = useScreenSize()
 const position = computed(() => {
-  return size.value === 'xs' && !inline.value ? 'top' : labelPosition?.value
+  return size.value === 'xs' && !inline?.value ? 'top' : labelPosition?.value
 })
 
 expose({

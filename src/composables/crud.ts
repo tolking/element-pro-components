@@ -1,5 +1,5 @@
 import { ComputedRef, computed, ref, unref, Ref, nextTick } from 'vue'
-import { useProOptions, useAttrs } from './index'
+import { useProOptions, useAttrs, useScreenSize } from './index'
 import {
   isFunction,
   isObject,
@@ -24,7 +24,7 @@ export function useCrudColumns(
     columns?: ICrudColumns
     searchColumns?: IFormColumns
     tableColumns?: ITableColumns
-    menu: boolean | ICrudMenuColumns
+    menu?: boolean | ICrudMenuColumns
   }>
 ): {
   searchColumns: ComputedRef<IFormColumns | undefined>
@@ -205,6 +205,7 @@ export function useCrudAttrs(
   bindDialog: ComputedRef<UnknownObject>
 } {
   const attrs = useAttrs()
+  const size = useScreenSize()
   const bindDialog = computed(() => {
     const _menuColumns = unref(menuColumns)
     const _formType = unref(formType)
@@ -236,6 +237,7 @@ export function useCrudAttrs(
       keys
     )
     const _beforeClose = bindDialog['before-close']
+    const sizeWidth = { xs: '90%', sm: '80%', md: '70%', lg: '60%', xl: '50%' }
 
     function beforeClose(done: () => void) {
       function callback() {
@@ -249,6 +251,7 @@ export function useCrudAttrs(
     bindDialog.title = bindDialog.title ?? title
     bindDialog['custom-class'] = bindDialog['custom-class'] ?? 'pro-crud-dialog'
     bindDialog['before-close'] = beforeClose
+    bindDialog.width = bindDialog.width ?? sizeWidth[size.value]
 
     return bindDialog
   })

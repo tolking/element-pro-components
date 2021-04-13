@@ -163,9 +163,9 @@ export default {
 
 ### Checkbox 事件
 
-| Name   | Description                             | Parameters        |
-| ------ | --------------------------------------- | ----------------- |
-| change | triggers when the binding value changes | the updated value |
+| 名称   | 说明                   | 回调参数        |
+| ------ | ---------------------- | --------------- |
+| change | 绑定值变化时触发的事件 | 选中的 label 值 |
 
 ### CheckboxButton 配置
 
@@ -183,6 +183,6 @@ export default {
 
 ### CheckboxButton 事件
 
-| Name   | Description                             | Parameters        |
-| ------ | --------------------------------------- | ----------------- |
-| change | triggers when the binding value changes | the updated value |
+| 名称   | 说明                   | 回调参数        |
+| ------ | ---------------------- | --------------- |
+| change | 绑定值变化时触发的事件 | 选中的 label 值 |
