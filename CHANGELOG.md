@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.8.2
+
+feat
+
+- Crud: auto width for dialog
+
+fix
+
+- \_self does not exist on vue 3.0.11
+- error tip on vue 3.0.11
+
 ## 0.8.1
 
 feat
