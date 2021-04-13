@@ -47,13 +47,13 @@ import ProLayoutMain from './LayoutMain.vue'
 import { useAttrs, useShow } from '../composables/index'
 
 const props = defineProps<{
-  collapse: boolean
+  collapse?: boolean
   transition?: string
 }>()
 const { collapse, transition } = toRefs(props)
 const { slots } = useContext()
 const attrs = useAttrs()
-const { show, toggleShow } = useShow(collapse)
+const { show, toggleShow } = useShow(collapse?.value)
 </script>
 
 <style lang="postcss">

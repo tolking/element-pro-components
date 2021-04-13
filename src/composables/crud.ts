@@ -24,7 +24,7 @@ export function useCrudColumns(
     columns?: ICrudColumns
     searchColumns?: IFormColumns
     tableColumns?: ITableColumns
-    menu: boolean | ICrudMenuColumns
+    menu?: boolean | ICrudMenuColumns
   }>
 ): {
   searchColumns: ComputedRef<IFormColumns | undefined>

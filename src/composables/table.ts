@@ -1,4 +1,5 @@
 import { ComputedRef, computed, Ref, unref, ref } from 'vue'
+import { useProOptions } from './index'
 import { filterSlotDeep, isObject, objectDeepMerge } from '../utils/index'
 import type {
   ITableColumns,
@@ -9,7 +10,6 @@ import type {
   StringObject,
   DeepTypeof,
 } from '../types/index'
-import { useProOptions } from './public'
 
 export function useTableSlotList(
   columns: ITableColumns | Ref<ITableColumns>
@@ -40,7 +40,7 @@ interface ColumnsBind extends StringObject {
 }
 
 export function useTableBind<T extends ColumnsBind>(
-  currentBind: boolean | T | Ref<boolean | T>,
+  currentBind?: boolean | T | Ref<boolean | undefined | T>,
   defaultBind?: TableColumnsProps | Ref<TableColumnsProps>
 ): ComputedRef<T> {
   return computed(() => {

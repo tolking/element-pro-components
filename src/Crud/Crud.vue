@@ -227,7 +227,7 @@ const props = defineProps<{
   formColumns?: Array<Record<string, unknown> & FormColumn>
   searchColumns?: Array<Record<string, unknown> & FormColumn>
   tableColumns?: Array<Record<string, unknown> & TableColumn>
-  menu: boolean | Record<string, unknown>
+  menu?: boolean | Record<string, unknown>
   modelValue?: Record<string, unknown>
   search?: Record<string, unknown>
   searchRules?: Record<string, unknown>
