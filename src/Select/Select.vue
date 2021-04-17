@@ -6,22 +6,42 @@
   >
     <el-option
       v-for="item in data"
-      :key="item[selectConfig.value]"
-      :value="item[selectConfig.value]"
-      :label="item[selectConfig.label]"
-      :disabled="item[selectConfig.disabled]"
+      :key="item.value"
+      :value="item.value"
+      :label="item.label"
+      :disabled="item.disabled"
     />
   </el-select>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup name="ProSelect" lang="ts">
+import { defineEmit, defineProps, toRefs } from 'vue'
 import { ElSelect, ElOption } from 'element-plus'
-import { select } from '../mixins/index'
+import { useSelectData } from '../composables/index'
+import type { UnknownObject } from '../types/index'
 
-export default defineComponent({
-  name: 'ProSelect',
-  components: { ElSelect, ElOption },
-  mixins: [select],
-})
+const props = defineProps<{
+  modelValue:
+    | string
+    | number
+    | boolean
+    | Record<string, unknown>
+    | string[]
+    | number[]
+    | boolean[]
+    | UnknownObject[]
+  data: Record<string, boolean | string | number | UnknownObject>[]
+  config?: {
+    value?: string
+    label?: string
+    disabled?: string
+  }
+}>()
+const emit = defineEmit(['update:modelValue'])
+const { modelValue } = toRefs(props)
+const data = useSelectData(props)
+
+function upData(value: unknown) {
+  emit('update:modelValue', value)
+}
 </script>
