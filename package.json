@@ -42,8 +42,13 @@
     "url": "https://github.com/tolking/element-pro-components/issues"
   },
   "homepage": "https://github.com/tolking/element-pro-components#readme",
+  "peerDependencies": {
+    "element-plus": "^1.0.2-beta.40",
+    "vue": "^3.0.11",
+    "vue-router": "^4.0.6"
+  },
   "dependencies": {
-    "element-plus": "^1.0.2-beta.35",
+    "element-plus": "^1.0.2-beta.40",
     "vue": "^3.0.11",
     "vue-router": "^4.0.6"
   },
@@ -57,8 +62,8 @@
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
     "@vitejs/plugin-vue": "^1.1.5",
-    "@vue/compiler-sfc": "^3.0.7",
-    "@vue/server-renderer": "^3.0.7",
+    "@vue/compiler-sfc": "^3.0.11",
+    "@vue/server-renderer": "^3.0.11",
     "@vue/test-utils": "^2.0.0-rc.4",
     "babel-jest": "^26.6.3",
     "components-helper": "^1.0.2",
@@ -80,7 +85,7 @@
     "typescript": "^4.2.2",
     "vite": "^2.0.5",
     "vite-plugin-md": "^0.6.1",
-    "vue-jest": "^5.0.0-alpha.7"
+    "vue-jest": "^5.0.0-alpha.8"
   },
   "vetur": {
     "tags": "lib/tags.json",

@@ -1,9 +1,9 @@
 import { UnknownObject, SelectConfig } from './index'
 
 export interface IRadioProps {
-  modelValue: string | number | boolean | UnknownObject
-  data: UnknownObject
-  config: SelectConfig & { name?: string }
+  modelValue: string | number | boolean
+  data: Record<string, boolean | string | number>[]
+  config: SelectConfig
 }
 
 export type IRadioButtonProps = IRadioProps

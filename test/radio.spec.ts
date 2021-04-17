@@ -16,14 +16,6 @@ const getList = (wrapper: VueWrapper<ComponentPublicInstance>, calss = '') => {
 }
 
 describe('Radio.vue', () => {
-  test('empty', () => {
-    const wrapper = _mount({
-      template: '<pro-radio />',
-    })
-
-    expect(getList(wrapper)).toHaveLength(0)
-  })
-
   test('test modelValue', async () => {
     const wrapper = _mount({
       template: '<pro-radio v-model="value" :data="data" />',

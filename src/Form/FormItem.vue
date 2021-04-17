@@ -138,7 +138,7 @@ const props = defineProps<{
   item: Record<string, unknown> & FormColumn
   prop: string
   modelValue: Record<string, unknown>
-  inline: boolean
+  inline?: boolean
 }>()
 const emit = defineEmit(['update:modelValue'])
 const { item, prop, modelValue, inline } = toRefs(props)
