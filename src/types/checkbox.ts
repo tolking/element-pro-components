@@ -1,8 +1,8 @@
 import { UnknownObject, SelectConfig } from './index'
 
 export interface ICheckboxProps {
-  modelValue: string[] | number[] | boolean[] | UnknownObject[]
-  data: Record<string, boolean | string | number | UnknownObject>[]
+  modelValue: string[] | number[] | boolean[]
+  data: Record<string, boolean | string | number>[]
   config: SelectConfig
 }
 

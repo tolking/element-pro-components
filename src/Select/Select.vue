@@ -21,7 +21,7 @@ import { useSelectData } from '../composables/index'
 import type { UnknownObject } from '../types/index'
 
 const props = defineProps<{
-  modelValue:
+  modelValue?:
     | string
     | number
     | boolean

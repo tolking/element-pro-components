@@ -1,6 +1,6 @@
 <template>
   <el-checkbox-group
-    :model-value="modelValue"
+    :model-value="modelValue || []"
     class="pro-checkbox"
     @change="upData"
   >
@@ -20,11 +20,10 @@
 import { defineEmit, defineProps, toRefs } from 'vue'
 import { ElCheckboxGroup, ElCheckbox } from 'element-plus'
 import { useSelectData } from '../composables/index'
-import type { UnknownObject } from '../types/index'
 
 const props = defineProps<{
-  modelValue: string[] | number[] | boolean[] | UnknownObject[]
-  data: Record<string, boolean | string | number | UnknownObject>[]
+  modelValue?: string[] | number[] | boolean[]
+  data: Record<string, boolean | string | number>[]
   config?: {
     value?: string
     label?: string
