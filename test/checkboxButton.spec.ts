@@ -16,14 +16,6 @@ const getList = (wrapper: VueWrapper<ComponentPublicInstance>, calss = '') => {
 }
 
 describe('CheckboxButton.vue', () => {
-  test('empty', () => {
-    const wrapper = _mount({
-      template: '<pro-checkbox-button />',
-    })
-
-    expect(getList(wrapper)).toHaveLength(0)
-  })
-
   test('test modelValue', async () => {
     const wrapper = _mount({
       template: '<pro-checkbox-button v-model="value" :data="data" />',
