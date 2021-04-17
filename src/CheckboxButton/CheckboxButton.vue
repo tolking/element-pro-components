@@ -8,7 +8,7 @@
       v-for="item in data"
       :key="item.value"
       :name="item.name"
-      :label="item.label"
+      :label="item.value"
       :disabled="item.disabled"
     >
       {{ item.label }}
