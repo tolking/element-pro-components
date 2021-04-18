@@ -8,6 +8,7 @@
         :key="route.path"
         class="pro-main"
       >
+        <slot name="top" />
         <keep-alive v-if="route.meta?.keepAlive">
           <component :is="Component" />
         </keep-alive>
@@ -15,6 +16,7 @@
           :is="Component"
           v-else
         />
+        <slot name="bottom" />
       </el-scrollbar>
     </transition>
   </router-view>

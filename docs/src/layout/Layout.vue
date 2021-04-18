@@ -1,12 +1,12 @@
 <template>
   <pro-layout>
-    <template #left-header>
+    <template #header-left>
       <pro-breadcrumb />
     </template>
-    <template #right-header>
+    <template #header-right>
       <nav-header />
     </template>
-    <template #bottom-header>
+    <template #header-bottom>
       <pro-tabs />
     </template>
   </pro-layout>
