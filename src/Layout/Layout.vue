@@ -27,14 +27,26 @@
     <section class="pro-container">
       <pro-layout-header @toggle-collapse="toggleShow">
         <template #left>
+          <!-- TODO: remove slots `left-header` `right-header` `bottom-header` -->
           <slot name="left-header" />
+          <slot name="header-left" />
         </template>
         <template #right>
           <slot name="right-header" />
+          <slot name="header-right" />
         </template>
       </pro-layout-header>
       <slot name="bottom-header" />
-      <pro-layout-main :transition="transition" />
+      <slot name="header-bottom" />
+      <pro-layout-main :transition="transition">
+        <template #top>
+          <slot name="main-top" />
+        </template>
+        <template #bottom>
+          <slot name="main-bottom" />
+        </template>
+      </pro-layout-main>
+      <slot name="footer" />
     </section>
   </section>
 </template>

@@ -30,14 +30,23 @@
     <template #logo="{ collapse }">
       <span style="line-height: 54px">{{ collapse ? 'L' : 'logo' }}</span>
     </template>
-    <template #left-header>
-      <span>left-header</span>
+    <template #footer>
+      <p>footer</p>
     </template>
-    <template #right-header>
-      <span>right-header</span>
+    <template #header-left>
+      <span>header-left</span>
     </template>
-    <template #bottom-header>
-      <span>bottom-header</span>
+    <template #header-right>
+      <span>header-right</span>
+    </template>
+    <template #header-bottom>
+      <span>header-bottom</span>
+    </template>
+    <template #main-top>
+      <p>main-top</p>
+    </template>
+    <template #main-bottom>
+      <p>main-bottom</p>
     </template>
   </pro-layout>
 </template>
@@ -89,9 +98,12 @@ export default {
 | :------------ | :----------------------------------------------------------- |
 | logo          | 自定义 Logo，参数为 { collapse } collapse-当前菜单栏是否折叠 |
 | menu          | 控制菜单显示内容，参数为 { meta, path, redirect } 等         |
-| left-header   | 头部左侧内容                                                 |
-| right-header  | 头部右侧内容                                                 |
-| bottom-header | 头部下面内容                                                 |
+| footer        | 页脚内容                                                     |
+| header-left   | 头部左侧内容                                                 |
+| header-right  | 头部右侧内容                                                 |
+| header-bottom | 头部下面内容                                                 |
+| main-top      | 主体顶部内容                                                 |
+| main-bottom   | 主体底部内容                                                 |
 
 ### 参考
 

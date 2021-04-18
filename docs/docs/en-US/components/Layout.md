@@ -30,14 +30,23 @@
     <template #logo="{ collapse }">
       <span style="line-height: 54px">{{ collapse ? 'L' : 'logo' }}</span>
     </template>
-    <template #left-header>
-      <span>left-header</span>
+    <template #footer>
+      <p>footer</p>
     </template>
-    <template #right-header>
-      <span>right-header</span>
+    <template #header-left>
+      <span>header-left</span>
     </template>
-    <template #bottom-header>
-      <span>bottom-header</span>
+    <template #header-right>
+      <span>header-right</span>
+    </template>
+    <template #header-bottom>
+      <span>header-bottom</span>
+    </template>
+    <template #main-top>
+      <p>main-top</p>
+    </template>
+    <template #main-bottom>
+      <p>main-bottom</p>
     </template>
   </pro-layout>
 </template>
@@ -89,9 +98,12 @@ export default {
 | :------------ | :---------------------------------------------------------------- |
 | logo          | control logo display content, parameters { collapse }             |
 | menu          | control menu display content, parameters { meta, path, redirect } |
-| left-header   | control the header left display content                           |
-| right-header  | control the header right display content                          |
-| bottom-header | control the header bottom display content                         |
+| footer        | control the footer of page display content                        |
+| header-left   | control the header left display content                           |
+| header-right  | control the header right display content                          |
+| header-bottom | control the header bottom display content                         |
+| main-top      | control the main top display content                              |
+| main-bottom   | control the main bottom display content                           |
 
 ## 参考
 

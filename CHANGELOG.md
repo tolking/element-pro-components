@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.8.3
+
+breaking changes
+
+- Layout: will remove slots `left-header` `right-header` `bottom-header`, use `header-left` `header-right` `header-bottom` replace
+
+feat
+
+- Layout: add slots `footer` `main-top` `main-bottom` `header-left` `header-right` `header-bottom`
+
 ## 0.8.2
 
 feat
