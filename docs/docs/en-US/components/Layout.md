@@ -104,9 +104,6 @@ export default {
 | header-bottom | control the header bottom display content                         |
 | main-top      | control the main top display content                              |
 | main-bottom   | control the main bottom display content                           |
-| left-header   | control the header left display content                           |
-| right-header  | control the header right display content                          |
-| bottom-header | control the header bottom display content                         |
 
 ## 参考
 
