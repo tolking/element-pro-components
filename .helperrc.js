@@ -26,7 +26,7 @@ function reDocUrl(fileName, header) {
   return docs + fileName + (_header ? '#' + header : '')
 }
 
-function reAttribute(value, key, item) {
+function reAttribute(value, key) {
   if (key === 'Name' && /^(-|—)$/.test(value)) {
     return 'default'
   } else if (key === 'Name' && /v-model:(.+)/.test(value)) {
