@@ -7,7 +7,7 @@ import {
   objectPick,
   objectOmit,
   filterDeep,
-  filterSlotDeep,
+  filterFlat,
 } from '../src/utils/index'
 import { routes, slotList } from './mock'
 import type { IRouteRecordRaw } from '../src/types/index'
@@ -163,8 +163,8 @@ describe('all utils', () => {
     })
   })
 
-  describe('filterSlotDeep', () => {
-    const list = filterSlotDeep(slotList)
+  describe('filterFlat', () => {
+    const list = filterFlat(slotList, 'slot')
     expect(list).toHaveLength(4)
     expect(list[0]).toEqual({ slot: true, label: 'label1' })
     expect(list[1]).toEqual({

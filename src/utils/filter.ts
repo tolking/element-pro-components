@@ -31,20 +31,22 @@ export function filterDeep<T extends ListDeep>(
 }
 
 /**
- * deeply find the slots in the list and convert them into a single-level array
- * @param list slot list
+ * deeply find the `key` in the list and convert them into a single-level array
+ * @param list list
+ * @param key key
+ * @param value key value, default: true
  */
-export function filterSlotDeep<T>(list: T): T {
+export function filterFlat<T>(list: T, key: string, value = true): T {
   if (!isArray(list)) return ([] as unknown) as T
 
   return list.reduce((all, item) => {
     const _item = { ...item }
     let _list = []
     if (_item.children && _item.children.length) {
-      _list = filterSlotDeep(_item.children)
+      _list = filterFlat(_item.children, key, value)
       _item.children = undefined
     }
-    if (_item.slot) {
+    if (!!_item[key] === value) {
       _list.unshift(_item)
     }
     return [...all, ..._list]

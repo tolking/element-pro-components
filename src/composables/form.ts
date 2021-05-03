@@ -10,7 +10,7 @@ import {
 } from 'vue'
 import { useProOptions } from './index'
 import {
-  filterSlotDeep,
+  filterFlat,
   isObject,
   objectDeepMerge,
   objectPick,
@@ -36,7 +36,7 @@ export function useFormSlotList(
   return computed(() => {
     const _columns = unref(columns)
 
-    return filterSlotDeep(_columns).map((item) => {
+    return filterFlat(_columns, 'slot').map((item) => {
       item.labelSlot = item.prop + '-label'
       item.errorSlot = item.prop + '-error'
       return item
