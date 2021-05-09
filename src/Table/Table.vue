@@ -93,6 +93,7 @@
 import { defineProps, provide, toRefs, useContext, defineEmit } from 'vue'
 import { ElTable, ElTableColumn, ElPagination } from 'element-plus'
 import {
+  useTableColumns,
   useTableBind,
   useTableDefaultBind,
   useTableSlotList,
@@ -131,16 +132,10 @@ const emit = defineEmit([
   'next-click',
 ])
 const { attrs, expose } = useContext()
-const {
-  selection,
-  expand,
-  index,
-  menu,
-  columns,
-  total,
-  pageSize,
-  currentPage,
-} = toRefs(props)
+const { selection, expand, index, menu, total, pageSize, currentPage } = toRefs(
+  props
+)
+const columns = useTableColumns(props)
 const slotList = useTableSlotList(columns)
 const defaultBind = useTableDefaultBind(props)
 const bindSelection = useTableBind<ITableSelectionColumns>(
