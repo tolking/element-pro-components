@@ -2,7 +2,7 @@
   <el-form-item
     v-bind="bindItem"
     :prop="prop"
-    :style="!inline && colStyle"
+    :style="!inline ? colStyle : undefined"
     :class="!inline && colClass"
     class="pro-form-item"
   >
@@ -47,7 +47,7 @@
               <template
                 v-for="slot in slotList"
                 :key="slot.prop"
-                #[slot.labelSlot]="scope"
+                #[slot.label]="scope"
               >
                 <slot
                   v-bind="scope"
@@ -57,7 +57,7 @@
               <template
                 v-for="slot in slotList"
                 :key="slot.prop"
-                #[slot.errorSlot]="scope"
+                #[slot.error]="scope"
               >
                 <slot
                   v-bind="scope"
