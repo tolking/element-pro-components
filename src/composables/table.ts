@@ -1,7 +1,13 @@
 import { ComputedRef, computed, Ref, unref, ref } from 'vue'
 import { useProOptions } from './index'
-import { filterFlat, isObject, objectDeepMerge } from '../utils/index'
+import {
+  filterFlat,
+  filterDeep,
+  isObject,
+  objectDeepMerge,
+} from '../utils/index'
 import type {
+  TableColumn,
   ITableColumns,
   TableColumnsProps,
   ITableExpose,
@@ -11,16 +17,33 @@ import type {
   DeepTypeof,
 } from '../types/index'
 
+export function useTableColumns(
+  props: Readonly<{ columns: ITableColumns }>
+): ComputedRef<ITableColumns> {
+  return computed<ITableColumns>(() => {
+    return filterDeep(props.columns || [], 'hide', false)
+  })
+}
+
+interface TableSlot extends TableColumn {
+  header: string
+}
+
 export function useTableSlotList(
   columns: ITableColumns | Ref<ITableColumns>
-): ComputedRef<ITableColumns> {
+): ComputedRef<TableSlot[]> {
   return computed(() => {
     const _columns = unref(columns)
 
-    return filterFlat<ITableColumns>(_columns, 'slot', true, (item) => {
-      item.header = item.prop + '-header'
-      return item
-    })
+    return filterFlat<ITableColumns, TableSlot[]>(
+      _columns,
+      'slot',
+      true,
+      (item) => {
+        item.header = item.prop + '-header'
+        return item as TableSlot
+      }
+    )
   })
 }
 

@@ -1,4 +1,4 @@
-import { UnknownObject, SelectConfig } from './index'
+import type { SelectConfig } from './index'
 
 export interface IRadioProps {
   modelValue: string | number | boolean

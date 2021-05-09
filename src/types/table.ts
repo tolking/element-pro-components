@@ -72,11 +72,13 @@ interface TableCommonColumn<T = UnknownObject>
 /** Table Column Options */
 export interface TableColumn<T = UnknownObject> extends TableCommonColumn {
   /** field name */
-  prop?: DeepTypeof<T>
+  prop: DeepTypeof<T>
   /** whether column has a slot */
   slot?: boolean
   /** When the data structure is complex, you can use children to show the data hierarchy */
   children?: ITableColumns<T>
+  /** whether to hide in the table */
+  hide?: boolean
 }
 
 /** Table Columns Options */

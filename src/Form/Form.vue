@@ -5,7 +5,7 @@
     :model="modelValue"
     :label-position="position"
     :inline="inline"
-    :style="!inline && rowStyle"
+    :style="!inline ? rowStyle : undefined"
     :class="!inline && rowClass"
     class="pro-form"
   >

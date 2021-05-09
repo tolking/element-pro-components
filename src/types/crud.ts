@@ -35,8 +35,6 @@ export interface ICrudProps<T = UnknownObject>
 export interface CrudColumn<T = UnknownObject>
   extends FormColumn<T>,
     TableColumn<T> {
-  /** keys of model that passed to form and table */
-  prop: DeepTypeof<T>
   /** sub-form and multi-level header */
   children?: ICrudColumns<T>
   /** whether to display in the add form */
@@ -47,8 +45,6 @@ export interface CrudColumn<T = UnknownObject>
   form?: boolean
   /** whether to display in the search form */
   search?: boolean
-  /** whether to hide in the table */
-  hide?: boolean
 }
 
 export type ICrudColumns<T = UnknownObject> = CrudColumn<T>[]

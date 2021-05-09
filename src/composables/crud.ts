@@ -39,11 +39,7 @@ export function useCrudColumns(
       : undefined
   })
   const tableColumns = computed(() => {
-    return props.tableColumns
-      ? props.tableColumns
-      : props.columns
-      ? filterDeep<ITableColumns>(props.columns, 'hide', false)
-      : undefined
+    return props.tableColumns ? props.tableColumns : props.columns
   })
   const menuColumns = computed(() => {
     if (!props.menu) return false

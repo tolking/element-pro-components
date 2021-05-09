@@ -11,6 +11,7 @@ import ProAutocompleteTag from './AutocompleteTag/index'
 import ProBreadcrumb from './Breadcrumb/index'
 import ProCheckbox from './Checkbox/index'
 import ProCheckboxButton from './CheckboxButton/index'
+import ProColumnSetting from './ColumnSetting/index'
 import ProCrud from './Crud/index'
 import ProForm from './Form/index'
 import ProInputTag from './InputTag/index'
@@ -27,6 +28,7 @@ const components: Record<string, IDefineComponent> = {
   ProBreadcrumb,
   ProCheckbox,
   ProCheckboxButton,
+  ProColumnSetting,
   ProCrud,
   ProForm,
   ProInputTag,
@@ -57,6 +59,7 @@ export {
   ProBreadcrumb,
   ProCheckbox,
   ProCheckboxButton,
+  ProColumnSetting,
   ProCrud,
   ProForm,
   ProInputTag,

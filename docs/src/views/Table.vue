@@ -54,6 +54,13 @@ import type {
   ITableMenuColumns,
 } from '/@src/index'
 
+interface ListItem {
+  date: string
+  name: string
+  address: string
+  user: undefined
+}
+
 const index = ref<ITableIndexColumns>({
   label: '#',
   index: (index) => index + 10,
@@ -62,7 +69,7 @@ const menu = ref<ITableMenuColumns>({
   label: 'Menu',
   align: 'right',
 })
-const columns = ref<ITableColumns>([
+const columns = ref<ITableColumns<ListItem>>([
   {
     label: 'Date',
     prop: 'date',
@@ -78,13 +85,14 @@ const columns = ref<ITableColumns>([
     prop: 'address',
   },
 ])
-const columns1 = ref<ITableColumns>([
+const columns1 = ref<ITableColumns<ListItem>>([
   {
     label: 'Date',
     prop: 'date',
   },
   {
     label: 'User',
+    prop: 'user',
     children: [
       {
         label: 'Name',

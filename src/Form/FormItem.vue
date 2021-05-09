@@ -2,7 +2,7 @@
   <el-form-item
     v-bind="bindItem"
     :prop="prop"
-    :style="!inline && colStyle"
+    :style="!inline ? colStyle : undefined"
     :class="!inline && colClass"
     class="pro-form-item"
   >

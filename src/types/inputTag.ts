@@ -1,4 +1,4 @@
-import { IComponentSize } from './index'
+import type { IComponentSize } from './index'
 
 export interface IInputTagProps {
   modelValue?: string[]

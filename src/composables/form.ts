@@ -30,17 +30,27 @@ import type {
   DeepTypeof,
 } from '../types/index'
 
+interface FormSlot extends FormColumn {
+  labelSlot: string
+  errorSlot: string
+}
+
 export function useFormSlotList(
   columns: IFormColumns | Ref<IFormColumns>
-): ComputedRef<IFormColumns> {
+): ComputedRef<FormSlot[]> {
   return computed(() => {
     const _columns = unref(columns)
 
-    return filterFlat<IFormColumns>(_columns, 'slot', true, (item) => {
-      item.labelSlot = item.prop + '-label'
-      item.errorSlot = item.prop + '-error'
-      return item
-    })
+    return filterFlat<IFormColumns, FormSlot[]>(
+      _columns,
+      'slot',
+      true,
+      (item) => {
+        item.labelSlot = item.prop + '-label'
+        item.errorSlot = item.prop + '-error'
+        return item as FormSlot
+      }
+    )
   })
 }
 
