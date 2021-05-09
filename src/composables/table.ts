@@ -1,6 +1,6 @@
 import { ComputedRef, computed, Ref, unref, ref } from 'vue'
 import { useProOptions } from './index'
-import { filterSlotDeep, isObject, objectDeepMerge } from '../utils/index'
+import { filterFlat, isObject, objectDeepMerge } from '../utils/index'
 import type {
   ITableColumns,
   TableColumnsProps,
@@ -17,7 +17,7 @@ export function useTableSlotList(
   return computed(() => {
     const _columns = unref(columns)
 
-    return filterSlotDeep<ITableColumns>(_columns).map((item) => {
+    return filterFlat<ITableColumns>(_columns, 'slot', true, (item) => {
       item.header = item.prop + '-header'
       return item
     })

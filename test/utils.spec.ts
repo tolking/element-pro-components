@@ -7,9 +7,9 @@ import {
   objectPick,
   objectOmit,
   filterDeep,
-  filterSlotDeep,
+  filterFlat,
 } from '../src/utils/index'
-import { routes, slotList } from './mock'
+import { routes, slotList, SlotItem } from './mock'
 import type { IRouteRecordRaw } from '../src/types/index'
 
 function getRouterTitle(list: IRouteRecordRaw[]) {
@@ -163,8 +163,8 @@ describe('all utils', () => {
     })
   })
 
-  describe('filterSlotDeep', () => {
-    const list = filterSlotDeep(slotList)
+  describe('filterFlat', () => {
+    const list = filterFlat(slotList, 'slot')
     expect(list).toHaveLength(4)
     expect(list[0]).toEqual({ slot: true, label: 'label1' })
     expect(list[1]).toEqual({
@@ -180,5 +180,17 @@ describe('all utils', () => {
       label: 'label3',
       children: [{ slot: true, label: 'label4' }, { label: 'label5' }],
     })
+
+    const list2 = filterFlat<SlotItem[], string[]>(
+      slotList,
+      'slot',
+      true,
+      (item) => item.label
+    )
+    expect(list2).toHaveLength(4)
+    expect(list2[0]).toBe('label1')
+    expect(list2[1]).toBe('label3')
+    expect(list2[2]).toBe('label4')
+    expect(list2[3]).toBe('label7')
   })
 })
