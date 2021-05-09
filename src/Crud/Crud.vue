@@ -73,9 +73,7 @@
         />
       </div>
       <div class="pro-menu-item">
-        <slot name="action-left" />
-        <!-- TODO: add setting(change hide in columns) ..? -->
-        <slot name="action-right" />
+        <slot name="action" />
       </div>
     </div>
     <pro-table
