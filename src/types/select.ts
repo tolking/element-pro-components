@@ -1,4 +1,4 @@
-import { UnknownObject } from './index'
+import type { UnknownObject } from './index'
 
 export interface SelectConfig {
   value?: string

@@ -1,4 +1,4 @@
-import { IRouteRecordRaw } from './index'
+import type { IRouteRecordRaw } from './index'
 
 export interface ILayoutProps {
   routes?: IRouteRecordRaw[]
