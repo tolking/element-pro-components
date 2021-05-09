@@ -31,8 +31,8 @@ import type {
 } from '../types/index'
 
 interface FormSlot extends FormColumn {
-  label: string
-  error: string
+  labelSlot: string
+  errorSlot: string
 }
 
 export function useFormSlotList(
@@ -46,8 +46,8 @@ export function useFormSlotList(
       'slot',
       true,
       (item) => {
-        item.label = item.prop + '-label'
-        item.error = item.prop + '-error'
+        item.labelSlot = item.prop + '-label'
+        item.errorSlot = item.prop + '-error'
         return item as FormSlot
       }
     )

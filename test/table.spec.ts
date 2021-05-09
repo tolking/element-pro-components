@@ -336,6 +336,7 @@ describe('Table.vue', () => {
           },
           {
             label: 'User',
+            prop: 'user',
             children: [
               {
                 label: 'Name',

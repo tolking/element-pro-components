@@ -47,7 +47,7 @@
               <template
                 v-for="slot in slotList"
                 :key="slot.prop"
-                #[slot.label]="scope"
+                #[slot.labelSlot]="scope"
               >
                 <slot
                   v-bind="scope"
@@ -57,7 +57,7 @@
               <template
                 v-for="slot in slotList"
                 :key="slot.prop"
-                #[slot.error]="scope"
+                #[slot.errorSlot]="scope"
               >
                 <slot
                   v-bind="scope"
