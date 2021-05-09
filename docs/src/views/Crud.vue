@@ -20,6 +20,13 @@
     @reset="reset"
     @delete="deleteRow"
   >
+    <template #action>
+      <pro-column-setting
+        v-model="columns"
+        :size="size"
+        trigger="click"
+      />
+    </template>
     <template #menu-right="{ size }">
       <el-button
         :size="size"
@@ -74,7 +81,7 @@ const menu = ref<ICrudMenuColumns<DataItem>>({
   label: 'Menu',
   edit: (row) => row.date !== '2016-05-02',
 })
-const columns: ICrudColumns<DataItem> = [
+const columns = ref<ICrudColumns<DataItem>>([
   {
     label: 'Date',
     prop: 'date',
@@ -101,7 +108,7 @@ const columns: ICrudColumns<DataItem> = [
     prop: 'address',
     component: 'el-input',
   },
-]
+])
 const data: DataItem[] = [
   {
     date: '2016-05-03',
