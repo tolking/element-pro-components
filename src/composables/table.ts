@@ -17,7 +17,7 @@ export function useTableSlotList(
   return computed(() => {
     const _columns = unref(columns)
 
-    return filterFlat<ITableColumns>(_columns, 'slot').map((item) => {
+    return filterFlat<ITableColumns>(_columns, 'slot', true, (item) => {
       item.header = item.prop + '-header'
       return item
     })

@@ -36,7 +36,7 @@ export function useFormSlotList(
   return computed(() => {
     const _columns = unref(columns)
 
-    return filterFlat(_columns, 'slot').map((item) => {
+    return filterFlat<IFormColumns>(_columns, 'slot', true, (item) => {
       item.labelSlot = item.prop + '-label'
       item.errorSlot = item.prop + '-error'
       return item

@@ -43,7 +43,14 @@ export const tableData: TableItem[] = [
   },
 ]
 
-export const slotList = [
+export interface SlotItem {
+  slot?: boolean
+  label: string
+  children?: SlotItem[]
+  [key: string]: unknown
+}
+
+export const slotList: SlotItem[] = [
   { slot: true, label: 'label1' },
   { label: 'label2' },
   {

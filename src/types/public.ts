@@ -12,7 +12,7 @@ export type DeepTypeof<T> = {
 }[keyof T]
 
 export type IDefineComponent<Props = UnknownObject> = DefineComponent<Props> & {
-  install: (app: App) => void
+  install: (app: App, options?: InstallOptions) => void
 }
 
 export type MenuOptions = CrudMenu & FormMenu & StringObject

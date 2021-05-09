@@ -1,7 +1,7 @@
-import { isArray } from './index'
+import { isArray, isFunction } from './index'
 
-type ListDeep = Array<{
-  children?: ListDeep
+type ListDeep<T> = Array<{
+  children?: T
   [key: string]: unknown
 }>
 
@@ -11,7 +11,7 @@ type ListDeep = Array<{
  * @param key check key
  * @param value check the value is true or false
  */
-export function filterDeep<T extends ListDeep>(
+export function filterDeep<T extends ListDeep<T>>(
   list: T,
   key: string,
   value = true
@@ -35,20 +35,26 @@ export function filterDeep<T extends ListDeep>(
  * @param list list
  * @param key key
  * @param value key value, default: true
+ * @param reItem rewrite value of list item
  */
-export function filterFlat<T>(list: T, key: string, value = true): T {
-  if (!isArray(list)) return ([] as unknown) as T
+export function filterFlat<T extends ListDeep<T>, Q extends unknown[] = T>(
+  list: T,
+  key: string,
+  value = true,
+  reItem?: (item: T[number]) => Q[number]
+): Q {
+  if (!isArray(list)) return ([] as unknown) as Q
 
   return list.reduce((all, item) => {
     const _item = { ...item }
-    let _list = []
+    let _list = ([] as unknown) as Q
     if (_item.children && _item.children.length) {
-      _list = filterFlat(_item.children, key, value)
+      _list = filterFlat(_item.children, key, value, reItem)
       _item.children = undefined
     }
     if (!!_item[key] === value) {
-      _list.unshift(_item)
+      _list.unshift(isFunction(reItem) ? reItem(_item) : _item)
     }
-    return [...all, ..._list]
-  }, ([] as unknown) as T)
+    return [...all, ..._list] as Q
+  }, ([] as unknown) as Q)
 }
