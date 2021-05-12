@@ -1047,7 +1047,7 @@ export default {
 | form                | 是否在表单中显示                                                          | boolean                                 | -                                                                                                                               | false                             |
 | search              | 是否在搜索表单中显示                                                      | boolean                                 | -                                                                                                                               | false                             |
 | hide                | 是否在表格中隐藏                                                          | boolean                                 | -                                                                                                                               | false                             |
-| prop                | 对应 data 的字段名                                                        | string                                  | -                                                                                                                               | -                                 |
+| prop                | 对应 data 的字段名 (**必填，需要是唯一值**)                               | string                                  | -                                                                                                                               | -                                 |
 | label               | 显示的标题                                                                | string                                  | -                                                                                                                               | -                                 |
 | slot                | 是否开启自定义插槽功能                                                    | boolean                                 | -                                                                                                                               | false                             |
 | children            | 实现多级表头                                                              | array                                   | -                                                                                                                               | -                                 |
@@ -1164,7 +1164,7 @@ export default {
 | clearSelection     | 用于多选表格，清空用户的选择                                                                                                                                         | -                                                                          |
 | toggleRowSelection | 用于多选表格，切换某一行的选中状态，如果使用了第二个参数，则是设置这一行选中与否（selected 为 true 则选中）                                                          | row, selected                                                              |
 | toggleAllSelection | 用于多选表格，切换全选和全不选                                                                                                                                       | -                                                                          |
-| toggleRowExpansion | 用于可展开表格与树形表格，切换某一行的展开状态，如果使用了第二个参数，则是设置这一行展开与否（expanded 为 true 则展开）                                              | row, expanded                                                              |
+| toggleRowExpansion | 用于可展开表格与树形表格，切换某一行的展开状态，如果使用了第二个参数，则是设置这一行展开与否（expanded 为 true                                                       | row, expanded                                                              |
 | setCurrentRow      | 用于单选表格，设定某一行为选中行，如果调用时不加参数，则会取消目前高亮行的选中状态。                                                                                 | row                                                                        |
 | clearSort          | 用于清空排序条件，数据会恢复成未排序的状态                                                                                                                           | -                                                                          |
 | clearFilter        | 不传入参数时用于清空所有过滤条件，数据会恢复成未过滤的状态，也可传入由 columnKey 组成的数组以清除指定列的过滤条件                                                    | columnKey                                                                  |
@@ -1185,6 +1185,7 @@ export default {
 | :------------------ | :----------------------------------------------------------------------- |
 | menu-left           | 新增按钮左侧                                                             |
 | menu-right          | 新增按钮右侧                                                             |
+| action              | 头部右侧操作栏                                                           |
 | table               | 在表格右侧菜单前插入的任意内容                                           |
 | menu                | 表格右侧自定义按钮，参数为 { size, row, column, $index }                 |
 | expand              | 当 expand 为 true 时，配置展开显示的内容，参数为 { row, column, $index } |
