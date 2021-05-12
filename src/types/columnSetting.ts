@@ -15,19 +15,19 @@ export interface IColumnSetting<T = UnknownObject> {
     | 'bottom'
     | 'bottom-start'
     | 'bottom-end'
-  size: IComponentSize
-  emptyText: string
-  renderAfterExpand: boolean
-  expandOnClickNode: boolean
-  defaultExpandAll: boolean
-  checkOnClickNode: boolean
-  checkDescendants: boolean
-  autoExpandParent: boolean
-  allowDrag: AllowDragFunction
-  allowDrop: AllowDropFunction
-  highlightCurrent: boolean
-  filterNodeMethod: FilterNodeMethodFunction
-  accordion: boolean
-  indent: number
-  iconClass: string
+  size?: IComponentSize
+  emptyText?: string
+  renderAfterExpand?: boolean
+  expandOnClickNode?: boolean
+  defaultExpandAll?: boolean
+  checkOnClickNode?: boolean
+  checkDescendants?: boolean
+  autoExpandParent?: boolean
+  allowDrag?: AllowDragFunction
+  allowDrop?: AllowDropFunction
+  highlightCurrent?: boolean
+  filterNodeMethod?: FilterNodeMethodFunction
+  accordion?: boolean
+  indent?: number
+  iconClass?: string
 }
