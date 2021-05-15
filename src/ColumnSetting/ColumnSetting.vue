@@ -12,9 +12,22 @@
     <template #dropdown>
       <el-dropdown-menu>
         <el-tree
-          v-bind="attrs"
           :data="modelValue"
           :default-checked-keys="checkedKeys"
+          :empty-text="emptyText"
+          :render-after-expand="renderAfterExpand"
+          :expand-on-click-node="expandOnClickNode"
+          :default-expand-all="defaultExpandAll"
+          :check-on-click-node="checkOnClickNode"
+          :check-descendants="checkDescendants"
+          :auto-expand-parent="autoExpandParent"
+          :allow-drag="allowDrag"
+          :allow-drop="allowDrop"
+          :highlight-current="highlightCurrent"
+          :filter-node-method="filterNodeMethod"
+          :accordion="accordion"
+          :indent="indent"
+          :icon-class="iconClass"
           node-key="prop"
           show-checkbox
           check-strictly
@@ -30,7 +43,7 @@
 </template>
 
 <script setup name="ProColumnSetting" lang="ts">
-import { toRefs, defineEmit, defineProps, computed, useContext } from 'vue'
+import { toRefs, defineEmit, defineProps, computed } from 'vue'
 import { ElDropdown, ElDropdownMenu, ElButton, ElTree } from 'element-plus'
 import { filterFlat } from '../utils/index'
 import type { TableColumn } from '../types/index'
@@ -46,12 +59,24 @@ const props = defineProps<{
     | 'bottom-start'
     | 'bottom-end'
   size?: 'medium' | 'small' | 'mini'
+  emptyText?: string
+  renderAfterExpand?: boolean
+  expandOnClickNode?: boolean
+  defaultExpandAll?: boolean
+  checkOnClickNode?: boolean
+  checkDescendants?: boolean
+  autoExpandParent?: boolean
+  allowDrag?: (...arg: unknown[]) => unknown
+  allowDrop?: (...arg: unknown[]) => unknown
+  highlightCurrent?: boolean
+  filterNodeMethod?: (...arg: unknown[]) => unknown
+  accordion?: boolean
+  indent?: number
+  iconClass?: string
 }>()
 const emit = defineEmit(['updata:modelValue'])
-const { attrs } = useContext()
 const { modelValue, trigger, placement, size } = toRefs(props)
 const checkedKeys = computed(() => {
-  if (!props.modelValue) return []
   return filterFlat<TableColumn[], string[]>(
     props.modelValue,
     'hide',

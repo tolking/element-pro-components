@@ -86,6 +86,11 @@ const zhCN: IRouteRecordRaw[] = [
         component: () => import('../../docs/zh-CN/components/Crud.md'),
         meta: { title: 'Crud' },
       },
+      {
+        path: '/zh-CN/components/ColumnSetting',
+        component: () => import('../../docs/zh-CN/components/ColumnSetting.md'),
+        meta: { title: 'ColumnSetting' },
+      },
     ],
   },
 ]

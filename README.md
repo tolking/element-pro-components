@@ -1,35 +1,8 @@
-# element-pro-components (WIP)
+# element-pro-components (Beta)
 
 > a component library for Vue 3 base on element-plus
 
 [Documentation](https://tolking.github.io/element-pro-components) | [Changelog](./CHANGELOG.md)
-
-## TODO:
-
-- components
-
-  - [x] ProLayout
-  - [x] ProMenu
-  - [x] ProBreadcrumb
-  - [x] ProTabs
-  - [x] ProTable
-  - [x] ProForm
-  - [x] ProInputTag
-  - [x] ProRadio
-  - [x] ProRadioButton
-  - [x] ProCheckbox
-  - [x] ProCheckboxButton
-  - [x] ProSelect
-  - [x] ProCrud
-  - [ ] ProSerach
-  - [ ] ProList
-  - [ ] ProUpload
-  - ...
-
-- [x] docs
-- [x] test
-- [x] vetur
-- ...
 
 ## Installation
 

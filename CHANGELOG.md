@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.9.0
+
+breaking changes
+
+- change the utils function filterSlotDeep to filterFlat
+
+feat
+
+- ProColumnSetting: add ProColumnSetting to control the column of `Table` and `Crud`
+- Crud: add action slot
+- Table: add hide for columns
+
 ## 0.8.3
 
 breaking changes
