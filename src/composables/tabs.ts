@@ -11,6 +11,7 @@ export function useTabs(): {
   list: Ref<ProTab[]>
   to: (item: { paneName: string }) => void
   close: (path: string) => void
+  closeOther: () => void
 } {
   const route = useRoute()
   const router = useRouter()
@@ -50,10 +51,16 @@ export function useTabs(): {
     }
   }
 
+  function closeOther() {
+    const title = route.meta.title as string
+    list.value = [{ title, path: active.value }]
+  }
+
   return {
     active,
     list,
     to,
     close,
+    closeOther,
   }
 }

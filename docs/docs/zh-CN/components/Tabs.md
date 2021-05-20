@@ -12,9 +12,53 @@
   <pro-tabs />
 </template>
 
+:::
+
+### 外部调用关闭
+
+::: demo 通过 `ref` 绑定 `Tabs` 进而通过外部调用关闭 tab 页
+
+<template>
+  <p>注意顶部变换</p>
+  <el-button @click="tabs.close('/zh-CN/guide/')">关闭主页</el-button>
+  <el-button @click="tabs.closeOther">关闭其它</el-button>
+</template>
+
 <script>
-export default {}
+import { inject } from 'vue'
+
+export default {
+  setup() {
+    const tabs = inject('tabs')
+
+    return { tabs }
+  }
+}
 </script>
+
+:::
+
+::: tip 提示
+在使用前需要通过 `ref` 绑定 `Tabs`，参考
+
+```vue
+<template>
+  <pro-tabs ref="tabs" />
+</template>
+
+<script>
+import { ref, provide } from 'vue'
+
+export default {
+  setup() {
+    const tabs = ref({})
+
+    provide('tabs', tabs)
+    return {}
+  },
+}
+</script>
+```
 
 :::
 
