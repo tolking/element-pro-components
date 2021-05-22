@@ -15,7 +15,7 @@
   </el-tabs>
 </template>
 
-<script setup lang="ts">
+<script setup name="ProTabs" lang="ts">
 import { useContext } from 'vue'
 import { ElTabs, ElTabPane } from 'element-plus'
 import { useTabs } from '../composables'

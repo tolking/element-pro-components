@@ -1,22 +1,17 @@
 import { Ref, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { ITabsExpose, ITab } from '../types/index'
 
-interface ProTab {
-  title: string
-  path: string
+interface UseTabs extends ITabsExpose {
+  active: Ref<string>
+  to: (item: { paneName: string }) => void
 }
 
-export function useTabs(): {
-  active: Ref<string>
-  list: Ref<ProTab[]>
-  to: (item: { paneName: string }) => void
-  close: (path: string) => void
-  closeOther: () => void
-} {
+export function useTabs(): UseTabs {
   const route = useRoute()
   const router = useRouter()
   const active = ref('')
-  const list = ref<ProTab[]>([])
+  const list = ref<ITab[]>([])
 
   watch(
     () => route.path,
@@ -27,7 +22,7 @@ export function useTabs(): {
     { immediate: true }
   )
 
-  function addTab(tab: ProTab) {
+  function addTab(tab: ITab) {
     !list.value.find((item) => item.path === tab.path) && list.value.push(tab)
     active.value = tab.path
   }
