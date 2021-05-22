@@ -1,6 +1,4 @@
 import {
-  ComputedRef,
-  computed,
   onMounted,
   Ref,
   ref,
@@ -11,10 +9,9 @@ import {
   watchEffect,
   shallowRef,
 } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, RouteRecordRaw } from 'vue-router'
 import { config } from '../utils/config'
 import {
-  filterRouterByHidden,
   getScreenSize,
   addResizeListener,
   removeResizeListener,
@@ -93,17 +90,22 @@ export function useCurrentRoutes(
   props: Readonly<{
     routes?: IRouteRecordRaw[]
   }>
-): ComputedRef<IRouteRecordRaw[]> {
-  return computed(() => {
-    if (props.routes && props.routes.length) {
-      return props.routes
-    } else {
-      const router = useRouter()
-      const _routes = router.options.routes as IRouteRecordRaw[]
+): Ref<IRouteRecordRaw[]> {
+  if (props.routes && props.routes.length) {
+    return ref<IRouteRecordRaw[]>(props.routes) as Ref<IRouteRecordRaw[]>
+  } else {
+    const router = useRouter()
+    router.options.routes = reactive<RouteRecordRaw[]>(
+      router.options.routes
+    ) as IRouteRecordRaw[]
+    const routes = ref<IRouteRecordRaw[]>([] as IRouteRecordRaw[])
 
-      return filterRouterByHidden(_routes)
-    }
-  })
+    watchEffect(() => {
+      routes.value = router.options.routes
+    })
+
+    return routes as Ref<IRouteRecordRaw[]>
+  }
 }
 
 /**

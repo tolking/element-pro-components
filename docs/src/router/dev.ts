@@ -1,8 +1,4 @@
 import BaseLayout from '../layout/Layout.vue'
-import Layout from '../views/Layout.vue'
-import Table from '../views/Table.vue'
-import Form from '../views/Form.vue'
-import Crud from '../views/Crud.vue'
 import type { IRouteRecordRaw } from '/@src/index'
 
 const routes: IRouteRecordRaw[] = [
@@ -14,22 +10,22 @@ const routes: IRouteRecordRaw[] = [
     children: [
       {
         path: '/dev/Layout',
-        component: Layout,
+        component: () => import('../views/Layout.vue'),
         meta: { title: 'Layout' },
       },
       {
         path: '/dev/Table',
-        component: Table,
+        component: () => import('../views/Table.vue'),
         meta: { title: 'Table' },
       },
       {
         path: '/dev/Form',
-        component: Form,
+        component: () => import('../views/Form.vue'),
         meta: { title: 'Form' },
       },
       {
         path: '/dev/Crud',
-        component: Crud,
+        component: () => import('../views/Crud.vue'),
         meta: { title: 'Crud' },
       },
     ],

@@ -6,7 +6,7 @@
 
 ### 基础用法
 
-::: demo 组件默认将从 `vue-router` 中获取路由生成路由，[格式参考](./Layout#参考)
+::: demo 组件默认将从 `vue-router` 中获取路由生成路由
 
 <template>
   <pro-menu />
