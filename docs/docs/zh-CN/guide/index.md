@@ -43,6 +43,7 @@ const app = createApp(App)
 app.use(ProLayout)
 // 或者
 app.component('ProLayout', ProLayout)
+
 app.mount('#app')
 ```
 
@@ -73,6 +74,10 @@ app.use(ElementPro, {
   },
 })
 ```
+
+::: tip 提示
+如果使用按需引入，可以通过 `ProCrud` `ProForm` `ProTable` 中的**最后一个**注入全局配置
+:::
 
 ## 开始使用
 

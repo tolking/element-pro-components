@@ -6,7 +6,7 @@
 
 ### 基础用法
 
-::: demo 组件默认将从 `vue-router` 中获取路由生成路由，[格式参考](#参考)
+::: demo 组件默认将从 `vue-router` 中获取路由生成路由
 
 <template>
   <pro-layout class="docs-layout" />
@@ -104,24 +104,3 @@ export default {
 | header-bottom | 头部下面内容                                                 |
 | main-top      | 主体顶部内容                                                 |
 | main-bottom   | 主体底部内容                                                 |
-
-### 参考
-
-#### 参考 meta
-
-```ts
-interface IRouteMeta extends RouteMeta {
-  title?: string // 用于显示菜单标题
-  icon?: string // 用于显示菜单图标
-  hidden?: boolean // 用于判断是否显示 (仅适用于默认路由)
-  keepAlive?: boolean // 控制 keepAlive
-}
-```
-
-#### 参考路由
-
-<<< @/docs/src/router/dev.ts
-
-#### 样式配置
-
-[参考](../guide/theme#提供配置的参数)
