@@ -14,9 +14,9 @@
     />
     <link rel="icon" href="/element-pro-components/favicon.ico" />
     <title></title>
-    <link rel="modulepreload" crossorigin href="/element-pro-components/assets/index.9aef0c5e.js">
-  <script type="module" crossorigin src="/element-pro-components/assets/index.12600b39.js"></script>
-  <link rel="modulepreload" href="/element-pro-components/assets/vendor.42b6883a.js">
+    <link rel="modulepreload" crossorigin href="/element-pro-components/assets/index.f2970932.js">
+  <script type="module" crossorigin src="/element-pro-components/assets/index.1f2c6d37.js"></script>
+  <link rel="modulepreload" href="/element-pro-components/assets/vendor.49eaeecc.js">
   <link rel="stylesheet" href="/element-pro-components/assets/index.5b3594b3.css">
 </head>
   <body>
@@ -88,7 +88,7 @@ app<span class="token punctuation">.</span><span class="token function">mount</s
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>nav-header</span> <span class="token punctuation">/&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">#header-bottom</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pro-tabs</span> <span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pro-tabs</span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>tabs<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>pro-layout</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>teleport</span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>title<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
@@ -97,13 +97,14 @@ app<span class="token punctuation">.</span><span class="token function">mount</s
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">setup</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>ts<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
-<span class="token keyword">import</span> <span class="token punctuation">{</span> computed<span class="token punctuation">,</span> onMounted <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;vue&#39;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> computed<span class="token punctuation">,</span> onMounted<span class="token punctuation">,</span> ref<span class="token punctuation">,</span> provide <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;vue&#39;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> useRoute<span class="token punctuation">,</span> useRouter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;vue-router&#39;</span>
 <span class="token comment">// import { isString } from &#39;@vue/shared&#39;</span>
 <span class="token keyword">import</span> NavHeader <span class="token keyword">from</span> <span class="token string">&#39;../components/NavHeader.vue&#39;</span>
 
 <span class="token keyword">const</span> route <span class="token operator">=</span> <span class="token function">useRoute</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token comment">// const router = useRouter()</span>
+<span class="token keyword">const</span> tabs <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
 <span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token function">computed</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token punctuation">(</span>route<span class="token punctuation">.</span>meta<span class="token punctuation">.</span>title <span class="token operator">||</span> <span class="token string">&#39;&#39;</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&#39; | element-pro-components&#39;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
@@ -119,6 +120,8 @@ app<span class="token punctuation">.</span><span class="token function">mount</s
 <span class="token comment">// onMounted(() =&gt; {</span>
 <span class="token comment">//   console.log(navigator.language)</span>
 <span class="token comment">// })</span>
+
+<span class="token function">provide</span><span class="token punctuation">(</span><span class="token string">&#39;tabs&#39;</span><span class="token punctuation">,</span> tabs<span class="token punctuation">)</span>
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
 </code></pre></div></div><!--[--><!--]--><!--]--></div></div><!--[--><div class="el-scrollbar__bar is-horizontal" style="display:none;"><div class="el-scrollbar__thumb" style="width:0;transform:translateX(0%);ms-transform:translateX(0%);webkit-transform:translateX(0%);"></div></div><div class="el-scrollbar__bar is-vertical" style="display:none;"><div class="el-scrollbar__thumb" style="height:0;transform:translateY(0%);ms-transform:translateY(0%);webkit-transform:translateY(0%);"></div></div><!--]--></div><!--[--><!--]--></section></section><!--teleport start--><!--teleport end--><!--]--></div>
     
