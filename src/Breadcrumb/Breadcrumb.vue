@@ -4,14 +4,17 @@
       v-for="item in list"
       :key="item.path"
     >
-      <router-link :to="item.path">
+      <router-link
+        v-if="item.meta"
+        :to="item.path"
+      >
         {{ item.meta.title }}
       </router-link>
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
 
-<script setup lang="ts">
+<script setup name="ProBreadcrumb" lang="ts">
 import { computed, defineProps } from 'vue'
 import { useRoute } from 'vue-router'
 import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'

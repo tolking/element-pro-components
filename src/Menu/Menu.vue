@@ -22,7 +22,7 @@
   </el-menu>
 </template>
 
-<script setup lang="ts">
+<script setup name="ProMenu" lang="ts">
 import { defineProps } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMenu } from 'element-plus'
