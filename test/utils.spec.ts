@@ -1,6 +1,5 @@
 import {
   checkUrl,
-  filterRouterByHidden,
   findRouterItemListByPath,
   getScreenSize,
   objectDeepMerge,
@@ -26,55 +25,6 @@ describe('all utils', () => {
     })
     test('checkUrl /children', () => {
       expect(checkUrl('/children')).toBeFalsy()
-    })
-  })
-
-  describe('filterRouterByHidden', () => {
-    const _routes = filterRouterByHidden(routes)
-
-    expect(_routes).toHaveLength(2)
-    expect(_routes[0]).toEqual({
-      path: '/',
-      redirect: '/index',
-      component: { template: '<router-view />' },
-      meta: { title: 'home' },
-      children: [
-        {
-          path: '/index',
-          component: { template: 'index page' },
-          meta: { title: 'Home' },
-        },
-      ],
-    })
-    expect(_routes[1]).toEqual({
-      path: '/two',
-      component: { template: 'two page' },
-      meta: { title: 'two' },
-      children: [
-        {
-          path: '/two/info',
-          component: { template: 'two info page' },
-          meta: { title: 'twoInfo' },
-        },
-      ],
-    })
-    expect(routes).toHaveLength(4)
-    expect(routes[2]).toEqual({
-      path: '/two',
-      component: { template: 'two page' },
-      meta: { title: 'two' },
-      children: [
-        {
-          path: '/two/index',
-          component: { template: 'two index page' },
-          meta: { title: 'twoIndex', hidden: true },
-        },
-        {
-          path: '/two/info',
-          component: { template: 'two info page' },
-          meta: { title: 'twoInfo' },
-        },
-      ],
     })
   })
 
