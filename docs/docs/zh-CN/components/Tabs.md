@@ -12,8 +12,41 @@
   <pro-tabs />
 </template>
 
+:::
+
+### 外部调用关闭
+
+::: demo 通过 `ref` 绑定 `Tabs` 进而通过外部调用关闭 tab 页。注：`const tabs = inject('tabs')` 由顶层 `Layout` 注入 [参考](https://github.com/tolking/element-pro-components/blob/master/docs/src/layout/Layout.vue)
+
+<template>
+  <pro-tabs ref="childTabs" style="margin-bottom:15px" />
+  <el-button @click="childTabs.close('/zh-CN/guide/')">关闭主页</el-button>
+  <el-button @click="childTabs.closeOther">关闭其它</el-button>
+  <el-button @click="asyncList">同步</el-button>
+</template>
+
 <script>
-export default {}
+import { inject, onMounted, ref } from 'vue'
+
+export default {
+  setup() {
+    const tabs = inject('tabs') // 获取顶层 `Tabs` 注入
+    const childTabs = ref({})
+
+    onMounted(() => {
+      asyncList()
+    })
+
+    function asyncList() {
+      childTabs.value.list = tabs.value.list
+    }
+
+    return {
+      childTabs,
+      asyncList,
+    }
+  }
+}
 </script>
 
 :::
@@ -33,3 +66,10 @@ export default {}
 | ---------- | ----------------------- | --------------------- |
 | tab-click  | tab 被选中时触发        | 被选中的标签 tab 实例 |
 | tab-remove | 点击 tab 移除按钮后触发 | 被删除的标签的 name   |
+
+### 方法
+
+| 方法名     | 说明                               | 参数                      |
+| ---------- | ---------------------------------- | ------------------------- |
+| close      | 从 tabs 中关闭指定路由的页面       | path (需要关闭页面的路由) |
+| closeOther | 从 tabs 中关闭除当前路由的其它路由 | -                         |

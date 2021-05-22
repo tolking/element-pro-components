@@ -7,7 +7,7 @@
       <nav-header />
     </template>
     <template #header-bottom>
-      <pro-tabs />
+      <pro-tabs ref="tabs" />
     </template>
   </pro-layout>
   <teleport to="title">
@@ -16,13 +16,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref, provide } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 // import { isString } from '@vue/shared'
 import NavHeader from '../components/NavHeader.vue'
 
 const route = useRoute()
 // const router = useRouter()
+const tabs = ref({})
 const title = computed(() => {
   return (route.meta.title || '') + ' | element-pro-components'
 })
@@ -38,4 +39,6 @@ const title = computed(() => {
 // onMounted(() => {
 //   console.log(navigator.language)
 // })
+
+provide('tabs', tabs)
 </script>
