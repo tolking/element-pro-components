@@ -19,14 +19,19 @@ const zhCN: IRouteRecordRaw[] = [
         meta: { title: '快速上手' },
       },
       {
+        path: '/zh-CN/guide/theme',
+        component: () => import('../../docs/zh-CN/guide/theme.md'),
+        meta: { title: '自定义主题' },
+      },
+      {
         path: '/zh-CN/router/',
         component: () => import('../../docs/zh-CN/guide/router.md'),
         meta: { title: '路由和菜单' },
       },
       {
-        path: '/zh-CN/guide/theme',
-        component: () => import('../../docs/zh-CN/guide/theme.md'),
-        meta: { title: '自定义主题' },
+        path: '/zh-CN/guide/design',
+        component: () => import('../../docs/zh-CN/guide/design.md'),
+        meta: { title: '组件设计' },
       },
     ],
   },

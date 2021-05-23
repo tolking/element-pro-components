@@ -28,7 +28,7 @@ app.component(ElInput.name, ElInput)
 
 ### 基础用法
 
-::: demo 传入 columns 数据，自动生成表单。操作按钮需要通过 menu 插槽传入
+::: demo 传入 columns 数据，自动生成表单
 
 <template>
   <pro-form

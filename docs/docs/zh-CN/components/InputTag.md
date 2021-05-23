@@ -1,6 +1,6 @@
 # InputTag
 
-> 基于 `tag` `input` `autocomplete` 的输入多个标签的输入框
+> 基于 `tag` `input` 的输入多个标签的输入框
 
 ## 使用
 
@@ -169,6 +169,10 @@ export default {
 | label           | 输入框关联的 label 文字  | string  | -                                 | -      |
 | tabindex        | 输入框的 tabindex        | string  | -                                 | -      |
 | validate-event  | 输入时是否触发表单的校验 | boolean | -                                 | true   |
+
+### AutocompleteTag
+
+> 基于 `tag` `autocomplete` 的输入多个标签的输入框
 
 ### AutocompleteTag 配置
 
