@@ -24,9 +24,6 @@ interface IRouteMeta extends RouteMeta {
 组件只能够获取定义在 `vue-router` 中的原始路由信息，不能够获取动态增加的路由。当使用异步生成的动态路由时，虽然可以通过 `routes` 向组件中传值，但更推荐通过通过下面方式动态增加。只需要保持 `router.options.routes` 同最终动态增加的路由相同即可
 
 ```js
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
 const newRoute = {
   name: 'admin',
   path: '/admin',
@@ -43,3 +40,13 @@ const newRoute = {
 router.addRoute(newRoute)
 router.options.routes.push(newRoute)
 ```
+
+## 路由权限
+
+当前组件是不支持路由权限验证的，你需要手动增加
+
+比如：通过 [异步路由](#异步路由) 的方式，在增加生成或增加路由时去除没有访问权限的路由信息
+
+或者：在 `router.beforeEach` 中进行跳转验证
+
+当然也可以结合两者使用
