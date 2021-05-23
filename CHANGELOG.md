@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.9.1
+
+breaking changes
+
+- remove funtion filterRouterByHidden
+
+feat
+
+- Tabs: add expose function
+- optimize router
+
 ## 0.9.0
 
 breaking changes
