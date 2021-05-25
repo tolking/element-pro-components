@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { h, onMounted, ref } from 'vue'
 import type {
   IFormColumns,
   IFormMenuColumns,
@@ -86,6 +86,10 @@ const columns = ref<IFormColumns>([
       clearable: true,
       placeholder: 'placeholder',
       onChange: (e: string) => console.log(e),
+      slots: {
+        prefix: () => 'P',
+        suffix: h('b', 'suffix'),
+      },
     },
   },
   {

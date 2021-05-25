@@ -131,7 +131,7 @@ import {
   useCol,
 } from '../composables/index'
 import FormItem from './FormItem.vue'
-import ProFormComponent from './FormCompont.vue'
+import ProFormComponent from './FormCompont'
 import type { FormColumn, IFormColumns } from '../types/index'
 
 const props = defineProps<{
