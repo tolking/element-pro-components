@@ -3,6 +3,7 @@ import { isFunction } from '@vue/shared'
 import type { StringObject } from '../types/index'
 
 export default defineComponent({
+  name: 'ProFormCompont',
   props: {
     is: {
       type: String,
