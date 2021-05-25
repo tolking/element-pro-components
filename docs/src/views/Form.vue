@@ -47,7 +47,7 @@ interface RuleForm {
   user: {
     name: string
     address: string
-  }
+  }[]
 }
 
 const form = ref<StringObject>({})

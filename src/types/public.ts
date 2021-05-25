@@ -8,7 +8,9 @@ export type UnknownObject = Record<string | number, unknown>
 export type UnknownFunction = (...arg: unknown[]) => unknown
 
 export type DeepTypeof<T> = {
-  [Q in keyof T]: T[Q] extends UnknownObject ? DeepTypeof<T[Q]> | Q : Q
+  [Q in keyof T]: T[Q] extends UnknownObject[]
+    ? DeepTypeof<T[Q][number]> | Q
+    : Q
 }[keyof T]
 
 export type IDefineComponent<Props = UnknownObject> = DefineComponent<Props> & {
