@@ -5,7 +5,6 @@ import {
   unref,
   inject,
   ref,
-  nextTick,
   getCurrentInstance,
 } from 'vue'
 import { useProOptions } from './index'
@@ -152,9 +151,6 @@ export function useFormMethods<T = UnknownObject>(
 
   function resetFields() {
     upFormData({})
-    nextTick(() => {
-      form.value.resetFields()
-    })
   }
 
   function clearValidate(props?: DeepTypeof<T> | DeepTypeof<T>[]) {
@@ -186,10 +182,7 @@ export function useFormMethods<T = UnknownObject>(
 
   function resetForm() {
     upFormData({})
-    nextTick(() => {
-      form.value.resetFields()
-      emit('reset')
-    })
+    emit('reset')
   }
 
   return {

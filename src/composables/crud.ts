@@ -115,8 +115,8 @@ export function useCrudForm(
     function close() {
       dialogVisible.value = false
       nextTick(() => {
-        done()
         resetForm()
+        done()
       })
     }
 
@@ -237,8 +237,8 @@ export function useCrudAttrs(
 
     function beforeClose(done: () => void) {
       function callback() {
-        done()
         resetForm()
+        done()
       }
 
       isFunction(_beforeClose) ? _beforeClose(callback) : callback()
