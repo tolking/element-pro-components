@@ -89,7 +89,7 @@
   />
 </template>
 
-<script setup lang="ts">
+<script setup name="ProTable" lang="ts">
 import { defineProps, provide, toRefs, useContext, defineEmit } from 'vue'
 import { ElTable, ElTableColumn, ElPagination } from 'element-plus'
 import {

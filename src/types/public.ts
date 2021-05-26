@@ -7,7 +7,7 @@ export type UnknownObject = Record<string | number, unknown>
 
 export type UnknownFunction = (...arg: unknown[]) => unknown
 
-export type DeepTypeof<T extends UnknownObject> = {
+export type DeepTypeof<T> = {
   [Q in keyof T]: T[Q] extends UnknownObject[]
     ? DeepTypeof<T[Q][number]> | Q
     : T[Q] extends UnknownObject

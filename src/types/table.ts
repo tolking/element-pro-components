@@ -1,3 +1,4 @@
+import type { VNode } from 'vue'
 import type {
   UnknownObject,
   UnknownFunction,
@@ -69,8 +70,9 @@ interface TableCommonColumn<T = UnknownObject>
   filteredValue?: unknown[]
 }
 
-/** Table Column Options */
-export interface TableColumn<T = UnknownObject> extends TableCommonColumn {
+/** Table Column Options (T: type about `prop`, Q: type about `row`) */
+export interface TableColumn<T = UnknownObject, Q = T>
+  extends TableCommonColumn<Q> {
   /** field name */
   prop: DeepTypeof<T>
   /** whether column has a slot */
@@ -79,6 +81,8 @@ export interface TableColumn<T = UnknownObject> extends TableCommonColumn {
   children?: ITableColumns<T>
   /** whether to hide in the table */
   hide?: boolean
+  /** Use simple slot */
+  render?: string | ((row: Q) => string | VNode)
 }
 
 /** Table Columns Options */
