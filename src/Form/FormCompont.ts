@@ -1,5 +1,5 @@
 import { DefineComponent, defineComponent, h, resolveComponent } from 'vue'
-import { isFunction } from '@vue/shared'
+import { isFunction, isObject } from '../utils/index'
 import type { StringObject } from '../types/index'
 
 export default defineComponent({
@@ -10,21 +10,27 @@ export default defineComponent({
       required: true,
     },
     slots: {
-      type: Object,
-      default: () => ({}),
+      type: [Function, Object, String],
+      default: '',
     },
   },
   emits: ['update:modelValue'],
   setup(props, { attrs, emit }) {
-    function transitionProps() {
-      const obj: StringObject = {}
+    function transitionSlots() {
+      if (isFunction(props.slots)) {
+        return props.slots
+      } else if (isObject(props.slots)) {
+        const obj: StringObject = {}
 
-      for (const key in props.slots) {
-        const value = props.slots[key]
-        obj[key] = isFunction(value) ? value : () => props.slots[key]
+        for (const key in props.slots) {
+          const value = props.slots[key]
+          obj[key] = isFunction(value) ? value : () => value
+        }
+
+        return obj
+      } else if (props.slots) {
+        return () => props.slots
       }
-
-      return obj
     }
 
     return () =>
@@ -35,7 +41,7 @@ export default defineComponent({
           'onUpdate:modelValue': (value: unknown) =>
             emit('update:modelValue', value),
         },
-        transitionProps()
+        transitionSlots()
       )
   },
 })
