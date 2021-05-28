@@ -160,7 +160,13 @@ function upData(value: unknown) {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  padding-top: 15px;
   width: 100%;
+  border-top: 1px dashed var(--c-border);
+  &:first-child {
+    padding-top: 0;
+    border-top-width: 0;
+  }
   & .children-form-item {
     flex: 1;
     & .pro-form-item {
