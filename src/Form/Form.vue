@@ -2,7 +2,6 @@
   <el-form
     v-bind="attrs"
     ref="form"
-    :model="modelValue"
     :label-position="position"
     :inline="inline"
     :style="!inline ? rowStyle : undefined"
@@ -73,8 +72,8 @@
   </el-form>
 </template>
 
-<script setup lang="ts">
-import { defineProps, toRefs, useContext, defineEmit, computed, ref } from 'vue'
+<script setup name="ProForm" lang="ts">
+import { defineProps, toRefs, useContext, defineEmit, computed } from 'vue'
 import { ElForm, ElFormItem, ElButton } from 'element-plus'
 import ProFormItem from './FormItem.vue'
 import {

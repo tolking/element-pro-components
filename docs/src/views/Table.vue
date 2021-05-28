@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 import type {
   ITableColumns,
   ITableIndexColumns,
@@ -79,6 +79,7 @@ const columns = ref<ITableColumns<ListItem>>([
   {
     label: 'Name',
     prop: 'name',
+    render: (row) => h('b', null, '-' + row.name),
   },
   {
     label: 'Address',

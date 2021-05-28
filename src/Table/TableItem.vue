@@ -11,7 +11,7 @@
     </template>
     <template #default="scope">
       <template v-if="item.children && item.children.length">
-        <table-item
+        <pro-table-item
           v-for="(child, index) in item.children"
           :key="child.prop || index"
           :item="child"
@@ -36,39 +36,46 @@
             <slot
               v-bind="childScope"
               :name="slot.prop"
-            >
-              {{ childScope.row[slot.prop] }}
-            </slot>
+            />
           </template>
-        </table-item>
+        </pro-table-item>
       </template>
       <template v-else-if="item.slot">
         <slot
           v-bind="scope"
           :name="item.prop"
         >
-          {{ scope.row[item.prop] }}
+          <pro-table-component
+            :row="scope.row"
+            :prop="item.prop"
+            :render="item.render"
+          />
         </slot>
       </template>
       <template v-else>
-        {{ scope.row[item.prop] }}
+        <pro-table-component
+          :row="scope.row"
+          :prop="item.prop"
+          :render="item.render"
+        />
       </template>
     </template>
   </el-table-column>
 </template>
 
-<script setup lang="ts">
+<script setup name="ProTableItem" lang="ts">
 import { defineProps, inject, toRefs } from 'vue'
 import { ElTableColumn } from 'element-plus'
 import { useTableBind, useTableSlotList } from '../composables'
-import TableItem from './TableItem.vue'
+import ProTableItem from './TableItem.vue'
+import ProTableComponent from './TableComponent'
 import type {
   TableColumn,
   ITableColumns,
   TableColumnsProps,
 } from '../types/index'
 
-const props = defineProps<{ item: Record<string, unknown> }>()
+const props = defineProps<{ item: TableColumn }>()
 const { item } = toRefs(props)
 const defaultBind = inject<TableColumnsProps>('defaultBind')
 const slotList = useTableSlotList(item.value.children as ITableColumns)

@@ -196,7 +196,7 @@
   </section>
 </template>
 
-<script setup lang="ts">
+<script setup name="ProCrud" lang="ts">
 import { useContext, defineEmit, defineProps, toRefs } from 'vue'
 import { ElDialog, ElButton } from 'element-plus'
 import {

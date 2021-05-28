@@ -39,9 +39,7 @@
         <slot
           v-bind="scope"
           :name="slot.header"
-        >
-          {{ scope.column.label }}
-        </slot>
+        />
       </template>
       <template
         v-for="slot in slotList"
@@ -52,9 +50,7 @@
           v-bind="scope"
           :name="slot.prop"
           :size="attrs.size"
-        >
-          {{ scope.row[slot.prop] }}
-        </slot>
+        />
       </template>
     </pro-table-item>
     <slot />
@@ -89,7 +85,7 @@
   />
 </template>
 
-<script setup lang="ts">
+<script setup name="ProTable" lang="ts">
 import { defineProps, provide, toRefs, useContext, defineEmit } from 'vue'
 import { ElTable, ElTableColumn, ElPagination } from 'element-plus'
 import {
