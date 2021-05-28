@@ -39,9 +39,7 @@
         <slot
           v-bind="scope"
           :name="slot.header"
-        >
-          {{ scope.column.label }}
-        </slot>
+        />
       </template>
       <template
         v-for="slot in slotList"
@@ -52,9 +50,7 @@
           v-bind="scope"
           :name="slot.prop"
           :size="attrs.size"
-        >
-          {{ scope.row[slot.prop] }}
-        </slot>
+        />
       </template>
     </pro-table-item>
     <slot />

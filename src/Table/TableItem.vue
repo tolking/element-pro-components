@@ -36,13 +36,7 @@
             <slot
               v-bind="childScope"
               :name="slot.prop"
-            >
-              <pro-table-component
-                :row="childScope.row"
-                :prop="slot.prop"
-                :render="slot.render"
-              />
-            </slot>
+            />
           </template>
         </pro-table-item>
       </template>
