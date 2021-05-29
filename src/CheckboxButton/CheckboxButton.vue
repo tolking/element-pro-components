@@ -31,6 +31,10 @@ const props = defineProps<{
   }
 }>()
 const emit = defineEmit(['update:modelValue'])
-const modelValue = useVModel<string[] | number[] | boolean[]>(props)
+const modelValue = useVModel<string[] | number[] | boolean[]>(
+  props,
+  'modelValue',
+  []
+)
 const data = useSelectData(props)
 </script>
