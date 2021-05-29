@@ -15,6 +15,8 @@ export type DeepTypeof<T> = {
     : Q
 }[keyof T]
 
+export type MaybeArray<T> = T | Array<T>
+
 export type IDefineComponent<Props = UnknownObject> = DefineComponent<Props> & {
   install: (app: App, options?: InstallOptions) => void
 }

@@ -1,10 +1,11 @@
-import type { UnknownObject } from './index'
+import type { MaybeArray, UnknownObject, StringObject } from './index'
 
 export interface SelectConfig {
   value?: string
   label?: string
   name?: string
   disabled?: string
+  children?: string
 }
 
 export interface SelectDataItem {
@@ -12,18 +13,11 @@ export interface SelectDataItem {
   label: string
   name?: string
   disabled: boolean
+  children?: SelectDataItem[]
 }
 
 export interface ISelectProps {
-  modelValue:
-    | string
-    | number
-    | boolean
-    | UnknownObject
-    | string[]
-    | number[]
-    | boolean[]
-    | UnknownObject[]
+  modelValue: MaybeArray<string | number | boolean | StringObject>
   data: Record<string, boolean | string | number | UnknownObject>[]
   config?: SelectConfig
 }

@@ -1,24 +1,41 @@
 <template>
   <el-select
-    :model-value="modelValue"
+    v-model="modelValue"
     class="pro-select"
-    @change="upData"
   >
-    <el-option
+    <template
       v-for="item in data"
       :key="item.value"
-      :value="item.value"
-      :label="item.label"
-      :disabled="item.disabled"
-    />
+    >
+      <el-option-group
+        v-if="item.children && item.children.length"
+        :key="item.label"
+        :label="item.label"
+      >
+        <el-option
+          v-for="cItem in item.children"
+          :key="cItem.value"
+          :label="cItem.label"
+          :value="cItem.value"
+          :disabled="cItem.disabled"
+        />
+      </el-option-group>
+      <el-option
+        v-else
+        :key="item.value"
+        :value="item.value"
+        :label="item.label"
+        :disabled="item.disabled"
+      />
+    </template>
   </el-select>
 </template>
 
 <script setup name="ProSelect" lang="ts">
-import { defineEmit, defineProps, toRefs } from 'vue'
-import { ElSelect, ElOption } from 'element-plus'
-import { useSelectData } from '../composables/index'
-import type { UnknownObject } from '../types/index'
+import { defineEmit, defineProps } from 'vue'
+import { ElSelect, ElOptionGroup, ElOption } from 'element-plus'
+import { useVModel, useSelectData } from '../composables/index'
+import type { MaybeArray, UnknownObject, StringObject } from '../types/index'
 
 const props = defineProps<{
   modelValue?:
@@ -26,22 +43,18 @@ const props = defineProps<{
     | number
     | boolean
     | Record<string, unknown>
-    | string[]
-    | number[]
-    | boolean[]
-    | UnknownObject[]
+    | Array<string | number | boolean | Record<string, unknown>>
   data: Record<string, boolean | string | number | UnknownObject>[]
   config?: {
     value?: string
     label?: string
     disabled?: string
+    children?: string
   }
 }>()
 const emit = defineEmit(['update:modelValue'])
-const { modelValue } = toRefs(props)
+const modelValue = useVModel<
+  MaybeArray<string | number | boolean | StringObject>
+>(props)
 const data = useSelectData(props)
-
-function upData(value: unknown) {
-  emit('update:modelValue', value)
-}
 </script>

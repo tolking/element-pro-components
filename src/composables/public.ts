@@ -8,6 +8,8 @@ import {
   reactive,
   watchEffect,
   shallowRef,
+  computed,
+  WritableComputedRef,
 } from 'vue'
 import { useRouter, RouteRecordRaw } from 'vue-router'
 import { config } from '../utils/config'
@@ -132,4 +134,27 @@ export function useAttrs(excludeKeys: string[] = []): Ref<UnknownObject> {
   })
 
   return attrs
+}
+
+/**
+ * bind model value
+ * @param props value props
+ * @param key value key
+ * @param emit update function
+ */
+export function useVModel<T>(
+  props: Readonly<UnknownObject>,
+  key = 'modelValue',
+  emit?: (name: string, ...args: unknown[]) => void
+): WritableComputedRef<T | undefined> {
+  const instance = getCurrentInstance()
+  const _emit = emit || instance?.emit
+  return computed<T>({
+    get() {
+      return props[key] as T
+    },
+    set(value) {
+      _emit && _emit(`update:${key}`, value)
+    },
+  })
 }

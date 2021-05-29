@@ -5,31 +5,46 @@ import type {
   UnknownObject,
 } from '../types/index'
 
+type SelectData = Record<string, boolean | string | number | UnknownObject>[]
+
 export function useSelectData(
   props: Readonly<{
-    data: Record<string, boolean | string | number | UnknownObject>[]
+    data: SelectData
     config?: SelectConfig
   }>
-): ComputedRef<SelectDataItem[]> {
-  return computed(() => {
-    const config: Required<SelectConfig> = Object.assign(
-      {
-        value: 'value',
-        label: 'label',
-        disabled: 'disabled',
-        name: 'name',
-      },
-      props.config
-    )
+): ComputedRef<SelectDataItem[] | undefined> {
+  const config: Required<SelectConfig> = Object.assign(
+    {
+      value: 'value',
+      label: 'label',
+      disabled: 'disabled',
+      name: 'name',
+      children: 'children',
+    },
+    props.config
+  )
 
-    return props.data.map(
-      (item) =>
-        ({
-          value: item[config.value],
-          label: item[config.label],
-          disabled: item[config.disabled] || false,
-          name: item[config.name],
-        } as SelectDataItem)
-    )
+  function transformData(data: SelectData): SelectDataItem[] | undefined {
+    return data && data.length
+      ? data.map((item) => {
+          return {
+            value: item[config.value],
+            label: item[config.label],
+            disabled: item[config.disabled] || false,
+            name: item[config.name],
+            children: transformData(
+              (item[config.children] as unknown) as SelectData
+            ),
+          } as SelectDataItem
+        })
+      : undefined
+  }
+
+  return computed(() => {
+    if (props.config) {
+      return transformData(props.data)
+    } else {
+      return (props.data as unknown) as SelectDataItem[]
+    }
   })
 }

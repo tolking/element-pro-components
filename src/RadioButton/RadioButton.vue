@@ -1,8 +1,7 @@
 <template>
   <el-radio-group
-    :model-value="modelValue"
+    v-model="modelValue"
     class="pro-radio-button"
-    @change="upData"
   >
     <el-radio-button
       v-for="item in data"
@@ -17,9 +16,9 @@
 </template>
 
 <script setup name="ProRadioButton" lang="ts">
-import { defineEmit, defineProps, toRefs } from 'vue'
+import { defineEmit, defineProps } from 'vue'
 import { ElRadioGroup, ElRadioButton } from 'element-plus'
-import { useSelectData } from '../composables/index'
+import { useVModel, useSelectData } from '../composables/index'
 
 const props = defineProps<{
   modelValue?: string | number | boolean
@@ -32,10 +31,6 @@ const props = defineProps<{
   }
 }>()
 const emit = defineEmit(['update:modelValue'])
-const { modelValue } = toRefs(props)
+const modelValue = useVModel<string | number | boolean>(props)
 const data = useSelectData(props)
-
-function upData(value: unknown) {
-  emit('update:modelValue', value)
-}
 </script>
