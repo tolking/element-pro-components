@@ -140,18 +140,20 @@ export function useAttrs(excludeKeys: string[] = []): Ref<UnknownObject> {
  * bind model value
  * @param props value props
  * @param key value key
+ * @param defaultValue config the default value
  * @param emit update function
  */
 export function useVModel<T>(
   props: Readonly<UnknownObject>,
   key = 'modelValue',
+  defaultValue?: T,
   emit?: (name: string, ...args: unknown[]) => void
 ): WritableComputedRef<T | undefined> {
   const instance = getCurrentInstance()
   const _emit = emit || instance?.emit
-  return computed<T>({
+  return computed<T | undefined>({
     get() {
-      return props[key] as T
+      return (props[key] as T) || defaultValue
     },
     set(value) {
       _emit && _emit(`update:${key}`, value)
