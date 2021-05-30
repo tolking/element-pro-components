@@ -142,6 +142,7 @@
       v-bind="bindDialog"
     >
       <pro-form
+        v-if="dialogVisible"
         v-bind="attrs"
         ref="form"
         :model-value="modelValue"
