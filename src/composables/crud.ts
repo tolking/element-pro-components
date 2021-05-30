@@ -1,4 +1,4 @@
-import { ComputedRef, computed, ref, unref, Ref, nextTick } from 'vue'
+import { ComputedRef, computed, ref, unref, Ref } from 'vue'
 import { useProOptions, useAttrs, useScreenSize } from './index'
 import {
   isFunction,
@@ -29,7 +29,7 @@ export function useCrudColumns(
 ): {
   searchColumns: ComputedRef<IFormColumns | undefined>
   tableColumns: ComputedRef<ITableColumns | undefined>
-  menuColumns: ComputedRef<ICrudMenuColumns | false>
+  menuColumns: ComputedRef<ICrudMenuColumns | undefined>
 } {
   const searchColumns = computed(() => {
     return props.searchColumns
@@ -42,7 +42,7 @@ export function useCrudColumns(
     return props.tableColumns ? props.tableColumns : props.columns
   })
   const menuColumns = computed(() => {
-    if (!props.menu) return false
+    if (!props.menu) return undefined
     const options = useProOptions()
     const menu = isObject(props.menu)
       ? objectDeepMerge<ICrudMenuColumns>(options.menu, props.menu)
@@ -113,11 +113,9 @@ export function useCrudForm(
   })
   const submitForm: IFormSubmit = (done, isValid, invalidFields) => {
     function close() {
+      done()
+      resetForm()
       dialogVisible.value = false
-      nextTick(() => {
-        resetForm()
-        done()
-      })
     }
 
     emit('submit', close, done, formType.value, isValid, invalidFields)
@@ -150,7 +148,7 @@ export function useCrudSearchForm(
     event: 'update:search' | 'search' | 'searchReset',
     ...args: unknown[]
   ) => void,
-  menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | false>
+  menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | undefined>
 ): {
   searchMenu: ComputedRef<IFormMenuColumns>
   searchForm: IFormSubmit
@@ -195,7 +193,7 @@ export function useCrudSearchForm(
 export function useCrudAttrs(
   formType: ICrudFormType | Ref<ICrudFormType>,
   resetForm: () => void,
-  menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | false>
+  menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | undefined>
 ): {
   attrs: Ref<UnknownObject>
   bindDialog: ComputedRef<UnknownObject>

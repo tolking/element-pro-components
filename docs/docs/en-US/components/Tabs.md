@@ -33,3 +33,10 @@ export default {}
 | ---------- | ------------------------------------------ | ----------------------- |
 | tab-click  | triggers when a tab is clicked             | clicked tab             |
 | tab-remove | triggers when tab-remove button is clicked | name of the removed tab |
+
+### Methods
+
+| Name       | Description               | Parameters                 |
+| ---------- | ------------------------- | -------------------------- |
+| close      | close some tab from tabs  | path (the router of close) |
+| closeOther | close other tab from tabs | -                          |

@@ -51,7 +51,7 @@
   </section>
 </template>
 
-<script setup lang="ts">
+<script setup name="ProLayout" lang="ts">
 import { defineProps, toRefs, useContext } from 'vue'
 import ProLayoutAside from './LayoutAside.vue'
 import ProLayoutHeader from './LayoutHeader.vue'

@@ -3,13 +3,11 @@
 > 封装表单组件实现通过配置动态生成表单
 
 ::: tip 提示
-自动代理通过 `v-model` 绑定值且不带插槽就能够实现功能的任意第三方组件，例如：
+将自动代理通过 `v-model` 绑定值的任意组件，例如：
 
 - 支持 `el-input` `el-switch` 等
-- 不支持 `el-upload` `el-select` `el-radio-group` `el-checkbox-group` `input` 等
-
-使用相关 `pro-select` `pro-radio` `pro-checkbox` 或其它第三方组件代替
-:::
+- 不支持 `el-upload` 等
+  :::
 
 ::: warning 警告
 在使用组件前，你必须通过全局注册它
@@ -77,7 +75,7 @@ export default {
 
 ### 指定对应的组件
 
-::: demo 通过 columns 的 `component` 定义该项生成什么组件，通过 `props` 可以向组件中传值。要求对应组件可以通过 v-model 绑定值
+::: demo 通过 columns 的 `component` 定义该项生成什么组件，要求对应组件可以通过 `v-model` 绑定值。通过 `props` 可以向组件中传值，通过 `props` 里面的 `slots` 可以向组件传递简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)
 
 <template>
   <pro-form
@@ -88,7 +86,7 @@ export default {
 </template>
 
 <script>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 
 export default {
   setup() {
@@ -108,6 +106,10 @@ export default {
         props: {
           clearable: true,
           placeholder: '请输入内容',
+          slots: {
+            prefix: () => h('i', { className: 'el-input__icon el-icon-search' }),
+            append: () => '搜索'
+          },
         },
       },
       {
@@ -664,13 +666,21 @@ export default {
 | xl            | `≥1920px` 响应式栅格数或者栅格属性对象                                    | number / object | -                     | -      |
 
 ::: tip 关于 props
-props 的属性将全部传递给 component 指定的组件。**对于事件需要通过 `on[Event]` 驼峰这种形式绑定。如：`change` -> `onChange`, `input` -> `onInput`**
+props 的属性将全部传递给 component 指定的组件
+
+- 对于存在连字符的属性，可以通过字符串包裹或者转换为驼峰结构
+- 通过 `slots` 可以向组件传递简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)
+- **对于事件需要通过 `on[Event]` 驼峰这种形式绑定。如：`change` -> `onChange`, `input` -> `onInput`**
 
 ```js
 props: {
   clearable: true,
   'prefix-icon': 'el-icon-search',
   suffixIcon: 'el-icon-date',
+  slots: {
+    prefix: () => h('i', { className: 'el-input__icon el-icon-search' }),
+    append: () => '搜索'
+  },
   onChange: e => console.log(e),
 }
 ```

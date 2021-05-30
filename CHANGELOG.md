@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.9.2
+
+feat
+
+- Form: support use slots in columns by `props.slots`
+- Form: optimization the children form styles
+- Form: support use component input and textarea
+- Table: add render in columns
+- Table: change the default styles of pagination
+- Select: add option group
+
+fix
+
+- Crud: resetForm not work when close edit form
+- type: DeepTypeof error
+- Install config is not merged when on demand
+
 ## 0.9.1
 
 breaking changes

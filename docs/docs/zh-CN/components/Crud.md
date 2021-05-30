@@ -821,7 +821,7 @@ export default {
   <pro-crud
     v-model="form8"
     v-model:search="serachForm8"
-    :columns="columns"
+    :columns="columns8"
     :menu="{ label: '操作' }"
     :data="data"
     selection
@@ -860,13 +860,13 @@ export default {
 </template>
 
 <script>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 
 export default {
   setup() {
     const form8 = ref({})
     const serachForm8 = ref({})
-    const columns = ref([
+    const columns8 = ref([
       {
         label: '日期',
         prop: 'date',
@@ -874,6 +874,12 @@ export default {
         add: true,
         edit: true,
         search: true,
+        render: '--',
+        props: {
+          slots: {
+            suffix: () => h('i', { className: 'el-input__icon el-icon-date' }),
+          },
+        },
       },
       {
         label: '姓名',
@@ -889,6 +895,7 @@ export default {
         component: 'el-input',
         add: true,
         edit: true,
+        render: (row) => h('em', null, row.address),
       },
     ])
     const data = ref([
@@ -936,7 +943,7 @@ export default {
       form8,
       serachForm8,
       data,
-      columns,
+      columns8,
       search,
       submit,
       deleteRow,
@@ -1050,6 +1057,7 @@ export default {
 | prop                | 对应 data 的字段名 (**必填，需要是唯一值**)                               | string                                  | -                                                                                                                               | -                                 |
 | label               | 显示的标题                                                                | string                                  | -                                                                                                                               | -                                 |
 | slot                | 是否开启自定义插槽功能                                                    | boolean                                 | -                                                                                                                               | false                             |
+| render              | 通过渲染函数对表格实现简单的插槽功能                                      | string / function(row)                  | -                                                                                                                               | -                                 |
 | children            | 实现多级表头                                                              | array                                   | -                                                                                                                               | -                                 |
 | columnKey           | 当前项的 key，使用 filter-change 事件时需要                               | string                                  | -                                                                                                                               | -                                 |
 | width               | 对应列的宽度                                                              | string                                  | -                                                                                                                               | -                                 |

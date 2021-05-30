@@ -4,8 +4,6 @@ export * from './types/index'
 import './styles/index.css'
 import type { App } from 'vue'
 import type { IDefineComponent, InstallOptions } from './types/index'
-import { objectDeepMerge } from './utils/index'
-import { config } from './utils/config'
 
 import ProAutocompleteTag from './AutocompleteTag/index'
 import ProBreadcrumb from './Breadcrumb/index'
@@ -42,11 +40,7 @@ const components: Record<string, IDefineComponent> = {
 }
 
 const install = (app: App, options?: InstallOptions): void => {
-  const _options = options
-    ? objectDeepMerge<Required<InstallOptions>>(config, options)
-    : config
-
-  app.config.globalProperties.$PROOPTIONS = _options
+  options && (app.config.globalProperties.$PROOPTIONS = options)
 
   for (const key in components) {
     const item = components[key]

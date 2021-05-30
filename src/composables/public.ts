@@ -18,6 +18,7 @@ import {
   addResizeListener,
   removeResizeListener,
   ResizableElement,
+  objectDeepMerge,
 } from '../utils/index'
 import type {
   IRouteRecordRaw,
@@ -26,14 +27,14 @@ import type {
   InstallOptions,
 } from '../types/index'
 
-/**
- * get the global config
- */
+/** get the global config */
 export function useProOptions(): Required<InstallOptions> {
   const vm = getCurrentInstance()
-  const proxy = (vm?.proxy || {}) as { $PROOPTIONS: Required<InstallOptions> }
+  const proxy = (vm?.proxy || {}) as { $PROOPTIONS: InstallOptions }
 
-  return '$PROOPTIONS' in proxy ? proxy.$PROOPTIONS : config
+  return '$PROOPTIONS' in proxy
+    ? objectDeepMerge<Required<InstallOptions>>(config, proxy.$PROOPTIONS)
+    : config
 }
 
 /**

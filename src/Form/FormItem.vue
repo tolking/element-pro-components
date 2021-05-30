@@ -1,7 +1,7 @@
 <template>
   <el-form-item
     v-bind="bindItem"
-    :prop="prop"
+    :prop="hasChild ? undefined : prop"
     :style="!inline ? colStyle : undefined"
     :class="!inline && colClass"
     class="pro-form-item"
@@ -26,7 +26,7 @@
       />
     </template>
     <template #default>
-      <template v-if="item.children && item.children.length">
+      <template v-if="hasChild">
         <div
           v-for="(value, index) in modelValue[item.prop]"
           :key="index"
@@ -38,8 +38,8 @@
           >
             <pro-form-item
               v-for="child in item.children"
-              :key="child.prop"
-              :model-value="modelValue[item.prop][index]"
+              :key="`${prop}.${index}.${child.prop}`"
+              :model-value="value"
               :item="child"
               :prop="`${prop}.${index}.${child.prop}`"
               @update:modelValue="(value) => upChildData(value, index)"
@@ -85,9 +85,7 @@
           />
         </div>
         <el-button
-          v-if="
-            item.max ? item.max > (modelValue[item.prop]?.length || 0) : true
-          "
+          v-if="showAddBtn"
           icon="el-icon-plus"
           type="primary"
           circle
@@ -144,7 +142,10 @@ const emit = defineEmit(['update:modelValue'])
 const { item, prop, modelValue, inline } = toRefs(props)
 const slotList = useFormSlotList(item.value.children as IFormColumns)
 const bindItem = useFormItemBind(item)
-const { add, del, upChildData } = useFormChild(props, emit)
+const { hasChild, showAddBtn, add, del, upChildData } = useFormChild(
+  props,
+  emit
+)
 const { colStyle, colClass } = useCol(item)
 
 function upData(value: unknown) {

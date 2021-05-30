@@ -20,7 +20,7 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const checkbox = ref([])
+    const checkbox = ref(undefined)
     const data = ref([
       { value: 'Go', label: 'go' },
       { value: 'JavaScript', label: 'javascript' },

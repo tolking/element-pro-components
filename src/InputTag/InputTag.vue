@@ -24,7 +24,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup name="ProInputTag" lang="ts">
 import { toRefs, defineEmit, defineProps } from 'vue'
 import { ElInput, ElTag } from 'element-plus'
 import { useInputTag, useFormSize, useAttrs } from '../composables/index'

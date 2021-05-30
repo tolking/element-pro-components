@@ -29,6 +29,34 @@ createApp(App).use(ElementPro).mount('#app')
 </template>
 ```
 
+## Development project
+
+nodejs ^12
+
+start
+
+```bash
+yarn
+
+yarn dev
+```
+
+then, preview on `http://localhost:3000/`
+
+test build
+
+```bash
+yarn build
+```
+
+before push
+
+```bash
+yarn test
+```
+
+[commit-convention](https://github.com/vuejs/vue-next/blob/master/.github/commit-convention.md)
+
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)
