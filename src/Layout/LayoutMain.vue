@@ -22,7 +22,7 @@
   </router-view>
 </template>
 
-<script setup lang="ts">
+<script setup name="ProLayoutMain" lang="ts">
 import { defineProps, toRefs } from 'vue'
 import { ElScrollbar } from 'element-plus'
 

@@ -22,7 +22,7 @@
   </header>
 </template>
 
-<script setup lang="ts">
+<script setup name="ProLayoutHeader" lang="ts">
 import { defineEmit } from 'vue'
 
 const emit = defineEmit(['toggle-collapse'])

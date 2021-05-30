@@ -37,12 +37,11 @@
   </aside>
 </template>
 
-<script setup lang="ts">
+<script setup name="ProLayoutAside" lang="ts">
 import { toRefs, defineEmit, defineProps, useContext, computed } from 'vue'
 import { ElScrollbar } from 'element-plus'
 import { useAttrs, useScreenSize } from '../composables/index'
 import ProMenu from '../Menu/index'
-import type { IRouteRecordRaw } from '../types/index'
 
 const props = defineProps<{ collapse: boolean }>()
 const { collapse } = toRefs(props)
