@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 
 export default {
   setup() {
@@ -54,6 +54,17 @@ export default {
         label: 'input',
         prop: 'input',
         component: 'el-input',
+        props: {
+          clearable: true,
+          'prefix-icon': 'el-icon-search',
+          suffixIcon: 'el-icon-date',
+          slots: {
+            prefix: () =>
+              h('i', { className: 'el-input__icon el-icon-search' }),
+            append: () => '搜索',
+          },
+          onChange: (e) => console.log(e),
+        },
       },
       {
         label: 'radio',
@@ -81,6 +92,7 @@ export default {
 - `columns` 中的 `prop` 为对应生成 form 上的键值，需要是一个**唯一值**
 - `columns` 中的 `component` 指向的组件**必须**通过全局注册，否则无法渲染组件。同时需要组件能够通过 `v-model` 绑定数据，否则需要通过插槽使用组件，如：`ElUpload`。当然也根据业务逻辑自己封装成通过 `v-model` 绑定数据的组件，这样就可以直接使用了
 - `columns` 中的 `props` 中数据将直接传递给对应组件。**对于事件需要通过 `on[Event]` 驼峰这种形式绑定。如：`change` -> `onChange`, `input` -> `onInput`**
+- 通过 `columns` 中的 `props` 下面的 `slots` 可以向对应组件传递简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)
 - 通过 `columns` 中的 `children` 可以配置实现子表单，子表单输入的为一个对象数组
 - 组件不包含按钮的权限控制，需要手动通过传入 `menu` 配置按钮显示与隐藏
 
@@ -108,7 +120,7 @@ import { ref } from 'vue'
 export default {
   setup() {
     const columns = ref([
-      { label: '日期', prop: 'date' },
+      { label: '日期', prop: 'date', render: '--' },
       { label: '姓名', prop: 'name' },
       { label: '地址', prop: 'address' },
     ])
@@ -134,6 +146,7 @@ export default {
 - 通过 `v-model:page-size` 绑定每页显示条目个数
 - 通过 `columns` 传入的数组自动生成表格。当 `columns` 内部数据（包括引用数据）不会变动时，`columns` **可以不是**一个响应式对象；当 `columns` 中的数据变化（包括引用数据）需要响应到表单上时，**必须**是一个响应式对象
 - `columns` 中的 `prop` 为对应 data 上的键值，需要是一个**唯一值**
+- 通过 `columns` 中的 `render` 可以使用简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)
 - 通过 `columns` 中的 `children` 可以配置实现多级表头
 - `columns` 内设计为仅包含与业务相关的字段（这样能够更方便与 `ProForm` 配置融合）。对于与功能相关的 `index` `selection` `expand` `menu` 需要配置实现
 

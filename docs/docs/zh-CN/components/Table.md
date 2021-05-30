@@ -343,7 +343,7 @@ export default {
 
 ### 插槽
 
-::: demo
+::: demo 在 `columns` 中配置 `render` 可以使用简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)。或者配置 `slot: true` 启用模版中的插槽，开启后可以使用带 `[prop]` 相关的插槽
 
 <template>
   <pro-table
@@ -358,19 +358,11 @@ export default {
         {{ row?.name }}
       </el-tag>
     </template>
-    <template #menu="{ size }">
-      <el-button
-        :size="size"
-        type="text"
-      >
-        详情
-      </el-button>
-    </template>
   </pro-table>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 
 export default {
   setup() {
@@ -378,6 +370,7 @@ export default {
       {
         label: '日期',
         prop: 'date',
+        render: '--',
       },
       {
         label: '姓名',
@@ -387,6 +380,7 @@ export default {
       {
         label: '地址',
         prop: 'address',
+        render: (row) => h('em', null, row.address),
       },
     ])
     const data = ref([
@@ -619,13 +613,14 @@ export default {
 | prop                | 对应 data 的字段名 (**必填，需要是唯一值**)                           | string                                  | -                                                                                                                               | -                                 |
 | label               | 显示的标题                                                            | string                                  | -                                                                                                                               | -                                 |
 | slot                | 是否开启自定义插槽功能                                                | boolean                                 | -                                                                                                                               | false                             |
+| render              | 通过渲染函数实现简单的插槽功能                                        | string / function(row)                  | -                                                                                                                               | -                                 |
 | hide                | 是否在表格中隐藏                                                      | boolean                                 | -                                                                                                                               | false                             |
 | children            | 实现多级表头                                                          | array                                   | -                                                                                                                               | -                                 |
 | columnKey           | 当前项的 key，使用 filter-change 事件时需要                           | string                                  | -                                                                                                                               | -                                 |
 | width               | 对应列的宽度                                                          | string                                  | -                                                                                                                               | -                                 |
 | minWidth            | 对应列的最小宽度                                                      | string                                  | -                                                                                                                               | -                                 |
 | fixed               | 列是否固定，true 表示固定在左侧                                       | string / boolean                        | true / left / right                                                                                                             | -                                 |
-| renderHeader        | 列标题 Label 区域渲染使用的 Function                                  | Function(h, { column, $index })         | -                                                                                                                               | -                                 |
+| renderHeader        | 列标题 Label 区域渲染使用的 Function                                  | Function({ column, $index })            | -                                                                                                                               | -                                 |
 | sortable            | 对应列是否可以排序                                                    | boolean / string                        | true / false / 'custom'                                                                                                         | false                             |
 | sortMethod          | 对数据进行排序的时候使用的方法                                        | Function(a, b)                          | -                                                                                                                               | -                                 |
 | sortBy              | 指定数据按照哪个属性进行排序                                          | string / array / Function(row, index)   | -                                                                                                                               | -                                 |
