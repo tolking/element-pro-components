@@ -22,6 +22,7 @@
     :columns="columns1"
     :rules="rules"
     label-width="180px"
+    @submit="submitForm"
   >
     <template #address="{ value, setValue }">
       <pro-input-tag

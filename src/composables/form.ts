@@ -7,7 +7,7 @@ import {
   ref,
   getCurrentInstance,
 } from 'vue'
-import { useProOptions } from './index'
+import { useProOptions, useShow } from './index'
 import {
   filterFlat,
   isObject,
@@ -27,6 +27,7 @@ import type {
   IFormMenuColumns,
   MenuOptions,
   DeepTypeof,
+  MaybeArray,
 } from '../types/index'
 
 interface FormSlot extends FormColumn {
@@ -136,29 +137,25 @@ export function useFormMethods<T = UnknownObject>(
   loading: Ref<boolean>
   upFormData: (value: unknown) => void
   submitForm: () => void
-  resetForm: () => void
+  resetForm: (clean?: boolean) => void
 } & IFormExpose<T> {
   const form = ref<IFormExpose<T>>({} as IFormExpose<T>)
-  const loading = ref(false)
-
-  function done() {
-    loading.value = false
-  }
+  const { show, toggleShow } = useShow()
 
   function validate(callback?: IFormValidateCallback<T>) {
     return form.value.validate(callback)
   }
 
   function resetFields() {
-    upFormData({})
+    form.value.resetFields()
   }
 
-  function clearValidate(props?: DeepTypeof<T> | DeepTypeof<T>[]) {
+  function clearValidate(props?: MaybeArray<DeepTypeof<T>>) {
     form.value.clearValidate(props)
   }
 
   function validateField(
-    props: DeepTypeof<T> | DeepTypeof<T>[],
+    props: MaybeArray<DeepTypeof<T>>,
     cb: IFormValidateFieldCallback<T>
   ) {
     form.value.validateField(props, cb)
@@ -169,25 +166,25 @@ export function useFormMethods<T = UnknownObject>(
   }
 
   function submitForm() {
-    loading.value = true
+    show.value = true
     form.value
       .validate()
       .then((isValid) => {
-        emit('submit', done, isValid)
+        emit('submit', toggleShow, isValid)
       })
       .catch((invalidFields: UnknownObject) => {
-        emit('submit', done, false, invalidFields)
+        emit('submit', toggleShow, false, invalidFields)
       })
   }
 
   function resetForm() {
-    upFormData({})
+    resetFields()
     emit('reset')
   }
 
   return {
     form,
-    loading,
+    loading: show,
     validate,
     resetFields,
     clearValidate,
@@ -231,10 +228,23 @@ export function useFormChild(
   }>,
   emit: (event: 'update:modelValue', ...args: unknown[]) => void
 ): {
+  hasChild: ComputedRef<boolean>
+  showAddBtn: ComputedRef<boolean>
   add: () => void
   del: (index: number) => void
   upChildData: (value: UnknownObject, index: number) => void
 } {
+  const hasChild = computed<boolean>(() => {
+    return props.item.children ? !!props.item.children.length : false
+  })
+
+  const showAddBtn = computed<boolean>(() => {
+    return props.item.max
+      ? props.item.max >
+          ((props.modelValue[props.item.prop] as unknown[])?.length || 0)
+      : true
+  })
+
   function add() {
     const _model = { ...props.modelValue } as ModelChildValue
     if (props.modelValue[props.item.prop]) {
@@ -258,6 +268,8 @@ export function useFormChild(
   }
 
   return {
+    hasChild,
+    showAddBtn,
     add,
     del,
     upChildData,

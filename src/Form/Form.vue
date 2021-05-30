@@ -2,6 +2,7 @@
   <el-form
     v-bind="attrs"
     ref="form"
+    :model="modelValue"
     :label-position="position"
     :inline="inline"
     :style="!inline ? rowStyle : undefined"
