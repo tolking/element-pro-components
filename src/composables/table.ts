@@ -14,7 +14,7 @@ import type {
   IPagination,
   UnknownObject,
   StringObject,
-  DeepTypeof,
+  DeepKeyof,
 } from '../types/index'
 
 export function useTableColumns(
@@ -109,7 +109,7 @@ export function useTableMethods<T = UnknownObject>(): {
     table.value.clearSort()
   }
 
-  function clearFilter(columnKeys?: DeepTypeof<T> | Array<DeepTypeof<T>>) {
+  function clearFilter(columnKeys?: DeepKeyof<T> | Array<DeepKeyof<T>>) {
     table.value.clearFilter(columnKeys)
   }
 
@@ -117,7 +117,7 @@ export function useTableMethods<T = UnknownObject>(): {
     table.value.doLayout()
   }
 
-  function sort(prop: DeepTypeof<T>, order: string) {
+  function sort(prop: DeepKeyof<T>, order: string) {
     table.value.sort(prop, order)
   }
 

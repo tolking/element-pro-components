@@ -73,7 +73,7 @@ export function useCrudForm(
     beforeOpen?: ICrudBeforeOpen
   }>,
   emit: (event: 'submit', ...args: unknown[]) => void,
-  resetForm: () => void
+  resetForm: (reset?: boolean) => void
 ): {
   dialogVisible: Ref<boolean>
   formType: Ref<ICrudFormType>
@@ -114,7 +114,7 @@ export function useCrudForm(
   const submitForm: IFormSubmit = (done, isValid, invalidFields) => {
     function close() {
       done()
-      resetForm()
+      resetForm(true)
       dialogVisible.value = false
     }
 
@@ -192,7 +192,7 @@ export function useCrudSearchForm(
 
 export function useCrudAttrs(
   formType: ICrudFormType | Ref<ICrudFormType>,
-  resetForm: () => void,
+  resetForm: (reset?: boolean) => void,
   menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | undefined>
 ): {
   attrs: Ref<UnknownObject>
@@ -235,7 +235,7 @@ export function useCrudAttrs(
 
     function beforeClose(done: () => void) {
       function callback() {
-        resetForm()
+        resetForm(true)
         done()
       }
 

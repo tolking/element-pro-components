@@ -81,3 +81,7 @@ export function objectOmit<T extends Q, Q = UnknownObject>(
 
   return _obj
 }
+
+export function isBoolean(val: unknown): val is boolean {
+  return typeof val === 'boolean'
+}

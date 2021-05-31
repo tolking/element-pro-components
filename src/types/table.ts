@@ -4,7 +4,7 @@ import type {
   UnknownFunction,
   IPlacementType,
   StringObject,
-  DeepTypeof,
+  DeepKeyof,
 } from './index'
 
 export interface ITableProps<T = UnknownObject> extends TableColumnsProps {
@@ -74,7 +74,7 @@ interface TableCommonColumn<T = UnknownObject>
 export interface TableColumn<T = UnknownObject, Q = T>
   extends TableCommonColumn<Q> {
   /** field name */
-  prop: DeepTypeof<T>
+  prop: DeepKeyof<T>
   /** whether column has a slot */
   slot?: boolean
   /** When the data structure is complex, you can use children to show the data hierarchy */
@@ -124,11 +124,11 @@ export interface ITableExpose<T = UnknownObject> {
   /** clear sorting, restore data to the original order */
   clearSort: () => void
   /** clear filters of the columns whose columnKey are passed in. If no params, clear all filters */
-  clearFilter: (columnKeys?: DeepTypeof<T> | Array<DeepTypeof<T>>) => void
+  clearFilter: (columnKeys?: DeepKeyof<T> | Array<DeepKeyof<T>>) => void
   /** refresh the layout of Table. When the visibility of Table changes, you may need to call this method to get a correct layout */
   doLayout: () => void
   /** sort Table manually. Property prop is used to set sort column, property order is used to set sort order */
-  sort: (prop: DeepTypeof<T>, order: string) => void
+  sort: (prop: DeepKeyof<T>, order: string) => void
 }
 
 /** Pagination Attributes */

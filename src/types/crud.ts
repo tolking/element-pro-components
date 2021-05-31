@@ -13,7 +13,6 @@ import type {
   IButtonProps,
   IDialogProps,
   UnknownObject,
-  DeepTypeof,
 } from './index'
 
 export interface ICrudProps<T = UnknownObject>
@@ -32,9 +31,9 @@ export interface ICrudProps<T = UnknownObject>
   beforeOpen?: ICrudBeforeOpen<T>
 }
 
-export interface CrudColumn<T = UnknownObject>
+export interface CrudColumn<T = UnknownObject, Q = T>
   extends FormColumn<T>,
-    TableColumn<T> {
+    TableColumn<T, Q> {
   /** sub-form and multi-level header */
   children?: ICrudColumns<T>
   /** whether to display in the add form */
@@ -47,7 +46,8 @@ export interface CrudColumn<T = UnknownObject>
   search?: boolean
 }
 
-export type ICrudColumns<T = UnknownObject> = CrudColumn<T>[]
+/** Crud Columns Options (T: type about `prop`, Q: type about `row`) */
+export type ICrudColumns<T = UnknownObject, Q = T> = CrudColumn<T, Q>[]
 
 export interface CrudMenu<T = UnknownObject> {
   /** show add button */
