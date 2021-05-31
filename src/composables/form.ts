@@ -14,6 +14,7 @@ import {
   objectDeepMerge,
   objectPick,
   objectOmit,
+  isBoolean,
 } from '../utils/index'
 import type {
   FormColumn,
@@ -26,7 +27,7 @@ import type {
   UnknownObject,
   IFormMenuColumns,
   MenuOptions,
-  DeepTypeof,
+  DeepKeyof,
   MaybeArray,
 } from '../types/index'
 
@@ -137,7 +138,7 @@ export function useFormMethods<T = UnknownObject>(
   loading: Ref<boolean>
   upFormData: (value: unknown) => void
   submitForm: () => void
-  resetForm: (clean?: boolean) => void
+  resetForm: (reset?: boolean) => void
 } & IFormExpose<T> {
   const form = ref<IFormExpose<T>>({} as IFormExpose<T>)
   const { show, toggleShow } = useShow()
@@ -150,12 +151,12 @@ export function useFormMethods<T = UnknownObject>(
     form.value.resetFields()
   }
 
-  function clearValidate(props?: MaybeArray<DeepTypeof<T>>) {
+  function clearValidate(props?: MaybeArray<DeepKeyof<T>>) {
     form.value.clearValidate(props)
   }
 
   function validateField(
-    props: MaybeArray<DeepTypeof<T>>,
+    props: MaybeArray<DeepKeyof<T>>,
     cb: IFormValidateFieldCallback<T>
   ) {
     form.value.validateField(props, cb)
@@ -177,7 +178,14 @@ export function useFormMethods<T = UnknownObject>(
       })
   }
 
-  function resetForm() {
+  /**
+   * reset Form Fields and reset Form data
+   * @param reset Whether to clear the form data
+   */
+  function resetForm(reset = false) {
+    if (isBoolean(reset) && reset) {
+      upFormData({})
+    }
     resetFields()
     emit('reset')
   }

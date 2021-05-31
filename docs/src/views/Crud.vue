@@ -134,10 +134,10 @@ const data: DataItem[] = [
 
 const beforeOpen: ICrudBeforeOpen<CrudForm> = (done, type, row) => {
   console.log('beforeOpen', type, row)
-  form.value = row || ({} as CrudForm)
-  setTimeout(() => {
-    done()
-  }, 500)
+  if (type === 'edit') {
+    form.value = row || ({} as CrudForm)
+  }
+  done()
 }
 
 const search: ICrudSearch = (done, isValid, invalidFields) => {
