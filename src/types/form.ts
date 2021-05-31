@@ -3,7 +3,7 @@ import type {
   IComponentSize,
   IButtonProps,
   StringObject,
-  DeepTypeof,
+  DeepKeyof,
   IRowProps,
   IColProps,
 } from './index'
@@ -39,7 +39,7 @@ export interface FormColumn<T = UnknownObject> extends IColProps, StringObject {
   /** max number of sub-form */
   max?: number
   /** keys of model that passed to form */
-  prop: DeepTypeof<T>
+  prop: DeepKeyof<T>
   /** label name */
   label?: string
   /** width of label, e.g. '50px'. Width auto is supported */
@@ -101,10 +101,10 @@ export interface IFormExpose<T = UnknownObject> {
   /** reset all the fields and remove validation result */
   resetFields: () => void
   /** clear validation message for certain fields. The parameter is prop name or an array of prop names of the form items whose validation messages will be removed. When omitted, all fields' validation messages will be cleared */
-  clearValidate: (props?: DeepTypeof<T> | Array<DeepTypeof<T>>) => void
+  clearValidate: (props?: DeepKeyof<T> | Array<DeepKeyof<T>>) => void
   /** validate one or several form items */
   validateField: (
-    props: DeepTypeof<T> | Array<DeepTypeof<T>>,
+    props: DeepKeyof<T> | Array<DeepKeyof<T>>,
     cb: IFormValidateFieldCallback<T>
   ) => void
 }
