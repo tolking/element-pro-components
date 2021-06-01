@@ -1,4 +1,4 @@
-export { isArray, isObject, isFunction, camelize } from '@vue/shared'
+export { isArray, isObject, isFunction } from '@vue/shared'
 export * from './filter'
 export * from './resize-event'
 export * from './router'

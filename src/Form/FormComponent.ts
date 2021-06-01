@@ -1,10 +1,11 @@
 import {
+  computed,
   DefineComponent,
   defineComponent,
   h,
   resolveDynamicComponent,
 } from 'vue'
-import { isFunction, isObject, camelize } from '../utils/index'
+import { isFunction, isObject } from '../utils/index'
 import type { StringObject } from '../types/index'
 
 interface TargetEvent {
@@ -17,6 +18,10 @@ interface TargetEvent {
 export default defineComponent({
   name: 'ProFormComponent',
   props: {
+    modelValue: {
+      type: null,
+      default: undefined,
+    },
     is: {
       type: String,
       required: true,
@@ -26,37 +31,41 @@ export default defineComponent({
       default: '',
     },
   },
-  emits: ['update:modelValue', 'change', 'input'],
+  emits: ['update:modelValue'],
   setup(props, { attrs, emit }) {
-    function transitionAttrs() {
-      const createAttrs = (type: 'update:modelValue' | 'change' | 'input') => ({
+    const type = computed(() => {
+      return resolveDynamicComponent(props.is) as DefineComponent
+    })
+    const prop = computed(() => {
+      const _props: StringObject = {
         ...attrs,
-        [camelize('on-' + type)]: (value: unknown) => {
-          emit(type, value)
-          if (type !== 'update:modelValue') {
-            const _value =
-              attrs.type === 'checkbox' || attrs.type === 'radio'
-                ? (value as TargetEvent).target.checked
-                : (value as TargetEvent).target.value
-            emit('update:modelValue', _value)
-          }
-        },
-      })
-
-      if (
-        (props.is === 'input' &&
-          (attrs.type === 'checkbox' || attrs.type === 'radio')) ||
-        props.is === 'select'
-      ) {
-        return createAttrs('change')
-      } else if (props.is === 'input' || props.is === 'textarea') {
-        return createAttrs('input')
-      } else {
-        return createAttrs('update:modelValue')
+        modelValue: props.modelValue,
+        'onUpdate:modelValue': (value: unknown) =>
+          emit('update:modelValue', value),
       }
-    }
-
-    function transitionSlots() {
+      if (
+        props.is === 'input' ||
+        props.is === 'select' ||
+        props.is === 'textarea'
+      ) {
+        if (
+          props.is === 'select' ||
+          attrs.type === 'checkbox' ||
+          attrs.type === 'radio'
+        ) {
+          _props.checked = props.modelValue
+          _props.onChange = (value: TargetEvent) =>
+            emit('update:modelValue', value.target.checked)
+        } else {
+          _props.value = props.modelValue
+          _props.onInput = (value: TargetEvent) =>
+            emit('update:modelValue', value.target.value)
+        }
+        _props.modelValue = undefined
+      }
+      return _props
+    })
+    const children = computed(() => {
       if (isFunction(props.slots)) {
         return props.slots
       } else if (isObject(props.slots)) {
@@ -70,14 +79,11 @@ export default defineComponent({
         return obj
       } else if (props.slots) {
         return () => props.slots
+      } else {
+        return undefined
       }
-    }
+    })
 
-    return () =>
-      h(
-        resolveDynamicComponent(props.is) as DefineComponent,
-        transitionAttrs(),
-        transitionSlots()
-      )
+    return () => h(type.value, prop.value, children.value)
   },
 })
