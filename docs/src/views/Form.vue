@@ -79,6 +79,49 @@ const columns = ref<IFormColumns>([
     slot: true,
   },
   {
+    label: 'input',
+    prop: 'ninput',
+    component: 'input',
+    span: 6,
+    props: {
+      onInput: (e: unknown) => console.log('onInput', e),
+      onChange: (e: unknown) => console.log('onChange', e),
+    },
+  },
+  {
+    label: 'textarea',
+    prop: 'ntextarea',
+    component: 'textarea',
+    span: 6,
+  },
+  {
+    label: 'radio',
+    prop: 'nradio',
+    component: 'input',
+    span: 4,
+    props: {
+      type: 'radio',
+    },
+  },
+  {
+    label: 'checkbox',
+    prop: 'ncheckbox',
+    component: 'input',
+    span: 4,
+    props: {
+      type: 'checkbox',
+    },
+  },
+  {
+    label: 'color',
+    prop: 'ncolor',
+    component: 'input',
+    span: 4,
+    props: {
+      type: 'color',
+    },
+  },
+  {
     label: 'el-input',
     prop: 'input',
     component: 'el-input',
@@ -86,7 +129,8 @@ const columns = ref<IFormColumns>([
     props: {
       clearable: true,
       placeholder: 'placeholder',
-      onChange: (e: string) => console.log(e),
+      onInput: (e: unknown) => console.log('onInput', e),
+      onChange: (e: unknown) => console.log('onChange', e),
       slots: {
         prefix: () => 'P',
         suffix: h('b', 'suffix'),
@@ -170,6 +214,9 @@ const columns1 = ref<IFormColumns<RuleForm>>([
     label: 'Date',
     prop: 'date',
     component: 'el-input',
+    props: {
+      onInput: (e: string) => console.log('o--o', e),
+    },
   },
   {
     label: 'User',
