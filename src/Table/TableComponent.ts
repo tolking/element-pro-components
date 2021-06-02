@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { isFunction } from '../utils/index'
 import type { UnknownFunction } from '../types/index'
 
@@ -19,8 +19,11 @@ export default defineComponent({
     },
   },
   setup(props) {
-    return isFunction(props.render)
-      ? () => (props.render as UnknownFunction)(props.row)
-      : () => props.render || props.row[props.prop]
+    const children = computed(() => {
+      return isFunction(props.render)
+        ? () => (props.render as UnknownFunction)(props.row)
+        : () => String(props.render) || String(props.row[props.prop])
+    })
+    return children.value
   },
 })
