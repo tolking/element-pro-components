@@ -1,5 +1,6 @@
 import { computed, defineComponent } from 'vue'
 import { isFunction } from '../utils/index'
+import type { UnknownFunction } from '../types/index'
 
 export default defineComponent({
   name: 'ProTableComponent',
@@ -13,16 +14,16 @@ export default defineComponent({
       required: true,
     },
     render: {
-      type: null,
+      type: [Function, String],
       default: '',
     },
   },
   setup(props) {
     const children = computed(() => {
       return isFunction(props.render)
-        ? props.render(props.row)
-        : props.render || props.row[props.prop]
+        ? () => (props.render as UnknownFunction)(props.row)
+        : () => String(props.render) || String(props.row[props.prop])
     })
-    return () => String(children.value)
+    return children.value
   },
 })
