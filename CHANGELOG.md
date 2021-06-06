@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.9.4
+
+feat
+
+- Form: bind the native component value
+
+fix
+
+- Table: error when show Array in data
+
 ## 0.9.3
 
 breaking changes
