@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.10.0
+
+breaking changes
+
+- remove slots `left-header` `right-header` `bottom-header` in Layout
+- remove `style.css`, need to use `styles/index.css` instead
+
+```diff
+- import 'element-pro-components/lib/style.css'
++ import 'element-pro-components/lib/styles/index.css'
+```
+
+feat
+
+- refactor styles: support imports styles on demand
+
 ## 0.9.4
 
 feat
