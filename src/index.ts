@@ -1,7 +1,6 @@
 export * from './composables/index'
 export * from './utils/index'
 export * from './types/index'
-import './styles/index.css'
 import type { App } from 'vue'
 import type { IDefineComponent, InstallOptions } from './types/index'
 

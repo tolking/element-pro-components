@@ -67,21 +67,3 @@ const { slots } = useContext()
 const attrs = useAttrs()
 const { show, toggleShow } = useShow(collapse?.value)
 </script>
-
-<style lang="postcss">
-.pro-layout {
-  display: flex;
-  height: var(--layout-height);
-  overflow: hidden;
-  & .pro-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: calc(100% - var(--aside-width));
-    background: var(--c-page-background);
-  }
-  & .aside-collapse + .pro-container {
-    width: calc(100% - var(--aside-collapse-width));
-  }
-}
-</style>

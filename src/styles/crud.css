@@ -1,0 +1,13 @@
+@import 'element-plus/lib/theme-chalk/el-button.css';
+@import 'element-plus/lib/theme-chalk/el-dialog.css';
+@import './form.css';
+@import './table.css';
+
+.pro-crud-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  & + .pro-table {
+    margin-top: 15px;
+  }
+}

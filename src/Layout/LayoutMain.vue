@@ -29,24 +29,3 @@ import { ElScrollbar } from 'element-plus'
 const props = defineProps<{ transition?: string }>()
 const { transition } = toRefs(props)
 </script>
-
-<style lang="postcss">
-.pro-main {
-  margin: var(--main-margin);
-  padding: var(--main-padding);
-  border: 1px solid var(--c-border);
-  border-radius: var(--border-radius);
-  background: var(--c-aside-background);
-  &.el-scrollbar .el-scrollbar__wrap {
-    margin-bottom: 0 !important;
-    overflow-x: hidden;
-  }
-  @media (--xs-medium) {
-    margin: var(--xs-main-margin);
-    padding: var(--xs-main-padding);
-    &.el-scrollbar .el-scrollbar__wrap {
-      margin-right: 0 !important;
-    }
-  }
-}
-</style>

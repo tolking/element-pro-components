@@ -309,14 +309,3 @@ expose({
   validateField,
 })
 </script>
-
-<style lang="postcss">
-.pro-crud-menu {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  & + .pro-table {
-    margin-top: 15px;
-  }
-}
-</style>

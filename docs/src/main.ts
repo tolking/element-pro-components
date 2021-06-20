@@ -14,7 +14,16 @@ import {
 } from 'element-plus'
 import ElementPro from '/@src/index'
 import ProCode from './components/ProCode.vue'
-import 'element-plus/lib/theme-chalk/index.css'
+import 'element-plus/lib/theme-chalk/el-icon.css'
+import 'element-plus/lib/theme-chalk/el-button.css'
+import 'element-plus/lib/theme-chalk/el-input.css'
+import 'element-plus/lib/theme-chalk/el-upload.css'
+import 'element-plus/lib/theme-chalk/el-tag.css'
+import 'element-plus/lib/theme-chalk/el-dropdown.css'
+import 'element-plus/lib/theme-chalk/el-dropdown-item.css'
+import 'element-plus/lib/theme-chalk/el-dropdown-menu.css'
+import 'element-plus/lib/theme-chalk/el-date-picker.css'
+import '/@src/styles/index.css'
 import './styles/index.css'
 
 export function createApp(): {
