@@ -31,27 +31,3 @@ function toggleCollapse() {
   emit('toggle-collapse')
 }
 </script>
-
-<style lang="postcss">
-.pro-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  height: var(--header-height);
-  min-height: var(--header-height);
-  border-bottom: 1px solid var(--c-border);
-  background: var(--c-header-background);
-  & .header-slot {
-    display: flex;
-    align-items: center;
-    & .header-fold-btn {
-      display: inline-block;
-      margin-right: 20px;
-      width: 22px;
-      height: 22px;
-      cursor: pointer;
-    }
-  }
-}
-</style>

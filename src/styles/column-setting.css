@@ -1,0 +1,8 @@
+@import 'element-plus/lib/theme-chalk/el-dropdown.css';
+@import 'element-plus/lib/theme-chalk/el-button.css';
+/* @import 'element-plus/lib/theme-chalk/el-dropdown-menu.css'; */
+@import 'element-plus/lib/theme-chalk/el-tree.css';
+
+.pro-column-setting-tree .el-tree-node .el-tree-node__content {
+  padding-right: 10px;
+}

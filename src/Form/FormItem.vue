@@ -154,28 +154,3 @@ function upData(value: unknown) {
   emit('update:modelValue', _model)
 }
 </script>
-
-<style lang="postcss">
-.pro-form-item .children-form {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding-top: 15px;
-  width: 100%;
-  border-top: 1px dashed var(--c-border);
-  &:first-child {
-    padding-top: 0;
-    border-top-width: 0;
-  }
-  & .children-form-item {
-    flex: 1;
-    & .pro-form-item {
-      margin-bottom: 22px;
-    }
-  }
-  & .delete-bth {
-    margin: 0 0 20px 10px;
-  }
-}
-</style>

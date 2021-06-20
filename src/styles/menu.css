@@ -1,0 +1,7 @@
+@import 'element-plus/lib/theme-chalk/el-menu.css';
+/* @import 'element-plus/lib/theme-chalk/el-menu-item.css';
+@import 'element-plus/lib/theme-chalk/el-submenu.css'; */
+
+.pro-menu.el-menu {
+  border-right: 0;
+}

@@ -29,13 +29,3 @@ expose({
   closeOther,
 })
 </script>
-
-<style lang="postcss">
-.pro-tabs {
-  padding: 0 20px;
-  background: var(--c-tabs-background);
-  & .el-tabs__header {
-    margin: 0;
-  }
-}
-</style>

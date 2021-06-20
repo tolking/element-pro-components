@@ -175,11 +175,3 @@ expose({
   sort,
 })
 </script>
-
-<style lang="postcss">
-.pro-table + .pro-pagination {
-  padding: 15px 0;
-  overflow: scroll hidden;
-  text-align: right;
-}
-</style>

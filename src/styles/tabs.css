@@ -1,0 +1,10 @@
+@import 'element-plus/lib/theme-chalk/el-tabs.css';
+/* @import 'element-plus/lib/theme-chalk/el-tab-pane.css'; */
+
+.pro-tabs {
+  padding: 0 20px;
+  background: var(--c-tabs-background);
+  & .el-tabs__header {
+    margin: 0;
+  }
+}

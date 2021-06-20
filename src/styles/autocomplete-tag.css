@@ -1,0 +1,21 @@
+@import 'element-plus/lib/theme-chalk/el-tag.css';
+@import 'element-plus/lib/theme-chalk/el-autocomplete.css';
+
+.pro-autocomplete-tag {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border: 1px solid var(--c-border);
+  border-radius: 4px;
+  background-color: var(--c-background);
+  & .el-tag {
+    margin: 3px;
+  }
+  & .el-autocomplete {
+    flex: 1;
+    min-width: 80px;
+  }
+  & .el-input .el-input__inner {
+    border: 0;
+  }
+}

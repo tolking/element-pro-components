@@ -44,9 +44,3 @@ function handleSelect(path: string) {
   }
 }
 </script>
-
-<style lang="postcss">
-.pro-menu.el-menu {
-  border-right: 0;
-}
-</style>

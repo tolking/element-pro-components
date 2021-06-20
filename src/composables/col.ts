@@ -1,6 +1,5 @@
 // NOTE modify from element-plus, if a same hooks is added to the element-plus, replace this file by hooks
 import { ComputedRef, computed, inject, Ref, unref } from 'vue'
-import 'element-plus/lib/theme-chalk/el-col.css'
 import { isObject } from '../utils/index'
 import type { IColProps, IColSizeObject } from '../types/index'
 

@@ -27,16 +27,12 @@
     <section class="pro-container">
       <pro-layout-header @toggle-collapse="toggleShow">
         <template #left>
-          <!-- TODO: remove slots `left-header` `right-header` `bottom-header` -->
-          <slot name="left-header" />
           <slot name="header-left" />
         </template>
         <template #right>
-          <slot name="right-header" />
           <slot name="header-right" />
         </template>
       </pro-layout-header>
-      <slot name="bottom-header" />
       <slot name="header-bottom" />
       <pro-layout-main :transition="transition">
         <template #top>
@@ -67,21 +63,3 @@ const { slots } = useContext()
 const attrs = useAttrs()
 const { show, toggleShow } = useShow(collapse?.value)
 </script>
-
-<style lang="postcss">
-.pro-layout {
-  display: flex;
-  height: var(--layout-height);
-  overflow: hidden;
-  & .pro-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: calc(100% - var(--aside-width));
-    background: var(--c-page-background);
-  }
-  & .aside-collapse + .pro-container {
-    width: calc(100% - var(--aside-collapse-width));
-  }
-}
-</style>

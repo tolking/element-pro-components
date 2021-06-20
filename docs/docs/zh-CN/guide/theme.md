@@ -75,7 +75,7 @@ html[theme='other'] {
 在入口文件中引入你的样式配置文件
 
 ```js
-import 'element-pro-components/lib/style.css'
+import 'element-pro-components/lib/styles/index.css'
 import 'your/css/file'
 ```
 
@@ -85,4 +85,4 @@ import 'your/css/file'
 
 ## 提供配置的参数
 
-<<< @/src/styles/index.css
+<<< @/src/styles/vars.css

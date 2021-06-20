@@ -100,9 +100,3 @@ function handleCheckChange(data: TableColumn) {
   emit('updata:modelValue', modelValue)
 }
 </script>
-
-<style lang="postcss">
-.pro-column-setting-tree .el-tree-node .el-tree-node__content {
-  padding-right: 10px;
-}
-</style>
