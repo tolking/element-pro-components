@@ -18,7 +18,7 @@ npm i element-pro-components
 import { createApp } from 'vue'
 import App from './App.vue'
 import ElementPro from 'element-pro-components'
-import 'element-pro-components/lib/style.css'
+import 'element-pro-components/lib/styles/index.css'
 
 createApp(App).use(ElementPro).mount('#app')
 ```

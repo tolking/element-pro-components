@@ -22,7 +22,7 @@ npm i element-pro-components
 import { createApp } from 'vue'
 import App from './App.vue'
 import ElementPro from 'element-pro-components'
-import 'element-pro-components/lib/style.css'
+import 'element-pro-components/lib/styles/index.css'
 
 const app = createApp(App)
 
@@ -32,11 +32,84 @@ app.mount('#app')
 
 ## 按需引入
 
+### vite
+
+借助 [vite-plugin-style-import](https://github.com/anncwb/vite-plugin-style-import) 实现加载样式
+
+- 安装
+
+```
+yarn add -D vite-plugin-style-import
+# or
+npm i -D vite-plugin-style-import
+```
+
+- 修改配置 vite.config
+
+```js
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import styleImport from 'vite-plugin-style-import'
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    styleImport({
+      libs: [
+        {
+          importTest: /^Pro/,
+          libraryName: 'element-pro-components',
+          ensureStyleFile: true,
+          resolveStyle: (name) => {
+            name = name.slice(4)
+            return `element-pro-components/lib/styles/${name}.css`
+          },
+        },
+      ],
+    }),
+  ],
+})
+```
+
+### vue-cli
+
+借助 [babel-plugin-import](https://github.com/ant-design/babel-plugin-import) 实现加载样式
+
+- 安装
+
+```
+yarn add -D babel-plugin-import
+# or
+npm i -D babel-plugin-import
+```
+
+- 修改配置 babel.config
+
+```js
+module.exports = {
+  plugins: [
+    [
+      'import',
+      {
+        libraryName: 'element-pro-components',
+        customStyleName: (name) => {
+          name = name.slice(4)
+          return `element-pro-components/lib/styles/${name}.css`
+        },
+      },
+    ],
+  ],
+}
+```
+
+接下来引入 css 变量文件，然后引用需要的组件，样式就会被自动加载
+
 ```js
 import { createApp } from 'vue'
 import App from './App.vue'
 import { ProLayout } from 'element-pro-components'
-import 'element-pro-components/lib/style.css'
+// 除非重新定义所有css变量，否则需要手动引入css变量文件
+import 'element-pro-components/lib/styles/vars.css'
 
 const app = createApp(App)
 
@@ -48,12 +121,8 @@ app.mount('#app')
 ```
 
 ::: tip 提示
-与 `Element Plus` 不同，样式不支持按需引入。由于只包含少量必要样式，可能不会提供相同功能
-
 完整组件列表[参考里面的 components](https://github.com/tolking/element-pro-components/blob/master/src/index.ts)
-:::
 
-::: tip 提示
 在导出组件的同时，一起导出的还包括内部使用的[utils](https://github.com/tolking/element-pro-components/blob/master/src/utils/)与[composables](https://github.com/tolking/element-pro-components/blob/master/src/composables/)，如果需要可以引用使用
 :::
 
@@ -76,7 +145,7 @@ app.use(ElementPro, {
 ```
 
 ::: tip 提示
-如果使用按需引入，可以通过 `ProCrud` `ProForm` `ProTable` 中的**最后一个**注入全局配置
+如果使用按需引入，可以通过 `ProCrud` `ProForm` `ProTable` 中的一个注入全局配置
 :::
 
 ## 开始使用
