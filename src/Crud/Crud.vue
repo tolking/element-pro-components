@@ -113,6 +113,12 @@
       <template #append>
         <slot name="append" />
       </template>
+      <template #expand="scope">
+        <slot
+          v-bind="scope"
+          name="expand"
+        />
+      </template>
       <template #menu="scope">
         <el-button
           v-if="menuColumns && menuColumns.showEdit(scope.row)"

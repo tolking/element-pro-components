@@ -10,6 +10,7 @@
     :before-open="beforeOpen"
     :before-close="beforeClose"
     selection
+    expand
     border
     label-width="100px"
     append-to-body
@@ -20,6 +21,9 @@
     @reset="reset"
     @delete="deleteRow"
   >
+    <template #expand="{ row }">
+      {{ row }}
+    </template>
     <template #action>
       <pro-column-setting
         v-model="columns"

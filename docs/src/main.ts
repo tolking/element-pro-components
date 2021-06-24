@@ -3,6 +3,7 @@ import { App, createApp as _createApp, createSSRApp } from 'vue'
 import { createRouter } from './router/index'
 import { Router } from 'vue-router'
 import {
+  ElIcon,
   ElButton,
   ElInput,
   ElUpload,
@@ -39,6 +40,7 @@ export function createApp(): {
   app
     .use(router)
     .component('ProCode', ProCode)
+    .use(ElIcon)
     .use(ElButton)
     .use(ElInput)
     .use(ElUpload)
