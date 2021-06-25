@@ -38,6 +38,8 @@ const item = computed(() => {
 })
 
 function hasMultiChild(item: IRouteRecordRaw) {
-  return item.children ? item.children.length > 1 : false
+  return item.children
+    ? item.children.filter((item) => !item.meta?.hidden).length > 1
+    : false
 }
 </script>
