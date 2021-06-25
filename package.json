@@ -12,7 +12,7 @@
     "./lib/": "./lib/"
   },
   "types": "types/index.d.ts",
-  "style": "lib/style.css",
+  "style": "lib/styles/index.css",
   "scripts": {
     "dev": "vite",
     "build": "vite build --emptyOutDir && npm run build:helper && npm run build:styles && npm run build:types",
