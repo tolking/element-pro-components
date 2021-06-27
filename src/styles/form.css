@@ -4,6 +4,10 @@
 @import 'element-plus/lib/theme-chalk/el-col.css';
 @import 'element-plus/lib/theme-chalk/el-row.css';
 
+.pro-form.el-form .el-form-item {
+  display: flex;
+}
+
 .pro-form-item .children-form {
   position: relative;
   display: flex;
