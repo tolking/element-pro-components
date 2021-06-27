@@ -1,3 +1,4 @@
+import type { Component } from 'vue'
 import type {
   UnknownObject,
   IComponentSize,
@@ -9,11 +10,11 @@ import type {
 } from './index'
 
 /** Form Props */
-export interface IFormProps<T = UnknownObject> extends IRowProps {
+export interface IFormProps<T = StringObject> extends IRowProps {
   modelValue: T
   columns: IFormColumns<T>
   menu?: IFormMenuColumns
-  rules?: UnknownObject
+  rules?: StringObject
   inline?: boolean
   labelPosition?: 'right' | 'left' | 'top'
   labelWidth?: string
@@ -27,11 +28,11 @@ export interface IFormProps<T = UnknownObject> extends IRowProps {
   disabled?: boolean
 }
 
-export interface FormColumn<T = UnknownObject> extends IColProps, StringObject {
+export interface FormColumn<T = StringObject> extends IColProps, StringObject {
   /** whether column has a slot */
   slot?: boolean
   /** component name */
-  component?: string
+  component?: string | Component
   /** props for component */
   props?: UnknownObject
   /** sub-form */
@@ -47,7 +48,7 @@ export interface FormColumn<T = UnknownObject> extends IColProps, StringObject {
   /** whether the field is required or not, will be determined by validation rules if omitted */
   required?: boolean
   /** validation rules of form */
-  rules?: UnknownObject | UnknownObject[]
+  rules?: StringObject | StringObject[]
   /** field error message, set its value and the field will validate error and show this message immediately */
   error?: string
   /** whether to show the error message */
@@ -59,7 +60,7 @@ export interface FormColumn<T = UnknownObject> extends IColProps, StringObject {
 }
 
 /** Form Columns Option */
-export type IFormColumns<T = UnknownObject> = FormColumn<T>[]
+export type IFormColumns<T = StringObject> = FormColumn<T>[]
 
 /** Form Menu Option */
 export interface FormMenu {
@@ -83,19 +84,19 @@ export type IFormMenuColumns = StringObject & FormMenu
 export type IFormSubmit = (
   done: () => void,
   isValid: boolean,
-  invalidFields?: UnknownObject
+  invalidFields?: StringObject
 ) => void
 
-export interface IFormValidateCallback<T = UnknownObject> {
-  (isValid: boolean, invalidFields?: UnknownObject): void
+export interface IFormValidateCallback<T = StringObject> {
+  (isValid: boolean, invalidFields?: StringObject): void
 }
 
-export interface IFormValidateFieldCallback<T = UnknownObject> {
-  (message?: string, invalidFields?: UnknownObject): void
+export interface IFormValidateFieldCallback<T = StringObject> {
+  (message?: string, invalidFields?: StringObject): void
 }
 
 /** Form Expose Methods */
-export interface IFormExpose<T = UnknownObject> {
+export interface IFormExpose<T = StringObject> {
   /** validate the whole form. Takes a callback as a param. After validation, the callback will be executed with two params: a boolean indicating if the validation has passed, and an object containing all fields that fail the validation. Returns a promise if callback is omitted */
   validate: (callback?: IFormValidateCallback<T>) => Promise<boolean>
   /** reset all the fields and remove validation result */

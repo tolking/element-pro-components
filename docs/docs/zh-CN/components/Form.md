@@ -6,19 +6,7 @@
 将自动代理通过 `v-model` 绑定值的任意组件，例如：
 
 - 支持 `el-input` `el-switch` 等
-- 不支持 `el-upload` 等
-  :::
-
-::: warning 警告
-在使用组件前，你必须通过全局注册它
-
-```js
-import { ElInput } from 'element-plus'
-
-app.use(ElInput)
-// 或者
-app.component(ElInput.name, ElInput)
-```
+- 不支持 `el-upload` 等 (需要将相关组件改写为支持 `v-model` 的组件)
 
 :::
 
@@ -149,6 +137,61 @@ export default {
     return {
       form1,
       columns1,
+    }
+  }
+}
+</script>
+
+:::
+
+### 使用局部组件
+
+::: demo `component` 为字符串时，内部将会去全局搜索组件。当然可以通过 `component` 直接传入局部组件，但存在部分限制
+
+<template>
+  <pro-form
+    v-model="form7"
+    :columns="columns7"
+    :gutter="20"
+    label-width="100px"
+    @submit="submit"
+  />
+</template>
+
+<script>
+import { ref, shallowRef } from 'vue'
+import { ElSwitch } from 'element-plus'
+import 'element-plus/lib/theme-chalk/el-switch.css'
+
+export default {
+  setup() {
+    const list = ref([
+      { value: 'Go', label: 'go' },
+      { value: 'JavaScript', label: 'javascript' },
+      { value: 'Python', label: 'python' },
+      { value: 'Dart', label: 'dart' },
+      { value: 'V', label: 'v' },
+    ])
+    const form7 = ref({})
+    const columns7 = shallowRef([ // 需要通过 shallowRef 优化性能
+      {
+        label: 'radio',
+        prop: 'radio',
+        component: 'pro-radio',
+        props: {
+          data: list.value, // 引用其它值必须解构
+        },
+      },
+      {
+        label: 'switch',
+        prop: 'switch',
+        component: ElSwitch,
+      }
+    ])
+
+    return {
+      form7,
+      columns7,
     }
   }
 }
@@ -639,31 +682,31 @@ export default {
 
 #### columns 的参数
 
-| 参数          | 说明                                                                      | 类型            | 可选值                | 默认值 |
-| :------------ | :------------------------------------------------------------------------ | :-------------- | :-------------------- | :----- |
-| prop          | v-model 绑定的字段名 (**必填，需要是唯一值**)                             | string          | -                     | -      |
-| label         | 标签文本                                                                  | string          | -                     | -      |
-| component     | 当前项对应的组件                                                          | string          | -                     | -      |
-| props         | 传递的对应的组件的参数                                                    | object          | -                     | -      |
-| slot          | 是否开启自定义插槽功能                                                    | boolean         | -                     | false  |
-| children      | 实现子表单                                                                | array           | -                     | -      |
-| max           | 与 children 一起使用，限制子表单的最大数量                                | number          | -                     | -      |
-| labelWidth    | 表单域标签的宽度，例如 '50px' 或 'auto'                                   | string          | -                     | -      |
-| required      | 是否必填，如不设置，则会根据校验规则自动生成                              | boolean         | -                     | false  |
-| rules         | 表单验证规则                                                              | object / array  | -                     | -      |
-| error         | 表单域验证错误信息, 设置该值会使表单验证状态变为`error`，并显示该错误信息 | string          | -                     | -      |
-| showMessage   | 是否显示校验错误信息                                                      | boolean         | -                     | true   |
-| inlineMessage | 以行内形式展示校验信息                                                    | boolean         | -                     | false  |
-| size          | 用于控制该表单域下组件的尺寸                                              | string          | medium / small / mini | -      |
-| span          | 栅格占据的列数                                                            | number          | -                     | 24     |
-| offset        | 栅格左侧的间隔格数                                                        | number          | -                     | 0      |
-| push          | 栅格向右移动格数                                                          | number          | -                     | 0      |
-| pull          | 栅格向左移动格数                                                          | number          | -                     | 0      |
-| xs            | `<768px` 响应式栅格数或者栅格属性对象                                     | number / object | -                     | -      |
-| sm            | `≥768px` 响应式栅格数或者栅格属性对象                                     | number / object | -                     | -      |
-| md            | `≥992px` 响应式栅格数或者栅格属性对象                                     | number / object | -                     | -      |
-| lg            | `≥1200px` 响应式栅格数或者栅格属性对象                                    | number / object | -                     | -      |
-| xl            | `≥1920px` 响应式栅格数或者栅格属性对象                                    | number / object | -                     | -      |
+| 参数          | 说明                                                                      | 类型               | 可选值                | 默认值 |
+| :------------ | :------------------------------------------------------------------------ | :----------------- | :-------------------- | :----- |
+| prop          | v-model 绑定的字段名 (**必填，需要是唯一值**)                             | string             | -                     | -      |
+| label         | 标签文本                                                                  | string             | -                     | -      |
+| component     | 当前项对应的组件，可以直接传入局部组件                                    | string / Component | -                     | -      |
+| props         | 传递的对应的组件的参数                                                    | object             | -                     | -      |
+| slot          | 是否开启自定义插槽功能                                                    | boolean            | -                     | false  |
+| children      | 实现子表单                                                                | array              | -                     | -      |
+| max           | 与 children 一起使用，限制子表单的最大数量                                | number             | -                     | -      |
+| labelWidth    | 表单域标签的宽度，例如 '50px' 或 'auto'                                   | string             | -                     | -      |
+| required      | 是否必填，如不设置，则会根据校验规则自动生成                              | boolean            | -                     | false  |
+| rules         | 表单验证规则                                                              | object / array     | -                     | -      |
+| error         | 表单域验证错误信息, 设置该值会使表单验证状态变为`error`，并显示该错误信息 | string             | -                     | -      |
+| showMessage   | 是否显示校验错误信息                                                      | boolean            | -                     | true   |
+| inlineMessage | 以行内形式展示校验信息                                                    | boolean            | -                     | false  |
+| size          | 用于控制该表单域下组件的尺寸                                              | string             | medium / small / mini | -      |
+| span          | 栅格占据的列数                                                            | number             | -                     | 24     |
+| offset        | 栅格左侧的间隔格数                                                        | number             | -                     | 0      |
+| push          | 栅格向右移动格数                                                          | number             | -                     | 0      |
+| pull          | 栅格向左移动格数                                                          | number             | -                     | 0      |
+| xs            | `<768px` 响应式栅格数或者栅格属性对象                                     | number / object    | -                     | -      |
+| sm            | `≥768px` 响应式栅格数或者栅格属性对象                                     | number / object    | -                     | -      |
+| md            | `≥992px` 响应式栅格数或者栅格属性对象                                     | number / object    | -                     | -      |
+| lg            | `≥1200px` 响应式栅格数或者栅格属性对象                                    | number / object    | -                     | -      |
+| xl            | `≥1920px` 响应式栅格数或者栅格属性对象                                    | number / object    | -                     | -      |
 
 ::: tip 关于 props
 props 的属性将全部传递给 component 指定的组件

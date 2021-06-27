@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.10.1
+
+feat
+
+- Form: support load local component
+
+fix
+
+- Menu: display error when use hidden
+- Crud: expand slot does not carry content
+- Form: grid layout style error on element-plus 1.0.2-beta.53
+
 ## 0.10.0
 
 breaking changes

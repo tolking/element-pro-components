@@ -13,9 +13,10 @@ import type {
   IButtonProps,
   IDialogProps,
   UnknownObject,
+  StringObject,
 } from './index'
 
-export interface ICrudProps<T = UnknownObject>
+export interface ICrudProps<T = StringObject>
   extends Partial<ITableProps<T>>,
     Partial<Omit<IFormProps<T>, 'menu' | 'align'>>,
     IDialogProps {
@@ -27,11 +28,11 @@ export interface ICrudProps<T = UnknownObject>
   tableColumns?: ITableColumns<T>
   menu: boolean | ICrudMenuColumns<T>
   search?: T
-  searchRules?: UnknownObject
+  searchRules?: StringObject
   beforeOpen?: ICrudBeforeOpen<T>
 }
 
-export interface CrudColumn<T = UnknownObject, Q = T>
+export interface CrudColumn<T = StringObject, Q = T>
   extends FormColumn<T>,
     TableColumn<T, Q> {
   /** sub-form and multi-level header */
@@ -47,9 +48,9 @@ export interface CrudColumn<T = UnknownObject, Q = T>
 }
 
 /** Crud Columns Options (T: type about `prop`, Q: type about `row`) */
-export type ICrudColumns<T = UnknownObject, Q = T> = CrudColumn<T, Q>[]
+export type ICrudColumns<T = StringObject, Q = T> = CrudColumn<T, Q>[]
 
-export interface CrudMenu<T = UnknownObject> {
+export interface CrudMenu<T = StringObject> {
   /** show add button */
   add?: boolean
   /** text of add button */
@@ -82,13 +83,13 @@ export interface CrudMenu<T = UnknownObject> {
   searchResetProps?: IButtonProps
 }
 
-export type ICrudMenuColumns<T = UnknownObject> = CrudMenu<T> &
+export type ICrudMenuColumns<T = StringObject> = CrudMenu<T> &
   ITableMenuColumns &
   IFormMenuColumns
 
 export type ICrudFormType = 'add' | 'edit'
 
-export type ICrudBeforeOpen<T = UnknownObject> = (
+export type ICrudBeforeOpen<T = StringObject> = (
   done: () => void,
   formType: ICrudFormType,
   row?: T

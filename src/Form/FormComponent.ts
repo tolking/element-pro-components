@@ -1,8 +1,10 @@
 import {
+  Component,
   computed,
   DefineComponent,
   defineComponent,
   h,
+  PropType,
   resolveDynamicComponent,
 } from 'vue'
 import { isFunction, isObject } from '../utils/index'
@@ -23,8 +25,8 @@ export default defineComponent({
       default: undefined,
     },
     is: {
-      type: String,
-      required: true,
+      type: [String, Object] as PropType<string | Component>,
+      default: 'span',
     },
     slots: {
       type: [Function, Object, String],
