@@ -34,7 +34,9 @@
 </template>
 
 <script setup lang="ts">
-import { h, onMounted, ref } from 'vue'
+import { h, onMounted, ref, shallowRef } from 'vue'
+import { ElSwitch } from 'element-plus'
+import 'element-plus/lib/theme-chalk/el-switch.css'
 import type {
   IFormColumns,
   IFormMenuColumns,
@@ -71,7 +73,7 @@ const list = [
   { value: 'JavaScript', tag: 'javascript' },
   { value: 'Python', tag: 'python' },
 ]
-const columns = ref<IFormColumns>([
+const columns = shallowRef<IFormColumns>([
   {
     // label: 'Slot',
     prop: 'slot',
@@ -207,6 +209,12 @@ const columns = ref<IFormColumns>([
       data: list,
       config: { label: 'tag' },
     },
+  },
+  {
+    label: 'el-switch',
+    prop: 'switch',
+    component: ElSwitch,
+    span: 12,
   },
 ])
 const columns1 = ref<IFormColumns<RuleForm>>([
