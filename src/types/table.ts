@@ -1,13 +1,12 @@
 import type { VNode } from 'vue'
 import type {
-  UnknownObject,
   UnknownFunction,
   IPlacementType,
   StringObject,
   DeepKeyof,
 } from './index'
 
-export interface ITableProps<T = UnknownObject> extends TableColumnsProps {
+export interface ITableProps<T = StringObject> extends TableColumnsProps {
   selection: boolean | ITableSelectionColumns<T>
   expand: boolean | ITableExpandColumns
   index: boolean | ITableIndexColumns
@@ -29,7 +28,7 @@ export interface TableColumnsProps {
   headerAlign?: 'left' | 'center' | 'right'
 }
 
-interface TableCommonColumn<T = UnknownObject>
+interface TableCommonColumn<T = StringObject>
   extends StringObject,
     TableColumnsProps {
   /** column label */
@@ -71,7 +70,7 @@ interface TableCommonColumn<T = UnknownObject>
 }
 
 /** Table Column Options (T: type about `prop`, Q: type about `row`) */
-export interface TableColumn<T = UnknownObject, Q = T>
+export interface TableColumn<T = StringObject, Q = T>
   extends TableCommonColumn<Q> {
   /** field name */
   prop: DeepKeyof<T>
@@ -86,7 +85,7 @@ export interface TableColumn<T = UnknownObject, Q = T>
 }
 
 /** Table Columns Options */
-export type ITableColumns<T = UnknownObject> = TableColumn<T>[]
+export type ITableColumns<T = StringObject> = TableColumn<T>[]
 
 /** Table Expand Options */
 export type ITableExpandColumns = TableCommonColumn
@@ -101,7 +100,7 @@ export interface ITableIndexColumns extends TableCommonColumn {
 }
 
 /** Table Selection Columns Options */
-export interface ITableSelectionColumns<T = UnknownObject>
+export interface ITableSelectionColumns<T = StringObject>
   extends TableCommonColumn<T> {
   /** function that determines if a certain row can be selected */
   selectable?: (row: T, index: number) => unknown
@@ -110,7 +109,7 @@ export interface ITableSelectionColumns<T = UnknownObject>
 }
 
 /** Table Expose Methods */
-export interface ITableExpose<T = UnknownObject> {
+export interface ITableExpose<T = StringObject> {
   /** used in multiple selection Table, clear user selection */
   clearSelection: () => void
   /** used in multiple selection Table, toggle if a certain row is selected. With the second parameter, you can directly set if this row is selected */
