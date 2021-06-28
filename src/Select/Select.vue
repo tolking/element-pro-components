@@ -22,7 +22,6 @@
       </el-option-group>
       <el-option
         v-else
-        :key="item.value"
         :value="item.value"
         :label="item.label"
         :disabled="item.disabled"
