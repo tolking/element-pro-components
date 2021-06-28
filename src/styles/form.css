@@ -4,16 +4,8 @@
 @import 'element-plus/lib/theme-chalk/el-col.css';
 @import 'element-plus/lib/theme-chalk/el-row.css';
 
-.pro-form.el-form {
-  & .el-form-item {
-    display: flex;
-  }
-  &.el-form--label-top .el-form-item {
-    display: block;
-  }
-  &.el-form--inline .el-form-item {
-    display: inline-flex;
-  }
+.pro-form.el-form .el-form-item.is-guttered {
+  display: flex;
 }
 
 .pro-form-item .children-form {
