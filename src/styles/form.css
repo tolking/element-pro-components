@@ -1,10 +1,10 @@
 @import 'element-plus/lib/theme-chalk/el-form.css';
-/* @import 'element-plus/lib/theme-chalk/el-form-item.css'; */
+@import 'element-plus/lib/theme-chalk/el-form-item.css';
 @import 'element-plus/lib/theme-chalk/el-button.css';
 @import 'element-plus/lib/theme-chalk/el-col.css';
 @import 'element-plus/lib/theme-chalk/el-row.css';
 
-.pro-form.el-form .el-form-item {
+.pro-form.el-form .el-form-item.is-guttered {
   display: flex;
 }
 
