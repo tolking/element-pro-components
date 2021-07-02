@@ -19,6 +19,7 @@ import ProRadioButton from './RadioButton/index'
 import ProSelect from './Select/index'
 import ProTable from './Table/index'
 import ProTabs from './Tabs/index'
+import ProTreeSelect from './TreeSelect/index'
 
 const components: Record<string, IDefineComponent> = {
   ProAutocompleteTag,
@@ -36,6 +37,7 @@ const components: Record<string, IDefineComponent> = {
   ProSelect,
   ProTable,
   ProTabs,
+  ProTreeSelect,
 }
 
 const install = (app: App, options?: InstallOptions): void => {
@@ -63,6 +65,7 @@ export {
   ProSelect,
   ProTable,
   ProTabs,
+  ProTreeSelect,
   install,
 }
 

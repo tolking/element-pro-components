@@ -1,0 +1,13 @@
+@import 'element-plus/lib/theme-chalk/el-select.css';
+@import 'element-plus/lib/theme-chalk/el-option.css';
+@import 'element-plus/lib/theme-chalk/el-tree.css';
+
+.pro-tree-select-popper {
+  & .pro-tree-select-options {
+    padding: 0;
+    height: auto;
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
