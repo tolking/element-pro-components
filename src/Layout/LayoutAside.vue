@@ -37,16 +37,20 @@
   </aside>
 </template>
 
+<script lang="ts">
+export default { name: 'ProLayoutAside' }
+</script>
+
 <script setup name="ProLayoutAside" lang="ts">
-import { toRefs, defineEmit, defineProps, useContext, computed } from 'vue'
+import { toRefs, computed, useSlots } from 'vue'
 import { ElScrollbar } from 'element-plus'
 import { useAttrs, useScreenSize } from '../composables/index'
 import ProMenu from '../Menu/index'
 
 const props = defineProps<{ collapse: boolean }>()
 const { collapse } = toRefs(props)
-const emit = defineEmit(['toggle-collapse'])
-const { slots } = useContext()
+const emit = defineEmits(['toggle-collapse'])
+const slots = useSlots()
 const attrs = useAttrs()
 const size = useScreenSize()
 const menuCollapse = computed(() => {

@@ -16,7 +16,7 @@ ProForm.install = (app: App, options?: InstallOptions) => {
     app.config.globalProperties.$PROOPTIONS = _options
   }
 
-  app.component(ProForm.name || 'ProForm', ProForm)
+  app.component(ProForm.name, ProForm)
 }
 
 export default ProForm as IDefineComponent<IFormProps>

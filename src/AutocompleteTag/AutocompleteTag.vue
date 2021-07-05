@@ -24,8 +24,12 @@
   </div>
 </template>
 
-<script setup name="ProAutocompleteTag" lang="ts">
-import { toRefs, defineEmit, defineProps } from 'vue'
+<script lang="ts">
+export default { name: 'ProAutocompleteTag' }
+</script>
+
+<script setup lang="ts">
+import { toRefs } from 'vue'
 import { ElTag, ElAutocomplete } from 'element-plus'
 import { useInputTag, useFormSize, useAttrs } from '../composables/index'
 
@@ -38,7 +42,7 @@ const props = defineProps<{
   color?: string
   effect?: 'light' | 'dark' | 'plain'
 }>()
-const emit = defineEmit(['update:modelValue'])
+const emit = defineEmits(['update:modelValue'])
 const { type, hit, color, effect } = toRefs(props)
 const attrs = useAttrs()
 const size = useFormSize(props)

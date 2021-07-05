@@ -14,8 +14,12 @@
   </el-breadcrumb>
 </template>
 
-<script setup name="ProBreadcrumb" lang="ts">
-import { computed, defineProps } from 'vue'
+<script lang="ts">
+export default { name: 'ProBreadcrumb' }
+</script>
+
+<script setup lang="ts">
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'
 import { findRouterItemListByPath } from '../utils/index'

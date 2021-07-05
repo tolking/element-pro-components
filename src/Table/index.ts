@@ -16,7 +16,7 @@ ProTable.install = (app: App, options?: InstallOptions) => {
     app.config.globalProperties.$PROOPTIONS = _options
   }
 
-  app.component(ProTable.name || 'ProTable', ProTable)
+  app.component(ProTable.name, ProTable)
 }
 
 export default ProTable as IDefineComponent<ITableProps>

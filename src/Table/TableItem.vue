@@ -11,7 +11,7 @@
     </template>
     <template #default="scope">
       <template v-if="item.children && item.children.length">
-        <pro-table-item
+        <table-item
           v-for="(child, index) in item.children"
           :key="child.prop || index"
           :item="child"
@@ -38,7 +38,7 @@
               :name="slot.prop"
             />
           </template>
-        </pro-table-item>
+        </table-item>
       </template>
       <template v-else-if="item.slot">
         <slot
@@ -63,11 +63,14 @@
   </el-table-column>
 </template>
 
-<script setup name="ProTableItem" lang="ts">
-import { defineProps, inject, toRefs } from 'vue'
+<script lang="ts">
+export default { name: 'ProTableItem' }
+</script>
+
+<script setup lang="ts">
+import { inject, toRefs } from 'vue'
 import { ElTableColumn } from 'element-plus'
 import { useTableBind, useTableSlotList } from '../composables'
-import ProTableItem from './TableItem.vue'
 import ProTableComponent from './TableComponent'
 import type {
   TableColumn,

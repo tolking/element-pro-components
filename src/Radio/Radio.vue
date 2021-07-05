@@ -15,8 +15,11 @@
   </el-radio-group>
 </template>
 
-<script setup name="ProRadio" lang="ts">
-import { defineEmit, defineProps } from 'vue'
+<script lang="ts">
+export default { name: 'ProRadio' }
+</script>
+
+<script setup lang="ts">
 import { ElRadioGroup, ElRadio } from 'element-plus'
 import { useVModel, useSelectData } from '../composables/index'
 
@@ -30,7 +33,7 @@ const props = defineProps<{
     disabled?: string
   }
 }>()
-const emit = defineEmit(['update:modelValue'])
+const emit = defineEmits(['update:modelValue'])
 const modelValue = useVModel<string | number | boolean>(props)
 const data = useSelectData(props)
 </script>

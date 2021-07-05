@@ -2,6 +2,7 @@
   <el-table
     ref="table"
     v-bind="attrs"
+    :size="size"
     class="pro-table"
   >
     <el-table-column
@@ -49,7 +50,7 @@
         <slot
           v-bind="scope"
           :name="slot.prop"
-          :size="attrs.size"
+          :size="size"
         />
       </template>
     </pro-table-item>
@@ -65,7 +66,7 @@
       <template #default="scope">
         <slot
           v-bind="scope"
-          :size="attrs.size"
+          :size="size"
           name="menu"
         />
       </template>
@@ -85,8 +86,12 @@
   />
 </template>
 
-<script setup name="ProTable" lang="ts">
-import { defineProps, provide, toRefs, useContext, defineEmit } from 'vue'
+<script lang="ts">
+export default { name: 'ProTable' }
+</script>
+
+<script setup lang="ts">
+import { provide, toRefs, useAttrs } from 'vue'
 import { ElTable, ElTableColumn, ElPagination } from 'element-plus'
 import {
   useTableColumns,
@@ -118,8 +123,9 @@ const props = defineProps<{
   showOverflowTooltip?: boolean
   align?: 'left' | 'center' | 'right'
   headerAlign?: 'left' | 'center' | 'right'
+  size?: 'medium' | 'small' | 'mini'
 }>()
-const emit = defineEmit([
+const emit = defineEmits([
   'update:currentPage',
   'update:pageSize',
   'size-change',
@@ -127,10 +133,17 @@ const emit = defineEmit([
   'prev-click',
   'next-click',
 ])
-const { attrs, expose } = useContext()
-const { selection, expand, index, menu, total, pageSize, currentPage } = toRefs(
-  props
-)
+const attrs = useAttrs()
+const {
+  selection,
+  expand,
+  index,
+  menu,
+  total,
+  pageSize,
+  currentPage,
+  size,
+} = toRefs(props)
 const columns = useTableColumns(props)
 const slotList = useTableSlotList(columns)
 const defaultBind = useTableDefaultBind(props)
@@ -163,7 +176,7 @@ const {
 
 provide('defaultBind', defaultBind)
 
-expose({
+defineExpose({
   clearSelection,
   toggleRowSelection,
   toggleAllSelection,
