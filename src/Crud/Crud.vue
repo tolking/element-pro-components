@@ -5,7 +5,7 @@
       :model-value="search"
       :columns="searchColumns"
       :menu="searchMenu"
-      :size="attrs.size"
+      :size="size"
       :rules="searchRules"
       :inline="true"
       class="pro-crud-search"
@@ -56,19 +56,19 @@
     <div class="pro-crud-menu">
       <div class="pro-menu-item">
         <slot
-          :size="attrs.size"
+          :size="size"
           name="menu-left"
         />
         <el-button
           v-if="menuColumns && menuColumns.add"
           v-bind="menuColumns.addProps"
-          :size="attrs.size"
+          :size="size"
           @click="openForm('add')"
         >
           {{ menuColumns.addText }}
         </el-button>
         <slot
-          :size="attrs.size"
+          :size="size"
           name="menu-right"
         />
       </div>
@@ -203,8 +203,12 @@
   </section>
 </template>
 
-<script setup name="ProCrud" lang="ts">
-import { useContext, defineEmit, defineProps, toRefs } from 'vue'
+<script lang="ts">
+export default { name: 'ProCrud' }
+</script>
+
+<script setup lang="ts">
+import { toRefs } from 'vue'
 import { ElDialog, ElButton } from 'element-plus'
 import {
   useCrudColumns,
@@ -221,6 +225,7 @@ import ProTable from '../Table/index'
 import type {
   CrudColumn,
   FormColumn,
+  IComponentSize,
   TableColumn,
   UnknownObject,
 } from '../types/index'
@@ -236,13 +241,14 @@ const props = defineProps<{
   modelValue?: Record<string, unknown>
   search?: Record<string, unknown>
   searchRules?: Record<string, unknown>
+  size: IComponentSize
   beforeOpen?: (
     done: () => void,
     type: 'add' | 'edit',
     row?: UnknownObject
   ) => void
 }>()
-const emit = defineEmit([
+const emit = defineEmits([
   'update:modelValue',
   'update:search',
   'submit',
@@ -251,7 +257,6 @@ const emit = defineEmit([
   'search',
   'searchReset',
 ])
-const { expose } = useContext()
 const { searchRules } = toRefs(props)
 const { searchColumns, tableColumns, menuColumns } = useCrudColumns(props)
 const {
@@ -299,7 +304,7 @@ function delRow(row: UnknownObject) {
   emit('delete', row)
 }
 
-expose({
+defineExpose({
   clearSelection,
   toggleRowSelection,
   toggleAllSelection,

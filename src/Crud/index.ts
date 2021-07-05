@@ -16,7 +16,7 @@ ProCrud.install = (app: App, options?: InstallOptions) => {
     app.config.globalProperties.$PROOPTIONS = _options
   }
 
-  app.component(ProCrud.name || 'ProCrud', ProCrud)
+  app.component(ProCrud.name, ProCrud)
 }
 
 export default ProCrud as IDefineComponent<ICrudProps>

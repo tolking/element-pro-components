@@ -20,7 +20,7 @@ import ProSelect from './Select/index'
 import ProTable from './Table/index'
 import ProTabs from './Tabs/index'
 
-const components: Record<string, IDefineComponent> = {
+const components: IDefineComponent[] = [
   ProAutocompleteTag,
   ProBreadcrumb,
   ProCheckbox,
@@ -36,15 +36,14 @@ const components: Record<string, IDefineComponent> = {
   ProSelect,
   ProTable,
   ProTabs,
-}
+]
 
 const install = (app: App, options?: InstallOptions): void => {
   options && (app.config.globalProperties.$PROOPTIONS = options)
 
-  for (const key in components) {
-    const item = components[key]
-    app.component(item.name || key, item)
-  }
+  components.forEach((item) => {
+    app.component(item.name, item)
+  })
 }
 
 export {

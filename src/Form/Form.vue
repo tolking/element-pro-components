@@ -1,6 +1,5 @@
 <template>
   <el-form
-    v-bind="attrs"
     ref="form"
     :model="modelValue"
     :label-position="position"
@@ -73,8 +72,12 @@
   </el-form>
 </template>
 
-<script setup name="ProForm" lang="ts">
-import { defineProps, toRefs, useContext, defineEmit, computed } from 'vue'
+<script lang="ts">
+export default { name: 'ProForm' }
+</script>
+
+<script setup lang="ts">
+import { toRefs, computed } from 'vue'
 import { ElForm, ElFormItem, ElButton } from 'element-plus'
 import ProFormItem from './FormItem.vue'
 import {
@@ -97,8 +100,7 @@ const props = defineProps<{
   justify?: 'start' | 'end' | 'center' | 'space-around' | 'space-between'
   align?: 'top' | 'middle' | 'bottom'
 }>()
-const emit = defineEmit(['update:modelValue', 'submit', 'reset'])
-const { attrs, expose } = useContext()
+const emit = defineEmits(['update:modelValue', 'submit', 'reset'])
 const { columns, modelValue, labelPosition, inline } = toRefs(props)
 const slotList = useFormSlotList(columns)
 const {
@@ -119,7 +121,7 @@ const position = computed(() => {
   return size.value === 'xs' && !inline?.value ? 'top' : labelPosition?.value
 })
 
-expose({
+defineExpose({
   validate,
   resetFields,
   clearValidate,

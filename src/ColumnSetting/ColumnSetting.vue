@@ -42,8 +42,12 @@
   </el-dropdown>
 </template>
 
-<script setup name="ProColumnSetting" lang="ts">
-import { toRefs, defineEmit, defineProps, computed } from 'vue'
+<script lang="ts">
+export default { name: 'ProColumnSetting' }
+</script>
+
+<script setup lang="ts">
+import { toRefs, computed } from 'vue'
 import { ElDropdown, ElDropdownMenu, ElButton, ElTree } from 'element-plus'
 import { filterFlat } from '../utils/index'
 import type { TableColumn } from '../types/index'
@@ -74,7 +78,7 @@ const props = defineProps<{
   indent?: number
   iconClass?: string
 }>()
-const emit = defineEmit(['updata:modelValue'])
+const emit = defineEmits(['updata:modelValue'])
 const { modelValue, trigger, placement, size } = toRefs(props)
 const checkedKeys = computed(() => {
   return filterFlat<TableColumn[], string[]>(

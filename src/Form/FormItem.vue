@@ -36,7 +36,7 @@
             :class="!inline && 'el-row'"
             class="children-form-item"
           >
-            <pro-form-item
+            <form-item
               v-for="child in item.children"
               :key="`${prop}.${index}.${child.prop}`"
               :model-value="value"
@@ -74,7 +74,7 @@
                   :name="slot.prop"
                 />
               </template>
-            </pro-form-item>
+            </form-item>
           </div>
           <el-button
             icon="el-icon-minus"
@@ -119,8 +119,12 @@
   </el-form-item>
 </template>
 
-<script setup name="ProFormItem" lang="ts">
-import { defineProps, toRefs, defineEmit } from 'vue'
+<script lang="ts">
+export default { name: 'ProFormItem' }
+</script>
+
+<script setup lang="ts">
+import { toRefs } from 'vue'
 import { ElFormItem, ElButton } from 'element-plus'
 import {
   useFormSlotList,
@@ -128,7 +132,6 @@ import {
   useFormChild,
   useCol,
 } from '../composables/index'
-import ProFormItem from './FormItem.vue'
 import ProFormComponent from './FormComponent'
 import type { FormColumn, IFormColumns } from '../types/index'
 
@@ -138,7 +141,7 @@ const props = defineProps<{
   modelValue: Record<string, unknown>
   inline?: boolean
 }>()
-const emit = defineEmit(['update:modelValue'])
+const emit = defineEmits(['update:modelValue'])
 const { item, prop, modelValue, inline } = toRefs(props)
 const slotList = useFormSlotList(item.value.children as IFormColumns)
 const bindItem = useFormItemBind(item)

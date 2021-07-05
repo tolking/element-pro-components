@@ -15,15 +15,17 @@
   </el-tabs>
 </template>
 
-<script setup name="ProTabs" lang="ts">
-import { useContext } from 'vue'
+<script lang="ts">
+export default { name: 'ProTabs' }
+</script>
+
+<script setup lang="ts">
 import { ElTabs, ElTabPane } from 'element-plus'
 import { useTabs } from '../composables'
 
-const { expose } = useContext()
 const { active, list, to, close, closeOther } = useTabs()
 
-expose({
+defineExpose({
   list,
   close,
   closeOther,

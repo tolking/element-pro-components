@@ -26,10 +26,13 @@
   </el-submenu>
 </template>
 
-<script setup name="ProMenuItem" lang="ts">
-import { computed, defineProps } from 'vue'
+<script lang="ts">
+export default { name: 'ProMenuItem' }
+</script>
+
+<script setup lang="ts">
+import { computed } from 'vue'
 import { ElMenuItem, ElSubmenu } from 'element-plus'
-import MenuItem from './MenuItem.vue'
 import type { IRouteRecordRaw } from '../types/index'
 
 const props = defineProps<{ item: IRouteRecordRaw }>()

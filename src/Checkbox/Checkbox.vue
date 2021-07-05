@@ -15,8 +15,11 @@
   </el-checkbox-group>
 </template>
 
-<script setup name="ProCheckbox" lang="ts">
-import { defineEmit, defineProps } from 'vue'
+<script lang="ts">
+export default { name: 'ProCheckbox' }
+</script>
+
+<script setup lang="ts">
 import { ElCheckboxGroup, ElCheckbox } from 'element-plus'
 import { useVModel, useSelectData } from '../composables/index'
 
@@ -30,7 +33,7 @@ const props = defineProps<{
     disabled?: string
   }
 }>()
-const emit = defineEmit(['update:modelValue'])
+const emit = defineEmits(['update:modelValue'])
 const modelValue = useVModel<string[] | number[] | boolean[]>(
   props,
   'modelValue',

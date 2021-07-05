@@ -47,8 +47,12 @@
   </section>
 </template>
 
-<script setup name="ProLayout" lang="ts">
-import { defineProps, toRefs, useContext } from 'vue'
+<script lang="ts">
+export default { name: 'ProLayout' }
+</script>
+
+<script setup lang="ts">
+import { toRefs, useSlots } from 'vue'
 import ProLayoutAside from './LayoutAside.vue'
 import ProLayoutHeader from './LayoutHeader.vue'
 import ProLayoutMain from './LayoutMain.vue'
@@ -59,7 +63,7 @@ const props = defineProps<{
   transition?: string
 }>()
 const { collapse, transition } = toRefs(props)
-const { slots } = useContext()
+const slots = useSlots()
 const attrs = useAttrs()
 const { show, toggleShow } = useShow(collapse?.value)
 </script>
