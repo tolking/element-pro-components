@@ -24,7 +24,7 @@ const zhCN: IRouteRecordRaw[] = [
         meta: { title: '自定义主题' },
       },
       {
-        path: '/zh-CN/router/',
+        path: '/zh-CN/guide/router',
         component: () => import('../../docs/zh-CN/guide/router.md'),
         meta: { title: '路由和菜单' },
       },
@@ -97,7 +97,7 @@ const zhCN: IRouteRecordRaw[] = [
         meta: { title: 'Crud' },
       },
       {
-        path: '/zh-CN/components/ColumnSetting',
+        path: '/zh-CN/components/column-setting',
         component: () => import('../../docs/zh-CN/components/ColumnSetting.md'),
         meta: { title: 'ColumnSetting' },
       },

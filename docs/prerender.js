@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require('fs')
 const path = require('path')
+const fg = require('fast-glob')
 
 const toAbsolute = (p) => path.resolve(__dirname, p).replace(/\\/, '/')
 
@@ -13,35 +14,31 @@ const writeFileRecursive = function (path, buffer) {
 
   fs.mkdir(lastPath, { recursive: true }, () => {
     fs.writeFileSync(path, buffer)
+    console.log('pre-rendered:', path)
   })
 }
 
-const fileDisplay = (file) => {
-  fs.readdirSync(toAbsolute(file)).forEach(async (filename) => {
-    const filedir = path.join(file, filename).replace(/\\/, '/')
+const routesToPrerender = fg
+  .sync('docs/docs/zh-CN/**/!(ColumnSetting|Crud).md') // TODO:
+  .map((item) =>
+    item
+      .replace(/^docs\/docs/, '')
+      .replace(/\.(vue|md)$/, '')
+      .replace(/index$/, '')
+      .replace(/\/([^/]*)$/, (item) =>
+        item.replace(/\B([A-Z])/g, '-$1').toLowerCase()
+      )
+  )
 
-    if (fs.statSync(toAbsolute(filedir)).isDirectory()) {
-      fileDisplay(filedir)
-    } else {
-      const url = filedir
-        .replace(/^docs/, '')
-        .replace(/\.(vue|md)$/, '')
-        .replace(/index$/, '')
-        .replace(/\/([^/]*)$/, (item) =>
-          item.replace(/\B([A-Z])/g, '-$1').toLowerCase()
-        )
-      const [appHtml, preloadLinks] = await render(url, manifest)
-      const html = template
-        .replace('<!--preload-links-->', preloadLinks)
-        .replace('<!--app-html-->', appHtml)
+;(async () => {
+  for (const url of routesToPrerender) {
+    const filePath = `dist/static${url.replace(/\/$/, '/index')}.html`
+    const [appHtml, preloadLinks] = await render(url, manifest)
+    const html = template
+      .replace('<!--preload-links-->', preloadLinks)
+      .replace('<!--app-html-->', appHtml)
+    writeFileRecursive(toAbsolute(filePath), html)
+  }
 
-      const filePath = `dist/static${url.replace(/\/$/, '/index')}.html`
-      writeFileRecursive(toAbsolute(filePath), html)
-      console.log('pre-rendered:', filePath)
-    }
-  })
-}
-
-fileDisplay('docs')
-
-fs.unlinkSync(toAbsolute('dist/static/ssr-manifest.json'))
+  fs.unlinkSync(toAbsolute('dist/static/ssr-manifest.json'))
+})()
