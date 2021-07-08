@@ -81,6 +81,7 @@
       ref="table"
       :columns="tableColumns"
       :menu="menuColumns"
+      :size="size"
       class="pro-crud-table"
     >
       <template
@@ -154,6 +155,7 @@
         :model-value="modelValue"
         :columns="formColumns"
         :menu="menuColumns"
+        :size="size"
         class="pro-crud-form"
         @update:modelValue="upFormData"
         @submit="submitForm"
@@ -225,7 +227,6 @@ import ProTable from '../Table/index'
 import type {
   CrudColumn,
   FormColumn,
-  IComponentSize,
   TableColumn,
   UnknownObject,
 } from '../types/index'
@@ -241,7 +242,7 @@ const props = defineProps<{
   modelValue?: Record<string, unknown>
   search?: Record<string, unknown>
   searchRules?: Record<string, unknown>
-  size: IComponentSize
+  size?: 'medium' | 'small' | 'mini'
   beforeOpen?: (
     done: () => void,
     type: 'add' | 'edit',
