@@ -37,6 +37,7 @@ const components: IDefineComponent[] = [
   ProSelect,
   ProTable,
   ProTabs,
+  ProTreeSelect,
 ]
 
 const install = (app: App, options?: InstallOptions): void => {

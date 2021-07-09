@@ -3,8 +3,9 @@
   <pro-tree-select
     v-model="value"
     :data="data"
+    multiple
+    filterable
     clearable
-    show-checkbox
     placeholder="树形选择器"
   />
 </template>
@@ -13,7 +14,7 @@
 import { ref } from 'vue'
 
 const text = ref('Layout')
-const value = ref('')
+const value = ref([21, 211])
 const data = [
   {
     label: '1',
