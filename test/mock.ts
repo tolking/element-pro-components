@@ -113,3 +113,31 @@ export const routes: IRouteRecordRaw[] = [
     meta: { title: '404', hidden: true },
   },
 ]
+
+export interface TreeItem extends DicItem {
+  children?: TreeItem[]
+}
+
+export const treeList: TreeItem[] = [
+  {
+    label: '1',
+    value: '1',
+    disabled: true,
+    children: [{ value: '11', label: '1-1', disabled: true }],
+  },
+  {
+    value: '2',
+    label: '2',
+    children: [
+      {
+        value: '21',
+        label: '2-1',
+      },
+      {
+        value: '22',
+        label: '2-2',
+        children: [{ value: '221', label: '2-2-1' }],
+      },
+    ],
+  },
+]

@@ -47,7 +47,7 @@ describe('Select.vue', () => {
 
     await wrapper.find(selectItemClass + ':last-child').trigger('click')
     expect(wrapper.find('.el-input__inner').element.value).toBe('v')
-    // expect(vm.value).toBe('V')
+    expect(vm.value).toBe('V')
 
     // change model-value
     await (vm.value = 'Dart')
