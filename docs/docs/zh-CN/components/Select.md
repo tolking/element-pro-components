@@ -76,7 +76,7 @@ export default {
 
 ### 配置绑定数据键值
 
-::: demo 通过 config 配置数据键值。`value`- v-model 绑定的键值、`label`-显示键值、`disabled`-控制不可选的键值
+::: demo 通过 config 配置数据键值。`value`- v-model 绑定的键值、`label`-显示键值、`disabled`-控制不可选的键值、`children`-子分组的键值
 
 <template>
   <pro-select
@@ -150,7 +150,7 @@ export default {
 
 ### 分组
 
-::: demo 通过 `data` 中的 `children` 字段配置可以轻松生成分组展示
+::: demo 通过 `data` 中的 `children` 字段配置可以轻松生成分组展示 (如果有多层分组，推荐使用 `TreeSelect`)
 
 <template>
   <pro-select
@@ -215,8 +215,7 @@ export default {
 | collapse-tags         | 多选时是否将选中值按文字的形式展示                                 | boolean  | -                     | false                                                                          |
 | multiple-limit        | 多选时用户最多可以选择的项目数，为 0 则不限制                      | number   | -                     | 0                                                                              |
 | name                  | select input 的 name 属性                                          | string   | -                     | -                                                                              |
-| autocomplete          | select input 的 autocomplete 属性                                  | string   | -                     | off                                                                            |
-| auto-complete         | 下个主版本弃用                                                     | string   | -                     | off                                                                            |
+| autocomplete          | select input 的 autocomplete 属性                                  | string   | on / off              | off                                                                            |
 | placeholder           | 占位符                                                             | string   | -                     | 请选择                                                                         |
 | filterable            | 是否可搜索                                                         | boolean  | -                     | false                                                                          |
 | allow-create          | 是否允许用户创建新条目，需配合 filterable 使用                     | boolean  | -                     | false                                                                          |

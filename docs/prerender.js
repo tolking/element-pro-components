@@ -19,7 +19,7 @@ const writeFileRecursive = function (path, buffer) {
 }
 
 const routesToPrerender = fg
-  .sync('docs/docs/zh-CN/**/!(ColumnSetting|Crud).md') // TODO:
+  .sync('docs/docs/zh-CN/**/!(ColumnSetting|Crud|TreeSelect).md') // TODO:
   .map((item) =>
     item
       .replace(/^docs\/docs/, '')
