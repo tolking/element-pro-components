@@ -7,4 +7,5 @@ export interface ITreeSelectProps {
   clearable?: boolean
   multiple?: boolean
   checkStrictly?: boolean
+  filterable?: boolean
 }

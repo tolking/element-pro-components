@@ -3,10 +3,11 @@
     :model-value="modelValue"
     :clearable="clearable"
     :multiple="multiple"
+    :filterable="filterable"
     :filter-method="tree.filter"
     popper-class="pro-tree-select-popper"
     class="pro-tree-select"
-    @visible-change="tree.filter('')"
+    @visible-change="togglePopper"
     @remove-tag="remove"
     @clear="clear"
   >
@@ -21,15 +22,26 @@
         :data="data"
         :show-checkbox="multiple"
         :check-strictly="checkStrictly"
-        :default-checked-keys="multiple && modelValue"
-        :default-expanded-keys="multiple && modelValue"
+        :default-expanded-keys="multiple ? modelValue : [modelValue]"
         :filter-node-method="filter"
         node-key="value"
         highlight-current
         class="pro-tree-select-tree"
         @node-click="upData"
         @check-change="upData"
-      />
+      >
+        <template #default="{ node, data }">
+          <slot
+            v-bind="{ node, data }"
+            :multiple="multiple"
+            name="default"
+          >
+            <span :class="node.disabled && !multiple ? 'is-disabled' : ''">
+              {{ node.label }}
+            </span>
+          </slot>
+        </template>
+      </el-tree>
     </el-option>
     <el-option
       v-for="item in list"
@@ -47,8 +59,8 @@ export default { name: 'ProTreeSelect' }
 
 <script setup lang="ts">
 import { ElSelect, ElOption, ElTree } from 'element-plus'
-import { useAttrs, useSelectData, useTreeSelect } from '../composables'
-import type { UnknownObject } from '../types'
+import { useAttrs, useSelectData, useTreeSelect } from '../composables/index'
+import type { UnknownObject } from '../types/index'
 
 const props = defineProps<{
   modelValue?: string | number | Array<string | number>
@@ -62,8 +74,16 @@ const props = defineProps<{
   clearable?: boolean
   multiple?: boolean
   checkStrictly?: boolean
+  filterable?: boolean
 }>()
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits([
+  'update:modelValue',
+  'clear',
+  'remove-tag',
+  'visible-change',
+  'node-click',
+  'check-change',
+])
 const attrs = useAttrs()
 const data = useSelectData(props)
 const {
@@ -71,11 +91,13 @@ const {
   clearable,
   multiple,
   checkStrictly,
+  filterable,
   tree,
   value,
   label,
   list,
   filter,
+  togglePopper,
   remove,
   upData,
   clear,
