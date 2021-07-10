@@ -82,6 +82,11 @@ const zhCN: IRouteRecordRaw[] = [
         meta: { title: 'Select' },
       },
       {
+        path: '/zh-CN/components/tree-select',
+        component: () => import('../../docs/zh-CN/components/TreeSelect.md'),
+        meta: { title: 'TreeSelect' },
+      },
+      {
         path: '/zh-CN/components/input-tag',
         component: () => import('../../docs/zh-CN/components/InputTag.md'),
         meta: { title: 'InputTag' },
