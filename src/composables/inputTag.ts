@@ -1,10 +1,8 @@
 import { computed, Ref, ref } from 'vue'
+import type { IInputTagProps } from '../types/index'
 
 export function useInputTag(
-  props: Readonly<{
-    modelValue?: string[]
-    trigger?: 'space' | 'enter'
-  }>,
+  props: Readonly<IInputTagProps>,
   emit: (event: 'update:modelValue', ...args: unknown[]) => void
 ): {
   input: Ref<string>

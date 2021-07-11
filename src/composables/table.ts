@@ -15,6 +15,8 @@ import type {
   UnknownObject,
   StringObject,
   DeepKeyof,
+  MaybeRef,
+  MaybeArray,
 } from '../types/index'
 
 export function useTableColumns(
@@ -30,7 +32,7 @@ interface TableSlot extends TableColumn {
 }
 
 export function useTableSlotList(
-  columns: ITableColumns | Ref<ITableColumns>
+  columns: MaybeRef<ITableColumns>
 ): ComputedRef<TableSlot[]> {
   return computed(() => {
     const _columns = unref(columns)
@@ -63,8 +65,8 @@ interface ColumnsBind extends StringObject {
 }
 
 export function useTableBind<T extends ColumnsBind>(
-  currentBind?: boolean | T | Ref<boolean | undefined | T>,
-  defaultBind?: TableColumnsProps | Ref<TableColumnsProps>
+  currentBind?: MaybeRef<boolean | undefined | T>,
+  defaultBind?: MaybeRef<TableColumnsProps>
 ): ComputedRef<T> {
   return computed(() => {
     const _currentBind = unref(currentBind)
@@ -109,7 +111,7 @@ export function useTableMethods<T = UnknownObject>(): {
     table.value.clearSort()
   }
 
-  function clearFilter(columnKeys?: DeepKeyof<T> | Array<DeepKeyof<T>>) {
+  function clearFilter(columnKeys?: MaybeArray<DeepKeyof<T>>) {
     table.value.clearFilter(columnKeys)
   }
 

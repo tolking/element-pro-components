@@ -100,10 +100,12 @@ export function useTreeSelect(
   const tree = shallowRef<ITreeStore>({} as ITreeStore)
   const label = ref<MaybeArray<string | number>>('')
   const list = shallowRef<SelectDataItem[]>([])
-  const value = computed(() => (multiple?.value ? '' : modelValue?.value))
+  const value = computed(() => (multiple?.value ? '' : modelValue?.value || ''))
 
   onMounted(() => {
-    modelValue?.value && setDefaultValue()
+    (multiple?.value
+      ? (modelValue?.value as Array<string | number>)?.length
+      : modelValue?.value) && setDefaultValue()
   })
 
   watch(() => modelValue?.value, setDefaultValue)

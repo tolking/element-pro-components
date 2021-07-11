@@ -1,6 +1,6 @@
 {
   "name": "element-pro-components",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "a component library for Vue 3 base on element-plus",
   "main": "lib/element-pro-components.umd.js",
   "module": "lib/element-pro-components.es.js",
@@ -54,10 +54,10 @@
     "vue-router": "^4.0.10"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.0",
-    "@babel/preset-env": "^7.14.0",
-    "@babel/preset-typescript": "^7.13.0",
-    "@types/jest": "^26.0.23",
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.6",
+    "@babel/preset-typescript": "^7.14.5",
+    "@types/jest": "^26.0.24",
     "@types/markdown-it": "^12.0.1",
     "@types/markdown-it-container": "^2.0.3",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
@@ -65,7 +65,7 @@
     "@vitejs/plugin-vue": "^1.2.4",
     "@vue/compiler-sfc": "^3.1.4",
     "@vue/server-renderer": "^3.1.4",
-    "@vue/test-utils": "^2.0.0-rc.6",
+    "@vue/test-utils": "^2.0.0-rc.10",
     "babel-jest": "^26.6.3",
     "components-helper": "^1.0.3",
     "escape-html": "^1.0.3",
