@@ -26,7 +26,7 @@ export interface ICrudProps<T = StringObject>
   formColumns?: IFormColumns<T>
   searchColumns?: IFormColumns<T>
   tableColumns?: ITableColumns<T>
-  menu: boolean | ICrudMenuColumns<T>
+  menu?: boolean | ICrudMenuColumns<T>
   search?: T
   searchRules?: StringObject
   beforeOpen?: ICrudBeforeOpen<T>

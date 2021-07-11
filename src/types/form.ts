@@ -1,4 +1,5 @@
 import type { Component } from 'vue'
+import type { RuleItem } from 'async-validator'
 import type {
   UnknownObject,
   IComponentSize,
@@ -7,14 +8,23 @@ import type {
   DeepKeyof,
   IRowProps,
   IColProps,
+  MaybeArray,
 } from './index'
+
+interface IRuleItem extends RuleItem {
+  trigger: MaybeArray<'blur' | 'change'>
+}
+
+interface InvalidFields {
+  [prop: string]: { message: string; field: string }[]
+}
 
 /** Form Props */
 export interface IFormProps<T = StringObject> extends IRowProps {
   modelValue: T
   columns: IFormColumns<T>
   menu?: IFormMenuColumns
-  rules?: StringObject
+  rules?: MaybeArray<IRuleItem>
   inline?: boolean
   labelPosition?: 'right' | 'left' | 'top'
   labelWidth?: string
@@ -48,7 +58,7 @@ export interface FormColumn<T = StringObject> extends IColProps, StringObject {
   /** whether the field is required or not, will be determined by validation rules if omitted */
   required?: boolean
   /** validation rules of form */
-  rules?: StringObject | StringObject[]
+  rules?: MaybeArray<IRuleItem>
   /** field error message, set its value and the field will validate error and show this message immediately */
   error?: string
   /** whether to show the error message */
@@ -84,28 +94,28 @@ export type IFormMenuColumns = StringObject & FormMenu
 export type IFormSubmit = (
   done: () => void,
   isValid: boolean,
-  invalidFields?: StringObject
+  invalidFields?: InvalidFields
 ) => void
 
-export interface IFormValidateCallback<T = StringObject> {
-  (isValid: boolean, invalidFields?: StringObject): void
+export interface IFormValidateCallback {
+  (isValid: boolean, invalidFields?: InvalidFields): void
 }
 
-export interface IFormValidateFieldCallback<T = StringObject> {
-  (message?: string, invalidFields?: StringObject): void
+export interface IFormValidateFieldCallback {
+  (message?: string, invalidFields?: InvalidFields): void
 }
 
 /** Form Expose Methods */
 export interface IFormExpose<T = StringObject> {
   /** validate the whole form. Takes a callback as a param. After validation, the callback will be executed with two params: a boolean indicating if the validation has passed, and an object containing all fields that fail the validation. Returns a promise if callback is omitted */
-  validate: (callback?: IFormValidateCallback<T>) => Promise<boolean>
+  validate: (callback?: IFormValidateCallback) => Promise<boolean>
   /** reset all the fields and remove validation result */
   resetFields: () => void
   /** clear validation message for certain fields. The parameter is prop name or an array of prop names of the form items whose validation messages will be removed. When omitted, all fields' validation messages will be cleared */
-  clearValidate: (props?: DeepKeyof<T> | Array<DeepKeyof<T>>) => void
+  clearValidate: (props?: MaybeArray<DeepKeyof<T>>) => void
   /** validate one or several form items */
   validateField: (
-    props: DeepKeyof<T> | Array<DeepKeyof<T>>,
-    cb: IFormValidateFieldCallback<T>
+    props: MaybeArray<DeepKeyof<T>>,
+    cb: IFormValidateFieldCallback
   ) => void
 }

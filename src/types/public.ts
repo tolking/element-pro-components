@@ -1,4 +1,4 @@
-import type { App, DefineComponent } from 'vue'
+import type { App, ComputedRef, DefineComponent, Ref } from 'vue'
 import type { CrudMenu, FormMenu, IPagination } from './index'
 
 export type StringObject = Record<string, unknown>
@@ -16,6 +16,10 @@ export type DeepKeyof<T> = {
 }[keyof T]
 
 export type MaybeArray<T> = T | Array<T>
+
+export type MaybeRef<T> = T | Ref<T>
+
+export type MaybeComputedRef<T> = T | ComputedRef<T>
 
 export type IDefineComponent<Props = UnknownObject> = DefineComponent<Props> & {
   install: (app: App, options?: InstallOptions) => void
@@ -77,20 +81,20 @@ export interface IButtonProps {
 export interface IDialogProps {
   title?: string
   width?: string | number
-  fullscreen: boolean
+  fullscreen?: boolean
   top?: string
-  modal: boolean
-  appendToBody: boolean
-  lockScroll: boolean
+  modal?: boolean
+  appendToBody?: boolean
+  lockScroll?: boolean
   customClass?: string
   openDelay?: number
   closeDelay?: number
-  closeOnClickModal: boolean
-  closeOnPressEscape: boolean
-  showClose: boolean
+  closeOnClickModal?: boolean
+  closeOnPressEscape?: boolean
+  showClose?: boolean
   beforeClose?: (done: () => void) => void
-  center: boolean
-  destroyOnClose: boolean
+  center?: boolean
+  destroyOnClose?: boolean
 }
 
 export interface IRowProps {

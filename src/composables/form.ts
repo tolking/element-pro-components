@@ -29,6 +29,7 @@ import type {
   MenuOptions,
   DeepKeyof,
   MaybeArray,
+  MaybeRef,
 } from '../types/index'
 
 interface FormSlot extends FormColumn {
@@ -37,7 +38,7 @@ interface FormSlot extends FormColumn {
 }
 
 export function useFormSlotList(
-  columns: IFormColumns | Ref<IFormColumns>
+  columns: MaybeRef<IFormColumns>
 ): ComputedRef<FormSlot[]> {
   return computed(() => {
     const _columns = unref(columns)
@@ -75,7 +76,7 @@ type FormItemBind = Omit<
 >
 
 export function useFormItemBind(
-  currentBind: FormColumn | Ref<FormColumn>
+  currentBind: MaybeRef<FormColumn>
 ): ComputedRef<FormItemBind> {
   return computed(() => {
     const omitKeys: Array<keyof FormColumn> = [
@@ -143,7 +144,7 @@ export function useFormMethods<T = UnknownObject>(
   const form = ref<IFormExpose<T>>({} as IFormExpose<T>)
   const { show, toggleShow } = useShow()
 
-  function validate(callback?: IFormValidateCallback<T>) {
+  function validate(callback?: IFormValidateCallback) {
     return form.value.validate(callback)
   }
 
@@ -157,7 +158,7 @@ export function useFormMethods<T = UnknownObject>(
 
   function validateField(
     props: MaybeArray<DeepKeyof<T>>,
-    cb: IFormValidateFieldCallback<T>
+    cb: IFormValidateFieldCallback
   ) {
     form.value.validateField(props, cb)
   }

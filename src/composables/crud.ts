@@ -8,6 +8,7 @@ import {
   objectPick,
 } from '../utils/index'
 import type {
+  ICrudProps,
   ICrudBeforeOpen,
   ICrudColumns,
   ICrudFormType,
@@ -17,15 +18,11 @@ import type {
   IFormSubmit,
   ITableColumns,
   UnknownObject,
+  MaybeComputedRef,
 } from '../types/index'
 
 export function useCrudColumns(
-  props: Readonly<{
-    columns?: ICrudColumns
-    searchColumns?: IFormColumns
-    tableColumns?: ITableColumns
-    menu?: boolean | ICrudMenuColumns
-  }>
+  props: Readonly<ICrudProps>
 ): {
   searchColumns: ComputedRef<IFormColumns | undefined>
   tableColumns: ComputedRef<ITableColumns | undefined>
@@ -44,17 +41,9 @@ export function useCrudColumns(
   const menuColumns = computed(() => {
     if (!props.menu) return undefined
     const options = useProOptions()
-    const menu = isObject(props.menu)
+    return isObject(props.menu)
       ? objectDeepMerge<ICrudMenuColumns>(options.menu, props.menu)
       : options.menu
-
-    menu.showEdit = isFunction(menu.edit)
-      ? menu.edit
-      : (row: UnknownObject) => !!menu.edit
-    menu.showDel = isFunction(menu.del)
-      ? menu.del
-      : (row: UnknownObject) => !!menu.del
-    return menu
   })
 
   return {
@@ -65,13 +54,7 @@ export function useCrudColumns(
 }
 
 export function useCrudForm(
-  props: Readonly<{
-    columns?: ICrudColumns
-    addColumns?: IFormColumns
-    editColumns?: IFormColumns
-    formColumns?: IFormColumns
-    beforeOpen?: ICrudBeforeOpen
-  }>,
+  props: Readonly<ICrudProps>,
   emit: (event: 'submit', ...args: unknown[]) => void,
   resetForm: (reset?: boolean) => void
 ): {
@@ -148,7 +131,7 @@ export function useCrudSearchForm(
     event: 'update:search' | 'search' | 'searchReset',
     ...args: unknown[]
   ) => void,
-  menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | undefined>
+  menuColumns?: MaybeComputedRef<ICrudMenuColumns | undefined>
 ): {
   searchMenu: ComputedRef<IFormMenuColumns>
   searchForm: IFormSubmit
@@ -193,7 +176,7 @@ export function useCrudSearchForm(
 export function useCrudAttrs(
   formType: ICrudFormType | Ref<ICrudFormType>,
   resetForm: (reset?: boolean) => void,
-  menuColumns?: ICrudMenuColumns | ComputedRef<ICrudMenuColumns | undefined>
+  menuColumns?: MaybeComputedRef<ICrudMenuColumns | undefined>
 ): {
   attrs: Ref<UnknownObject>
   bindDialog: ComputedRef<UnknownObject>

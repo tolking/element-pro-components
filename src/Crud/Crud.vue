@@ -122,7 +122,7 @@
       </template>
       <template #menu="scope">
         <el-button
-          v-if="menuColumns && menuColumns.showEdit(scope.row)"
+          v-if="menuColumns && checkEdit(scope.row)"
           v-bind="menuColumns.editProps"
           :size="scope.size"
           @click="openForm('edit', scope.row)"
@@ -130,7 +130,7 @@
           {{ menuColumns.editText }}
         </el-button>
         <el-button
-          v-if="menuColumns && menuColumns.showDel(scope.row)"
+          v-if="menuColumns && checkDel(scope.row)"
           v-bind="menuColumns.delProps"
           :size="scope.size"
           @click="delRow(scope.row)"
@@ -222,11 +222,13 @@ import {
   useFormMethods,
   useFormSlotList,
 } from '../composables/index'
+import { isFunction } from '../utils/index'
 import ProForm from '../Form/index'
 import ProTable from '../Table/index'
 import type {
   CrudColumn,
   FormColumn,
+  StringObject,
   TableColumn,
   UnknownObject,
 } from '../types/index'
@@ -300,6 +302,18 @@ const searchSlotList = searchColumns.value
   ? useFormSlotList(searchColumns.value)
   : []
 const formSlotList = formColumns.value ? useFormSlotList(formColumns.value) : []
+
+function checkEdit(row: StringObject) {
+  return isFunction(menuColumns.value?.edit)
+    ? menuColumns.value?.edit(row)
+    : menuColumns.value?.edit
+}
+
+function checkDel(row: StringObject) {
+  return isFunction(menuColumns.value?.del)
+    ? menuColumns.value?.del(row)
+    : menuColumns.value?.del
+}
 
 function delRow(row: UnknownObject) {
   emit('delete', row)

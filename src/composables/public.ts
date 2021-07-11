@@ -25,6 +25,7 @@ import type {
   IScreenSize,
   UnknownObject,
   InstallOptions,
+  MaybeRef,
 } from '../types/index'
 
 /** get the global config */
@@ -42,7 +43,7 @@ export function useProOptions(): Required<InstallOptions> {
  * @param state init value (default `false`)
  */
 export function useShow(
-  state: boolean | Ref<boolean> = false
+  state: MaybeRef<boolean> = false
 ): {
   show: Ref<boolean>
   toggleShow: () => void
