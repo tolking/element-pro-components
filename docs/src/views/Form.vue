@@ -73,6 +73,53 @@ const list = [
   { value: 'JavaScript', tag: 'javascript' },
   { value: 'Python', tag: 'python' },
 ]
+const treeList = [
+  {
+    label: '1',
+    value: 1,
+    disabled: true,
+    children: [
+      {
+        value: 11,
+        label: '1-1',
+        children: [{ value: '111', label: '1-1-1' }],
+      },
+    ],
+  },
+  {
+    value: 2,
+    label: '2',
+    children: [
+      {
+        value: 21,
+        label: '2-1',
+        disabled: true,
+        children: [{ value: 211, label: '2-1-1' }],
+      },
+      {
+        value: 22,
+        label: '2-2',
+        children: [{ value: 221, label: '2-2-1', disabled: true }],
+      },
+    ],
+  },
+  {
+    value: 3,
+    label: '3',
+    children: [
+      {
+        value: 31,
+        label: '3-1',
+        children: [{ value: 311, label: '3-1-1' }],
+      },
+      {
+        value: 32,
+        label: '3-2',
+        children: [{ value: 321, label: '3-2-1', disabled: true }],
+      },
+    ],
+  },
+]
 const columns = shallowRef<IFormColumns>([
   {
     // label: 'Slot',
@@ -208,6 +255,16 @@ const columns = shallowRef<IFormColumns>([
     props: {
       data: list,
       config: { label: 'tag' },
+    },
+  },
+  {
+    label: 'pro-tree-select',
+    prop: 'treeSelect',
+    component: 'pro-tree-select',
+    span: 12,
+    props: {
+      data: treeList,
+      clearable: true,
     },
   },
   {

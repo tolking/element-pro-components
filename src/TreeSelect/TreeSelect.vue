@@ -22,7 +22,9 @@
         :data="data"
         :show-checkbox="multiple"
         :check-strictly="checkStrictly"
-        :default-expanded-keys="multiple ? modelValue : [modelValue]"
+        :default-expanded-keys="
+          multiple ? modelValue || [] : [modelValue || '']
+        "
         :filter-node-method="filter"
         node-key="value"
         highlight-current
