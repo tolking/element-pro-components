@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.11.0
+
+feat
+
+- TreeSelect: add ProTreeSelect
+
+fix
+
+- styles: missing css style
+- Form: styles error
+
 ## 0.10.1
 
 feat
