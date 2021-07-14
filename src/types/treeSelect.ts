@@ -8,4 +8,5 @@ export interface ITreeSelectProps {
   multiple?: boolean
   checkStrictly?: boolean
   filterable?: boolean
+  onlySelectLeaf?: boolean
 }

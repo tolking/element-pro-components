@@ -94,9 +94,14 @@ export function useTreeSelect(
   upData: (e: SelectDataItem, node: unknown, self: unknown) => void
   clear: () => void
 } {
-  const { modelValue, clearable, multiple, checkStrictly, filterable } = toRefs(
-    props
-  )
+  const {
+    modelValue,
+    clearable,
+    multiple,
+    checkStrictly,
+    filterable,
+    onlySelectLeaf,
+  } = toRefs(props)
   const tree = shallowRef<ITreeStore>({} as ITreeStore)
   const label = ref<MaybeArray<string | number>>('')
   const list = shallowRef<SelectDataItem[]>([])
@@ -133,17 +138,21 @@ export function useTreeSelect(
 
   function remove(value: string) {
     tree.value.setChecked(value, false, !checkStrictly?.value)
-    list.value = tree.value.getCheckedNodes() as SelectDataItem[]
-    emit('update:modelValue', tree.value.getCheckedKeys())
     emit('remove-tag', value)
+    upData()
   }
 
-  function upData(item: SelectDataItem, node: unknown, self: unknown) {
+  function upData(item?: SelectDataItem, node?: unknown, self?: unknown) {
     if (multiple?.value) {
-      list.value = tree.value.getCheckedNodes() as SelectDataItem[]
-      emit('update:modelValue', tree.value.getCheckedKeys())
+      const nodes = tree.value.getCheckedNodes() as SelectDataItem[]
+      list.value = onlySelectLeaf?.value
+        ? nodes.filter((item) => !item.children?.length)
+        : nodes
+      const keys = list.value.map((item) => item.value)
+      emit('update:modelValue', keys)
       emit('check-change', item, node, self)
-    } else if (!item.disabled) {
+    } else if (item && !item.disabled) {
+      if (onlySelectLeaf?.value && item.children?.length) return
       label.value = item.label
       emit('update:modelValue', item.value)
       emit('node-click', item, node, self)
