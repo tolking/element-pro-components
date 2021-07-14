@@ -370,7 +370,7 @@ export default {
 
 :::
 
-### 多选时父子节点互不关联
+### 多选父子节点互不关联
 
 ::: demo 当 `check-strictly` 为 `true` 时，父子节点互不关联
 
@@ -443,13 +443,86 @@ export default {
 
 :::
 
+### 只选取子节点
+
+::: demo 当 `only-select-leaf` 为 `true` 时，只会选取子节点的数据
+
+<template>
+  <pro-tree-select
+    v-model="select6"
+    :data="data"
+    multiple
+    only-select-leaf
+  />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const select6 = ref([])
+    const data = ref([{
+      label: '1',
+      value: 1,
+      children: [{
+        value: 11,
+        label: '1-1',
+        children: [
+          { value: 111, label: '1-1-1' },
+        ],
+      }],
+    }, {
+      value: 2,
+      label: '2',
+      children: [{
+        value: 21,
+        label: '2-1',
+        children: [
+          { value: 211, label: '2-1-1' },
+        ],
+      }, {
+        value: 22,
+        label: '2-2',
+        children: [
+          { value: 221, label: '2-2-1' },
+        ],
+      }],
+    }, {
+      value: 3,
+      label: '3',
+      children: [{
+        value: 31,
+        label: '3-1',
+        children: [
+          { value: 311, label: '3-1-1' },
+        ],
+      }, {
+        value: 32,
+        label: '3-2',
+        children: [
+          { value: 321, label: '3-2-1' },
+        ],
+      }],
+    }])
+
+    return {
+      select6,
+      data,
+    }
+  }
+}
+</script>
+
+:::
+
 ### 自定义节点显示
 
 ::: demo 通过 `default` 插槽可以定义内容。**注意：在单选模式下需要参考下面内容自定义 class 实现控制不可选项目样式**
 
 <template>
   <pro-tree-select
-    v-model="select6"
+    v-model="select7"
     :data="data1"
   >
     <template #default="{ node, data, multiple }">
@@ -469,7 +542,7 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const select6 = ref('')
+    const select7 = ref('')
     const data1 = ref([{
       label: '1',
       value: 1,
@@ -517,7 +590,7 @@ export default {
     }])
 
     return {
-      select6,
+      select7,
       data1,
     }
   }
@@ -543,7 +616,7 @@ export default {
 
 <template>
   <pro-tree-select
-    v-model="select7"
+    v-model="select8"
     :data="data"
     multiple
     filterable
@@ -555,7 +628,7 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const select7 = ref([])
+    const select8 = ref([])
     const data = ref([{
       label: '1',
       value: 1,
@@ -601,8 +674,65 @@ export default {
     }])
 
     return {
-      select7,
+      select8,
       data,
+    }
+  }
+}
+</script>
+
+:::
+
+### 懒加载
+
+::: demo 与 `ElTree` 一样，配置 `lazy` `load` 即可使用懒加载数据
+
+<template>
+  <pro-tree-select
+    v-model="select9"
+    :data="data2"
+    :load="loadNode"
+    lazy
+    multiple
+    filterable
+  />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const select9 = ref([])
+    const data2 = []
+
+    function loadNode(node, resolve) {
+      if (node.level === 0) {
+        return resolve([{
+          label: 'region',
+          value: 'region',
+          isLeaf: true,
+        }])
+      }
+      if (node.level > 2) return resolve([])
+
+      setTimeout(() => {
+        const data = [{
+          label: 'leaf-' + node.level,
+          value: 'leaf-' + node.level,
+          isLeaf: node.level <= 2,
+        }, {
+          label: 'zone-' + node.level,
+          value: 'zone-' + node.level,
+        }]
+        resolve(data)
+      }, 500)
+    }
+
+    return {
+      select9,
+      data2,
+      loadNode,
     }
   }
 }
@@ -625,6 +755,7 @@ export default {
 | name                  | select input 的 name 属性                                                                                                                  | string                                 | -                     | -                                                                              |
 | autocomplete          | select input 的 autocomplete 属性                                                                                                          | string                                 | on / off              | off                                                                            |
 | placeholder           | 占位符                                                                                                                                     | string                                 | -                     | 请选择                                                                         |
+| only-select-leaf      | 是否只选取子节点                                                                                                                           | boolean                                | -                     | false                                                                          |
 | filterable            | 是否可过滤树形                                                                                                                             | boolean                                | -                     | false                                                                          |
 | reserve-keyword       | 多选且可过滤时，是否在选中一个选项后保留当前的搜索关键词                                                                                   | boolean                                | -                     | false                                                                          |
 | popper-append-to-body | 是否将弹出框插入至 body 元素。在弹出框的定位出现问题时，可将该属性设置为 false                                                             | boolean                                | -                     | false                                                                          |

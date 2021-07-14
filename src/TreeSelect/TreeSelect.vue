@@ -77,6 +77,7 @@ const props = defineProps<{
   multiple?: boolean
   checkStrictly?: boolean
   filterable?: boolean
+  onlySelectLeaf?: boolean
 }>()
 const emit = defineEmits([
   'update:modelValue',
