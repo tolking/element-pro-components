@@ -1,4 +1,4 @@
-import { ComputedRef, computed, Ref, unref, ref } from 'vue'
+import { ComputedRef, computed, Ref, unref, shallowRef } from 'vue'
 import { useProOptions } from './index'
 import {
   filterFlat,
@@ -85,7 +85,7 @@ export function useTableBind<T extends ColumnsBind>(
 export function useTableMethods<T = UnknownObject>(): {
   table: Ref<ITableExpose<T>>
 } & ITableExpose<T> {
-  const table = ref<ITableExpose<T>>({} as ITableExpose<T>)
+  const table = shallowRef<ITableExpose<T>>({} as ITableExpose<T>)
 
   function clearSelection() {
     table.value.clearSelection()

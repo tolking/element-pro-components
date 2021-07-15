@@ -9,8 +9,6 @@ import {
 } from '../utils/index'
 import type {
   ICrudProps,
-  ICrudBeforeOpen,
-  ICrudColumns,
   ICrudFormType,
   ICrudMenuColumns,
   IFormColumns,

@@ -16,14 +16,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, provide } from 'vue'
+import { computed, onMounted, provide, shallowRef } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 // import { isString } from '@vue/shared'
 import NavHeader from '../components/NavHeader.vue'
 
 const route = useRoute()
 // const router = useRouter()
-const tabs = ref({})
+const tabs = shallowRef({})
 const title = computed(() => {
   return (route.meta.title || '') + ' | element-pro-components'
 })
