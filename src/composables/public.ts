@@ -10,6 +10,7 @@ import {
   shallowRef,
   computed,
   WritableComputedRef,
+  ComputedRef,
 } from 'vue'
 import { useRouter, RouteRecordRaw } from 'vue-router'
 import { config } from '../utils/config'
@@ -94,9 +95,9 @@ export function useCurrentRoutes(
   props: Readonly<{
     routes?: IRouteRecordRaw[]
   }>
-): Ref<IRouteRecordRaw[]> {
+): Ref<IRouteRecordRaw[]> | ComputedRef<IRouteRecordRaw[]> {
   if (props.routes && props.routes.length) {
-    return ref<IRouteRecordRaw[]>(props.routes) as Ref<IRouteRecordRaw[]>
+    return computed(() => props.routes as IRouteRecordRaw[])
   } else {
     const router = useRouter()
     router.options.routes = reactive<RouteRecordRaw[]>(
