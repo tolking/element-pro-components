@@ -44,6 +44,9 @@
     }
     &.aside-collapse .pro-aside-wrapper {
       width: var(--aside-collapse-width);
+      & .pro-aside-logo {
+        padding-left: 0;
+      }
     }
     @media (--xs-medium) {
       position: absolute;
@@ -76,6 +79,9 @@
       &.aside-collapse .pro-aside-wrapper {
         width: var(--aside-width);
         transform: translateX(0);
+        & .pro-aside-logo {
+          padding-left: 20px;
+        }
       }
     }
   }
@@ -94,9 +100,23 @@
       & .header-fold-btn {
         display: inline-block;
         margin-right: 20px;
-        width: 22px;
-        height: 22px;
+        width: 24px;
+        height: 29px;
         cursor: pointer;
+        & .line {
+          display: block;
+          margin: 5px auto;
+          width: 24px;
+          height: 3px;
+          background-color: var(--c-text);
+          transition: transform var(--t-duration) var(--t-timing-function);
+        }
+        &.is-active .line:first-child {
+          transform: rotateZ(45deg) scaleX(0.8) translate(8px, -3px);
+        }
+        &.is-active .line:last-child {
+          transform: rotateZ(-45deg) scaleX(0.8) translate(8px, 3px);
+        }
       }
     }
   }

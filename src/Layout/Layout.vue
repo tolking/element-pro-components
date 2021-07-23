@@ -25,7 +25,10 @@
       </template>
     </pro-layout-aside>
     <section class="pro-container">
-      <pro-layout-header @toggle-collapse="toggleShow">
+      <pro-layout-header
+        :collapse="show"
+        @toggle-collapse="toggleShow"
+      >
         <template #left>
           <slot name="header-left" />
         </template>
