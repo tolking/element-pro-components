@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.11.1
+
+feat
+
+- TreeSelect: add prop only-select-leaf
+- Layout: change the button of menu
+
+fix
+
+- Menu: routes lose reactive
+
+other
+
+- perf: use shallowRef replace ref
+
 ## 0.11.0
 
 feat

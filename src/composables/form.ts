@@ -4,8 +4,8 @@ import {
   Ref,
   unref,
   inject,
-  ref,
   getCurrentInstance,
+  shallowRef,
 } from 'vue'
 import { useProOptions, useShow } from './index'
 import {
@@ -141,7 +141,7 @@ export function useFormMethods<T = UnknownObject>(
   submitForm: () => void
   resetForm: (reset?: boolean) => void
 } & IFormExpose<T> {
-  const form = ref<IFormExpose<T>>({} as IFormExpose<T>)
+  const form = shallowRef<IFormExpose<T>>({} as IFormExpose<T>)
   const { show, toggleShow } = useShow()
 
   function validate(callback?: IFormValidateCallback) {
