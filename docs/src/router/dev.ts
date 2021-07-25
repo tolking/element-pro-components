@@ -3,7 +3,7 @@ import type { IRouteRecordRaw } from '/@src/index'
 
 const routes: IRouteRecordRaw[] = [
   {
-    path: '/dev',
+    path: '/dev/',
     redirect: '/dev/Layout',
     component: BaseLayout,
     meta: { title: 'Development', icon: 'el-icon-edit' },
