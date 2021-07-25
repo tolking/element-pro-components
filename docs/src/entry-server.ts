@@ -1,5 +1,6 @@
 import { createApp } from './main'
 import { renderToString } from '@vue/server-renderer'
+import { getTitle } from './utils/index'
 
 export async function render(
   url: string,
@@ -22,7 +23,11 @@ export async function render(
   // which we can then use to determine what files need to be preloaded for this
   // request.
   const preloadLinks = renderPreloadLinks(ctx.modules, manifest)
-  return [html, preloadLinks]
+
+  // get the page title of SSG
+  const routeTitle = app?.config?.globalProperties?.$route?.meta?.title
+  const title = getTitle(routeTitle)
+  return [html, preloadLinks, title]
 }
 
 function renderPreloadLinks(

@@ -19,7 +19,7 @@ const writeFileRecursive = function (path, buffer) {
 }
 
 const routesToPrerender = fg
-  .sync('docs/docs/zh-CN/**/!(ColumnSetting|Crud|TreeSelect).md') // TODO:
+  .sync('docs/docs/**/!(ColumnSetting|Crud|TreeSelect).md') // TODO: error when used ElTree
   .map((item) =>
     item
       .replace(/^docs\/docs/, '')
@@ -33,10 +33,11 @@ const routesToPrerender = fg
 ;(async () => {
   for (const url of routesToPrerender) {
     const filePath = `dist/static${url.replace(/\/$/, '/index')}.html`
-    const [appHtml, preloadLinks] = await render(url, manifest)
+    const [appHtml, preloadLinks, title] = await render(url, manifest)
     const html = template
       .replace('<!--preload-links-->', preloadLinks)
       .replace('<!--app-html-->', appHtml)
+      .replace('<!--title-->', title)
     writeFileRecursive(toAbsolute(filePath), html)
   }
 
