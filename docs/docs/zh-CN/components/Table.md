@@ -6,7 +6,7 @@
 
 ### 基础用法
 
-::: demo 传入 columns 数据，自动生成表格
+::: demo 传入 `columns` 数据，自动生成表格
 
 <template>
   <pro-table
@@ -69,7 +69,7 @@ export default {
 
 ### 索引表格
 
-::: demo 通过配置 index 显示索引列，支持 columns 的参数
+::: demo 通过配置 `index` 显示索引列，支持 columns 的参数
 
 <template>
   <pro-table
@@ -133,7 +133,7 @@ export default {
 
 ### 多选表格
 
-::: demo 通过配置 selection 显示多选框，支持 columns 的参数
+::: demo 通过配置 `selection` 显示多选框，支持 columns 的参数
 
 <template>
   <pro-table
@@ -197,7 +197,7 @@ export default {
 
 ### 可展开表格
 
-::: demo 通过配置 expand 开启展开插槽，通过 #expand 插槽定制显示内容，支持 columns 的参数
+::: demo 通过配置 `expand` 开启展开插槽，通过 #expand 插槽定制显示内容，支持 columns 的参数
 
 <template>
   <pro-table
@@ -265,7 +265,7 @@ export default {
 
 ### 定义操作按钮
 
-::: demo 通过配置 menu 开启按钮插槽，通过 #menu 插槽定制显示内容，支持 columns 的参数
+::: demo 通过配置 `menu` 开启按钮插槽，通过 #menu 插槽定制显示内容，支持 columns 的参数
 
 <template>
   <pro-table
@@ -418,7 +418,7 @@ export default {
 
 ### 显示分页
 
-::: demo 当传入 total 数据时，将自动显示分页。可以通过 `v-model:current-page` 绑定当前页数、通过 `v-model:page-size` 绑定每页显示条目个数
+::: demo 当传入 `total` 数据时，将自动显示分页。可以通过 `v-model:current-page` 绑定当前页数、通过 `v-model:page-size` 绑定每页显示条目个数
 
 <template>
   <pro-table

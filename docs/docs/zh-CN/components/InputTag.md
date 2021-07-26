@@ -31,7 +31,7 @@ export default {
 
 :::
 
-### 通过 `Enter` 键触发
+### 通过 Enter 键触发
 
 ::: demo 指定 trigger 为 enter 时，将通过回车键触发输入
 

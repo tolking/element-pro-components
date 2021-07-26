@@ -2,11 +2,11 @@
 
 > When there are deep of options, use tree selectors is more suitable than ordinary select
 
-## 使用
+## Use
 
-### 基础用法
+### Basic Use
 
-::: demo 传入 data 数据，生成树形结构 (格式同 Select 分组)
+::: demo Set `data` attribute will automatic generate options (same like Select Group)
 
 <template>
   <pro-tree-select
@@ -76,9 +76,9 @@ export default {
 
 :::
 
-### 控制不可选项目
+### Disabled State
 
-::: demo 将传入 data 数据中的某项设置为 `disabled: true` 即可
+::: demo Set the `disabled` attribute in prop `data`
 
 <template>
   <pro-tree-select
@@ -149,9 +149,9 @@ export default {
 
 :::
 
-### 配置绑定数据键值
+### Configure binding data key
 
-::: demo 通过 config 配置数据键值。`value`- v-model 绑定的键值、`label`-显示键值、`disabled`-控制不可选的键值、`children`-子节点的键值
+::: demo Set `config` attribute. `value`- v-model bind key; `label`- display key; `disabled`- Disabled key; `children`- children key
 
 <template>
   <pro-tree-select
@@ -222,9 +222,9 @@ export default {
 
 :::
 
-### 开启多选
+### Basic multiple select
 
-::: demo 当 `multiple` 为 `true` 时，启用多选。此时绑定的 model-value 为数组格式
+::: demo Set `multiple` attribute to enable multiple mode. In this case, the value of v-model will be an array of selected options
 
 <template>
   <pro-tree-select
@@ -295,9 +295,9 @@ export default {
 
 :::
 
-### 多选控制不可选项目
+### Disabled State on multiple select
 
-::: demo 同单选只需将传入 data 数据中的某项设置为 `disabled: true` 即可
+::: demo Same like default select. Set the `disabled` attribute in prop `data`
 
 <template>
   <pro-tree-select
@@ -370,9 +370,9 @@ export default {
 
 :::
 
-### 多选时父子节点互不关联
+### Check Strictly
 
-::: demo 当 `check-strictly` 为 `true` 时，父子节点互不关联
+::: demo Set `check-strictly` attribute to checked state of a node not affects its father and child nodes
 
 <template>
   <pro-tree-select
@@ -443,13 +443,86 @@ export default {
 
 :::
 
-### 自定义节点显示
+### Only Select Leaf
 
-::: demo 通过 `default` 插槽可以定义内容。**注意：在单选模式下需要参考下面内容自定义 class 实现控制不可选项目样式**
+::: demo Set `only-select-leaf` attribute to only the data of child nodes will be selected
 
 <template>
   <pro-tree-select
     v-model="select6"
+    :data="data"
+    multiple
+    only-select-leaf
+  />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const select6 = ref([])
+    const data = ref([{
+      label: '1',
+      value: 1,
+      children: [{
+        value: 11,
+        label: '1-1',
+        children: [
+          { value: 111, label: '1-1-1' },
+        ],
+      }],
+    }, {
+      value: 2,
+      label: '2',
+      children: [{
+        value: 21,
+        label: '2-1',
+        children: [
+          { value: 211, label: '2-1-1' },
+        ],
+      }, {
+        value: 22,
+        label: '2-2',
+        children: [
+          { value: 221, label: '2-2-1' },
+        ],
+      }],
+    }, {
+      value: 3,
+      label: '3',
+      children: [{
+        value: 31,
+        label: '3-1',
+        children: [
+          { value: 311, label: '3-1-1' },
+        ],
+      }, {
+        value: 32,
+        label: '3-2',
+        children: [
+          { value: 321, label: '3-2-1' },
+        ],
+      }],
+    }])
+
+    return {
+      select6,
+      data,
+    }
+  }
+}
+</script>
+
+:::
+
+### Custom node content
+
+::: demo Use `default` slot to enable custom node content. **Note: In the single select mode, you need to refer to the following content to customize the class to achieve control disabled item styles**
+
+<template>
+  <pro-tree-select
+    v-model="select7"
     :data="data1"
   >
     <template #default="{ node, data, multiple }">
@@ -469,7 +542,7 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const select6 = ref('')
+    const select7 = ref('')
     const data1 = ref([{
       label: '1',
       value: 1,
@@ -517,7 +590,7 @@ export default {
     }])
 
     return {
-      select6,
+      select7,
       data1,
     }
   }
@@ -537,13 +610,13 @@ export default {
 
 :::
 
-### 选择节点过滤
+### Tree node filtering
 
-::: demo 当 `filterable` 为 `true` 时，启用选择节点过滤。在选择框中输入文本，将过滤节点内容
+::: demo Set `filterable` attribute to enable node filtering. Enter text in the input, the content of the tree node will be filtered
 
 <template>
   <pro-tree-select
-    v-model="select7"
+    v-model="select8"
     :data="data"
     multiple
     filterable
@@ -555,7 +628,7 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const select7 = ref([])
+    const select8 = ref([])
     const data = ref([{
       label: '1',
       value: 1,
@@ -601,8 +674,65 @@ export default {
     }])
 
     return {
-      select7,
+      select8,
       data,
+    }
+  }
+}
+</script>
+
+:::
+
+### Lazy Mode
+
+::: demo Same like `ElTree`, set `lazy` and `load` attribute to enable lazy mode
+
+<template>
+  <pro-tree-select
+    v-model="select9"
+    :data="data2"
+    :load="loadNode"
+    lazy
+    multiple
+    filterable
+  />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const select9 = ref([])
+    const data2 = []
+
+    function loadNode(node, resolve) {
+      if (node.level === 0) {
+        return resolve([{
+          label: 'region',
+          value: 'region',
+          isLeaf: true,
+        }])
+      }
+      if (node.level > 2) return resolve([])
+
+      setTimeout(() => {
+        const data = [{
+          label: 'leaf-' + node.level,
+          value: 'leaf-' + node.level,
+          isLeaf: node.level <= 2,
+        }, {
+          label: 'zone-' + node.level,
+          value: 'zone-' + node.level,
+        }]
+        resolve(data)
+      }, 500)
+    }
+
+    return {
+      select9,
+      data2,
+      loadNode,
     }
   }
 }
@@ -625,6 +755,7 @@ export default {
 | name                  | the name attribute of select input                                                                                                                                                                                                                                                                                                                                          | string                                 | -                     | -                                                                              |
 | autocomplete          | the autocomplete attribute of select input                                                                                                                                                                                                                                                                                                                                  | string                                 | on / off              | off                                                                            |
 | placeholder           | placeholder                                                                                                                                                                                                                                                                                                                                                                 | string                                 | -                     | Select                                                                         |
+| only-select-leaf      | whether to select only child leaf                                                                                                                                                                                                                                                                                                                                           | boolean                                | -                     | false                                                                          |
 | filterable            | whether Select is filterable                                                                                                                                                                                                                                                                                                                                                | boolean                                | -                     | false                                                                          |
 | reserve-keyword       | when `multiple` and `filter` is true, whether to reserve current keyword after selecting an option                                                                                                                                                                                                                                                                          | boolean                                | -                     | false                                                                          |
 | popper-append-to-body | whether to append the popper menu to body. If the positioning of the popper is wrong, you can try to set this prop to false                                                                                                                                                                                                                                                 | boolean                                | -                     | false                                                                          |

@@ -4,7 +4,7 @@
 
 ## Use
 
-### Whit Table
+### Use with Table
 
 ::: demo 通过 `v-model` 绑定数据，默认点击多选框切换列的显隐，直接拖动实现切换排序
 
@@ -71,7 +71,7 @@ export default {
 
 :::
 
-### Whit Crud
+### Use with Crud
 
 ::: demo 推荐通过 `action` 插槽使用，可以绑定 `Crud` 的 `columns` 和 `table-columns`
 
