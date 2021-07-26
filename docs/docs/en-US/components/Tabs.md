@@ -2,9 +2,9 @@
 
 > display page access history
 
-# Use
+## Use
 
-## Basic Use
+### Basic Use
 
 ::: demo Automatic record routes
 
@@ -12,8 +12,41 @@
   <pro-tabs />
 </template>
 
+:::
+
+### External call close
+
+::: demo Use `ref` bind `Tabs` then execute internal methods to close tab. Note: `const tabs = inject('tabs')` from top-level `Layout` [refer](https://github.com/tolking/element-pro-components/blob/master/docs/src/layout/Layout.vue)
+
+<template>
+  <pro-tabs ref="childTabs" style="margin-bottom:15px" />
+  <el-button @click="childTabs.close('/en-US/guide/')">Close homepage</el-button>
+  <el-button @click="childTabs.closeOther">Close otherpage</el-button>
+  <el-button @click="asyncList">async</el-button>
+</template>
+
 <script>
-export default {}
+import { inject, onMounted, shallowRef } from 'vue'
+
+export default {
+  setup() {
+    const tabs = inject('tabs') // Get top-level `Tabs` inject
+    const childTabs = shallowRef({})
+
+    onMounted(() => {
+      asyncList()
+    })
+
+    function asyncList() {
+      childTabs.value.list = tabs.value.list
+    }
+
+    return {
+      childTabs,
+      asyncList,
+    }
+  }
+}
 </script>
 
 :::

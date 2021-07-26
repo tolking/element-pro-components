@@ -9,6 +9,8 @@
 :::
 
 ::: warning 警告
+TODO: Since `Element Plus` started to use css-variables internally, this part of the content will be refactored in the future
+
 这样配置目前只适用于组件内部，不能够修改 `Element Plus` 内部的样式。如果需要同时控制两者可以
 
 ```scss
@@ -17,7 +19,6 @@ $--background-color-base: var(--c-page-background);
 /* ... */
 ```
 
-TODO: 未来可能会提供配置好的 scss 文件或者是转化好的 css 文件
 :::
 
 ## 简单配置

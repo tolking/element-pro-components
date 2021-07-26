@@ -2,9 +2,9 @@
 
 > Crud is a multifunctional business component based on Table and Form
 
-# Use
+## Use
 
-## Basic Use
+### Basic Use
 
 ::: demo 传入 columns 数据，根据 `add` `edit` `form` `hide` `search` 自动生成多功能表格
 

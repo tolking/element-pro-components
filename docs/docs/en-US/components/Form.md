@@ -3,30 +3,16 @@
 > Form consists of `input`, `radio`, `select`, `checkbox` and so on. With form, you can collect, verify and submit data
 
 ::: tip Tip
-自动代理通过 `v-model` 绑定值且不带插槽就能够实现功能的任意第三方组件，例如：
+将自动代理通过 `v-model` 绑定值的任意组件，例如：
 
 - 支持 `el-input` `el-switch` 等
-- 不支持 `el-upload` `el-select` `el-radio-group` `el-checkbox-group` `input` 等
-
-使用相关 `pro-select` `pro-radio` `pro-checkbox` 或其它第三方组件代替
-:::
-
-::: warning 警告
-在使用组件前，你必须通过全局注册它
-
-```js
-import { ElInput } from 'element-plus'
-
-app.use(ElInput)
-// 或者
-app.component(ElInput.name, ElInput)
-```
+- 不支持 `el-upload` 等 (需要将相关组件改写为支持 `v-model` 的组件)
 
 :::
 
-# Use
+## Use
 
-## Basic Use
+### Basic Use
 
 ::: demo 传入 columns 数据，自动生成表单。操作按钮需要通过 menu 插槽传入
 

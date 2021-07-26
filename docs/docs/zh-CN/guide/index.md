@@ -102,7 +102,16 @@ module.exports = {
 }
 ```
 
-接下来引入 css 变量文件，然后引用需要的组件，样式就会被自动加载
+### 手动引入样式
+
+例如：
+
+```js
+import { ProLayout } from 'element-pro-components'
+import 'element-pro-components/lib/styles/layout.css'
+```
+
+接下来需要引入 css 变量文件
 
 ```js
 import { createApp } from 'vue'
