@@ -3,10 +3,10 @@
 > 封装表单组件实现通过配置动态生成表单
 
 ::: tip 提示
-将自动代理通过 `v-model` 绑定值的任意组件，例如：
+适用于可以通过 `v-model` 绑定值的任意组件，例如：
 
-- 支持 `el-input` `el-switch` 等
-- 不支持 `el-upload` 等 (需要将相关组件改写为支持 `v-model` 的组件)
+- 支持 `el-input` `el-switch` ...
+- 不支持 `el-upload` ... (需要将相关组件重新封装为支持 `v-model` 的组件)
 
 :::
 
@@ -146,7 +146,7 @@ export default {
 
 ### 使用局部组件
 
-::: demo `component` 为字符串时，内部将会去全局搜索组件。当然可以通过 `component` 直接传入局部组件，但存在部分限制
+::: demo 通过 `component` 可以直接传入局部组件，但存在部分限制
 
 <template>
   <pro-form
@@ -201,7 +201,7 @@ export default {
 
 ### 启用插槽
 
-::: demo 通过 columns 的 slot 配置是否开启自定义插槽功能。虽然在启用插槽后可以通过 `v-model="form.slot"` 这种方式绑定值，但更推荐使用 `value` 与 `setValue`
+::: demo 通过 `columns` 的 `slot` 配置是否开启自定义插槽功能。虽然在启用插槽后可以通过 `v-model="form.slot"` 这种方式绑定值，但更推荐使用 `value` 与 `setValue`
 
 <template>
   <pro-form
