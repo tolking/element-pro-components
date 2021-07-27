@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.11.2
+
+fix
+
+- styles: unconverted css-variables
+
 ## 0.11.1
 
 feat
