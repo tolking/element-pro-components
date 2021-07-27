@@ -108,7 +108,7 @@
           margin: 5px auto;
           width: 24px;
           height: 3px;
-          background-color: var(--c-text);
+          background-color: var(--el-text-color-primary, #303133);
           transition: transform var(--t-duration) var(--t-timing-function);
         }
         &.is-active .line:first-child {
