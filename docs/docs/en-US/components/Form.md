@@ -3,10 +3,10 @@
 > Form consists of `input`, `radio`, `select`, `checkbox` and so on. With form, you can collect, verify and submit data
 
 ::: tip Tip
-将自动代理通过 `v-model` 绑定值的任意组件，例如：
+Applicable to any component that can bind value ​​through `v-model`. example:
 
-- 支持 `el-input` `el-switch` 等
-- 不支持 `el-upload` 等 (需要将相关组件改写为支持 `v-model` 的组件)
+- Support `el-input` `el-switch` ...
+- Not support `el-upload` ... (The relevant components need to be rewritten to support `v-model` components)
 
 :::
 
@@ -14,7 +14,7 @@
 
 ### Basic Use
 
-::: demo 传入 columns 数据，自动生成表单。操作按钮需要通过 menu 插槽传入
+::: demo Set `columns` attribute will automatic generate form
 
 <template>
   <pro-form
@@ -33,12 +33,12 @@ export default {
     const form = ref({})
     const columns = ref([
       {
-        label: '名字',
+        label: 'Name',
         prop: 'name',
         component: 'el-input',
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
         component: 'el-input',
       },
@@ -61,9 +61,9 @@ export default {
 
 :::
 
-### 指定对应的组件
+### Custom Component
 
-::: demo 通过 columns 的 `component` 定义该项生成什么组件，通过 `props` 可以向组件中传值。要求对应组件可以通过 v-model 绑定值
+::: demo Set `component` in `columns` attribute to dfine what component the item generates, that component should can bind value ​​through `v-model`. props ​​can be passed to the component through `props`, [render-function](https://v3.cn.vuejs.org/guide/render-function.html) can be passed to the component thrrough `slots` in `props`
 
 <template>
   <pro-form
@@ -74,7 +74,7 @@ export default {
 </template>
 
 <script>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 
 export default {
   setup() {
@@ -93,7 +93,11 @@ export default {
         component: 'el-input',
         props: {
           clearable: true,
-          placeholder: '请输入内容',
+          placeholder: 'Please input',
+          slots: {
+            prefix: () => h('i', { className: 'el-input__icon el-icon-search' }),
+            append: () => 'Search'
+          },
         },
       },
       {
@@ -101,7 +105,7 @@ export default {
         prop: 'inputTag',
         component: 'pro-input-tag',
         props: {
-          placeholder: '请输入内容后点击空格按键',
+          placeholder: 'Please click the space button after input',
         },
       },
       {
@@ -140,9 +144,64 @@ export default {
 
 :::
 
-### 启用插槽
+### Custom local component
 
-::: demo 通过 columns 的 slot 配置是否开启自定义插槽功能。虽然在启用插槽后可以通过 `v-model="form.slot"` 这种方式绑定值，但更推荐使用 `value` 与 `setValue`
+::: demo Local component can be passed directly through `component` in `columns` attribute, but there are some restrictions
+
+<template>
+  <pro-form
+    v-model="form7"
+    :columns="columns7"
+    :gutter="20"
+    label-width="100px"
+    @submit="submit"
+  />
+</template>
+
+<script>
+import { ref, shallowRef } from 'vue'
+import { ElSwitch } from 'element-plus'
+import 'element-plus/lib/theme-chalk/el-switch.css'
+
+export default {
+  setup() {
+    const list = ref([
+      { value: 'Go', label: 'go' },
+      { value: 'JavaScript', label: 'javascript' },
+      { value: 'Python', label: 'python' },
+      { value: 'Dart', label: 'dart' },
+      { value: 'V', label: 'v' },
+    ])
+    const form7 = ref({})
+    const columns7 = shallowRef([ // Need to optimize performance through shallowRef
+      {
+        label: 'radio',
+        prop: 'radio',
+        component: 'pro-radio',
+        props: {
+          data: list.value, // Must be deconstructed when referencing a value
+        },
+      },
+      {
+        label: 'switch',
+        prop: 'switch',
+        component: ElSwitch,
+      }
+    ])
+
+    return {
+      form7,
+      columns7,
+    }
+  }
+}
+</script>
+
+:::
+
+### Slots
+
+::: demo Set `slot` in `columns` attribute to enable custom slot
 
 <template>
   <pro-form
@@ -152,7 +211,7 @@ export default {
   >
     <template #slot-label>
       <i class="el-icon-picture-outline" />
-      <span>图片</span>
+      <span>picture</span>
     </template>
     <template #slot="{ value, setValue }">
       <el-upload
@@ -189,7 +248,7 @@ export default {
     ])
 
     function beforeUpload(file, setValue) {
-      // 模拟上传图片
+      // Simulate uploading pictures
       const fileReader = new FileReader()
       fileReader.onloadend = e => setValue(e.target.result)
       fileReader.readAsDataURL(file)
@@ -231,9 +290,9 @@ export default {
 
 :::
 
-### 配置按钮
+### Custom Menu
 
-::: demo 通过 menu 配置按钮
+::: demo Set `menu` attribute to enable custom menu
 
 <template>
   <pro-form
@@ -250,18 +309,18 @@ import { ref } from 'vue'
 export default {
   setup() {
     const menu = {
-      submitText: '提交',
+      submitText: 'Create',
       reset: false,
     }
     const form = ref({})
     const columns = ref([
       {
-        label: '名字',
+        label: 'Name',
         prop: 'name',
         component: 'el-input',
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
         component: 'el-input',
       },
@@ -278,9 +337,9 @@ export default {
 
 :::
 
-### 配置子表单
+### Custom children form
 
-::: demo 通过 columns 的 `children` 配置子表单，当然你也可以配置多层的 `children` 结构实现反复套娃
+::: demo Set `children` in `columns` attribute to enable custom children form
 
 <template>
   <pro-form
@@ -298,38 +357,38 @@ export default {
     const form3 = ref({})
     const columns3 = ref([
       {
-        label: '商品名',
+        label: 'Goods',
         prop: 'name',
         component: 'el-input',
       },
       {
-        label: '规格',
+        label: 'Spec',
         prop: 'spec',
         size: 'small',
         max: 3,
         children: [
           {
-            label: '重量',
+            label: 'Weight',
             prop: 'weight',
             component: 'el-input',
           },
           {
-            label: '尺寸',
+            label: 'Size',
             prop: 'size',
             max: 1,
             children: [
               {
-                label: '长',
+                label: 'Length',
                 prop: 'length',
                 component: 'el-input',
               },
               {
-                label: '宽',
+                label: 'Width',
                 prop: 'width',
                 component: 'el-input',
               },
               {
-                label: '高',
+                label: 'Height',
                 prop: 'height',
                 component: 'el-input',
               },
@@ -349,9 +408,9 @@ export default {
 
 :::
 
-### 表单验证
+### Validation
 
-::: demo 像 el-form 一样可以通过 `rules` 配置表单验证。对于子表单更推荐使用 columns 里面的 `rules` 字段实现验证。否则你需要通过 `${父级的 prop}.${当前项的 index}.${当前的 prop}` 这种方式配置子表单的验证
+::: demo Set `rules` attribute to enable validation, or Set `rules` in `columns` attribute to enable validation
 
 <template>
   <pro-form
@@ -371,29 +430,29 @@ export default {
   setup() {
     const form4 = ref({})
     const rules = ref({
-      date: { required: true, message: '日期不能为空', trigger: 'blur' },
-      user: { required: true, message: '用户不能为空', trigger: 'blur' },
+      date: { required: true, message: 'Please input date', trigger: 'blur' },
+      user: { required: true, message: 'Please input user', trigger: 'blur' },
     })
     const columns4 = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
         component: 'el-input',
       },
       {
-        label: '用户',
+        label: 'User',
         prop: 'user',
         max: 3,
         size: 'small',
         children: [
           {
-            label: '名字',
+            label: 'Name',
             prop: 'name',
             component: 'el-input',
-            rules: { required: true, message: '名字不能为空', trigger: 'blur' },
+            rules: { required: true, message: 'Please input Name', trigger: 'blur' },
           },
           {
-            label: '地址',
+            label: 'Address',
             prop: 'address',
             component: 'el-input',
           },
@@ -426,9 +485,9 @@ export default {
 
 :::
 
-### 动态表单
+### Dynamically Form
 
-::: demo 如果传入的 `columns` 是一个响应性数据，动态的修改 columns 表单也会随之改变。由此你可以根据需要动态的控制表单的内容，或者实现从后台加载数据实现表单
+::: demo If the columns with reactive, the dynamically modified columns form will also change accordingly. So you can dynamically control the content of the form as needed, or create form from ajax
 
 <template>
   <pro-form
@@ -442,7 +501,7 @@ export default {
         v-show="columns5.length < 5"
         @click="add"
       >
-        增加
+        Add One
       </el-button>
     </template>
     <template #menu-right>
@@ -450,7 +509,7 @@ export default {
         v-show="columns5.length"
         @click="del"
       >
-        减少
+        Delete One
       </el-button>
     </template>
   </pro-form>
@@ -469,7 +528,7 @@ export default {
     const form5 = ref({})
     const columns5 = ref([
       {
-        label: '项-0',
+        label: 'Label-0',
         prop: 'prop0',
         component: 'el-input',
       },
@@ -478,7 +537,7 @@ export default {
     function add() {
       count.value++
       columns5.value.push({
-        label: '项-' + count.value,
+        label: 'Label-' + count.value,
         prop: 'prop' + count.value,
         component: 'el-input',
       })
@@ -502,9 +561,9 @@ export default {
 
 :::
 
-### 栅格布局
+### Layout
 
-::: demo 与使用 `el-row` 和 `el-col` 组件相同 (`el-row` 对应 `pro-form`；`el-col` 对应 `columns`)，通过相关配置可以自由地组合布局。**当 `inline` 为 `true` 时无效**
+::: demo Use the same way as `el-row` `el-col` (`el-row` corresponds to `pro-form`; `el-col` corresponds to `columns`) **Invalid when `inline` is `true`**
 
 <template>
   <pro-form
@@ -524,55 +583,55 @@ export default {
     const form6 = ref({})
     const columns6 = ref([
       {
-        label: '商品名',
+        label: 'Goods',
         prop: 'name',
         component: 'el-input',
         span: 24,
       },
       {
-        label: '重量',
+        label: 'Weight',
         prop: 'weight',
         component: 'el-input',
         xs: 24,
         md: 12,
       },
       {
-        label: '数量',
+        label: 'Count',
         prop: 'count',
         component: 'el-input',
         xs: 24,
         md: 12,
       },
       {
-        label: '长',
+        label: 'Length',
         prop: 'length',
         component: 'el-input',
         xs: 24,
         md: 8,
       },
       {
-        label: '宽',
+        label: 'Width',
         prop: 'width',
         component: 'el-input',
         xs: 24,
         md: 8,
       },
       {
-        label: '高',
+        label: 'Height',
         prop: 'height',
         component: 'el-input',
         xs: 24,
         md: 8,
       },
       {
-        label: '销售价',
+        label: 'Price',
         prop: 'price',
         component: 'el-input',
         xs: 24,
         md: 12,
       },
       {
-        label: '市场价',
+        label: 'MarketPrice',
         prop: 'marketPrice',
         component: 'el-input',
         xs: 24,
@@ -649,8 +708,8 @@ export default {
 | lg            | `≥1200px` Responsive columns or column props object                                                    | number / object (e.g. {span: 4, offset: 4}) | —                     | —       |
 | xl            | `≥1920px` Responsive columns or column props object                                                    | number / object (e.g. {span: 4, offset: 4}) | —                     | —       |
 
-::: tip 关于 props
-props 的属性将全部传递给 component 指定的组件。**对于事件需要通过 `on[Event]` 驼峰这种形式绑定。如：`change` -> `onChange`, `input` -> `onInput`**
+::: tip about props
+The props attribute will all be passed to the component. **For events need to be bound by `on[Event]`. example: `change` -> `onChange`, `input` -> `onInput`**
 
 ```js
 props: {
@@ -692,7 +751,7 @@ props: {
 | clearValidate | clear validation message for certain fields. The parameter is prop name or an array of prop names of the form items whose validation messages will be removed. When omitted, all fields' validation messages will be cleared                                                     | Function(props: string \| array)                                           |
 
 ::: tip Tip
-如果使用 `typescript` 可以从组件中导出 `IFormExpose` 提供更好的类型推导。参考如下在 setup 中使用
+If you use `typescript`, you can export `IFormExpose` from the component to provide better type inference. example:
 
 ```vue
 <template>

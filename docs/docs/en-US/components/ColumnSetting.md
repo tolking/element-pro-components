@@ -6,7 +6,7 @@
 
 ### Use with Table
 
-::: demo 通过 `v-model` 绑定数据，默认点击多选框切换列的显隐，直接拖动实现切换排序
+::: demo Bind data through `v-model`, click the multi-select box to togglen display and hide, and drag it directly to togglen sort
 
 <template>
   <pro-column-setting
@@ -26,15 +26,15 @@ export default {
   setup() {
     const columns = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
       },
     ])
@@ -73,14 +73,14 @@ export default {
 
 ### Use with Crud
 
-::: demo 推荐通过 `action` 插槽使用，可以绑定 `Crud` 的 `columns` 和 `table-columns`
+::: demo It is recommended to use the `action` slot, bind `columns` or `table-columns` of Crud
 
 <template>
   <pro-crud
     v-model="form"
     v-model:search="serachForm"
     :columns="columns1"
-    :menu="{ label: '操作' }"
+    :menu="{ label: 'Operations' }"
     :data="data"
     @search="search"
     @submit="submit"
@@ -101,7 +101,7 @@ export default {
     const serachForm = ref({})
     const columns1 = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
         component: 'el-input',
         add: true,
@@ -109,14 +109,14 @@ export default {
         search: true,
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
         component: 'el-input',
         add: true,
         search: true,
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
         component: 'el-input',
         add: true,
@@ -179,13 +179,13 @@ export default {
 
 :::
 
-::: tip 提示
-如果 `ColumnSetting` 直接绑定 `Crud` 的 `columns`，排序变动会影响表单组件和搜索组件。通过绑定 `table-columns` 可以单独绑定表格进而避免影响表单组件和搜索组件。
+::: tip Tip
+If `ColumnSetting` is directly bind `columns` of `Crud`, the sort change will affect the Form and the Search. avoid this problem by bind `table-columns`
 :::
 
-### 点击触发弹窗
+### How to trigger
 
-::: demo 通过 `trigger` 控制触发方式，支持 `hover` `click` `contextmenu`-鼠标右键
+::: demo Use the attribute trigger. By default, it is `hover`. support `hover` `click` `contextmenu`
 
 <template>
   <pro-crud
@@ -193,7 +193,7 @@ export default {
     v-model:search="serachForm"
     :columns="columns2"
     :table-columns="tableColumns"
-    :menu="{ label: '操作' }"
+    :menu="{ label: 'Operations' }"
     :data="data"
     @search="search"
     @submit="submit"
@@ -214,7 +214,7 @@ export default {
     const serachForm = ref({})
     const columns2 = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
         component: 'el-input',
         add: true,
@@ -222,14 +222,14 @@ export default {
         search: true,
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
         component: 'el-input',
         add: true,
         search: true,
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
         component: 'el-input',
         add: true,
@@ -294,9 +294,9 @@ export default {
 
 :::
 
-### 支持多级表头
+### Grouping table head
 
-::: demo 支持对多级表头的操作，可以将列拖入或拖出子表头
+::: demo Supports operations on grouping table head, and columns can be dragged into or out of the grouping table head
 
 <template>
   <pro-column-setting
@@ -317,19 +317,19 @@ export default {
   setup() {
     const columns3 = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
       },
       {
-        label: '用户',
+        label: 'User',
         prop: 'user',
         children: [
           {
-            label: '姓名',
+            label: 'Name',
             prop: 'name',
           },
           {
-            label: '地址',
+            label: 'Address',
             prop: 'address',
           },
         ],
