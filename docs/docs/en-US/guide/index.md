@@ -2,7 +2,7 @@
 
 ## Ready
 
-在开始前你可能需要 vue3 版本脚手架工具
+You may need the vue3 version of the scaffolding tool before you start
 
 - [vite](https://vitejs.dev/)
 - [vue-cli](https://cli.vuejs.org/zh/)
@@ -22,7 +22,7 @@ npm i element-pro-components
 import { createApp } from 'vue'
 import App from './App.vue'
 import ElementPro from 'element-pro-components'
-import 'element-pro-components/lib/style.css'
+import 'element-pro-components/lib/styles/index.css'
 
 const app = createApp(App)
 
@@ -32,33 +32,112 @@ app.mount('#app')
 
 ## On demand
 
+### vite
+
+With the help of [vite-plugin-style-import](https://github.com/anncwb/vite-plugin-style-import), we can import components styles we actually need
+
+- install
+
+```
+yarn add -D vite-plugin-style-import
+# or
+npm i -D vite-plugin-style-import
+```
+
+- change vite.config
+
+```js
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import styleImport from 'vite-plugin-style-import'
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    styleImport({
+      libs: [
+        {
+          importTest: /^Pro/,
+          libraryName: 'element-pro-components',
+          ensureStyleFile: true,
+          resolveStyle: (name) => {
+            name = name.slice(4)
+            return `element-pro-components/lib/styles/${name}.css`
+          },
+        },
+      ],
+    }),
+  ],
+})
+```
+
+### vue-cli
+
+With the help of [babel-plugin-import](https://github.com/ant-design/babel-plugin-import), we can import components styles we actually need
+
+- install
+
+```
+yarn add -D babel-plugin-import
+# or
+npm i -D babel-plugin-import
+```
+
+- change babel.config
+
+```js
+module.exports = {
+  plugins: [
+    [
+      'import',
+      {
+        libraryName: 'element-pro-components',
+        customStyleName: (name) => {
+          name = name.slice(4)
+          return `element-pro-components/lib/styles/${name}.css`
+        },
+      },
+    ],
+  ],
+}
+```
+
+### By hand
+
+example:
+
+```js
+import { ProLayout } from 'element-pro-components'
+import 'element-pro-components/lib/styles/layout.css'
+```
+
+Next, you need to introduce the css variable file
+
 ```js
 import { createApp } from 'vue'
 import App from './App.vue'
 import { ProLayout } from 'element-pro-components'
-import 'element-pro-components/lib/style.css'
+// Unless you redefine all css variables, you need to manually import css variable files
+import 'element-pro-components/lib/styles/vars.css'
 
 const app = createApp(App)
 
 app.use(ProLayout)
 // or
 app.component('ProLayout', ProLayout)
+
 app.mount('#app')
 ```
 
 ::: tip Tip
-与 `Element Plus` 不同，样式不支持按需引入。由于只包含少量必要样式，可能不会提供相同功能
+Component list reference [components](https://github.com/tolking/element-pro-components/blob/master/src/index.ts)
 
-完整组件列表[参考里面的 components](https://github.com/tolking/element-pro-components/blob/master/src/index.ts)
-:::
-
-::: tip Tip
-在导出组件的同时，一起导出的还包括内部使用的[utils](https://github.com/tolking/element-pro-components/blob/master/src/utils/)与[composables](https://github.com/tolking/element-pro-components/blob/master/src/composables/)，如果需要可以引用使用
+In addition to components, you can also use some internal [utils](https://github.com/tolking/element-pro-components/blob/master/src/utils/) or [composables](https://github.com/tolking/element-pro-components/blob/master/src/composables/)
 :::
 
 ## Global config
 
-- example
+- refer
 
 <<< @/src/utils/config.ts
 
@@ -74,14 +153,20 @@ app.use(ElementPro, {
 })
 ```
 
+::: tip Tip
+If you use on demand import components, you can inject global config through one of `ProCrud` `ProForm` `ProTable`
+:::
+
 ## Start using
 
 ::: tip Tip
-文档示例基于 [组合式 API](https://v3.cn.vuejs.org/guide/composition-api-introduction.html) 语法，如果不熟悉语法请前往官方文档查看
+Document example based on [Composition API](https://v3.vuejs.org/guide/composition-api-introduction.html), If you are not familiar with the syntax, please visit the official document
 
-如果使用 VS Code 开发，配合 Vetur 使用提供完整的组件、属性、事件补全。例如：输入 `<pro-` 将罗列出所有组件库组件
+If you use VS Code to develop, cooperate with Vetur to provide complete components, prop, and event completion. example: input `<pro-` will list all components
 
-如果使用 TypeScript 编写，可以参考 [example](https://github.com/tolking/element-pro-components/tree/master/docs/src/views/)。内部提供部分类型方便使用
+If you use webstorm to develop, complete components, prop, and event completions
+
+If you use TypeScript to develop, You can refer to the [example](https://github.com/tolking/element-pro-components/tree/master/docs/src/views/), Some types are provided internally for easy use
 :::
 
 <<< @/docs/src/layout/Layout.vue

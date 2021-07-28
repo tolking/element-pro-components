@@ -1,6 +1,6 @@
 # 自定义主题
 
-::: tip 提示
+::: tip Tip
 与 `Element Plus` 不同，组件内部样式通过 [css-variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) 实现
 
 相比 scss 这样更方便配置和实现主题切换、浅色模式与深色模式
@@ -8,7 +8,7 @@
 如果你需要动态改变主题你应该注意目标浏览器的[兼容情况](https://caniuse.com/css-variables)
 :::
 
-::: warning 警告
+::: warning Warning
 TODO: Since `Element Plus` started to use css-variables internally, this part of the content will be refactored in the future
 
 这样配置目前只适用于组件内部，不能够修改 `Element Plus` 内部的样式。如果需要同时控制两者可以
@@ -67,7 +67,7 @@ html[theme='other'] {
 <html theme="other"></html>
 ```
 
-::: tip 提示
+::: tip Tip
 然后可以通过 js 动态改变 theme 的值实现
 :::
 
@@ -80,10 +80,10 @@ import 'element-pro-components/lib/style.css'
 import 'your/css/file'
 ```
 
-::: tip 提示
+::: tip Tip
 可以使用 postcss 插件 [postcss-custom-properties](https://github.com/postcss/postcss-custom-properties) 或者同类的插件转换 `css-variables` 获得更好的兼容性，以便在不支持 `css-variables` 时能够显示默认值样式
 :::
 
 ## 提供配置的参数
 
-<<< @/src/styles/index.css
+<<< @/src/styles/var.css

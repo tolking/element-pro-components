@@ -1,27 +1,27 @@
-# 路由和菜单
+# Router and Menu
 
-默认情况下，布局相关的组件会自动从 `vue-router` 中获取所需要的路由信息
+By default, layout-related components will automatically obtain the required routes information from `vue-router`
 
-## 统一格式
+## Format
 
-相比原生 router 类型仅扩展了 `meta` 属性
+Compared with the vue-router type, only the `meta` attribute is extended
 
 ```ts
 interface IRouteMeta extends RouteMeta {
-  title?: string // 用于显示菜单标题
-  icon?: string // 用于显示菜单图标
-  hidden?: boolean // 用于判断是否在菜单中显示，不影响 router-link 跳转
-  keepAlive?: boolean // 控制 keepAlive
+  title?: string // Show menu title
+  icon?: string // Show menu icon
+  hidden?: boolean // Whether to display in the menu, does not affect the router jump
+  keepAlive?: boolean // Whether to keepAlive
 }
 ```
 
-参考路由
+refer router
 
 <<< @/docs/src/router/dev.ts
 
-## 异步路由
+## Dynamic Routing
 
-组件只能够获取定义在 `vue-router` 中的原始路由信息，不能够获取动态增加的路由。当使用异步生成的动态路由时，虽然可以通过 `routes` 向组件中传值，但更推荐通过通过下面方式动态增加。只需要保持 `router.options.routes` 同最终动态增加的路由相同即可
+Components can only obtain the original routing information defined in `vue-router`, and cannot obtain dynamically added routes. When using asynchronously generated dynamic routes, although you can pass prop ​​to the component through `routes`, it is more recommended to dynamically increase it through the following methods. Just keep `router.options.routes` the same as the final dynamically added routes
 
 ```js
 const newRoute = {
@@ -41,12 +41,12 @@ router.addRoute(newRoute)
 router.options.routes.push(newRoute)
 ```
 
-## 路由权限
+## Auth Routing
 
-当前组件是不支持路由权限验证的，你需要手动增加
+The current component does not support auth routing, you need to manually add
 
-比如：通过 [异步路由](#异步路由) 的方式，在增加生成或增加路由时去除没有访问权限的路由信息
+Example: by [Dynamic Routing](#dynamic-routing), remove routing information that does not have access rights when generating or adding routes
 
-或者：在 `router.beforeEach` 中进行跳转验证
+Or: use `router.beforeEach` to check routing information
 
-当然也可以结合两者使用
+Of course you can also combine the two way
