@@ -1,6 +1,7 @@
 import vue from '@vitejs/plugin-vue'
 import Markdown from 'vite-plugin-md'
 import container from 'markdown-it-container'
+import { VitePWA } from 'vite-plugin-pwa'
 import highlight from './highlight'
 import snippet from './snippet'
 import demo from './demo'
@@ -42,6 +43,7 @@ const plugins = [
         })
     },
   }),
+  VitePWA(),
 ]
 
 export default plugins

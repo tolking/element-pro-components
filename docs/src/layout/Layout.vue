@@ -27,6 +27,7 @@
       <pro-tabs ref="tabs" />
     </template>
   </pro-layout>
+  <pwa-popup />
 </template>
 
 <script setup lang="ts">
@@ -34,6 +35,7 @@ import { computed, provide, shallowRef } from 'vue'
 import { useRouter } from 'vue-router'
 import { useLang } from '../composables/index'
 import NavHeader from '../components/NavHeader.vue'
+import PwaPopup from '../components/PwaPopup.vue'
 
 const router = useRouter()
 const lang = useLang()
