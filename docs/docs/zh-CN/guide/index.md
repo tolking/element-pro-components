@@ -1,3 +1,10 @@
+---
+title: My Cool App
+meta:
+  - name: description
+    content: Hello World
+---
+
 # 快速上手
 
 ## 准备

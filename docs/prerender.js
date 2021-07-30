@@ -5,9 +5,9 @@ const fg = require('fast-glob')
 
 const toAbsolute = (p) => path.resolve(__dirname, p).replace(/\\/, '/')
 
-const manifest = require('./dist/static/ssr-manifest.json')
+const manifest = require(toAbsolute('dist/static/ssr-manifest.json'))
 const template = fs.readFileSync(toAbsolute('dist/static/index.html'), 'utf-8')
-const { render } = require('./dist/server/entry-server.js')
+const { render } = require(toAbsolute('dist/server/entry-server.js'))
 
 const writeFileRecursive = function (path, buffer) {
   const lastPath = path.substring(0, path.lastIndexOf('/'))
@@ -19,7 +19,7 @@ const writeFileRecursive = function (path, buffer) {
 }
 
 const routesToPrerender = fg
-  .sync('docs/docs/**/!(ColumnSetting|Crud|TreeSelect).md') // TODO: error when used ElTree
+  .sync('docs/docs/zh-CN/guide/index.md') // TODO: error when used ElTree
   .map((item) =>
     item
       .replace(/^docs\/docs/, '')
@@ -37,7 +37,7 @@ const routesToPrerender = fg
     const html = template
       .replace('<!--preload-links-->', preloadLinks)
       .replace('<!--app-html-->', appHtml)
-      .replace('<!--title-->', title)
+    // .replace('<!--title-->', title)
     writeFileRecursive(toAbsolute(filePath), html)
   }
 

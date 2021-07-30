@@ -1,12 +1,13 @@
 import { createApp } from './main'
 import { renderToString } from '@vue/server-renderer'
+import { renderHeadToString } from '@vueuse/head'
 import { getTitle } from './utils/index'
 
 export async function render(
   url: string,
   manifest: Record<string, string[]>
 ): Promise<string[]> {
-  const { app, router } = createApp()
+  const { app, router, head } = createApp()
 
   // set the router to the desired URL before rendering
   router.push(url)
@@ -25,9 +26,16 @@ export async function render(
   const preloadLinks = renderPreloadLinks(ctx.modules, manifest)
 
   // get the page title of SSG
-  const routeTitle = app?.config?.globalProperties?.$route?.meta?.title
-  const title = getTitle(routeTitle)
-  return [html, preloadLinks, title]
+  // const routeTitle = app?.config?.globalProperties?.$route?.meta?.title
+  // const title = getTitle(routeTitle)
+
+  // console.log(app?.config?.globalProperties)
+  // console.log('---------')
+
+  const { headTags, htmlAttrs, bodyAttrs } = renderHeadToString(head)
+  console.log({ headTags, htmlAttrs, bodyAttrs })
+
+  return [html, preloadLinks]
 }
 
 function renderPreloadLinks(
