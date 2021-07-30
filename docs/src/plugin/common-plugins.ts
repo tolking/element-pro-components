@@ -43,7 +43,17 @@ const plugins = [
         })
     },
   }),
-  VitePWA(),
+  VitePWA({
+    manifest: {
+      description: 'a component library for Vue 3 base on element-plus',
+      icons: [
+        {
+          src: 'logo.svg',
+          sizes: '48x48 72x72 96x96 128x128 256x256',
+        },
+      ],
+    },
+  }),
 ]
 
 export default plugins

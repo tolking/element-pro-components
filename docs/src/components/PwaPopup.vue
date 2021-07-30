@@ -6,13 +6,13 @@
       role="alert"
     >
       <p class="pwa-popup-text">
-        New content is available.
+        {{ t('docs.pwa.message') }}
       </p>
       <button @click="updateServiceWorker()">
-        Refresh
+        {{ t('docs.pwa.refresh') }}
       </button>
-      <button @click="close">
-        Close
+      <button @click="needRefresh = false">
+        {{ t('docs.pwa.close') }}
       </button>
     </div>
   </transition>
@@ -20,8 +20,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useLocaleInject } from 'element-plus'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 
+const { t } = useLocaleInject()
 const _useRegisterSW = !import.meta.env.SSR
   ? useRegisterSW()
   : {
@@ -30,9 +32,6 @@ const _useRegisterSW = !import.meta.env.SSR
     }
 
 const { needRefresh, updateServiceWorker } = _useRegisterSW
-const close = () => {
-  needRefresh.value = false
-}
 </script>
 
 <style scoped>
@@ -41,12 +40,12 @@ const close = () => {
   right: 1em;
   bottom: 1em;
   padding: 1em;
-  border: 1px solid var(--c-brand-light);
+  border: 1px solid var(--c-brand);
   border-radius: 3px;
   background: var(--c-white);
   box-shadow: var(--shadow-2);
   text-align: center;
-  z-index: 12;
+  z-index: 1200;
 }
 .pwa-popup .pwa-popup-text {
   margin: 0;

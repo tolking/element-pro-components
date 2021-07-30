@@ -3,6 +3,7 @@ import { App, createApp as _createApp, createSSRApp } from 'vue'
 import { createRouter } from './router/index'
 import { Router } from 'vue-router'
 import {
+  ElConfigProvider,
   ElIcon,
   ElButton,
   ElInput,
@@ -15,6 +16,7 @@ import {
 } from 'element-plus'
 import ElementPro from '/@src/index'
 import ProCode from './components/ProCode.vue'
+import 'element-plus/lib/theme-chalk/el-var.css'
 import 'element-plus/lib/theme-chalk/el-icon.css'
 import 'element-plus/lib/theme-chalk/el-button.css'
 import 'element-plus/lib/theme-chalk/el-input.css'
@@ -40,6 +42,7 @@ export function createApp(): {
   app
     .use(router)
     .component('ProCode', ProCode)
+    .use(ElConfigProvider)
     .use(ElIcon)
     .use(ElButton)
     .use(ElInput)
