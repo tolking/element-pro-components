@@ -1,3 +1,10 @@
+---
+title: TreeSelect
+meta:
+  - name: description
+    content: When there are deep of options, use tree selectors is more suitable than ordinary select
+---
+
 # TreeSelect
 
 > When there are deep of options, use tree selectors is more suitable than ordinary select

@@ -1,3 +1,10 @@
+---
+title: Form
+meta:
+  - name: description
+    content: 封装表单组件实现通过配置动态生成表单
+---
+
 # Form
 
 > 封装表单组件实现通过配置动态生成表单

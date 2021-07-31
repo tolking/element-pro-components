@@ -1,3 +1,10 @@
+---
+title: Theme
+meta:
+  - name: description
+    content: How to configure the theme of the element-pro-components component library
+---
+
 # 自定义主题
 
 ::: tip Tip

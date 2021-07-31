@@ -1,3 +1,10 @@
+---
+title: ColumnSetting
+meta:
+  - name: description
+    content: Control the sorting and display of columns in the table, use whit Table or Crud
+---
+
 # ColumnSetting
 
 > Control the sorting and display of columns in the table, use whit Table or Crud

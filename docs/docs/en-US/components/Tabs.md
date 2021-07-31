@@ -1,3 +1,10 @@
+---
+title: Tabs
+meta:
+  - name: description
+    content: display page access history
+---
+
 # Tabs
 
 > display page access history

@@ -1,3 +1,10 @@
+---
+title: introduction
+meta:
+  - name: description
+    content: ntroduction to the basic information of the element-pro-components component library
+---
+
 # introduction
 
 element-pro-components is a component library for Vue 3 base on [element-plus](https://element-plus.org/), [vue](https://v3.vuejs.org/), [vue-router](https://next.router.vuejs.org/)

@@ -1,3 +1,10 @@
+---
+title: Layout
+meta:
+  - name: description
+    content: default global layout interface
+---
+
 # Layout
 
 > default global layout interface

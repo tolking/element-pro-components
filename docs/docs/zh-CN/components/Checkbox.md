@@ -1,3 +1,10 @@
+---
+title: Checkbox
+meta:
+  - name: description
+    content: 封装多选框组件
+---
+
 # Checkbox
 
 > 封装多选框组件

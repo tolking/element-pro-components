@@ -1,3 +1,10 @@
+---
+title: 介绍
+meta:
+  - name: description
+    content: element-pro-components 组件库的基础信息介绍
+---
+
 # 介绍
 
 element-pro-components 是一个基于 [element-plus](https://element-plus.org/), [vue](https://v3.vuejs.org/), [vue-router](https://next.router.vuejs.org/) 的一个适用于中后台开发的一套组件库

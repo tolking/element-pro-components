@@ -1,3 +1,10 @@
+---
+title: Menu
+meta:
+  - name: description
+    content: Menu that provides navigation for your website
+---
+
 # Menu
 
 > Menu that provides navigation for your website

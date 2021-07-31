@@ -1,3 +1,10 @@
+---
+title: TreeSelect
+meta:
+  - name: description
+    content: 当选项的层级多深时，使用树形选择器比普通选择器更适合
+---
+
 # TreeSelect
 
 > 当选项的层级多深时，使用树形选择器比普通选择器更适合

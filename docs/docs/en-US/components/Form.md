@@ -1,3 +1,10 @@
+---
+title: Form
+meta:
+  - name: description
+    content: Form consists of `input`, `radio`, `select`, `checkbox` and so on. With form, you can collect, verify and submit data
+---
+
 # Form
 
 > Form consists of `input`, `radio`, `select`, `checkbox` and so on. With form, you can collect, verify and submit data

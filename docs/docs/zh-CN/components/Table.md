@@ -1,3 +1,10 @@
+---
+title: Table
+meta:
+  - name: description
+    content: 封装表格组件实现通过配置动态生成列
+---
+
 # Table
 
 > 封装表格组件实现通过配置动态生成列

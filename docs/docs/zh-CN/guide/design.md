@@ -1,3 +1,10 @@
+---
+title: 组件设计
+meta:
+  - name: description
+    content: element-pro-components 组件库的整体设计思路及大体使用方式
+---
+
 # 组件设计
 
 ## 布局组件

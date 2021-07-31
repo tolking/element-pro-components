@@ -1,3 +1,10 @@
+---
+title: Checkbox
+meta:
+  - name: description
+    content: Single selection among multiple options
+---
+
 # Checkbox
 
 > Single selection among multiple options

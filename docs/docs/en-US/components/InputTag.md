@@ -1,3 +1,10 @@
+---
+title: InputTag
+meta:
+  - name: description
+    content: Enter an array of tags
+---
+
 # InputTag
 
 > Enter an array of tags

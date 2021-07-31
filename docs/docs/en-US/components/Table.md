@@ -1,3 +1,10 @@
+---
+title: Table
+meta:
+  - name: description
+    content: Display multiple data with similar format. You can sort, filter, compare your data in a table
+---
+
 # Table
 
 > Display multiple data with similar format. You can sort, filter, compare your data in a table

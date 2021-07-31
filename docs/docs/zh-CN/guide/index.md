@@ -1,8 +1,8 @@
 ---
-title: My Cool App
+title: 快速上手
 meta:
   - name: description
-    content: Hello World
+    content: 快速上手 element-pro-components 组件库
 ---
 
 # 快速上手

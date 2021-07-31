@@ -1,3 +1,10 @@
+---
+title: Quick start
+meta:
+  - name: description
+    content: Quick start with element-pro-components component library
+---
+
 # Quick start
 
 ## Ready

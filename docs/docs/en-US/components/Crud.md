@@ -1,3 +1,10 @@
+---
+title: Crud
+meta:
+  - name: description
+    content: Crud is a multifunctional business component based on Table and Form
+---
+
 # Crud
 
 > Crud is a multifunctional business component based on Table and Form

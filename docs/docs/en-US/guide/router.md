@@ -1,3 +1,10 @@
+---
+title: Router and Menu
+meta:
+  - name: description
+    content: How to configure the route and menu of the element-pro-components component library
+---
+
 # Router and Menu
 
 By default, layout-related components will automatically obtain the required routes information from `vue-router`

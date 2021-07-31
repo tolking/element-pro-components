@@ -1,3 +1,10 @@
+---
+title: Design
+meta:
+  - name: description
+    content: The design of element-pro-components component library
+---
+
 # 组件设计
 
 ## 布局组件

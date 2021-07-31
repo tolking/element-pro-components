@@ -1,3 +1,10 @@
+---
+title: 自定义主题
+meta:
+  - name: description
+    content: 如何自定义 element-pro-components 组件库的主题
+---
+
 # 自定义主题
 
 ::: tip 提示

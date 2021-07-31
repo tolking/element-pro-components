@@ -1,6 +1,13 @@
+---
+title: InputTag
+meta:
+  - name: description
+    content: 基于 `ElTag` `ElInput` 的输入多个标签的输入框
+---
+
 # InputTag
 
-> 基于 `tag` `input` 的输入多个标签的输入框
+> 基于 `ElTag` `ElInput` 的输入多个标签的输入框
 
 ## 使用
 
@@ -172,7 +179,7 @@ export default {
 
 ### AutocompleteTag
 
-> 基于 `tag` `autocomplete` 的输入多个标签的输入框
+> 基于 `ElTag` `ElAutocomplete` 的输入多个标签的输入框
 
 ### AutocompleteTag 配置
 

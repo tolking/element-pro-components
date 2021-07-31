@@ -1,3 +1,10 @@
+---
+title: Select
+meta:
+  - name: description
+    content: When there are plenty of options, use a drop-down menu to display and select desired ones
+---
+
 # Select
 
 > When there are plenty of options, use a drop-down menu to display and select desired ones
