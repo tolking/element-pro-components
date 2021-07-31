@@ -42,7 +42,6 @@ export default defineConfig({
         typographer: true,
         highlight,
       },
-      wrapperClasses: 'pro-main',
       markdownItSetup(md) {
         md.use(snippet)
           .use(preWrapper)
