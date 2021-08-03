@@ -58,7 +58,6 @@ h2 {
   padding-bottom: 0.3rem;
   line-height: 1.25;
   font-size: 1.65rem;
-  /* overflow-x: auto; */
 }
 
 h2 + h3 {
@@ -103,10 +102,6 @@ a:hover {
 }
 
 a.header-anchor {
-  float: left;
-  margin-top: 0.125em;
-  margin-left: -0.87em;
-  padding-right: 0.23em;
   font-size: 0.85em;
   opacity: 0;
 }

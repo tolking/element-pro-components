@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import Markdown from 'vite-plugin-md'
 import container from 'markdown-it-container'
 import { VitePWA } from 'vite-plugin-pwa'
+import anchor from 'markdown-it-anchor'
 import highlight from './docs/src/plugin/highlight'
 import snippet from './docs/src/plugin/snippet'
 import demo from './docs/src/plugin/demo'
@@ -46,6 +47,9 @@ export default defineConfig({
         md.use(snippet)
           .use(preWrapper)
           .use(container, 'demo', demo)
+          .use(anchor, {
+            permalink: anchor.permalink.ariaHidden({}),
+          })
           .use(...createContainer('tip', 'TIP'))
           .use(...createContainer('warning', 'WARNING'))
           .use(...createContainer('danger', 'WARNING'))
