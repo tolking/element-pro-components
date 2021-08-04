@@ -1,9 +1,5 @@
 /* TODO: rebuild... copy from [vitepress](https://github.com/vuejs/vitepress) */
 :root {
-  /**
-   * Colors
-   * --------------------------------------------------------------------- */
-
   --c-white: #ffffff;
   --c-black: #000000;
 
@@ -17,29 +13,11 @@
   --c-brand: #409eff;
   --c-brand-light: #4abf8a;
 
-  /**
-   * Typography
-   * --------------------------------------------------------------------- */
-
   --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   --font-family-mono: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-
-  /**
-   * Z Indexes
-   *
-   * Algolia SearchBox has a z-index of 200, so make sure not to go above
-   * that value.
-   * --------------------------------------------------------------------- */
-
-  --z-index-navbar: 10;
-  --z-index-sidebar: 6;
-
-  /**
-   * Shadows
-   * --------------------------------------------------------------------- */
 
   --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
   --shadow-2: 0 3px 12px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.07);
@@ -47,15 +25,6 @@
   --shadow-4: 0 14px 44px rgba(0, 0, 0, 0.12), 0 3px 9px rgba(0, 0, 0, 0.12);
   --shadow-5: 0 18px 56px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.16);
 
-  /**
-   * Sizes
-   * --------------------------------------------------------------------- */
-
-  --header-height: 3.6rem;
-}
-
-/** Fallback Styles */
-:root {
   --c-divider: var(--c-divider-light);
 
   --c-text: var(--c-text-light-1);

@@ -1,3 +1,10 @@
+---
+title: 路由和菜单
+meta:
+  - name: description
+    content: 如何配置 element-pro-components 组件库的路由和菜单
+---
+
 # 路由和菜单
 
 默认情况下，布局相关的组件会自动从 `vue-router` 中获取所需要的路由信息

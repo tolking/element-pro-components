@@ -1,44 +1,84 @@
-import path from 'path'
+import { resolve } from 'path'
 import { defineConfig } from 'vite'
-import babel from 'rollup-plugin-babel'
-import { name } from './package.json'
-import plugins from './docs/src/plugin/common-plugins'
-
-const camelize = (name: string) =>
-  name.replace(/(^|-)(\w)/g, (a, b, c) => c.toUpperCase())
+import vue from '@vitejs/plugin-vue'
+import Markdown from 'vite-plugin-md'
+import container from 'markdown-it-container'
+import { VitePWA } from 'vite-plugin-pwa'
+import anchor from 'markdown-it-anchor'
+import highlight from './docs/src/plugin/highlight'
+import snippet from './docs/src/plugin/snippet'
+import demo from './docs/src/plugin/demo'
+import createContainer from './docs/src/plugin/create-container'
+import preWrapper from './docs/src/plugin/pre-wrapper'
+import type Token from 'markdown-it/lib/token'
 
 export default defineConfig({
-  root: path.resolve(__dirname, 'docs'),
+  root: resolve(__dirname, 'docs'),
+  base: '/element-pro-components/',
   resolve: {
     alias: {
-      '/@src': path.resolve(__dirname, 'src'),
+      '/@src': resolve(__dirname, 'src'),
     },
   },
   build: {
-    target: 'es2015',
-    outDir: path.resolve(__dirname, 'lib'),
-    lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
-      name: camelize(name),
-    },
     rollupOptions: {
       output: {
-        exports: 'named',
-        globals: (id: string) => {
-          const name = id.replace(/^@/, '').split('/')[0]
-          return camelize(name)
+        inlineDynamicImports: false,
+        manualChunks: {
+          'modules-vue': ['vue', 'vue-router'],
+          'modules-element-plus': ['element-plus'],
         },
       },
-      external: (id: string) =>
-        /^(vue|@vue|element-plus|resize-observer-polyfill)/.test(id),
-      plugins: [
-        babel({
-          exclude: 'node_modules/**',
-          extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
-          presets: ['@babel/preset-env', '@babel/preset-typescript'],
-        }),
-      ],
     },
   },
-  plugins,
+  plugins: [
+    vue({
+      include: [/\.vue$/, /\.md$/],
+    }),
+    Markdown({
+      headEnabled: true,
+      markdownItOptions: {
+        html: true,
+        linkify: true,
+        typographer: true,
+        highlight,
+      },
+      markdownItSetup(md) {
+        md.use(snippet)
+          .use(preWrapper)
+          .use(container, 'demo', demo)
+          .use(anchor, {
+            permalink: anchor.permalink.ariaHidden({}),
+          })
+          .use(...createContainer('tip', 'TIP'))
+          .use(...createContainer('warning', 'WARNING'))
+          .use(...createContainer('danger', 'WARNING'))
+          .use(container, 'v-pre', {
+            render: (tokens: Token[], idx: number) =>
+              tokens[idx].nesting === 1 ? '<div v-pre>\n' : '</div>\n',
+          })
+          .use(container, 'details', {
+            render: (tokens: Token[], idx: number) => {
+              const info = tokens[idx].info.trim().slice(7).trim() // 7 = 'details'.length
+              return tokens[idx].nesting === 1
+                ? `<details class="custom-block details">${
+                    info ? `<summary>${info}</summary>` : ''
+                  }\n`
+                : '</details>'
+            },
+          })
+      },
+    }),
+    VitePWA({
+      manifest: {
+        description: 'a component library for Vue 3 base on element-plus',
+        icons: [
+          {
+            src: 'logo.svg',
+            sizes: '48x48 72x72 96x96 128x128 256x256',
+          },
+        ],
+      },
+    }),
+  ],
 })

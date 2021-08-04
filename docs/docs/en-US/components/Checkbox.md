@@ -1,12 +1,19 @@
+---
+title: Checkbox
+meta:
+  - name: description
+    content: Single selection among multiple options
+---
+
 # Checkbox
 
 > Single selection among multiple options
 
-# Use
+## Use
 
-## Basic Use
+### Basic Use
 
-::: demo 使用 `pro-checkbox`，并传入 data 数据，自动生成选项
+::: demo Set `data` attribute will automatic generate options
 
 <template>
   <pro-checkbox
@@ -39,9 +46,9 @@ export default {
 
 :::
 
-### 控制不可选项目
+### Disabled State
 
-::: demo 将传入 data 数据中的某项设置为 `disabled: true` 即可
+::: demo Set the `disabled` attribute in prop `data`
 
 <template>
   <pro-checkbox
@@ -74,9 +81,9 @@ export default {
 
 :::
 
-### 配置绑定数据键值
+### Configure key of binding data
 
-::: demo 通过 config 配置数据键值。`value`- v-model 绑定的键值、`label`-显示键值、`disabled`-控制不可选的键值、`name`-原生 name 的键值
+::: demo Set `config` attribute. `value`- v-model bind key; `label`- display key; `disabled`- Disabled key; `name`- name key
 
 <template>
   <pro-checkbox
@@ -112,9 +119,9 @@ export default {
 
 :::
 
-### 按钮样式
+### Button style
 
-::: demo 使用 `pro-checkbox-button` 显示按钮样式的多选框组
+::: demo use `pro-checkbox-button` then checkbox with button styles
 
 <template>
   <pro-checkbox-button
@@ -166,6 +173,10 @@ export default {
 | Name   | Description                             | Parameters        |
 | ------ | --------------------------------------- | ----------------- |
 | change | triggers when the binding value changes | the updated value |
+
+### CheckboxButton
+
+> Checkbox with button styles
 
 ### CheckboxButton Props
 

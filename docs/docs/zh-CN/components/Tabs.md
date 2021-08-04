@@ -1,3 +1,10 @@
+---
+title: Tabs
+meta:
+  - name: description
+    content: 根据浏览记录自动记录历史 tab
+---
+
 # Tabs
 
 > 根据浏览记录自动记录历史 tab

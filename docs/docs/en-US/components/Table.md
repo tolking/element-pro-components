@@ -1,12 +1,19 @@
+---
+title: Table
+meta:
+  - name: description
+    content: Display multiple data with similar format. You can sort, filter, compare your data in a table
+---
+
 # Table
 
 > Display multiple data with similar format. You can sort, filter, compare your data in a table
 
-# Use
+## Use
 
-## Basic Use
+### Basic Use
 
-::: demo 传入 columns 数据，自动生成表格
+::: demo Set `columns` attribute will automatic generate columns
 
 <template>
   <pro-table
@@ -22,15 +29,15 @@ export default {
   setup() {
     const columns = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
       },
     ])
@@ -67,9 +74,9 @@ export default {
 
 :::
 
-### 索引表格
+### Index Columns
 
-::: demo 通过配置 index 显示索引列，支持 columns 的参数
+::: demo Set `index` attribute to display index columns
 
 <template>
   <pro-table
@@ -86,15 +93,15 @@ export default {
   setup() {
     const columns = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
       },
     ])
@@ -131,9 +138,9 @@ export default {
 
 :::
 
-### 多选表格
+### Selection Columns
 
-::: demo 通过配置 selection 显示多选框，支持 columns 的参数
+::: demo Set `selection` attribute to display selection columns
 
 <template>
   <pro-table
@@ -150,15 +157,15 @@ export default {
   setup() {
     const columns = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
       },
     ])
@@ -195,9 +202,9 @@ export default {
 
 :::
 
-### 可展开表格
+### Expand Columns
 
-::: demo 通过配置 expand 开启展开插槽，通过 #expand 插槽定制显示内容，支持 columns 的参数
+::: demo Set `expand` attribute to display expand columns, and use expand slot to define display content
 
 <template>
   <pro-table
@@ -218,15 +225,15 @@ export default {
   setup() {
     const columns = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
       },
     ])
@@ -263,9 +270,9 @@ export default {
 
 :::
 
-### 定义操作按钮
+### Menu Columns
 
-::: demo 通过配置 menu 开启按钮插槽，通过 #menu 插槽定制显示内容，支持 columns 的参数
+::: demo Set `menu` attribute to display menu Columns, and use menu slot to define display content
 
 <template>
   <pro-table
@@ -278,7 +285,7 @@ export default {
         :size="size"
         type="text"
       >
-        详情
+        Detail
       </el-button>
     </template>
   </pro-table>
@@ -290,20 +297,20 @@ import { ref } from 'vue'
 export default {
   setup() {
     const menu = ref({
-      label: '操作',
+      label: 'Operations',
       align: 'center',
     })
     const columns = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
       },
     ])
@@ -343,7 +350,7 @@ export default {
 
 ### Slots
 
-::: demo
+::: demo Use simple [render-function](https://v3.cn.vuejs.org/guide/render-function.html) by `render` in `columns`. or set `slot: true` then write slot with `[prop]` in template
 
 <template>
   <pro-table
@@ -358,35 +365,29 @@ export default {
         {{ row?.name }}
       </el-tag>
     </template>
-    <template #menu="{ size }">
-      <el-button
-        :size="size"
-        type="text"
-      >
-        详情
-      </el-button>
-    </template>
   </pro-table>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 
 export default {
   setup() {
     const columns3 = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
+        render: '--',
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
         slot: true,
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
+        render: (row) => h('em', null, row.address),
       },
     ])
     const data = ref([
@@ -422,9 +423,9 @@ export default {
 
 :::
 
-### 显示分页
+### Pagination
 
-::: demo 当传入 total 数据时，将自动显示分页。可以通过 `v-model:current-page` 绑定当前页数、通过 `v-model:page-size` 绑定每页显示条目个数
+::: demo Set `total` attribute to display pagination, use `v-model:current-page` to bind current page; use `v-model:page-size` to bind current page size
 
 <template>
   <pro-table
@@ -446,15 +447,15 @@ export default {
     const total = ref(50)
     const columns = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
       },
     ])
@@ -494,9 +495,9 @@ export default {
 
 :::
 
-### 多级表头
+### Grouping table head
 
-::: demo 通过 columns 的 `children` 配置多级表头
+::: demo Set `children` in `columns` will automatic generate the grouping table head
 
 <template>
   <pro-table
@@ -512,18 +513,18 @@ export default {
   setup() {
     const columns2 = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
       },
       {
-        label: '用户',
+        label: 'User',
         children: [
           {
-            label: '姓名',
+            label: 'Name',
             prop: 'name',
           },
           {
-            label: '地址',
+            label: 'Address',
             prop: 'address',
           },
         ],
@@ -565,8 +566,8 @@ export default {
 ### Props
 
 | Name                    | Description                                                                                                                                                                                                                                                                 | Type                                                    | Options                        | Default                                                                        |
-| :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------ | :----------------------------- | :----------------------------------------------------------------------------- | ---- |
-| data                    | Table data                                                                                                                                                                                                                                                                  | array                                                   | —                              | —                                                                              |
+| :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------ | :----------------------------- | :----------------------------------------------------------------------------- |
+| data                    | Table data                                                                                                                                                                                                                                                                  | array                                                   | -                              | -                                                                              |
 | columns                 | to generate table components, reference `columns`                                                                                                                                                                                                                           | array                                                   | -                              | -                                                                              |
 | selection               | add a column will display checkbox, reference `columns`                                                                                                                                                                                                                     | boolean / object                                        | -                              | false                                                                          |
 | index                   | add a column will display index, reference columns                                                                                                                                                                                                                          | boolean / object                                        | -                              | false                                                                          |
@@ -578,39 +579,39 @@ export default {
 | total                   | total item count                                                                                                                                                                                                                                                            | number                                                  | -                              | -                                                                              |
 | current-page            | current page number, supports `v-model:current-page`                                                                                                                                                                                                                        | number                                                  | -                              | -                                                                              |
 | page-size               | item count of each page, supports `v-model:page-size`                                                                                                                                                                                                                       | number                                                  | -                              | -                                                                              |
-| pagination              | pagination props, same with el-pagination                                                                                                                                                                                                                                   | object                                                  | -                              | [reference](../guide/index#全局配置)                                           |
-| height                  | Table's height. By default it has an `auto` height. If its value is a number, the height is measured in pixels; if its value is a string, the value will be assigned to element's style.height, the height is affected by external styles                                   | string/number                                           | —                              | —                                                                              |
-| max-height              | Table's max-height. The legal value is a number or the height in px.                                                                                                                                                                                                        | string/number                                           | —                              | —                                                                              |
-| stripe                  | whether Table is striped                                                                                                                                                                                                                                                    | boolean                                                 | —                              | false                                                                          |
-| border                  | whether Table has vertical border                                                                                                                                                                                                                                           | boolean                                                 | —                              | false                                                                          |
-| size                    | size of Table                                                                                                                                                                                                                                                               | string                                                  | medium / small / mini          | —                                                                              |
-| fit                     | whether width of column automatically fits its container                                                                                                                                                                                                                    | boolean                                                 | —                              | true                                                                           |
-| show-header             | whether Table header is visible                                                                                                                                                                                                                                             | boolean                                                 | —                              | true                                                                           |
-| highlight-current-row   | whether current row is highlighted                                                                                                                                                                                                                                          | boolean                                                 | —                              | false                                                                          |
-| current-row-key         | key of current row, a set only prop                                                                                                                                                                                                                                         | string,number                                           | —                              | —                                                                              |
-| row-class-name          | function that returns custom class names for a row, or a string assigning class names for every row                                                                                                                                                                         | Function({row, rowIndex}) / String                      | —                              | —                                                                              |
-| row-style               | function that returns custom style for a row, or an object assigning custom style for every row                                                                                                                                                                             | Function({row, rowIndex})/Object                        | —                              | —                                                                              |
-| cell-class-name         | function that returns custom class names for a cell, or a string assigning class names for every cell                                                                                                                                                                       | Function({row, column, rowIndex, columnIndex}) / String | —                              | —                                                                              |
-| cell-style              | function that returns custom style for a cell, or an object assigning custom style for every cell                                                                                                                                                                           | Function({row, column, rowIndex, columnIndex})/Object   | —                              | —                                                                              |
-| header-row-class-name   | function that returns custom class names for a row in table header, or a string assigning class names for every row in table header                                                                                                                                         | Function({row, rowIndex}) / String                      | —                              | —                                                                              |
-| header-row-style        | function that returns custom style for a row in table header, or an object assigning custom style for every row in table header                                                                                                                                             | Function({row, rowIndex}) / Object                      | —                              | —                                                                              |
-| header-cell-class-name  | function that returns custom class names for a cell in table header, or a string assigning class names for every cell in table header                                                                                                                                       | Function({row, column, rowIndex, columnIndex}) / String | —                              | —                                                                              |
-| header-cell-style       | function that returns custom style for a cell in table header, or an object assigning custom style for every cell in table header                                                                                                                                           | Function({row, column, rowIndex, columnIndex}) / Object | —                              | —                                                                              |
-| row-key                 | key of row data, used for optimizing rendering. Required if `reserve-selection` is on or display tree data. When its type is String, multi-level access is supported, e.g. `user.info.id`, but `user.info[0].id` is not supported, in which case `Function` should be used. | Function(row) / String                                  | —                              | —                                                                              |
-| empty-text              | Displayed text when data is empty. You can customize this area with `#empty`                                                                                                                                                                                                | String                                                  | —                              | No Data                                                                        |
-| default-expand-all      | whether expand all rows by default, works when the table has a column type="expand" or contains tree structure data                                                                                                                                                         | Boolean                                                 | —                              | false                                                                          |
-| expand-row-keys         | set expanded rows by this prop, prop's value is the keys of expand rows, you should set row-key before using this prop                                                                                                                                                      | Array                                                   | —                              |                                                                                |
+| pagination              | pagination props, same with el-pagination                                                                                                                                                                                                                                   | object                                                  | -                              | from global config                                                             |
+| height                  | Table's height. By default it has an `auto` height. If its value is a number, the height is measured in pixels; if its value is a string, the value will be assigned to element's style.height, the height is affected by external styles                                   | string/number                                           | -                              | -                                                                              |
+| max-height              | Table's max-height. The legal value is a number or the height in px.                                                                                                                                                                                                        | string/number                                           | -                              | -                                                                              |
+| stripe                  | whether Table is striped                                                                                                                                                                                                                                                    | boolean                                                 | -                              | false                                                                          |
+| border                  | whether Table has vertical border                                                                                                                                                                                                                                           | boolean                                                 | -                              | false                                                                          |
+| size                    | size of Table                                                                                                                                                                                                                                                               | string                                                  | medium / small / mini          | -                                                                              |
+| fit                     | whether width of column automatically fits its container                                                                                                                                                                                                                    | boolean                                                 | -                              | true                                                                           |
+| show-header             | whether Table header is visible                                                                                                                                                                                                                                             | boolean                                                 | -                              | true                                                                           |
+| highlight-current-row   | whether current row is highlighted                                                                                                                                                                                                                                          | boolean                                                 | -                              | false                                                                          |
+| current-row-key         | key of current row, a set only prop                                                                                                                                                                                                                                         | string,number                                           | -                              | -                                                                              |
+| row-class-name          | function that returns custom class names for a row, or a string assigning class names for every row                                                                                                                                                                         | Function({row, rowIndex}) / String                      | -                              | -                                                                              |
+| row-style               | function that returns custom style for a row, or an object assigning custom style for every row                                                                                                                                                                             | Function({row, rowIndex})/Object                        | -                              | -                                                                              |
+| cell-class-name         | function that returns custom class names for a cell, or a string assigning class names for every cell                                                                                                                                                                       | Function({row, column, rowIndex, columnIndex}) / String | -                              | -                                                                              |
+| cell-style              | function that returns custom style for a cell, or an object assigning custom style for every cell                                                                                                                                                                           | Function({row, column, rowIndex, columnIndex})/Object   | -                              | -                                                                              |
+| header-row-class-name   | function that returns custom class names for a row in table header, or a string assigning class names for every row in table header                                                                                                                                         | Function({row, rowIndex}) / String                      | -                              | -                                                                              |
+| header-row-style        | function that returns custom style for a row in table header, or an object assigning custom style for every row in table header                                                                                                                                             | Function({row, rowIndex}) / Object                      | -                              | -                                                                              |
+| header-cell-class-name  | function that returns custom class names for a cell in table header, or a string assigning class names for every cell in table header                                                                                                                                       | Function({row, column, rowIndex, columnIndex}) / String | -                              | -                                                                              |
+| header-cell-style       | function that returns custom style for a cell in table header, or an object assigning custom style for every cell in table header                                                                                                                                           | Function({row, column, rowIndex, columnIndex}) / Object | -                              | -                                                                              |
+| row-key                 | key of row data, used for optimizing rendering. Required if `reserve-selection` is on or display tree data. When its type is String, multi-level access is supported, e.g. `user.info.id`, but `user.info[0].id` is not supported, in which case `Function` should be used. | Function(row) / String                                  | -                              | -                                                                              |
+| empty-text              | Displayed text when data is empty. You can customize this area with `#empty`                                                                                                                                                                                                | String                                                  | -                              | No Data                                                                        |
+| default-expand-all      | whether expand all rows by default, works when the table has a column type="expand" or contains tree structure data                                                                                                                                                         | Boolean                                                 | -                              | false                                                                          |
+| expand-row-keys         | set expanded rows by this prop, prop's value is the keys of expand rows, you should set row-key before using this prop                                                                                                                                                      | Array                                                   | -                              |                                                                                |
 | default-sort            | set the default sort column and order. property `prop` is used to set default sort column, property `order` is used to set default sort order                                                                                                                               | Object                                                  | `order`: ascending, descending | if `prop` is set, and `order` is not set, then `order` is default to ascending |
-| tooltip-effect          | tooltip `effect` property                                                                                                                                                                                                                                                   | String                                                  | dark / light                   |                                                                                | dark |
-| show-summary            | whether to display a summary row                                                                                                                                                                                                                                            | Boolean                                                 | —                              | false                                                                          |
-| sum-text                | displayed text for the first column of summary row                                                                                                                                                                                                                          | String                                                  | —                              | Sum                                                                            |
-| summary-method          | custom summary method                                                                                                                                                                                                                                                       | Function({ columns, data })                             | —                              | —                                                                              |
-| span-method             | method that returns rowspan and colspan                                                                                                                                                                                                                                     | Function({ row, column, rowIndex, columnIndex })        | —                              | —                                                                              |
-| select-on-indeterminate | controls the behavior of master checkbox in multi-select tables when only some rows are selected (but not all). If true, all rows will be selected, else deselected.                                                                                                        | Boolean                                                 | —                              | true                                                                           |
-| indent                  | horizontal indentation of tree data                                                                                                                                                                                                                                         | Number                                                  | —                              | 16                                                                             |
-| lazy                    | whether to lazy loading data                                                                                                                                                                                                                                                | Boolean                                                 | —                              | —                                                                              |
-| load                    | method for loading child row data, only works when `lazy` is true                                                                                                                                                                                                           | Function(row, treeNode, resolve)                        | —                              | —                                                                              |
-| tree-props              | configuration for rendering nested data                                                                                                                                                                                                                                     | Object                                                  | —                              | { hasChildren: 'hasChildren', children: 'children' }                           |
+| tooltip-effect          | tooltip `effect` property                                                                                                                                                                                                                                                   | String                                                  | dark / light                   | dark                                                                           |
+| show-summary            | whether to display a summary row                                                                                                                                                                                                                                            | Boolean                                                 | -                              | false                                                                          |
+| sum-text                | displayed text for the first column of summary row                                                                                                                                                                                                                          | String                                                  | -                              | Sum                                                                            |
+| summary-method          | custom summary method                                                                                                                                                                                                                                                       | Function({ columns, data })                             | -                              | -                                                                              |
+| span-method             | method that returns rowspan and colspan                                                                                                                                                                                                                                     | Function({ row, column, rowIndex, columnIndex })        | -                              | -                                                                              |
+| select-on-indeterminate | controls the behavior of master checkbox in multi-select tables when only some rows are selected (but not all). If true, all rows will be selected, else deselected.                                                                                                        | Boolean                                                 | -                              | true                                                                           |
+| indent                  | horizontal indentation of tree data                                                                                                                                                                                                                                         | Number                                                  | -                              | 16                                                                             |
+| lazy                    | whether to lazy loading data                                                                                                                                                                                                                                                | Boolean                                                 | -                              | -                                                                              |
+| load                    | method for loading child row data, only works when `lazy` is true                                                                                                                                                                                                           | Function(row, treeNode, resolve)                        | -                              | -                                                                              |
+| tree-props              | configuration for rendering nested data                                                                                                                                                                                                                                     | Object                                                  | -                              | { hasChildren: 'hasChildren', children: 'children' }                           |
 
 #### columns
 
@@ -620,6 +621,7 @@ export default {
 | label               | column label                                                                                                                                                                                                    | string                                  | -                                                                                                                                | -                                 |
 | slot                | whether to enable slot                                                                                                                                                                                          | boolean                                 | -                                                                                                                                | false                             |
 | render              | render function for table columns                                                                                                                                                                               | string / function(row)                  | -                                                                                                                                | -                                 |
+| hide                | Whether to hide in the table                                                                                                                                                                                    | boolean                                 | -                                                                                                                                | false                             |
 | children            | grouping table head                                                                                                                                                                                             | array                                   | -                                                                                                                                | -                                 |
 | columnKey           | column's key. If you need to use the filter-change event, you need this attribute to identify which column is being filtered                                                                                    | string                                  | -                                                                                                                                | -                                 |
 | width               | column width                                                                                                                                                                                                    | string                                  | -                                                                                                                                | -                                 |
@@ -676,18 +678,18 @@ export default {
 
 | Name               | Description                                                                                                                                                       | Parameters                  |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
-| clearSelection     | used in multiple selection Table, clear user selection                                                                                                            | —                           |
+| clearSelection     | used in multiple selection Table, clear user selection                                                                                                            | -                           |
 | toggleRowSelection | used in multiple selection Table, toggle if a certain row is selected. With the second parameter, you can directly set if this row is selected                    | row, selected               |
 | toggleAllSelection | used in multiple selection Table, toggle select all and deselect all                                                                                              | -                           |
 | toggleRowExpansion | used in expandable Table or tree Table, toggle if a certain row is expanded. With the second parameter, you can directly set if this row is expanded or collapsed | row, expanded               |
 | setCurrentRow      | used in single selection Table, set a certain row selected. If called without any parameter, it will clear selection.                                             | row                         |
-| clearSort          | clear sorting, restore data to the original order                                                                                                                 | —                           |
+| clearSort          | clear sorting, restore data to the original order                                                                                                                 | -                           |
 | clearFilter        | clear filters of the columns whose `columnKey` are passed in. If no params, clear all filters                                                                     | columnKeys                  |
-| doLayout           | refresh the layout of Table. When the visibility of Table changes, you may need to call this method to get a correct layout                                       | —                           |
+| doLayout           | refresh the layout of Table. When the visibility of Table changes, you may need to call this method to get a correct layout                                       | -                           |
 | sort               | sort Table manually. Property `prop` is used to set sort column, property `order` is used to set sort order                                                       | prop: string, order: string |
 
 ::: tip Tip
-如果使用 `typescript` 可以从组件中导出 `ITableExpose` 提供更好的类型推导
+If you use `typescript`, you can export `ITableExpose` from the component to provide better type inference
 :::
 
 ### Slots

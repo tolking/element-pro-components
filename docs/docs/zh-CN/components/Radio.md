@@ -1,3 +1,10 @@
+---
+title: Radio
+meta:
+  - name: description
+    content: 封装单选框组件
+---
+
 # Radio
 
 > 封装单选框组件
@@ -6,7 +13,7 @@
 
 ### 基础用法
 
-::: demo 使用 `pro-radio`，并传入 data 数据，自动生成选项
+::: demo 传入 data 数据将自动生成选项
 
 <template>
   <pro-radio

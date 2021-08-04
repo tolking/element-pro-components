@@ -1,6 +1,13 @@
+---
+title: InputTag
+meta:
+  - name: description
+    content: 基于 `ElTag` `ElInput` 的输入多个标签的输入框
+---
+
 # InputTag
 
-> 基于 `tag` `input` 的输入多个标签的输入框
+> 基于 `ElTag` `ElInput` 的输入多个标签的输入框
 
 ## 使用
 
@@ -31,7 +38,7 @@ export default {
 
 :::
 
-### 通过 `Enter` 键触发
+### 通过 Enter 键触发
 
 ::: demo 指定 trigger 为 enter 时，将通过回车键触发输入
 
@@ -172,7 +179,7 @@ export default {
 
 ### AutocompleteTag
 
-> 基于 `tag` `autocomplete` 的输入多个标签的输入框
+> 基于 `ElTag` `ElAutocomplete` 的输入多个标签的输入框
 
 ### AutocompleteTag 配置
 

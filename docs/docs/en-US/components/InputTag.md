@@ -1,17 +1,24 @@
+---
+title: InputTag
+meta:
+  - name: description
+    content: Enter an array of tags
+---
+
 # InputTag
 
 > Enter an array of tags
 
-# Use
+## Use
 
-## Basic Use
+### Basic Use
 
-::: demo 使用 `pro-input-tag` 支持 type="text" 的大部分配置
+::: demo When using `pro-input-tag`, most attribute of `type="text"` are supported
 
 <template>
   <pro-input-tag
     v-model="inputTags"
-    placeholder="请输入内容后点击空格按键"
+    placeholder="Please click the space button after input"
   />
 </template>
 
@@ -31,15 +38,15 @@ export default {
 
 :::
 
-### 通过 `Enter` 键触发
+### Trigger by Enter
 
-::: demo 指定 trigger 为 enter 时，将通过回车键触发输入
+::: demo Set `trigger="enter"` attribute to enable trigger by `Enter`
 
 <template>
   <pro-input-tag
     v-model="inputTags1"
     trigger="enter"
-    placeholder="请输入内容后点击回车按键"
+    placeholder="Please click the enter button after input"
   />
 </template>
 
@@ -59,9 +66,9 @@ export default {
 
 :::
 
-### 尺寸
+### Component Size
 
-::: demo 可通过 size 属性指定输入框和标签的尺寸
+::: demo Set `size` attribute to change the size of Input and Tag
 
 <template>
   <pro-input-tag
@@ -69,7 +76,7 @@ export default {
     v-model="inputTags2"
     :key="item"
     :size="item"
-    placeholder="请输入内容后点击空格按键"
+    placeholder="Please click the space button after input"
     class="input-tag-size"
   />
 </template>
@@ -101,15 +108,15 @@ export default {
 
 :::
 
-### 带输入建议
+### Autocomplete
 
-::: demo 使用 `pro-autocomplete-tag` 支持 autocomplete 的大部分配置
+::: demo When using `pro-autocomplete-tag`, most attribute of `ElAutocomplete` are supported
 
 <template>
   <pro-autocomplete-tag
     v-model="autocompleteTags"
     :fetch-suggestions="querySearch"
-    placeholder="请输入内容后点击空格按键"
+    placeholder="Please click the space button after input"
   />
 </template>
 
@@ -169,6 +176,10 @@ export default {
 | label           | label text                           | string  | -                                 | -       |
 | tabindex        | input tabindex                       | string  | -                                 | -       |
 | validate-event  | whether to trigger form validation   | boolean | -                                 | true    |
+
+### AutocompleteTag
+
+> Enter an array of tags with some recommended tips
 
 ### AutocompleteTag Props
 

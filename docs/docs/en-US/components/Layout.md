@@ -1,12 +1,19 @@
+---
+title: Layout
+meta:
+  - name: description
+    content: default global layout interface
+---
+
 # Layout
 
 > default global layout interface
 
-# Use
+## Use
 
-## Basic Use
+### Basic Use
 
-::: demo 组件默认将从 `vue-router` 中获取路由生成路由，格式参考页面下方
+::: demo By default, the component will generate routes from vue-router
 
 <template>
   <pro-layout class="docs-layout" />
@@ -23,12 +30,14 @@
 
 ### Slots
 
-::: demo 通过插槽实现更复杂的界面
+::: demo More complex interface through slots
 
 <template>
   <pro-layout class="docs-layout">
     <template #logo="{ collapse }">
-      <span style="line-height: 54px">{{ collapse ? 'L' : 'logo' }}</span>
+      <span style="line-height: 54px">
+        {{ collapse ? 'L' : 'logo' }}
+      </span>
     </template>
     <template #footer>
       <p>footer</p>
@@ -53,12 +62,15 @@
 
 :::
 
-### 自定义路由
+### Custom routes
 
-::: demo 通过传入 `routes` 实现自定义路由显示
+::: demo Set `routes` attribute to enable custom routes
 
 <template>
-  <pro-layout :routes="routes" class="docs-layout" />
+  <pro-layout
+    :routes="routes"
+    class="docs-layout"
+  />
 </template>
 
 <script>
@@ -70,7 +82,9 @@ export default {
     const router = useRouter()
     const routes = computed(() => {
       const _routes = router.options.routes
-      return _routes.find(item => item.path === '/zh-CN/components/').children
+      return _routes.find(item => {
+        return item.path === '/en-US/components/'
+      })?.children || []
     })
 
     return {
@@ -104,24 +118,3 @@ export default {
 | header-bottom | control the header bottom display content                         |
 | main-top      | control the main top display content                              |
 | main-bottom   | control the main bottom display content                           |
-
-## 参考
-
-### 参考 meta
-
-```ts
-interface IRouteMeta extends RouteMeta {
-  title?: string // the Menu title
-  icon?: string // the Menu icon
-  hidden?: boolean // whether to show in the Menu
-  keepAlive?: boolean // whether the current route is keepAlive
-}
-```
-
-### 参考路由
-
-<<< @/docs/src/router/dev.ts
-
-### 样式配置
-
-[参考](../guide/theme#提供配置的参数)

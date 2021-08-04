@@ -1,3 +1,10 @@
+---
+title: Menu
+meta:
+  - name: description
+    content: 封装默认 Menu 通过传入路由或者自动获取路由生成导航
+---
+
 # Menu
 
 > 封装默认 Menu 通过传入路由或者自动获取路由生成导航
@@ -63,7 +70,9 @@ export default {
     const router = useRouter()
     const routes = computed(() => {
       const _routes = router.options.routes
-      return _routes.find(item => item.path === '/zh-CN/components/').children
+      return _routes.find(item => {
+        return item.path === '/zh-CN/components/'
+      })?.children || []
     })
 
     return {

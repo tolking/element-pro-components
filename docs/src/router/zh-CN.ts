@@ -3,7 +3,7 @@ import type { IRouteRecordRaw } from '/@src/index'
 
 const zhCN: IRouteRecordRaw[] = [
   {
-    path: '/',
+    path: '/zh-CN/',
     redirect: '/zh-CN/guide/',
     component: BaseLayout,
     meta: { title: '指南', icon: 'el-icon-house' },

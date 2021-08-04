@@ -1,5 +1,22 @@
 <template>
-  <pro-layout>
+  <pro-layout :routes="routes">
+    <template #logo="{ collapse }">
+      <transition
+        name="el-zoom-in-top"
+        mode="out-in"
+      >
+        <img
+          v-if="collapse"
+          src="/logo.svg"
+          alt="logo"
+          class="logo-img"
+        >
+        <span
+          v-else
+          class="logo-title"
+        >element-pro-components</span>
+      </transition>
+    </template>
     <template #header-left>
       <pro-breadcrumb />
     </template>
@@ -10,35 +27,34 @@
       <pro-tabs ref="tabs" />
     </template>
   </pro-layout>
-  <teleport to="title">
-    {{ title }}
-  </teleport>
+  <pwa-popup />
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, provide, shallowRef } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-// import { isString } from '@vue/shared'
+import { computed, provide, shallowRef } from 'vue'
+import { useRouter } from 'vue-router'
+import { useLang } from '../composables/index'
 import NavHeader from '../components/NavHeader.vue'
+import PwaPopup from '../components/PwaPopup.vue'
 
-const route = useRoute()
-// const router = useRouter()
+const router = useRouter()
+const lang = useLang()
 const tabs = shallowRef({})
-const title = computed(() => {
-  return (route.meta.title || '') + ' | element-pro-components'
+const routes = computed(() => {
+  const reg = new RegExp(`^\\/(${lang.value}|dev)\\/`)
+  const routes = router.options.routes
+  return routes.filter((item) => reg.test(item.path))
 })
-// const routes = computed(() => {
-//   const _routes = router.options.routes
-//   const _path = route.path.match(/^\/(.*)\//)
-//   const _redirect = _path && _path[0] || ''
-//   const ss = _routes.find(item => isString(item.redirect) && item.redirect.startsWith(_redirect))
-
-//   return ss?.children || _routes
-// })
-
-// onMounted(() => {
-//   console.log(navigator.language)
-// })
 
 provide('tabs', tabs)
 </script>
+
+<style scoped>
+.logo-img {
+  padding: 10px;
+  width: calc(var(--aside-collapse-width) - 20px);
+}
+.logo-title {
+  line-height: var(--header-height);
+}
+</style>

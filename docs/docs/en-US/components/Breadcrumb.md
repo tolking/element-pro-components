@@ -1,3 +1,10 @@
+---
+title: Breadcrumb
+meta:
+  - name: description
+    content: Auto generate breadcrumbs according to the current page router
+---
+
 # Breadcrumb
 
 > Auto generate breadcrumbs according to the current page router

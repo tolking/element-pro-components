@@ -1,19 +1,26 @@
+---
+title: Crud
+meta:
+  - name: description
+    content: Crud is a multifunctional business component based on Table and Form
+---
+
 # Crud
 
 > Crud is a multifunctional business component based on Table and Form
 
-# Use
+## Use
 
-## Basic Use
+### Basic Use
 
-::: demo 传入 columns 数据，根据 `add` `edit` `form` `hide` `search` 自动生成多功能表格
+::: demo Set `add` `edit` `form` `hide` `search` in `columns` attribute will automatic generate crud
 
 <template>
   <pro-crud
     v-model="form"
     v-model:search="serachForm"
     :columns="columns"
-    :menu="{ label: '操作' }"
+    :menu="{ label: 'Operations' }"
     :data="data"
     @search="search"
     @submit="submit"
@@ -30,7 +37,7 @@ export default {
     const serachForm = ref({})
     const columns = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
         component: 'el-input',
         add: true,
@@ -38,14 +45,14 @@ export default {
         search: true,
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
         component: 'el-input',
         add: true,
         search: true,
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
         component: 'el-input',
         add: true,
@@ -108,9 +115,9 @@ export default {
 
 :::
 
-### 配置按钮
+### Custom Menu
 
-::: demo 默认不显示新增、编辑、删除按钮，需要通过 `menu` 传入 `true` 或者 menu 的相关配置才会显示
+::: demo By default, the add, edit, and delete buttons are not displayed, you need to pass in `true` or config through the menu to display
 
 <template>
   <pro-crud
@@ -133,14 +140,14 @@ import { ref } from 'vue'
 export default {
   setup() {
     const menu = ref({
-      label: '操作',
-      addText: '新增',
-      editText: '修改',
-      delText: '删除',
-      searchText: '搜索',
-      searchResetText: '重置',
-      submitText: '提交',
-      resetText: '重置',
+      label: 'Operations',
+      addText: 'New',
+      editText: 'Edit',
+      delText: 'Clean',
+      searchText: 'Search',
+      searchResetText: 'Reset Seaarch',
+      submitText: 'Create',
+      resetText: 'Reset Form',
       edit: (row) => row.date !== '2016-05-02',
       del: (row) => row.date !== '2016-05-04',
       searchReset: false,
@@ -151,20 +158,20 @@ export default {
     const serachForm1 = ref({})
     const columns1 = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
         component: 'el-input',
         form: true,
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
         component: 'el-input',
         form: true,
         search: true,
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
         component: 'el-input',
         form: true,
@@ -232,9 +239,9 @@ export default {
 
 :::
 
-### 指定搜索表单
+### Custom Search
 
-::: demo 通过 `form-columns` 传入的配置直接作用于搜索表单，类型同 Form columns
+::: demo Set `form-columns` attribute to enable custom search, same as Form columns
 
 <template>
   <pro-crud
@@ -254,33 +261,33 @@ export default {
     const serachForm2 = ref({})
     const columns2 = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
       },
     ])
     const searchColumns = ref([
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
         component: 'el-input',
       },
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
         component: 'el-date-picker',
         props: {
           type: 'datetimerange',
-          rangeSeparator: '至',
-          startPlaceholder: '开始日期',
-          endPlaceholder: '结束日期',
+          rangeSeparator: '-',
+          startPlaceholder: 'start',
+          endPlaceholder: 'end',
         }
       }
     ])
@@ -308,9 +315,9 @@ export default {
 
 :::
 
-### 指定新增表单
+### Custom Add Form
 
-::: demo 通过 `add-columns` 传入的配置直接作用于新增表单，类型同 Form columns
+::: demo Set `add-columns` attribute to enable custom search, same as Form columns
 
 <template>
   <pro-crud
@@ -332,33 +339,33 @@ export default {
     const form3 = ref({})
     const columns2 = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
       },
     ])
     const addColumns = ref([
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
         component: 'el-input',
       },
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
         component: 'el-date-picker',
         props: {
           type: 'datetimerange',
-          rangeSeparator: '至',
-          startPlaceholder: '开始日期',
-          endPlaceholder: '结束日期',
+          rangeSeparator: '-',
+          startPlaceholder: 'start',
+          endPlaceholder: 'end',
         }
       }
     ])
@@ -387,9 +394,9 @@ export default {
 
 :::
 
-### 指定编辑表单
+### Custom Edit Form
 
-::: demo 通过 `edit-columns` 传入的配置直接作用于新增表单，类型同 Form columns
+::: demo Set `edit-columns` attribute to enable custom search, same as Form columns
 
 <template>
   <pro-crud
@@ -413,35 +420,35 @@ export default {
     const form4 = ref({})
     const columns4 = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
         component: 'el-input',
         add: true,
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
       },
     ])
     const editColumns = ref([
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
         component: 'el-input',
       },
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
         component: 'el-date-picker',
         props: {
           type: 'datetimerange',
-          rangeSeparator: '至',
-          startPlaceholder: '开始日期',
-          endPlaceholder: '结束日期',
+          rangeSeparator: '-',
+          startPlaceholder: 'start',
+          endPlaceholder: 'end',
         }
       }
     ])
@@ -498,9 +505,9 @@ export default {
 
 :::
 
-### 指定表单
+### Custom Form
 
-::: demo 通过 `form-columns` 传入的配置直接作用于新增和编辑表单，类型同 Form columns
+::: demo Set `form-columns` attribute to enable custom search, same as Form columns. It will act on both add and edit form
 
 <template>
   <pro-crud
@@ -524,33 +531,33 @@ export default {
     const form5 = ref({})
     const columns2 = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
       },
     ])
     const formColumns = ref([
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
         component: 'el-input',
       },
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
         component: 'el-date-picker',
         props: {
           type: 'datetimerange',
-          rangeSeparator: '至',
-          startPlaceholder: '开始日期',
-          endPlaceholder: '结束日期',
+          rangeSeparator: '-',
+          startPlaceholder: 'start',
+          endPlaceholder: 'end',
         }
       }
     ])
@@ -607,9 +614,9 @@ export default {
 
 :::
 
-### 指定表格
+### Custom Table
 
-::: demo 通过 `table-columns` 传入的配置直接作用于表格，类型同 Table columns
+::: demo Set `table-columns` attribute to enable custom search, same as Table columns
 
 <template>
   <pro-crud
@@ -617,7 +624,7 @@ export default {
     v-model:search="serachForm6"
     :columns="columns6"
     :table-columns="tableColumns"
-    :menu="{ label: '操作' }"
+    :menu="{ label: 'Operations' }"
     :data="data"
     label-width="100px"
     @submit="submit"
@@ -635,38 +642,38 @@ export default {
     const serachForm6 = ref({})
     const columns6 = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
         component: 'el-input',
         form: true,
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
         component: 'el-input',
         form: true,
         search: true,
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
         component: 'el-input',
       },
     ])
     const tableColumns = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
       },
       {
-        label: '用户',
+        label: 'User',
         children: [
           {
-            label: '姓名',
+            label: 'Name',
             prop: 'name',
           },
           {
-            label: '地址',
+            label: 'Address',
             prop: 'address',
           },
         ],
@@ -726,15 +733,15 @@ export default {
 
 :::
 
-### 弹窗前后
+### Trigger Dialog
 
-::: demo 通过 `before-open` `before-close` 指定弹窗开启前与弹窗关闭前执行的操作
+::: demo Set `before-open` or `before-close` attribute to enable perform an operation before Dialog is opened or before Dialog is closed
 
 <template>
   <pro-crud
     v-model="form7"
     :columns="columns7"
-    :menu="{ label: '操作' }"
+    :menu="{ label: 'Operations' }"
     :data="data"
     :before-open="beforeOpen"
     :before-close="beforeClose"
@@ -749,17 +756,17 @@ export default {
     const form7 = ref({})
     const columns7 = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
         component: 'el-input',
         form: true,
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
       },
     ])
@@ -815,14 +822,14 @@ export default {
 
 ### Slots
 
-::: demo 通过 columns 的 slot 配置是否开启自定义插槽功能。开启后可以使用带 `[prop]` 相关的插槽，否则只有不带 `[prop]` 的插槽生效
+::: demo Set `slot` in `columns` attribute to enable custom slot. After set, you can use the related slots with `[prop]`, otherwise only the slots without `[prop]` will take effect
 
 <template>
   <pro-crud
     v-model="form8"
     v-model:search="serachForm8"
-    :columns="columns"
-    :menu="{ label: '操作' }"
+    :columns="columns8"
+    :menu="{ label: 'Operations' }"
     :data="data"
     selection
     @search="search"
@@ -834,7 +841,7 @@ export default {
         :size="size"
         type="danger"
       >
-        删除
+        Remove
       </el-button>
     </template>
     <template #menu="{ size }">
@@ -842,7 +849,7 @@ export default {
         :size="size"
         type="text"
       >
-        详情
+        Detail
       </el-button>
     </template>
     <template #form-name>
@@ -860,23 +867,29 @@ export default {
 </template>
 
 <script>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 
 export default {
   setup() {
     const form8 = ref({})
     const serachForm8 = ref({})
-    const columns = ref([
+    const columns8 = ref([
       {
-        label: '日期',
+        label: 'Date',
         prop: 'date',
         component: 'el-input',
         add: true,
         edit: true,
         search: true,
+        render: '--',
+        props: {
+          slots: {
+            suffix: () => h('i', { className: 'el-input__icon el-icon-date' }),
+          },
+        },
       },
       {
-        label: '姓名',
+        label: 'Name',
         prop: 'name',
         component: 'el-input',
         add: true,
@@ -884,11 +897,12 @@ export default {
         slot: true,
       },
       {
-        label: '地址',
+        label: 'Address',
         prop: 'address',
         component: 'el-input',
         add: true,
         edit: true,
+        render: (row) => h('em', null, row.address),
       },
     ])
     const data = ref([
@@ -936,7 +950,7 @@ export default {
       form8,
       serachForm8,
       data,
-      columns,
+      columns8,
       search,
       submit,
       deleteRow,
@@ -950,7 +964,7 @@ export default {
 ### Props
 
 | Name                    | Description                                                                                                                                                                                                                                                                 | Type                                                    | Options                                             | Default                                                                        |
-| :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------ | :-------------------------------------------------- | :----------------------------------------------------------------------------- | ---- |
+| :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------ | :-------------------------------------------------- | :----------------------------------------------------------------------------- |
 | v-model                 | binding value                                                                                                                                                                                                                                                               | object                                                  | -                                                   | -                                                                              |
 | v-model:search          | binding search value                                                                                                                                                                                                                                                        | object                                                  | -                                                   | -                                                                              |
 | columns                 | to generate crud components, reference `columns`                                                                                                                                                                                                                            | array                                                   | -                                                   | -                                                                              |
@@ -972,7 +986,7 @@ export default {
 | total                   | total item count                                                                                                                                                                                                                                                            | number                                                  | -                                                   | -                                                                              |
 | current-page            | current page number, supports `v-model:current-page`                                                                                                                                                                                                                        | number                                                  | -                                                   | -                                                                              |
 | page-size               | item count of each page, supports `v-model:page-size`                                                                                                                                                                                                                       | number                                                  | -                                                   | -                                                                              |
-| pagination              | pagination props, same with el-pagination                                                                                                                                                                                                                                   | object                                                  | -                                                   | [reference](../guide/index#全局配置)                                           |
+| pagination              | pagination props, same with el-pagination                                                                                                                                                                                                                                   | object                                                  | -                                                   | from global config                                                             |
 | height                  | Table's height. By default it has an `auto` height. If its value is a number, the height is measured in pixels; if its value is a string, the value will be assigned to element's style.height, the height is affected by external styles                                   | string / number                                         | —                                                   | —                                                                              |
 | max-height              | Table's max-height. The legal value is a number or the height in px.                                                                                                                                                                                                        | string/number                                           | —                                                   | —                                                                              |
 | stripe                  | whether Table is striped                                                                                                                                                                                                                                                    | boolean                                                 | —                                                   | false                                                                          |
@@ -995,7 +1009,7 @@ export default {
 | default-expand-all      | whether expand all rows by default, works when the table has a column type="expand" or contains tree structure data                                                                                                                                                         | Boolean                                                 | —                                                   | false                                                                          |
 | expand-row-keys         | set expanded rows by this prop, prop's value is the keys of expand rows, you should set row-key before using this prop                                                                                                                                                      | Array                                                   | —                                                   |                                                                                |
 | default-sort            | set the default sort column and order. property `prop` is used to set default sort column, property `order` is used to set default sort order                                                                                                                               | Object                                                  | `order`: ascending, descending                      | if `prop` is set, and `order` is not set, then `order` is default to ascending |
-| tooltip-effect          | tooltip `effect` property                                                                                                                                                                                                                                                   | String                                                  | dark / light                                        |                                                                                | dark |
+| tooltip-effect          | tooltip `effect` property                                                                                                                                                                                                                                                   | String                                                  | dark / light                                        | dark                                                                           |
 | show-summary            | whether to display a summary row                                                                                                                                                                                                                                            | Boolean                                                 | —                                                   | false                                                                          |
 | sum-text                | displayed text for the first column of summary row                                                                                                                                                                                                                          | String                                                  | —                                                   | Sum                                                                            |
 | summary-method          | custom summary method                                                                                                                                                                                                                                                       | Function({ columns, data })                             | —                                                   | —                                                                              |
@@ -1033,6 +1047,7 @@ export default {
 | close-on-click-modal    | whether the Dialog can be closed by clicking the mask                                                                                                                                                                                                                       | boolean                                                 | —                                                   | true                                                                           |
 | close-on-press-escape   | whether the Dialog can be closed by pressing ESC                                                                                                                                                                                                                            | boolean                                                 | —                                                   | true                                                                           |
 | show-close              | whether to show a close button                                                                                                                                                                                                                                              | boolean                                                 | —                                                   | true                                                                           |
+| before-open             | callback before Dialog opened, and it will prevent Dialog from                                                                                                                                                                                                              | Function(done, formType, row)                           | -                                                   | -                                                                              |
 | before-close            | callback before Dialog closes, and it will prevent Dialog from closing                                                                                                                                                                                                      | function(done)，done is used to close the Dialog        | —                                                   | —                                                                              |
 | center                  | whether to align the header and footer in center                                                                                                                                                                                                                            | boolean                                                 | —                                                   | false                                                                          |
 | destroy-on-close        | Destroy elements in Dialog when closed                                                                                                                                                                                                                                      | boolean                                                 | —                                                   | false                                                                          |
@@ -1120,7 +1135,7 @@ export default {
 | searchResetProps | the props of reset button, reference `el-button`        | object                  | -       | -                   |
 
 ::: tip Tip
-其它属性同 Table columns
+Other attributes are the same as `Table columns`
 :::
 
 ### Events
@@ -1176,7 +1191,7 @@ export default {
 | clearValidate      | clear validation message for certain fields. The parameter is prop name or an array of prop names of the form items whose validation messages will be removed. When omitted, all fields' validation messages will be cleared                                                     | Function(props: string \| array)                                           |
 
 ::: tip Tip
-如果使用 `typescript` 可以从组件中导出 `ICrudExpose` 提供更好的类型推导
+If you use `typescript`, you can export `ICrudExpose` from the component to provide better type inference
 :::
 
 ### Slots

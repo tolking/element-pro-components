@@ -1,3 +1,10 @@
+---
+title: Layout
+meta:
+  - name: description
+    content: 基础的中后台布局界面组件
+---
+
 # Layout
 
 > 基础的中后台布局界面组件
@@ -28,7 +35,9 @@
 <template>
   <pro-layout class="docs-layout">
     <template #logo="{ collapse }">
-      <span style="line-height: 54px">{{ collapse ? 'L' : 'logo' }}</span>
+      <span style="line-height: 54px">
+        {{ collapse ? 'L' : 'logo' }}
+      </span>
     </template>
     <template #footer>
       <p>footer</p>
@@ -58,7 +67,10 @@
 ::: demo 通过传入 `routes` 实现自定义路由显示
 
 <template>
-  <pro-layout :routes="routes" class="docs-layout" />
+  <pro-layout
+    :routes="routes"
+    class="docs-layout"
+  />
 </template>
 
 <script>
@@ -70,7 +82,9 @@ export default {
     const router = useRouter()
     const routes = computed(() => {
       const _routes = router.options.routes
-      return _routes.find(item => item.path === '/zh-CN/components/').children
+      return _routes.find(item => {
+        return item.path === '/zh-CN/components/'
+      })?.children || []
     })
 
     return {

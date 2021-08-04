@@ -1,12 +1,19 @@
+---
+title: Menu
+meta:
+  - name: description
+    content: Menu that provides navigation for your website
+---
+
 # Menu
 
 > Menu that provides navigation for your website
 
-# Use
+## Use
 
-## Basic Use
+### Basic Use
 
-::: demo 组件默认将从 `vue-router` 中获取路由生成路由，格式参考页面下方
+::: demo By default, the component will generate routes from vue-router
 
 <template>
   <pro-menu />
@@ -14,9 +21,9 @@
 
 :::
 
-### 模式
+### Custom Mode
 
-::: demo 通过传入 `mode` 实现自定义菜单模式
+::: demo Set `mode` attribute to enable custom Mode
 
 <template>
   <pro-radio-button
@@ -33,8 +40,8 @@ export default {
   setup() {
     const mode = ref('horizontal')
     const data = [
-      { value: 'vertical', label: '垂直' },
-      { value: 'horizontal', label: '水平' },
+      { value: 'vertical', label: 'Vertical' },
+      { value: 'horizontal', label: 'Horizontal' },
     ]
 
     return {
@@ -46,9 +53,9 @@ export default {
 
 :::
 
-### 自定义路由
+### Custom routes
 
-::: demo 通过传入 `routes` 实现自定义路由显示
+::: demo Set `routes` attribute to enable custom routes
 
 <template>
   <pro-menu :routes="routes" />
@@ -63,7 +70,9 @@ export default {
     const router = useRouter()
     const routes = computed(() => {
       const _routes = router.options.routes
-      return _routes.find(item => item.path === '/zh-CN/components/').children
+      return _routes.find(item => {
+        return item.path === '/en-US/components/'
+      })?.children || []
     })
 
     return {

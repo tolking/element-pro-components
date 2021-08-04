@@ -19,9 +19,8 @@ function reComponentName(title) {
 }
 
 function reDocUrl(fileName, header) {
-  // TODO: `zh-CN` -> `en-US`
   const docs =
-    'https://tolking.github.io/element-pro-components/zh-CN/components/'
+    'https://tolking.github.io/element-pro-components/en-US/components/'
   const _header = header ? header.replace(/[ ]+/g, '-') : undefined
   return docs + fileName + (_header ? '#' + header : '')
 }

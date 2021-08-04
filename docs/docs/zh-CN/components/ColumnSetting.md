@@ -1,6 +1,13 @@
+---
+title: ColumnSetting
+meta:
+  - name: description
+    content: 控制表格内部列的排序及显隐，配合 Table 或 Crud 使用
+---
+
 # ColumnSetting
 
-> 控制表格内部列的排序及显隐，配合 Table 与 Crud 使用
+> 控制表格内部列的排序及显隐，配合 Table 或 Crud 使用
 
 ## 使用
 

@@ -1,3 +1,10 @@
+---
+title: 快速上手
+meta:
+  - name: description
+    content: 快速上手 element-pro-components 组件库
+---
+
 # 快速上手
 
 ## 准备
@@ -12,7 +19,7 @@
 
 ```
 yarn add element-pro-components
-# or
+# 或者
 npm i element-pro-components
 ```
 
@@ -40,7 +47,7 @@ app.mount('#app')
 
 ```
 yarn add -D vite-plugin-style-import
-# or
+# 或者
 npm i -D vite-plugin-style-import
 ```
 
@@ -79,7 +86,7 @@ export default defineConfig({
 
 ```
 yarn add -D babel-plugin-import
-# or
+# 或者
 npm i -D babel-plugin-import
 ```
 
@@ -102,7 +109,16 @@ module.exports = {
 }
 ```
 
-接下来引入 css 变量文件，然后引用需要的组件，样式就会被自动加载
+### 手动引入样式
+
+例如：
+
+```js
+import { ProLayout } from 'element-pro-components'
+import 'element-pro-components/lib/styles/layout.css'
+```
+
+接下来需要引入 css 变量文件
 
 ```js
 import { createApp } from 'vue'
@@ -154,6 +170,8 @@ app.use(ElementPro, {
 文档示例基于 [组合式 API](https://v3.cn.vuejs.org/guide/composition-api-introduction.html) 语法，如果不熟悉语法请前往官方文档查看
 
 如果使用 VS Code 开发，配合 Vetur 使用提供完整的组件、属性、事件补全。例如：输入 `<pro-` 将罗列出所有组件库组件
+
+对于 webstorm 也提供了完整的组件、属性、事件补全
 
 如果使用 TypeScript 编写，可以参考 [example](https://github.com/tolking/element-pro-components/tree/master/docs/src/views/)。内部提供部分类型方便使用
 :::

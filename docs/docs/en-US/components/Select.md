@@ -1,12 +1,19 @@
+---
+title: Select
+meta:
+  - name: description
+    content: When there are plenty of options, use a drop-down menu to display and select desired ones
+---
+
 # Select
 
 > When there are plenty of options, use a drop-down menu to display and select desired ones
 
-# Use
+## Use
 
-## Basic Use
+### Basic Use
 
-::: demo 传入 data 数据，自动生成选项
+::: demo Set `data` attribute will automatic generate options
 
 <template>
   <pro-select
@@ -39,9 +46,9 @@ export default {
 
 :::
 
-### 控制不可选项目
+### Disabled State
 
-::: demo 将传入 data 数据中的某项设置为 `disabled: true` 即可
+::: demo Set the `disabled` attribute in prop `data`
 
 <template>
   <pro-select
@@ -74,9 +81,9 @@ export default {
 
 :::
 
-### 配置绑定数据键值
+### Configure binding data key
 
-::: demo 通过 config 配置数据键值。`value`- v-model 绑定的键值、`label`-显示键值、`disabled`-控制不可选的键值
+::: demo Set `config` attribute. `value`- v-model bind key; `label`- display key; `disabled`- Disabled key; `children`- children key
 
 <template>
   <pro-select
@@ -112,13 +119,13 @@ export default {
 
 :::
 
-### 开启多选
+### Basic multiple select
 
-::: demo 当 `multiple` 为 `true` 时，启用多选。此时绑定的 model-value 为数组格式
+::: demo Set `multiple` attribute to enable multiple mode. In this case, the value of v-model will be an array of selected options
 
 <template>
   <pro-select
-    v-model="select"
+    v-model="select3"
     :data="data"
     multiple
   />
@@ -129,7 +136,7 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const select = ref([])
+    const select3 = ref([])
     const data = ref([
       { value: 'Go', label: 'go' },
       { value: 'JavaScript', label: 'javascript' },
@@ -139,8 +146,61 @@ export default {
     ])
 
     return {
-      select,
+      select3,
       data,
+    }
+  }
+}
+</script>
+
+:::
+
+### Grouping
+
+::: demo Set `children` in `data` will automatic generate the children options (If there is a multi-layer hierarchies, `TreeSelect` is recommended)
+
+<template>
+  <pro-select
+    v-model="select4"
+    :data="data1"
+  />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const select4 = ref('')
+    const data1 = ref([{
+      label: 'Popular cities',
+      children: [{
+        value: 'Shanghai',
+        label: 'Shanghai'
+      }, {
+        value: 'Beijing',
+        label: 'Beijing'
+      }]
+    }, {
+      label: 'City name',
+      children: [{
+        value: 'Chengdu',
+        label: 'Chengdu'
+      }, {
+        value: 'Shenzhen',
+        label: 'Shenzhen'
+      }, {
+        value: 'Guangzhou',
+        label: 'Guangzhou'
+      }, {
+        value: 'Dalian',
+        label: 'Dalian'
+      }]
+    }])
+
+    return {
+      select4,
+      data1,
     }
   }
 }

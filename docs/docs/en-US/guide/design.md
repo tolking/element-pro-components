@@ -1,8 +1,8 @@
 ---
-title: 组件设计
+title: Design
 meta:
   - name: description
-    content: element-pro-components 组件库的整体设计思路及大体使用方式
+    content: The design of element-pro-components component library
 ---
 
 # 组件设计
