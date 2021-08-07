@@ -92,12 +92,12 @@ textarea {
   touch-action: manipulation;
 }
 
-a {
+.markdown-body a {
   text-decoration: none;
   color: var(--c-brand);
 }
 
-a:hover {
+.markdown-body a:hover {
   text-decoration: underline;
 }
 

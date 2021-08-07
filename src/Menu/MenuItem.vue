@@ -13,7 +13,7 @@
       v-if="item.meta?.icon || item.meta?.title"
       #title
     >
-      <slot v-bind="item" />
+      <slot :meta="item.meta" />
     </template>
     <template
       v-for="child in item.children"

@@ -3,6 +3,7 @@
 
 :root {
   /* color */
+  --pro-color-primary: var(--el-color-primary, #409eff);
   --c-background: #ffffff;
   --c-header-background: var(--c-background);
   --c-aside-background: var(--c-background);
@@ -27,6 +28,10 @@
   --z-index-sidebar: 100;
 
   /* transition */
+  --pro-color-transition-base: var(
+    --el-color-transition-base,
+    color 0.3s ease-in-out
+  );
   --t-duration: 0.3s;
   --t-timing-function: ease-out;
 }

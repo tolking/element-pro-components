@@ -13,6 +13,7 @@ import ProCrud from './Crud/index'
 import ProForm from './Form/index'
 import ProInputTag from './InputTag/index'
 import ProLayout from './Layout/index'
+import ProLink from './Link/index'
 import ProMenu from './Menu/index'
 import ProRadio from './Radio/index'
 import ProRadioButton from './RadioButton/index'
@@ -31,6 +32,7 @@ const components: IDefineComponent[] = [
   ProForm,
   ProInputTag,
   ProLayout,
+  ProLink,
   ProMenu,
   ProRadio,
   ProRadioButton,
@@ -48,6 +50,7 @@ const install = (app: App, options?: InstallOptions): void => {
   })
 }
 
+export default { install }
 export {
   ProAutocompleteTag,
   ProBreadcrumb,
@@ -58,6 +61,7 @@ export {
   ProForm,
   ProInputTag,
   ProLayout,
+  ProLink,
   ProMenu,
   ProRadio,
   ProRadioButton,
@@ -67,5 +71,3 @@ export {
   ProTreeSelect,
   install,
 }
-
-export default { install }

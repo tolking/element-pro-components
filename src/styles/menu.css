@@ -5,3 +5,6 @@
 .pro-menu.el-menu {
   border-right: 0;
 }
+.pro-menu .pro-link {
+  display: block;
+}

@@ -4,12 +4,12 @@
       v-for="item in list"
       :key="item.path"
     >
-      <router-link
+      <pro-link
         v-if="item.meta"
         :to="item.path"
       >
         {{ item.meta.title }}
-      </router-link>
+      </pro-link>
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
@@ -24,6 +24,7 @@ import { useRoute } from 'vue-router'
 import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'
 import { findRouterItemListByPath } from '../utils/index'
 import { useCurrentRoutes } from '../composables/index'
+import ProLink from '../Link/index'
 import type { IRouteRecordRaw } from '../types/index'
 
 const props = defineProps<{ routes?: IRouteRecordRaw[] }>()
