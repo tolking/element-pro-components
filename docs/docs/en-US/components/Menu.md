@@ -16,8 +16,15 @@ meta:
 ::: demo By default, the component will generate routes from vue-router
 
 <template>
-  <pro-menu />
+  <pro-menu class="docs-menu" />
 </template>
+
+<style>
+.docs-menu {
+  max-height: 400px;
+  overflow: scroll;
+}
+</style>
 
 :::
 
@@ -30,7 +37,7 @@ meta:
     v-model="mode"
     :data="data"
   />
-  <pro-menu :mode="mode" />
+  <pro-menu :mode="mode" class="docs-menu" />
 </template>
 
 <script>
@@ -58,7 +65,7 @@ export default {
 ::: demo Set `routes` attribute to enable custom routes
 
 <template>
-  <pro-menu :routes="routes" />
+  <pro-menu :routes="routes" class="docs-menu" />
 </template>
 
 <script>
@@ -80,6 +87,36 @@ export default {
     }
   }
 }
+</script>
+
+:::
+
+### Slots
+
+::: tip Tip
+Starting from `0.12.0`, the internal menu will be implemented using svgicon by default. If you want to continue to use fonticon, you can use the slot in the following way to achieve
+:::
+
+::: demo How to display the menu content through the default slot
+
+<template>
+  <pro-menu class="docs-menu">
+    <template #default="item">
+      <pro-link :to="item.path">
+        <i
+          v-if="item.meta?.icon"
+          :class="item.meta.icon"
+        />
+        <span v-if="item.meta?.title">
+          {{ item.meta.title }}
+        </span>
+      </pro-link>
+    </template>
+  </pro-menu>
+</template>
+
+<script>
+export default {}
 </script>
 
 :::

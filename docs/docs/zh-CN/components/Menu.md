@@ -16,8 +16,15 @@ meta:
 ::: demo 组件默认将从 `vue-router` 中获取路由生成路由
 
 <template>
-  <pro-menu />
+  <pro-menu class="docs-menu" />
 </template>
+
+<style>
+.docs-menu {
+  max-height: 400px;
+  overflow: scroll;
+}
+</style>
 
 :::
 
@@ -30,7 +37,7 @@ meta:
     v-model="mode"
     :data="data"
   />
-  <pro-menu :mode="mode" />
+  <pro-menu :mode="mode" class="docs-menu" />
 </template>
 
 <script>
@@ -58,7 +65,7 @@ export default {
 ::: demo 通过传入 `routes` 实现自定义路由显示
 
 <template>
-  <pro-menu :routes="routes" />
+  <pro-menu :routes="routes" class="docs-menu" />
 </template>
 
 <script>
@@ -80,6 +87,36 @@ export default {
     }
   }
 }
+</script>
+
+:::
+
+### 使用插槽
+
+::: tip 提示
+从 `0.12.0` 起，菜单内部将默认使用 svgicon 实现。如果想继续使用 fonticon 可以通过下面这种方式使用插槽实现
+:::
+
+::: demo 通过默认插槽可以很方便的定义如何显示菜单内容
+
+<template>
+  <pro-menu class="docs-menu">
+    <template #default="item">
+      <pro-link :to="item.path">
+        <i
+          v-if="item.meta?.icon"
+          :class="item.meta.icon"
+        />
+        <span v-if="item.meta?.title">
+          {{ item.meta.title }}
+        </span>
+      </pro-link>
+    </template>
+  </pro-menu>
+</template>
+
+<script>
+export default {}
 </script>
 
 :::

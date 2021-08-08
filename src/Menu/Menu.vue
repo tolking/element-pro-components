@@ -11,9 +11,10 @@
       <template #default="item">
         <slot v-bind="item">
           <pro-link :to="item.path">
-            <i
+            <component
+              :is="item.meta?.icon"
               v-if="item.meta?.icon"
-              :class="item.meta.icon"
+              class="pro-menu-icon"
             />
             <span v-if="item.meta?.title">
               {{ item.meta.title }}

@@ -26,6 +26,39 @@ refer router
 
 <<< @/docs/src/router/dev.ts
 
+### Use icon
+
+The Icon render as a components, so you can define as any icon component. example: `@element-plus/icons`
+
+#### Use @element-plus/icons
+
+- Install
+
+```
+yarn add @element-plus/icons
+# or
+npm install @element-plus/icons
+```
+
+- **Globally register** requires icon components
+
+```js
+import { Edit, House, TakeawayBox } from '@element-plus/icons'
+
+app.component(Edit.name, Edit)
+```
+
+- Custom icon
+
+```js
+{
+  name: 'admin',
+  path: '/admin',
+  component: Layout,
+  meta: { title: 'Admin', icon: 'edit' },
+}
+```
+
 ## Dynamic Routing
 
 Components can only obtain the original routing information defined in `vue-router`, and cannot obtain dynamically added routes. When using asynchronously generated dynamic routes, although you can pass prop ​​to the component through `routes`, it is more recommended to dynamically increase it through the following methods. Just keep `router.options.routes` the same as the final dynamically added routes

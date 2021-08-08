@@ -22,15 +22,27 @@
       class="control"
       @click="toggleShow"
     >
-      <i :class="[show ? 'el-icon-caret-top' : 'el-icon-caret-bottom']" />
+      <el-icon-caret-top
+        v-if="show"
+        class="control-icon"
+      />
+      <el-icon-caret-bottom
+        v-else
+        class="control-icon"
+      />
+      <span class="control-text">{{
+        show ? t('docs.code.hide') : t('docs.code.show')
+      }}</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { useLocaleInject } from 'element-plus'
 import { useShow } from '/@src/index'
 
+const { t } = useLocaleInject()
 const { show, toggleShow } = useShow()
 const meta = ref<HTMLElement>({} as HTMLElement)
 const isFixContorl = ref(false)
@@ -118,6 +130,9 @@ function handleScroll() {
   color: var(--c-text-light);
 }
 .pro-code .control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 44px;
   box-sizing: border-box;
   border-top: 1px solid var(--c-divider);
@@ -140,10 +155,23 @@ function handleScroll() {
   background-color: var(--c-page-background);
   color: var(--c-brand);
 }
-.pro-code .control > i {
-  display: inline-block;
-  font-size: 16px;
-  line-height: 44px;
+.pro-code .control .control-icon {
+  width: 16px;
+  height: 16px;
+  transform: translateX(35px);
+  transition: transform 0.3s;
+}
+.pro-code .control .control-text {
+  opacity: 0;
+  margin-left: 10px;
+  transform: translateX(35px);
   transition: all 0.3s;
+}
+.pro-code:hover .control .control-icon {
+  transform: translateX(0);
+}
+.pro-code:hover .control .control-text {
+  opacity: 1;
+  transform: translateX(0);
 }
 </style>
