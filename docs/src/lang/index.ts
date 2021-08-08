@@ -6,6 +6,10 @@ const lang: Record<string, Record<string, string | TranslatePair>> = {
   'en-US': {
     ...en,
     docs: {
+      code: {
+        hide: 'Hide',
+        show: 'Expand',
+      },
       pwa: {
         message: 'New content is available.',
         refresh: 'Refresh',
@@ -16,6 +20,10 @@ const lang: Record<string, Record<string, string | TranslatePair>> = {
   'zh-CN': {
     ...zhCn,
     docs: {
+      code: {
+        hide: '隐藏代码',
+        show: '显示代码',
+      },
       pwa: {
         message: '发现新内容可用',
         refresh: '刷新',

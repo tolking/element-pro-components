@@ -26,6 +26,39 @@ interface IRouteMeta extends RouteMeta {
 
 <<< @/docs/src/router/dev.ts
 
+### 使用 icon
+
+组件库内部直接将 icon 渲染成一个组件，所以你可以定义为任意图标组件。如：`@element-plus/icons` 图标组件
+
+#### 使用 @element-plus/icons
+
+- 安装
+
+```
+yarn add @element-plus/icons
+# 或者
+npm install @element-plus/icons
+```
+
+- **全局注册**需要图标组件
+
+```js
+import { Edit, House, TakeawayBox } from '@element-plus/icons'
+
+app.component(Edit.name, Edit)
+```
+
+- 定义路由 icon
+
+```js
+{
+  name: 'admin',
+  path: '/admin',
+  component: Layout,
+  meta: { title: 'Admin', icon: 'edit' },
+}
+```
+
 ## 异步路由
 
 组件只能够获取定义在 `vue-router` 中的原始路由信息，不能够获取动态增加的路由。当使用异步生成的动态路由时，虽然可以通过 `routes` 向组件中传值，但更推荐通过通过下面方式动态增加。只需要保持 `router.options.routes` 同最终动态增加的路由相同即可
