@@ -1,0 +1,7 @@
+.pro-link {
+  color: var(--pro-color-primary);
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}

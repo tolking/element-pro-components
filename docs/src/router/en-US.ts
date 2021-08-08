@@ -62,6 +62,11 @@ const enUS: IRouteRecordRaw[] = [
         meta: { title: 'Tabs' },
       },
       {
+        path: '/en-US/components/link',
+        component: () => import('../../docs/en-US/components/Link.md'),
+        meta: { title: 'Link' },
+      },
+      {
         path: '/en-US/components/form',
         component: () => import('../../docs/en-US/components/Form.md'),
         meta: { title: 'Form' },
