@@ -6,6 +6,20 @@
   &.el-menu {
     border-right: 0;
   }
+  & .pro-menu-icon {
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+  }
+  &.el-menu--collapse > .el-submenu > .el-submenu__title > .pro-link {
+    height: auto;
+    width: auto;
+    overflow: hidden;
+    visibility: visible;
+    & .pro-menu-icon {
+      margin-right: 0;
+    }
+  }
 }
 .el-submenu__title,
 .el-menu-item {
