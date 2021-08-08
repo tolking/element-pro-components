@@ -2,9 +2,23 @@
 @import 'element-plus/lib/theme-chalk/el-menu-item.css';
 @import 'element-plus/lib/theme-chalk/el-submenu.css';
 
-.pro-menu.el-menu {
-  border-right: 0;
+.pro-menu {
+  &.el-menu {
+    border-right: 0;
+  }
 }
-.pro-menu .pro-link {
-  display: block;
+.el-submenu__title,
+.el-menu-item {
+  & .pro-link {
+    display: block;
+    color: var(--pro-text-color-primary);
+    transition: var(--pro-color-transition-base);
+    &:hover {
+      color: var(--pro-color-primary);
+      text-decoration: none;
+    }
+  }
+}
+.el-menu-item.is-active .pro-link {
+  color: var(--pro-color-primary);
 }

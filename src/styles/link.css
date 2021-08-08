@@ -1,8 +1,7 @@
 .pro-link {
-  color: inherit;
+  color: var(--pro-color-primary);
   text-decoration: none;
-  transition: var(--pro-color-transition-base);
   &:hover {
-    color: var(--pro-color-primary);
+    text-decoration: underline;
   }
 }
