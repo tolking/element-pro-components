@@ -1,5 +1,5 @@
-@import 'element-plus/lib/theme-chalk/el-tabs.css';
-@import 'element-plus/lib/theme-chalk/el-tab-pane.css';
+@import 'element-plus/theme-chalk/el-tabs.css';
+@import 'element-plus/theme-chalk/el-tab-pane.css';
 
 .pro-tabs {
   padding: 0 20px;

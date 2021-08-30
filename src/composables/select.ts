@@ -16,7 +16,7 @@ import type {
   MaybeArray,
   ITreeSelectProps,
 } from '../types/index'
-import type TreeStore from 'element-plus/lib/el-tree/src/model/tree-store'
+import type TreeStore from 'element-plus/lib/components/tree/src/model/tree-store'
 
 interface ITreeStore extends TreeStore {
   setCurrentKey: (value: string | number | null) => void

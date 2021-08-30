@@ -1,6 +1,6 @@
-@import 'element-plus/lib/theme-chalk/el-select.css';
-@import 'element-plus/lib/theme-chalk/el-option.css';
-@import 'element-plus/lib/theme-chalk/el-tree.css';
+@import 'element-plus/theme-chalk/el-select.css';
+@import 'element-plus/theme-chalk/el-option.css';
+@import 'element-plus/theme-chalk/el-tree.css';
 
 .pro-tree-select-popper {
   & .pro-tree-select-options {
