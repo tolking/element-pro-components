@@ -168,7 +168,7 @@ export default {
 <script>
 import { ref, shallowRef } from 'vue'
 import { ElSwitch } from 'element-plus'
-import 'element-plus/lib/theme-chalk/el-switch.css'
+import 'element-plus/theme-chalk/el-switch.css'
 
 export default {
   setup() {

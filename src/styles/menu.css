@@ -1,6 +1,6 @@
-@import 'element-plus/lib/theme-chalk/el-menu.css';
-@import 'element-plus/lib/theme-chalk/el-menu-item.css';
-@import 'element-plus/lib/theme-chalk/el-submenu.css';
+@import 'element-plus/theme-chalk/el-menu.css';
+@import 'element-plus/theme-chalk/el-menu-item.css';
+@import 'element-plus/theme-chalk/el-submenu.css';
 
 .pro-menu {
   &.el-menu {
@@ -11,7 +11,7 @@
     width: 20px;
     height: 20px;
   }
-  &.el-menu--collapse > .el-submenu > .el-submenu__title > .pro-link {
+  &.el-menu--collapse > .el-submenu > .el-sub-menu__title > .pro-link {
     height: auto;
     width: auto;
     overflow: hidden;
@@ -21,7 +21,7 @@
     }
   }
 }
-.el-submenu__title,
+.el-sub-menu__title,
 .el-menu-item {
   & .pro-link {
     display: block;

@@ -1,5 +1,5 @@
-@import 'element-plus/lib/theme-chalk/el-tag.css';
-@import 'element-plus/lib/theme-chalk/el-autocomplete.css';
+@import 'element-plus/theme-chalk/el-tag.css';
+@import 'element-plus/theme-chalk/el-autocomplete.css';
 
 .pro-autocomplete-tag {
   display: flex;

@@ -3,7 +3,7 @@ import type {
   AllowDragFunction,
   AllowDropFunction,
   FilterNodeMethodFunction,
-} from 'element-plus/lib/el-tree/src/tree.type'
+} from 'element-plus/lib/components/tree/src/tree.type'
 
 export interface IColumnSetting<T = UnknownObject> {
   modelValue: ITableColumns<T>
