@@ -10,7 +10,7 @@ const toAbsolute = (p) => path.resolve(__dirname, p).replace(/\\/, '/')
 const manifest = require(toAbsolute('dist/static/ssr-manifest.json'))
 const template = fs.readFileSync(toAbsolute('dist/static/index.html'), 'utf-8')
 const { render } = require(toAbsolute('dist/server/entry-server.js'))
-const files = fg.sync('docs/docs/**/!(ColumnSetting|Crud|TreeSelect).md')
+const files = fg.sync('docs/docs/**/!(Crud).md')
 
 const writeFileRecursive = function (path, buffer) {
   const lastPath = path.substring(0, path.lastIndexOf('/'))
