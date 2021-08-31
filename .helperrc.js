@@ -9,6 +9,7 @@ helper({
   reComponentName,
   reDocUrl,
   reAttribute,
+  reWebTypesSource,
   titleRegExp: '#+\\s+(.*)\n+>\\s*([^(#|\\n)]*)',
   tableRegExp:
     '#+\\s+(.*\\s*Props|.*\\s*Events|.*\\s*Slots|.*\\s*Directives)\\s*\\n+(\\|?.+\\|.+)\\n\\|?\\s*:?-+:?\\s*\\|.+((\\n\\|?.+\\|.+)+)',
@@ -16,6 +17,11 @@ helper({
 
 function reComponentName(title) {
   return 'pro-' + title.replace(/\B([A-Z])/g, '-$1').toLowerCase()
+}
+
+function reWebTypesSource(title) {
+  const symbol = 'Pro' + title
+  return { symbol }
 }
 
 function reDocUrl(fileName, header) {
