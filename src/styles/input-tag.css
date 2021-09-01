@@ -5,9 +5,9 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  border: 1px solid var(--c-border);
-  border-radius: 4px;
-  background-color: var(--c-background);
+  border: var(--el-border-base);
+  border-radius: var(--el-border-radius-base);
+  background-color: var(--el-background-color);
   & .el-tag {
     margin: 3px;
   }

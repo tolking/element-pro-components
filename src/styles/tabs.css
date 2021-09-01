@@ -3,7 +3,7 @@
 
 .pro-tabs {
   padding: 0 20px;
-  background: var(--c-tabs-background);
+  background-color: var(--pro-tabs-background-color);
   & .el-tabs__header {
     margin: 0;
   }

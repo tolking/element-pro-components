@@ -10,6 +10,7 @@ import {
   ElTag,
   ElDropdown,
   ElDatePicker,
+  ElCard,
 } from 'element-plus'
 import {
   Edit,
@@ -31,6 +32,7 @@ import 'element-plus/theme-chalk/el-dropdown.css'
 import 'element-plus/theme-chalk/el-dropdown-item.css'
 import 'element-plus/theme-chalk/el-dropdown-menu.css'
 import 'element-plus/theme-chalk/el-date-picker.css'
+import 'element-plus/theme-chalk/el-card.css'
 import '/@src/styles/index.css'
 import './styles/index.css'
 import type { Router } from 'vue-router'
@@ -58,6 +60,7 @@ export function createApp(): {
     .use(ElTag)
     .use(ElDropdown)
     .use(ElDatePicker)
+    .use(ElCard)
     .component('ProCode', ProCode)
     .component('el-icon-edit', Edit)
     .component('el-icon-house', House)

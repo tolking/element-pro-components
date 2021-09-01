@@ -1,38 +1,19 @@
-@import './public.css';
 @custom-media --xs-medium (width < 768px);
 
 :root {
-  /* color */
-  --pro-color-primary: var(--el-color-primary, #409eff);
-  --pro-text-color-primary: var(--el-text-color-primary, #303133);
-  --c-background: #ffffff;
-  --c-header-background: var(--c-background);
-  --c-aside-background: var(--c-background);
-  --c-tabs-background: var(--c-background);
-  --c-page-background: #f0f2f5;
-  --c-mask-background: rgba(0, 0, 0, 0.4);
-  --c-border: #dcdfe6;
+  --pro-background-color-mask: rgba(0, 0, 0, 0.5);
 
-  /* size */
-  --aside-width: 240px;
-  --aside-collapse-width: 60px;
-  --layout-height: 100vh;
-  --header-height: 54px;
-  --footer-height: 50px;
-  --border-radius: 4px;
-  --main-margin: 10px;
-  --main-padding: 20px;
-  --xs-main-margin: 4px;
-  --xs-main-padding: 10px;
+  --pro-layout-header-background-color: var(--el-color-white);
+  --pro-layout-aside-background-color: var(--el-color-white);
+  --pro-tabs-background-color: var(--el-color-white);
 
-  /* z-index */
-  --z-index-sidebar: 100;
-
-  /* transition */
-  --pro-color-transition-base: var(
-    --el-color-transition-base,
-    color 0.3s ease-in-out
-  );
-  --t-duration: 0.3s;
-  --t-timing-function: ease-out;
+  --pro-layout-width-aside: 240px;
+  --pro-layout-width-aside-collapse: 60px;
+  --pro-layout-height: 100vh;
+  --pro-layout-height-header: 54px;
+  --pro-layout-main-margin: 10px;
+  --pro-layout-main-padding: 20px;
+  --pro-layout-xs-main-margin: 4px;
+  --pro-layout-xs-main-padding: 10px;
+  --pro-layout-index-sidebar: 100;
 }

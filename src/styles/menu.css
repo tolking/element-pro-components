@@ -11,7 +11,7 @@
     width: 20px;
     height: 20px;
   }
-  &.el-menu--collapse > .el-submenu > .el-sub-menu__title > .pro-link {
+  &.el-menu--collapse > .el-sub-menu > .el-sub-menu__title > .pro-link {
     height: auto;
     width: auto;
     overflow: hidden;
@@ -25,14 +25,14 @@
 .el-menu-item {
   & .pro-link {
     display: block;
-    color: var(--pro-text-color-primary);
-    transition: var(--pro-color-transition-base);
+    color: var(--el-text-color-primary);
+    transition: var(--el-color-transition-base);
     &:hover {
-      color: var(--pro-color-primary);
+      color: var(--el-color-primary);
       text-decoration: none;
     }
   }
 }
 .el-menu-item.is-active .pro-link {
-  color: var(--pro-color-primary);
+  color: var(--el-color-primary);
 }
