@@ -52,9 +52,9 @@ provide('tabs', tabs)
 <style scoped>
 .logo-img {
   padding: 10px;
-  width: calc(var(--aside-collapse-width) - 20px);
+  width: calc(var(--pro-layout-width-aside-collapse) - 20px);
 }
 .logo-title {
-  line-height: var(--header-height);
+  line-height: var(--pro-layout-height-header);
 }
 </style>

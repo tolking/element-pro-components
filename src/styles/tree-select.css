@@ -11,7 +11,7 @@
     }
     & .pro-tree-select-tree .is-disabled:not(.el-checkbox) {
       flex: 1;
-      color: #c0c4cc;
+      color: var(--el-text-color-placeholder);
       cursor: not-allowed;
     }
   }
