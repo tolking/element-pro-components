@@ -22,7 +22,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run build:lib && npm run build:helper && npm run build:styles && npm run build:types",
-    "build:lib": "vite build -c vite.build.config.ts --emptyOutDir",
+    "build:lib": "vite build -c build/build-lib.ts --emptyOutDir",
     "build:types": "rimraf types && tsc -d",
     "build:helper": "node .helperrc.js",
     "build:styles": "rimraf lib/styles && esno build/build-styles.ts",

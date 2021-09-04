@@ -2,17 +2,15 @@ import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import babel from 'rollup-plugin-babel'
 import vue from '@vitejs/plugin-vue'
-import { name } from './package.json'
-
-const camelize = (name: string) =>
-  name.replace(/(^|-)(\w)/g, (a, b, c) => c.toUpperCase())
+import { name } from '../package.json'
+import { camelize } from './utils'
 
 export default defineConfig({
   build: {
     target: 'es2015',
-    outDir: resolve(__dirname, 'lib'),
+    outDir: resolve(__dirname, '../lib'),
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: resolve(__dirname, '../src/index.ts'),
       name: camelize(name),
     },
     rollupOptions: {
