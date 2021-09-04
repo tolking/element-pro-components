@@ -22,11 +22,11 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run build:lib && npm run build:helper && npm run build:styles && npm run build:types",
-    "build:lib": "vite build -c build/build-lib.ts --emptyOutDir",
+    "build:lib": "rimraf lib && vite build -c build/build-lib.ts",
     "build:types": "rimraf types && tsc -d",
     "build:helper": "esno build/build-helper.ts",
     "build:styles": "rimraf lib/styles && esno build/build-styles.ts",
-    "build:docs": "vite build --ssrManifest --outDir dist/static && vite build --ssr src/entry-server.ts --outDir dist/server && node docs/prerender.js",
+    "build:docs": "rimraf dist && vite build --ssrManifest --outDir ../dist/static && vite build --ssr src/entry-server.ts --outDir ../dist/server && esno build/prerender.ts",
     "test": "jest",
     "lint": "eslint . --fix --ext .ts,.vue,.js --ignore-pattern \"/lib/\" --ignore-pattern \"/types/\"",
     "prettier": "prettier --check --write --ignore-unknown \"{example,src,docs,test}/**\"",

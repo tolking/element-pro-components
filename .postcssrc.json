@@ -1,0 +1,15 @@
+{
+  "map": false,
+  "plugins": {
+    "postcss-import": {},
+    "postcss-preset-env": {
+      "stage": 1,
+      "importFrom": [
+        "./node_modules/element-plus/theme-chalk/el-var.css",
+        "./src/styles/vars.css"
+      ]
+    },
+    "autoprefixer": {},
+    "postcss-clean": {}
+  }
+}

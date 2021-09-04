@@ -3,7 +3,6 @@ import { createRouter } from './router/index'
 import { createHead, HeadClient } from '@vueuse/head'
 import {
   ElConfigProvider,
-  ElIcon,
   ElButton,
   ElInput,
   ElUpload,
@@ -22,17 +21,6 @@ import {
 import ElementPro from '/@src/index'
 import ProCode from './components/ProCode.vue'
 import Layout from './App.vue'
-import 'element-plus/theme-chalk/el-var.css'
-import 'element-plus/theme-chalk/el-icon.css'
-import 'element-plus/theme-chalk/el-button.css'
-import 'element-plus/theme-chalk/el-input.css'
-import 'element-plus/theme-chalk/el-upload.css'
-import 'element-plus/theme-chalk/el-tag.css'
-import 'element-plus/theme-chalk/el-dropdown.css'
-import 'element-plus/theme-chalk/el-dropdown-item.css'
-import 'element-plus/theme-chalk/el-dropdown-menu.css'
-import 'element-plus/theme-chalk/el-date-picker.css'
-import 'element-plus/theme-chalk/el-card.css'
 import '/@src/styles/index.css'
 import './styles/index.css'
 import type { Router } from 'vue-router'
@@ -53,7 +41,6 @@ export function createApp(): {
     .use(router)
     .use(head)
     .use(ElConfigProvider)
-    .use(ElIcon)
     .use(ElButton)
     .use(ElInput)
     .use(ElUpload)
