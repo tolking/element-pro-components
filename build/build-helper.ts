@@ -1,5 +1,6 @@
-const helper = require('components-helper')
-const { name, version } = require('./package.json')
+import helper from 'components-helper'
+import { name, version } from '../package.json'
+import { hyphenate } from './utils'
 
 helper({
   name,
@@ -15,23 +16,23 @@ helper({
     '#+\\s+(.*\\s*Props|.*\\s*Events|.*\\s*Slots|.*\\s*Directives)\\s*\\n+(\\|?.+\\|.+)\\n\\|?\\s*:?-+:?\\s*\\|.+((\\n\\|?.+\\|.+)+)',
 })
 
-function reComponentName(title) {
-  return 'pro-' + title.replace(/\B([A-Z])/g, '-$1').toLowerCase()
+function reComponentName(title: string) {
+  return 'pro-' + hyphenate(title)
 }
 
-function reWebTypesSource(title) {
+function reWebTypesSource(title: string) {
   const symbol = 'Pro' + title
   return { symbol }
 }
 
-function reDocUrl(fileName, header) {
+function reDocUrl(fileName: string, header: string) {
   const docs =
     'https://tolking.github.io/element-pro-components/en-US/components/'
   const _header = header ? header.replace(/[ ]+/g, '-') : undefined
   return docs + fileName + (_header ? '#' + header : '')
 }
 
-function reAttribute(value, key) {
+function reAttribute(value: string, key: string) {
   if (key === 'Name' && /^(-|—)$/.test(value)) {
     return 'default'
   } else if (key === 'Name' && /v-model:(.+)/.test(value)) {
