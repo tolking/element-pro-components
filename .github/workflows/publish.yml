@@ -1,11 +1,11 @@
-name: test
+name: publish to npm
 
 on:
-  pull_request:
-    branches: [ main, releases ]
+  release:
+    types: [ created ]
 
 jobs:
-  test:
+  build-and-publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,4 +15,7 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
       - run: yarn
-      - run: yarn test
+      - run: yarn build
+      - run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
