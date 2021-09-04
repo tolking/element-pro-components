@@ -14,7 +14,6 @@ import type {
   IPagination,
   UnknownObject,
   StringObject,
-  DeepKeyof,
   MaybeRef,
   MaybeArray,
 } from '../types/index'
@@ -111,7 +110,7 @@ export function useTableMethods<T = UnknownObject>(): {
     table.value.clearSort()
   }
 
-  function clearFilter(columnKeys?: MaybeArray<DeepKeyof<T>>) {
+  function clearFilter(columnKeys?: MaybeArray<string>) {
     table.value.clearFilter(columnKeys)
   }
 
@@ -119,7 +118,7 @@ export function useTableMethods<T = UnknownObject>(): {
     table.value.doLayout()
   }
 
-  function sort(prop: DeepKeyof<T>, order: string) {
+  function sort(prop: string, order: string) {
     table.value.sort(prop, order)
   }
 
