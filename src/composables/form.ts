@@ -129,19 +129,19 @@ export function useFormMenu(
   })
 }
 
-export function useFormMethods<T = UnknownObject>(
+export function useFormMethods(
   emit: (
     event: 'update:modelValue' | 'submit' | 'reset',
     ...args: unknown[]
   ) => void
 ): {
-  form: Ref<IFormExpose<T>>
+  form: Ref<IFormExpose>
   loading: Ref<boolean>
   upFormData: (value: unknown) => void
   submitForm: () => void
   resetForm: (reset?: boolean) => void
-} & IFormExpose<T> {
-  const form = shallowRef<IFormExpose<T>>({} as IFormExpose<T>)
+} & IFormExpose {
+  const form = shallowRef<IFormExpose>({} as IFormExpose)
   const { show, toggleShow } = useShow()
 
   function validate(callback?: IFormValidateCallback) {
@@ -152,12 +152,12 @@ export function useFormMethods<T = UnknownObject>(
     form.value.resetFields()
   }
 
-  function clearValidate(props?: MaybeArray<DeepKeyof<T>>) {
+  function clearValidate(props?: MaybeArray<string>) {
     form.value.clearValidate(props)
   }
 
   function validateField(
-    props: MaybeArray<DeepKeyof<T>>,
+    props: MaybeArray<string>,
     cb: IFormValidateFieldCallback
   ) {
     form.value.validateField(props, cb)

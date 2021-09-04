@@ -105,4 +105,4 @@ export type ICrudSubmit = (
   invalidFields?: UnknownObject
 ) => void
 
-export type ICrudExpose<T = UnknownObject> = IFormExpose<T> & ITableExpose<T>
+export type ICrudExpose<T = UnknownObject> = IFormExpose & ITableExpose<T>
