@@ -17,6 +17,10 @@ meta:
 
 ## 安装
 
+[![Latest tag via npm](https://img.shields.io/npm/v/element-pro-components.svg?style=flat-square&logo=npm)](https://npmjs.com/package/element-pro-components)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/element-pro-components?label=size&logo=npm&style=flat-square)](https://npmjs.com/package/element-pro-components)
+[![Npm Last Updated](https://img.shields.io/badge/dynamic/json.svg?style=flat-square&logo=npm&label=last%20release&url=http%3A%2F%2Fregistry.npmjs.org%2Felement-pro-components&query=$.time.modified)](https://www.npmjs.com/package/element-pro-components)
+
 ```
 yarn add element-pro-components
 # 或者
@@ -39,56 +43,64 @@ app.mount('#app')
 
 ## 按需引入
 
-### vite
+::: tip 提示
+自 `0.12.0` 起，推荐使用按需引入样式文件夹中的 js 文件替代 css 文件，避免样式的重复引用。(注：引用 js 样式文件需要编译工具支持 ES modules)
+:::
 
-借助 [vite-plugin-style-import](https://github.com/anncwb/vite-plugin-style-import) 实现加载样式
+### 推荐使用 unplugin-vue-components
 
-- 安装
+安装及使用查看 [unplugin-vue-components](https://www.npmjs.com/package/unplugin-vue-components)
 
+- 配置信息
+
+```js
+{
+  resolvers: [
+    (name) => {
+      if (name.startsWith('Pro')) {
+        const fileName = name.slice(3).replace(/\B([A-Z])/g, '-$1').toLocaleLowerCase()
+        return {
+          importName: name,
+          path: 'element-pro-components',
+          sideEffects: `element-pro-components/lib/styles/${fileName}`
+        }
+      }
+    }
+  ],
+}
 ```
-yarn add -D vite-plugin-style-import
-# 或者
-npm i -D vite-plugin-style-import
-```
+
+### 在 vite 中使用 vite-plugin-style-import
+
+安装及使用查看 [vite-plugin-style-import](https://www.npmjs.com/package/vite-plugin-style-import)
 
 - 修改配置 vite.config
 
 ```js
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
 import styleImport from 'vite-plugin-style-import'
 
-export default defineConfig({
+export default {
   plugins: [
-    vue(),
     styleImport({
       libs: [
         {
           importTest: /^Pro/,
           libraryName: 'element-pro-components',
+          esModule: true,
           ensureStyleFile: true,
           resolveStyle: (name) => {
-            name = name.slice(4)
-            return `element-pro-components/lib/styles/${name}.css`
+            return `element-pro-components/lib/styles/${name.slice(4)}`
           },
         },
       ],
     }),
   ],
-})
+}
 ```
 
-### vue-cli
+### 在 vue-cli 中使用 babel-plugin-import
 
-借助 [babel-plugin-import](https://github.com/ant-design/babel-plugin-import) 实现加载样式
-
-- 安装
-
-```
-yarn add -D babel-plugin-import
-# 或者
-npm i -D babel-plugin-import
-```
+安装及使用查看 [babel-plugin-import](https://www.npmjs.com/package/babel-plugin-import)
 
 - 修改配置 babel.config
 
@@ -100,8 +112,7 @@ module.exports = {
       {
         libraryName: 'element-pro-components',
         customStyleName: (name) => {
-          name = name.slice(4)
-          return `element-pro-components/lib/styles/${name}.css`
+          return `element-pro-components/lib/styles/${name.slice(4)}`
         },
       },
     ],
@@ -115,25 +126,7 @@ module.exports = {
 
 ```js
 import { ProLayout } from 'element-pro-components'
-import 'element-pro-components/lib/styles/layout.css'
-```
-
-接下来需要引入 css 变量文件
-
-```js
-import { createApp } from 'vue'
-import App from './App.vue'
-import { ProLayout } from 'element-pro-components'
-// 除非重新定义所有css变量，否则需要手动引入css变量文件
-import 'element-pro-components/lib/styles/vars.css'
-
-const app = createApp(App)
-
-app.use(ProLayout)
-// 或者
-app.component('ProLayout', ProLayout)
-
-app.mount('#app')
+import 'element-pro-components/lib/styles/layout'
 ```
 
 ::: tip 提示
@@ -143,6 +136,10 @@ app.mount('#app')
 :::
 
 ## 全局配置
+
+::: danger 危险
+全局配置将在不久之后修改或移除，推荐现在使用相关组件传参实现
+:::
 
 - 参考
 

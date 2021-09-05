@@ -39,4 +39,4 @@ git contribute information style reference [vue commit-convention](https://githu
 
 ## Browser support
 
-Modern browsers and IE11 and above
+IE browser is no longer supported, only modern browsers are supported
