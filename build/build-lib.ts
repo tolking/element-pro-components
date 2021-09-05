@@ -1,6 +1,5 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
-import babel from 'rollup-plugin-babel'
 import vue from '@vitejs/plugin-vue'
 import { name } from '../package.json'
 import { camelize } from './utils'
@@ -23,13 +22,6 @@ export default defineConfig({
       },
       external: (id: string) =>
         /^(vue|@vue|element-plus|resize-observer-polyfill)/.test(id),
-      plugins: [
-        babel({
-          exclude: 'node_modules/**',
-          extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
-          presets: ['@babel/preset-env', '@babel/preset-typescript'],
-        }),
-      ],
     },
   },
   plugins: [vue()],
