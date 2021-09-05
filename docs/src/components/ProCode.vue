@@ -22,17 +22,17 @@
       class="control"
       @click="toggleShow"
     >
-      <el-icon-caret-top
+      <icon-caret-top
         v-if="show"
         class="control-icon"
       />
-      <el-icon-caret-bottom
+      <icon-caret-bottom
         v-else
         class="control-icon"
       />
-      <span class="control-text">{{
-        show ? t('docs.code.hide') : t('docs.code.show')
-      }}</span>
+      <span class="control-text">
+        {{ show ? t('docs.code.hide') : t('docs.code.show') }}
+      </span>
     </div>
   </div>
 </template>

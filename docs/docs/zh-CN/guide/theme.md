@@ -8,32 +8,15 @@ meta:
 # 自定义主题
 
 ::: tip 提示
-与 `Element Plus` 不同，组件内部样式通过 [css-variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) 实现
-
-相比 scss 这样更方便配置和实现主题切换、浅色模式与深色模式
-
-如果你需要动态改变主题你应该注意目标浏览器的[兼容情况](https://caniuse.com/css-variables)
-:::
-
-::: warning 警告
-TODO: 由于 `Element Plus` 内部开始使用 css-variables，所以这部分内容将在接下来重构
-
-这样配置目前只适用于组件内部，不能够修改 `Element Plus` 内部的样式。如果需要同时控制两者可以
-
-```scss
-$--color-white: var(--c-background);
-$--background-color-base: var(--c-page-background);
-/* ... */
-```
-
+[实验性质] 自 `0.12.0` 起，内部 css-variables 将优先使用来自 `Element Plus` 的 css-variables，方便你同时控制两个组件库的样式
 :::
 
 ## 简单配置
 
 ```css
 :root {
-  --c-background: #ffffff;
-  --c-page-background: #f0f2f5;
+  --el-color-primary: #42b983;
+  --pro-layout-aside-background-color: #f0f2f5;
 }
 ```
 
@@ -42,14 +25,15 @@ $--background-color-base: var(--c-page-background);
 ```css
 @media (prefers-color-scheme: light) {
   :root {
-    --c-background: #ffffff;
-    --c-page-background: #f0f2f5;
+    --el-color-primary: #42b983;
+    --pro-layout-aside-background-color: #f0f2f5;
   }
 }
+/* 也可以只增加以下内容增加深色模式 */
 @media (prefers-color-scheme: dark) {
   :root {
-    --c-background: #25272a;
-    --c-page-background: #2b2b2b;
+    --el-color-primary: #25272a;
+    --pro-layout-aside-background-color: #2b2b2b;
   }
 }
 ```
@@ -58,12 +42,12 @@ $--background-color-base: var(--c-page-background);
 
 ```css
 :root {
-  --c-background: #ffffff;
-  --c-page-background: #f0f2f5;
+  --el-color-primary: #42b983;
+  --pro-layout-aside-background-color: #f0f2f5;
 }
 html[theme='dark'] {
-  --c-background: #25272a;
-  --c-page-background: #2b2b2b;
+  --el-color-primary: #25272a;
+  --pro-layout-aside-background-color: #2b2b2b;
 }
 html[theme='other'] {
   /* ... */
@@ -76,21 +60,16 @@ html[theme='other'] {
 
 ::: tip 提示
 然后可以通过 js 动态改变 theme 的值实现
-:::
 
-## 然后
-
-在入口文件中引入你的样式配置文件
-
-```js
-import 'element-pro-components/lib/styles/index.css'
-import 'your/css/file'
-```
-
-::: tip 提示
 可以使用 postcss 插件 [postcss-custom-properties](https://github.com/postcss/postcss-custom-properties) 或者同类的插件转换 `css-variables` 获得更好的兼容性，以便在不支持 `css-variables` 时能够显示默认值样式
 :::
 
 ## 提供配置的参数
 
+- 公共 css-variables
+
 <<< @/src/styles/vars.css
+
+- Element Plus 的公共 css-variables
+
+<<< @/node_modules/element-plus/theme-chalk/el-var.css

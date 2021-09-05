@@ -39,4 +39,4 @@ git 提交信息风格参考 [vue commit-convention](https://github.com/vuejs/vu
 
 ## 浏览器支持
 
-现代浏览器和 IE11 以上
+不再支持 IE 浏览器，仅支持现代浏览器
