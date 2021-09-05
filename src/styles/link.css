@@ -1,5 +1,5 @@
 .pro-link {
-  color: var(--pro-color-primary);
+  color: var(--el-color-primary);
   text-decoration: none;
   &:hover {
     text-decoration: underline;

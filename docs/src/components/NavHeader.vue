@@ -1,7 +1,7 @@
 <template>
   <el-dropdown
+    v-if="showLangButton"
     class="header-icon"
-    @command="changeLang"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -16,9 +16,13 @@
         <el-dropdown-item
           v-for="item in langs"
           :key="item.key"
-          :command="item.key"
         >
-          {{ item.value }}
+          <pro-link
+            :to="setUrl(item.key)"
+            class="lang-link"
+          >
+            {{ item.value }}
+          </pro-link>
         </el-dropdown-item>
       </el-dropdown-menu>
     </template>
@@ -39,23 +43,17 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useLang } from '../composables/index'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { langs } from '../utils/index'
-import type { Ref } from 'vue'
-import type { ITabsExpose } from '/@src/index'
 
 const route = useRoute()
-const router = useRouter()
-const lang = useLang()
-const tabs = inject<Ref<ITabsExpose>>('tabs')
+const showLangButton = computed(() => {
+  return !route.path.startsWith('/dev/')
+})
 
-async function changeLang(key: string) {
-  if (key === lang.value || route.path.startsWith('/dev/')) return
-  const path = route.path.replace(/^\/([\w|-]*)\//, `/${key}/`)
-  await router.push(path)
-  tabs?.value.closeOther()
+function setUrl(key: string) {
+  return route.path.replace(/^\/([\w|-]*)\//, `/${key}/`)
 }
 </script>
 
@@ -67,5 +65,12 @@ async function changeLang(key: string) {
   width: 28px;
   height: 28px;
   fill: var(--el-text-color-primary);
+}
+.pro-link.lang-link {
+  color: var(--el-text-color-primary);
+}
+.pro-link.lang-link:hover,
+.pro-link.lang-link.router-link-exact-active {
+  color: var(--el-color-primary);
 }
 </style>

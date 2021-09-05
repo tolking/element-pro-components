@@ -1,9 +1,6 @@
-@import 'element-plus/theme-chalk/el-tabs.css';
-@import 'element-plus/theme-chalk/el-tab-pane.css';
-
 .pro-tabs {
   padding: 0 20px;
-  background: var(--c-tabs-background);
+  background-color: var(--pro-tabs-background-color);
   & .el-tabs__header {
     margin: 0;
   }

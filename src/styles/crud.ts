@@ -1,0 +1,6 @@
+import 'element-plus/es/components/button/style/css'
+import 'element-plus/es/components/dialog/style/css'
+import './vars'
+import './form'
+import './table'
+import './crud.css'

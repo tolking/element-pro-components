@@ -1,6 +1,6 @@
 {
   "name": "element-pro-components",
-  "version": "0.11.2",
+  "version": "0.12.0",
   "description": "a component library for Vue 3 base on element-plus",
   "main": "lib/element-pro-components.umd.js",
   "module": "lib/element-pro-components.es.js",
@@ -13,20 +13,24 @@
   },
   "types": "types/index.d.ts",
   "style": "lib/styles/index.css",
+  "sideEffects": [
+    "lib/styles/*.css"
+  ],
   "engines": {
     "node": ">=12.0.0"
   },
   "scripts": {
     "dev": "vite",
     "build": "npm run build:lib && npm run build:helper && npm run build:styles && npm run build:types",
-    "build:lib": "vite build -c vite.build.config.ts --emptyOutDir",
+    "build:lib": "rimraf lib && vite build -c build/build-lib.ts",
     "build:types": "rimraf types && tsc -d",
-    "build:helper": "node .helperrc.js",
-    "build:styles": "postcss src/styles/*.css -c .postcssrc.json -d lib/styles",
-    "build:docs": "vite build --ssrManifest --outDir dist/static && vite build --ssr src/entry-server.ts --outDir dist/server && node docs/prerender.js",
+    "build:helper": "esno build/build-helper.ts",
+    "build:styles": "rimraf lib/styles && esno build/build-styles.ts",
+    "build:docs": "rimraf dist && vite build --ssrManifest --outDir ../dist/static && vite build --ssr src/entry-server.ts --outDir ../dist/server && esno build/prerender.ts",
     "test": "jest",
     "lint": "eslint . --fix --ext .ts,.vue,.js --ignore-pattern \"/lib/\" --ignore-pattern \"/types/\"",
-    "prettier": "prettier --check --write --ignore-unknown \"{example,src,docs,test}/**\""
+    "prettier": "prettier --check --write --ignore-unknown \"{example,src,docs,test}/**\"",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -53,36 +57,37 @@
     "vue-router": "^4.0.x"
   },
   "dependencies": {
-    "element-plus": "^1.1.0-beta.7",
-    "vue": "^3.2.6",
+    "element-plus": "^1.1.0-beta.8",
+    "vue": "^3.2.8",
     "vue-router": "^4.0.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.0",
+    "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-typescript": "^7.15.0",
     "@element-plus/icons": "^0.0.11",
     "@types/jest": "^26.0.24",
     "@types/markdown-it": "^12.0.3",
     "@types/markdown-it-container": "^2.0.4",
-    "@typescript-eslint/eslint-plugin": "^4.29.3",
-    "@typescript-eslint/parser": "^4.29.3",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
     "@vitejs/plugin-vue": "^1.6.0",
-    "@vue/compiler-sfc": "^3.2.6",
-    "@vue/server-renderer": "^3.2.6",
+    "@vue/compiler-sfc": "^3.2.8",
+    "@vue/server-renderer": "^3.2.8",
     "@vue/test-utils": "^2.0.0-rc.13",
     "@vueuse/head": "^0.6.0",
     "babel-jest": "^26.6.3",
-    "components-helper": "^1.0.3",
+    "components-helper": "^1.0.4",
     "escape-html": "^1.0.3",
     "eslint": "^7.32.0",
     "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-vue": "^7.15.1",
+    "esno": "^0.9.1",
     "execa": "^5.1.1",
     "fast-glob": "^3.2.7",
-    "husky": "^4.3.6",
+    "husky": "^7.0.0",
     "jest": "^26.6.3",
-    "lint-staged": "^10.5.4",
+    "lint-staged": "^11.1.2",
     "markdown-it-anchor": "^8.3.0",
     "markdown-it-container": "^3.0.0",
     "postcss": "^8.3.6",
@@ -93,11 +98,10 @@
     "prettier": "2.2.1",
     "prismjs": "^1.24.1",
     "rimraf": "^3.0.2",
-    "rollup-plugin-babel": "^4.4.0",
     "sitemap": "^7.0.0",
     "ts-jest": "^26.5.5",
     "typescript": "^4.4.2",
-    "vite": "^2.4.4",
+    "vite": "^2.5.2",
     "vite-plugin-md": "^0.10.0",
     "vite-plugin-pwa": "^0.8.2",
     "vue-jest": "^5.0.0-alpha.10"
@@ -110,10 +114,5 @@
   "files": [
     "lib",
     "types"
-  ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  }
+  ]
 }

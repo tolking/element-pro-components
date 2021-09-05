@@ -14,7 +14,7 @@ meta:
 相比原生 router 类型仅扩展了 `meta` 属性
 
 ```ts
-interface IRouteMeta extends RouteMeta {
+interface RouteMeta {
   title?: string // 用于显示菜单标题
   icon?: string // 用于显示菜单图标
   hidden?: boolean // 用于判断是否在菜单中显示，不影响 router-link 跳转
@@ -26,13 +26,17 @@ interface IRouteMeta extends RouteMeta {
 
 <<< @/docs/src/router/dev.ts
 
-### 使用 icon
+## 配置 icon
 
-组件库内部直接将 icon 渲染成一个组件，所以你可以定义为任意图标组件。如：`@element-plus/icons` 图标组件
+组件库内部直接将 icon 渲染成一个组件，所以你可以定义为任意图标组件
 
-#### 使用 @element-plus/icons
+安装需要的图标组件库
 
-- 安装
+- [@element-plus/icons](https://www.npmjs.com/package/@element-plus/icons)
+- [bootstrap-icons-vue](https://www.npmjs.com/package/bootstrap-icons-vue)
+- 等
+
+下面使用 @element-plus/icons 举例
 
 ```
 yarn add @element-plus/icons
@@ -43,7 +47,7 @@ npm install @element-plus/icons
 - **全局注册**需要图标组件
 
 ```js
-import { Edit, House, TakeawayBox } from '@element-plus/icons'
+import { Edit } from '@element-plus/icons'
 
 app.component(Edit.name, Edit)
 ```

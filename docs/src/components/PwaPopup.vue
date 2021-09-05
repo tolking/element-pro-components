@@ -1,20 +1,28 @@
 <template>
   <transition name="pwa-update-popup">
-    <div
+    <el-card
       v-if="needRefresh"
+      shadow="always"
       class="pwa-popup"
       role="alert"
     >
       <p class="pwa-popup-text">
         {{ t('docs.pwa.message') }}
       </p>
-      <button @click="updateServiceWorker()">
+      <el-button
+        type="primary"
+        plain
+        @click="updateServiceWorker()"
+      >
         {{ t('docs.pwa.refresh') }}
-      </button>
-      <button @click="needRefresh = false">
+      </el-button>
+      <el-button
+        plain
+        @click="needRefresh = false"
+      >
         {{ t('docs.pwa.close') }}
-      </button>
-    </div>
+      </el-button>
+    </el-card>
   </transition>
 </template>
 
@@ -39,29 +47,15 @@ const { needRefresh, updateServiceWorker } = _useRegisterSW
   position: fixed;
   right: 1em;
   bottom: 1em;
-  padding: 1em;
-  border: 1px solid var(--c-brand);
-  border-radius: 3px;
-  background: var(--c-white);
-  box-shadow: var(--shadow-2);
+  z-index: 3000;
   text-align: center;
-  z-index: 1200;
 }
 .pwa-popup .pwa-popup-text {
-  margin: 0;
-  padding: 0;
-  color: var(--c-text);
-}
-.pwa-popup button {
-  margin-top: 0.5em;
-  padding: 0.25em 1.5em;
-}
-.pwa-popup button:last-child {
-  margin-left: 1em;
+  margin: 0 0 1em;
 }
 .pwa-update-popup-enter-active,
 .pwa-update-popup-leave-active {
-  transition: all 0.3s;
+  transition: var(--el-transition-md-fade);
 }
 .pwa-update-popup-enter,
 .pwa-update-popup-leave-to {
