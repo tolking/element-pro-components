@@ -1,6 +1,22 @@
 # Changelog
 
-### 0.11.2
+## 0.12.0
+
+breaking changes
+
+- It is recommended to use component icons instead of font icons. reference [use-icon](https://tolking.github.io/element-pro-components/en-US/guide/router#use-icon)
+- Use css-variables of element-plus to replace a lot of original css-variables. [Compare](https://github.com/tolking/element-pro-components/commit/d22b10187403b37b83b34136e65d53ffc83076a1#diff-ca526a7b1a2c5b894cbb9a7a2dea0320aa294e4885e86ab038dd013c4c8336a6)
+
+feat
+
+- Link: add components ProLink
+- styles: add introduce styles through js
+
+fix
+
+- types: type error when building
+
+## 0.11.2
 
 fix
 
