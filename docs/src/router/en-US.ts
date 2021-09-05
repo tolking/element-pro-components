@@ -6,7 +6,7 @@ const enUS: IRouteRecordRaw[] = [
     path: '/en-US/',
     redirect: '/en-US/guide/',
     component: BaseLayout,
-    meta: { title: 'Guide', icon: 'el-icon-house' },
+    meta: { title: 'Guide', icon: 'icon-house' },
     children: [
       {
         path: '/en-US/guide/introduction',
@@ -39,7 +39,7 @@ const enUS: IRouteRecordRaw[] = [
     path: '/en-US/components/',
     redirect: '/en-US/components/layout',
     component: BaseLayout,
-    meta: { title: 'Components', icon: 'el-icon-takeaway-box' },
+    meta: { title: 'Components', icon: 'icon-takeaway-box' },
     children: [
       {
         path: '/en-US/components/layout',

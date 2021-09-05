@@ -49,11 +49,11 @@ export function createApp(): {
     .use(ElDatePicker)
     .use(ElCard)
     .component('ProCode', ProCode)
-    .component('el-icon-edit', Edit)
-    .component('el-icon-house', House)
-    .component('el-icon-takeaway-box', TakeawayBox)
-    .component('el-icon-caret-top', CaretTop)
-    .component('el-icon-caret-bottom', CaretBottom)
+    .component('icon-edit', Edit)
+    .component('icon-house', House)
+    .component('icon-takeaway-box', TakeawayBox)
+    .component('icon-caret-top', CaretTop)
+    .component('icon-caret-bottom', CaretBottom)
     .use(ElementPro)
 
   return { app, router, head }
