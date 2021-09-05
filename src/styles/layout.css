@@ -126,7 +126,7 @@ body {
     padding: var(--pro-layout-main-padding);
     border: var(--el-border-base);
     border-radius: var(--el-border-radius-base);
-    background-color: var(--pro-layout-aside-background-color);
+    background-color: var(--pro-layout-main-background-color);
     &.el-scrollbar .el-scrollbar__wrap {
       margin-bottom: 0 !important;
       overflow-x: hidden;
