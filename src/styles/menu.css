@@ -29,6 +29,7 @@
     }
   }
 }
-.el-menu-item.is-active .pro-link {
+.el-menu-item.is-active .pro-link,
+.el-menu-item .pro-link.router-link-exact-active {
   color: var(--el-color-primary);
 }

@@ -2,11 +2,10 @@
 
 :root {
   --pro-background-color-mask: rgba(0, 0, 0, 0.5);
-
   --pro-layout-header-background-color: var(--el-color-white);
   --pro-layout-aside-background-color: var(--el-color-white);
+  --pro-layout-main-background-color: var(--el-color-white);
   --pro-tabs-background-color: var(--el-color-white);
-
   --pro-layout-width-aside: 240px;
   --pro-layout-width-aside-collapse: 60px;
   --pro-layout-height: 100vh;

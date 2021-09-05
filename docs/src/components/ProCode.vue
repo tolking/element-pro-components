@@ -85,13 +85,13 @@ function handleScroll() {
 <style>
 .pro-code {
   margin: 1rem 0;
-  border: 1px solid var(--c-divider);
-  border-radius: 3px;
-  background: var(--c-bg);
-  transition: all 0.2s;
+  border: var(--el-border-base);
+  border-radius: var(--el-border-radius-base);
+  background: var(--el-color-white);
+  transition: var(--el-transition-all);
 }
 .pro-code:hover {
-  box-shadow: var(--shadow-2);
+  box-shadow: var(--el-box-shadow-base);
 }
 .pro-code .source {
   padding: 24px;
@@ -99,19 +99,19 @@ function handleScroll() {
 .pro-code .meta {
   padding: 0 10px;
   height: 0;
-  background-color: var(--c-page-background);
+  background-color: var(--el-background-color-base);
   overflow: hidden;
-  transition: height 0.2s;
+  transition: var(--el-transition-all);
 }
 .pro-code .meta .description {
   padding: 20px;
   margin: 10px 0;
-  border: 1px solid var(--c-divider);
+  border: var(--el-border-base);
   box-sizing: border-box;
-  background: var(--c-bg);
+  background: var(--el-color-white);
   font-size: 14px;
   line-height: 22px;
-  color: var(--c-text-light-1);
+  color: var(--el-text-color-regular);
   word-break: break-word;
 }
 .pro-code .meta .description p {
@@ -123,7 +123,7 @@ function handleScroll() {
   padding: 1px 5px;
   margin: 0 4px;
   height: 18px;
-  border-radius: 3px;
+  border-radius: var(--el-border-radius-base);
   background-color: var(--code-inline-bg-color);
   font-size: 12px;
   line-height: 18px;
@@ -135,13 +135,13 @@ function handleScroll() {
   justify-content: center;
   height: 44px;
   box-sizing: border-box;
-  border-top: 1px solid var(--c-divider);
-  border-bottom: 1px solid var(--c-divider);
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  background: var(--c-bg);
+  border-top: var(--el-border-base);
+  border-bottom: var(--el-border-base);
+  border-bottom-left-radius: var(--el-border-radius-base);
+  border-bottom-right-radius: var(--el-border-radius-base);
+  background: var(--el-color-white);
   text-align: center;
-  color: var(--c-text);
+  color: var(--el-text-color-primary);
   cursor: pointer;
   width: 100%;
   user-select: none;
@@ -152,20 +152,20 @@ function handleScroll() {
   bottom: 0;
 }
 .pro-code .control:hover {
-  background-color: var(--c-page-background);
-  color: var(--c-brand);
+  background-color: var(--el-background-color-base);
+  color: var(--el-color-primary);
 }
 .pro-code .control .control-icon {
   width: 16px;
   height: 16px;
   transform: translateX(35px);
-  transition: transform 0.3s;
+  transition: var(--el-transition-md-fade);
 }
 .pro-code .control .control-text {
   opacity: 0;
   margin-left: 10px;
   transform: translateX(35px);
-  transition: all 0.3s;
+  transition: var(--el-transition-all);
 }
 .pro-code:hover .control .control-icon {
   transform: translateX(0);
