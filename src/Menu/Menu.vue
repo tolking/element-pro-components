@@ -14,6 +14,7 @@
             <component
               :is="item.meta?.icon"
               v-if="item.meta?.icon"
+              :class="item.meta?.icon"
               class="pro-menu-icon"
             />
             <span v-if="item.meta?.title">
