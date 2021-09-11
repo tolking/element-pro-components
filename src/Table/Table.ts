@@ -90,7 +90,7 @@ export default defineComponent({
           h(ElTableColumn, { type: 'selection', ...bindSelection.value })
         )
       }
-      if (expand.value && slots.expand) {
+      if (expand.value !== false && slots.expand) {
         list.push(
           h(
             ElTableColumn,
@@ -114,7 +114,7 @@ export default defineComponent({
       if (slots.append) {
         list = list.concat(slots.append())
       }
-      if (menu.value && slots.menu) {
+      if (menu.value !== false && slots.menu) {
         list.push(
           h(
             ElTableColumn,

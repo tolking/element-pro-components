@@ -17,7 +17,7 @@ export default {
   },
   expand: {
     type: [Boolean, Object] as PropType<boolean | ITableExpandColumns>,
-    default: false,
+    default: undefined,
   },
   index: {
     type: [Boolean, Object] as PropType<boolean | ITableIndexColumns>,
@@ -25,12 +25,11 @@ export default {
   },
   menu: {
     type: [Boolean, Object] as PropType<boolean | ITableMenuColumns>,
-    default: false,
+    default: undefined,
   },
   columns: {
     type: Array as PropType<ITableColumns<StringObject>>,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    default: () => [] as ITableColumns,
+    default: undefined,
   },
   total: {
     type: Number,

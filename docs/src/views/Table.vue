@@ -8,7 +8,6 @@
     :index="index"
     :menu="menu"
     selection
-    expand
     align="center"
     size="small"
     @cell-click="test"
