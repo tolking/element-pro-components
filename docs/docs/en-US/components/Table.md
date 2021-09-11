@@ -350,7 +350,7 @@ export default {
 
 ### Slots
 
-::: demo Use simple [render-function](https://v3.cn.vuejs.org/guide/render-function.html) by `render` in `columns`. or set `slot: true` then write slot with `[prop]` in template
+::: demo Use simple [render-function](https://v3.cn.vuejs.org/guide/render-function.html) by `render` in `columns`. or directly add some slot with `[prop]` in the template.
 
 <template>
   <pro-table
@@ -382,7 +382,6 @@ export default {
       {
         label: 'Name',
         prop: 'name',
-        slot: true,
       },
       {
         label: 'Address',
@@ -619,7 +618,6 @@ export default {
 | :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------- |
 | prop                | the key of data                                                                                                                                                                                                 | string                                  | -                                                                                                                                | -                                 |
 | label               | column label                                                                                                                                                                                                    | string                                  | -                                                                                                                                | -                                 |
-| slot                | whether to enable slot                                                                                                                                                                                          | boolean                                 | -                                                                                                                                | false                             |
 | render              | render function for table columns                                                                                                                                                                               | string / function(row)                  | -                                                                                                                                | -                                 |
 | hide                | Whether to hide in the table                                                                                                                                                                                    | boolean                                 | -                                                                                                                                | false                             |
 | children            | grouping table head                                                                                                                                                                                             | array                                   | -                                                                                                                                | -                                 |

@@ -73,13 +73,12 @@ const columns = ref<ITableColumns<ListItem>>([
   {
     label: 'Date',
     prop: 'date',
-    slot: true,
     sortable: true,
   },
   {
     label: 'Name',
     prop: 'name',
-    render: (row) => h('b', null, '-' + row.name),
+    render: (row: ListItem) => h('b', null, '-' + row.name),
   },
   {
     label: 'Address',
@@ -98,7 +97,6 @@ const columns1 = ref<ITableColumns<ListItem>>([
       {
         label: 'Name',
         prop: 'name',
-        slot: true,
       },
       {
         label: 'Address',
