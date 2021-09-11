@@ -350,7 +350,7 @@ export default {
 
 ### 插槽
 
-::: demo 在 `columns` 中配置 `render` 可以使用简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)。或者配置 `slot: true` 启用模版中的插槽，开启后可以使用带 `[prop]` 相关的插槽
+::: demo 在 `columns` 中配置 `render` 可以使用简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)。或者直接在模版中增加带 `[prop]` 相关的插槽
 
 <template>
   <pro-table
@@ -382,7 +382,6 @@ export default {
       {
         label: '姓名',
         prop: 'name',
-        slot: true,
       },
       {
         label: '地址',
@@ -619,7 +618,6 @@ export default {
 | :------------------ | :-------------------------------------------------------------------- | :-------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ | :-------------------------------- |
 | prop                | 对应 data 的字段名 (**必填，需要是唯一值**)                           | string                                  | -                                                                                                                               | -                                 |
 | label               | 显示的标题                                                            | string                                  | -                                                                                                                               | -                                 |
-| slot                | 是否开启自定义插槽功能                                                | boolean                                 | -                                                                                                                               | false                             |
 | render              | 通过渲染函数实现简单的插槽功能                                        | string / function(row)                  | -                                                                                                                               | -                                 |
 | hide                | 是否在表格中隐藏                                                      | boolean                                 | -                                                                                                                               | false                             |
 | children            | 实现多级表头                                                          | array                                   | -                                                                                                                               | -                                 |

@@ -19,7 +19,7 @@ import type {
 } from '../types/index'
 
 export function useTableColumns(
-  props: Readonly<{ columns: ITableColumns }>
+  props: Readonly<{ columns?: ITableColumns }>
 ): ComputedRef<ITableColumns> {
   return computed<ITableColumns>(() => {
     return filterDeep(props.columns || [], 'hide', false)
@@ -29,7 +29,7 @@ export function useTableColumns(
 interface TableSlot extends TableColumn {
   header: string
 }
-
+// TODO: remove useTableSlotList
 export function useTableSlotList(
   columns: MaybeRef<ITableColumns>
 ): ComputedRef<TableSlot[]> {
@@ -66,7 +66,7 @@ interface ColumnsBind extends StringObject {
 export function useTableBind<T extends ColumnsBind>(
   currentBind?: MaybeRef<boolean | undefined | T>,
   defaultBind?: MaybeRef<TableColumnsProps>
-): ComputedRef<T> {
+): ComputedRef<StringObject> {
   return computed(() => {
     const _currentBind = unref(currentBind)
     const _defaultBind = unref(defaultBind)
@@ -77,7 +77,7 @@ export function useTableBind<T extends ColumnsBind>(
       _option.children && delete _option.children
     }
 
-    return Object.assign({} as T, _defaultBind, _option)
+    return Object.assign({} as StringObject, _defaultBind, _option)
   })
 }
 

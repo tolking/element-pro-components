@@ -1,4 +1,4 @@
-import type { App, ComputedRef, DefineComponent, Ref } from 'vue'
+import type { App, ComputedRef, DefineComponent, Ref, Plugin } from 'vue'
 import type { CrudMenu, FormMenu, IPagination } from './index'
 
 export type StringObject = Record<string, unknown>
@@ -7,12 +7,28 @@ export type UnknownObject = Record<string | number, unknown>
 
 export type UnknownFunction = (...arg: unknown[]) => unknown
 
+/**
+ * Get the key value of the object and the array object in the object
+ *
+ * for example:
+ *
+ * ```
+ *  DeepKeyof<{
+ *    name: string
+ *    address: string
+ *  }> // -> 'name' | 'address'
+ *
+ *  DeepKeyof<{
+ *    date: string
+ *    user: {
+ *      name: string
+ *      address: string
+ *    }[]
+ *  }> // -> 'date' | 'user' | 'name' | 'address'
+ * ```
+ */
 export type DeepKeyof<T> = {
-  [Q in keyof T]: T[Q] extends UnknownObject[]
-    ? DeepKeyof<T[Q][number]> | Q
-    : T[Q] extends UnknownObject
-    ? DeepKeyof<T[Q]> | Q
-    : Q
+  [Q in keyof T]: T[Q] extends UnknownObject[] ? DeepKeyof<T[Q][number]> | Q : Q
 }[keyof T]
 
 export type MaybeArray<T> = T | Array<T>
@@ -24,6 +40,8 @@ export type MaybeComputedRef<T> = T | ComputedRef<T>
 export type IDefineComponent<Props = UnknownObject> = DefineComponent<Props> & {
   install: (app: App, options?: InstallOptions) => void
 }
+
+export type IDefinePlugin<T> = T & Plugin
 
 export type MenuOptions = CrudMenu & FormMenu & StringObject
 
