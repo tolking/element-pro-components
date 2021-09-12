@@ -27,7 +27,6 @@ import type {
   UnknownObject,
   IFormMenuColumns,
   MenuOptions,
-  DeepKeyof,
   MaybeArray,
   MaybeRef,
 } from '../types/index'
@@ -36,7 +35,7 @@ interface FormSlot extends FormColumn {
   labelSlot: string
   errorSlot: string
 }
-
+// TODO: remove
 export function useFormSlotList(
   columns: MaybeRef<IFormColumns>
 ): ComputedRef<FormSlot[]> {

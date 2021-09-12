@@ -168,7 +168,6 @@ export default {
 <script>
 import { ref, shallowRef } from 'vue'
 import { ElSwitch } from 'element-plus'
-import 'element-plus/theme-chalk/el-switch.css'
 
 export default {
   setup() {
@@ -206,9 +205,9 @@ export default {
 
 :::
 
-### 启用插槽
+### 使用插槽
 
-::: demo 通过 `columns` 的 `slot` 配置是否开启自定义插槽功能。虽然在启用插槽后可以通过 `v-model="form.slot"` 这种方式绑定值，但更推荐使用 `value` 与 `setValue`
+::: demo 直接在模版中增加带 `[prop]` 相关的插槽即可自定义插槽。虽然在启用插槽后可以通过 `v-model="form.slot"` 这种方式绑定值，但更推荐使用 `value` 与 `setValue`
 
 <template>
   <pro-form
@@ -250,7 +249,6 @@ export default {
     const columns2 = ref([
       {
         prop: 'slot',
-        slot: true,
       },
     ])
 
@@ -695,7 +693,6 @@ export default {
 | label         | 标签文本                                                                  | string             | -                     | -      |
 | component     | 当前项对应的组件，可以直接传入局部组件                                    | string / Component | -                     | -      |
 | props         | 传递的对应的组件的参数                                                    | object             | -                     | -      |
-| slot          | 是否开启自定义插槽功能                                                    | boolean            | -                     | false  |
 | children      | 实现子表单                                                                | array              | -                     | -      |
 | max           | 与 children 一起使用，限制子表单的最大数量                                | number             | -                     | -      |
 | labelWidth    | 表单域标签的宽度，例如 '50px' 或 'auto'                                   | string             | -                     | -      |
@@ -737,7 +734,7 @@ props: {
 
 :::
 
-#### menu 的参数 (可通过全局配置配置)
+#### menu 的参数
 
 | 参数        | 说明                              | 类型    | 可选值 | 默认值              |
 | :---------- | :-------------------------------- | :------ | :----- | :------------------ |
