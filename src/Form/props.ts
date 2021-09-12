@@ -1,7 +1,9 @@
 import type { PropType } from 'vue'
+import type { FormRulesMap } from 'element-plus/lib/components/form/src/form.type'
 import type {
   IFormColumns,
   IFormMenuColumns,
+  IComponentSize,
   StringObject,
 } from '../types/index'
 
@@ -19,14 +21,42 @@ export default {
     type: Object as PropType<IFormMenuColumns>,
     default: undefined,
   },
-  labelPosition: {
-    type: String as PropType<'right' | 'left' | 'top'>,
-    default: undefined,
+  rules: {
+    type: Object as PropType<FormRulesMap>,
   },
   inline: {
     type: Boolean,
     default: false,
   },
+  labelPosition: {
+    type: String as PropType<'right' | 'left' | 'top'>,
+    default: undefined,
+  },
+  labelWidth: {
+    type: [String, Number],
+    default: '',
+  },
+  labelSuffix: {
+    type: String,
+    default: '',
+  },
+  hideRequiredAsterisk: {
+    type: Boolean,
+    default: false,
+  },
+  showMessage: {
+    type: Boolean,
+    default: true,
+  },
+  inlineMessage: Boolean,
+  statusIcon: Boolean,
+  validateOnRuleChange: {
+    type: Boolean,
+    default: true,
+  },
+  size: String as PropType<IComponentSize>,
+  disabled: Boolean,
+  scrollToError: Boolean,
   gutter: {
     type: Number,
     default: undefined,

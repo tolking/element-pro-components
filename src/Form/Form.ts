@@ -14,7 +14,23 @@ export default defineComponent({
   props,
   emits: ['update:modelValue', 'submit', 'reset'],
   setup(props, { slots, emit, expose }) {
-    const { columns, modelValue, labelPosition, inline } = toRefs(props)
+    const {
+      columns,
+      modelValue,
+      labelPosition,
+      inline,
+      rules,
+      labelWidth,
+      labelSuffix,
+      hideRequiredAsterisk,
+      showMessage,
+      inlineMessage,
+      statusIcon,
+      validateOnRuleChange,
+      size,
+      disabled,
+      scrollToError,
+    } = toRefs(props)
     const {
       form,
       loading,
@@ -28,9 +44,9 @@ export default defineComponent({
     } = useFormMethods(emit)
     const menu = useFormMenu(props)
     const { rowStyle, rowClass } = useRow(props)
-    const size = useScreenSize()
+    const screenSize = useScreenSize()
     const position = computed(() => {
-      return size.value === 'xs' && !inline?.value
+      return screenSize.value === 'xs' && !inline?.value
         ? 'top'
         : labelPosition?.value
     })
@@ -105,8 +121,19 @@ export default defineComponent({
         {
           ref: form,
           model: modelValue.value,
-          labelPosition: position.value,
+          rules: rules.value,
           inline: inline.value,
+          labelPosition: position.value,
+          labelWidth: labelWidth.value,
+          labelSuffix: labelSuffix.value,
+          hideRequiredAsterisk: hideRequiredAsterisk.value,
+          showMessage: showMessage.value,
+          inlineMessage: inlineMessage.value,
+          statusIcon: statusIcon.value,
+          validateOnRuleChange: validateOnRuleChange.value,
+          size: size.value,
+          disabled: disabled.value,
+          scrollToError: scrollToError.value,
           style: !inline.value ? rowStyle.value : undefined,
           class: ['pro-form', !inline.value ? rowClass.value : ''],
         },

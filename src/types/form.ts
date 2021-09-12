@@ -1,5 +1,5 @@
 import type { Component } from 'vue'
-import type { RuleItem } from 'async-validator'
+import type { FormRulesMap } from 'element-plus/lib/components/form/src/form.type'
 import type {
   UnknownObject,
   IComponentSize,
@@ -11,10 +11,6 @@ import type {
   MaybeArray,
 } from './index'
 
-interface IRuleItem extends RuleItem {
-  trigger: MaybeArray<'blur' | 'change'>
-}
-
 interface InvalidFields {
   [prop: string]: { message: string; field: string }[]
 }
@@ -24,10 +20,10 @@ export interface IFormProps<T = StringObject> extends IRowProps {
   modelValue: T
   columns?: IFormColumns<T>
   menu?: IFormMenuColumns
-  rules?: MaybeArray<IRuleItem>
+  rules?: FormRulesMap
   inline?: boolean
   labelPosition?: 'right' | 'left' | 'top'
-  labelWidth?: string
+  labelWidth?: string | number
   labelSuffix?: string
   hideRequiredAsterisk?: boolean
   showMessage?: boolean
@@ -36,6 +32,7 @@ export interface IFormProps<T = StringObject> extends IRowProps {
   validateOnRuleChange?: boolean
   size?: IComponentSize
   disabled?: boolean
+  scrollToError?: boolean
 }
 
 export interface FormColumn<T = StringObject> extends IColProps, StringObject {
@@ -58,7 +55,7 @@ export interface FormColumn<T = StringObject> extends IColProps, StringObject {
   /** whether the field is required or not, will be determined by validation rules if omitted */
   required?: boolean
   /** validation rules of form */
-  rules?: MaybeArray<IRuleItem>
+  rules?: MaybeArray<FormRulesMap>
   /** field error message, set its value and the field will validate error and show this message immediately */
   error?: string
   /** whether to show the error message */
