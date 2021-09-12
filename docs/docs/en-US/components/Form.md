@@ -168,7 +168,6 @@ export default {
 <script>
 import { ref, shallowRef } from 'vue'
 import { ElSwitch } from 'element-plus'
-import 'element-plus/theme-chalk/el-switch.css'
 
 export default {
   setup() {
@@ -208,7 +207,7 @@ export default {
 
 ### Slots
 
-::: demo Set `slot` in `columns` attribute to enable custom slot
+::: demo Directly add some slot with `[prop]` in the template
 
 <template>
   <pro-form
@@ -250,7 +249,6 @@ export default {
     const columns2 = ref([
       {
         prop: 'slot',
-        slot: true,
       },
     ])
 
@@ -695,7 +693,6 @@ export default {
 | label         | label text                                                                                             | string                                      | —                     | —       |
 | component     | binding component                                                                                      | string                                      | -                     | -       |
 | props         | transfer `props` to the current component                                                              | object                                      | -                     | -       |
-| slot          | whether to enable slot                                                                                 | boolean                                     | -                     | false   |
 | children      | sub-columns                                                                                            | array                                       | -                     | -       |
 | max           | limit the maximum number of sub-columns                                                                | number                                      | -                     | -       |
 | labelWidth    | width of label, e.g. '50px'. Width `auto` is supported.                                                | string                                      | —                     | —       |

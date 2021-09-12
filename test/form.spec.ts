@@ -1,7 +1,7 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { ElInput, ElSwitch } from 'element-plus'
-import ProForm from '../src/Form/Form.vue'
+import ProForm from '../src/Form/Form'
 import type { IFormColumns, IFormMenuColumns } from '../src/types/index'
 
 const columns: IFormColumns = [
@@ -167,14 +167,12 @@ describe('Table.vue', () => {
           {
             label: 'Label',
             prop: 'slot',
-            slot: true,
             component: 'el-switch',
           },
         ])
         return { form, columns: _colums }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: IFormColumns }
 
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getComponentList(wrapper)[0]).not.toContain('el-switch')
@@ -182,10 +180,6 @@ describe('Table.vue', () => {
     expect(wrapper.find('label[for="slot"]').text()).toBe('slot-label')
     expect(getFormBtnList(wrapper)).toContain('menu-left')
     expect(getFormBtnList(wrapper)).toContain('menu-right')
-
-    await (vm.columns[0].slot = false)
-    expect(getComponentList(wrapper)[0]).toContain('el-switch')
-    expect(getComponentList(wrapper)[0]).not.toContain('el-input')
   })
 
   test('modelValue', async () => {

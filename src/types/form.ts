@@ -22,7 +22,7 @@ interface InvalidFields {
 /** Form Props */
 export interface IFormProps<T = StringObject> extends IRowProps {
   modelValue: T
-  columns: IFormColumns<T>
+  columns?: IFormColumns<T>
   menu?: IFormMenuColumns
   rules?: MaybeArray<IRuleItem>
   inline?: boolean
@@ -39,7 +39,7 @@ export interface IFormProps<T = StringObject> extends IRowProps {
 }
 
 export interface FormColumn<T = StringObject> extends IColProps, StringObject {
-  /** whether column has a slot */
+  /** @deprecated */
   slot?: boolean
   /** component name */
   component?: string | Component
