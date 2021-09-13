@@ -1,4 +1,5 @@
 import type { VNode } from 'vue'
+import type { TableProps } from 'element-plus/lib/components/table/src/table/defaults'
 import type {
   UnknownFunction,
   IPlacementType,
@@ -7,7 +8,7 @@ import type {
   MaybeArray,
 } from './index'
 
-export interface ITableProps<T = StringObject> extends TableColumnsProps {
+export interface ITableProps<T = StringObject> extends TableProps<T> {
   selection?: boolean | ITableSelectionColumns
   expand?: boolean | ITableExpandColumns
   index?: boolean | ITableIndexColumns

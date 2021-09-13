@@ -1,5 +1,5 @@
 .pro-table + .pro-pagination {
   padding: 15px 0;
-  overflow: scroll hidden;
+  overflow: auto hidden;
   text-align: right;
 }

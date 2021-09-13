@@ -204,13 +204,12 @@ export default {
 
 ### Expand Columns
 
-::: demo Set `expand` attribute to display expand columns, and use expand slot to define display content
+::: demo Use expand slot to define display content, and Set `expand` attribute to control expand columns
 
 <template>
   <pro-table
     :data="data"
     :columns="columns"
-    expand
   >
     <template #expand="{ row }">
       {{ row }}
@@ -272,7 +271,7 @@ export default {
 
 ### Menu Columns
 
-::: demo Set `menu` attribute to display menu Columns, and use menu slot to define display content
+::: demo Use menu slot to define display content, and Set `menu` attribute to control menu Columns
 
 <template>
   <pro-table
