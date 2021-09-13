@@ -204,13 +204,12 @@ export default {
 
 ### 可展开表格
 
-::: demo 通过配置 `expand` 开启展开插槽，通过 #expand 插槽定制显示内容，支持 columns 的参数
+::: demo 通过 #expand 插槽定制显示可展开内容，通过 `expand` 可进行相关配置，支持 columns 的参数
 
 <template>
   <pro-table
     :data="data"
     :columns="columns"
-    expand
   >
     <template #expand="{ row }">
       {{ row }}
@@ -272,7 +271,7 @@ export default {
 
 ### 定义操作按钮
 
-::: demo 通过配置 `menu` 开启按钮插槽，通过 #menu 插槽定制显示内容，支持 columns 的参数
+::: demo 通过 #menu 插槽定制显示操作按钮内容，通过 `menu` 可进行相关配置，支持 columns 的参数
 
 <template>
   <pro-table
@@ -692,14 +691,14 @@ export default {
 
 ### 插槽
 
-| name          | 说明                                                                     |
-| :------------ | :----------------------------------------------------------------------- |
-| -             | 在右侧菜单前插入的任意内容                                               |
-| menu          | 表格右侧自定义按钮，参数为 { size, row, column, $index }                 |
-| expand        | 当 expand 为 true 时，配置展开显示的内容，参数为 { row, column, $index } |
-| append        | 插入至表格最后一行之后的内容                                             |
-| [prop]        | 当前这列的内容，参数为 { size, row, column, $index }                     |
-| [prop]-header | 当前这列表头的内容，参数为 { size, column, $index }                      |
+| name          | 说明                                                     |
+| :------------ | :------------------------------------------------------- |
+| -             | 在右侧菜单前插入的任意内容                               |
+| menu          | 表格右侧自定义按钮，参数为 { size, row, column, $index } |
+| expand        | 当前这列展开显示的内容，参数为 { row, column, $index }   |
+| append        | 插入至表格最后一行之后的内容                             |
+| [prop]        | 当前这列的内容，参数为 { size, row, column, $index }     |
+| [prop]-header | 当前这列表头的内容，参数为 { size, column, $index }      |
 
 ::: tip 提示
 [prop] 为 columns 中定义的 prop
