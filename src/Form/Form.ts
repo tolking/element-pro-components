@@ -14,23 +14,7 @@ export default defineComponent({
   props,
   emits: ['update:modelValue', 'submit', 'reset'],
   setup(props, { slots, emit, expose }) {
-    const {
-      columns,
-      modelValue,
-      labelPosition,
-      inline,
-      rules,
-      labelWidth,
-      labelSuffix,
-      hideRequiredAsterisk,
-      showMessage,
-      inlineMessage,
-      statusIcon,
-      validateOnRuleChange,
-      size,
-      disabled,
-      scrollToError,
-    } = toRefs(props)
+    const { columns, modelValue, inline } = toRefs(props)
     const {
       form,
       loading,
@@ -45,10 +29,10 @@ export default defineComponent({
     const menu = useFormMenu(props)
     const { rowStyle, rowClass } = useRow(props)
     const screenSize = useScreenSize()
-    const position = computed(() => {
+    const labelPosition = computed(() => {
       return screenSize.value === 'xs' && !inline?.value
         ? 'top'
-        : labelPosition?.value
+        : props.labelPosition
     })
 
     expose({
@@ -121,19 +105,19 @@ export default defineComponent({
         {
           ref: form,
           model: modelValue.value,
-          rules: rules.value,
+          rules: props.rules,
           inline: inline.value,
-          labelPosition: position.value,
-          labelWidth: labelWidth.value,
-          labelSuffix: labelSuffix.value,
-          hideRequiredAsterisk: hideRequiredAsterisk.value,
-          showMessage: showMessage.value,
-          inlineMessage: inlineMessage.value,
-          statusIcon: statusIcon.value,
-          validateOnRuleChange: validateOnRuleChange.value,
-          size: size.value,
-          disabled: disabled.value,
-          scrollToError: scrollToError.value,
+          labelPosition: labelPosition.value,
+          labelWidth: props.labelWidth,
+          labelSuffix: props.labelSuffix,
+          hideRequiredAsterisk: props.hideRequiredAsterisk,
+          showMessage: props.showMessage,
+          inlineMessage: props.inlineMessage,
+          statusIcon: props.statusIcon,
+          validateOnRuleChange: props.validateOnRuleChange,
+          size: props.size,
+          disabled: props.disabled,
+          scrollToError: props.scrollToError,
           style: !inline.value ? rowStyle.value : undefined,
           class: ['pro-form', !inline.value ? rowClass.value : ''],
         },
