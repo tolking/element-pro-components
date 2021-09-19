@@ -1,7 +1,7 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { ElInput, ElSwitch } from 'element-plus'
-import ProCrud from '../src/Crud/Crud.vue'
+import ProCrud from '../src/Crud/Crud'
 import { tableData } from './mock'
 import type { ICrudColumns, ICrudMenuColumns } from '../src/types/index'
 
@@ -352,21 +352,19 @@ describe('Crud.vue', () => {
       setup() {
         const form = ref({})
         const searchForm = ref({})
-        const columns = ref<ICrudColumns>([
+        const columns = [
           {
             label: 'Slot',
             prop: 'slot',
             component: 'el-switch',
             form: true,
             search: true,
-            slot: true,
           },
-        ])
+        ]
 
         return { form, searchForm, columns, data: tableData }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: ICrudColumns<Form> }
 
     expect(wrapper.find(searchClass).text()).toBe('search-menu-left')
     expect(wrapper.find(searchClass + ':nth-child(2)').text()).toBe('Search')
@@ -396,39 +394,6 @@ describe('Crud.vue', () => {
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getLabelList(wrapper)).toContain('slot-label')
     expect(getComponentList(wrapper)[0]).toContain('form-slot')
-    await wrapper.find(dialogClose).trigger('click')
-
-    await (vm.columns[0].slot = false)
-    expect(wrapper.find(searchClass).text()).toBe('search-menu-left')
-    expect(wrapper.find(searchClass + ':nth-child(2)').text()).toBe('Search')
-    expect(wrapper.find(searchClass + ':nth-child(3)').text()).toBe('Reset')
-    expect(wrapper.find(searchClass + ':nth-child(4)').text()).toBe(
-      'search-menu-right'
-    )
-    expect(getSearchLabelList(wrapper)).not.toContain('search-slot-label')
-    expect(getSearchLabelList(wrapper)).toContain('Slot')
-    expect(getSearchComponentList(wrapper)[0]).not.toContain('search-slot')
-    expect(getSearchComponentList(wrapper)[0]).toContain('el-switch')
-
-    expect(wrapper.find(addClass).text()).toBe('menu-left')
-    expect(wrapper.find(addClass + ':nth-child(2)').text()).toBe('Add')
-    expect(wrapper.find(addClass + ':nth-child(3)').text()).toBe('menu-right')
-
-    expect(getHeaderList(wrapper)).not.toContain('slot-header')
-    expect(getHeaderList(wrapper)).toContain('Slot')
-    expect(getBodyItem(wrapper)[0]).not.toMatch(/^@table-/)
-
-    await wrapper.find(addClass + ':nth-child(2)').trigger('click')
-    expect(wrapper.find(formClass).text()).toBe('form-menu-left')
-    expect(wrapper.find(formClass + ':nth-child(2)').text()).toBe('Submit')
-    expect(wrapper.find(formClass + ':nth-child(3)').text()).toBe('Reset')
-    expect(wrapper.find(formClass + ':nth-child(4)').text()).toBe(
-      'form-menu-right'
-    )
-    expect(getLabelList(wrapper)).not.toContain('slot-label')
-    expect(getLabelList(wrapper)).toContain('Slot')
-    expect(getComponentList(wrapper)[0]).not.toContain('form-slot')
-    expect(getComponentList(wrapper)[0]).toContain('el-switch')
     await wrapper.find(dialogClose).trigger('click')
   })
 })

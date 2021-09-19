@@ -51,7 +51,7 @@ export interface FormColumn<T = ExternalParam> extends IColProps, StringObject {
   /** max number of sub-form */
   max?: number
   /** keys of model that passed to form */
-  prop: DeepKeyof<T>
+  prop: keyof T extends string ? DeepKeyof<T> : string
   /** label name */
   label?: string
   /** width of label, e.g. '50px'. Width auto is supported */

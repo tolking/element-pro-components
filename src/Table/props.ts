@@ -11,7 +11,6 @@ import type {
   ITableColumns,
   IPagination,
   IComponentSize,
-  StringObject,
 } from '../types/index'
 
 export default {
@@ -32,7 +31,7 @@ export default {
     default: undefined,
   },
   columns: {
-    type: Array as PropType<ITableColumns<StringObject>>,
+    type: Array as PropType<ITableColumns>,
     default: undefined,
   },
   data: {
