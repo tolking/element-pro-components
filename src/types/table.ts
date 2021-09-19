@@ -6,9 +6,10 @@ import type {
   StringObject,
   DeepKeyof,
   MaybeArray,
+  ExternalParam,
 } from './index'
 
-export interface ITableProps<T = StringObject> extends TableProps<T> {
+export interface ITableProps<T = ExternalParam> extends TableProps<T> {
   selection?: boolean | ITableSelectionColumns
   expand?: boolean | ITableExpandColumns
   index?: boolean | ITableIndexColumns
@@ -30,7 +31,9 @@ export interface TableColumnsProps {
   headerAlign?: 'left' | 'center' | 'right'
 }
 
-export interface TableCommonColumn extends StringObject, TableColumnsProps {
+export interface TableCommonColumn<T = ExternalParam>
+  extends StringObject,
+    TableColumnsProps {
   /** column label */
   label?: string
   /** column width */
@@ -46,8 +49,7 @@ export interface TableCommonColumn extends StringObject, TableColumnsProps {
   /** sorting method, works when sortable is true */
   sortMethod?: (a: unknown, b: unknown) => number
   /** specify which property to sort by, works when sortable is true and sort-method is undefined. If set to an Array, the column will sequentially sort by the next property if the previous one is equal */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  sortBy?: string | string[] | ((row: any, index: number) => void)
+  sortBy?: string | string[] | ((row: T, index: number) => void)
   /** the order of the sorting strategies used when sorting the data, works when sortable is true. Accepts an array, as the user clicks on the header, the column is sorted in order of the elements in the array */
   sortOrders?: Array<'ascending' | 'descending' | null>
   /** whether column width can be resized, works when border of pro-table is true */
@@ -71,7 +73,7 @@ export interface TableCommonColumn extends StringObject, TableColumnsProps {
 }
 
 /** Table Column Options */
-export interface TableColumn<T = StringObject> extends TableCommonColumn {
+export interface TableColumn<T = ExternalParam> extends TableCommonColumn<T> {
   /** field name */
   prop: DeepKeyof<T>
   /** @deprecated */
@@ -81,15 +83,14 @@ export interface TableColumn<T = StringObject> extends TableCommonColumn {
   /** whether to hide in the table */
   hide?: boolean
   /** Use simple slot */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  render?: (row: any) => string | VNode | VNode[]
+  render?: (row: T) => string | VNode | VNode[]
 }
 
 /** Table Columns Options */
-export type ITableColumns<T = StringObject> = TableColumn<T>[]
+export type ITableColumns<T = ExternalParam> = TableColumn<T>[]
 
 /** Table Expand Options */
-export type ITableExpandColumns = TableCommonColumn
+export type ITableExpandColumns<T = ExternalParam> = TableCommonColumn<T>
 
 /** Table Menu Options */
 export type ITableMenuColumns = TableCommonColumn
@@ -101,16 +102,16 @@ export interface ITableIndexColumns extends TableCommonColumn {
 }
 
 /** Table Selection Columns Options */
-export interface ITableSelectionColumns extends TableCommonColumn {
+export interface ITableSelectionColumns<T = ExternalParam>
+  extends TableCommonColumn {
   /** function that determines if a certain row can be selected */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  selectable?: (row: any, index: number) => unknown
+  selectable?: (row: T, index: number) => unknown
   /** whether to reserve selection after data refreshing. Note that row-key is required for this to work */
   reserveSelection?: boolean
 }
 
 /** Table Expose Methods */
-export interface ITableExpose<T = StringObject> {
+export interface ITableExpose<T = ExternalParam> {
   /** used in multiple selection Table, clear user selection */
   clearSelection: () => void
   /** used in multiple selection Table, toggle if a certain row is selected. With the second parameter, you can directly set if this row is selected */

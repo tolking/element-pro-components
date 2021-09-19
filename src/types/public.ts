@@ -37,6 +37,9 @@ export type MaybeRef<T> = T | Ref<T>
 
 export type MaybeComputedRef<T> = T | ComputedRef<T>
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ExternalParam = any
+
 export type IDefineComponent<Props = UnknownObject> = DefineComponent<Props> & {
   install: (app: App, options?: InstallOptions) => void
 }
