@@ -75,7 +75,7 @@ export interface TableCommonColumn<T = ExternalParam>
 /** Table Column Options */
 export interface TableColumn<T = ExternalParam> extends TableCommonColumn<T> {
   /** field name */
-  prop: DeepKeyof<T>
+  prop: keyof T extends string ? DeepKeyof<T> : string
   /** @deprecated */
   slot?: boolean
   /** When the data structure is complex, you can use children to show the data hierarchy */

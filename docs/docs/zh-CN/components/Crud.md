@@ -822,7 +822,7 @@ export default {
 
 ### 插槽
 
-::: demo 通过 columns 的 slot 配置是否开启自定义插槽功能。开启后可以使用带 `[prop]` 相关的插槽，否则只有不带 `[prop]` 的插槽生效
+::: demo 在 `columns` 中配置 `render` 可以使用简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)。或者直接在模版中增加带 `[prop]` 相关的插槽
 
 <template>
   <pro-crud
@@ -832,6 +832,7 @@ export default {
     :menu="{ label: '操作' }"
     :data="data"
     selection
+    label-width="100px"
     @search="search"
     @submit="submit"
     @delete="deleteRow"

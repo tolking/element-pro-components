@@ -822,7 +822,7 @@ export default {
 
 ### Slots
 
-::: demo Set `slot` in `columns` attribute to enable custom slot. After set, you can use the related slots with `[prop]`, otherwise only the slots without `[prop]` will take effect
+::: demo Use simple [render-function](https://v3.cn.vuejs.org/guide/render-function.html) by `render` in `columns`. or directly add some slot with `[prop]` in the template.
 
 <template>
   <pro-crud
@@ -832,6 +832,7 @@ export default {
     :menu="{ label: 'Operations' }"
     :data="data"
     selection
+    label-width="100px"
     @search="search"
     @submit="submit"
     @delete="deleteRow"
