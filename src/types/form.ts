@@ -1,5 +1,8 @@
 import type { Component } from 'vue'
-import type { FormRulesMap } from 'element-plus/lib/components/form/src/form.type'
+import type {
+  FormItemRule,
+  FormRulesMap,
+} from 'element-plus/lib/components/form/src/form.type'
 import type {
   UnknownObject,
   IComponentSize,
@@ -9,6 +12,7 @@ import type {
   IRowProps,
   IColProps,
   MaybeArray,
+  ExternalParam,
 } from './index'
 
 interface InvalidFields {
@@ -16,7 +20,7 @@ interface InvalidFields {
 }
 
 /** Form Props */
-export interface IFormProps<T = StringObject> extends IRowProps {
+export interface IFormProps<T = ExternalParam> extends IRowProps {
   modelValue: T
   columns?: IFormColumns<T>
   menu?: IFormMenuColumns
@@ -35,7 +39,7 @@ export interface IFormProps<T = StringObject> extends IRowProps {
   scrollToError?: boolean
 }
 
-export interface FormColumn<T = StringObject> extends IColProps, StringObject {
+export interface FormColumn<T = ExternalParam> extends IColProps, StringObject {
   /** @deprecated */
   slot?: boolean
   /** component name */
@@ -55,7 +59,7 @@ export interface FormColumn<T = StringObject> extends IColProps, StringObject {
   /** whether the field is required or not, will be determined by validation rules if omitted */
   required?: boolean
   /** validation rules of form */
-  rules?: MaybeArray<FormRulesMap>
+  rules?: MaybeArray<FormItemRule>
   /** field error message, set its value and the field will validate error and show this message immediately */
   error?: string
   /** whether to show the error message */
@@ -67,7 +71,7 @@ export interface FormColumn<T = StringObject> extends IColProps, StringObject {
 }
 
 /** Form Columns Option */
-export type IFormColumns<T = StringObject> = FormColumn<T>[]
+export type IFormColumns<T = ExternalParam> = FormColumn<T>[]
 
 /** Form Menu Option */
 export interface FormMenu {

@@ -14,10 +14,11 @@ import type {
   IDialogProps,
   UnknownObject,
   StringObject,
+  ExternalParam,
 } from './index'
 
-export interface ICrudProps<T = StringObject>
-  extends Partial<ITableProps<T>>,
+export interface ICrudProps<T = ExternalParam>
+  extends Partial<Omit<ITableProps<T>, 'size'>>,
     Partial<Omit<IFormProps<T>, 'menu' | 'align'>>,
     IDialogProps {
   columns?: ICrudColumns<T>
@@ -26,15 +27,15 @@ export interface ICrudProps<T = StringObject>
   formColumns?: IFormColumns<T>
   searchColumns?: IFormColumns<T>
   tableColumns?: ITableColumns<T>
-  menu?: boolean | ICrudMenuColumns<T>
+  menu?: boolean | ICrudMenuColumns
   search?: T
   searchRules?: StringObject
   beforeOpen?: ICrudBeforeOpen<T>
 }
 
-export interface CrudColumn<T = StringObject, Q = T>
+export interface CrudColumn<T = ExternalParam>
   extends FormColumn<T>,
-    TableColumn<T, Q> {
+    TableColumn<T> {
   /** sub-form and multi-level header */
   children?: ICrudColumns<T>
   /** whether to display in the add form */
@@ -47,10 +48,10 @@ export interface CrudColumn<T = StringObject, Q = T>
   search?: boolean
 }
 
-/** Crud Columns Options (T: type about `prop`, Q: type about `row`) */
-export type ICrudColumns<T = StringObject, Q = T> = CrudColumn<T, Q>[]
+/** Crud Columns Options */
+export type ICrudColumns<T = ExternalParam> = CrudColumn<T>[]
 
-export interface CrudMenu<T = StringObject> {
+export interface CrudMenu<T = ExternalParam> {
   /** show add button */
   add?: boolean
   /** text of add button */
@@ -83,17 +84,19 @@ export interface CrudMenu<T = StringObject> {
   searchResetProps?: IButtonProps
 }
 
-export type ICrudMenuColumns<T = StringObject> = CrudMenu<T> &
+export type ICrudMenuColumns<T = ExternalParam> = CrudMenu<T> &
   ITableMenuColumns &
   IFormMenuColumns
 
 export type ICrudFormType = 'add' | 'edit'
 
-export type ICrudBeforeOpen<T = StringObject> = (
+export type ICrudBeforeOpen<T = ExternalParam> = (
   done: () => void,
   formType: ICrudFormType,
   row?: T
 ) => void
+
+export type ICrudBeforeClose = (done: () => void) => void
 
 export type ICrudSearch = IFormSubmit
 
