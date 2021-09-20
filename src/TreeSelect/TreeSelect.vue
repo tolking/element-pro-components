@@ -22,9 +22,7 @@
         :data="data"
         :show-checkbox="multiple"
         :check-strictly="checkStrictly"
-        :default-expanded-keys="
-          multiple ? modelValue || [] : [modelValue || '']
-        "
+        :default-expanded-keys="expandedKeys"
         :filter-node-method="filter"
         node-key="value"
         highlight-current
@@ -32,14 +30,16 @@
         @node-click="upData"
         @check-change="upData"
       >
-        <template #default="{ node, data }">
+        <template #default="scope">
           <slot
-            v-bind="{ node, data }"
+            v-bind="scope"
             :multiple="multiple"
             name="default"
           >
-            <span :class="node.disabled && !multiple ? 'is-disabled' : ''">
-              {{ node.label }}
+            <span
+              :class="scope.node.disabled && !multiple ? 'is-disabled' : ''"
+            >
+              {{ scope.node.label }}
             </span>
           </slot>
         </template>
@@ -94,6 +94,7 @@ const {
   clearable,
   multiple,
   checkStrictly,
+  expandedKeys,
   filterable,
   tree,
   value,

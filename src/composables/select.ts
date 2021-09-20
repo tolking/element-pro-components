@@ -84,9 +84,10 @@ export function useTreeSelect(
   clearable?: Ref<boolean | undefined>
   multiple?: Ref<boolean | undefined>
   checkStrictly?: Ref<boolean | undefined>
+  expandedKeys?: ComputedRef<(string | number)[] | undefined>
   filterable?: Ref<boolean | undefined>
   value: ComputedRef<MaybeArray<string | number> | undefined>
-  label: Ref<MaybeArray<string | number>>
+  label: Ref<string | number>
   list: Ref<SelectDataItem[]>
   filter: (value: string, item: SelectDataItem) => boolean
   togglePopper: (state: boolean) => void
@@ -102,10 +103,15 @@ export function useTreeSelect(
     filterable,
     onlySelectLeaf,
   } = toRefs(props)
-  const tree = shallowRef<ITreeStore>({} as ITreeStore)
-  const label = ref<MaybeArray<string | number>>('')
+  const tree = ref<ITreeStore>({} as ITreeStore)
+  const label = ref<string | number>('')
   const list = shallowRef<SelectDataItem[]>([])
   const value = computed(() => (multiple?.value ? '' : modelValue?.value || ''))
+  const expandedKeys = computed(() => {
+    return isArray(modelValue?.value)
+      ? modelValue?.value
+      : ([modelValue || ''] as Array<string | number>)
+  })
 
   onMounted(() => {
     (multiple?.value
@@ -171,6 +177,7 @@ export function useTreeSelect(
     clearable,
     multiple,
     checkStrictly,
+    expandedKeys,
     filterable,
     tree,
     value,

@@ -2,7 +2,7 @@ import type { PropType, CSSProperties } from 'vue'
 import type {
   TableProps,
   DefaultRow,
-} from 'element-plus/lib/components/table/src/table/defaults'
+} from 'element-plus/packages/components/table/src/table/defaults'
 import type {
   ITableSelectionColumns,
   ITableExpandColumns,
