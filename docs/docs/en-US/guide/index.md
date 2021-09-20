@@ -165,7 +165,17 @@ If you use on demand import components, you can inject global config through one
 ::: tip Tip
 Document example based on [Composition API](https://v3.vuejs.org/guide/composition-api-introduction.html), If you are not familiar with the syntax, please visit the official document
 
-If you use VS Code to develop, cooperate with Vetur to provide complete components, prop, and event completion. example: input `<pro-` will list all components
+If you use VS Code to develop, cooperate with [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) to provide complete components, prop, and event completion. example: input `<pro-` will list all components
+
+If you use VS Code with typescript to develop, It is recommended to use plug-in [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar). Just add to the `include` field in the `tsconfig.json` file
+
+```diff
+{
+  "include": [
++   "node_modules/element-pro-components/types/element-pro-components.d.ts"
+  ]
+}
+```
 
 If you use webstorm to develop, complete components, prop, and event completions
 

@@ -166,7 +166,17 @@ app.use(ElementPro, {
 ::: tip 提示
 文档示例基于 [组合式 API](https://v3.cn.vuejs.org/guide/composition-api-introduction.html) 语法，如果不熟悉语法请前往官方文档查看
 
-如果使用 VS Code 开发，配合 Vetur 使用提供完整的组件、属性、事件补全。例如：输入 `<pro-` 将罗列出所有组件库组件
+如果使用 VS Code 开发，配合 [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) 使用提供完整的组件、属性、事件补全。例如：输入 `<pro-` 将罗列出所有组件库组件
+
+对于使用 VS Code 配合 typescript 开发，推荐使用插件 [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)。只需要中向 `tsconfig.json` 文件中的 `include` 字段增加
+
+```diff
+{
+  "include": [
++   "node_modules/element-pro-components/types/element-pro-components.d.ts"
+  ]
+}
+```
 
 对于 webstorm 也提供了完整的组件、属性、事件补全
 

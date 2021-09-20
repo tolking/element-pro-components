@@ -40,12 +40,14 @@
       />
     </svg>
   </pro-link>
+  <algolia-search />
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { langs } from '../utils/index'
+import AlgoliaSearch from './AlgoliaSearch.vue'
 
 const route = useRoute()
 const showLangButton = computed(() => {
@@ -58,8 +60,8 @@ function setUrl(key: string) {
 </script>
 
 <style>
-.header-icon:not(:last-child) {
-  margin-right: 14px;
+.header-icon:not(:first-child) {
+  margin-left: 14px;
 }
 .header-icon svg {
   width: 28px;

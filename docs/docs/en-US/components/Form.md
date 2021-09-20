@@ -681,7 +681,6 @@ export default {
 | size                    | control the size of components in this form                                                                                       | string  | medium / small / mini                               | —       |
 | disabled                | whether to disabled all components in this form. If set to true, it cannot be overridden by its inner components' `disabled` prop | boolean | —                                                   | false   |
 | gutter                  | grid spacing                                                                                                                      | number  | —                                                   | 0       |
-| type                    | layout mode, you can use flex, works in modern browsers                                                                           | string  | —                                                   | —       |
 | justify                 | horizontal alignment of flex layout                                                                                               | string  | start / end / center / space-around / space-between | start   |
 | align                   | vertical alignment of flex layout                                                                                                 | string  | top / middle / bottom                               | top     |
 
