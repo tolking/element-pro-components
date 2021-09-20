@@ -6,6 +6,7 @@ import {
   h,
   PropType,
   resolveDynamicComponent,
+  Slot,
 } from 'vue'
 import { isFunction, isObject } from '../utils/index'
 import type { StringObject } from '../types/index'
@@ -69,7 +70,7 @@ export default defineComponent({
     })
     const children = computed(() => {
       if (isFunction(props.slots)) {
-        return props.slots
+        return props.slots as Slot
       } else if (isObject(props.slots)) {
         const obj: StringObject = {}
 

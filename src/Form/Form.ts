@@ -86,7 +86,7 @@ export default defineComponent({
             {
               ...menu.value.resetProps,
               loading: loading.value,
-              onClick: resetForm,
+              onClick: () => resetForm(),
             },
             () => menu.value.resetText
           )
