@@ -121,8 +121,6 @@ export interface IDialogProps {
 export interface IRowProps {
   /** grid spacing */
   gutter?: number
-  /** layout mode, you can use flex, works in modern browsers */
-  type?: string
   /** horizontal alignment of flex layout */
   justify?: 'start' | 'end' | 'center' | 'space-around' | 'space-between'
   /** vertical alignment of flex layout */

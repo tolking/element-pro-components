@@ -12,13 +12,13 @@ export function useCol(
   }>
   colClass: ComputedRef<string[]>
 } {
-  const gutter = inject('ElRow', 0)
+  const { gutter } = inject('ElRow', { gutter: { value: 0 } })
 
   const colStyle = computed(() => {
-    if (gutter) {
+    if (gutter.value) {
       return {
-        paddingLeft: gutter / 2 + 'px',
-        paddingRight: gutter / 2 + 'px',
+        paddingLeft: `${gutter.value / 2}px`,
+        paddingRight: `${gutter.value / 2}px`,
       }
     }
     return {}
@@ -41,12 +41,12 @@ export function useCol(
     const pos = ['span', 'offset', 'pull', 'push'] as const
     pos.forEach((prop) => {
       const size = item[prop]
-      if (typeof size === 'number' && size > 0) {
-        ret.push(
-          prop !== 'span'
-            ? `el-col-${prop}-${item[prop]}`
-            : `el-col-${item[prop]}`
-        )
+      if (typeof size === 'number') {
+        if (prop === 'span') {
+          ret.push(`el-col-${item[prop]}`)
+        } else if (size > 0) {
+          ret.push(`el-col-${prop}-${item[prop]}`)
+        }
       }
     })
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const
@@ -66,7 +66,7 @@ export function useCol(
       }
     })
 
-    if (gutter) {
+    if (gutter.value) {
       ret.push('is-guttered')
     }
     return ret

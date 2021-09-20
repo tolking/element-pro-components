@@ -61,10 +61,6 @@ export default {
     type: Number,
     default: undefined,
   },
-  type: {
-    type: String,
-    default: undefined,
-  },
   justify: {
     type: String as PropType<
       'start' | 'end' | 'center' | 'space-around' | 'space-between'
