@@ -71,13 +71,24 @@ export default defineConfig({
     }),
     VitePWA({
       manifest: {
+        name: 'pro-components',
+        short_name: 'pro-components',
         description: 'a component library for Vue 3 base on element-plus',
         icons: [
           {
-            src: 'logo.svg',
-            sizes: '48x48 72x72 96x96 128x128 256x256',
+            src: '/element-pro-components/android-chrome-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: '/element-pro-components/android-chrome-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
           },
         ],
+        theme_color: '#ffffff',
+        background_color: '#ffffff',
+        display: 'standalone',
       },
     }),
   ],
