@@ -22,7 +22,7 @@ meta:
 <style>
 .docs-menu {
   max-height: 400px;
-  overflow: scroll;
+  overflow: auto;
 }
 </style>
 
@@ -100,7 +100,7 @@ Starting from `0.12.0`, the internal menu will be implemented using svgicon by d
 ::: demo How to display the menu content through the default slot
 
 <template>
-  <pro-menu class="docs-menu">
+  <pro-menu :routes="routes1" class="docs-menu">
     <template #default="item">
       <pro-link :to="item.path">
         <i
@@ -116,7 +116,24 @@ Starting from `0.12.0`, the internal menu will be implemented using svgicon by d
 </template>
 
 <script>
-export default {}
+export default {
+  setup() {
+    const routes1 = [
+      {
+        path: '/zh-CN/components/menu',
+        meta: { title: 'FontIcon', icon: 'el-icon-potato-strips' },
+      },
+      {
+        path: '/zh-CN/components/menu',
+        meta: { title: 'Development', icon: 'el-icon-cpu' },
+      },
+    ]
+
+    return {
+      routes1,
+    }
+  }
+}
 </script>
 
 :::
