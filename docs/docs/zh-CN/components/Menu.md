@@ -22,7 +22,7 @@ meta:
 <style>
 .docs-menu {
   max-height: 400px;
-  overflow: scroll;
+  overflow: auto;
 }
 </style>
 
@@ -100,7 +100,7 @@ export default {
 ::: demo 通过默认插槽可以很方便的定义如何显示菜单内容
 
 <template>
-  <pro-menu class="docs-menu">
+  <pro-menu :routes="routes1" class="docs-menu">
     <template #default="item">
       <pro-link :to="item.path">
         <i
@@ -116,7 +116,24 @@ export default {
 </template>
 
 <script>
-export default {}
+export default {
+  setup() {
+    const routes1 = [
+      {
+        path: '/zh-CN/components/menu',
+        meta: { title: 'FontIcon', icon: 'el-icon-potato-strips' },
+      },
+      {
+        path: '/zh-CN/components/menu',
+        meta: { title: 'Development', icon: 'el-icon-cpu' },
+      },
+    ]
+
+    return {
+      routes1,
+    }
+  }
+}
 </script>
 
 :::

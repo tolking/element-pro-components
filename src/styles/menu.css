@@ -33,3 +33,6 @@
 .el-menu-item .pro-link.router-link-exact-active {
   color: var(--el-color-primary);
 }
+.el-menu--horizontal > .el-sub-menu .el-sub-menu__title .pro-link {
+  display: inline-block;
+}

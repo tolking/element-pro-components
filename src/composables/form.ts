@@ -9,7 +9,6 @@ import {
 } from 'vue'
 import { useProOptions, useShow } from './index'
 import {
-  filterFlat,
   isObject,
   objectDeepMerge,
   objectPick,
@@ -19,7 +18,6 @@ import {
 import type {
   FormColumn,
   FormMenu,
-  IFormColumns,
   IComponentSize,
   IFormExpose,
   IFormValidateCallback,
@@ -27,34 +25,9 @@ import type {
   UnknownObject,
   IFormMenuColumns,
   MenuOptions,
-  DeepKeyof,
   MaybeArray,
   MaybeRef,
 } from '../types/index'
-
-interface FormSlot extends FormColumn {
-  labelSlot: string
-  errorSlot: string
-}
-
-export function useFormSlotList(
-  columns: MaybeRef<IFormColumns>
-): ComputedRef<FormSlot[]> {
-  return computed(() => {
-    const _columns = unref(columns)
-
-    return filterFlat<IFormColumns, FormSlot[]>(
-      _columns,
-      'slot',
-      true,
-      (item) => {
-        item.labelSlot = item.prop + '-label'
-        item.errorSlot = item.prop + '-error'
-        return item as FormSlot
-      }
-    )
-  })
-}
 
 type FormItemBind = Omit<
   FormColumn,

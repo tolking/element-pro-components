@@ -204,13 +204,12 @@ export default {
 
 ### Expand Columns
 
-::: demo Set `expand` attribute to display expand columns, and use expand slot to define display content
+::: demo Use expand slot to define display content, and Set `expand` attribute to control expand columns
 
 <template>
   <pro-table
     :data="data"
     :columns="columns"
-    expand
   >
     <template #expand="{ row }">
       {{ row }}
@@ -272,7 +271,7 @@ export default {
 
 ### Menu Columns
 
-::: demo Set `menu` attribute to display menu Columns, and use menu slot to define display content
+::: demo Use menu slot to define display content, and Set `menu` attribute to control menu Columns
 
 <template>
   <pro-table
@@ -350,7 +349,7 @@ export default {
 
 ### Slots
 
-::: demo Use simple [render-function](https://v3.cn.vuejs.org/guide/render-function.html) by `render` in `columns`. or set `slot: true` then write slot with `[prop]` in template
+::: demo Use simple [render-function](https://v3.cn.vuejs.org/guide/render-function.html) by `render` in `columns`. or directly add some slot with `[prop]` in the template.
 
 <template>
   <pro-table
@@ -382,7 +381,6 @@ export default {
       {
         label: 'Name',
         prop: 'name',
-        slot: true,
       },
       {
         label: 'Address',
@@ -619,7 +617,6 @@ export default {
 | :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------- |
 | prop                | the key of data                                                                                                                                                                                                 | string                                  | -                                                                                                                                | -                                 |
 | label               | column label                                                                                                                                                                                                    | string                                  | -                                                                                                                                | -                                 |
-| slot                | whether to enable slot                                                                                                                                                                                          | boolean                                 | -                                                                                                                                | false                             |
 | render              | render function for table columns                                                                                                                                                                               | string / function(row)                  | -                                                                                                                                | -                                 |
 | hide                | Whether to hide in the table                                                                                                                                                                                    | boolean                                 | -                                                                                                                                | false                             |
 | children            | grouping table head                                                                                                                                                                                             | array                                   | -                                                                                                                                | -                                 |

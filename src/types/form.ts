@@ -1,5 +1,8 @@
 import type { Component } from 'vue'
-import type { RuleItem } from 'async-validator'
+import type {
+  FormItemRule,
+  FormRulesMap,
+} from 'element-plus/lib/components/form/src/form.type'
 import type {
   UnknownObject,
   IComponentSize,
@@ -9,25 +12,22 @@ import type {
   IRowProps,
   IColProps,
   MaybeArray,
+  ExternalParam,
 } from './index'
-
-interface IRuleItem extends RuleItem {
-  trigger: MaybeArray<'blur' | 'change'>
-}
 
 interface InvalidFields {
   [prop: string]: { message: string; field: string }[]
 }
 
 /** Form Props */
-export interface IFormProps<T = StringObject> extends IRowProps {
+export interface IFormProps<T = ExternalParam> extends IRowProps {
   modelValue: T
-  columns: IFormColumns<T>
+  columns?: IFormColumns<T>
   menu?: IFormMenuColumns
-  rules?: MaybeArray<IRuleItem>
+  rules?: FormRulesMap
   inline?: boolean
   labelPosition?: 'right' | 'left' | 'top'
-  labelWidth?: string
+  labelWidth?: string | number
   labelSuffix?: string
   hideRequiredAsterisk?: boolean
   showMessage?: boolean
@@ -36,10 +36,11 @@ export interface IFormProps<T = StringObject> extends IRowProps {
   validateOnRuleChange?: boolean
   size?: IComponentSize
   disabled?: boolean
+  scrollToError?: boolean
 }
 
-export interface FormColumn<T = StringObject> extends IColProps, StringObject {
-  /** whether column has a slot */
+export interface FormColumn<T = ExternalParam> extends IColProps, StringObject {
+  /** @deprecated */
   slot?: boolean
   /** component name */
   component?: string | Component
@@ -50,7 +51,7 @@ export interface FormColumn<T = StringObject> extends IColProps, StringObject {
   /** max number of sub-form */
   max?: number
   /** keys of model that passed to form */
-  prop: DeepKeyof<T>
+  prop: keyof T extends string ? DeepKeyof<T> : string
   /** label name */
   label?: string
   /** width of label, e.g. '50px'. Width auto is supported */
@@ -58,7 +59,7 @@ export interface FormColumn<T = StringObject> extends IColProps, StringObject {
   /** whether the field is required or not, will be determined by validation rules if omitted */
   required?: boolean
   /** validation rules of form */
-  rules?: MaybeArray<IRuleItem>
+  rules?: MaybeArray<FormItemRule>
   /** field error message, set its value and the field will validate error and show this message immediately */
   error?: string
   /** whether to show the error message */
@@ -70,7 +71,7 @@ export interface FormColumn<T = StringObject> extends IColProps, StringObject {
 }
 
 /** Form Columns Option */
-export type IFormColumns<T = StringObject> = FormColumn<T>[]
+export type IFormColumns<T = ExternalParam> = FormColumn<T>[]
 
 /** Form Menu Option */
 export interface FormMenu {

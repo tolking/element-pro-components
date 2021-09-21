@@ -822,7 +822,7 @@ export default {
 
 ### Slots
 
-::: demo Set `slot` in `columns` attribute to enable custom slot. After set, you can use the related slots with `[prop]`, otherwise only the slots without `[prop]` will take effect
+::: demo Use simple [render-function](https://v3.cn.vuejs.org/guide/render-function.html) by `render` in `columns`. or directly add some slot with `[prop]` in the template.
 
 <template>
   <pro-crud
@@ -832,6 +832,7 @@ export default {
     :menu="{ label: 'Operations' }"
     :data="data"
     selection
+    label-width="100px"
     @search="search"
     @submit="submit"
     @delete="deleteRow"
@@ -1032,7 +1033,6 @@ export default {
 | size                    | control the size of components in this form                                                                                                                                                                                                                                 | string                                                  | medium / small / mini                               | —                                                                              |
 | disabled                | whether to disabled all components in this form. If set to true, it cannot be overridden by its inner components' `disabled` prop                                                                                                                                           | boolean                                                 | —                                                   | false                                                                          |
 | gutter                  | grid spacing                                                                                                                                                                                                                                                                | number                                                  | —                                                   | 0                                                                              |
-| type                    | layout mode, you can use flex, works in modern browsers                                                                                                                                                                                                                     | string                                                  | —                                                   | —                                                                              |
 | justify                 | horizontal alignment of flex layout                                                                                                                                                                                                                                         | string                                                  | start / end / center / space-around / space-between | start                                                                          |
 | title                   | title of Dialog. Can also be passed with a named slot (see the following table)                                                                                                                                                                                             | string                                                  | —                                                   | reference `addText` or `editText` of menu                                      |
 | width                   | width of Dialog                                                                                                                                                                                                                                                             | string / number                                         | —                                                   | 50%                                                                            |

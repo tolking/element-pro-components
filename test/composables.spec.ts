@@ -88,7 +88,6 @@ describe('some composables', () => {
       const wrapper = await _mount({
         setup() {
           const { rowClass, rowStyle } = useRow({
-            type: 'flex',
             justify: 'end',
             align: 'bottom',
           })
@@ -101,7 +100,6 @@ describe('some composables', () => {
       }
 
       expect(vm.rowClass).toContain('el-row')
-      expect(vm.rowClass).toContain('el-row--flex')
       expect(vm.rowClass).toContain('is-justify-end')
       expect(vm.rowClass).toContain('is-align-bottom')
       expect(vm.rowStyle).toEqual({ marginLeft: '', marginRight: '' })

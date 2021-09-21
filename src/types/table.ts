@@ -1,18 +1,20 @@
 import type { VNode } from 'vue'
+import type { TableProps } from 'element-plus/lib/components/table/src/table/defaults'
 import type {
   UnknownFunction,
   IPlacementType,
   StringObject,
   DeepKeyof,
   MaybeArray,
+  ExternalParam,
 } from './index'
 
-export interface ITableProps<T = StringObject> extends TableColumnsProps {
-  selection: boolean | ITableSelectionColumns<T>
-  expand: boolean | ITableExpandColumns
-  index: boolean | ITableIndexColumns
-  menu: boolean | ITableMenuColumns
-  columns: ITableColumns<T>
+export interface ITableProps<T = ExternalParam> extends TableProps<T> {
+  selection?: boolean | ITableSelectionColumns
+  expand?: boolean | ITableExpandColumns
+  index?: boolean | ITableIndexColumns
+  menu?: boolean | ITableMenuColumns
+  columns?: ITableColumns<T>
   total?: number
   pageSize?: number
   currentPage?: number
@@ -29,7 +31,7 @@ export interface TableColumnsProps {
   headerAlign?: 'left' | 'center' | 'right'
 }
 
-interface TableCommonColumn<T = StringObject>
+export interface TableCommonColumn<T = ExternalParam>
   extends StringObject,
     TableColumnsProps {
   /** column label */
@@ -70,26 +72,25 @@ interface TableCommonColumn<T = StringObject>
   filteredValue?: unknown[]
 }
 
-/** Table Column Options (T: type about `prop`, Q: type about `row`) */
-export interface TableColumn<T = StringObject, Q = T>
-  extends TableCommonColumn<Q> {
+/** Table Column Options */
+export interface TableColumn<T = ExternalParam> extends TableCommonColumn<T> {
   /** field name */
-  prop: DeepKeyof<T>
-  /** whether column has a slot */
+  prop: keyof T extends string ? DeepKeyof<T> : string
+  /** @deprecated */
   slot?: boolean
   /** When the data structure is complex, you can use children to show the data hierarchy */
   children?: ITableColumns<T>
   /** whether to hide in the table */
   hide?: boolean
   /** Use simple slot */
-  render?: string | ((row: Q) => string | VNode)
+  render?: (row: T) => string | VNode | VNode[]
 }
 
 /** Table Columns Options */
-export type ITableColumns<T = StringObject> = TableColumn<T>[]
+export type ITableColumns<T = ExternalParam> = TableColumn<T>[]
 
 /** Table Expand Options */
-export type ITableExpandColumns = TableCommonColumn
+export type ITableExpandColumns<T = ExternalParam> = TableCommonColumn<T>
 
 /** Table Menu Options */
 export type ITableMenuColumns = TableCommonColumn
@@ -101,8 +102,8 @@ export interface ITableIndexColumns extends TableCommonColumn {
 }
 
 /** Table Selection Columns Options */
-export interface ITableSelectionColumns<T = StringObject>
-  extends TableCommonColumn<T> {
+export interface ITableSelectionColumns<T = ExternalParam>
+  extends TableCommonColumn {
   /** function that determines if a certain row can be selected */
   selectable?: (row: T, index: number) => unknown
   /** whether to reserve selection after data refreshing. Note that row-key is required for this to work */
@@ -110,7 +111,7 @@ export interface ITableSelectionColumns<T = StringObject>
 }
 
 /** Table Expose Methods */
-export interface ITableExpose<T = StringObject> {
+export interface ITableExpose<T = ExternalParam> {
   /** used in multiple selection Table, clear user selection */
   clearSelection: () => void
   /** used in multiple selection Table, toggle if a certain row is selected. With the second parameter, you can directly set if this row is selected */

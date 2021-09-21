@@ -1,13 +1,13 @@
 import type { App } from 'vue'
 import { objectDeepMerge } from '../utils/index'
-import ProTable from './Table.vue'
-import type {
-  InstallOptions,
-  IDefineComponent,
-  ITableProps,
-} from '../types/index'
+import ProTable from './Table'
+import type { InstallOptions, IDefinePlugin } from '../types/index'
 
-ProTable.install = (app: App, options?: InstallOptions) => {
+const _ProTable: IDefinePlugin<typeof ProTable> = ProTable as IDefinePlugin<
+  typeof ProTable
+>
+
+_ProTable.install = (app: App, options?: InstallOptions) => {
   if (options) {
     const _before = app.config.globalProperties.$PROOPTIONS as InstallOptions
     const _options = _before
@@ -19,4 +19,4 @@ ProTable.install = (app: App, options?: InstallOptions) => {
   app.component(ProTable.name, ProTable)
 }
 
-export default ProTable as IDefineComponent<ITableProps>
+export default _ProTable

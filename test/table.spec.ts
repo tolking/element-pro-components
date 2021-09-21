@@ -1,6 +1,6 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import ProTable from '../src/Table/Table.vue'
+import ProTable from '../src/Table/Table'
 import { config } from '../src/utils/config'
 import { tableData, TableItem } from './mock'
 import type {
@@ -69,7 +69,7 @@ describe('Table.vue', () => {
     const wrapper = await _mount({
       template: '<pro-table :columns="columns" />',
       setup() {
-        return { columns: ref(columns) }
+        return { columns: ref([...columns]) }
       },
     })
     const vm = (wrapper.vm as unknown) as { columns: ITableColumns }
@@ -135,7 +135,13 @@ describe('Table.vue', () => {
 
   test('expand', async () => {
     const wrapper = await _mount({
-      template: '<pro-table :columns="columns" :expand="expand" />',
+      template: `
+        <pro-table :columns="columns" :expand="expand">
+          <template #expand="{ row }">
+            {{ row }}
+          </template>
+        </pro-table>
+      `,
       setup() {
         const expand = ref<boolean | ITableExpandColumns>({ label: '>' })
         return { columns, expand }
@@ -178,7 +184,13 @@ describe('Table.vue', () => {
 
   test('menu', async () => {
     const wrapper = await _mount({
-      template: '<pro-table :columns="columns" :menu="menu" />',
+      template: `
+        <pro-table :columns="columns" :menu="menu">
+          <template #menu="{ size }">
+            <button>{{ size }}</button>
+          </template>
+        </pro-table>
+      `,
       setup() {
         const menu = ref<boolean | ITableMenuColumns>({ label: 'Menu' })
         return { columns, menu }
@@ -315,7 +327,6 @@ describe('Table.vue', () => {
       `,
       setup() {
         const _columns = [...columns]
-        _columns[0].slot = true
         return { columns: _columns, data: tableData, menu: { label: 'Menu' } }
       },
     })

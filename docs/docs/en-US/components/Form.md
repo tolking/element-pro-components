@@ -168,7 +168,6 @@ export default {
 <script>
 import { ref, shallowRef } from 'vue'
 import { ElSwitch } from 'element-plus'
-import 'element-plus/theme-chalk/el-switch.css'
 
 export default {
   setup() {
@@ -208,7 +207,7 @@ export default {
 
 ### Slots
 
-::: demo Set `slot` in `columns` attribute to enable custom slot
+::: demo Directly add some slot with `[prop]` in the template
 
 <template>
   <pro-form
@@ -250,7 +249,6 @@ export default {
     const columns2 = ref([
       {
         prop: 'slot',
-        slot: true,
       },
     ])
 
@@ -683,7 +681,6 @@ export default {
 | size                    | control the size of components in this form                                                                                       | string  | medium / small / mini                               | —       |
 | disabled                | whether to disabled all components in this form. If set to true, it cannot be overridden by its inner components' `disabled` prop | boolean | —                                                   | false   |
 | gutter                  | grid spacing                                                                                                                      | number  | —                                                   | 0       |
-| type                    | layout mode, you can use flex, works in modern browsers                                                                           | string  | —                                                   | —       |
 | justify                 | horizontal alignment of flex layout                                                                                               | string  | start / end / center / space-around / space-between | start   |
 | align                   | vertical alignment of flex layout                                                                                                 | string  | top / middle / bottom                               | top     |
 
@@ -695,7 +692,6 @@ export default {
 | label         | label text                                                                                             | string                                      | —                     | —       |
 | component     | binding component                                                                                      | string                                      | -                     | -       |
 | props         | transfer `props` to the current component                                                              | object                                      | -                     | -       |
-| slot          | whether to enable slot                                                                                 | boolean                                     | -                     | false   |
 | children      | sub-columns                                                                                            | array                                       | -                     | -       |
 | max           | limit the maximum number of sub-columns                                                                | number                                      | -                     | -       |
 | labelWidth    | width of label, e.g. '50px'. Width `auto` is supported.                                                | string                                      | —                     | —       |

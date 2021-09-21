@@ -6,7 +6,7 @@ import manifest from '../dist/static/ssr-manifest.json'
 import { render } from '../dist/server/entry-server'
 
 const template = readFileSync(toAbsolute('../dist/static/index.html'), 'utf-8')
-const files = fg.sync('docs/docs/**/!(Crud).md')
+const files = fg.sync('docs/docs/**/*.md')
 
 ;(async () => {
   const stream = new SitemapStream({ hostname: 'https://tolking.github.io' })

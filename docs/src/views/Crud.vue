@@ -3,8 +3,11 @@
     ref="crud"
     v-model="form"
     v-model:search="serachForm"
+    v-model:current-page="currentPage"
+    v-model:page-size="pageSize"
     :columns="columns"
     :data="data"
+    :total="total"
     :menu="menu"
     :size="size"
     :before-open="beforeOpen"
@@ -44,6 +47,17 @@
         change size
       </el-button>
     </template>
+    <template #menu>
+      <el-button type="text">
+        Detail
+      </el-button>
+    </template>
+    <template #search-date-label>
+      <span>search slot</span>
+    </template>
+    <template #search-menu-right>
+      <el-button>Export</el-button>
+    </template>
     <template #form-name>
       <span>test form slot</span>
     </template>
@@ -51,6 +65,12 @@
       <el-tag :size="size">
         {{ row.name }}
       </el-tag>
+    </template>
+    <template #form-menu-left>
+      <el-button>Prev</el-button>
+    </template>
+    <template #form-menu-right>
+      <el-button>Next</el-button>
     </template>
   </pro-crud>
 </template>
@@ -85,6 +105,9 @@ const menu = ref<ICrudMenuColumns<DataItem>>({
   label: 'Menu',
   edit: (row) => row.date !== '2016-05-02',
 })
+const currentPage = ref(1)
+const pageSize = ref(10)
+const total = ref(50)
 const columns = ref<ICrudColumns<DataItem>>([
   {
     label: 'Date',
@@ -103,7 +126,6 @@ const columns = ref<ICrudColumns<DataItem>>([
     label: 'Name',
     prop: 'name',
     component: 'el-input',
-    slot: true,
     add: true,
     // hide: true,
   },
@@ -136,7 +158,7 @@ const data: DataItem[] = [
   },
 ]
 
-const beforeOpen: ICrudBeforeOpen<CrudForm> = (done, type, row) => {
+const beforeOpen: ICrudBeforeOpen<CrudForm | undefined> = (done, type, row) => {
   console.log('beforeOpen', type, row)
   if (type === 'edit') {
     form.value = row || ({} as CrudForm)

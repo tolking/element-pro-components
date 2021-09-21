@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.13.0
+
+breaking changes
+
+- Table: remove useTableSlotList
+- Form: remove useFormSlotList
+- Crud: remove useCrudAttrs
+
+feat
+
+- Table: Improve slot performance by render
+- Form: Improve slot performance by render
+- Crud: Improve slot performance by render
+- chore: synchronize changes in element row and col
+- type: add GlobalComponents (If you use VS Code with typescript to develop, You will need it)
+
+```diff
+// tsconfig.json
+{
+  "include": [
++   "node_modules/element-pro-components/types/element-pro-components.d.ts"
+  ]
+}
+```
+
+fix
+
+- Menu: horizontal style error
+
 ## 0.12.0
 
 breaking changes

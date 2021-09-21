@@ -36,7 +36,6 @@
 <script setup lang="ts">
 import { h, onMounted, ref, shallowRef } from 'vue'
 import { ElSwitch } from 'element-plus'
-import 'element-plus/theme-chalk/el-switch.css'
 import type {
   IFormColumns,
   IFormMenuColumns,
@@ -49,7 +48,7 @@ interface RuleForm {
   date: string
   user: {
     name: string
-    address: string
+    address: string[]
   }[]
 }
 
@@ -63,7 +62,7 @@ const menu = ref<IFormMenuColumns>({
   },
   reset: false,
 })
-const ruleForm = ref<IFormExpose<RuleForm>>({} as IFormExpose<RuleForm>)
+const ruleForm = ref<IFormExpose>({} as IFormExpose)
 const rules = ref({
   date: { required: true, message: 'please input data', trigger: 'blur' },
   user: { required: true, message: 'please input user', trigger: 'blur' },
@@ -125,7 +124,6 @@ const columns = shallowRef<IFormColumns>([
     // label: 'Slot',
     prop: 'slot',
     component: 'el-input',
-    slot: true,
   },
   {
     label: 'input',
@@ -303,8 +301,6 @@ const columns1 = ref<IFormColumns<RuleForm>>([
       {
         label: 'Address',
         prop: 'address',
-        component: 'el-input',
-        slot: true,
         span: 12,
       },
     ],

@@ -204,13 +204,12 @@ export default {
 
 ### 可展开表格
 
-::: demo 通过配置 `expand` 开启展开插槽，通过 #expand 插槽定制显示内容，支持 columns 的参数
+::: demo 通过 #expand 插槽定制显示可展开内容，通过 `expand` 可进行相关配置，支持 columns 的参数
 
 <template>
   <pro-table
     :data="data"
     :columns="columns"
-    expand
   >
     <template #expand="{ row }">
       {{ row }}
@@ -272,7 +271,7 @@ export default {
 
 ### 定义操作按钮
 
-::: demo 通过配置 `menu` 开启按钮插槽，通过 #menu 插槽定制显示内容，支持 columns 的参数
+::: demo 通过 #menu 插槽定制显示操作按钮内容，通过 `menu` 可进行相关配置，支持 columns 的参数
 
 <template>
   <pro-table
@@ -350,7 +349,7 @@ export default {
 
 ### 插槽
 
-::: demo 在 `columns` 中配置 `render` 可以使用简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)。或者配置 `slot: true` 启用模版中的插槽，开启后可以使用带 `[prop]` 相关的插槽
+::: demo 在 `columns` 中配置 `render` 可以使用简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)。或者直接在模版中增加带 `[prop]` 相关的插槽
 
 <template>
   <pro-table
@@ -382,7 +381,6 @@ export default {
       {
         label: '姓名',
         prop: 'name',
-        slot: true,
       },
       {
         label: '地址',
@@ -619,7 +617,6 @@ export default {
 | :------------------ | :-------------------------------------------------------------------- | :-------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ | :-------------------------------- |
 | prop                | 对应 data 的字段名 (**必填，需要是唯一值**)                           | string                                  | -                                                                                                                               | -                                 |
 | label               | 显示的标题                                                            | string                                  | -                                                                                                                               | -                                 |
-| slot                | 是否开启自定义插槽功能                                                | boolean                                 | -                                                                                                                               | false                             |
 | render              | 通过渲染函数实现简单的插槽功能                                        | string / function(row)                  | -                                                                                                                               | -                                 |
 | hide                | 是否在表格中隐藏                                                      | boolean                                 | -                                                                                                                               | false                             |
 | children            | 实现多级表头                                                          | array                                   | -                                                                                                                               | -                                 |
@@ -694,14 +691,14 @@ export default {
 
 ### 插槽
 
-| name          | 说明                                                                     |
-| :------------ | :----------------------------------------------------------------------- |
-| -             | 在右侧菜单前插入的任意内容                                               |
-| menu          | 表格右侧自定义按钮，参数为 { size, row, column, $index }                 |
-| expand        | 当 expand 为 true 时，配置展开显示的内容，参数为 { row, column, $index } |
-| append        | 插入至表格最后一行之后的内容                                             |
-| [prop]        | 当前这列的内容，参数为 { size, row, column, $index }                     |
-| [prop]-header | 当前这列表头的内容，参数为 { size, column, $index }                      |
+| name          | 说明                                                     |
+| :------------ | :------------------------------------------------------- |
+| -             | 在右侧菜单前插入的任意内容                               |
+| menu          | 表格右侧自定义按钮，参数为 { size, row, column, $index } |
+| expand        | 当前这列展开显示的内容，参数为 { row, column, $index }   |
+| append        | 插入至表格最后一行之后的内容                             |
+| [prop]        | 当前这列的内容，参数为 { size, row, column, $index }     |
+| [prop]-header | 当前这列表头的内容，参数为 { size, column, $index }      |
 
 ::: tip 提示
 [prop] 为 columns 中定义的 prop

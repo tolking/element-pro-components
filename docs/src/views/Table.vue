@@ -8,7 +8,6 @@
     :index="index"
     :menu="menu"
     selection
-    expand
     align="center"
     size="small"
     @cell-click="test"
@@ -73,7 +72,6 @@ const columns = ref<ITableColumns<ListItem>>([
   {
     label: 'Date',
     prop: 'date',
-    slot: true,
     sortable: true,
   },
   {
@@ -98,7 +96,6 @@ const columns1 = ref<ITableColumns<ListItem>>([
       {
         label: 'Name',
         prop: 'name',
-        slot: true,
       },
       {
         label: 'Address',

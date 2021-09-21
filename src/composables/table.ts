@@ -1,13 +1,7 @@
 import { ComputedRef, computed, Ref, unref, shallowRef } from 'vue'
 import { useProOptions } from './index'
-import {
-  filterFlat,
-  filterDeep,
-  isObject,
-  objectDeepMerge,
-} from '../utils/index'
+import { filterDeep, isObject, objectDeepMerge } from '../utils/index'
 import type {
-  TableColumn,
   ITableColumns,
   TableColumnsProps,
   ITableExpose,
@@ -19,32 +13,10 @@ import type {
 } from '../types/index'
 
 export function useTableColumns(
-  props: Readonly<{ columns: ITableColumns }>
+  props: Readonly<{ columns?: ITableColumns }>
 ): ComputedRef<ITableColumns> {
   return computed<ITableColumns>(() => {
     return filterDeep(props.columns || [], 'hide', false)
-  })
-}
-
-interface TableSlot extends TableColumn {
-  header: string
-}
-
-export function useTableSlotList(
-  columns: MaybeRef<ITableColumns>
-): ComputedRef<TableSlot[]> {
-  return computed(() => {
-    const _columns = unref(columns)
-
-    return filterFlat<ITableColumns, TableSlot[]>(
-      _columns,
-      'slot',
-      true,
-      (item) => {
-        item.header = item.prop + '-header'
-        return item as TableSlot
-      }
-    )
   })
 }
 
@@ -66,7 +38,7 @@ interface ColumnsBind extends StringObject {
 export function useTableBind<T extends ColumnsBind>(
   currentBind?: MaybeRef<boolean | undefined | T>,
   defaultBind?: MaybeRef<TableColumnsProps>
-): ComputedRef<T> {
+): ComputedRef<StringObject> {
   return computed(() => {
     const _currentBind = unref(currentBind)
     const _defaultBind = unref(defaultBind)
@@ -77,7 +49,7 @@ export function useTableBind<T extends ColumnsBind>(
       _option.children && delete _option.children
     }
 
-    return Object.assign({} as T, _defaultBind, _option)
+    return Object.assign({} as StringObject, _defaultBind, _option)
   })
 }
 
