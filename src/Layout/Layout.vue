@@ -7,10 +7,10 @@
     >
       <template
         v-if="slots.logo"
-        #logo="{ collapse }"
+        #logo="scope"
       >
         <slot
-          :collapse="collapse"
+          v-bind="scope"
           name="logo"
         />
       </template>

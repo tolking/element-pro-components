@@ -26,10 +26,10 @@ type SelectData = Record<string, boolean | string | number | UnknownObject>[]
 
 export function useSelectData(
   props: Readonly<{
-    data: SelectData
+    data?: SelectData
     config?: SelectConfig
   }>
-): ComputedRef<SelectDataItem[] | undefined> {
+): ComputedRef<SelectDataItem[]> {
   const config: Required<SelectConfig> = Object.assign(
     {
       value: 'value',
@@ -41,7 +41,7 @@ export function useSelectData(
     props.config
   )
 
-  function transformData(data: SelectData): SelectDataItem[] | undefined {
+  function transformData(data?: SelectData): SelectDataItem[] {
     return data && data.length
       ? data.map((item) => {
           return {
@@ -54,7 +54,7 @@ export function useSelectData(
             ),
           } as SelectDataItem
         })
-      : undefined
+      : []
   }
 
   return computed(() => {

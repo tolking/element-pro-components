@@ -1,5 +1,5 @@
 import type { VNode } from 'vue'
-import type { TableProps } from 'element-plus/lib/components/table/src/table/defaults'
+import type { TableProps } from 'element-plus/packages/components/table/src/table/defaults'
 import type {
   UnknownFunction,
   IPlacementType,

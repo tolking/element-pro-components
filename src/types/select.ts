@@ -17,7 +17,7 @@ export interface SelectDataItem {
 }
 
 export interface ISelectProps {
-  modelValue: MaybeArray<string | number | boolean | StringObject>
-  data: Record<string, boolean | string | number | UnknownObject>[]
+  modelValue?: MaybeArray<string | number | boolean | StringObject>
+  data?: Record<string, boolean | string | number | UnknownObject>[]
   config?: SelectConfig
 }
