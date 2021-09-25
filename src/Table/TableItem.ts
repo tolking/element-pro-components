@@ -7,6 +7,7 @@ import type {
   TableColumn,
   ITableColumns,
   TableColumnsProps,
+  IComponentSize,
 } from '../types/index'
 
 interface ColumnScope {
@@ -20,15 +21,22 @@ export default defineComponent({
       type: Object as PropType<TableColumn>,
       required: true,
     },
+    size: {
+      type: String as PropType<IComponentSize>,
+      default: undefined,
+    },
   },
   setup(props, { slots }) {
     const { item } = toRefs(props)
     const defaultBind = inject<TableColumnsProps>('defaultBind')
     const bindColumn = useTableBind<TableColumn>(item, defaultBind)
 
-    function createHeader(scope: unknown) {
+    function createHeader(scope: ColumnScope) {
       if (slots[item.value.prop + '-header']) {
-        return (slots[item.value.prop + '-header'] as Slot)(scope)
+        return (slots[item.value.prop + '-header'] as Slot)({
+          ...scope,
+          size: props.size,
+        })
       } else {
         return item.value.label
       }
@@ -39,11 +47,13 @@ export default defineComponent({
 
       if (item.value.children && item.value.children.length) {
         const child = (item.value.children as ITableColumns).map((item) => {
-          return h(ProTableItem, { item }, slots)
+          return h(ProTableItem, { item, size: props.size }, slots)
         })
         list.push(child)
       } else if (slots[item.value.prop]) {
-        list.push((slots[item.value.prop] as Slot)(scope))
+        list.push(
+          (slots[item.value.prop] as Slot)({ ...scope, size: props.size })
+        )
       } else if (item.value.render) {
         list.push(
           isFunction(item.value.render)
@@ -59,7 +69,7 @@ export default defineComponent({
 
     return () =>
       h(ElTableColumn, bindColumn.value, {
-        header: (scope: unknown) => createHeader(scope),
+        header: (scope: ColumnScope) => createHeader(scope),
         default: (scope: ColumnScope) => createDefault(scope),
       })
   },

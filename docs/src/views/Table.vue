@@ -23,10 +23,11 @@
     <template #date="{ row }">
       - {{ row.date }} -
     </template>
-    <template #menu="{ size }">
+    <template #menu="{ size, row }">
       <el-button
         :size="size"
         type="text"
+        @click="test(row)"
       >
         test{{ size }}
       </el-button>

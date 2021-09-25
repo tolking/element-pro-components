@@ -203,7 +203,7 @@ export default defineComponent({
         h(
           'div',
           { class: 'pro-menu-item' },
-          slots.action ? slots.action() : undefined
+          slots.action ? slots.action({ size: props.size }) : undefined
         ),
       ])
     }
@@ -298,7 +298,7 @@ export default defineComponent({
         )
       }
       if (slots.menu) {
-        list = list.concat((slots.menu as Slot)({ size: props.size }))
+        list = list.concat((slots.menu as Slot)({ ...scope, size: props.size }))
       }
 
       return list

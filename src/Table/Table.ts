@@ -97,13 +97,13 @@ export default defineComponent({
       }
       if (columns.value) {
         const tableItem = columns.value.map((item) => {
-          return h(ProTableItem, { item }, slots)
+          return h(ProTableItem, { item, size: props.size }, slots)
         })
 
         list = list.concat(tableItem)
       }
-      if (slots.append) {
-        list = list.concat(slots.append())
+      if (slots.default) {
+        list = list.concat(slots.default())
       }
       if (menu.value !== false && slots.menu) {
         list.push(
@@ -164,7 +164,10 @@ export default defineComponent({
           class: 'pro-table',
           ...attrs,
         },
-        () => createColumn()
+        {
+          default: () => createColumn(),
+          append: slots.append,
+        }
       ),
       props.total
         ? h(ElPagination, {

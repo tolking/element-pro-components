@@ -1198,13 +1198,13 @@ export default {
 
 | name                | 说明                                                                     |
 | :------------------ | :----------------------------------------------------------------------- |
-| menu-left           | 新增按钮左侧                                                             |
-| menu-right          | 新增按钮右侧                                                             |
-| action              | 头部右侧操作栏                                                           |
-| table               | 在表格右侧菜单前插入的任意内容                                           |
+| menu-left           | 新增按钮左侧，参数为 { size }                                            |
+| menu-right          | 新增按钮右侧，参数为 { size }                                            |
+| action              | 头部右侧操作栏，参数为 { size }                                          |
 | menu                | 表格右侧自定义按钮，参数为 { size, row, column, $index }                 |
 | expand              | 当 expand 为 true 时，配置展开显示的内容，参数为 { row, column, $index } |
 | append              | 插入至表格最后一行之后的内容                                             |
+| table               | 在表格右侧菜单前插入的任意内容                                           |
 | table-[prop]        | 当前这列的内容，参数为 { row, column, $index }                           |
 | [prop]-header       | 当前这列表头的内容，参数为 { column, $index }                            |
 | form                | 在表单底部按钮前插入的任意内容                                           |

@@ -192,7 +192,7 @@ export function useCrudSlots(): {
       const _key = key.replace(/^table-/, '')
       tableSlots[_key] = item
     } else if (/^table$/.test(key)) {
-      tableSlots[key] = item
+      tableSlots.default = item
     } else if (/\w+-header$/.test(key)) {
       tableSlots[key] = item
     } else if (/^append$/.test(key)) {
@@ -207,7 +207,7 @@ export function useCrudSlots(): {
     } else if (/\w+-label$/.test(key)) {
       formSlots[key] = item
     } else if (/^form$/.test(key)) {
-      formSlots[key] = item
+      formSlots.default = item
     }
   }
 
