@@ -66,7 +66,10 @@ export default defineComponent({
                 h(
                   'div',
                   {
-                    class: [!inline ? 'el-row' : '', 'children-form-item'],
+                    class: [
+                      !inline.value ? 'el-row' : '',
+                      'children-form-item',
+                    ],
                   },
                   (item.value.children as IFormColumns).map((child) => {
                     return h(
