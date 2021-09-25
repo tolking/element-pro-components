@@ -3,7 +3,7 @@ import type { IRouteRecordRaw } from './index'
 export interface ILayoutProps {
   routes?: IRouteRecordRaw[]
   transition?: string
-  collapse: boolean
+  collapse?: boolean
   defaultOpeneds?: number[]
-  uniqueOpened: boolean
+  uniqueOpened?: boolean
 }

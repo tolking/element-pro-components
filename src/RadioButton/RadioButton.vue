@@ -25,7 +25,7 @@ import { useVModel, useSelectData } from '../composables/index'
 
 const props = defineProps<{
   modelValue?: string | number | boolean
-  data: Record<string, boolean | string | number>[]
+  data?: Record<string, boolean | string | number>[]
   config?: {
     value?: string
     label?: string

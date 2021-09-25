@@ -46,7 +46,7 @@ const props = defineProps<{
     | boolean
     | Record<string, unknown>
     | Array<string | number | boolean | Record<string, unknown>>
-  data: Record<string, boolean | string | number | UnknownObject>[]
+  data?: Record<string, boolean | string | number | UnknownObject>[]
   config?: {
     value?: string
     label?: string
