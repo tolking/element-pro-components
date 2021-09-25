@@ -1198,12 +1198,13 @@ If you use `typescript`, you can export `ICrudExpose` from the component to prov
 
 | Name                | Description                                                                                                                                                                                   |
 | :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| menu-left           | control the menu left display content                                                                                                                                                         |
-| menu-right          | control the menu right display content                                                                                                                                                        |
-| table               | anything inserted before the menu of table                                                                                                                                                    |
+| menu-left           | control the menu left display content, parameters { size }                                                                                                                                    |
+| menu-right          | control the menu right display content, parameters { size }                                                                                                                                   |
+| action              | control the menu right of the menu display content, parameters { size }                                                                                                                       |
 | menu                | control the menu display content of table, parameters { size, row, column, $index }                                                                                                           |
 | expand              | control the expand display content, parameters { row, column, $index }                                                                                                                        |
 | append              | Contents to be inserted after the last row. You may need this slot if you want to implement infinite scroll for the table. This slot will be displayed above the summary row if there is one. |
+| table               | anything inserted before the menu of table                                                                                                                                                    |
 | table-[prop]        | control the `Item` display content of table, parameters { row, column, $index }                                                                                                               |
 | [prop]-header       | control the `Item` header display content of table, parameters { column, $index }                                                                                                             |
 | form                | anything inserted before the menu of form                                                                                                                                                     |

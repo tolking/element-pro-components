@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.13.1
+
+fix
+
+- Table: missing size in slot parameter
+- Crud: slots error
+- Form: styles error on children form
+
+other
+
+- type: optimization type
+
 ## 0.13.0
 
 breaking changes
