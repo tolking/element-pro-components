@@ -9,7 +9,7 @@
     :data="data"
     :total="total"
     :menu="menu"
-    :size="size"
+    :size="componentsSize"
     :before-open="beforeOpen"
     :before-close="beforeClose"
     selection
@@ -27,7 +27,7 @@
     <template #expand="{ row }">
       {{ row }}
     </template>
-    <template #action>
+    <template #action="{ size }">
       <pro-column-setting
         v-model="columns"
         :size="size"
@@ -47,8 +47,12 @@
         change size
       </el-button>
     </template>
-    <template #menu>
-      <el-button type="text">
+    <template #menu="{ size, row }">
+      <el-button
+        :size="size"
+        type="text"
+        @click="deleteRow(row)"
+      >
         Detail
       </el-button>
     </template>
@@ -96,7 +100,7 @@ interface DataItem {
 type SerachForm = Pick<DataItem, 'date'>
 type CrudForm = Pick<DataItem, 'date' | 'name'>
 
-const size = ref<IComponentSize>('medium')
+const componentsSize = ref<IComponentSize>('medium')
 const crud = ref<ICrudExpose<DataItem>>({} as ICrudExpose<DataItem>)
 const form = ref<CrudForm>({} as CrudForm)
 const serachForm = ref<SerachForm>({} as SerachForm)
@@ -198,6 +202,6 @@ function deleteRow(row: DataItem) {
 }
 
 function changeSize() {
-  size.value = size.value === 'mini' ? 'medium' : 'mini'
+  componentsSize.value = componentsSize.value === 'mini' ? 'medium' : 'mini'
 }
 </script>
