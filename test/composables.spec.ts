@@ -54,16 +54,16 @@ describe('some composables', () => {
   describe('useScreenSize', () => {
     test('size', async () => {
       const wrapper = await mount({
-        template: '<div :class="size" />',
+        template: '<p class="size">{{ size }}</p>',
         setup() {
           const size = useScreenSize()
           return { size }
         },
       })
-      const vm = (wrapper.vm as unknown) as { size: IScreenSize }
 
-      expect(vm.size).toBe('xs')
-      expect(wrapper.find('.xs')).toBeTruthy()
+      expect(['xl', 'lg', 'md', 'sm', 'xs']).toContain(
+        wrapper.find('.size').text()
+      )
     })
   })
 
