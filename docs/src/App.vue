@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from '@vue/runtime-core'
+import { computed } from 'vue'
 import { useLang } from './composables'
 import langList from './lang/index'
 
