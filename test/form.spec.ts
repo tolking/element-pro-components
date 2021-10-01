@@ -1,4 +1,4 @@
-import { ComponentPublicInstance, ref } from 'vue'
+import { ComponentPublicInstance, ref, shallowRef } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { ElInput, ElSwitch } from 'element-plus'
 import ProForm from '../src/Form/Form'
@@ -43,7 +43,7 @@ const getFormContent = (
 ) =>
   wrapper.find('.pro-form .pro-form-item .el-form-item__content ' + className)
 
-describe('Table.vue', () => {
+describe('Form', () => {
   afterEach(() => {
     document.body.innerHTML = ''
   })
@@ -153,6 +153,9 @@ describe('Table.vue', () => {
               @input="e => setValue(e.taget.value)"
             />
           </template>
+          <template #default>
+            <p class="default">default slot</p>
+          </template>
           <template #menu-left>
             <button>menu-left</button>
           </template>
@@ -180,6 +183,7 @@ describe('Table.vue', () => {
     expect(wrapper.find('label[for="slot"]').text()).toBe('slot-label')
     expect(getFormBtnList(wrapper)).toContain('menu-left')
     expect(getFormBtnList(wrapper)).toContain('menu-right')
+    expect(wrapper.find('.pro-form .default').text()).toBe('default slot')
   })
 
   test('modelValue', async () => {
@@ -336,6 +340,28 @@ describe('Table.vue', () => {
     await ((vm.columns[0].span = 8), (vm.columns[0].pull = 2))
     expect(getFormClassList(wrapper)[0]).toContain('el-col-8')
     expect(getFormClassList(wrapper)[0]).toContain('el-col-pull-2')
+  })
+
+  test('local component', async () => {
+    const wrapper = await _mount({
+      template: '<pro-form v-model="form" :columns="columns" />',
+      setup() {
+        const form = ref({})
+        const columns = shallowRef([
+          {
+            label: 'switch',
+            prop: 'switch',
+            component: ElSwitch,
+          },
+        ])
+        return { form, columns }
+      },
+    })
+    const vm = (wrapper.vm as unknown) as { columns: IFormColumns }
+
+    expect(getFormList(wrapper)).toHaveLength(1)
+    expect(getLabelList(wrapper)).toContain('switch')
+    expect(getComponentList(wrapper)[0]).toContain('el-switch')
   })
 
   // test('event', async () => {
