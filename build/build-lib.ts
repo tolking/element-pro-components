@@ -19,8 +19,7 @@ export default defineConfig({
           return camelize(name)
         },
       },
-      external: (id: string) =>
-        /^(vue|@vue|element-plus|resize-observer-polyfill)/.test(id),
+      external: (id: string) => /^(vue|@vue|element-plus)/.test(id),
     },
   },
   plugins: [vue()],

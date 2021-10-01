@@ -1,8 +1,6 @@
 import {
-  onMounted,
   Ref,
   ref,
-  onUnmounted,
   unref,
   getCurrentInstance,
   reactive,
@@ -13,14 +11,9 @@ import {
   ComputedRef,
 } from 'vue'
 import { useRouter, RouteRecordRaw } from 'vue-router'
+import { useWindowSize } from '@vueuse/core'
 import { config } from '../utils/config'
-import {
-  getScreenSize,
-  addResizeListener,
-  removeResizeListener,
-  ResizableElement,
-  objectDeepMerge,
-} from '../utils/index'
+import { getScreenSize, objectDeepMerge } from '../utils/index'
 import type {
   IRouteRecordRaw,
   IScreenSize,
@@ -63,28 +56,11 @@ export function useShow(
 }
 
 /** Gets the responsive breakpoint of the current screen */
-export function useScreenSize(): Ref<IScreenSize> {
-  const size = ref<IScreenSize>('xl')
-  const el = ref<ResizableElement>({} as ResizableElement)
-
-  onMounted(() => {
-    el.value = (document.getElementsByTagName(
-      'body'
-    )[0] as unknown) as ResizableElement
-    addResizeListener(el.value, setSize)
-    setSize()
+export function useScreenSize(): ComputedRef<IScreenSize> {
+  return computed(() => {
+    const { width } = useWindowSize()
+    return getScreenSize(width.value)
   })
-
-  onUnmounted(() => {
-    removeResizeListener(el.value, setSize)
-  })
-
-  function setSize() {
-    if (!el.value) return
-    size.value = getScreenSize(el.value.clientWidth)
-  }
-
-  return size
 }
 
 /**
