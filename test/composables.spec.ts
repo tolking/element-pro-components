@@ -8,7 +8,6 @@ import {
   useCol,
 } from '../src/composables/index'
 import { config } from '../src/utils/config'
-import type { IScreenSize } from '/@src/types'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
