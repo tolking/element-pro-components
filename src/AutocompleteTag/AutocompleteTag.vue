@@ -30,8 +30,8 @@ export default { name: 'ProAutocompleteTag' }
 
 <script setup lang="ts">
 import { toRefs } from 'vue'
-import { ElTag, ElAutocomplete } from 'element-plus'
-import { useInputTag, useFormSize, useAttrs } from '../composables/index'
+import { ElTag, ElAutocomplete, useAttrs } from 'element-plus'
+import { useInputTag, useFormSize } from '../composables/index'
 
 const props = defineProps<{
   modelValue?: string[]

@@ -56,10 +56,11 @@ export default { name: 'ProLayout' }
 
 <script setup lang="ts">
 import { toRefs, useSlots } from 'vue'
+import { useAttrs } from 'element-plus'
 import ProLayoutAside from './LayoutAside.vue'
 import ProLayoutHeader from './LayoutHeader.vue'
 import ProLayoutMain from './LayoutMain.vue'
-import { useAttrs, useShow } from '../composables/index'
+import { useShow } from '../composables/index'
 
 const props = defineProps<{
   collapse?: boolean

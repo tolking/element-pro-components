@@ -30,8 +30,8 @@ export default { name: 'ProInputTag' }
 
 <script setup lang="ts">
 import { toRefs } from 'vue'
-import { ElInput, ElTag } from 'element-plus'
-import { useInputTag, useFormSize, useAttrs } from '../composables/index'
+import { ElInput, ElTag, useAttrs } from 'element-plus'
+import { useInputTag, useFormSize } from '../composables/index'
 
 const props = defineProps<{
   modelValue?: string[]

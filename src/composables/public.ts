@@ -1,26 +1,18 @@
 import {
-  onMounted,
   Ref,
   ref,
-  onUnmounted,
   unref,
   getCurrentInstance,
   reactive,
   watchEffect,
-  shallowRef,
   computed,
   WritableComputedRef,
   ComputedRef,
 } from 'vue'
 import { useRouter, RouteRecordRaw } from 'vue-router'
+import { useWindowSize } from '@vueuse/core'
 import { config } from '../utils/config'
-import {
-  getScreenSize,
-  addResizeListener,
-  removeResizeListener,
-  ResizableElement,
-  objectDeepMerge,
-} from '../utils/index'
+import { getScreenSize, objectDeepMerge } from '../utils/index'
 import type {
   IRouteRecordRaw,
   IScreenSize,
@@ -63,28 +55,11 @@ export function useShow(
 }
 
 /** Gets the responsive breakpoint of the current screen */
-export function useScreenSize(): Ref<IScreenSize> {
-  const size = ref<IScreenSize>('xl')
-  const el = ref<ResizableElement>({} as ResizableElement)
-
-  onMounted(() => {
-    el.value = (document.getElementsByTagName(
-      'body'
-    )[0] as unknown) as ResizableElement
-    addResizeListener(el.value, setSize)
-    setSize()
+export function useScreenSize(): ComputedRef<IScreenSize> {
+  return computed(() => {
+    const { width } = useWindowSize()
+    return getScreenSize(width.value)
   })
-
-  onUnmounted(() => {
-    removeResizeListener(el.value, setSize)
-  })
-
-  function setSize() {
-    if (!el.value) return
-    size.value = getScreenSize(el.value.clientWidth)
-  }
-
-  return size
 }
 
 /**
@@ -111,32 +86,6 @@ export function useCurrentRoutes(
 
     return routes as Ref<IRouteRecordRaw[]>
   }
-}
-
-/**
- * exclusion `class` `style` for attrs
- * @param excludeKeys Additional exclusion value
- */
-export function useAttrs(excludeKeys: string[] = []): Ref<UnknownObject> {
-  const instance = getCurrentInstance() || { attrs: {} }
-  const attrs = shallowRef({})
-  const exclude = excludeKeys.concat(['class', 'style'])
-
-  instance.attrs = reactive(instance.attrs)
-
-  watchEffect(() => {
-    const _attrs = { ...instance.attrs }
-
-    exclude.forEach((item: string) => {
-      if (item in _attrs) {
-        _attrs[item] = undefined
-      }
-    })
-
-    attrs.value = _attrs
-  })
-
-  return attrs
 }
 
 /**
