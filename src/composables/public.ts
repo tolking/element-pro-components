@@ -5,7 +5,6 @@ import {
   getCurrentInstance,
   reactive,
   watchEffect,
-  shallowRef,
   computed,
   WritableComputedRef,
   ComputedRef,
@@ -87,32 +86,6 @@ export function useCurrentRoutes(
 
     return routes as Ref<IRouteRecordRaw[]>
   }
-}
-
-/**
- * exclusion `class` `style` for attrs
- * @param excludeKeys Additional exclusion value
- */
-export function useAttrs(excludeKeys: string[] = []): Ref<UnknownObject> {
-  const instance = getCurrentInstance() || { attrs: {} }
-  const attrs = shallowRef({})
-  const exclude = excludeKeys.concat(['class', 'style'])
-
-  instance.attrs = reactive(instance.attrs)
-
-  watchEffect(() => {
-    const _attrs = { ...instance.attrs }
-
-    exclude.forEach((item: string) => {
-      if (item in _attrs) {
-        _attrs[item] = undefined
-      }
-    })
-
-    attrs.value = _attrs
-  })
-
-  return attrs
 }
 
 /**
