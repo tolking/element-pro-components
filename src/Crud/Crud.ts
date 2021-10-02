@@ -209,6 +209,12 @@ export default defineComponent({
     }
 
     function createTable() {
+      const showMenu =
+        menuColumns.value?.edit || menuColumns.value?.del || slots.menu
+      const menuSlots = showMenu
+        ? { menu: (scope: TableMenuScope) => createTableMenu(scope) }
+        : {}
+
       return h(
         ProTable,
         {
@@ -261,10 +267,7 @@ export default defineComponent({
           onPrevClick: prevClick,
           onNextClick: nextClick,
         },
-        {
-          ...tableSlots,
-          menu: (scope: TableMenuScope) => createTableMenu(scope),
-        }
+        Object.assign({}, tableSlots, menuSlots)
       )
     }
 
