@@ -1,6 +1,6 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import { ElInput, ElSwitch } from 'element-plus'
+import { ElInput, ElSwitch, ElTableColumn } from 'element-plus'
 import ProCrud from '../src/Crud/Crud'
 import { tableData } from './mock'
 import type { ICrudColumns, ICrudMenuColumns } from '../src/types/index'
@@ -38,7 +38,7 @@ const commonColumns: ICrudColumns<Form> = [
 const _mount = (options: Record<string, unknown>) =>
   mount(
     {
-      components: { ProCrud },
+      components: { ProCrud, ElTableColumn },
       ...options,
     },
     {
@@ -62,6 +62,8 @@ const getHeader = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   wrapper.findAll(headerClass + ' th')
 const bodyClass =
   '.pro-crud .pro-crud-table .el-table__body-wrapper .el-table__body tbody tr'
+const appendClass =
+  '.pro-crud .pro-crud-table .el-table__body-wrapper .el-table__append-wrapper .append'
 const getHeaderList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   getHeader(wrapper).map((item) => item.find('.cell').text())
 const getBodyItem = (wrapper: VueWrapper<ComponentPublicInstance>, index = 1) =>
@@ -85,7 +87,7 @@ const getComponentList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
     item.find('.el-form-item__content div').classes()
   )
 
-describe('Crud.vue', () => {
+describe('Crud', () => {
   afterEach(() => {
     document.body.innerHTML = ''
   })
@@ -299,6 +301,7 @@ describe('Crud.vue', () => {
           :data="data"
           :menu="{ label: 'Label' }"
           :append-to-body="false"
+          expand
         >
           <template #menu-left="{ size }">
             <button class="size">menu-left</button>
@@ -306,14 +309,32 @@ describe('Crud.vue', () => {
           <template #menu-right="{ size }">
             <button class="size">menu-right</button>
           </template>
+          <template #action="{ size }">
+            <p class="action">action slot</p>
+          </template>
           <template #menu="{ size }">
             <button class="size">@menu-</button>
+          </template>
+          <template #expand="{ row }">
+            <p class="">@expand-{{ JSON.stringify(row) }}</p>
+          </template>
+          <template #append>
+            <p class="append">append slot</p>
+          </template>
+          <template #table>
+            <el-table-column
+              prop="address"
+              label="table"
+            />
           </template>
           <template #table-slot="{ row }">
             @table-{{ row.slot }}
           </template>
           <template #slot-header>
             slot-header
+          </template>
+          <template #form>
+            <p class="form">form slot</p>
           </template>
           <template #form-menu-left>
             <button>form-menu-left</button>
@@ -330,6 +351,9 @@ describe('Crud.vue', () => {
           </template>
           <template #slot-label>
             slot-label
+          </template>
+          <template #search>
+            <p class="search">search slot</p>
           </template>
           <template #search-menu-left>
             <button>search-menu-left</button>
@@ -375,14 +399,25 @@ describe('Crud.vue', () => {
     expect(getSearchList(wrapper)).toHaveLength(1)
     expect(getSearchLabelList(wrapper)).toContain('search-slot-label')
     expect(getSearchComponentList(wrapper)[0]).toContain('search-slot')
+    expect(wrapper.find('.pro-crud .pro-crud-search .search').text()).toBe(
+      'search slot'
+    )
 
     expect(wrapper.find(addClass).text()).toBe('menu-left')
     expect(wrapper.find(addClass + ':nth-child(2)').text()).toBe('Add')
     expect(wrapper.find(addClass + ':nth-child(3)').text()).toBe('menu-right')
+    expect(wrapper.find('.pro-crud .pro-crud-menu .action').text()).toBe(
+      'action slot'
+    )
 
+    expect(getHeaderList(wrapper)).toHaveLength(4)
     expect(getHeaderList(wrapper)).toContain('slot-header')
-    expect(getBodyItem(wrapper)[0]).toMatch(/^@table-/)
-    expect(getBodyItem(wrapper)[1]).toMatch(/@menu-/)
+    expect(getHeaderList(wrapper)).toContain('table')
+    expect(getHeaderList(wrapper)).toContain('Label')
+    expect(getBodyItem(wrapper)[1]).toMatch(/^@table-/)
+    expect(getBodyItem(wrapper)[2]).toMatch(/^No/)
+    expect(getBodyItem(wrapper)[3]).toMatch(/@menu-/)
+    expect(wrapper.find(appendClass).text()).toBe('append slot')
 
     await wrapper.find(addClass + ':nth-child(2)').trigger('click')
     expect(wrapper.find(formClass).text()).toBe('form-menu-left')
@@ -394,6 +429,9 @@ describe('Crud.vue', () => {
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getLabelList(wrapper)).toContain('slot-label')
     expect(getComponentList(wrapper)[0]).toContain('form-slot')
+    expect(
+      wrapper.find('.pro-crud .pro-crud-dialog .pro-crud-form .form').text()
+    ).toBe('form slot')
     await wrapper.find(dialogClose).trigger('click')
   })
 })

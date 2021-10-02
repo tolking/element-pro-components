@@ -13,6 +13,8 @@ meta:
 
 ### Basic Use
 
+When columns is bound to a reactive array, changes in the array will affect Crud changes (dynamic Crud). If you don't need a dynamic Crud, it is recommended to bind an ordinary array.
+
 ::: demo Set `add` `edit` `form` `hide` `search` in `columns` attribute will automatic generate crud
 
 <template>
@@ -35,7 +37,7 @@ export default {
   setup() {
     const form = ref({})
     const serachForm = ref({})
-    const columns = ref([
+    const columns = [
       {
         label: 'Date',
         prop: 'date',
@@ -58,7 +60,7 @@ export default {
         add: true,
         edit: true,
       },
-    ])
+    ]
     const data = ref([
       {
         date: '2016-05-03',
@@ -117,7 +119,9 @@ export default {
 
 ### Custom Menu
 
-::: demo By default, the add, edit, and delete buttons are not displayed, you need to pass in `true` or config through the menu to display
+By default, the add, edit, and delete buttons are not displayed, you need to config through the menu or use menu slot to display
+
+::: demo
 
 <template>
   <pro-crud
@@ -241,7 +245,9 @@ export default {
 
 ### Custom Search
 
-::: demo Set `form-columns` attribute to enable custom search, same as Form columns
+Set `form-columns` attribute to enable custom search, same as Form columns
+
+::: demo
 
 <template>
   <pro-crud
@@ -317,7 +323,9 @@ export default {
 
 ### Custom Add Form
 
-::: demo Set `add-columns` attribute to enable custom search, same as Form columns
+Set `add-columns` attribute to enable custom search, same as Form columns
+
+::: demo
 
 <template>
   <pro-crud
@@ -396,7 +404,9 @@ export default {
 
 ### Custom Edit Form
 
-::: demo Set `edit-columns` attribute to enable custom search, same as Form columns
+Set `edit-columns` attribute to enable custom search, same as Form columns
+
+::: demo
 
 <template>
   <pro-crud
@@ -507,7 +517,9 @@ export default {
 
 ### Custom Form
 
-::: demo Set `form-columns` attribute to enable custom search, same as Form columns. It will act on both add and edit form
+Set `form-columns` attribute to enable custom search, same as Form columns. It will act on both add and edit form
+
+::: demo
 
 <template>
   <pro-crud
@@ -616,7 +628,9 @@ export default {
 
 ### Custom Table
 
-::: demo Set `table-columns` attribute to enable custom search, same as Table columns
+Set `table-columns` attribute to enable custom search, same as Table columns
+
+::: demo
 
 <template>
   <pro-crud
@@ -735,7 +749,9 @@ export default {
 
 ### Trigger Dialog
 
-::: demo Set `before-open` or `before-close` attribute to enable perform an operation before Dialog is opened or before Dialog is closed
+Set `before-open` or `before-close` attribute to enable perform an operation before Dialog is opened or before Dialog is closed
+
+::: demo
 
 <template>
   <pro-crud
@@ -822,7 +838,9 @@ export default {
 
 ### Slots
 
-::: demo Use simple [render-function](https://v3.cn.vuejs.org/guide/render-function.html) by `render` in `columns`. or directly add some slot with `[prop]` in the template.
+Use simple [render-function](https://v3.cn.vuejs.org/guide/render-function.html) by `render` in `columns`. or directly add some slot with `[prop]` in the template.
+
+::: demo
 
 <template>
   <pro-crud

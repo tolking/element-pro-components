@@ -187,7 +187,7 @@ export function useCrudSlots(): {
       const _key = key.replace(/^search-/, '')
       searchSlots[_key] = item
     } else if (/^search$/.test(key)) {
-      searchSlots[key] = item
+      searchSlots.default = item
     } else if (/^table-/.test(key)) {
       const _key = key.replace(/^table-/, '')
       tableSlots[_key] = item
