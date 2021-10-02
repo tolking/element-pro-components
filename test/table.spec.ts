@@ -1,5 +1,6 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
+import { ElTableColumn } from 'element-plus'
 import ProTable from '../src/Table/Table'
 import { config } from '../src/utils/config'
 import { tableData, TableItem } from './mock'
@@ -27,7 +28,7 @@ const columns: ITableColumns = [
 ]
 const _mount = (options: Record<string, unknown>) =>
   mount({
-    components: { ProTable },
+    components: { ProTable, ElTableColumn },
     ...options,
   })
 const headerClass =
@@ -59,8 +60,10 @@ const getSizesItem = (classes = '') =>
   document.querySelector(
     '.el-select__popper .el-select-dropdown__item' + classes
   )
+const appendClass =
+  '.pro-table .el-table__body-wrapper .el-table__append-wrapper .append'
 
-describe('Table.vue', () => {
+describe('Table', () => {
   afterEach(() => {
     document.body.innerHTML = ''
   })
@@ -323,6 +326,15 @@ describe('Table.vue', () => {
           <template #menu="{ size }">
             @menu-{{ size }}
           </template>
+          <template #default>
+            <el-table-column
+              prop="address"
+              label="default"
+            />
+          </template>
+          <template #append>
+            <p class="append">append slot</p>
+          </template>
         </pro-table>
       `,
       setup() {
@@ -331,9 +343,12 @@ describe('Table.vue', () => {
       },
     })
 
+    expect(getHeaderList(wrapper)).toHaveLength(5)
     expect(getHeaderList(wrapper)).toContain('date-header')
+    expect(getHeaderList(wrapper)).toContain('default')
     expect(getBodyItem(wrapper)[0]).toMatch(/^@date-/)
-    expect(getBodyItem(wrapper)[3]).toMatch(/^@menu-/)
+    expect(getBodyItem(wrapper)[4]).toMatch(/^@menu-/)
+    expect(wrapper.find(appendClass).text()).toBe('append slot')
   })
 
   test('multi header', async () => {

@@ -13,7 +13,9 @@ meta:
 
 ### 基础用法
 
-::: demo 传入 `columns` 数据，自动生成表格
+当 columns 绑定的是一个具有响应式的数组时，数组的变动会影响表单变动（及动态表格）。如果不需要动态表格推荐绑定一个普通数组
+
+::: demo
 
 <template>
   <pro-table
@@ -27,7 +29,7 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const columns = ref([
+    const columns = [
       {
         label: '日期',
         prop: 'date',
@@ -40,7 +42,7 @@ export default {
         label: '地址',
         prop: 'address',
       },
-    ])
+    ]
     const data = ref([
       {
         date: '2016-05-03',
@@ -76,7 +78,9 @@ export default {
 
 ### 索引表格
 
-::: demo 通过配置 `index` 显示索引列，支持 columns 的参数
+通过配置 `index` 显示索引列，支持 columns 的参数
+
+::: demo
 
 <template>
   <pro-table
@@ -91,7 +95,7 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const columns = ref([
+    const columns = [
       {
         label: '日期',
         prop: 'date',
@@ -104,7 +108,7 @@ export default {
         label: '地址',
         prop: 'address',
       },
-    ])
+    ]
     const data = ref([
       {
         date: '2016-05-03',
@@ -140,7 +144,9 @@ export default {
 
 ### 多选表格
 
-::: demo 通过配置 `selection` 显示多选框，支持 columns 的参数
+通过配置 `selection` 显示多选框，支持 columns 的参数
+
+::: demo
 
 <template>
   <pro-table
@@ -155,7 +161,7 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const columns = ref([
+    const columns = [
       {
         label: '日期',
         prop: 'date',
@@ -168,7 +174,7 @@ export default {
         label: '地址',
         prop: 'address',
       },
-    ])
+    ]
     const data = ref([
       {
         date: '2016-05-03',
@@ -204,7 +210,9 @@ export default {
 
 ### 可展开表格
 
-::: demo 通过 #expand 插槽定制显示可展开内容，通过 `expand` 可进行相关配置，支持 columns 的参数
+通过 #expand 插槽定制显示可展开内容，通过 `expand` 可进行相关配置，支持 columns 的参数
+
+::: demo
 
 <template>
   <pro-table
@@ -222,7 +230,7 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const columns = ref([
+    const columns = [
       {
         label: '日期',
         prop: 'date',
@@ -235,7 +243,7 @@ export default {
         label: '地址',
         prop: 'address',
       },
-    ])
+    ]
     const data = ref([
       {
         date: '2016-05-03',
@@ -271,7 +279,9 @@ export default {
 
 ### 定义操作按钮
 
-::: demo 通过 #menu 插槽定制显示操作按钮内容，通过 `menu` 可进行相关配置，支持 columns 的参数
+通过 #menu 插槽定制显示操作按钮内容，通过 `menu` 可进行相关配置，支持 columns 的参数
+
+::: demo
 
 <template>
   <pro-table
@@ -295,11 +305,11 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const menu = ref({
+    const menu = {
       label: '操作',
       align: 'center',
-    })
-    const columns = ref([
+    }
+    const columns = [
       {
         label: '日期',
         prop: 'date',
@@ -312,7 +322,7 @@ export default {
         label: '地址',
         prop: 'address',
       },
-    ])
+    ]
     const data = ref([
       {
         date: '2016-05-03',
@@ -349,7 +359,9 @@ export default {
 
 ### 插槽
 
-::: demo 在 `columns` 中配置 `render` 可以使用简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)。或者直接在模版中增加带 `[prop]` 相关的插槽
+在 `columns` 中配置 `render` 可以使用简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)。或者直接在模版中增加带 `[prop]` 相关的插槽
+
+::: demo
 
 <template>
   <pro-table
@@ -423,7 +435,9 @@ export default {
 
 ### 显示分页
 
-::: demo 当传入 `total` 数据时，将自动显示分页。可以通过 `v-model:current-page` 绑定当前页数、通过 `v-model:page-size` 绑定每页显示条目个数
+当传入 `total` 数据时，将自动显示分页。可以通过 `v-model:current-page` 绑定当前页数、通过 `v-model:page-size` 绑定每页显示条目个数
+
+::: demo
 
 <template>
   <pro-table
@@ -443,7 +457,7 @@ export default {
     const currentPage = ref(1)
     const pageSize = ref(10)
     const total = ref(50)
-    const columns = ref([
+    const columns = [
       {
         label: '日期',
         prop: 'date',
@@ -456,7 +470,7 @@ export default {
         label: '地址',
         prop: 'address',
       },
-    ])
+    ]
     const data = ref([
       {
         date: '2016-05-03',
@@ -495,7 +509,9 @@ export default {
 
 ### 多级表头
 
-::: demo 通过 columns 的 `children` 配置多级表头
+通过 columns 的 `children` 配置多级表头
+
+::: demo
 
 <template>
   <pro-table
@@ -554,6 +570,111 @@ export default {
     return {
       data,
       columns2,
+    }
+  }
+}
+</script>
+
+:::
+
+### 异步表格
+
+想要实现异步表格 columns 必须绑定一个动态数组
+
+::: demo
+
+<template>
+  <div style="margin-bottom:20px">
+    <el-button
+      type="primary"
+      @click="createTable"
+    >
+      加载表单
+    </el-button>
+    <el-button
+      type="info"
+      @click="createDict"
+    >
+      加载数据
+    </el-button>
+    <el-button
+      type="danger"
+      @click="destroyTable"
+    >
+      销毁
+    </el-button>
+  </div>
+  <pro-table
+    :data="data2"
+    :columns="columns4"
+  />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const data2 = ref([])
+    const columns4 = ref([])
+    const submit = (done, isValid, invalidFields) => {
+      console.log(isValid, invalidFields)
+      setTimeout(() => {
+        done()
+      }, 1000)
+    }
+    const createTable = () => {
+      columns4.value = [
+        {
+          label: '日期',
+          prop: 'date',
+        },
+        {
+          label: '姓名',
+          prop: 'name',
+        },
+        {
+          label: '地址',
+          prop: 'address',
+        },
+      ]
+    }
+    const createDict = () => {
+      data2.value = [
+        {
+          date: '2016-05-03',
+          name: 'Tom',
+          address: 'No. 189, Grove St, Los Angeles',
+        },
+        {
+          date: '2016-05-02',
+          name: 'Tom',
+          address: 'No. 189, Grove St, Los Angeles',
+        },
+        {
+          date: '2016-05-04',
+          name: 'Tom',
+          address: 'No. 189, Grove St, Los Angeles',
+        },
+        {
+          date: '2016-05-01',
+          name: 'Tom',
+          address: 'No. 189, Grove St, Los Angeles',
+        },
+      ]
+    }
+    const destroyTable = () => {
+      columns4.value = []
+      data2.value = []
+    }
+
+    return {
+      data2,
+      columns4,
+      submit,
+      createTable,
+      createDict,
+      destroyTable,
     }
   }
 }
