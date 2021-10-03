@@ -121,6 +121,8 @@ export default {
 
 By default, the add, edit, and delete buttons are not displayed, you need to config through the menu or use menu slot to display
 
+Menu can also be configured through <pro-link to="/en-US/guide/#global-config">Global config</pro-link> or <pro-link to="/en-US/guide/i18n">Localization</pro-link>
+
 ::: demo
 
 <template>
@@ -146,10 +148,10 @@ export default {
     const menu = ref({
       label: 'Operations',
       addText: 'New',
-      editText: 'Edit',
+      editText: 'Edit Row',
       delText: 'Clean',
       searchText: 'Search',
-      searchResetText: 'Reset Seaarch',
+      searchResetText: 'Reset Search',
       submitText: 'Create',
       resetText: 'Reset Form',
       edit: (row) => row.date !== '2016-05-02',
@@ -838,7 +840,7 @@ export default {
 
 ### Slots
 
-Use simple [render-function](https://v3.cn.vuejs.org/guide/render-function.html) by `render` in `columns`. or directly add some slot with `[prop]` in the template.
+Use simple <pro-link to="https://v3.vuejs.org/guide/render-function.html">render-function</pro-link> by `render` in `columns`. or directly add some slot with `[prop]` in the template.
 
 ::: demo
 

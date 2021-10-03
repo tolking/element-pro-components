@@ -19,6 +19,11 @@ const zhCN: IRouteRecordRaw[] = [
         meta: { title: '快速上手' },
       },
       {
+        path: '/zh-CN/guide/i18n',
+        component: () => import('../../docs/zh-CN/guide/i18n.md'),
+        meta: { title: '国际化' },
+      },
+      {
         path: '/zh-CN/guide/theme',
         component: () => import('../../docs/zh-CN/guide/theme.md'),
         meta: { title: '自定义主题' },

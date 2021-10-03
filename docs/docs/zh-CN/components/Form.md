@@ -72,7 +72,7 @@ export default {
 
 ### 指定对应的组件
 
-通过 columns 的 `component` 定义该项生成什么组件，要求对应组件可以通过 `v-model` 绑定值。通过 `props` 可以向组件中传值，通过 `props` 里面的 `slots` 可以向组件传递简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)
+通过 columns 的 `component` 定义该项生成什么组件，要求对应组件可以通过 `v-model` 绑定值。通过 `props` 可以向组件中传值，通过 `props` 里面的 `slots` 可以向组件传递简单的 <pro-link to="https://v3.cn.vuejs.org/guide/render-function.html">渲染函数</pro-link>
 
 ::: demo
 
@@ -305,7 +305,11 @@ export default {
 
 ### 配置按钮
 
-::: demo 通过 menu 配置按钮
+通过 menu 配置按钮显示、文字、参数
+
+按钮也可以通过 <pro-link to="/zh-CN/guide/#全局配置">全局配置</pro-link> 或者 <pro-link to="/zh-CN/guide/i18n">国际化</pro-link> 来配置
+
+::: demo
 
 <template>
   <pro-form
@@ -322,7 +326,7 @@ import { ref } from 'vue'
 export default {
   setup() {
     const menu = {
-      submitText: '提交',
+      submitText: '提 交',
       reset: false,
     }
     const form = ref({})
@@ -705,8 +709,8 @@ export default {
     </el-button>
   </div>
   <pro-form
-    v-model="form7"
-    :columns="columns7"
+    v-model="form8"
+    :columns="columns8"
     label-width="100px"
     @submit="submit"
   />
@@ -717,9 +721,9 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const list7 = ref([])
-    const form7 = ref({})
-    const columns7 = ref([])
+    const list8 = ref([])
+    const form8 = ref({})
+    const columns8 = ref([])
     const submit = (done, isValid, invalidFields) => {
       console.log(isValid, invalidFields)
       setTimeout(() => {
@@ -727,7 +731,7 @@ export default {
       }, 1000)
     }
     const createForm = () => {
-      columns7.value = [
+      columns8.value = [
         {
           label: '姓名',
           prop: 'name',
@@ -744,7 +748,7 @@ export default {
       ]
     }
     const createDict = () => {
-      list7.value = [
+      list8.value = [
         { value: 'Go', label: 'go' },
         { value: 'JavaScript', label: 'javascript' },
         { value: 'Python', label: 'python' },
@@ -753,13 +757,13 @@ export default {
       ]
     }
     const destroyForm = () => {
-      columns7.value = []
-      list7.value = []
+      columns8.value = []
+      list8.value = []
     }
 
     return {
-      form7,
-      columns7,
+      form8,
+      columns8,
       submit,
       createForm,
       createDict,

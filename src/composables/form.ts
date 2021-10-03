@@ -7,24 +7,22 @@ import {
   getCurrentInstance,
   shallowRef,
 } from 'vue'
+import { useLocaleInject } from 'element-plus'
 import { useProOptions, useShow } from './index'
 import {
   isObject,
   objectDeepMerge,
-  objectPick,
   objectOmit,
   isBoolean,
 } from '../utils/index'
 import type {
   FormColumn,
-  FormMenu,
   IComponentSize,
   IFormExpose,
   IFormValidateCallback,
   IFormValidateFieldCallback,
   UnknownObject,
   IFormMenuColumns,
-  MenuOptions,
   MaybeArray,
   MaybeRef,
 } from '../types/index'
@@ -82,23 +80,30 @@ export function useFormItemBind(
 export function useFormMenu(
   props: Readonly<{ menu?: IFormMenuColumns }>
 ): ComputedRef<IFormMenuColumns> {
+  const localeMenu = computed(() => {
+    const { t } = useLocaleInject()
+    const menu: IFormMenuColumns = {}
+
+    if (t('pro.form.submit')) {
+      menu.submitText = t('pro.form.submit')
+    }
+    if (t('pro.form.reset')) {
+      menu.resetText = t('pro.form.reset')
+    }
+
+    return menu
+  })
+
   return computed(() => {
     const options = useProOptions()
-    const pickKeys: Array<keyof FormMenu> = [
-      'submit',
-      'submitText',
-      'submitProps',
-      'reset',
-      'resetText',
-      'resetProps',
-    ]
-    const formMenu = objectPick<MenuOptions, IFormMenuColumns>(
+    const defaultMenu = objectDeepMerge<IFormMenuColumns>(
       options.menu,
-      pickKeys
+      localeMenu.value
     )
+
     return props.menu
-      ? objectDeepMerge<IFormMenuColumns>(formMenu, props.menu)
-      : formMenu
+      ? objectDeepMerge<IFormMenuColumns>(defaultMenu, props.menu)
+      : defaultMenu
   })
 }
 

@@ -72,7 +72,7 @@ export default {
 
 ### Custom Component
 
-Set `component` in `columns` attribute to dfine what component the item generates, that component should can bind value ​​through `v-model`. props ​​can be passed to the component through `props`, [render-function](https://v3.cn.vuejs.org/guide/render-function.html) can be passed to the component thrrough `slots` in `props`
+Set `component` in `columns` attribute to dfine what component the item generates, that component should can bind value ​​through `v-model`. props ​​can be passed to the component through `props`, <pro-link to="https://v3.vuejs.org/guide/render-function.html">render-function</pro-link> can be passed to the component thrrough `slots` in `props`
 
 ::: demo
 
@@ -124,7 +124,7 @@ export default {
         prop: 'radio',
         component: 'pro-radio',
         props: {
-          data: list,
+          data: list.value,
         },
       },
       {
@@ -132,7 +132,7 @@ export default {
         prop: 'checkbox',
         component: 'pro-checkbox',
         props: {
-          data: list,
+          data: list.value,
         },
       },
       {
@@ -140,7 +140,7 @@ export default {
         prop: 'select',
         component: 'pro-select',
         props: {
-          data: list,
+          data: list.value,
         },
       },
     ]
@@ -305,7 +305,11 @@ export default {
 
 ### Custom Menu
 
-::: demo Set `menu` attribute to enable custom menu
+Set `menu` attribute to enable custom menu
+
+Menu can also be configured through <pro-link to="/en-US/guide/#global-config">Global config</pro-link> or <pro-link to="/en-US/guide/i18n">Localization</pro-link>
+
+::: demo
 
 <template>
   <pro-form
@@ -705,8 +709,8 @@ To implement Async Form, columns must be bound to a reactive array
     </el-button>
   </div>
   <pro-form
-    v-model="form7"
-    :columns="columns7"
+    v-model="form8"
+    :columns="columns8"
     label-width="100px"
     @submit="submit"
   />
@@ -717,9 +721,9 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const list7 = ref([])
-    const form7 = ref({})
-    const columns7 = ref([])
+    const list8 = ref([])
+    const form8 = ref({})
+    const columns8 = ref([])
     const submit = (done, isValid, invalidFields) => {
       console.log(isValid, invalidFields)
       setTimeout(() => {
@@ -727,7 +731,7 @@ export default {
       }, 1000)
     }
     const createForm = () => {
-      columns7.value = [
+      columns8.value = [
         {
           label: 'Name',
           prop: 'name',
@@ -744,7 +748,7 @@ export default {
       ]
     }
     const createDict = () => {
-      list7.value = [
+      list8.value = [
         { value: 'Go', label: 'go' },
         { value: 'JavaScript', label: 'javascript' },
         { value: 'Python', label: 'python' },
@@ -753,13 +757,13 @@ export default {
       ]
     }
     const destroyForm = () => {
-      columns7.value = []
-      list7.value = []
+      columns8.value = []
+      list8.value = []
     }
 
     return {
-      form7,
-      columns7,
+      form8,
+      columns8,
       submit,
       createForm,
       createDict,

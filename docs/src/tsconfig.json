@@ -1,4 +1,8 @@
 {
   "extends": "../../tsconfig.json",
-  "include": [".", "../../shims-vue.d.ts"]
+  "include": [
+    ".",
+    "../../shims-vue.d.ts",
+    "../../types/element-pro-components.d.ts"
+  ]
 }
