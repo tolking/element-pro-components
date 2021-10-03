@@ -19,6 +19,11 @@ const enUS: IRouteRecordRaw[] = [
         meta: { title: 'Quick Start' },
       },
       {
+        path: '/en-US/guide/i18n',
+        component: () => import('../../docs/en-US/guide/i18n.md'),
+        meta: { title: 'Internationalization' },
+      },
+      {
         path: '/en-US/guide/theme',
         component: () => import('../../docs/en-US/guide/theme.md'),
         meta: { title: 'Custom Theme' },

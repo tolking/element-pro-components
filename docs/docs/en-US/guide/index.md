@@ -136,10 +136,6 @@ In addition to components, you can also use some internal [utils](https://github
 
 ## Global config
 
-::: danger Danger
-The global config will be modified or removed in the near future, it is recommended to use related components to pass parameters to achieve
-:::
-
 - refer
 
 <<< @/src/utils/config.ts
