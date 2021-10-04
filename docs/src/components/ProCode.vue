@@ -68,7 +68,7 @@ watch(show, (value) => {
   if (value) {
     meta.value.style.height = `${codeAreaHeight.value}px`
     window.addEventListener('scroll', handleScroll)
-    setTimeout(handleScroll, 100)
+    setTimeout(handleScroll, 300) // Wait for the animation to finish
   } else {
     meta.value.style.height = '0'
     window.removeEventListener('scroll', handleScroll)
