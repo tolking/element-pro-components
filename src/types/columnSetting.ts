@@ -1,12 +1,12 @@
-import type { ITableColumns, IComponentSize, UnknownObject } from './index'
+import type { ICrudColumns, IComponentSize, ExternalParam } from './index'
 import type {
   AllowDragFunction,
   AllowDropFunction,
   FilterNodeMethodFunction,
 } from 'element-plus/lib/components/tree/src/tree.type'
 
-export interface IColumnSetting<T = UnknownObject> {
-  modelValue: ITableColumns<T>
+export interface IColumnSetting<T = ExternalParam> {
+  modelValue: ICrudColumns<T>
   trigger?: 'hover' | 'click' | 'contextmenu'
   placement?:
     | 'top'

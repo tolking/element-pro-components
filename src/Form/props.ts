@@ -4,12 +4,11 @@ import type {
   IFormColumns,
   IFormMenuColumns,
   IComponentSize,
-  StringObject,
 } from '../types/index'
 
 export default {
   modelValue: {
-    type: Object as PropType<StringObject>,
+    type: Object,
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     default: () => ({}),
   },
