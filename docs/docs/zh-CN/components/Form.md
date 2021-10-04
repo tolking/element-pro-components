@@ -21,7 +21,9 @@ meta:
 
 ### 基础用法
 
-::: demo 传入 columns 数据，自动生成表单
+当 columns 绑定的是一个具有响应式的数组时，数组的变动会影响表单变动（及动态表单）。如果不需要动态表单推荐绑定一个普通数组
+
+::: demo
 
 <template>
   <pro-form
@@ -38,7 +40,7 @@ import { ref } from 'vue'
 export default {
   setup() {
     const form = ref({})
-    const columns = ref([
+    const columns = [
       {
         label: '名字',
         prop: 'name',
@@ -49,7 +51,7 @@ export default {
         prop: 'address',
         component: 'el-input',
       },
-    ])
+    ]
     const submit = (done, isValid, invalidFields) => {
       console.log(isValid, invalidFields)
       setTimeout(() => {
@@ -70,7 +72,9 @@ export default {
 
 ### 指定对应的组件
 
-::: demo 通过 columns 的 `component` 定义该项生成什么组件，要求对应组件可以通过 `v-model` 绑定值。通过 `props` 可以向组件中传值，通过 `props` 里面的 `slots` 可以向组件传递简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)
+通过 columns 的 `component` 定义该项生成什么组件，要求对应组件可以通过 `v-model` 绑定值。通过 `props` 可以向组件中传值，通过 `props` 里面的 `slots` 可以向组件传递简单的 <pro-link to="https://v3.cn.vuejs.org/guide/render-function.html">渲染函数</pro-link>
+
+::: demo
 
 <template>
   <pro-form
@@ -93,7 +97,7 @@ export default {
       { value: 'Dart', label: 'dart' },
       { value: 'V', label: 'v' },
     ])
-    const columns1 = ref([
+    const columns1 = [
       {
         label: 'input',
         prop: 'input',
@@ -120,7 +124,7 @@ export default {
         prop: 'radio',
         component: 'pro-radio',
         props: {
-          data: list,
+          data: list.value,
         },
       },
       {
@@ -128,7 +132,7 @@ export default {
         prop: 'checkbox',
         component: 'pro-checkbox',
         props: {
-          data: list,
+          data: list.value,
         },
       },
       {
@@ -136,10 +140,10 @@ export default {
         prop: 'select',
         component: 'pro-select',
         props: {
-          data: list,
+          data: list.value,
         },
       },
-    ])
+    ]
 
     return {
       form1,
@@ -153,7 +157,9 @@ export default {
 
 ### 使用局部组件
 
-::: demo 通过 `component` 可以直接传入局部组件，但存在部分限制
+通过 `component` 也可以直接传入局部组件，不建议同动态表单一同使用
+
+::: demo 出于性能考虑，请不要在动态表单中使用局部组件
 
 <template>
   <pro-form
@@ -166,7 +172,7 @@ export default {
 </template>
 
 <script>
-import { ref, shallowRef } from 'vue'
+import { ref } from 'vue'
 import { ElSwitch } from 'element-plus'
 
 export default {
@@ -179,13 +185,13 @@ export default {
       { value: 'V', label: 'v' },
     ])
     const form7 = ref({})
-    const columns7 = shallowRef([ // 需要通过 shallowRef 优化性能
+    const columns7 = [
       {
         label: 'radio',
         prop: 'radio',
         component: 'pro-radio',
         props: {
-          data: list.value, // 引用其它值必须解构
+          data: list.value,
         },
       },
       {
@@ -193,7 +199,7 @@ export default {
         prop: 'switch',
         component: ElSwitch,
       }
-    ])
+    ]
 
     return {
       form7,
@@ -207,7 +213,9 @@ export default {
 
 ### 使用插槽
 
-::: demo 直接在模版中增加带 `[prop]` 相关的插槽即可自定义插槽。虽然在启用插槽后可以通过 `v-model="form.slot"` 这种方式绑定值，但更推荐使用 `value` 与 `setValue`
+直接在模版中增加带 `[prop]` 相关的插槽即可使用插槽。虽然在启用插槽后可以通过 `v-model="form.slot"` 这种方式绑定值，但更推荐使用 `value` 与 `setValue`
+
+::: demo
 
 <template>
   <pro-form
@@ -297,7 +305,11 @@ export default {
 
 ### 配置按钮
 
-::: demo 通过 menu 配置按钮
+通过 menu 配置按钮显示、文字、参数
+
+按钮也可以通过 <pro-link to="/zh-CN/guide/#全局配置">全局配置</pro-link> 或者 <pro-link to="/zh-CN/guide/i18n">国际化</pro-link> 来配置
+
+::: demo
 
 <template>
   <pro-form
@@ -314,7 +326,7 @@ import { ref } from 'vue'
 export default {
   setup() {
     const menu = {
-      submitText: '提交',
+      submitText: '提 交',
       reset: false,
     }
     const form = ref({})
@@ -344,7 +356,9 @@ export default {
 
 ### 配置子表单
 
-::: demo 通过 columns 的 `children` 配置子表单，当然你也可以配置多层的 `children` 结构实现反复套娃
+通过 columns 的 `children` 配置子表单，当然你也可以配置多层的 `children` 结构实现反复套娃
+
+::: demo 通过 `max` 限制子表单的最大数量
 
 <template>
   <pro-form
@@ -360,7 +374,7 @@ import { ref } from 'vue'
 export default {
   setup() {
     const form3 = ref({})
-    const columns3 = ref([
+    const columns3 = [
       {
         label: '商品名',
         prop: 'name',
@@ -401,7 +415,7 @@ export default {
           },
         ],
       },
-    ])
+    ]
 
     return {
       form3,
@@ -415,7 +429,9 @@ export default {
 
 ### 表单验证
 
-::: demo 像 el-form 一样可以通过 `rules` 配置表单验证。对于子表单更推荐使用 columns 里面的 `rules` 字段实现验证。否则你需要通过 `${父级的 prop}.${当前项的 index}.${当前的 prop}` 这种方式配置子表单的验证
+像 el-form 一样可以通过 `rules` 配置表单验证。对于子表单更推荐使用 columns 里面的 `rules` 字段实现验证。否则你需要通过 `${父级的 prop}.${当前项的 index}.${当前的 prop}` 这种方式配置子表单的验证
+
+::: demo submit 方法第二个参数表示是否通过表单验证
 
 <template>
   <pro-form
@@ -438,7 +454,7 @@ export default {
       date: { required: true, message: '日期不能为空', trigger: 'blur' },
       user: { required: true, message: '用户不能为空', trigger: 'blur' },
     })
-    const columns4 = ref([
+    const columns4 = [
       {
         label: '日期',
         prop: 'date',
@@ -463,7 +479,7 @@ export default {
           },
         ],
       },
-    ])
+    ]
 
     function submitForm(done, isValid, invalidFields) {
       if (isValid) {
@@ -492,7 +508,9 @@ export default {
 
 ### 动态表单
 
-::: demo 如果传入的 `columns` 是一个响应性数据，动态的修改 columns 表单也会随之改变。由此你可以根据需要动态的控制表单的内容，或者实现从后台加载数据实现表单
+如果传入的 `columns` 是一个响应性数据，动态的修改 columns 表单也会随之改变
+
+::: demo
 
 <template>
   <pro-form
@@ -568,7 +586,9 @@ export default {
 
 ### 栅格布局
 
-::: demo 与使用 `el-row` 和 `el-col` 组件相同 (`el-row` 对应 `pro-form`；`el-col` 对应 `columns`)，通过相关配置可以自由地组合布局。**当 `inline` 为 `true` 时无效**
+与使用 `el-row` 和 `el-col` 组件相同 (`el-row` 对应 `pro-form`；`el-col` 对应 `columns`)，通过相关配置可以自由地组合布局。**当 `inline` 为 `true` 时无效**
+
+::: demo
 
 <template>
   <pro-form
@@ -586,7 +606,7 @@ import { ref } from 'vue'
 export default {
   setup() {
     const form6 = ref({})
-    const columns6 = ref([
+    const columns6 = [
       {
         label: '商品名',
         prop: 'name',
@@ -642,7 +662,7 @@ export default {
         xs: 24,
         md: 12,
       },
-    ])
+    ]
     const submit = (done, isValid, invalidFields) => {
       console.log(isValid, invalidFields)
       setTimeout(() => {
@@ -661,11 +681,105 @@ export default {
 
 :::
 
+### 异步表单
+
+想要实现异步表单 columns 必须绑定一个动态数组
+
+::: demo
+
+<template>
+  <div style="margin-bottom:20px">
+    <el-button
+      type="primary"
+      @click="createForm"
+    >
+      加载表单
+    </el-button>
+    <el-button
+      type="info"
+      @click="createDict"
+    >
+      加载数据
+    </el-button>
+    <el-button
+      type="danger"
+      @click="destroyForm"
+    >
+      销毁
+    </el-button>
+  </div>
+  <pro-form
+    v-model="form8"
+    :columns="columns8"
+    label-width="100px"
+    @submit="submit"
+  />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const list8 = ref([])
+    const form8 = ref({})
+    const columns8 = ref([])
+    const submit = (done, isValid, invalidFields) => {
+      console.log(isValid, invalidFields)
+      setTimeout(() => {
+        done()
+      }, 1000)
+    }
+    const createForm = () => {
+      columns8.value = [
+        {
+          label: '姓名',
+          prop: 'name',
+          component: 'el-input',
+        },
+        {
+          label: '语言',
+          prop: 'language',
+          component: 'pro-radio',
+          props: {
+            data: list8,
+          },
+        },
+      ]
+    }
+    const createDict = () => {
+      list8.value = [
+        { value: 'Go', label: 'go' },
+        { value: 'JavaScript', label: 'javascript' },
+        { value: 'Python', label: 'python' },
+        { value: 'Dart', label: 'dart' },
+        { value: 'V', label: 'v' },
+      ]
+    }
+    const destroyForm = () => {
+      columns8.value = []
+      list8.value = []
+    }
+
+    return {
+      form8,
+      columns8,
+      submit,
+      createForm,
+      createDict,
+      destroyForm,
+    }
+  }
+}
+</script>
+
+:::
+
 ### 配置
 
 | 参数                    | 说明                                                                    | 类型    | 可选值                                              | 默认值 |
 | :---------------------- | :---------------------------------------------------------------------- | :------ | :-------------------------------------------------- | :----- |
-| v-model                 | 绑定值                                                                  | array   | -                                                   | -      |
+| v-model                 | 绑定值                                                                  | object  | -                                                   | -      |
 | columns                 | 表单配置参考下面 `columns`                                              | array   | -                                                   | -      |
 | menu                    | 按钮配置参考下面 `menu`                                                 | object  | -                                                   | -      |
 | rules                   | 表单验证规则                                                            | object  | -                                                   | -      |

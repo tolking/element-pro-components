@@ -2,9 +2,11 @@ import { readFileSync, unlinkSync } from 'fs'
 import fg from 'fast-glob'
 import { SitemapStream, streamToPromise } from 'sitemap'
 import { toAbsolute, getFileUpdatedTime, writeFileRecursive } from './utils'
-import manifest from '../dist/static/ssr-manifest.json'
-import { render } from '../dist/server/entry-server'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const manifest = require(toAbsolute('../dist/static/ssr-manifest.json'))
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { render } = require(toAbsolute('../dist/server/entry-server.js'))
 const template = readFileSync(toAbsolute('../dist/static/index.html'), 'utf-8')
 const files = fg.sync('docs/docs/**/*.md')
 

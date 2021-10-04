@@ -1,6 +1,6 @@
 {
   "name": "element-pro-components",
-  "version": "0.13.1",
+  "version": "0.13.2",
   "description": "a component library for Vue 3 base on element-plus",
   "main": "lib/element-pro-components.umd.js",
   "module": "lib/element-pro-components.es.js",
@@ -52,13 +52,15 @@
   },
   "homepage": "https://github.com/tolking/element-pro-components#readme",
   "peerDependencies": {
-    "element-plus": "^1.1.x",
+    "element-plus": "^1.1.0-beta.x",
     "vue": "^3.2.x",
     "vue-router": "^4.0.x"
   },
   "dependencies": {
-    "element-plus": "^1.1.0-beta.12",
-    "vue": "^3.2.2",
+    "@vue/shared": "^3.2.19",
+    "@vueuse/core": "^6.5.3",
+    "element-plus": "^1.1.0-beta.19",
+    "vue": "^3.2.19",
     "vue-router": "^4.0.11"
   },
   "devDependencies": {
@@ -74,8 +76,8 @@
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
     "@vitejs/plugin-vue": "^1.8.1",
-    "@vue/compiler-sfc": "^3.2.12",
-    "@vue/server-renderer": "^3.2.12",
+    "@vue/compiler-sfc": "^3.2.19",
+    "@vue/server-renderer": "^3.2.19",
     "@vue/test-utils": "^2.0.0-rc.13",
     "@vueuse/head": "^0.6.0",
     "babel-jest": "^26.6.3",
@@ -106,7 +108,9 @@
     "vite": "^2.5.10",
     "vite-plugin-md": "^0.10.0",
     "vite-plugin-pwa": "^0.8.2",
-    "vue-jest": "^5.0.0-alpha.10"
+    "vue-jest": "^5.0.0-alpha.10",
+    "workbox-build": "^6.3.0",
+    "workbox-window": "^6.3.0"
   },
   "vetur": {
     "tags": "lib/tags.json",

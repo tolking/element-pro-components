@@ -60,8 +60,8 @@ export default { name: 'ProTreeSelect' }
 </script>
 
 <script setup lang="ts">
-import { ElSelect, ElOption, ElTree } from 'element-plus'
-import { useAttrs, useSelectData, useTreeSelect } from '../composables/index'
+import { ElSelect, ElOption, ElTree, useAttrs } from 'element-plus'
+import { useSelectData, useTreeSelect } from '../composables/index'
 import type { UnknownObject } from '../types/index'
 
 const props = defineProps<{

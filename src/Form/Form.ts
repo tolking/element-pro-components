@@ -121,7 +121,7 @@ export default defineComponent({
           style: !inline.value ? rowStyle.value : undefined,
           class: ['pro-form', !inline.value ? rowClass.value : ''],
         },
-        () => [createColumn(), slots.default, createMenu()]
+        () => [createColumn(), slots.default && slots.default(), createMenu()]
       )
   },
 })

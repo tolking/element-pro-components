@@ -1,4 +1,3 @@
-import { resolve } from 'path'
 import { readFile } from 'fs'
 import fg from 'fast-glob'
 import postcss from 'postcss'
@@ -6,7 +5,7 @@ import postcssImport from 'postcss-import'
 import postcssPresetEnv from 'postcss-preset-env'
 import autoprefixer from 'autoprefixer'
 import postcssClean from 'postcss-clean'
-import { writeFileRecursive, copyFileRecursive } from './utils'
+import { writeFileRecursive, copyFileRecursive, toAbsolute } from './utils'
 
 function transform(input: string) {
   const outDir = input.replace(/\/src\//, '/lib/').replace(/\.ts$/, '.js')
@@ -19,8 +18,8 @@ function transform(input: string) {
         postcssPresetEnv({
           stage: 1,
           importFrom: [
-            './node_modules/element-plus/theme-chalk/el-var.css',
-            './src/styles/vars.css',
+            toAbsolute('../node_modules/element-plus/theme-chalk/el-var.css'),
+            toAbsolute('../src/styles/vars.css'),
           ],
         }),
         autoprefixer,
@@ -37,6 +36,6 @@ function transform(input: string) {
 }
 
 (() => {
-  fg.sync(resolve(__dirname, '../src/styles/*')).map(transform)
+  fg.sync(toAbsolute('../src/styles/*')).map(transform)
   console.log('build-styles done')
 })()

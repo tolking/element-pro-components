@@ -1,4 +1,5 @@
 import { ComputedRef, computed, ref, unref, useSlots, Ref, Slot } from 'vue'
+import { useLocaleInject } from 'element-plus'
 import { useProOptions } from './index'
 import {
   isFunction,
@@ -17,6 +18,35 @@ import type {
   UnknownObject,
   MaybeComputedRef,
 } from '../types/index'
+
+function useCrudMenu(): ComputedRef<ICrudMenuColumns> {
+  const localeMenu = computed(() => {
+    const { t } = useLocaleInject()
+    const menu: ICrudMenuColumns = {}
+    const menuList = [
+      'add',
+      'edit',
+      'del',
+      'submit',
+      'reset',
+      'search',
+      'searchReset',
+    ]
+
+    menuList.forEach((item) => {
+      if (t(`pro.crud.${item}`)) {
+        menu[`${item}Text`] = t(`pro.crud.${item}`)
+      }
+    })
+
+    return menu
+  })
+
+  return computed(() => {
+    const options = useProOptions()
+    return objectDeepMerge<ICrudMenuColumns>(options.menu, localeMenu.value)
+  })
+}
 
 export function useCrudColumns(
   props: Readonly<ICrudProps>
@@ -37,10 +67,10 @@ export function useCrudColumns(
   })
   const menuColumns = computed(() => {
     if (!props.menu) return undefined
-    const options = useProOptions()
+    const defaultMenu = useCrudMenu()
     return isObject(props.menu)
-      ? objectDeepMerge<ICrudMenuColumns>(options.menu, props.menu)
-      : options.menu
+      ? objectDeepMerge<ICrudMenuColumns>(defaultMenu.value, props.menu)
+      : defaultMenu.value
   })
 
   return {
@@ -137,8 +167,8 @@ export function useCrudSearchForm(
 } {
   const searchMenu = computed<IFormMenuColumns>(() => {
     const _menuColumns = unref(menuColumns)
-    const options = useProOptions()
-    const menu = _menuColumns ? _menuColumns : options.menu
+    const defaultMenu = useCrudMenu()
+    const menu = _menuColumns ? _menuColumns : defaultMenu.value
 
     return {
       submit: menu.search,
@@ -187,7 +217,7 @@ export function useCrudSlots(): {
       const _key = key.replace(/^search-/, '')
       searchSlots[_key] = item
     } else if (/^search$/.test(key)) {
-      searchSlots[key] = item
+      searchSlots.default = item
     } else if (/^table-/.test(key)) {
       const _key = key.replace(/^table-/, '')
       tableSlots[_key] = item

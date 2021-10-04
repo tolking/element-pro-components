@@ -21,7 +21,9 @@ Applicable to any component that can bind value ​​through `v-model`. example
 
 ### Basic Use
 
-::: demo Set `columns` attribute will automatic generate form
+When columns is bound to a reactive array, changes in the array will affect form changes (dynamic form). If you don't need a dynamic form, it is recommended to bind an ordinary array.
+
+::: demo
 
 <template>
   <pro-form
@@ -38,7 +40,7 @@ import { ref } from 'vue'
 export default {
   setup() {
     const form = ref({})
-    const columns = ref([
+    const columns = [
       {
         label: 'Name',
         prop: 'name',
@@ -49,7 +51,7 @@ export default {
         prop: 'address',
         component: 'el-input',
       },
-    ])
+    ]
     const submit = (done, isValid, invalidFields) => {
       console.log(isValid, invalidFields)
       setTimeout(() => {
@@ -70,7 +72,9 @@ export default {
 
 ### Custom Component
 
-::: demo Set `component` in `columns` attribute to dfine what component the item generates, that component should can bind value ​​through `v-model`. props ​​can be passed to the component through `props`, [render-function](https://v3.cn.vuejs.org/guide/render-function.html) can be passed to the component thrrough `slots` in `props`
+Set `component` in `columns` attribute to dfine what component the item generates, that component should can bind value ​​through `v-model`. props ​​can be passed to the component through `props`, <pro-link to="https://v3.vuejs.org/guide/render-function.html">render-function</pro-link> can be passed to the component thrrough `slots` in `props`
+
+::: demo
 
 <template>
   <pro-form
@@ -93,7 +97,7 @@ export default {
       { value: 'Dart', label: 'dart' },
       { value: 'V', label: 'v' },
     ])
-    const columns1 = ref([
+    const columns1 = [
       {
         label: 'input',
         prop: 'input',
@@ -120,7 +124,7 @@ export default {
         prop: 'radio',
         component: 'pro-radio',
         props: {
-          data: list,
+          data: list.value,
         },
       },
       {
@@ -128,7 +132,7 @@ export default {
         prop: 'checkbox',
         component: 'pro-checkbox',
         props: {
-          data: list,
+          data: list.value,
         },
       },
       {
@@ -136,10 +140,10 @@ export default {
         prop: 'select',
         component: 'pro-select',
         props: {
-          data: list,
+          data: list.value,
         },
       },
-    ])
+    ]
 
     return {
       form1,
@@ -153,7 +157,9 @@ export default {
 
 ### Custom local component
 
-::: demo Local component can be passed directly through `component` in `columns` attribute, but there are some restrictions
+Local component can be passed directly through `component` in `columns` attribute, But it is not recommended to use with dynamic form
+
+::: demo For performance reasons, please do not use partial components in dynamic form
 
 <template>
   <pro-form
@@ -166,7 +172,7 @@ export default {
 </template>
 
 <script>
-import { ref, shallowRef } from 'vue'
+import { ref } from 'vue'
 import { ElSwitch } from 'element-plus'
 
 export default {
@@ -179,13 +185,13 @@ export default {
       { value: 'V', label: 'v' },
     ])
     const form7 = ref({})
-    const columns7 = shallowRef([ // Need to optimize performance through shallowRef
+    const columns7 = [
       {
         label: 'radio',
         prop: 'radio',
         component: 'pro-radio',
         props: {
-          data: list.value, // Must be deconstructed when referencing a value
+          data: list.value,
         },
       },
       {
@@ -193,7 +199,7 @@ export default {
         prop: 'switch',
         component: ElSwitch,
       }
-    ])
+    ]
 
     return {
       form7,
@@ -207,7 +213,9 @@ export default {
 
 ### Slots
 
-::: demo Directly add some slot with `[prop]` in the template
+Directly add some slot with `[prop]` in the template
+
+::: demo
 
 <template>
   <pro-form
@@ -297,7 +305,11 @@ export default {
 
 ### Custom Menu
 
-::: demo Set `menu` attribute to enable custom menu
+Set `menu` attribute to enable custom menu
+
+Menu can also be configured through <pro-link to="/en-US/guide/#global-config">Global config</pro-link> or <pro-link to="/en-US/guide/i18n">Localization</pro-link>
+
+::: demo
 
 <template>
   <pro-form
@@ -344,7 +356,9 @@ export default {
 
 ### Custom children form
 
-::: demo Set `children` in `columns` attribute to enable custom children form
+Set `children` in `columns` attribute to enable custom children form
+
+::: demo
 
 <template>
   <pro-form
@@ -360,7 +374,7 @@ import { ref } from 'vue'
 export default {
   setup() {
     const form3 = ref({})
-    const columns3 = ref([
+    const columns3 = [
       {
         label: 'Goods',
         prop: 'name',
@@ -401,7 +415,7 @@ export default {
           },
         ],
       },
-    ])
+    ]
 
     return {
       form3,
@@ -415,7 +429,9 @@ export default {
 
 ### Validation
 
-::: demo Set `rules` attribute to enable validation, or Set `rules` in `columns` attribute to enable validation
+Set `rules` attribute to enable validation, or Set `rules` in `columns` attribute to enable validation, or reference `${parental prop}.${current index}.${current prop}`
+
+::: demo
 
 <template>
   <pro-form
@@ -492,7 +508,9 @@ export default {
 
 ### Dynamically Form
 
-::: demo If the columns with reactive, the dynamically modified columns form will also change accordingly. So you can dynamically control the content of the form as needed, or create form from ajax
+If the columns with reactive, the dynamically modified columns form will also change accordingly
+
+::: demo
 
 <template>
   <pro-form
@@ -568,7 +586,9 @@ export default {
 
 ### Layout
 
-::: demo Use the same way as `el-row` `el-col` (`el-row` corresponds to `pro-form`; `el-col` corresponds to `columns`) **Invalid when `inline` is `true`**
+Use the same way as `el-row` `el-col` (`el-row` corresponds to `pro-form`; `el-col` corresponds to `columns`) **Invalid when `inline` is `true`**
+
+::: demo
 
 <template>
   <pro-form
@@ -586,7 +606,7 @@ import { ref } from 'vue'
 export default {
   setup() {
     const form6 = ref({})
-    const columns6 = ref([
+    const columns6 = [
       {
         label: 'Goods',
         prop: 'name',
@@ -642,7 +662,7 @@ export default {
         xs: 24,
         md: 12,
       },
-    ])
+    ]
     const submit = (done, isValid, invalidFields) => {
       console.log(isValid, invalidFields)
       setTimeout(() => {
@@ -661,11 +681,105 @@ export default {
 
 :::
 
+### Async Form
+
+To implement Async Form, columns must be bound to a reactive array
+
+::: demo
+
+<template>
+  <div style="margin-bottom:20px">
+    <el-button
+      type="primary"
+      @click="createForm"
+    >
+      Load Form
+    </el-button>
+    <el-button
+      type="info"
+      @click="createDict"
+    >
+      Load Dict
+    </el-button>
+    <el-button
+      type="danger"
+      @click="destroyForm"
+    >
+      Destroy
+    </el-button>
+  </div>
+  <pro-form
+    v-model="form8"
+    :columns="columns8"
+    label-width="100px"
+    @submit="submit"
+  />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const list8 = ref([])
+    const form8 = ref({})
+    const columns8 = ref([])
+    const submit = (done, isValid, invalidFields) => {
+      console.log(isValid, invalidFields)
+      setTimeout(() => {
+        done()
+      }, 1000)
+    }
+    const createForm = () => {
+      columns8.value = [
+        {
+          label: 'Name',
+          prop: 'name',
+          component: 'el-input',
+        },
+        {
+          label: 'Language',
+          prop: 'language',
+          component: 'pro-radio',
+          props: {
+            data: list8,
+          },
+        },
+      ]
+    }
+    const createDict = () => {
+      list8.value = [
+        { value: 'Go', label: 'go' },
+        { value: 'JavaScript', label: 'javascript' },
+        { value: 'Python', label: 'python' },
+        { value: 'Dart', label: 'dart' },
+        { value: 'V', label: 'v' },
+      ]
+    }
+    const destroyForm = () => {
+      columns8.value = []
+      list8.value = []
+    }
+
+    return {
+      form8,
+      columns8,
+      submit,
+      createForm,
+      createDict,
+      destroyForm,
+    }
+  }
+}
+</script>
+
+:::
+
 ### Props
 
 | Name                    | Description                                                                                                                       | Type    | Options                                             | Default |
 | :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------- | :------ |
-| v-model                 | binding value                                                                                                                     | array   | -                                                   | -       |
+| v-model                 | binding value                                                                                                                     | object  | -                                                   | -       |
 | columns                 | to generate form components, reference `columns`                                                                                  | array   | -                                                   | -       |
 | menu                    | config the menu content, reference `menu`                                                                                         | object  | -                                                   | -       |
 | rules                   | validation rules of form                                                                                                          | object  | -                                                   | -       |

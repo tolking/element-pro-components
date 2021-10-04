@@ -1,12 +1,12 @@
 import helper from 'components-helper'
 import { name, version } from '../package.json'
-import { hyphenate } from './utils'
+import { hyphenate, toAbsolute } from './utils'
 
 helper({
   name,
   version,
-  entry: 'docs/docs/en-US/components/*.md',
-  outDir: 'lib',
+  entry: toAbsolute('../docs/docs/en-US/components/*.md'),
+  outDir: toAbsolute('../lib'),
   reComponentName,
   reDocUrl,
   reAttribute,

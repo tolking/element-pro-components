@@ -1,5 +1,5 @@
 // NOTE modify from element-plus, if a same hooks is added to the element-plus, replace this file by hooks
-import { ComputedRef, computed, provide } from '@vue/runtime-core'
+import { ComputedRef, computed, provide } from 'vue'
 import type { IRowProps } from '../types/index'
 
 export function useRow(

@@ -137,10 +137,6 @@ import 'element-pro-components/lib/styles/layout'
 
 ## 全局配置
 
-::: danger 危险
-全局配置将在不久之后修改或移除，推荐现在使用相关组件传参实现
-:::
-
 - 参考
 
 <<< @/src/utils/config.ts
