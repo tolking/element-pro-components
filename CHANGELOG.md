@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.13.2
+
+breaking changes
+
+- use useWindowSize from vueuse replace resize-observer-polyfill
+- use useAttrs from element-plus replace old useAttrs
+
+fix
+
+- Menu: missing style
+- Form: the default slot is not displayed
+- Crud: search slot error
+- Crud: show menuColumns when without slot
+
+feat
+
+- Form: support i18n
+- Crud: support i18n
+
+other
+
+- type: optimization type
+
 ## 0.13.1
 
 fix
