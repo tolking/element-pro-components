@@ -50,10 +50,10 @@ export default { name: 'ProColumnSetting' }
 import { toRefs, computed } from 'vue'
 import { ElDropdown, ElDropdownMenu, ElButton, ElTree } from 'element-plus'
 import { filterFlat } from '../utils/index'
-import type { TableColumn } from '../types/index'
+import type { CrudColumn } from '../types/index'
 
 const props = defineProps<{
-  modelValue: Array<Record<string, unknown> & TableColumn>
+  modelValue: Array<Record<string, unknown> & CrudColumn>
   trigger?: 'hover' | 'click' | 'contextmenu'
   placement?:
     | 'top'
@@ -81,7 +81,7 @@ const props = defineProps<{
 const emit = defineEmits(['updata:modelValue'])
 const { modelValue, trigger, placement, size } = toRefs(props)
 const checkedKeys = computed(() => {
-  return filterFlat<TableColumn[], string[]>(
+  return filterFlat<CrudColumn[], string[]>(
     props.modelValue,
     'hide',
     false,
@@ -89,17 +89,17 @@ const checkedKeys = computed(() => {
   )
 })
 
-function handleDropStart({ data }: { data: TableColumn }) {
+function handleDropStart({ data }: { data: CrudColumn }) {
   data.hide = !data.hide
   emit('updata:modelValue', modelValue)
 }
 
-function handleDropEnd({ data }: { data: TableColumn }) {
+function handleDropEnd({ data }: { data: CrudColumn }) {
   data.hide = !data.hide
   emit('updata:modelValue', modelValue)
 }
 
-function handleCheckChange(data: TableColumn) {
+function handleCheckChange(data: CrudColumn) {
   data.hide = !data.hide
   emit('updata:modelValue', modelValue)
 }
