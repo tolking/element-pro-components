@@ -742,7 +742,7 @@ export default {
           prop: 'language',
           component: 'pro-radio',
           props: {
-            data: list7,
+            data: list8,
           },
         },
       ]
