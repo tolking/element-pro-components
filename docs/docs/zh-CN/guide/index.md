@@ -169,7 +169,7 @@ app.use(ElementPro, {
 ```diff
 {
   "include": [
-+   "node_modules/element-pro-components/types/element-pro-components.d.ts"
++   "node_modules/element-pro-components/types/components.d.ts"
   ]
 }
 ```
