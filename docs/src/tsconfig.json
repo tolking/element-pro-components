@@ -3,6 +3,7 @@
   "include": [
     ".",
     "../../shims-vue.d.ts",
-    "../../types/element-pro-components.d.ts"
+    "../../node_modules/element-plus/es/global.d.ts",
+    "../../types/components.d.ts"
   ]
 }
