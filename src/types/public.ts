@@ -1,4 +1,11 @@
-import type { App, ComputedRef, DefineComponent, Ref, Plugin } from 'vue'
+import type {
+  App,
+  ComputedRef,
+  DefineComponent,
+  ExtractPropTypes,
+  Ref,
+  Plugin,
+} from 'vue'
 import type { CrudMenu, FormMenu, IPagination } from './index'
 
 export type StringObject = Record<string, unknown>
@@ -45,6 +52,8 @@ export type IDefineComponent<Props = UnknownObject> = DefineComponent<Props> & {
 }
 
 export type IDefinePlugin<T> = T & Plugin
+
+export type IDefineProps<T> = Readonly<ExtractPropTypes<T>>
 
 export type MenuOptions = CrudMenu & FormMenu & StringObject
 

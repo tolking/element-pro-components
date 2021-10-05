@@ -1,9 +1,14 @@
-import type { App } from 'vue'
-import ProLink from './Link.vue'
-import type { IDefineComponent, ILinkProps } from '../types/index'
+import ProLink from './Link'
+import props from './props'
+import type { IDefinePlugin, IDefineProps } from '../types/index'
 
-ProLink.install = (app: App) => {
-  app.component(ProLink.name, ProLink)
+const _ProLink: IDefinePlugin<typeof ProLink> = ProLink as IDefinePlugin<
+  typeof ProLink
+>
+
+_ProLink.install = (app) => {
+  app.component(_ProLink.name, _ProLink)
 }
 
-export default ProLink as IDefineComponent<ILinkProps>
+export default _ProLink
+export type ILinkProps = IDefineProps<typeof props>
