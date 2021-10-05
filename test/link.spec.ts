@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { mount } from '@vue/test-utils'
-import ProLink from '../src/Link/Link.vue'
+import ProLink from '../src/Link/Link'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
@@ -8,7 +8,7 @@ const _mount = (options: Record<string, unknown>) =>
     ...options,
   })
 
-describe('Link.vue', () => {
+describe('Link', () => {
   afterEach(() => {
     document.body.innerHTML = ''
   })
