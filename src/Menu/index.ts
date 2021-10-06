@@ -1,9 +1,14 @@
-import type { App } from 'vue'
-import ProMenu from './Menu.vue'
-import type { IDefineComponent, IMenuProps } from '../types/index'
+import ProMenu from './Menu'
+import props from './props'
+import type { IDefinePlugin, IDefineProps } from '../types/index'
 
-ProMenu.install = (app: App) => {
-  app.component(ProMenu.name, ProMenu)
+const _ProMenu: IDefinePlugin<typeof ProMenu> = ProMenu as IDefinePlugin<
+  typeof ProMenu
+>
+
+_ProMenu.install = (app) => {
+  app.component(_ProMenu.name, _ProMenu)
 }
 
-export default ProMenu as IDefineComponent<IMenuProps>
+export default _ProMenu
+export type IMenuProps = IDefineProps<typeof props>
