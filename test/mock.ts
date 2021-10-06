@@ -1,4 +1,37 @@
+import { useRouter, useRoute } from 'vue-router'
 import type { IRouteRecordRaw } from '../src/types/index'
+
+jest.mock('vue-router', () => ({
+  useRoute: jest.fn(),
+  useRouter: jest.fn(() => ({
+    push: () => ({}),
+    options: { routes: [] },
+  })),
+}))
+
+export function initRouter(
+  list = routes
+): {
+  push: jest.Mock<unknown, unknown[]>
+} {
+  const push = jest.fn()
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
+  useRoute.mockImplementationOnce(() => ({
+    path: '/index',
+  }))
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
+  useRouter.mockImplementationOnce(() => ({
+    push,
+    options: { routes: list },
+  }))
+
+  return {
+    push,
+  }
+}
 
 export interface DicItem {
   value: string
@@ -69,7 +102,7 @@ export const routes: IRouteRecordRaw[] = [
     path: '/',
     redirect: '/index',
     component: { template: '<router-view />' },
-    meta: { title: 'home' },
+    meta: { title: 'home', icon: 'icon-house' },
     children: [
       {
         path: '/index',
