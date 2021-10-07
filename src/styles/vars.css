@@ -12,7 +12,8 @@
   --pro-layout-height-header: 54px;
   --pro-layout-main-margin: 10px;
   --pro-layout-main-padding: 20px;
+  --pro-layout-main-max-width: 1200px;
   --pro-layout-xs-main-margin: 4px;
   --pro-layout-xs-main-padding: 10px;
-  --pro-layout-index-sidebar: 100;
+  --pro-layout-index-sidebar: 1800;
 }

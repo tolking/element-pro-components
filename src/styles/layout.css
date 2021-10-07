@@ -3,20 +3,28 @@ body {
   padding: 0;
 }
 .pro-layout {
-  display: flex;
-  height: var(--pro-layout-height);
-  overflow: hidden;
+  min-height: 100vh;
+  &.layout-aside {
+    display: flex;
+  }
+  &.fixed-main {
+    height: var(--pro-layout-height);
+    overflow: hidden;
+  }
   & .pro-container {
     flex: 1;
     display: flex;
     flex-direction: column;
-    width: calc(100% - var(--pro-layout-width-aside));
     background-color: var(--el-background-color-base);
   }
   & .aside-collapse + .pro-container {
     width: calc(100% - var(--pro-layout-width-aside-collapse));
   }
   & .pro-aside {
+    position: sticky;
+    top: 0;
+    z-index: var(--pro-layout-index-sidebar);
+    height: 100vh;
     & .mask {
       display: none;
     }
@@ -50,7 +58,7 @@ body {
       }
     }
     @media (--xs-medium) {
-      position: absolute;
+      position: fixed;
       left: 0;
       top: 0;
       bottom: 0;
@@ -87,14 +95,21 @@ body {
     }
   }
   & .pro-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    height: var(--pro-layout-height-header);
-    min-height: var(--pro-layout-height-header);
-    border-bottom: var(--el-border-base);
-    background-color: var(--pro-layout-header-background-color);
+    &.fixed-header {
+      position: sticky;
+      top: 0;
+      z-index: var(--pro-layout-index-sidebar);
+    }
+    & .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      height: var(--pro-layout-height-header);
+      min-height: var(--pro-layout-height-header);
+      border-bottom: var(--el-border-base);
+      background-color: var(--pro-layout-header-background-color);
+    }
     & .header-slot {
       display: flex;
       align-items: center;
@@ -119,9 +134,14 @@ body {
           transform: rotateZ(-45deg) scaleX(0.8) translate(8px, 3px);
         }
       }
+      & .el-menu--horizontal > .el-sub-menu .el-sub-menu__title {
+        height: var(--pro-layout-height-header);
+        line-height: var(--pro-layout-height-header);
+      }
     }
   }
   & .pro-main {
+    flex: 1;
     margin: var(--pro-layout-main-margin);
     padding: var(--pro-layout-main-padding);
     border: var(--el-border-base);
@@ -138,5 +158,9 @@ body {
         margin-right: 0 !important;
       }
     }
+  }
+  & > .pro-main {
+    margin: var(--pro-layout-main-margin) auto;
+    max-width: var(--pro-layout-main-max-width);
   }
 }
