@@ -1,6 +1,6 @@
-import en from 'element-plus/lib/locale/lang/en'
-import zhCn from 'element-plus/lib/locale/lang/zh-cn'
-import type { TranslatePair } from 'element-plus/lib/locale'
+import en from 'element-plus/es/locale/lang/en'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import type { TranslatePair } from 'element-plus/es/locale'
 
 const lang: Record<string, Record<string, string | TranslatePair>> = {
   'en-US': {
