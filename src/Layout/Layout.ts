@@ -180,7 +180,7 @@ export default defineComponent({
         {
           class: [
             'pro-layout',
-            mode.value === 'vertical' && 'layout-aside',
+            mode.value === 'vertical' ? 'layout-aside' : 'layout-topmenu',
             fixedMain.value && 'fixed-main',
           ],
         },

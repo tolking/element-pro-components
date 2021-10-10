@@ -3,9 +3,11 @@ body {
   padding: 0;
 }
 .pro-layout {
-  min-height: 100vh;
   &.layout-aside {
     display: flex;
+  }
+  &.layout-topmenu {
+    background-color: var(--el-background-color-base);
   }
   &.fixed-main {
     height: var(--pro-layout-height);
@@ -24,7 +26,7 @@ body {
     position: sticky;
     top: 0;
     z-index: var(--pro-layout-index-sidebar);
-    height: 100vh;
+    height: var(--pro-layout-height);
     & .mask {
       display: none;
     }
