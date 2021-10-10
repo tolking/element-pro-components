@@ -7,6 +7,7 @@ jest.mock('vue-router', () => ({
     push: () => ({}),
     options: { routes: [] },
   })),
+  RouterView: 'router-view',
 }))
 
 export function initRouter(
