@@ -1,9 +1,14 @@
-import type { App } from 'vue'
-import ProLayout from './Layout.vue'
-import type { IDefineComponent, ILayoutProps } from '../types/index'
+import ProLayout from './Layout'
+import props from './props'
+import type { IDefinePlugin, IDefineProps } from '../types/index'
 
-ProLayout.install = (app: App) => {
-  app.component(ProLayout.name, ProLayout)
+const _ProLayout: IDefinePlugin<typeof ProLayout> = ProLayout as IDefinePlugin<
+  typeof ProLayout
+>
+
+_ProLayout.install = (app) => {
+  app.component(_ProLayout.name, _ProLayout)
 }
 
-export default ProLayout as IDefineComponent<ILayoutProps>
+export default ProLayout
+export type ILayoutProps = IDefineProps<typeof props>
