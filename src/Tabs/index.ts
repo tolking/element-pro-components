@@ -1,9 +1,15 @@
-import type { App } from 'vue'
-import ProTabs from './Tabs.vue'
-import type { IDefineComponent } from '../types/index'
+export * from './type'
+import ProTabs from './Tabs'
+import props from './props'
+import type { IDefinePlugin, IDefineProps } from '../types/index'
 
-ProTabs.install = (app: App) => {
-  app.component(ProTabs.name, ProTabs)
+const _ProTabs: IDefinePlugin<typeof ProTabs> = ProTabs as IDefinePlugin<
+  typeof ProTabs
+>
+
+_ProTabs.install = (app) => {
+  app.component(_ProTabs.name, _ProTabs)
 }
 
-export default ProTabs as IDefineComponent
+export default _ProTabs
+export type ITabsProps = IDefineProps<typeof props>

@@ -21,6 +21,8 @@
 .el-menu-item {
   & .pro-link {
     display: block;
+    width: 100%;
+    box-sizing: border-box;
     color: var(--el-text-color-primary);
     transition: var(--el-color-transition-base);
     &:hover {
@@ -33,6 +35,16 @@
 .el-menu-item .pro-link.router-link-exact-active {
   color: var(--el-color-primary);
 }
-.el-menu--horizontal > .el-sub-menu .el-sub-menu__title .pro-link {
-  display: inline-block;
+.el-menu--horizontal {
+  & .pro-menu-icon {
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+  }
+  & .el-menu .el-menu-item {
+    line-height: 36px;
+  }
+  & > .el-sub-menu .el-sub-menu__title .pro-link {
+    display: inline-block;
+  }
 }

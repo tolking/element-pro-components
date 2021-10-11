@@ -13,7 +13,9 @@ meta:
 
 ### 基础用法
 
-::: demo 组件默认将从 `vue-router` 中获取路由生成路由
+组件默认将从 `vue-router` 中获取路由生成路由，前往<pro-link to="/zh-CN/guide/router">路由和菜单</pro-link>查看路由相关使用
+
+::: demo
 
 <template>
   <pro-menu class="docs-menu" />
@@ -30,7 +32,9 @@ meta:
 
 ### 模式
 
-::: demo 通过传入 `mode` 实现自定义菜单模式
+通过传入 `mode` 实现自定义菜单模式
+
+::: demo
 
 <template>
   <pro-radio-button
@@ -62,7 +66,9 @@ export default {
 
 ### 自定义路由
 
-::: demo 通过传入 `routes` 实现自定义路由显示
+通过传入 `routes` 实现自定义路由显示
+
+::: demo
 
 <template>
   <pro-menu :routes="routes" class="docs-menu" />

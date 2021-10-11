@@ -1,8 +1,9 @@
 import type { Ref } from 'vue'
 
 export interface ITab {
-  title: string
   path: string
+  title?: string
+  hidden?: boolean
 }
 
 export interface ITabsExpose {

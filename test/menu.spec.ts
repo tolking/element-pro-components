@@ -20,7 +20,7 @@ const getMenuList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
     .findAll('.pro-menu .el-menu-item')
     .map((item) => item.find('.pro-link'))
 
-describe('Link', () => {
+describe('Menu', () => {
   afterEach(() => {
     document.body.innerHTML = ''
   })
@@ -101,5 +101,28 @@ describe('Link', () => {
       class: 'pro-link',
       to: '/one/dynamic',
     })
+  })
+
+  test('slots', () => {
+    const wrapper = _mount({
+      template: `
+        <pro-menu>
+          <template #default="item">
+            <p class="pro-link">
+              <span class="path">{{ item.path }}</span>
+              <span class="icon">{{ item.meta?.icon }}</span>
+              <span class="title">{{ item.meta?.title }}</span>
+            </p>
+          </template>
+        </pro-menu>
+      `,
+    })
+
+    expect(getMenuList(wrapper)).toHaveLength(2)
+    expect(getMenuList(wrapper)[0].find('.path').text()).toBe('/')
+    expect(getMenuList(wrapper)[0].find('.icon').text()).toBe('icon-house')
+    expect(getMenuList(wrapper)[0].find('.title').text()).toBe('home')
+    expect(getMenuList(wrapper)[1].find('.path').text()).toBe('/two')
+    expect(getMenuList(wrapper)[1].find('.title').text()).toBe('two')
   })
 })
