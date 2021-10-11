@@ -16,8 +16,8 @@ export function useTabs(): UseTabs {
   watch(
     () => route.path,
     (path, oldPath) => {
-      const title = route.meta.title
-      const hidden = route.meta.hidden
+      const title = route.meta?.title || ''
+      const hidden = route.meta?.hidden
 
       if (oldPath) {
         const item = list.value.find((item) => item.path === oldPath)
@@ -53,7 +53,7 @@ export function useTabs(): UseTabs {
   }
 
   function closeOther() {
-    const title = route.meta.title as string
+    const title = route.meta?.title || ''
     list.value = [{ title, path: active.value }]
   }
 
