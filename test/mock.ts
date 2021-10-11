@@ -19,13 +19,13 @@ export function initRouter(
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore
-  useRoute.mockImplementationOnce(() => ({
+  useRoute.mockImplementation(() => ({
     path: '/index',
     meta: { title: 'Home' },
   }))
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore
-  useRouter.mockImplementationOnce(() => ({
+  useRouter.mockImplementation(() => ({
     push,
     options: { routes: list },
   }))
