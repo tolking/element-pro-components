@@ -23,7 +23,9 @@ meta:
 
 ### External call close
 
-::: demo Use `ref` bind `Tabs` then execute internal methods to close tab. Note: `const tabs = inject('tabs')` from top-level `Layout` [refer](https://github.com/tolking/element-pro-components/blob/master/docs/src/layout/Layout.vue)
+Use `ref` bind `Tabs` then execute internal methods to close tab
+
+::: demo `const tabs = inject('tabs')` from top-level `Layout` [refer](https://github.com/tolking/element-pro-components/blob/master/docs/src/layout/Layout.vue)
 
 <template>
   <pro-tabs ref="childTabs" style="margin-bottom:15px" />
@@ -60,19 +62,12 @@ export default {
 
 ### Props
 
-| Name         | Description                                                                                                                             | Type                                | Accepted Values    | Default |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------ | ------- |
-| type         | type of Tab                                                                                                                             | string                              | card / border-card | -       |
-| closable     | whether Tab is closable                                                                                                                 | boolean                             | -                  | -       |
-| stretch      | whether width of tab automatically fits its container                                                                                   | boolean                             | -                  | false   |
-| before-leave | hook function before switching tab. If `false` is returned or a `Promise` is returned and then is rejected, switching will be prevented | Function(activeName, oldActiveName) | -                  | -       |
-
-### Events
-
-| Name       | Description                                | Parameters              |
-| ---------- | ------------------------------------------ | ----------------------- |
-| tab-click  | triggers when a tab is clicked             | clicked tab             |
-| tab-remove | triggers when tab-remove button is clicked | name of the removed tab |
+| Name         | Description                                                                                                                             | Type                                | Accepted Values             | Default |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | --------------------------- | ------- |
+| type         | type of Tab                                                                                                                             | string                              | card / border-card          | -       |
+| tab-position | position of tabs                                                                                                                        | string                              | top / right / bottom / left | top     |
+| stretch      | whether width of tab automatically fits its container                                                                                   | boolean                             | -                           | false   |
+| before-leave | hook function before switching tab. If `false` is returned or a `Promise` is returned and then is rejected, switching will be prevented | Function(activeName, oldActiveName) | -                           | -       |
 
 ### Methods
 
