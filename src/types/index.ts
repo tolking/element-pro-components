@@ -1,7 +1,6 @@
 export * from './checkbox'
 export * from './columnSetting'
 export * from './crud'
-export * from './form'
 export * from './inputTag'
 export * from './public'
 export * from './radio'
