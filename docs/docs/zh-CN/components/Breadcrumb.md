@@ -9,6 +9,10 @@ meta:
 
 > 根据当前页面路由自动生成面包屑
 
+::: tip 提示
+如果路由中包含[动态路由](https://next.router.vuejs.org/zh/guide/essentials/dynamic-matching.html)，目前需要指定路由的 [name](https://next.router.vuejs.org/zh/api/#name-1) 才能够生成对应面包屑
+:::
+
 ## 使用
 
 ### 基础用法

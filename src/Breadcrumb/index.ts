@@ -1,9 +1,14 @@
-import type { App } from 'vue'
-import ProBreadcrumb from './Breadcrumb.vue'
-import type { IDefineComponent, IBreadcrumbProps } from '../types/index'
+import ProBreadcrumb from './Breadcrumb'
+import props from './props'
+import type { IDefinePlugin, IDefineProps } from '../types/index'
 
-ProBreadcrumb.install = (app: App) => {
-  app.component(ProBreadcrumb.name, ProBreadcrumb)
+const _ProBreadcrumb: IDefinePlugin<
+  typeof ProBreadcrumb
+> = ProBreadcrumb as IDefinePlugin<typeof ProBreadcrumb>
+
+_ProBreadcrumb.install = (app) => {
+  app.component(_ProBreadcrumb.name, _ProBreadcrumb)
 }
 
-export default ProBreadcrumb as IDefineComponent<IBreadcrumbProps>
+export default _ProBreadcrumb
+export type IBreadcrumbProps = IDefineProps<typeof props>
