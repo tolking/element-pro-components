@@ -1,7 +1,7 @@
 import { computed, defineComponent, h } from 'vue'
 import { useRoute } from 'vue-router'
 import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'
-import { findRouterItemListByPath } from '../utils/index'
+import { findRouterPath } from '../utils/index'
 import { useCurrentRoutes } from '../composables/index'
 import props from './props'
 import ProLink from '../Link/index'
@@ -13,7 +13,7 @@ export default defineComponent({
     const route = useRoute()
     const routes = useCurrentRoutes(props)
     const list = computed(() => {
-      return findRouterItemListByPath(routes.value, route.path)
+      return findRouterPath(routes.value, route.path, route.name)
     })
 
     return () =>

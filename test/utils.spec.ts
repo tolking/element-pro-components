@@ -1,6 +1,6 @@
 import {
   checkUrl,
-  findRouterItemListByPath,
+  findRouterPath,
   getScreenSize,
   objectDeepMerge,
   objectPick,
@@ -28,9 +28,9 @@ describe('all utils', () => {
     })
   })
 
-  describe('findRouterItemListByPath', () => {
-    const indexPath = findRouterItemListByPath(routes, '/index')
-    const twoPath = findRouterItemListByPath(routes, '/two/info')
+  describe('findRouterPath', () => {
+    const indexPath = findRouterPath(routes, '/index')
+    const twoPath = findRouterPath(routes, '/two/info')
 
     expect(getRouterTitle(indexPath)).toContain('home')
     expect(getRouterTitle(indexPath)).toContain('Home')
