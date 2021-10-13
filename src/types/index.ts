@@ -1,5 +1,4 @@
 export * from './checkbox'
-export * from './columnSetting'
 export * from './inputTag'
 export * from './public'
 export * from './radio'
