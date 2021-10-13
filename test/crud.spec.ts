@@ -3,7 +3,7 @@ import { mount, VueWrapper } from '@vue/test-utils'
 import { ElInput, ElSwitch, ElTableColumn } from 'element-plus'
 import ProCrud from '../src/Crud/Crud'
 import { tableData } from './mock'
-import type { ICrudColumns, ICrudMenuColumns } from '../src/types/index'
+import type { ICrudColumns, ICrudMenuColumns } from '../src/Crud/index'
 
 interface Form {
   date?: string

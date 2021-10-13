@@ -9,13 +9,13 @@ import {
 } from '../composables'
 import props from './props'
 import ProTableItem from './TableItem'
+import { StringObject } from '../types/index'
 import type {
   ITableSelectionColumns,
   ITableExpandColumns,
   ITableIndexColumns,
   ITableMenuColumns,
-  StringObject,
-} from '../types/index'
+} from './type'
 
 export default defineComponent({
   name: 'ProTable',
@@ -160,7 +160,7 @@ export default defineComponent({
           load: props.load,
           style: props.style,
           className: props.className,
-          size: props.size as string,
+          size: props.size,
           class: 'pro-table',
           ...attrs,
         },

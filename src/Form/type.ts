@@ -1,42 +1,18 @@
 import type { Component } from 'vue'
-import type {
-  FormItemRule,
-  FormRulesMap,
-} from 'element-plus/lib/components/form/src/form.type'
+import type { FormItemRule } from 'element-plus/lib/components/form/src/form.type'
 import type {
   UnknownObject,
   IComponentSize,
   IButtonProps,
   StringObject,
   DeepKeyof,
-  IRowProps,
   IColProps,
   MaybeArray,
   ExternalParam,
-} from './index'
+} from '../types/index'
 
 interface InvalidFields {
   [prop: string]: { message: string; field: string }[]
-}
-
-/** Form Props */
-export interface IFormProps<T = ExternalParam> extends IRowProps {
-  modelValue: T
-  columns?: IFormColumns<T>
-  menu?: IFormMenuColumns
-  rules?: FormRulesMap
-  inline?: boolean
-  labelPosition?: 'right' | 'left' | 'top'
-  labelWidth?: string | number
-  labelSuffix?: string
-  hideRequiredAsterisk?: boolean
-  showMessage?: boolean
-  inlineMessage?: boolean
-  statusIcon?: boolean
-  validateOnRuleChange?: boolean
-  size?: IComponentSize
-  disabled?: boolean
-  scrollToError?: boolean
 }
 
 export interface FormColumn<T = ExternalParam> extends IColProps, StringObject {

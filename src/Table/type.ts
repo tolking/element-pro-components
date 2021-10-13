@@ -1,5 +1,4 @@
 import type { VNode } from 'vue'
-import type { TableProps } from 'element-plus/packages/components/table/src/table/defaults'
 import type {
   UnknownFunction,
   IPlacementType,
@@ -7,19 +6,7 @@ import type {
   DeepKeyof,
   MaybeArray,
   ExternalParam,
-} from './index'
-
-export interface ITableProps<T = ExternalParam> extends TableProps<T> {
-  selection?: boolean | ITableSelectionColumns
-  expand?: boolean | ITableExpandColumns
-  index?: boolean | ITableIndexColumns
-  menu?: boolean | ITableMenuColumns
-  columns?: ITableColumns<T>
-  total?: number
-  pageSize?: number
-  currentPage?: number
-  pagination?: IPagination
-}
+} from '../types/index'
 
 /** Table Column Options for pro-table */
 export interface TableColumnsProps {

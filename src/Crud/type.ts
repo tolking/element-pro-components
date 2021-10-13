@@ -1,37 +1,11 @@
-import type {
+import type { IButtonProps, UnknownObject, ExternalParam } from '../types/index'
+import {
   FormColumn,
-  IFormProps,
-  IFormColumns,
   IFormMenuColumns,
   IFormExpose,
   IFormSubmit,
-  TableColumn,
-  ITableProps,
-  ITableColumns,
-  ITableMenuColumns,
-  ITableExpose,
-  IButtonProps,
-  IDialogProps,
-  UnknownObject,
-  StringObject,
-  ExternalParam,
-} from './index'
-
-export interface ICrudProps<T = ExternalParam>
-  extends Partial<Omit<ITableProps<T>, 'size'>>,
-    Partial<Omit<IFormProps<T>, 'menu' | 'align'>>,
-    IDialogProps {
-  columns?: ICrudColumns<T>
-  addColumns?: IFormColumns<T>
-  editColumns?: IFormColumns<T>
-  formColumns?: IFormColumns<T>
-  searchColumns?: IFormColumns<T>
-  tableColumns?: ITableColumns<T>
-  menu?: boolean | ICrudMenuColumns
-  search?: T
-  searchRules?: StringObject
-  beforeOpen?: ICrudBeforeOpen<T>
-}
+} from '../Form/index'
+import { TableColumn, ITableMenuColumns, ITableExpose } from '../Table/index'
 
 export interface CrudColumn<T = ExternalParam>
   extends FormColumn<T>,

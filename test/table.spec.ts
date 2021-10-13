@@ -10,7 +10,7 @@ import type {
   ITableExpandColumns,
   ITableMenuColumns,
   IPagination,
-} from '../src/types/index'
+} from '../src/Table/index'
 
 const columns: ITableColumns = [
   {

@@ -2,15 +2,17 @@ import { ComputedRef, computed, Ref, unref, shallowRef } from 'vue'
 import { useProOptions } from './index'
 import { filterDeep, isObject, objectDeepMerge } from '../utils/index'
 import type {
-  ITableColumns,
-  TableColumnsProps,
-  ITableExpose,
-  IPagination,
   UnknownObject,
   StringObject,
   MaybeRef,
   MaybeArray,
 } from '../types/index'
+import type {
+  ITableColumns,
+  TableColumnsProps,
+  ITableExpose,
+  IPagination,
+} from '../Table/index'
 
 export function useTableColumns(
   props: Readonly<{ columns?: ITableColumns }>

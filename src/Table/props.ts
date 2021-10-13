@@ -2,7 +2,8 @@ import type { PropType, CSSProperties } from 'vue'
 import type {
   TableProps,
   DefaultRow,
-} from 'element-plus/packages/components/table/src/table/defaults'
+} from 'element-plus/es/components/table/src/table/defaults'
+import type { IComponentSize } from '../types/index'
 import type {
   ITableSelectionColumns,
   ITableExpandColumns,
@@ -10,8 +11,7 @@ import type {
   ITableMenuColumns,
   ITableColumns,
   IPagination,
-  IComponentSize,
-} from '../types/index'
+} from './type'
 
 export default {
   selection: {
@@ -94,18 +94,14 @@ export default {
     default: 16,
   },
   treeProps: {
-    type: Object as PropType<
-      | {
-          hasChildren: string
-          children: string
-        }
-      | undefined
-    >,
+    type: Object as PropType<TableProps<DefaultRow>['treeProps']>,
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    default: () => ({
-      hasChildren: 'hasChildren',
-      children: 'children',
-    }),
+    default: () => {
+      return {
+        hasChildren: 'hasChildren',
+        children: 'children',
+      }
+    },
   },
   lazy: Boolean,
   load: Function as PropType<TableProps<DefaultRow>['load']>,

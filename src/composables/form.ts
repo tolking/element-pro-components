@@ -16,16 +16,18 @@ import {
   isBoolean,
 } from '../utils/index'
 import type {
-  FormColumn,
   IComponentSize,
-  IFormExpose,
-  IFormValidateCallback,
-  IFormValidateFieldCallback,
   UnknownObject,
-  IFormMenuColumns,
   MaybeArray,
   MaybeRef,
 } from '../types/index'
+import type {
+  FormColumn,
+  IFormExpose,
+  IFormValidateCallback,
+  IFormValidateFieldCallback,
+  IFormMenuColumns,
+} from '../Form/index'
 
 type FormItemBind = Omit<
   FormColumn,
