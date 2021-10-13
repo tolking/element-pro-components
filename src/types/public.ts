@@ -6,7 +6,9 @@ import type {
   Ref,
   Plugin,
 } from 'vue'
-import type { CrudMenu, FormMenu, IPagination } from './index'
+import type { CrudMenu } from '../Crud/index'
+import type { FormMenu } from '../Form/index'
+import type { IPagination } from '../Table/index'
 
 export type StringObject = Record<string, unknown>
 
@@ -106,25 +108,6 @@ export interface IButtonProps {
   autofocus?: boolean
   round?: boolean
   circle?: boolean
-}
-
-export interface IDialogProps {
-  title?: string
-  width?: string | number
-  fullscreen?: boolean
-  top?: string
-  modal?: boolean
-  appendToBody?: boolean
-  lockScroll?: boolean
-  customClass?: string
-  openDelay?: number
-  closeDelay?: number
-  closeOnClickModal?: boolean
-  closeOnPressEscape?: boolean
-  showClose?: boolean
-  beforeClose?: (done: () => void) => void
-  center?: boolean
-  destroyOnClose?: boolean
 }
 
 export interface IRowProps {
