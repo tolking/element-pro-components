@@ -10,5 +10,5 @@ _ProLayout.install = (app) => {
   app.component(_ProLayout.name, _ProLayout)
 }
 
-export default ProLayout
+export default _ProLayout
 export type ILayoutProps = IDefineProps<typeof props>
