@@ -1,5 +1,4 @@
 export * from './checkbox'
-export * from './inputTag'
 export * from './public'
 export * from './radio'
 export * from './router'

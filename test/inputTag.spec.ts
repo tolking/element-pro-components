@@ -1,6 +1,6 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import ProInputTag from '../src/InputTag/InputTag.vue'
+import ProInputTag from '../src/InputTag/InputTag'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
@@ -11,7 +11,7 @@ const getList = (wrapper: VueWrapper<ComponentPublicInstance>) => {
   return wrapper.findAll('.el-tag').map((item) => item.text())
 }
 
-describe('InputTag.vue', () => {
+describe('InputTag', () => {
   test('empty', () => {
     const wrapper = _mount({
       template: '<pro-input-tag />',

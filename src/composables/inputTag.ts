@@ -1,5 +1,5 @@
 import { computed, Ref, ref } from 'vue'
-import type { IInputTagProps } from '../types/index'
+import type { IInputTagProps } from '../InputTag/index'
 
 export function useInputTag(
   props: Readonly<IInputTagProps>,
