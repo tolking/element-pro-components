@@ -8,6 +8,7 @@ export function useInputTag(
 ): {
   input: Ref<string>
   list: Ref<string[]>
+  disabled: Ref<boolean | undefined>
   add: () => void
   close: (index: number) => void
   keyup: (event: KeyboardEvent) => void
@@ -17,6 +18,12 @@ export function useInputTag(
   const triggerKey = computed(() => {
     const key = props.trigger || 'space'
     return { space: ' ', enter: 'Enter' }[key]
+  })
+  const disabled = computed(() => {
+    if (props.disabled === undefined && props.max !== undefined) {
+      return (props.modelValue?.length || 0) >= props.max
+    }
+    return props.disabled
   })
 
   function add() {
@@ -40,6 +47,7 @@ export function useInputTag(
   return {
     input,
     list,
+    disabled,
     add,
     close,
     keyup,

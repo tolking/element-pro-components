@@ -5,6 +5,9 @@ export const commonProps = {
   modelValue: {
     type: Array as PropType<string[]>,
   },
+  max: {
+    type: Number,
+  },
   trigger: {
     type: String as PropType<'space' | 'enter'>,
   },
@@ -28,7 +31,7 @@ export const commonProps = {
   },
   disabled: {
     type: Boolean,
-    default: false,
+    default: undefined,
   },
   name: String,
   label: {
