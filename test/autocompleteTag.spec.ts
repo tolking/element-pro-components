@@ -1,6 +1,6 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import ProAutocompleteTag from '../src/AutocompleteTag/AutocompleteTag.vue'
+import ProAutocompleteTag from '../src/AutocompleteTag/AutocompleteTag'
 import { dicList } from './mock'
 
 const _mount = (options: Record<string, unknown>) =>
@@ -12,7 +12,7 @@ const getList = (wrapper: VueWrapper<ComponentPublicInstance>) => {
   return wrapper.findAll('.el-tag').map((item) => item.text())
 }
 
-describe('AutocompleteTag.vue', () => {
+describe('AutocompleteTag', () => {
   test('empty', () => {
     const wrapper = _mount({
       template: '<pro-autocomplete-tag />',

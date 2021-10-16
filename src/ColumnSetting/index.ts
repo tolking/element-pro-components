@@ -1,9 +1,14 @@
-import type { App } from 'vue'
-import ProColumnSetting from './ColumnSetting.vue'
-import type { IDefineComponent, IColumnSetting } from '../types/index'
+import ProColumnSetting from './ColumnSetting'
+import props from './props'
+import type { IDefinePlugin, IDefineProps } from '../types/index'
 
-ProColumnSetting.install = (app: App) => {
-  app.component(ProColumnSetting.name, ProColumnSetting)
+const _ProColumnSetting: IDefinePlugin<
+  typeof ProColumnSetting
+> = ProColumnSetting as IDefinePlugin<typeof ProColumnSetting>
+
+_ProColumnSetting.install = (app) => {
+  app.component(_ProColumnSetting.name, _ProColumnSetting)
 }
 
-export default ProColumnSetting as IDefineComponent<IColumnSetting>
+export default _ProColumnSetting
+export type IColumnSettingProps = IDefineProps<typeof props>

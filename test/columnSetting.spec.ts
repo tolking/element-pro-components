@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { mount } from '@vue/test-utils'
-import ProColumnSetting from '../src/ColumnSetting/ColumnSetting.vue'
-import type { ITableColumns } from '../src/types/index'
+import ProColumnSetting from '../src/ColumnSetting/ColumnSetting'
+import type { ITableColumns } from '../src/Table/index'
 
 const columns: ITableColumns = [
   {
