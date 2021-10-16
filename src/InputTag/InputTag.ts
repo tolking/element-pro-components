@@ -10,7 +10,10 @@ export default defineComponent({
   setup(props, { emit }) {
     const attrs = useAttrs()
     const size = useFormSize(props)
-    const { input, list, add, close, keyup } = useInputTag(props, emit)
+    const { input, list, disabled, add, close, keyup } = useInputTag(
+      props,
+      emit
+    )
 
     function changeValue(value: string) {
       input.value = value
@@ -37,7 +40,7 @@ export default defineComponent({
           ...attrs.value,
           modelValue: input.value,
           size: size.value,
-          disabled: props.disabled,
+          disabled: disabled.value,
           maxlength: props.maxlength,
           minlength: props.minlength,
           showWordLimit: props.showWordLimit,

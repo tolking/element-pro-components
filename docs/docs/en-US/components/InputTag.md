@@ -13,7 +13,9 @@ meta:
 
 ### Basic Use
 
-::: demo When using `pro-input-tag`, most attribute of `type="text"` are supported
+When using `pro-input-tag`, most attribute of `type="text"` are supported
+
+::: demo
 
 <template>
   <pro-input-tag
@@ -40,7 +42,9 @@ export default {
 
 ### Trigger by Enter
 
-::: demo Set `trigger="enter"` attribute to enable trigger by `Enter`
+Input is triggered by the space bar by default, Set `trigger="enter"` attribute to enable trigger by `Enter`
+
+::: demo
 
 <template>
   <pro-input-tag
@@ -66,9 +70,41 @@ export default {
 
 :::
 
+### Limit max tags
+
+The max number of tags that can be entered can be configured through `max`
+
+::: demo
+
+<template>
+  <pro-input-tag
+    v-model="inputTags3"
+    :max="3"
+    placeholder="Enter up to 3 tags"
+  />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const inputTags3 = ref([])
+
+    return {
+      inputTags3
+    }
+  }
+}
+</script>
+
+:::
+
 ### Component Size
 
-::: demo Set `size` attribute to change the size of Input and Tag
+Set `size` attribute to change the size of Input and Tag
+
+::: demo
 
 <template>
   <pro-input-tag
@@ -110,7 +146,9 @@ export default {
 
 ### Autocomplete
 
-::: demo When using `pro-autocomplete-tag`, most attribute of `ElAutocomplete` are supported
+When using `pro-autocomplete-tag`, most attribute of `ElAutocomplete` are supported
+
+::: demo
 
 <template>
   <pro-autocomplete-tag
@@ -155,6 +193,7 @@ export default {
 | :-------------- | :----------------------------------- | :------ | :-------------------------------- | :------ |
 | v-model         | binding value                        | array   | -                                 | -       |
 | trigger         | the key to trigger input tag         | string  | space / enter                     | space   |
+| max             | max number tags that can be enter    | number  | -                                 | -       |
 | size            | component size                       | string  | medium / small / mini             | -       |
 | type            | tag Type                             | string  | success / info / warning / danger | -       |
 | hit             | whether Tag has a highlighted border | boolean | -                                 | false   |
@@ -176,8 +215,9 @@ export default {
 | label           | label text                           | string  | -                                 | -       |
 | tabindex        | input tabindex                       | string  | -                                 | -       |
 | validate-event  | whether to trigger form validation   | boolean | -                                 | true    |
+| input-style     | the style of input                   | object  | -                                 | -       |
 
-### AutocompleteTag
+## AutocompleteTag
 
 > Enter an array of tags with some recommended tips
 
@@ -187,6 +227,7 @@ export default {
 | :-------------------- | :------------------------------------------------------------------------------------------------------------------------- | :------------------------------ | :------------------------------------------------------------- | :----------- |
 | v-model               | binding value                                                                                                              | array                           | -                                                              | -            |
 | trigger               | the key to trigger input tag                                                                                               | string                          | space / enter                                                  | space        |
+| max                   | max number that can be enter                                                                                               | number                          | -                                                              | -            |
 | size                  | component size                                                                                                             | string                          | medium / small / mini                                          | -            |
 | type                  | tag Type                                                                                                                   | string                          | success / info / warning / danger                              | -            |
 | hit                   | whether Tag has a highlighted border                                                                                       | boolean                         | -                                                              | false        |
