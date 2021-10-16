@@ -1,7 +1,7 @@
 import { defineComponent, h, VNode } from 'vue'
 import { ElTag, ElAutocomplete, useAttrs } from 'element-plus'
 import { useInputTag, useFormSize } from '../composables/index'
-import props from '../InputTag/props'
+import props from './props'
 
 export default defineComponent({
   name: 'ProAutocompleteTag',
@@ -37,6 +37,22 @@ export default defineComponent({
           ...attrs.value,
           modelValue: input.value,
           size: size.value,
+          placeholder: props.placeholder,
+          disabled: props.disabled,
+          name: props.name,
+          label: props.label,
+          suffixIcon: props.suffixIcon,
+          prefixIcon: props.prefixIcon,
+          valueKey: props.valueKey,
+          debounce: props.debounce,
+          placement: props.placement,
+          fetchSuggestions: props.fetchSuggestions,
+          popperClass: props.popperClass,
+          triggerOnFocus: props.triggerOnFocus,
+          selectWhenUnmatched: props.selectWhenUnmatched,
+          hideLoading: props.hideLoading,
+          popperAppendToBody: props.popperAppendToBody,
+          highlightFirstItem: props.highlightFirstItem,
           onSelect: add,
           onBlur: add,
           onKeyup: keyup,

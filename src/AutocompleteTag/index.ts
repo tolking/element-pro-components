@@ -1,6 +1,6 @@
 import ProAutocompleteTag from './AutocompleteTag'
-import type { IDefinePlugin } from '../types/index'
-import type { IInputTagProps } from '../InputTag/index'
+import props from './props'
+import type { IDefinePlugin, IDefineProps } from '../types/index'
 
 const _ProAutocompleteTag: IDefinePlugin<
   typeof ProAutocompleteTag
@@ -11,4 +11,4 @@ _ProAutocompleteTag.install = (app) => {
 }
 
 export default _ProAutocompleteTag
-export type IAutocompleteTagProps = IInputTagProps
+export type IAutocompleteTagProps = IDefineProps<typeof props>
