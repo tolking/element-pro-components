@@ -57,7 +57,7 @@ export default defineComponent({
             : String(item.value.render)
         )
       } else {
-        list.push(String(scope.row[item.value.prop]))
+        list.push(scope.row[item.value.prop] as string)
       }
 
       return list
