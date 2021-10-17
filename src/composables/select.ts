@@ -38,9 +38,9 @@ export function useSelectData(
     return data && data.length
       ? data.map((item) => {
           return {
-            value: item[config.value] || item[config.label],
+            value: item[config.value],
             label: item[config.label],
-            disabled: item[config.disabled] || false,
+            disabled: item[config.disabled],
             name: item[config.name],
             children: transformData(
               (item[config.children] as unknown) as SelectData

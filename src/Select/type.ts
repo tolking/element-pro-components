@@ -11,9 +11,9 @@ export interface SelectConfig {
 export type SelectData = Record<string, ExternalParam>[]
 
 export interface SelectDataItem {
-  value: string | number
+  value: string | number | boolean
   label: string
   name?: string
-  disabled: boolean
+  disabled?: boolean
   children?: SelectDataItem[]
 }
