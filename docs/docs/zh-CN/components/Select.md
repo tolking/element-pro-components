@@ -13,7 +13,9 @@ meta:
 
 ### 基础用法
 
-::: demo 传入 data 数据，自动生成选项
+传入 data 数据，自动生成选项
+
+::: demo
 
 <template>
   <pro-select
@@ -48,7 +50,9 @@ export default {
 
 ### 控制不可选项目
 
-::: demo 将传入 data 数据中的某项设置为 `disabled: true` 即可
+将传入 data 数据中的某项设置为 `disabled: true` 即可
+
+::: demo
 
 <template>
   <pro-select
@@ -83,7 +87,9 @@ export default {
 
 ### 配置绑定数据键值
 
-::: demo 通过 config 配置数据键值。`value`- v-model 绑定的键值、`label`-显示键值、`disabled`-控制不可选的键值、`children`-子分组的键值
+通过 config 配置数据键值。`value`- v-model 绑定的键值、`label`-显示键值、`disabled`-控制不可选的键值、`children`-子分组的键值
+
+::: demo
 
 <template>
   <pro-select
@@ -121,7 +127,9 @@ export default {
 
 ### 开启多选
 
-::: demo 当 `multiple` 为 `true` 时，启用多选。此时绑定的 model-value 为数组格式
+当 `multiple` 为 `true` 时，启用多选。此时绑定的 model-value 为数组格式
+
+::: demo
 
 <template>
   <pro-select
@@ -157,7 +165,9 @@ export default {
 
 ### 分组
 
-::: demo 通过 `data` 中的 `children` 字段配置可以轻松生成分组展示 (如果有多层分组，推荐使用 `TreeSelect`)
+通过 `data` 中的 `children` 字段配置可以轻松生成分组展示 (如果有多层分组，推荐使用 `TreeSelect`)
+
+::: demo
 
 <template>
   <pro-select

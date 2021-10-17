@@ -13,7 +13,9 @@ meta:
 
 ### Basic Use
 
-::: demo Set `data` attribute will automatic generate options
+Set `data` attribute will automatic generate options
+
+::: demo
 
 <template>
   <pro-select
@@ -48,7 +50,9 @@ export default {
 
 ### Disabled State
 
-::: demo Set the `disabled` attribute in prop `data`
+Set the `disabled` attribute in prop `data`
+
+::: demo
 
 <template>
   <pro-select
@@ -83,7 +87,9 @@ export default {
 
 ### Configure binding data key
 
-::: demo Set `config` attribute. `value`- v-model bind key; `label`- display key; `disabled`- Disabled key; `children`- children key
+Set `config` attribute. `value`- v-model bind key; `label`- display key; `disabled`- Disabled key; `children`- children key
+
+::: demo
 
 <template>
   <pro-select
@@ -121,7 +127,9 @@ export default {
 
 ### Basic multiple select
 
-::: demo Set `multiple` attribute to enable multiple mode. In this case, the value of v-model will be an array of selected options
+Set `multiple` attribute to enable multiple mode. In this case, the value of v-model will be an array of selected options
+
+::: demo
 
 <template>
   <pro-select
@@ -157,7 +165,9 @@ export default {
 
 ### Grouping
 
-::: demo Set `children` in `data` will automatic generate the children options (If there is a multi-layer hierarchies, `TreeSelect` is recommended)
+Set `children` in `data` will automatic generate the children options (If there is a multi-layer hierarchies, `TreeSelect` is recommended)
+
+::: demo
 
 <template>
   <pro-select
