@@ -9,20 +9,13 @@ import {
   watch,
 } from 'vue'
 import { isArray } from '../utils/index'
-import type {
-  SelectConfig,
-  SelectDataItem,
-  UnknownObject,
-  MaybeArray,
-  ITreeSelectProps,
-} from '../types/index'
-import type TreeStore from 'element-plus/lib/components/tree/src/model/tree-store'
+import type { MaybeArray, ITreeSelectProps } from '../types/index'
+import type { SelectConfig, SelectDataItem, SelectData } from '../Select/index'
+import type TreeStore from 'element-plus/es/components/tree/src/model/tree-store'
 
 interface ITreeStore extends TreeStore {
   setCurrentKey: (value: string | number | null) => void
 }
-
-type SelectData = Record<string, boolean | string | number | UnknownObject>[]
 
 export function useSelectData(
   props: Readonly<{
@@ -45,9 +38,9 @@ export function useSelectData(
     return data && data.length
       ? data.map((item) => {
           return {
-            value: item[config.value] || item[config.label],
+            value: item[config.value],
             label: item[config.label],
-            disabled: item[config.disabled] || false,
+            disabled: item[config.disabled],
             name: item[config.name],
             children: transformData(
               (item[config.children] as unknown) as SelectData

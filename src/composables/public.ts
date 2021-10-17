@@ -89,6 +89,25 @@ export function useCurrentRoutes(
 }
 
 /**
+ * emit value to parent
+ * @param key value key
+ * @param emit update function
+ */
+export function useEmitValue(
+  key = 'modelValue',
+  emit?: (name: string, ...args: unknown[]) => void
+): (value: unknown) => void {
+  const instance = getCurrentInstance()
+  const _emit = emit || instance?.emit
+
+  function emitValue(value: unknown) {
+    _emit && _emit(`update:${key}`, value)
+  }
+
+  return emitValue
+}
+
+/**
  * bind model value
  * @param props value props
  * @param key value key
