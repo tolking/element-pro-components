@@ -9,9 +9,11 @@ import {
   watch,
 } from 'vue'
 import { isArray } from '../utils/index'
-import type { MaybeArray, ITreeSelectProps } from '../types/index'
+import type { MaybeArray, UnknownObject } from '../types/index'
 import type { SelectConfig, SelectDataItem, SelectData } from '../Select/index'
+import type { ITreeSelectProps } from '../TreeSelect/index'
 import type TreeStore from 'element-plus/es/components/tree/src/model/tree-store'
+import type { FilterNodeMethodFunction } from 'element-plus/es/components/tree/src/tree.type'
 
 interface ITreeStore extends TreeStore {
   setCurrentKey: (value: string | number | null) => void
@@ -60,7 +62,7 @@ export function useSelectData(
 }
 
 export function useTreeSelect(
-  props: Readonly<ITreeSelectProps>,
+  props: ITreeSelectProps,
   emit: (
     event:
       | 'update:modelValue'
@@ -73,16 +75,19 @@ export function useTreeSelect(
   ) => void
 ): {
   tree: Ref<ITreeStore>
-  modelValue?: Ref<MaybeArray<string | number> | undefined>
-  clearable?: Ref<boolean | undefined>
+  modelValue?: Ref<
+    MaybeArray<string | number | boolean | UnknownObject> | undefined
+  >
   multiple?: Ref<boolean | undefined>
   checkStrictly?: Ref<boolean | undefined>
   expandedKeys?: ComputedRef<(string | number)[] | undefined>
   filterable?: Ref<boolean | undefined>
-  value: ComputedRef<MaybeArray<string | number> | undefined>
-  label: Ref<string | number>
+  value: ComputedRef<
+    MaybeArray<string | number | boolean | UnknownObject> | undefined
+  >
+  label: Ref<string | number | undefined>
   list: Ref<SelectDataItem[]>
-  filter: (value: string, item: SelectDataItem) => boolean
+  filter: FilterNodeMethodFunction
   togglePopper: (state: boolean) => void
   remove: (value: string) => void
   upData: (e: SelectDataItem, node: unknown, self: unknown) => void
@@ -90,21 +95,24 @@ export function useTreeSelect(
 } {
   const {
     modelValue,
-    clearable,
     multiple,
     checkStrictly,
     filterable,
     onlySelectLeaf,
   } = toRefs(props)
   const tree = ref<ITreeStore>({} as ITreeStore)
-  const label = ref<string | number>('')
+  const label = ref<string | number | undefined>('')
   const list = shallowRef<SelectDataItem[]>([])
   const value = computed(() => (multiple?.value ? '' : modelValue?.value || ''))
   const expandedKeys = computed(() => {
     return isArray(modelValue?.value)
-      ? modelValue?.value
+      ? (modelValue?.value as Array<string | number>)
       : ([modelValue || ''] as Array<string | number>)
   })
+  const filter: FilterNodeMethodFunction = (value, item) => {
+    if (!value) return true
+    return item.label.indexOf(value) !== -1
+  }
 
   onMounted(() => {
     (multiple?.value
@@ -123,11 +131,6 @@ export function useTreeSelect(
       const item = tree.value.getCurrentNode()
       label.value = item?.label
     }
-  }
-
-  function filter(value: string, item: SelectDataItem) {
-    if (!value) return true
-    return item.label.indexOf(value) !== -1
   }
 
   function togglePopper(state: boolean) {
@@ -167,7 +170,6 @@ export function useTreeSelect(
 
   return {
     modelValue,
-    clearable,
     multiple,
     checkStrictly,
     expandedKeys,

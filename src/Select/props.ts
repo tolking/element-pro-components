@@ -11,11 +11,7 @@ export const commonProps = {
   },
 }
 
-export default {
-  ...commonProps,
-  modelValue: {
-    type: [Array, String, Number, Boolean, Object],
-  },
+export const selectProps = {
   name: String,
   id: String,
   autocomplete: {
@@ -30,15 +26,11 @@ export default {
   filterable: Boolean,
   allowCreate: Boolean,
   loading: Boolean,
-  popperClass: {
-    type: String,
-  },
   remote: Boolean,
   loadingText: String,
   noMatchText: String,
   noDataText: String,
   remoteMethod: Function,
-  filterMethod: Function,
   multiple: Boolean,
   multipleLimit: {
     type: Number,
@@ -58,6 +50,18 @@ export default {
     default: true,
   },
   clearIcon: {
+    type: String,
+  },
+}
+
+export default {
+  ...commonProps,
+  ...selectProps,
+  modelValue: {
+    type: [Array, String, Number, Boolean, Object],
+  },
+  filterMethod: Function,
+  popperClass: {
     type: String,
   },
 }
