@@ -4,14 +4,6 @@ import { useSelectData, useEmitValue } from '../composables/index'
 import props from './props'
 import type { SelectDataItem } from './type'
 
-export function createOption(item: SelectDataItem): VNode {
-  return h(ElOption, {
-    value: item.value,
-    label: item.label,
-    disabled: item.disabled,
-  })
-}
-
 export default defineComponent({
   name: 'ProSelect',
   props,
@@ -19,6 +11,14 @@ export default defineComponent({
   setup(props) {
     const data = useSelectData(props)
     const emitValue = useEmitValue()
+
+    function createOption(item: SelectDataItem): VNode {
+      return h(ElOption, {
+        value: item.value,
+        label: item.label,
+        disabled: item.disabled,
+      })
+    }
 
     function createDefault() {
       return data.value.map((item) => {
