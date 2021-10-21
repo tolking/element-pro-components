@@ -1,9 +1,14 @@
-import type { App } from 'vue'
-import ProRadio from './Radio.vue'
-import type { IDefineComponent, IRadioProps } from '../types/index'
+import ProRadio from './Radio'
+import props from './props'
+import type { IDefinePlugin, IDefineProps } from '../types/index'
 
-ProRadio.install = (app: App) => {
-  app.component(ProRadio.name, ProRadio)
+const _ProRadio: IDefinePlugin<typeof ProRadio> = ProRadio as IDefinePlugin<
+  typeof ProRadio
+>
+
+_ProRadio.install = (app) => {
+  app.component(_ProRadio.name, _ProRadio)
 }
 
-export default ProRadio as IDefineComponent<IRadioProps>
+export default _ProRadio
+export type IRadioProps = IDefineProps<typeof props>
