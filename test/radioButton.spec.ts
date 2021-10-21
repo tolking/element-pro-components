@@ -1,6 +1,6 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import ProRadioButton from '../src/RadioButton/RadioButton.vue'
+import ProRadioButton from '../src/RadioButton/RadioButton'
 import { dicList, DicItem } from './mock'
 
 const _mount = (options: Record<string, unknown>) =>
@@ -15,7 +15,7 @@ const getList = (wrapper: VueWrapper<ComponentPublicInstance>, calss = '') => {
     .map((item) => item.find('.el-radio-button__inner').text())
 }
 
-describe('RadioButton.vue', () => {
+describe('RadioButton', () => {
   test('test modelValue', async () => {
     const wrapper = _mount({
       template: '<pro-radio-button v-model="value" :data="data" />',
