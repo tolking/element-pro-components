@@ -1,6 +1,6 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import ProCheckbox from '../src/Checkbox/Checkbox.vue'
+import ProCheckbox from '../src/Checkbox/Checkbox'
 import { dicList, DicItem } from './mock'
 
 const _mount = (options: Record<string, unknown>) =>
@@ -15,7 +15,7 @@ const getList = (wrapper: VueWrapper<ComponentPublicInstance>, calss = '') => {
     .map((item) => (item ? item.find('.el-checkbox__label').text() : ''))
 }
 
-describe('Checkbox.vue', () => {
+describe('Checkbox', () => {
   test('test modelValue', async () => {
     const wrapper = _mount({
       template: '<pro-checkbox v-model="value" :data="data" />',
