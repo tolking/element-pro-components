@@ -1,6 +1,6 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import ProCheckboxButton from '../src/CheckboxButton/CheckboxButton.vue'
+import ProCheckboxButton from '../src/CheckboxButton/CheckboxButton'
 import { dicList, DicItem } from './mock'
 
 const _mount = (options: Record<string, unknown>) =>
@@ -15,7 +15,7 @@ const getList = (wrapper: VueWrapper<ComponentPublicInstance>, calss = '') => {
     .map((item) => item.find('.el-checkbox-button__inner').text())
 }
 
-describe('CheckboxButton.vue', () => {
+describe('CheckboxButton', () => {
   test('test modelValue', async () => {
     const wrapper = _mount({
       template: '<pro-checkbox-button v-model="value" :data="data" />',
