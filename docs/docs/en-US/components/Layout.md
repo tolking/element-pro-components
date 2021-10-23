@@ -143,7 +143,7 @@ export default {
 
 | Name                | Description                                                         | Type    | Options               | Default           |
 | :------------------ | :------------------------------------------------------------------ | :------ | :-------------------- | :---------------- |
-| fixed-header        | whether to fix the page header                                      | boolean | -                     | false             |
+| fixed-header        | whether to fix the page header                                      | boolean | -                     | true              |
 | fixed-main          | whether to fix the page main                                        | boolean | -                     | false             |
 | transition          | the animation name of transition pages                              | string  | -                     | -                 |
 | routes              | current routes of menu                                              | array   | -                     | from `vue-router` |

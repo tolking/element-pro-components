@@ -4,7 +4,7 @@ export default {
   ...props,
   fixedHeader: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   fixedMain: {
     type: Boolean,
