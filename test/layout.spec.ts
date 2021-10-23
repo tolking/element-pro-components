@@ -34,7 +34,7 @@ describe('Layout', () => {
     expect(wrapper.find('.header-fold-btn').exists()).toBe(true)
     expect(wrapper.find('.pro-layout').classes()).toContain('layout-aside')
     expect(wrapper.find('.pro-layout').classes()).not.toContain('fixed-main')
-    expect(wrapper.find('.pro-header').classes()).not.toContain('fixed-header')
+    expect(wrapper.find('.pro-header').classes()).toContain('fixed-header')
     expect(getMenuList(wrapper)).toHaveLength(2)
     expect(getMenuList(wrapper)[0].find('.pro-menu-icon').classes()).toContain(
       'icon-house'
