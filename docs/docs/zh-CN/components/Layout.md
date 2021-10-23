@@ -143,7 +143,7 @@ export default {
 
 | 参数                | 说明                                                 | 类型    | 可选值                | 默认值                 |
 | :------------------ | :--------------------------------------------------- | :------ | :-------------------- | :--------------------- |
-| fixed-header        | 是否固定页面头部                                     | boolean | -                     | false                  |
+| fixed-header        | 是否固定页面头部                                     | boolean | -                     | true                   |
 | fixed-main          | 是否固定页面主体                                     | boolean | -                     | false                  |
 | transition          | 定义页面过度渐变动画                                 | string  | -                     | -                      |
 | routes              | 当前程序路由                                         | array   | -                     | 从 `vue-router` 中获取 |
