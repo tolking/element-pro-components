@@ -16,7 +16,7 @@ export function createDefault<T>(
     h(
       ElCheckboxGroup,
       {
-        modelValue: props.modelValue,
+        modelValue: props.modelValue || [],
         size: props.size,
         disabled: props.disabled,
         textColor: props.textColor,
