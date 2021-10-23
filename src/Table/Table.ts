@@ -1,5 +1,5 @@
 import { defineComponent, h, toRefs, VNode, provide } from 'vue'
-import { ElTable, ElTableColumn, ElPagination } from 'element-plus'
+import { ElTable, ElTableColumn, ElPagination, useAttrs } from 'element-plus'
 import {
   useTableColumns,
   useTableBind,
@@ -28,8 +28,9 @@ export default defineComponent({
     'prev-click',
     'next-click',
   ],
-  setup(props, { slots, attrs, emit, expose }) {
+  setup(props, { slots, emit, expose }) {
     const { selection, expand, index, menu } = toRefs(props)
+    const attrs = useAttrs()
     const columns = useTableColumns(props)
     const defaultBind = useTableDefaultBind(props)
     const bindSelection = useTableBind<ITableSelectionColumns>(
@@ -121,8 +122,8 @@ export default defineComponent({
       return list
     }
 
-    return () => [
-      h(
+    function createDefault() {
+      const tableNode = h(
         ElTable,
         {
           ref: table,
@@ -161,27 +162,27 @@ export default defineComponent({
           style: props.style,
           className: props.className,
           size: props.size,
-          class: 'pro-table',
           ...attrs,
         },
         {
           default: () => createColumn(),
           append: slots.append,
         }
-      ),
-      props.total
-        ? h(ElPagination, {
-            ...pagination.value,
-            currentPage: props.currentPage,
-            pageSize: props.pageSize,
-            total: props.total,
-            class: 'pro-pagination',
-            'onUpdate:pageSize': sizeChange,
-            'onUpdate:currentPage': currentChange,
-            onPrevClick: prevClick,
-            onNextClick: nextClick,
-          })
-        : null,
-    ]
+      )
+      const paginationNode = h(ElPagination, {
+        ...pagination.value,
+        currentPage: props.currentPage,
+        pageSize: props.pageSize,
+        total: props.total,
+        'onUpdate:pageSize': sizeChange,
+        'onUpdate:currentPage': currentChange,
+        onPrevClick: prevClick,
+        onNextClick: nextClick,
+      })
+
+      return [tableNode, props.total ? paginationNode : null]
+    }
+
+    return () => h('div', { class: 'pro-table' }, createDefault())
   },
 })
