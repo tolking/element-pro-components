@@ -2,7 +2,6 @@ import type { VNode } from 'vue'
 import type {
   UnknownFunction,
   IPlacementType,
-  StringObject,
   DeepKeyof,
   MaybeArray,
   ExternalParam,
@@ -19,8 +18,7 @@ export interface TableColumnsProps {
 }
 
 export interface TableCommonColumn<T = ExternalParam>
-  extends StringObject,
-    TableColumnsProps {
+  extends TableColumnsProps {
   /** column label */
   label?: string
   /** column width */
@@ -120,7 +118,7 @@ export interface ITableExpose<T = ExternalParam> {
 }
 
 /** Pagination Attributes */
-export interface IPagination extends StringObject {
+export interface IPagination {
   /** whether to use small pagination */
   small?: boolean
   /** number of pagers. Pagination collapses when the total page count exceeds this value */

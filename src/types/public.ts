@@ -1,11 +1,4 @@
-import type {
-  App,
-  ComputedRef,
-  DefineComponent,
-  ExtractPropTypes,
-  Ref,
-  Plugin,
-} from 'vue'
+import type { ExtractPropTypes, Ref, Plugin } from 'vue'
 import type { CrudMenu } from '../Crud/index'
 import type { FormMenu } from '../Form/index'
 import type { IPagination } from '../Table/index'
@@ -44,22 +37,16 @@ export type MaybeArray<T> = T | Array<T>
 
 export type MaybeRef<T> = T | Ref<T>
 
-export type MaybeComputedRef<T> = T | ComputedRef<T>
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExternalParam = any
-
-export type IDefineComponent<Props = UnknownObject> = DefineComponent<Props> & {
-  install: (app: App, options?: InstallOptions) => void
-}
 
 export type IDefinePlugin<T> = T & Plugin
 
 export type IDefineProps<T> = Readonly<ExtractPropTypes<T>>
 
-export type MenuOptions = CrudMenu & FormMenu & StringObject
+export type MenuOptions = CrudMenu & FormMenu
 
-export interface InstallOptions extends StringObject {
+export interface InstallOptions {
   /** Pagination Attributes */
   pagination?: IPagination
   /** Menu Attributes */

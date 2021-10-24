@@ -1,4 +1,4 @@
-import { defineComponent, h, toRefs, VNode } from 'vue'
+import { defineComponent, h, VNode } from 'vue'
 import { ElRadioGroup, ElRadio } from 'element-plus'
 import { useSelectData, useEmitValue } from '../composables/index'
 import props from './props'

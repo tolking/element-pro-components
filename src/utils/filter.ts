@@ -1,9 +1,5 @@
 import { isArray, isFunction } from './index'
-
-type ListDeep<T> = Array<{
-  children?: T
-  [key: string]: unknown
-}>
+import type { ExternalParam } from '../types/index'
 
 /**
  * deep filter list
@@ -11,7 +7,7 @@ type ListDeep<T> = Array<{
  * @param key check key
  * @param value check the value is true or false
  */
-export function filterDeep<T extends ListDeep<T>>(
+export function filterDeep<T extends Array<ExternalParam>>(
   list: T,
   key: string,
   value = true
@@ -37,7 +33,10 @@ export function filterDeep<T extends ListDeep<T>>(
  * @param value key value, default: true
  * @param reItem rewrite value of list item
  */
-export function filterFlat<T extends ListDeep<T>, Q extends unknown[] = T>(
+export function filterFlat<
+  T extends Array<ExternalParam>,
+  Q extends unknown[] = T
+>(
   list: T,
   key: string,
   value = true,

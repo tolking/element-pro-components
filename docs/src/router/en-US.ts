@@ -1,7 +1,7 @@
 import BaseLayout from '../layout/Layout.vue'
-import type { IRouteRecordRaw } from '/@src/index'
+import type { RouteRecordRaw } from 'vue-router'
 
-const enUS: IRouteRecordRaw[] = [
+const enUS: RouteRecordRaw[] = [
   {
     path: '/en-US/',
     redirect: '/en-US/guide/',

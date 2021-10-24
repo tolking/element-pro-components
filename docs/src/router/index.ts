@@ -8,9 +8,9 @@ import enUS from './en-US'
 import zhCN from './zh-CN'
 import dev from './dev'
 import { langs } from '../utils/index'
-import type { IRouteRecordRaw } from '/@src/index'
+import type { RouteRecordRaw } from 'vue-router'
 
-const routes: IRouteRecordRaw[] = [...enUS, ...zhCN]
+const routes: RouteRecordRaw[] = [...enUS, ...zhCN]
 
 export function createRouter(): Router {
   const baseUrl = import.meta.env.BASE_URL
@@ -19,6 +19,19 @@ export function createRouter(): Router {
       ? createMemoryHistory(baseUrl)
       : createWebHistory(baseUrl),
     routes: import.meta.env.MODE === 'production' ? routes : routes.concat(dev),
+    scrollBehavior(to, from, savedPosition) {
+      if (to.hash) {
+        return {
+          el: to.hash,
+          top: 90,
+          behavior: 'smooth',
+        }
+      } else if (savedPosition) {
+        return savedPosition
+      } else {
+        return { top: 0 }
+      }
+    },
   })
 
   router.beforeEach((from) => {
