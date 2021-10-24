@@ -13,7 +13,9 @@ meta:
 
 ### Basic Use
 
-::: demo Set `data` attribute will automatic generate options (same like Select Group)
+Set `data` attribute will automatic generate options (same like Select Group)
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -85,7 +87,9 @@ export default {
 
 ### Disabled State
 
-::: demo Set the `disabled` attribute in prop `data`
+Set the `disabled` attribute in prop `data`
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -158,7 +162,9 @@ export default {
 
 ### Configure binding data key
 
-::: demo Set `config` attribute. `value`- v-model bind key; `label`- display key; `disabled`- Disabled key; `children`- children key
+Set `config` attribute. `value`- v-model bind key; `label`- display key; `disabled`- Disabled key; `children`- children key
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -231,7 +237,9 @@ export default {
 
 ### Basic multiple select
 
-::: demo Set `multiple` attribute to enable multiple mode. In this case, the value of v-model will be an array of selected options
+Set `multiple` attribute to enable multiple mode. In this case, the value of v-model will be an array of selected options
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -304,7 +312,9 @@ export default {
 
 ### Disabled State on multiple select
 
-::: demo Same like default select. Set the `disabled` attribute in prop `data`
+Same like default select. Set the `disabled` attribute in prop `data`
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -379,7 +389,9 @@ export default {
 
 ### Check Strictly
 
-::: demo Set `check-strictly` attribute to checked state of a node not affects its father and child nodes
+Set `check-strictly` attribute to checked state of a node not affects its father and child nodes
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -452,7 +464,9 @@ export default {
 
 ### Only Select Leaf
 
-::: demo Set `only-select-leaf` attribute to only the data of child nodes will be selected
+Set `only-select-leaf` attribute to only the data of child nodes will be selected
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -525,7 +539,9 @@ export default {
 
 ### Custom node content
 
-::: demo Use `default` slot to enable custom node content. **Note: In the single select mode, you need to refer to the following content to customize the class to achieve control disabled item styles**
+Use `default` slot to enable custom node content. **Note: In the single select mode, you need to refer to the following content to customize the class to achieve control disabled item styles**
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -619,7 +635,9 @@ export default {
 
 ### Tree node filtering
 
-::: demo Set `filterable` attribute to enable node filtering. Enter text in the input, the content of the tree node will be filtered
+Set `filterable` attribute to enable node filtering. Enter text in the input, the content of the tree node will be filtered
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -692,7 +710,9 @@ export default {
 
 ### Lazy Mode
 
-::: demo Same like `ElTree`, set `lazy` and `load` attribute to enable lazy mode
+Same like `ElTree`, set `lazy` and `load` attribute to enable lazy mode
+
+::: demo
 
 <template>
   <pro-tree-select

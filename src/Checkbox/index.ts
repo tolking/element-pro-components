@@ -1,9 +1,14 @@
-import type { App } from 'vue'
-import ProCheckbox from './Checkbox.vue'
-import type { IDefineComponent, ICheckboxProps } from '../types/index'
+import ProCheckbox from './Checkbox'
+import props from './props'
+import type { IDefinePlugin, IDefineProps } from '../types/index'
 
-ProCheckbox.install = (app: App) => {
-  app.component(ProCheckbox.name, ProCheckbox)
+const _ProCheckbox: IDefinePlugin<
+  typeof ProCheckbox
+> = ProCheckbox as IDefinePlugin<typeof ProCheckbox>
+
+_ProCheckbox.install = (app) => {
+  app.component(_ProCheckbox.name, _ProCheckbox)
 }
 
-export default ProCheckbox as IDefineComponent<ICheckboxProps>
+export default _ProCheckbox
+export type ICheckboxProps = IDefineProps<typeof props>

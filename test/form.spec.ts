@@ -2,7 +2,7 @@ import { ComponentPublicInstance, ref, shallowRef } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { ElInput, ElSwitch } from 'element-plus'
 import ProForm from '../src/Form/Form'
-import type { IFormColumns, IFormMenuColumns } from '../src/types/index'
+import type { IFormColumns, IFormMenuColumns } from '../src/Form/index'
 
 const columns: IFormColumns = [
   {

@@ -13,7 +13,9 @@ meta:
 
 ### Basic Use
 
-::: demo Set `data` attribute will automatic generate options
+Set `data` attribute will automatic generate options
+
+::: demo
 
 <template>
   <pro-checkbox
@@ -48,7 +50,9 @@ export default {
 
 ### Disabled State
 
-::: demo Set the `disabled` attribute in prop `data`
+Set the `disabled` attribute in prop `data`
+
+::: demo
 
 <template>
   <pro-checkbox
@@ -83,7 +87,9 @@ export default {
 
 ### Configure key of binding data
 
-::: demo Set `config` attribute. `value`- v-model bind key; `label`- display key; `disabled`- Disabled key; `name`- name key
+Set `config` attribute. `value`- v-model bind key; `label`- display key; `disabled`- Disabled key; `name`- name key
+
+::: demo
 
 <template>
   <pro-checkbox
@@ -121,7 +127,9 @@ export default {
 
 ### Button style
 
-::: demo use `pro-checkbox-button` then checkbox with button styles
+use `pro-checkbox-button` then checkbox with button styles
+
+::: demo
 
 <template>
   <pro-checkbox-button
@@ -174,7 +182,7 @@ export default {
 | ------ | --------------------------------------- | ----------------- |
 | change | triggers when the binding value changes | the updated value |
 
-### CheckboxButton
+## CheckboxButton
 
 > Checkbox with button styles
 

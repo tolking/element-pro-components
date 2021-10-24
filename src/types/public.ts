@@ -1,5 +1,7 @@
-import type { App, ComputedRef, DefineComponent, Ref, Plugin } from 'vue'
-import type { CrudMenu, FormMenu, IPagination } from './index'
+import type { ExtractPropTypes, Ref, Plugin } from 'vue'
+import type { CrudMenu } from '../Crud/index'
+import type { FormMenu } from '../Form/index'
+import type { IPagination } from '../Table/index'
 
 export type StringObject = Record<string, unknown>
 
@@ -35,20 +37,16 @@ export type MaybeArray<T> = T | Array<T>
 
 export type MaybeRef<T> = T | Ref<T>
 
-export type MaybeComputedRef<T> = T | ComputedRef<T>
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExternalParam = any
 
-export type IDefineComponent<Props = UnknownObject> = DefineComponent<Props> & {
-  install: (app: App, options?: InstallOptions) => void
-}
-
 export type IDefinePlugin<T> = T & Plugin
 
-export type MenuOptions = CrudMenu & FormMenu & StringObject
+export type IDefineProps<T> = Readonly<ExtractPropTypes<T>>
 
-export interface InstallOptions extends StringObject {
+export type MenuOptions = CrudMenu & FormMenu
+
+export interface InstallOptions {
   /** Pagination Attributes */
   pagination?: IPagination
   /** Menu Attributes */
@@ -97,25 +95,6 @@ export interface IButtonProps {
   autofocus?: boolean
   round?: boolean
   circle?: boolean
-}
-
-export interface IDialogProps {
-  title?: string
-  width?: string | number
-  fullscreen?: boolean
-  top?: string
-  modal?: boolean
-  appendToBody?: boolean
-  lockScroll?: boolean
-  customClass?: string
-  openDelay?: number
-  closeDelay?: number
-  closeOnClickModal?: boolean
-  closeOnPressEscape?: boolean
-  showClose?: boolean
-  beforeClose?: (done: () => void) => void
-  center?: boolean
-  destroyOnClose?: boolean
 }
 
 export interface IRowProps {

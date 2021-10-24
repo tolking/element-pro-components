@@ -4,7 +4,8 @@ import { useFormItemBind, useFormChild, useCol } from '../composables/index'
 import { isArray } from '../utils/index'
 import ProFormItem from './FormItem'
 import ProFormComponent from './FormComponent'
-import type { FormColumn, IFormColumns, UnknownObject } from '../types/index'
+import type { UnknownObject } from '../types/index'
+import type { FormColumn, IFormColumns } from './type'
 
 export default defineComponent({
   name: 'ProFormItem',

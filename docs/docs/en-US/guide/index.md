@@ -168,7 +168,7 @@ If you use VS Code with typescript to develop, It is recommended to use plug-in 
 ```diff
 {
   "include": [
-+   "node_modules/element-pro-components/types/element-pro-components.d.ts"
++   "node_modules/element-pro-components/types/components.d.ts"
   ]
 }
 ```

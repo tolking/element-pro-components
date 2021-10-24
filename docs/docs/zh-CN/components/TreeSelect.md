@@ -13,7 +13,9 @@ meta:
 
 ### 基础用法
 
-::: demo 传入 data 数据，生成树形结构 (格式同 Select 分组)
+传入 data 数据，生成树形结构 (格式同 Select 分组)
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -85,7 +87,9 @@ export default {
 
 ### 控制不可选项目
 
-::: demo 将传入 data 数据中的某项设置为 `disabled: true` 即可
+将传入 data 数据中的某项设置为 `disabled: true` 即可
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -158,7 +162,9 @@ export default {
 
 ### 配置绑定数据键值
 
-::: demo 通过 config 配置数据键值。`value`- v-model 绑定的键值、`label`-显示键值、`disabled`-控制不可选的键值、`children`-子节点的键值
+通过 config 配置数据键值。`value`- v-model 绑定的键值、`label`-显示键值、`disabled`-控制不可选的键值、`children`-子节点的键值
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -231,7 +237,9 @@ export default {
 
 ### 开启多选
 
-::: demo 当 `multiple` 为 `true` 时，启用多选。此时绑定的 model-value 为数组格式
+当 `multiple` 为 `true` 时，启用多选。此时绑定的 model-value 为数组格式
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -304,7 +312,9 @@ export default {
 
 ### 多选控制不可选项目
 
-::: demo 同单选只需将传入 data 数据中的某项设置为 `disabled: true` 即可
+同单选只需将传入 data 数据中的某项设置为 `disabled: true` 即可
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -379,7 +389,9 @@ export default {
 
 ### 多选父子节点互不关联
 
-::: demo 当 `check-strictly` 为 `true` 时，父子节点互不关联
+当 `check-strictly` 为 `true` 时，父子节点互不关联
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -452,7 +464,9 @@ export default {
 
 ### 只选取子节点
 
-::: demo 当 `only-select-leaf` 为 `true` 时，只会选取子节点的数据
+当 `only-select-leaf` 为 `true` 时，只会选取子节点的数据
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -525,7 +539,9 @@ export default {
 
 ### 自定义节点显示
 
-::: demo 通过 `default` 插槽可以定义内容。**注意：在单选模式下需要参考下面内容自定义 class 实现控制不可选项目样式**
+通过 `default` 插槽可以定义内容。**注意：在单选模式下需要参考下面内容自定义 class 实现控制不可选项目样式**
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -619,7 +635,9 @@ export default {
 
 ### 选择节点过滤
 
-::: demo 当 `filterable` 为 `true` 时，启用选择节点过滤。在选择框中输入文本，将过滤节点内容
+当 `filterable` 为 `true` 时，启用选择节点过滤。在选择框中输入文本，将过滤节点内容
+
+::: demo
 
 <template>
   <pro-tree-select
@@ -692,7 +710,9 @@ export default {
 
 ### 懒加载
 
-::: demo 与 `ElTree` 一样，配置 `lazy` `load` 即可使用懒加载数据
+与 `ElTree` 一样，配置 `lazy` `load` 即可使用懒加载数据
+
+::: demo
 
 <template>
   <pro-tree-select

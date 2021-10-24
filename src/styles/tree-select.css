@@ -11,4 +11,7 @@
       cursor: not-allowed;
     }
   }
+  & .is-hidden {
+    display: none;
+  }
 }

@@ -1,6 +1,6 @@
 import { Ref, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import type { ITabsExpose, ITab } from '../types/index'
+import type { ITabsExpose, ITab } from '../Tabs/index'
 
 interface UseTabs extends ITabsExpose {
   active: Ref<string>
@@ -15,9 +15,15 @@ export function useTabs(): UseTabs {
 
   watch(
     () => route.path,
-    (path) => {
-      const title = route.meta.title as string
-      addTab({ title, path })
+    (path, oldPath) => {
+      const title = route.meta?.title || ''
+      const hidden = route.meta?.hidden
+
+      if (oldPath) {
+        const item = list.value.find((item) => item.path === oldPath)
+        item?.hidden && close(oldPath)
+      }
+      addTab({ title, path, hidden })
     },
     { immediate: true }
   )
@@ -47,7 +53,7 @@ export function useTabs(): UseTabs {
   }
 
   function closeOther() {
-    const title = route.meta.title as string
+    const title = route.meta?.title || ''
     list.value = [{ title, path: active.value }]
   }
 

@@ -10,7 +10,7 @@ import type {
   ITableExpandColumns,
   ITableMenuColumns,
   IPagination,
-} from '../src/types/index'
+} from '../src/Table/index'
 
 const columns: ITableColumns = [
   {
@@ -55,7 +55,7 @@ const getBodyClass = (wrapper: VueWrapper<ComponentPublicInstance>) =>
 const getCheckBox = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   wrapper.find(headerClass + ' th .cell .el-checkbox')
 const getPager = (wrapper: VueWrapper<ComponentPublicInstance>, classes = '') =>
-  wrapper.find('.pro-pagination .el-pager .number' + classes)
+  wrapper.find('.el-pagination .el-pager .number' + classes)
 const getSizesItem = (classes = '') =>
   document.querySelector(
     '.el-select__popper .el-select-dropdown__item' + classes
@@ -243,7 +243,7 @@ describe('Table', () => {
       pagination: IPagination
     }
 
-    expect(wrapper.find('.pro-pagination')).not.toBeNull()
+    expect(wrapper.find('.el-pagination')).not.toBeNull()
 
     await getPager(wrapper, ':nth-child(2)').trigger('click')
     expect(vm.currentPage).toBe(2)
@@ -256,20 +256,20 @@ describe('Table', () => {
 
     await (vm.pageSize = 10)
     await wrapper
-      .find('.pro-pagination .el-pagination__sizes .select-trigger')
+      .find('.el-pagination .el-pagination__sizes .select-trigger')
       .trigger('click')
     expect(getSizesItem('.selected')?.innerHTML).toMatch(/10/)
 
     await (vm.pagination.layout = 'sizes, prev, pager, next')
-    expect(wrapper.find('.pro-pagination .el-pagination__total').exists()).toBe(
+    expect(wrapper.find('.el-pagination .el-pagination__total').exists()).toBe(
       false
     )
-    expect(wrapper.find('.pro-pagination .el-pagination__jump').exists()).toBe(
+    expect(wrapper.find('.el-pagination .el-pagination__jump').exists()).toBe(
       false
     )
 
     await (vm.total = 0)
-    expect(wrapper.find('.pro-pagination').exists()).toBe(false)
+    expect(wrapper.find('.el-pagination').exists()).toBe(false)
   })
 
   test('align', async () => {

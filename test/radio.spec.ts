@@ -1,6 +1,6 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import ProRadio from '../src/Radio/Radio.vue'
+import ProRadio from '../src/Radio/Radio'
 import { dicList, DicItem } from './mock'
 
 const _mount = (options: Record<string, unknown>) =>
@@ -15,7 +15,7 @@ const getList = (wrapper: VueWrapper<ComponentPublicInstance>, calss = '') => {
     .map((item) => item.find('.el-radio__label').text())
 }
 
-describe('Radio.vue', () => {
+describe('Radio', () => {
   test('test modelValue', async () => {
     const wrapper = _mount({
       template: '<pro-radio v-model="value" :data="data" />',

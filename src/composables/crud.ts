@@ -7,17 +7,10 @@ import {
   filterDeep,
   objectDeepMerge,
 } from '../utils/index'
-import type {
-  ICrudProps,
-  ICrudFormType,
-  ICrudMenuColumns,
-  IFormColumns,
-  IFormMenuColumns,
-  IFormSubmit,
-  ITableColumns,
-  UnknownObject,
-  MaybeComputedRef,
-} from '../types/index'
+import type { UnknownObject, MaybeRef, ExternalParam } from '../types/index'
+import type { ICrudProps, ICrudFormType, ICrudMenuColumns } from '../Crud/index'
+import type { IFormColumns, IFormMenuColumns, IFormSubmit } from '../Form/index'
+import type { ITableColumns } from '../Table/index'
 
 function useCrudMenu(): ComputedRef<ICrudMenuColumns> {
   const localeMenu = computed(() => {
@@ -35,7 +28,8 @@ function useCrudMenu(): ComputedRef<ICrudMenuColumns> {
 
     menuList.forEach((item) => {
       if (t(`pro.crud.${item}`)) {
-        menu[`${item}Text`] = t(`pro.crud.${item}`)
+        const key = `${item}Text` as keyof ICrudMenuColumns
+        menu[key] = t(`pro.crud.${item}`) as ExternalParam
       }
     })
 
@@ -158,7 +152,7 @@ export function useCrudSearchForm(
     event: 'update:search' | 'search' | 'searchReset',
     ...args: unknown[]
   ) => void,
-  menuColumns?: MaybeComputedRef<ICrudMenuColumns | undefined>
+  menuColumns?: MaybeRef<ICrudMenuColumns | undefined>
 ): {
   searchMenu: ComputedRef<IFormMenuColumns>
   searchForm: IFormSubmit

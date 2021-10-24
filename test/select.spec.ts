@@ -1,6 +1,6 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import ProSelect from '../src/Select/Select.vue'
+import ProSelect from '../src/Select/Select'
 import { dicList, DicItem } from './mock'
 
 const _mount = (options: Record<string, unknown>) =>
@@ -15,7 +15,7 @@ const getList = (wrapper: VueWrapper<ComponentPublicInstance>, calss = '') =>
     .findAll(selectItemClass + calss)
     .map((item) => item.find('span').text())
 
-describe('Select.vue', () => {
+describe('Select', () => {
   afterEach(() => {
     document.body.innerHTML = ''
   })

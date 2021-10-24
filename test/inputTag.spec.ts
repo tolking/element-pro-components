@@ -1,6 +1,6 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import ProInputTag from '../src/InputTag/InputTag.vue'
+import ProInputTag from '../src/InputTag/InputTag'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
@@ -11,7 +11,7 @@ const getList = (wrapper: VueWrapper<ComponentPublicInstance>) => {
   return wrapper.findAll('.el-tag').map((item) => item.text())
 }
 
-describe('InputTag.vue', () => {
+describe('InputTag', () => {
   test('empty', () => {
     const wrapper = _mount({
       template: '<pro-input-tag />',
@@ -135,5 +135,22 @@ describe('InputTag.vue', () => {
     expect(wrapper.find('.el-tag').classes()).toContain('el-tag--light')
     await (vm.effect = 'plain')
     expect(wrapper.find('.el-tag').classes()).toContain('el-tag--plain')
+  })
+
+  test('max', async () => {
+    const wrapper = _mount({
+      template: '<pro-input-tag v-model="value" :max="2" />',
+      setup() {
+        const value = ref(['test'])
+        return { value }
+      },
+    })
+
+    expect(wrapper.find('.el-input').classes()).not.toContain('is-disabled')
+
+    await wrapper.find('input').setValue('blur')
+    await wrapper.find('input').trigger('blur')
+    expect(getList(wrapper)).toContain('blur')
+    expect(wrapper.find('.el-input').classes()).toContain('is-disabled')
   })
 })

@@ -13,7 +13,9 @@ meta:
 
 ### Basic Use
 
-::: demo Set `data` attribute will automatic generate options
+Set `data` attribute will automatic generate options
+
+::: demo
 
 <template>
   <pro-radio
@@ -48,7 +50,9 @@ export default {
 
 ### Disabled State
 
-::: demo Set the `disabled` attribute in prop `data`
+Set the `disabled` attribute in prop `data`
+
+::: demo
 
 <template>
   <pro-radio
@@ -83,7 +87,9 @@ export default {
 
 ### Configure binding data key value
 
-::: demo Set `config` attribute. `value`- v-model bind key; `label`- display key; `disabled`- Disabled key; `name`- name key
+Set `config` attribute. `value`- v-model bind key; `label`- display key; `disabled`- Disabled key; `name`- name key
+
+::: demo
 
 <template>
   <pro-radio
@@ -121,7 +127,9 @@ export default {
 
 ### Button style
 
-::: demo use `pro-radio-button` then checkbox with button styles
+use `pro-radio-button` then checkbox with button styles
+
+::: demo
 
 <template>
   <pro-radio-button
@@ -172,7 +180,7 @@ export default {
 | ---------- | ------------------------------------- | ----------------------------------- |
 | change     | triggers when the bound value changes | the label value of the chosen radio |
 
-### RadioButton
+## RadioButton
 
 > Single selection among multiple options
 

@@ -13,7 +13,9 @@ meta:
 
 ### 基础用法
 
-::: demo 使用 `pro-input-tag` 支持 type="text" 的大部分配置
+使用 `pro-input-tag` 支持 type="text" 的大部分配置
+
+::: demo
 
 <template>
   <pro-input-tag
@@ -40,7 +42,9 @@ export default {
 
 ### 通过 Enter 键触发
 
-::: demo 指定 trigger 为 enter 时，将通过回车键触发输入
+默认通过空格键触发输入，通过 `trigger` 为 `enter`时，将通过回车键触发输入
+
+::: demo
 
 <template>
   <pro-input-tag
@@ -66,9 +70,41 @@ export default {
 
 :::
 
+### 限制输入数量
+
+通过 `max` 可以配置可以输入标签的最大数量
+
+::: demo
+
+<template>
+  <pro-input-tag
+    v-model="inputTags3"
+    :max="3"
+    placeholder="最多输入3个标签"
+  />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const inputTags3 = ref([])
+
+    return {
+      inputTags3
+    }
+  }
+}
+</script>
+
+:::
+
 ### 尺寸
 
-::: demo 可通过 size 属性指定输入框和标签的尺寸
+可通过 `size` 属性指定输入框和标签的尺寸
+
+::: demo
 
 <template>
   <pro-input-tag
@@ -110,7 +146,9 @@ export default {
 
 ### 带输入建议
 
-::: demo 使用 `pro-autocomplete-tag` 支持 autocomplete 的大部分配置
+`pro-autocomplete-tag` 提供输入建议，支持 autocomplete 的大部分配置
+
+::: demo
 
 <template>
   <pro-autocomplete-tag
@@ -155,6 +193,7 @@ export default {
 | :-------------- | :----------------------- | :------ | :-------------------------------- | :----- |
 | v-model         | 绑定值                   | array   | -                                 | -      |
 | trigger         | 触发输入按键             | string  | space / enter                     | space  |
+| max             | 可输入的最大数量         | number  | -                                 | -      |
 | size            | 尺寸                     | string  | medium / small / mini             | -      |
 | type            | tag 类型                 | string  | success / info / warning / danger | -      |
 | hit             | tag 是否有边框描边       | boolean | -                                 | false  |
@@ -176,8 +215,9 @@ export default {
 | label           | 输入框关联的 label 文字  | string  | -                                 | -      |
 | tabindex        | 输入框的 tabindex        | string  | -                                 | -      |
 | validate-event  | 输入时是否触发表单的校验 | boolean | -                                 | true   |
+| input-style     | input 元素的样式         | object  | -                                 | -      |
 
-### AutocompleteTag
+## AutocompleteTag
 
 > 基于 `ElTag` `ElAutocomplete` 的输入多个标签的输入框
 
@@ -187,6 +227,7 @@ export default {
 | :-------------------- | :------------------------------------- | :------------------------------ | :------------------------------------------------------------- | :----------- |
 | v-model               | 绑定值                                 | array                           | -                                                              | -            |
 | trigger               | 触发输入按键                           | string                          | space / enter                                                  | space        |
+| max                   | 可输入的最大数量                       | number                          | -                                                              | -            |
 | size                  | 尺寸                                   | string                          | medium / small / mini                                          | -            |
 | type                  | tag 类型                               | string                          | success / info / warning / danger                              | -            |
 | hit                   | tag 是否有边框描边                     | boolean                         | -                                                              | false        |

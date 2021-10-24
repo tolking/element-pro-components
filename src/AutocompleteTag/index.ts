@@ -1,9 +1,14 @@
-import type { App } from 'vue'
-import ProAutocompleteTag from './AutocompleteTag.vue'
-import type { IDefineComponent, IAutocompleteTagProps } from '../types/index'
+import ProAutocompleteTag from './AutocompleteTag'
+import props from './props'
+import type { IDefinePlugin, IDefineProps } from '../types/index'
 
-ProAutocompleteTag.install = (app: App) => {
-  app.component(ProAutocompleteTag.name, ProAutocompleteTag)
+const _ProAutocompleteTag: IDefinePlugin<
+  typeof ProAutocompleteTag
+> = ProAutocompleteTag as IDefinePlugin<typeof ProAutocompleteTag>
+
+_ProAutocompleteTag.install = (app) => {
+  app.component(_ProAutocompleteTag.name, _ProAutocompleteTag)
 }
 
-export default ProAutocompleteTag as IDefineComponent<IAutocompleteTagProps>
+export default _ProAutocompleteTag
+export type IAutocompleteTagProps = IDefineProps<typeof props>

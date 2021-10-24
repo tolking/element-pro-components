@@ -24,23 +24,20 @@ export function getScreenSize(width: number): IScreenSize {
  * @param obj1 object 1
  * @param obj2 object 2
  */
-export function objectDeepMerge<T extends UnknownObject>(
-  obj1: UnknownObject,
-  obj2: UnknownObject
-): T {
-  const _obj: UnknownObject = { ...obj1 }
+export function objectDeepMerge<T = UnknownObject, Q = T>(
+  obj1: T,
+  obj2: Q
+): T & Q {
+  const _obj = { ...obj1 } as T & Q
 
   for (const key in obj2) {
     _obj[key] =
       _obj[key] && isObject(_obj[key])
-        ? objectDeepMerge(
-            _obj[key] as UnknownObject,
-            obj2[key] as UnknownObject
-          )
-        : obj2[key]
+        ? objectDeepMerge(_obj[key], obj2[key])
+        : (obj2[key] as (T & Q)[Extract<keyof Q, string>])
   }
 
-  return _obj as T
+  return _obj
 }
 
 /**

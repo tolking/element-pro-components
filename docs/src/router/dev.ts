@@ -1,7 +1,7 @@
 import BaseLayout from '../layout/Layout.vue'
-import type { IRouteRecordRaw } from '/@src/index'
+import type { RouteRecordRaw } from 'vue-router'
 
-const routes: IRouteRecordRaw[] = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/dev/',
     redirect: '/dev/Layout',

@@ -6,7 +6,6 @@ import {
   reactive,
   watchEffect,
   computed,
-  WritableComputedRef,
   ComputedRef,
 } from 'vue'
 import { useRouter, RouteRecordRaw } from 'vue-router'
@@ -16,7 +15,6 @@ import { getScreenSize, objectDeepMerge } from '../utils/index'
 import type {
   IRouteRecordRaw,
   IScreenSize,
-  UnknownObject,
   InstallOptions,
   MaybeRef,
 } from '../types/index'
@@ -27,7 +25,7 @@ export function useProOptions(): Required<InstallOptions> {
   const proxy = (vm?.proxy || {}) as { $PROOPTIONS: InstallOptions }
 
   return '$PROOPTIONS' in proxy
-    ? objectDeepMerge<Required<InstallOptions>>(config, proxy.$PROOPTIONS)
+    ? objectDeepMerge(config, proxy.$PROOPTIONS)
     : config
 }
 
@@ -89,26 +87,20 @@ export function useCurrentRoutes(
 }
 
 /**
- * bind model value
- * @param props value props
+ * emit value to parent
  * @param key value key
- * @param defaultValue config the default value
  * @param emit update function
  */
-export function useVModel<T>(
-  props: Readonly<UnknownObject>,
+export function useEmitValue(
   key = 'modelValue',
-  defaultValue?: T,
   emit?: (name: string, ...args: unknown[]) => void
-): WritableComputedRef<T | undefined> {
+): (value: unknown) => void {
   const instance = getCurrentInstance()
   const _emit = emit || instance?.emit
-  return computed<T | undefined>({
-    get() {
-      return (props[key] as T) || defaultValue
-    },
-    set(value) {
-      _emit && _emit(`update:${key}`, value)
-    },
-  })
+
+  function emitValue(value: unknown) {
+    _emit && _emit(`update:${key}`, value)
+  }
+
+  return emitValue
 }

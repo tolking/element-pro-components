@@ -1,9 +1,14 @@
-import type { App } from 'vue'
-import ProRadioButton from './RadioButton.vue'
-import type { IDefineComponent, IRadioButtonProps } from '../types/index'
+import ProRadioButton from './RadioButton'
+import type { IDefinePlugin } from '../types/index'
+import type { IRadioProps } from '../Radio/index'
 
-ProRadioButton.install = (app: App) => {
-  app.component(ProRadioButton.name, ProRadioButton)
+const _ProRadioButton: IDefinePlugin<
+  typeof ProRadioButton
+> = ProRadioButton as IDefinePlugin<typeof ProRadioButton>
+
+_ProRadioButton.install = (app) => {
+  app.component(_ProRadioButton.name, _ProRadioButton)
 }
 
-export default ProRadioButton as IDefineComponent<IRadioButtonProps>
+export default _ProRadioButton
+export type IRadioButtonProps = IRadioProps

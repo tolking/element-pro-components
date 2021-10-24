@@ -13,7 +13,9 @@ meta:
 
 ### Basic Use
 
-::: demo By default, the component will generate routes from vue-router
+By default, the component will generate routes from vue-router, Go to <pro-link to="/zh-CN/guide/router">Router and Menu</pro-link> to view routing related usage
+
+::: demo
 
 <template>
   <pro-menu class="docs-menu" />
@@ -30,7 +32,9 @@ meta:
 
 ### Custom Mode
 
-::: demo Set `mode` attribute to enable custom Mode
+Set `mode` attribute to enable custom Mode
+
+::: demo
 
 <template>
   <pro-radio-button
@@ -62,7 +66,9 @@ export default {
 
 ### Custom routes
 
-::: demo Set `routes` attribute to enable custom routes
+Set `routes` attribute to enable custom routes
+
+::: demo
 
 <template>
   <pro-menu :routes="routes" class="docs-menu" />
@@ -120,11 +126,11 @@ export default {
   setup() {
     const routes1 = [
       {
-        path: '/zh-CN/components/menu',
+        path: '/en-US/components/menu',
         meta: { title: 'FontIcon', icon: 'el-icon-potato-strips' },
       },
       {
-        path: '/zh-CN/components/menu',
+        path: '/en-US/components/menu',
         meta: { title: 'Development', icon: 'el-icon-cpu' },
       },
     ]

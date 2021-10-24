@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.14.0
+
+breaking changes
+
+- remove useVModel, use useVModel form vueuse replace
+- rename the GlobalComponents file element-pro-components to components
+- rename findRouterItemListByPath to findRouterPath
+
+fix
+
+- Menu: error style on horizontal mode
+- Table: display undefined when no value
+- Select|TreeSelect|Radio|Checkbox: cannot choose value 0
+
+feat
+
+- Layout: add prop fixed-header, fixed-main, mode and more
+- Tabs: close when leaving hidden router
+- Breadcrumb: add use router alias name to lookup
+- InputTag|AutocompleteTag: add max to limit the number of tag
+- Table: add root node
+
+other
+
+- refactor(all components): optimize type by render
+- types: optimization type
+
 ## 0.13.2
 
 breaking changes

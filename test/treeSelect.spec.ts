@@ -1,6 +1,6 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import ProTreeSelect from '../src/TreeSelect/TreeSelect.vue'
+import ProTreeSelect from '../src/TreeSelect/TreeSelect'
 import { treeList } from './mock'
 
 const _mount = (options: Record<string, unknown>) =>
@@ -23,7 +23,7 @@ const getMultipleDisableList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
     .findAll('.el-tree-node__content .el-checkbox.is-disabled+span')
     .map((item) => item.text())
 
-describe('TreeSelect.vue', () => {
+describe('TreeSelect', () => {
   afterEach(() => {
     document.body.innerHTML = ''
   })

@@ -2,15 +2,18 @@ import { ComputedRef, computed, Ref, unref, shallowRef } from 'vue'
 import { useProOptions } from './index'
 import { filterDeep, isObject, objectDeepMerge } from '../utils/index'
 import type {
-  ITableColumns,
-  TableColumnsProps,
-  ITableExpose,
-  IPagination,
   UnknownObject,
   StringObject,
   MaybeRef,
   MaybeArray,
+  ExternalParam,
 } from '../types/index'
+import type {
+  ITableColumns,
+  TableColumnsProps,
+  ITableExpose,
+  IPagination,
+} from '../Table/index'
 
 export function useTableColumns(
   props: Readonly<{ columns?: ITableColumns }>
@@ -30,12 +33,7 @@ export function useTableDefaultBind(
   }))
 }
 
-interface ColumnsBind extends StringObject {
-  slot?: boolean
-  children?: unknown
-}
-
-export function useTableBind<T extends ColumnsBind>(
+export function useTableBind<T extends Record<string, ExternalParam>>(
   currentBind?: MaybeRef<boolean | undefined | T>,
   defaultBind?: MaybeRef<TableColumnsProps>
 ): ComputedRef<StringObject> {
@@ -45,7 +43,7 @@ export function useTableBind<T extends ColumnsBind>(
     const _option = isObject(_currentBind) ? { ..._currentBind } : undefined
 
     if (_option) {
-      _option.slot && (_option.slot = undefined)
+      _option.slot && delete _option.slot
       _option.children && delete _option.children
     }
 
