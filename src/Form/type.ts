@@ -4,7 +4,6 @@ import type {
   UnknownObject,
   IComponentSize,
   IButtonProps,
-  StringObject,
   DeepKeyof,
   IColProps,
   MaybeArray,
@@ -15,7 +14,7 @@ interface InvalidFields {
   [prop: string]: { message: string; field: string }[]
 }
 
-export interface FormColumn<T = ExternalParam> extends IColProps, StringObject {
+export interface FormColumn<T = ExternalParam> extends IColProps {
   /** @deprecated */
   slot?: boolean
   /** component name */
@@ -66,7 +65,7 @@ export interface FormMenu {
 }
 
 /** Form Menu Option */
-export type IFormMenuColumns = StringObject & FormMenu
+export type IFormMenuColumns = FormMenu
 
 export type IFormSubmit = (
   done: () => void,
