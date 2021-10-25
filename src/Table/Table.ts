@@ -1,5 +1,5 @@
 import { defineComponent, h, toRefs, VNode, provide } from 'vue'
-import { ElTable, ElTableColumn, ElPagination, useAttrs } from 'element-plus'
+import { ElTable, ElTableColumn, ElPagination } from 'element-plus'
 import {
   useTableColumns,
   useTableBind,
@@ -28,9 +28,8 @@ export default defineComponent({
     'prev-click',
     'next-click',
   ],
-  setup(props, { slots, emit, expose }) {
+  setup(props, { slots, emit, attrs, expose }) {
     const { selection, expand, index, menu } = toRefs(props)
-    const attrs = useAttrs()
     const columns = useTableColumns(props)
     const defaultBind = useTableDefaultBind(props)
     const bindSelection = useTableBind<ITableSelectionColumns>(
