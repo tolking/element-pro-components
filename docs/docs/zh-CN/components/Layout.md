@@ -24,7 +24,7 @@ meta:
 <style>
 .docs-layout {
   --pro-layout-height: 400px;
-  --pro-layout-index-sidebar: 1;
+  --pro-layout-index-header: 1;
   border: 1px solid var(--c-border);
   max-height: 400px;
 }
