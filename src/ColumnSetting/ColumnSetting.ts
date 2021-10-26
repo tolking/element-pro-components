@@ -1,12 +1,30 @@
 import { defineComponent, computed, h, toRefs } from 'vue'
 import { ElDropdown, ElDropdownMenu, ElButton, ElTree } from 'element-plus'
 import { filterFlat } from '../utils/index'
-import props from './props'
+import props, { treeProps } from './props'
 import type { ICrudColumns, CrudColumn } from '../Crud/index'
 import type { ITableColumns, TableColumn } from '../Table/index'
+import type { IDefineProps } from '../types/index'
 
 type Columns = ICrudColumns | ITableColumns
 type Column = CrudColumn | TableColumn
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function createTreeProps(props: IDefineProps<typeof treeProps>) {
+  return {
+    emptyText: props.emptyText,
+    renderAfterExpand: props.renderAfterExpand,
+    expandOnClickNode: props.expandOnClickNode,
+    defaultExpandAll: props.defaultExpandAll,
+    checkOnClickNode: props.checkOnClickNode,
+    autoExpandParent: props.autoExpandParent,
+    allowDrag: props.allowDrag,
+    allowDrop: props.allowDrop,
+    accordion: props.accordion,
+    indent: props.indent,
+    iconClass: props.iconClass,
+  }
+}
 
 export default defineComponent({
   name: 'ProColumnSetting',
@@ -38,6 +56,32 @@ export default defineComponent({
       emit('updata:modelValue', modelValue)
     }
 
+    function createMenu() {
+      return h(ElDropdownMenu, null, () => {
+        const config = createTreeProps(props)
+        return h(
+          ElTree,
+          Object.assign(
+            {
+              data: modelValue.value,
+              defaultCheckedKeys: checkedKeys.value,
+              highlightCurrent: props.highlightCurrent,
+              filterNodeMethod: props.filterNodeMethod,
+              showCheckbox: true,
+              checkStrictly: true,
+              draggable: true,
+              nodeKey: 'prop',
+              class: 'pro-column-setting-tree',
+              onNodeDragStart: handleDropStart,
+              onNodeDragEnd: handleDropEnd,
+              onCheck: handleCheckChange,
+            },
+            config
+          )
+        )
+      })
+    }
+
     return () =>
       h(
         ElDropdown,
@@ -53,34 +97,7 @@ export default defineComponent({
               circle: true,
               icon: 'el-icon-setting',
             }),
-          dropdown: () =>
-            h(ElDropdownMenu, null, () =>
-              h(ElTree, {
-                data: modelValue.value,
-                defaultCheckedKeys: checkedKeys.value,
-                emptyText: props.emptyText,
-                renderAfterExpand: props.renderAfterExpand,
-                expandOnClickNode: props.expandOnClickNode,
-                defaultExpandAll: props.defaultExpandAll,
-                checkOnClickNode: props.checkOnClickNode,
-                autoExpandParent: props.autoExpandParent,
-                allowDrag: props.allowDrag,
-                allowDrop: props.allowDrop,
-                highlightCurrent: props.highlightCurrent,
-                filterNodeMethod: props.filterNodeMethod,
-                accordion: props.accordion,
-                indent: props.indent,
-                iconClass: props.iconClass,
-                showCheckbox: true,
-                checkStrictly: true,
-                draggable: true,
-                nodeKey: 'prop',
-                class: 'pro-column-setting-tree',
-                onNodeDragStart: handleDropStart,
-                onNodeDragEnd: handleDropEnd,
-                onCheck: handleCheckChange,
-              })
-            ),
+          dropdown: () => createMenu(),
         }
       )
   },

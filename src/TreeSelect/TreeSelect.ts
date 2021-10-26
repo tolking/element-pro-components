@@ -1,6 +1,8 @@
 import { defineComponent, h } from 'vue'
 import { ElSelect, ElOption, ElTree, useAttrs } from 'element-plus'
 import { useSelectData, useTreeSelect } from '../composables/index'
+import { createSelectProps } from '../Select/Select'
+import { createTreeProps } from '../ColumnSetting/ColumnSetting'
 import props from './props'
 
 interface TreeScope {
@@ -49,40 +51,32 @@ export default defineComponent({
           label: label.value,
           class: 'pro-tree-select-options',
         },
-        () =>
-          h(
+        () => {
+          const config = createTreeProps(props)
+          return h(
             ElTree,
-            {
-              ...attrs.value,
-              ref: tree,
-              data: data.value,
-              showCheckbox: multiple?.value,
-              checkStrictly: checkStrictly?.value,
-              defaultExpandedKeys: expandedKeys?.value,
-              filterNodeMethod: filter,
-              highlightCurrent: true,
-              emptyText: props.emptyText,
-              renderAfterExpand: props.renderAfterExpand,
-              defaultExpandAll: props.defaultExpandAll,
-              expandOnClickNode: props.expandOnClickNode,
-              checkOnClickNode: props.checkOnClickNode,
-              checkDescendants: props.checkDescendants,
-              autoExpandParent: props.autoExpandParent,
-              currentNodeKey: props.currentNodeKey,
-              renderContent: props.renderContent,
-              draggable: props.draggable,
-              allowDrag: props.allowDrag,
-              allowDrop: props.allowDrop,
-              lazy: props.lazy,
-              load: props.load,
-              accordion: props.accordion,
-              indent: props.indent,
-              iconClass: props.iconClass,
-              nodeKey: 'value',
-              class: 'pro-tree-select-tree',
-              onNodeClick: upData,
-              onCheckChange: upData,
-            },
+            Object.assign(
+              {
+                ...attrs.value,
+                ref: tree,
+                data: data.value,
+                showCheckbox: multiple?.value,
+                checkStrictly: checkStrictly?.value,
+                defaultExpandedKeys: expandedKeys?.value,
+                filterNodeMethod: filter,
+                highlightCurrent: true,
+                currentNodeKey: props.currentNodeKey,
+                renderContent: props.renderContent,
+                draggable: props.draggable,
+                lazy: props.lazy,
+                load: props.load,
+                nodeKey: 'value',
+                class: 'pro-tree-select-tree',
+                onNodeClick: upData,
+                onCheckChange: upData,
+              },
+              config
+            ),
             {
               default: (scope: TreeScope) => {
                 if (slots.default) {
@@ -102,6 +96,7 @@ export default defineComponent({
               },
             }
           )
+        }
       )
     }
 
@@ -116,43 +111,26 @@ export default defineComponent({
       })
     }
 
-    return () =>
-      h(
+    return () => {
+      const config = createSelectProps(props)
+      return h(
         ElSelect,
-        {
-          modelValue: modelValue?.value,
-          multiple: multiple?.value,
-          filterable: filterable?.value,
-          filterMethod: tree.value.filter,
-          clearable: props.clearable,
-          name: props.name,
-          id: props.id,
-          autocomplete: props.autocomplete,
-          automaticDropdown: props.automaticDropdown,
-          size: props.size,
-          disabled: props.disabled,
-          allowCreate: props.allowCreate,
-          loading: props.loading,
-          remote: props.remote,
-          loadingText: props.loadingText,
-          noMatchText: props.noMatchText,
-          noDataText: props.noDataText,
-          remoteMethod: props.remoteMethod,
-          multipleLimit: props.multipleLimit,
-          placeholder: props.placeholder,
-          defaultFirstOption: props.defaultFirstOption,
-          reserveKeyword: props.reserveKeyword,
-          valueKey: props.valueKey,
-          collapseTags: props.collapseTags,
-          popperAppendToBody: props.popperAppendToBody,
-          clearIcon: props.clearIcon,
-          popperClass: 'pro-tree-select-popper',
-          class: 'pro-tree-select',
-          onVisibleChange: togglePopper,
-          onRemoveTag: remove,
-          onClear: clear,
-        },
+        Object.assign(
+          {
+            modelValue: modelValue?.value,
+            multiple: multiple?.value,
+            filterable: filterable?.value,
+            filterMethod: tree.value.filter,
+            popperClass: 'pro-tree-select-popper',
+            class: 'pro-tree-select',
+            onVisibleChange: togglePopper,
+            onRemoveTag: remove,
+            onClear: clear,
+          },
+          config
+        ),
         () => [createTree(), createList()]
       )
+    }
   },
 })
