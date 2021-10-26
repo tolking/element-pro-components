@@ -1,5 +1,5 @@
 import { defineComponent, h, toRefs, VNode, provide } from 'vue'
-import { ElTable, ElTableColumn, ElPagination } from 'element-plus'
+import { ElTable, ElTableColumn, ElPagination, useAttrs } from 'element-plus'
 import {
   useTableColumns,
   useTableBind,
@@ -11,11 +11,53 @@ import props from './props'
 import ProTableItem from './TableItem'
 import { StringObject } from '../types/index'
 import type {
+  ITableProps,
   ITableSelectionColumns,
   ITableExpandColumns,
   ITableIndexColumns,
   ITableMenuColumns,
-} from './type'
+} from './index'
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function createTableProps(props: ITableProps) {
+  return {
+    data: props.data,
+    height: props.height,
+    maxHeight: props.maxHeight,
+    fit: props.fit,
+    stripe: props.stripe,
+    border: props.border,
+    rowKey: props.rowKey,
+    showHeader: props.showHeader,
+    showSummary: props.showSummary,
+    sumText: props.sumText,
+    summaryMethod: props.summaryMethod,
+    rowClassName: props.rowClassName,
+    rowStyle: props.rowStyle,
+    cellClassName: props.cellClassName,
+    cellStyle: props.cellStyle,
+    headerRowClassName: props.headerRowClassName,
+    headerRowStyle: props.headerRowStyle,
+    headerCellClassName: props.headerCellClassName,
+    headerCellStyle: props.headerCellStyle,
+    highlightCurrentRow: props.highlightCurrentRow,
+    currentRowKey: props.currentRowKey,
+    emptyText: props.emptyText,
+    expandRowKeys: props.expandRowKeys,
+    defaultExpandAll: props.defaultExpandAll,
+    defaultSort: props.defaultSort,
+    tooltipEffect: props.tooltipEffect,
+    spanMethod: props.spanMethod,
+    selectOnIndeterminate: props.selectOnIndeterminate,
+    indent: props.indent,
+    treeProps: props.treeProps,
+    lazy: props.lazy,
+    load: props.load,
+    style: props.style,
+    className: props.className,
+    size: props.size,
+  }
+}
 
 export default defineComponent({
   name: 'ProTable',
@@ -28,8 +70,9 @@ export default defineComponent({
     'prev-click',
     'next-click',
   ],
-  setup(props, { slots, emit, attrs, expose }) {
+  setup(props, { slots, emit, expose }) {
     const { selection, expand, index, menu } = toRefs(props)
+    const attrs = useAttrs()
     const columns = useTableColumns(props)
     const defaultBind = useTableDefaultBind(props)
     const bindSelection = useTableBind<ITableSelectionColumns>(
@@ -122,51 +165,14 @@ export default defineComponent({
     }
 
     function createDefault() {
+      const config = createTableProps(props)
       const tableNode = h(
         ElTable,
-        {
-          ref: table,
-          data: props.data,
-          height: props.height,
-          maxHeight: props.maxHeight,
-          fit: props.fit,
-          stripe: props.stripe,
-          border: props.border,
-          rowKey: props.rowKey,
-          showHeader: props.showHeader,
-          showSummary: props.showSummary,
-          sumText: props.sumText,
-          summaryMethod: props.summaryMethod,
-          rowClassName: props.rowClassName,
-          rowStyle: props.rowStyle,
-          cellClassName: props.cellClassName,
-          cellStyle: props.cellStyle,
-          headerRowClassName: props.headerRowClassName,
-          headerRowStyle: props.headerRowStyle,
-          headerCellClassName: props.headerCellClassName,
-          headerCellStyle: props.headerCellStyle,
-          highlightCurrentRow: props.highlightCurrentRow,
-          currentRowKey: props.currentRowKey,
-          emptyText: props.emptyText,
-          expandRowKeys: props.expandRowKeys,
-          defaultExpandAll: props.defaultExpandAll,
-          defaultSort: props.defaultSort,
-          tooltipEffect: props.tooltipEffect,
-          spanMethod: props.spanMethod,
-          selectOnIndeterminate: props.selectOnIndeterminate,
-          indent: props.indent,
-          treeProps: props.treeProps,
-          lazy: props.lazy,
-          load: props.load,
-          style: props.style,
-          className: props.className,
-          size: props.size,
-          ...attrs,
-        },
+        Object.assign({ ref: table }, config, attrs.value),
         {
           default: () => createColumn(),
           append: slots.append,
-        }
+        },
       )
       const paginationNode = h(ElPagination, {
         ...pagination.value,
