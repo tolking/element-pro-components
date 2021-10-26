@@ -125,6 +125,51 @@ export default {
 
 :::
 
+### 使用插槽
+
+通过默认插槽可以自定义备选项
+
+::: demo
+
+<template>
+  <pro-select
+    v-model="select5"
+    :data="data"
+    :config="config"
+  >
+    <template #default="{ data }">
+      <span>{{ data.label }}</span>
+      <span style="float:right">{{ data.value }}</span>
+    </template>
+  </pro-select>
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const select5 = ref('')
+    const config = ref({ value: 'label', label: 'value' })
+    const data = ref([
+      { value: 'Go', label: 'go' },
+      { value: 'JavaScript', label: 'javascript' },
+      { value: 'Python', label: 'python' },
+      { value: 'Dart', label: 'dart' },
+      { value: 'V', label: 'v' },
+    ])
+
+    return {
+      select5,
+      config,
+      data,
+    }
+  }
+}
+</script>
+
+:::
+
 ### 开启多选
 
 当 `multiple` 为 `true` 时，启用多选。此时绑定的 model-value 为数组格式
@@ -260,3 +305,9 @@ export default {
 | clear          | 可清空的单选模式下用户点击清空按钮时触发 | —                             |
 | blur           | 当 input 失去焦点时触发                  | (event: Event)                |
 | focus          | 当 input 获得焦点时触发                  | (event: Event)                |
+
+### 插槽
+
+| 名称 | 说明                          |
+| ---- | ----------------------------- |
+| -    | 自定插槽内容，参数为 { data } |
