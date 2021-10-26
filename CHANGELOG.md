@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.14.1
+
+fix
+
+- Crud: loss props to Table
+- Layout: the header z-index too high
+- Form: missing item in label slots
+
+feat
+
+- Select: add default slots
+
 ## 0.14.0
 
 breaking changes
