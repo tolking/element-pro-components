@@ -8,6 +8,24 @@ import {
 } from '../composables/index'
 import props from './props'
 import ProFormItem from './FormItem'
+import type { IFormProps } from './index'
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function createFormProps(props: Omit<IFormProps, 'menu' | 'align'>) {
+  return {
+    rules: props.rules,
+    labelWidth: props.labelWidth,
+    labelSuffix: props.labelSuffix,
+    hideRequiredAsterisk: props.hideRequiredAsterisk,
+    showMessage: props.showMessage,
+    inlineMessage: props.inlineMessage,
+    statusIcon: props.statusIcon,
+    validateOnRuleChange: props.validateOnRuleChange,
+    size: props.size,
+    disabled: props.disabled,
+    scrollToError: props.scrollToError,
+  }
+}
 
 export default defineComponent({
   name: 'ProForm',
@@ -99,29 +117,20 @@ export default defineComponent({
       return h(ElFormItem, { class: 'pro-form-menu' }, () => list)
     }
 
-    return () =>
-      h(
+    return () => {
+      const config = createFormProps(props)
+      return h(
         ElForm,
-        {
+        Object.assign({
           ref: form,
           model: modelValue.value,
-          rules: props.rules,
           inline: inline.value,
           labelPosition: labelPosition.value,
-          labelWidth: props.labelWidth,
-          labelSuffix: props.labelSuffix,
-          hideRequiredAsterisk: props.hideRequiredAsterisk,
-          showMessage: props.showMessage,
-          inlineMessage: props.inlineMessage,
-          statusIcon: props.statusIcon,
-          validateOnRuleChange: props.validateOnRuleChange,
-          size: props.size,
-          disabled: props.disabled,
-          scrollToError: props.scrollToError,
           style: !inline.value ? rowStyle.value : undefined,
           class: ['pro-form', !inline.value ? rowClass.value : ''],
-        },
+        }, config),
         () => [createColumn(), slots.default && slots.default(), createMenu()]
       )
+    }
   },
 })
