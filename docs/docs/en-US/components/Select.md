@@ -125,6 +125,51 @@ export default {
 
 :::
 
+### Slots
+
+You can customize HTML templates for options
+
+::: demo
+
+<template>
+  <pro-select
+    v-model="select5"
+    :data="data"
+    :config="config"
+  >
+    <template #default="{ data }">
+      <span>{{ data.label }}</span>
+      <span style="float:right">{{ data.value }}</span>
+    </template>
+  </pro-select>
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const select5 = ref('')
+    const config = ref({ value: 'label', label: 'value' })
+    const data = ref([
+      { value: 'Go', label: 'go' },
+      { value: 'JavaScript', label: 'javascript' },
+      { value: 'Python', label: 'python' },
+      { value: 'Dart', label: 'dart' },
+      { value: 'V', label: 'v' },
+    ])
+
+    return {
+      select5,
+      config,
+      data,
+    }
+  }
+}
+</script>
+
+:::
+
 ### Basic multiple select
 
 Set `multiple` attribute to enable multiple mode. In this case, the value of v-model will be an array of selected options
@@ -260,3 +305,9 @@ export default {
 | clear          | triggers when the clear icon is clicked in a clearable Select | —                                         |
 | blur           | triggers when Input blurs                                     | (event: Event)                            |
 | focus          | triggers when Input focuses                                   | (event: Event)                            |
+
+### Slots
+
+| Name | Description                               |
+| ---- | ----------------------------------------- |
+| -    | Custom content. The parameter is { data } |
