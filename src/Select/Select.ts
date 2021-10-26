@@ -36,16 +36,20 @@ export default defineComponent({
   name: 'ProSelect',
   props,
   emits: ['update:modelValue'],
-  setup(props) {
+  setup(props, { slots }) {
     const data = useSelectData(props)
     const emitValue = useEmitValue()
 
     function createOption(item: SelectDataItem): VNode {
-      return h(ElOption, {
-        value: item.value,
-        label: item.label,
-        disabled: item.disabled,
-      })
+      return h(
+        ElOption,
+        {
+          value: item.value,
+          label: item.label,
+          disabled: item.disabled,
+        },
+        () => slots.default && slots.default({ data: item })
+      )
     }
 
     function createDefault() {
@@ -64,16 +68,19 @@ export default defineComponent({
       const config = createSelectProps(props)
       return h(
         ElSelect,
-        Object.assign({
-          modelValue: props.modelValue,
-          filterable: props.filterable,
-          popperClass: props.popperClass,
-          filterMethod: props.filterMethod,
-          multiple: props.multiple,
-          class: 'pro-select',
-          'onUpdate:modelValue': emitValue,
-        }, config),
-        () => createDefault(),
+        Object.assign(
+          {
+            modelValue: props.modelValue,
+            filterable: props.filterable,
+            popperClass: props.popperClass,
+            filterMethod: props.filterMethod,
+            multiple: props.multiple,
+            class: 'pro-select',
+            'onUpdate:modelValue': emitValue,
+          },
+          config
+        ),
+        () => createDefault()
       )
     }
   },
