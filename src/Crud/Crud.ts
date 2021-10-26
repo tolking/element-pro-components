@@ -11,6 +11,8 @@ import {
   useCrudSlots,
 } from '../composables/index'
 import { isFunction, isObject } from '../utils/index'
+import { createTableProps } from '../Table/Table'
+import { createFormProps } from '../Form/Form'
 import props from './props'
 import ProForm from '../Form/index'
 import ProTable from '../Table/index'
@@ -209,6 +211,7 @@ export default defineComponent({
     }
 
     function createTable() {
+      const config = createTableProps(props)
       const showMenu =
         menuColumns.value?.edit || menuColumns.value?.del || slots.menu
       const menuSlots = showMenu
@@ -217,47 +220,13 @@ export default defineComponent({
 
       return h(
         ProTable,
-        {
-          ...attrs.value,
-          ...pagination.value,
+        Object.assign({
           ref: table,
-          columns: tableColumns.value,
+          selection: props.selection,
+          expand: props.expand,
+          index: props.index,
           menu: menuColumns.value,
-          size: props.size,
-          data: props.data,
-          height: props.height,
-          maxHeight: props.maxHeight,
-          fit: props.fit,
-          stripe: props.stripe,
-          border: props.border,
-          rowKey: props.rowKey,
-          showHeader: props.showHeader,
-          showSummary: props.showSummary,
-          sumText: props.sumText,
-          summaryMethod: props.summaryMethod,
-          rowClassName: props.rowClassName,
-          rowStyle: props.rowStyle,
-          cellClassName: props.cellClassName,
-          cellStyle: props.cellStyle,
-          headerRowClassName: props.headerRowClassName,
-          headerRowStyle: props.headerRowStyle,
-          headerCellClassName: props.headerCellClassName,
-          headerCellStyle: props.headerCellStyle,
-          highlightCurrentRow: props.highlightCurrentRow,
-          currentRowKey: props.currentRowKey,
-          emptyText: props.emptyText,
-          expandRowKeys: props.expandRowKeys,
-          defaultExpandAll: props.defaultExpandAll,
-          defaultSort: props.defaultSort,
-          tooltipEffect: props.tooltipEffect,
-          spanMethod: props.spanMethod,
-          selectOnIndeterminate: props.selectOnIndeterminate,
-          indent: props.indent,
-          treeProps: props.treeProps,
-          lazy: props.lazy,
-          load: props.load,
-          style: props.style,
-          className: props.className,
+          columns: tableColumns.value,
           currentPage: props.currentPage,
           pageSize: props.pageSize,
           total: props.total,
@@ -266,8 +235,8 @@ export default defineComponent({
           'onUpdate:currentPage': currentChange,
           onPrevClick: prevClick,
           onNextClick: nextClick,
-        },
-        Object.assign({}, tableSlots, menuSlots)
+        }, config, pagination.value, attrs.value),
+        Object.assign({}, tableSlots, menuSlots),
       )
     }
 
@@ -308,6 +277,7 @@ export default defineComponent({
     }
 
     function createForm() {
+      const option = createFormProps(props)
       return formColumns.value?.length
         ? h(
             ElDialog,
@@ -333,31 +303,19 @@ export default defineComponent({
               dialogVisible.value
                 ? h(
                     ProForm,
-                    {
-                      ...attrs.value,
+                    Object.assign({
                       ref: form,
                       modelValue: props.modelValue,
                       columns: formColumns.value,
                       menu: menuColumns.value,
-                      size: props.size,
-                      rules: props.rules,
                       inline: props.inline,
                       labelPosition: props.labelPosition,
-                      labelWidth: props.labelWidth,
-                      labelSuffix: props.labelSuffix,
-                      hideRequiredAsterisk: props.hideRequiredAsterisk,
-                      showMessage: props.showMessage,
-                      inlineMessage: props.inlineMessage,
-                      statusIcon: props.statusIcon,
-                      validateOnRuleChange: props.validateOnRuleChange,
-                      disabled: props.disabled,
-                      scrollToError: props.scrollToError,
                       class: 'pro-crud-form',
                       'onUpdate:modelValue': upFormData,
                       onSubmit: submitForm,
                       onReset: resetForm,
-                    },
-                    formSlots
+                    }, option, attrs.value),
+                    formSlots,
                   )
                 : null
           )
