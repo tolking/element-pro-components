@@ -45,13 +45,16 @@ export default defineComponent({
 
     function createLabel() {
       if (slots[item.value.prop + '-label']) {
-        return (slots[item.value.prop + '-label'] as Slot)()
+        return (slots[item.value.prop + '-label'] as Slot)({ item: item.value })
       }
     }
 
-    function createError(scope: unknown) {
+    function createError(scope: UnknownObject) {
       if (slots[item.value.prop + '-error']) {
-        return (slots[item.value.prop + '-error'] as Slot)(scope)
+        return (slots[item.value.prop + '-error'] as Slot)({
+          ...scope,
+          item: item.value,
+        })
       }
     }
 
@@ -140,7 +143,7 @@ export default defineComponent({
         },
         {
           label: () => createLabel(),
-          error: (scope: unknown) => createError(scope),
+          error: (scope: UnknownObject) => createError(scope),
           default: () => createDefault(),
         }
       )
