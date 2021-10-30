@@ -13,6 +13,7 @@ import {
 import { RouterView } from 'vue-router'
 import { ElScrollbar } from 'element-plus'
 import { useScreenSize, useShow } from '../composables/index'
+import { createMenuProps } from '../Menu/Menu'
 import props from './props'
 import ProMenu from '../Menu/index'
 import type { IRouteRecordRaw } from '../types/index'
@@ -34,6 +35,7 @@ export default defineComponent({
     })
 
     function createMenu() {
+      const config = createMenuProps(props)
       const menuSlots = slots.menu
         ? {
             default: (scope: unknown) => slots.menu && slots.menu(scope),
@@ -42,18 +44,14 @@ export default defineComponent({
 
       return h(
         ProMenu,
-        {
-          collapse: collapse.value,
-          mode: mode.value,
-          routes: props.routes,
-          defaultOpeneds: props.defaultOpeneds,
-          uniqueOpened: props.uniqueOpened,
-          menuTrigger: props.menuTrigger,
-          backgroundColor: props.backgroundColor,
-          textColor: props.textColor,
-          activeTextColor: props.activeTextColor,
-          collapseTransition: props.collapseTransition,
-        },
+        Object.assign(
+          {
+            collapse: collapse.value,
+            mode: mode.value,
+            routes: props.routes,
+          },
+          config
+        ),
         menuSlots
       )
     }
