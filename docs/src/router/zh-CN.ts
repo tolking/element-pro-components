@@ -116,6 +116,11 @@ const zhCN: RouteRecordRaw[] = [
         component: () => import('../../docs/zh-CN/components/ColumnSetting.md'),
         meta: { title: 'ColumnSetting' },
       },
+      {
+        path: '/zh-CN/components/descriptions',
+        component: () => import('../../docs/zh-CN/components/descriptions.md'),
+        meta: { title: 'Descriptions' },
+      },
     ],
   },
 ]

@@ -116,6 +116,11 @@ const enUS: RouteRecordRaw[] = [
         component: () => import('../../docs/en-US/components/ColumnSetting.md'),
         meta: { title: 'ColumnSetting' },
       },
+      {
+        path: '/en-US/components/descriptions',
+        component: () => import('../../docs/en-US/components/descriptions.md'),
+        meta: { title: 'Descriptions' },
+      },
     ],
   },
 ]
