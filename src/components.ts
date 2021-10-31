@@ -4,6 +4,7 @@ export * from './Checkbox/index'
 export * from './CheckboxButton/index'
 export * from './ColumnSetting/index'
 export * from './Crud/index'
+export * from './Descriptions/index'
 export * from './Form/index'
 export * from './InputTag/index'
 export * from './Layout/index'
@@ -22,6 +23,7 @@ import ProCheckbox from './Checkbox/index'
 import ProCheckboxButton from './CheckboxButton/index'
 import ProColumnSetting from './ColumnSetting/index'
 import ProCrud from './Crud/index'
+import ProDescriptions from './Descriptions/index'
 import ProForm from './Form/index'
 import ProInputTag from './InputTag/index'
 import ProLayout from './Layout/index'
@@ -41,6 +43,7 @@ export {
   ProCheckboxButton,
   ProColumnSetting,
   ProCrud,
+  ProDescriptions,
   ProForm,
   ProInputTag,
   ProLayout,
@@ -62,6 +65,7 @@ declare module 'vue' {
     ProCheckboxButton: typeof ProCheckboxButton
     ProColumnSetting: typeof ProColumnSetting
     ProCrud: typeof ProCrud
+    ProDescriptions: typeof ProDescriptions
     ProForm: typeof ProForm
     ProInputTag: typeof ProInputTag
     ProLayout: typeof ProLayout
