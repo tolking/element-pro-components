@@ -16,7 +16,7 @@ Compared with the vue-router type, only the `meta` attribute is extended
 ```ts
 interface RouteMeta {
   title?: string // Show menu title
-  icon?: string // Show menu icon
+  icon?: string | Component // Show menu icon
   hidden?: boolean // Whether to display in the menu, does not affect the router jump
   keepAlive?: boolean // Whether to keepAlive
 }
@@ -44,7 +44,7 @@ yarn add @element-plus/icons
 npm install @element-plus/icons
 ```
 
-- **Globally register** requires icon components
+- Globally register
 
 ```js
 import { Edit } from '@element-plus/icons'
@@ -52,14 +52,25 @@ import { Edit } from '@element-plus/icons'
 app.component(Edit.name, Edit)
 ```
 
-- Custom icon
-
 ```js
 {
   name: 'admin',
   path: '/admin',
   component: Layout,
   meta: { title: 'Admin', icon: 'edit' },
+}
+```
+
+- Use components
+
+```js
+import { Edit } from '@element-plus/icons'
+// ...
+{
+  name: 'admin',
+  path: '/admin',
+  component: Layout,
+  meta: { title: 'Admin', icon: Edit },
 }
 ```
 

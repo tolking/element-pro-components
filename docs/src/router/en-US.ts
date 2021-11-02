@@ -1,3 +1,4 @@
+import { House, TakeawayBox } from '@element-plus/icons'
 import BaseLayout from '../layout/Layout.vue'
 import type { RouteRecordRaw } from 'vue-router'
 
@@ -6,7 +7,7 @@ const enUS: RouteRecordRaw[] = [
     path: '/en-US/',
     redirect: '/en-US/guide/',
     component: BaseLayout,
-    meta: { title: 'Guide', icon: 'icon-house' },
+    meta: { title: 'Guide', icon: House },
     children: [
       {
         path: '/en-US/guide/introduction',
@@ -44,7 +45,7 @@ const enUS: RouteRecordRaw[] = [
     path: '/en-US/components/',
     redirect: '/en-US/components/layout',
     component: BaseLayout,
-    meta: { title: 'Components', icon: 'icon-takeaway-box' },
+    meta: { title: 'Components', icon: TakeawayBox },
     children: [
       {
         path: '/en-US/components/layout',
