@@ -1,5 +1,6 @@
 import { defineComponent, computed, h, toRefs } from 'vue'
 import { ElDropdown, ElDropdownMenu, ElButton, ElTree } from 'element-plus'
+import { Setting } from '@element-plus/icons'
 import { filterFlat } from '../utils/index'
 import props, { treeProps } from './props'
 import type { ICrudColumns, CrudColumn } from '../Crud/index'
@@ -95,7 +96,7 @@ export default defineComponent({
             h(ElButton, {
               size: props.size,
               circle: true,
-              icon: 'el-icon-setting',
+              icon: Setting,
             }),
           dropdown: () => createMenu(),
         }
