@@ -1,3 +1,4 @@
+import type { Component } from 'vue'
 import 'vue-router'
 
 declare module 'vue-router' {
@@ -5,7 +6,7 @@ declare module 'vue-router' {
     /** the Menu title */
     title?: string
     /** the Menu icon */
-    icon?: string
+    icon?: string | Component
     /** whether to show in the Menu */
     hidden?: boolean
     /** whether the current route is keepAlive */

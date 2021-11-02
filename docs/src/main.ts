@@ -11,13 +11,6 @@ import {
   ElDatePicker,
   ElCard,
 } from 'element-plus'
-import {
-  Edit,
-  House,
-  TakeawayBox,
-  CaretTop,
-  CaretBottom,
-} from '@element-plus/icons'
 import ElementPro from '/@src/index'
 import ProCode from './components/ProCode.vue'
 import Layout from './App.vue'
@@ -49,11 +42,6 @@ export function createApp(): {
     .use(ElDatePicker)
     .use(ElCard)
     .component('ProCode', ProCode)
-    .component('icon-edit', Edit)
-    .component('icon-house', House)
-    .component('icon-takeaway-box', TakeawayBox)
-    .component('icon-caret-top', CaretTop)
-    .component('icon-caret-bottom', CaretBottom)
     .use(ElementPro)
 
   return { app, router, head }
