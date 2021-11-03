@@ -102,6 +102,7 @@
     "postcss-preset-env": "^6.7.0",
     "prettier": "2.2.1",
     "prismjs": "^1.25.0",
+    "resize-observer-polyfill": "^1.5.1",
     "rimraf": "^3.0.2",
     "sitemap": "^7.0.0",
     "ts-jest": "^26.5.6",
