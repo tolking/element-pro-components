@@ -64,13 +64,14 @@ app.component(Edit.name, Edit)
 - 直接使用
 
 ```js
+import { markRaw } from 'vue'
 import { Edit } from '@element-plus/icons'
 // ...
 {
   name: 'admin',
   path: '/admin',
   component: Layout,
-  meta: { title: 'Admin', icon: Edit },
+  meta: { title: 'Admin', icon: markRaw(Edit) },
 }
 ```
 

@@ -59,10 +59,10 @@
   },
   "dependencies": {
     "@element-plus/icons": "^0.0.11",
-    "@vue/shared": "^3.2.20",
-    "@vueuse/core": "^6.7.4",
-    "element-plus": "^1.2.0-beta.1",
-    "vue": "^3.2.20",
+    "@vue/shared": "^3.2.21",
+    "@vueuse/core": "^6.8.0",
+    "element-plus": "^1.2.0-beta.2",
+    "vue": "^3.2.21",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
@@ -77,8 +77,8 @@
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "@vitejs/plugin-vue": "^1.9.4",
-    "@vue/compiler-sfc": "^3.2.20",
-    "@vue/server-renderer": "^3.2.20",
+    "@vue/compiler-sfc": "^3.2.21",
+    "@vue/server-renderer": "^3.2.21",
     "@vue/test-utils": "^2.0.0-rc.16",
     "@vueuse/head": "^0.6.0",
     "babel-jest": "^26.6.3",
