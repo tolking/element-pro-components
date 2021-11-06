@@ -1,3 +1,4 @@
+import { markRaw } from 'vue'
 import { House, TakeawayBox } from '@element-plus/icons'
 import BaseLayout from '../layout/Layout.vue'
 import type { RouteRecordRaw } from 'vue-router'
@@ -7,7 +8,7 @@ const zhCN: RouteRecordRaw[] = [
     path: '/zh-CN/',
     redirect: '/zh-CN/guide/',
     component: BaseLayout,
-    meta: { title: '指南', icon: House },
+    meta: { title: '指南', icon: markRaw(House) },
     children: [
       {
         path: '/zh-CN/guide/introduction',
@@ -45,7 +46,7 @@ const zhCN: RouteRecordRaw[] = [
     path: '/zh-CN/components/',
     redirect: '/zh-CN/components/layout',
     component: BaseLayout,
-    meta: { title: '组件', icon: TakeawayBox },
+    meta: { title: '组件', icon: markRaw(TakeawayBox) },
     children: [
       {
         path: '/zh-CN/components/layout',
