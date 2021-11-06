@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.15.0
+
+breaking changes
+
+- remove function findRouterPath
+
+fix
+
+- Menu: styles error
+- ColumnSetting: missing icon on plus^1.2.0
+
+feat
+
+- Descriptions: add ProDescriptions
+- Breadcrumb: realized by route.matched
+- add components as icon in router
+
 ## 0.14.1
 
 fix
