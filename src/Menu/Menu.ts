@@ -11,6 +11,20 @@ import props from './props'
 import ProMenuItem from './MenuItem'
 import ProLink from '../Link/index'
 import type { IRouteRecordRaw } from '../types/index'
+import type { IMenuProps } from './index'
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function createMenuProps(props: IMenuProps) {
+  return {
+    defaultOpeneds: props.defaultOpeneds,
+    uniqueOpened: props.uniqueOpened,
+    menuTrigger: props.menuTrigger,
+    backgroundColor: props.backgroundColor,
+    textColor: props.textColor,
+    activeTextColor: props.activeTextColor,
+    collapseTransition: props.collapseTransition,
+  }
+}
 
 export default defineComponent({
   name: 'ProMenu',
@@ -33,22 +47,19 @@ export default defineComponent({
       }
     }
 
-    return () =>
-      h(
+    return () => {
+      const config = createMenuProps(props)
+      return h(
         ElMenu,
-        {
-          defaultActive: route?.path,
-          mode: props.mode,
-          defaultOpeneds: props.defaultOpeneds,
-          uniqueOpened: props.uniqueOpened,
-          menuTrigger: props.menuTrigger,
-          collapse: props.collapse,
-          backgroundColor: props.backgroundColor,
-          textColor: props.textColor,
-          activeTextColor: props.activeTextColor,
-          collapseTransition: props.collapseTransition,
-          class: 'pro-menu',
-        },
+        Object.assign(
+          {
+            defaultActive: route?.path,
+            mode: props.mode,
+            collapse: props.collapse,
+            class: 'pro-menu',
+          },
+          config
+        ),
         () =>
           routes.value.map((menu) => {
             return h(
@@ -58,5 +69,6 @@ export default defineComponent({
             )
           })
       )
+    }
   },
 })

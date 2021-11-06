@@ -22,11 +22,11 @@
       class="control"
       @click="toggleShow"
     >
-      <icon-caret-top
+      <caret-top
         v-if="show"
         class="control-icon"
       />
-      <icon-caret-bottom
+      <caret-bottom
         v-else
         class="control-icon"
       />
@@ -40,6 +40,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { useLocaleInject } from 'element-plus'
+import { CaretTop, CaretBottom } from '@element-plus/icons'
 import { useShow } from '/@src/index'
 
 const { t } = useLocaleInject()

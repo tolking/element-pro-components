@@ -1,6 +1,5 @@
 import {
   checkUrl,
-  findRouterPath,
   getScreenSize,
   objectDeepMerge,
   objectPick,
@@ -8,12 +7,7 @@ import {
   filterDeep,
   filterFlat,
 } from '../src/utils/index'
-import { routes, slotList, SlotItem } from './mock'
-import type { IRouteRecordRaw } from '../src/types/index'
-
-function getRouterTitle(list: IRouteRecordRaw[]) {
-  return list.map((item) => item.meta?.title || '')
-}
+import { slotList, SlotItem } from './mock'
 
 describe('all utils', () => {
   describe('checkUrl', () => {
@@ -26,16 +20,6 @@ describe('all utils', () => {
     test('checkUrl /children', () => {
       expect(checkUrl('/children')).toBeFalsy()
     })
-  })
-
-  describe('findRouterPath', () => {
-    const indexPath = findRouterPath(routes, '/index')
-    const twoPath = findRouterPath(routes, '/two/info')
-
-    expect(getRouterTitle(indexPath)).toContain('home')
-    expect(getRouterTitle(indexPath)).toContain('Home')
-    expect(getRouterTitle(twoPath)).toContain('two')
-    expect(getRouterTitle(twoPath)).toContain('twoInfo')
   })
 
   describe('getScreenSize', () => {

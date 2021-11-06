@@ -22,6 +22,19 @@ export function initRouter(
   useRoute.mockImplementation(() => ({
     path: '/index',
     meta: { title: 'Home' },
+    matched: [
+      {
+        path: '/',
+        redirect: '/index',
+        component: { template: '<router-view />' },
+        meta: { title: 'home', icon: 'icon-house' },
+      },
+      {
+        path: '/index',
+        component: { template: 'index page' },
+        meta: { title: 'Home' },
+      },
+    ],
   }))
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore

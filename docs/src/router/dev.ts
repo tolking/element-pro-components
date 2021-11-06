@@ -1,3 +1,4 @@
+import { Edit } from '@element-plus/icons'
 import BaseLayout from '../layout/Layout.vue'
 import type { RouteRecordRaw } from 'vue-router'
 
@@ -6,7 +7,7 @@ const routes: RouteRecordRaw[] = [
     path: '/dev/',
     redirect: '/dev/Layout',
     component: BaseLayout,
-    meta: { title: 'Development', icon: 'icon-edit' },
+    meta: { title: 'Development', icon: Edit },
     children: [
       {
         path: '/dev/Layout',

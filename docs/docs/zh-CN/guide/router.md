@@ -16,7 +16,7 @@ meta:
 ```ts
 interface RouteMeta {
   title?: string // 用于显示菜单标题
-  icon?: string // 用于显示菜单图标
+  icon?: string | Component // 用于显示菜单图标
   hidden?: boolean // 用于判断是否在菜单中显示，不影响 router-link 跳转
   keepAlive?: boolean // 控制 keepAlive
 }
@@ -44,7 +44,7 @@ yarn add @element-plus/icons
 npm install @element-plus/icons
 ```
 
-- **全局注册**需要图标组件
+- 全局注册
 
 ```js
 import { Edit } from '@element-plus/icons'
@@ -52,14 +52,25 @@ import { Edit } from '@element-plus/icons'
 app.component(Edit.name, Edit)
 ```
 
-- 定义路由 icon
-
 ```js
 {
   name: 'admin',
   path: '/admin',
   component: Layout,
   meta: { title: 'Admin', icon: 'edit' },
+}
+```
+
+- 直接使用
+
+```js
+import { Edit } from '@element-plus/icons'
+// ...
+{
+  name: 'admin',
+  path: '/admin',
+  component: Layout,
+  meta: { title: 'Admin', icon: Edit },
 }
 ```
 
