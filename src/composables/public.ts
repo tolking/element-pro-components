@@ -10,6 +10,8 @@ import {
 } from 'vue'
 import { useRouter, RouteRecordRaw } from 'vue-router'
 import { useWindowSize } from '@vueuse/core'
+import get from 'lodash/get'
+import set from 'lodash/set'
 import { config } from '../utils/config'
 import { getScreenSize, objectDeepMerge } from '../utils/index'
 import type {
@@ -17,6 +19,8 @@ import type {
   IScreenSize,
   InstallOptions,
   MaybeRef,
+  UnknownObject,
+  StringObject,
 } from '../types/index'
 
 /** get the global config */
@@ -103,4 +107,41 @@ export function useEmitValue(
   }
 
   return emitValue
+}
+
+interface Deep {
+  deep?: boolean
+}
+
+export function useGetValue(
+  item: MaybeRef<Deep>,
+  props?: Readonly<Deep>
+): <Obj extends UnknownObject, Key extends keyof Obj>(
+  object: Obj,
+  path: Key
+) => Obj[Key] {
+  function getValue<Obj extends UnknownObject, Key extends keyof Obj>(
+    object: Obj,
+    path: Key
+  ) {
+    return object[path]
+  }
+
+  return props?.deep || unref(item).deep ? get : getValue
+}
+
+export function useSetValue(
+  item: MaybeRef<Deep>,
+  props?: Readonly<Deep>
+): <Obj = UnknownObject>(object: Obj, path: string, value: unknown) => Obj {
+  function setValue<Obj = UnknownObject>(
+    object: Obj,
+    path: string,
+    value: unknown
+  ) {
+    (object as StringObject)[path] = value
+    return object
+  }
+
+  return props?.deep || unref(item).deep ? set : setValue
 }
