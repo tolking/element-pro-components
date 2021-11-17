@@ -21,6 +21,7 @@ import type {
   MaybeRef,
   UnknownObject,
   StringObject,
+  DeepKeyof,
 } from '../types/index'
 
 /** get the global config */
@@ -116,11 +117,11 @@ interface Deep {
 export function useGetValue(
   item: MaybeRef<Deep>,
   props?: Readonly<Deep>
-): <Obj extends UnknownObject, Key extends keyof Obj>(
+): <Obj extends UnknownObject, Key extends DeepKeyof<Obj>>(
   object: Obj,
   path: Key
 ) => Obj[Key] {
-  function getValue<Obj extends UnknownObject, Key extends keyof Obj>(
+  function getValue<Obj extends UnknownObject, Key extends DeepKeyof<Obj>>(
     object: Obj,
     path: Key
   ) {
