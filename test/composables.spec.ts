@@ -6,8 +6,6 @@ import {
   useScreenSize,
   useRow,
   useCol,
-  useGetValue,
-  useSetValue,
 } from '../src/composables/index'
 import { config } from '../src/utils/config'
 
@@ -163,55 +161,6 @@ describe('some composables', () => {
       expect(vm.colClass).toContain('el-col')
       expect(vm.colClass).toContain('el-col-sm-4')
       expect(vm.colClass).toContain('el-col-sm-pull-2')
-    })
-  })
-
-  describe('useGetValue', () => {
-    test('false', async () => {
-      const getValue = useGetValue({ deep: false })
-
-      expect(getValue({ a: 'a' }, 'a')).toBe('a')
-      expect(getValue({ a: { b: 'b' }, 'a.b': 'a.b' }, 'a.b')).toBe('a.b')
-    })
-    test('deep', async () => {
-      const getValue = useGetValue({ deep: true })
-
-      expect(getValue({ a: 'a' }, 'a')).toBe('a')
-      expect(getValue({ a: { b: 'b' } }, 'a.b')).toBe('b')
-      expect(getValue({ a: { b: 'b' }, 'a.b': 'a.b' }, 'a.b')).toBe('a.b')
-      expect(getValue({ 'a.b': 'a.b', a: { b: 'b' } }, 'a.b')).toBe('a.b')
-      expect(getValue({ a: ['a'] }, 'a[0]')).toBe('a')
-      expect(getValue({ a: { b: ['b'] } }, 'a.b[0]')).toBe('b')
-    })
-  })
-
-  describe('useSetValue', () => {
-    test('false', async () => {
-      const setValue = useSetValue({ deep: false })
-
-      expect(setValue({ a: 'a' }, 'a', '-')).toEqual({ a: '-' })
-      expect(setValue({ a: { b: 'b' }, 'a.b': 'a.b' }, 'a.b', '-')).toEqual({
-        a: { b: 'b' },
-        'a.b': '-',
-      })
-    })
-    test('deep', () => {
-      const setValue = useSetValue({ deep: true })
-
-      expect(setValue({ a: 'a' }, 'a', '-')).toEqual({ a: '-' })
-      expect(setValue({ a: { b: 'b' } }, 'a.b', '-')).toEqual({ a: { b: '-' } })
-      expect(setValue({ a: { b: 'b' }, 'a.b': 'a.b' }, 'a.b', '-')).toEqual({
-        a: { b: 'b' },
-        'a.b': '-',
-      })
-      expect(setValue({ 'a.b': 'a.b', a: { b: 'b' } }, 'a.b', '-')).toEqual({
-        a: { b: 'b' },
-        'a.b': '-',
-      })
-      expect(setValue({ a: ['a'] }, 'a[0]', '-')).toEqual({ a: ['-'] })
-      expect(setValue({ a: { b: ['b'] } }, 'a.b[0]', '-')).toEqual({
-        a: { b: ['-'] },
-      })
     })
   })
 })
