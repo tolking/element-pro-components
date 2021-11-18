@@ -10,7 +10,36 @@ export type UnknownObject = Record<string | number, unknown>
 export type UnknownFunction = (...arg: unknown[]) => unknown
 
 /**
- * Get the key value of the object and the array object in the object
+ * Get the deep key of the object
+ *
+ * for example:
+ *
+ * ```
+ *  DeepObjectKeyof<{
+ *    name: string
+ *    address: string
+ *  }> // -> 'name' | 'address'
+ *
+ *  DeepObjectKeyof<{
+ *    date: string
+ *    user: {
+ *      name: string
+ *      address: string
+ *    }[]
+ *  }> // -> "date" | "user" | "name" | "address" | `user[${number}]` | `user[${number}].name` | `user[${number}].address`
+ * ```
+ */
+export type DeepObjectKeyof<T> = {
+  [Q in keyof T]:
+    | Q
+    | DeepKeyof<T[Q]>
+    | `${Q & string}${T[Q] extends unknown[] ? `[${number}]` : ''}${
+        | `.${DeepKeyof<T[Q]>}`
+        | ''}`
+}[keyof T]
+
+/**
+ * Get the deep key of the object and the array object in the object
  *
  * for example:
  *
@@ -26,12 +55,14 @@ export type UnknownFunction = (...arg: unknown[]) => unknown
  *      name: string
  *      address: string
  *    }[]
- *  }> // -> 'date' | 'user' | 'name' | 'address'
+ *  }> // -> "date" | "user" | "name" | "address" | `user[${number}]` | `user[${number}].name` | `user[${number}].address`
  * ```
  */
-export type DeepKeyof<T> = {
-  [Q in keyof T]: T[Q] extends UnknownObject[] ? DeepKeyof<T[Q][number]> | Q : Q
-}[keyof T]
+export type DeepKeyof<T> = T extends UnknownObject
+  ? DeepObjectKeyof<T>
+  : T extends UnknownObject[]
+  ? DeepObjectKeyof<T[number]>
+  : never
 
 export type MaybeArray<T> = T | Array<T>
 
