@@ -103,6 +103,47 @@ export default {
 
 :::
 
+### Nested value
+
+::: demo
+
+<template>
+  <pro-descriptions
+    :columns="columns3"
+    :detail="detail3"
+    :column="1"
+  />
+</template>
+
+<script>
+export default {
+  setup() {
+    const columns3 = [
+      { label: 'A', prop: 'a' },
+      { label: 'B', prop: 'b.c' },
+      { label: 'C', prop: 'b.d' },
+      { label: 'D', prop: 'd[0].e' },
+    ]
+    const detail3 = {
+      a: 'a value',
+      'b.c': 'break nested value',
+      b: {
+        c: 'nested value c in b',
+        d: 'nested value d in b',
+      },
+      d: [{ e: 'nested value in array' }]
+    }
+
+    return {
+      columns3,
+      detail3,
+    }
+  }
+}
+</script>
+
+:::
+
 ### Props
 
 | Name      | Description                                        | Type    | Options               | Default    |
