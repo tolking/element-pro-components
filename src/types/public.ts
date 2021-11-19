@@ -25,12 +25,12 @@ type WithNumber<T, Q extends keyof T> = `${Q & string}${T[Q] extends unknown[]
  * for example:
  *
  * ```
- *  DeepObjectKeyof<{
+ *  DeepKeyof<{
  *    name: string
  *    address: string
  *  }> // -> 'name' | 'address'
  *
- *  DeepObjectKeyof<{
+ *  DeepKeyof<{
  *    date: string
  *    user: {
  *      name: string
