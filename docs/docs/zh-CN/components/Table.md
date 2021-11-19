@@ -76,6 +76,57 @@ export default {
 
 :::
 
+### 获取嵌套键值
+
+::: demo
+
+<template>
+  <pro-table
+    :data="data4"
+    :columns="columns5"
+  />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const columns5 = [
+      {
+        label: 'Default',
+        prop: 'b.c',
+      },
+      {
+        label: 'Object',
+        prop: 'b.d',
+      },
+      {
+        label: 'Array',
+        prop: 'd[0].e',
+      },
+    ]
+    const data4 = ref([
+      {
+        'b.c': 'break nested value',
+        b: {
+          c: 'nested value c in b',
+          d: 'nested value d in b',
+        },
+        d: [{ e: 'nested value in array' }],
+      },
+    ])
+
+    return {
+      data4,
+      columns5,
+    }
+  }
+}
+</script>
+
+:::
+
 ### 索引表格
 
 通过配置 `index` 显示索引列，支持 columns 的参数

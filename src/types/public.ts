@@ -9,8 +9,18 @@ export type UnknownObject = Record<string | number, unknown>
 
 export type UnknownFunction = (...arg: unknown[]) => unknown
 
+type DeepNested<T> = T extends UnknownObject
+  ? DeepKeyof<T>
+  : T extends UnknownObject[]
+  ? DeepKeyof<T[number]>
+  : never
+
+type WithNumber<T, Q extends keyof T> = `${Q & string}${T[Q] extends unknown[]
+  ? `[${number}]`
+  : ''}${`.${DeepNested<T[Q]>}` | ''}`
+
 /**
- * Get the key value of the object and the array object in the object
+ * Get the deep key of the object
  *
  * for example:
  *
@@ -26,11 +36,11 @@ export type UnknownFunction = (...arg: unknown[]) => unknown
  *      name: string
  *      address: string
  *    }[]
- *  }> // -> 'date' | 'user' | 'name' | 'address'
+ *  }> // -> "date" | "user" | "name" | "address" | `user[${number}]` | `user[${number}].name` | `user[${number}].address`
  * ```
  */
 export type DeepKeyof<T> = {
-  [Q in keyof T]: T[Q] extends UnknownObject[] ? DeepKeyof<T[Q][number]> | Q : Q
+  [Q in keyof T]: Q | DeepNested<T[Q]> | WithNumber<T, Q>
 }[keyof T]
 
 export type MaybeArray<T> = T | Array<T>

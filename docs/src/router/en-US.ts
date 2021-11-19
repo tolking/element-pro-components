@@ -120,7 +120,7 @@ const enUS: RouteRecordRaw[] = [
       },
       {
         path: '/en-US/components/descriptions',
-        component: () => import('../../docs/en-US/components/descriptions.md'),
+        component: () => import('../../docs/en-US/components/Descriptions.md'),
         meta: { title: 'Descriptions' },
       },
     ],
