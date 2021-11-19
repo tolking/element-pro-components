@@ -17,8 +17,6 @@ import type {
   IScreenSize,
   InstallOptions,
   MaybeRef,
-  UnknownObject,
-  StringObject,
 } from '../types/index'
 
 /** get the global config */

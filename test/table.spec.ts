@@ -385,4 +385,41 @@ describe('Table', () => {
     await (vm.columns = columns)
     expect(getMultiHeader(wrapper)).toHaveLength(1)
   })
+
+  test('Nested value', async () => {
+    const wrapper = await _mount({
+      template: '<pro-table :columns="columns" :data="data" />',
+      setup() {
+        const columns = [
+          {
+            label: 'Default',
+            prop: 'b.c',
+          },
+          {
+            label: 'Object',
+            prop: 'b.d',
+          },
+          {
+            label: 'Array',
+            prop: 'd[0].e',
+          },
+        ]
+        const data = [
+          {
+            'b.c': 'break nested value',
+            b: {
+              c: 'nested value c in b',
+              d: 'nested value d in b',
+            },
+            d: [{ e: 'nested value in array' }],
+          },
+        ]
+        return { columns, data }
+      },
+    })
+
+    expect(getBodyItem(wrapper, 1)[0]).toBe('break nested value')
+    expect(getBodyItem(wrapper, 1)[1]).toBe('nested value d in b')
+    expect(getBodyItem(wrapper, 1)[2]).toBe('nested value in array')
+  })
 })

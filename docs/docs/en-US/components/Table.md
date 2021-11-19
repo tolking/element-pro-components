@@ -76,6 +76,57 @@ export default {
 
 :::
 
+### Nested value
+
+::: demo
+
+<template>
+  <pro-table
+    :data="data4"
+    :columns="columns5"
+  />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const columns5 = [
+      {
+        label: 'Default',
+        prop: 'b.c',
+      },
+      {
+        label: 'Object',
+        prop: 'b.d',
+      },
+      {
+        label: 'Array',
+        prop: 'd[0].e',
+      },
+    ]
+    const data4 = ref([
+      {
+        'b.c': 'break nested value',
+        b: {
+          c: 'nested value c in b',
+          d: 'nested value d in b',
+        },
+        d: [{ e: 'nested value in array' }],
+      },
+    ])
+
+    return {
+      data4,
+      columns5,
+    }
+  }
+}
+</script>
+
+:::
+
 ### Index Columns
 
 Set `index` attribute to display index columns
