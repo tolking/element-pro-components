@@ -1,5 +1,6 @@
 import { defineComponent, h, toRefs, markRaw, PropType, Slot, VNode } from 'vue'
 import { ElFormItem, ElButton } from 'element-plus'
+import { Plus, Minus } from '@element-plus/icons'
 import get from 'lodash/get'
 import set from 'lodash/set'
 import { useFormItemBind, useFormChild, useCol } from '../composables/index'
@@ -92,7 +93,7 @@ export default defineComponent({
                   })
                 ),
                 h(ElButton, {
-                  icon: 'el-icon-minus',
+                  icon: markRaw(Minus),
                   type: 'danger',
                   circle: true,
                   class: 'delete-bth',
@@ -106,7 +107,7 @@ export default defineComponent({
         showAddBtn.value &&
           list.push(
             h(ElButton, {
-              icon: 'el-icon-plus',
+              icon: markRaw(Plus),
               type: 'primary',
               circle: true,
               onClick: add,
