@@ -94,7 +94,7 @@ export default {
   setup() {
     const columns5 = [
       {
-        label: 'Default',
+        label: 'Break',
         prop: 'b.c',
       },
       {

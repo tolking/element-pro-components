@@ -89,8 +89,13 @@ import { ref } from 'vue'
 
 export default {
   setup() {
-    const form9 = ref({})
+    const form9 = ref({ 'a.b': undefined })
     const columns9 = [
+      {
+        label: 'Break',
+        prop: 'a.b',
+        component: 'el-input',
+      },
       {
         label: 'Object',
         prop: 'a.b.c',
