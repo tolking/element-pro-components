@@ -70,6 +70,61 @@ export default {
 
 :::
 
+### Nested value
+
+::: demo
+
+<template>
+  <p>{{ form9 }}</p>
+  <pro-form
+    v-model="form9"
+    :columns="columns9"
+    label-width="100px"
+    @submit="submit"
+  />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const form9 = ref({ 'a.b': undefined })
+    const columns9 = [
+      {
+        label: 'Break',
+        prop: 'a.b',
+        component: 'el-input',
+      },
+      {
+        label: 'Object',
+        prop: 'a.b.c',
+        component: 'el-input',
+      },
+      {
+        label: 'Array',
+        prop: 'b[0]',
+        component: 'el-input',
+      },
+    ]
+    const submit = (done, isValid, invalidFields) => {
+      console.log(isValid, invalidFields)
+      setTimeout(() => {
+        done()
+      }, 1000)
+    }
+
+    return {
+      form9,
+      columns9,
+      submit,
+    }
+  }
+}
+</script>
+
+:::
+
 ### Custom Component
 
 Set `component` in `columns` attribute to dfine what component the item generates, that component should can bind value ​​through `v-model`. props ​​can be passed to the component through `props`, <pro-link to="https://v3.vuejs.org/guide/render-function.html">render-function</pro-link> can be passed to the component thrrough `slots` in `props`
@@ -157,9 +212,9 @@ export default {
 
 ### Custom local component
 
-Local component can be passed directly through `component` in `columns` attribute, But it is not recommended to use with dynamic form
+Local component can be passed directly through `component` in `columns` attribute (marking the component with `markRaw`)
 
-::: demo For performance reasons, please do not use partial components in dynamic form
+::: demo
 
 <template>
   <pro-form
@@ -172,7 +227,7 @@ Local component can be passed directly through `component` in `columns` attribut
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, markRaw } from 'vue'
 import { ElSwitch } from 'element-plus'
 
 export default {
@@ -185,21 +240,21 @@ export default {
       { value: 'V', label: 'v' },
     ])
     const form7 = ref({})
-    const columns7 = [
+    const columns7 = ref([
       {
         label: 'radio',
         prop: 'radio',
         component: 'pro-radio',
         props: {
-          data: list.value,
+          data: list,
         },
       },
       {
         label: 'switch',
         prop: 'switch',
-        component: ElSwitch,
+        component: markRaw(ElSwitch),
       }
-    ]
+    ])
 
     return {
       form7,
@@ -224,24 +279,24 @@ Directly add some slot with `[prop]` in the template
     label-width="100px"
   >
     <template #slot-label>
-      <i class="el-icon-picture-outline" />
+      <picture-rounded class="icon-picture" />
       <span>picture</span>
     </template>
     <template #slot="{ value, setValue }">
       <el-upload
-        class="avatar-uploader"
-        action=""
         :show-file-list="false"
         :before-upload="(file) => beforeUpload(file, setValue)"
+        action=""
+        class="avatar-uploader"
       >
         <img
           v-if="value"
           :src="value"
           class="avatar"
         >
-        <i
+        <plus
           v-else
-          class="el-icon-plus avatar-uploader-icon"
+          class="icon-uploader"
         />
       </el-upload>
     </template>
@@ -250,6 +305,7 @@ Directly add some slot with `[prop]` in the template
 
 <script>
 import { ref } from 'vue'
+import { Plus, PictureRounded } from '@element-plus/icons'
 
 export default {
   setup() {
@@ -278,26 +334,32 @@ export default {
 </script>
 
 <style>
+.icon-picture {
+  margin-right: 6px;
+  width: 16px;
+  height: 16px;
+}
 .avatar-uploader .el-upload {
+  width: 178px;
+  height: 178px;
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
   overflow: hidden;
+  text-align: center;
+  line-height: 200px;
 }
 .avatar-uploader .el-upload:hover {
   border-color: #409eff;
 }
-.avatar-uploader .avatar-uploader-icon {
-  font-size: 28px;
+.avatar-uploader .icon-uploader {
+  width: 50px;
+  height: 50px;
   color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
-  text-align: center;
 }
 .avatar-uploader .avatar {
-  width: 178px;
-  height: 178px;
   display: block;
+  width: 100%;
+  height: 100%;
 }
 </style>
 
