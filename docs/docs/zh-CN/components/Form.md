@@ -70,6 +70,56 @@ export default {
 
 :::
 
+### 嵌套键值
+
+::: demo
+
+<template>
+  <p>{{ form9 }}</p>
+  <pro-form
+    v-model="form9"
+    :columns="columns9"
+    label-width="100px"
+    @submit="submit"
+  />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const form9 = ref({})
+    const columns9 = [
+      {
+        label: 'Object',
+        prop: 'a.b.c',
+        component: 'el-input',
+      },
+      {
+        label: 'Array',
+        prop: 'b[0]',
+        component: 'el-input',
+      },
+    ]
+    const submit = (done, isValid, invalidFields) => {
+      console.log(isValid, invalidFields)
+      setTimeout(() => {
+        done()
+      }, 1000)
+    }
+
+    return {
+      form9,
+      columns9,
+      submit,
+    }
+  }
+}
+</script>
+
+:::
+
 ### 指定对应的组件
 
 通过 columns 的 `component` 定义该项生成什么组件，要求对应组件可以通过 `v-model` 绑定值。通过 `props` 可以向组件中传值，通过 `props` 里面的 `slots` 可以向组件传递简单的 <pro-link to="https://v3.cn.vuejs.org/guide/render-function.html">渲染函数</pro-link>
@@ -157,9 +207,9 @@ export default {
 
 ### 使用局部组件
 
-通过 `component` 也可以直接传入局部组件，不建议同动态表单一同使用
+通过 `component` 也可以直接传入局部组件 (请使用 `markRaw` 标记)
 
-::: demo 出于性能考虑，请不要在动态表单中使用局部组件
+::: demo
 
 <template>
   <pro-form
@@ -172,7 +222,7 @@ export default {
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, markRaw } from 'vue'
 import { ElSwitch } from 'element-plus'
 
 export default {
@@ -185,21 +235,21 @@ export default {
       { value: 'V', label: 'v' },
     ])
     const form7 = ref({})
-    const columns7 = [
+    const columns7 = ref([
       {
         label: 'radio',
         prop: 'radio',
         component: 'pro-radio',
         props: {
-          data: list.value,
+          data: list,
         },
       },
       {
         label: 'switch',
         prop: 'switch',
-        component: ElSwitch,
+        component: markRaw(ElSwitch),
       }
-    ]
+    ])
 
     return {
       form7,
@@ -224,24 +274,24 @@ export default {
     label-width="100px"
   >
     <template #slot-label>
-      <i class="el-icon-picture-outline" />
+      <picture-rounded class="icon-picture" />
       <span>图片</span>
     </template>
     <template #slot="{ value, setValue }">
       <el-upload
-        class="avatar-uploader"
-        action=""
         :show-file-list="false"
         :before-upload="(file) => beforeUpload(file, setValue)"
+        action=""
+        class="avatar-uploader"
       >
         <img
           v-if="value"
           :src="value"
           class="avatar"
         >
-        <i
+        <plus
           v-else
-          class="el-icon-plus avatar-uploader-icon"
+          class="icon-uploader"
         />
       </el-upload>
     </template>
@@ -250,6 +300,7 @@ export default {
 
 <script>
 import { ref } from 'vue'
+import { Plus, PictureRounded } from '@element-plus/icons'
 
 export default {
   setup() {
@@ -278,26 +329,32 @@ export default {
 </script>
 
 <style>
+.icon-picture {
+  margin-right: 6px;
+  width: 16px;
+  height: 16px;
+}
 .avatar-uploader .el-upload {
+  width: 178px;
+  height: 178px;
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
   overflow: hidden;
+  text-align: center;
+  line-height: 200px;
 }
 .avatar-uploader .el-upload:hover {
   border-color: #409eff;
 }
-.avatar-uploader .avatar-uploader-icon {
-  font-size: 28px;
+.avatar-uploader .icon-uploader {
+  width: 50px;
+  height: 50px;
   color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
-  text-align: center;
 }
 .avatar-uploader .avatar {
-  width: 178px;
-  height: 178px;
   display: block;
+  width: 100%;
+  height: 100%;
 }
 </style>
 
