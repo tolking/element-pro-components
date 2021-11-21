@@ -126,4 +126,38 @@ describe('Descriptions', () => {
       'slot-extra'
     )
   })
+
+  test('columns', async () => {
+    const wrapper = _mount({
+      template: '<pro-descriptions :columns="columns" :detail="detail" />',
+      setup() {
+        const columns = [
+          { label: 'A', prop: 'a' },
+          { label: 'B', prop: 'b.c' },
+          { label: 'C', prop: 'b.d' },
+          { label: 'D', prop: 'd[0].e' },
+        ]
+        const detail = {
+          a: 'a value',
+          'b.c': 'break nested value',
+          b: {
+            c: 'nested value c in b',
+            d: 'nested value d in b',
+          },
+          d: [{ e: 'nested value in array' }],
+        }
+
+        return { columns, detail }
+      },
+    })
+
+    expect(getLabelList(wrapper)[0]).toBe('A')
+    expect(getPropList(wrapper)[0]).toBe('a value')
+    expect(getLabelList(wrapper)[1]).toBe('B')
+    expect(getPropList(wrapper)[1]).toBe('break nested value')
+    expect(getLabelList(wrapper)[2]).toBe('C')
+    expect(getPropList(wrapper)[2]).toBe('nested value d in b')
+    expect(getLabelList(wrapper)[3]).toBe('D')
+    expect(getPropList(wrapper)[3]).toBe('nested value in array')
+  })
 })

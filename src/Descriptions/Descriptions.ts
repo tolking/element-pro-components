@@ -1,5 +1,6 @@
 import { defineComponent, h, Slot } from 'vue'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
+import get from 'lodash/get'
 import props from './props'
 
 export default defineComponent({
@@ -28,7 +29,7 @@ export default defineComponent({
                       detail: props.detail,
                     })
                   } else {
-                    return (props.detail && props.detail[item.prop]) || ''
+                    return get(props.detail, item.prop, '')
                   }
                 },
                 label: () => {

@@ -117,6 +117,95 @@ export default {
 
 :::
 
+### 嵌套键值
+
+::: demo
+
+<template>
+  <pro-crud
+    v-model="form9"
+    v-model:search="serachForm9"
+    :columns="columns9"
+    :menu="{ label: '操作' }"
+    :data="data9"
+    label-width="100px"
+    @search="search"
+    @submit="submit"
+    @delete="deleteRow"
+  />
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const form9 = ref({ 'a.b': undefined })
+    const serachForm9 = ref({ 'a.b': undefined })
+    const columns9 = [
+      {
+        label: 'Break',
+        prop: 'a.b',
+        component: 'el-input',
+        form: true,
+        search: true,
+      },
+      {
+        label: 'Object',
+        prop: 'a.b.c',
+        component: 'el-input',
+        form: true,
+        search: true,
+      },
+      {
+        label: 'Array',
+        prop: 'b[0]',
+        component: 'el-input',
+        form: true,
+        search: true,
+      },
+    ]
+    const data9 = [
+      {
+        'a.b': 'break nested value',
+        a: { b: { c: 'nested value c' }},
+        b: ['nested value in array'],
+      },
+    ]
+
+    const search = (done, isValid, invalidFields) => {
+      console.log('search', isValid, invalidFields)
+      setTimeout(() => {
+        done()
+      }, 1000)
+    }
+
+    const submit = (close, done, formType, isValid, invalidFields) => {
+      console.log('submit', formType, isValid, invalidFields)
+      setTimeout(() => {
+        isValid ? close() : done()
+      }, 1000)
+    }
+
+    const deleteRow = (row) => {
+      console.log('deleteRow', row)
+    }
+
+    return {
+      form9,
+      serachForm9,
+      data9,
+      columns9,
+      search,
+      submit,
+      deleteRow,
+    }
+  }
+}
+</script>
+
+:::
+
 ### 配置按钮
 
 默认不显示新增、编辑、删除按钮，需要配置 menu 或者启用 menu 插槽时才会显示

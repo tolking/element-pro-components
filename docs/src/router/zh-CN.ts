@@ -120,7 +120,7 @@ const zhCN: RouteRecordRaw[] = [
       },
       {
         path: '/zh-CN/components/descriptions',
-        component: () => import('../../docs/zh-CN/components/descriptions.md'),
+        component: () => import('../../docs/zh-CN/components/Descriptions.md'),
         meta: { title: 'Descriptions' },
       },
     ],

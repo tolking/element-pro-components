@@ -1,5 +1,8 @@
-import { defineComponent, h, toRefs, PropType, Slot, VNode } from 'vue'
+import { defineComponent, h, toRefs, markRaw, PropType, Slot, VNode } from 'vue'
 import { ElFormItem, ElButton } from 'element-plus'
+import { Plus, Minus } from '@element-plus/icons'
+import get from 'lodash/get'
+import set from 'lodash/set'
 import { useFormItemBind, useFormChild, useCol } from '../composables/index'
 import { isArray } from '../utils/index'
 import ProFormItem from './FormItem'
@@ -37,10 +40,10 @@ export default defineComponent({
       emit
     )
 
+    upData(undefined)
+
     function upData(value: unknown) {
-      const _model = { ...modelValue.value }
-      _model[item.value.prop] = value
-      emit('update:modelValue', _model)
+      emit('update:modelValue', set(modelValue.value, item.value.prop, value))
     }
 
     function createLabel() {
@@ -59,7 +62,7 @@ export default defineComponent({
     }
 
     function createDefault() {
-      const currentValue = modelValue.value[item.value.prop]
+      const currentValue = get(modelValue.value, item.value.prop, undefined)
       let list: VNode[] = []
 
       if (hasChild.value) {
@@ -90,7 +93,7 @@ export default defineComponent({
                   })
                 ),
                 h(ElButton, {
-                  icon: 'el-icon-minus',
+                  icon: markRaw(Minus),
                   type: 'danger',
                   circle: true,
                   class: 'delete-bth',
@@ -104,7 +107,7 @@ export default defineComponent({
         showAddBtn.value &&
           list.push(
             h(ElButton, {
-              icon: 'el-icon-plus',
+              icon: markRaw(Plus),
               type: 'primary',
               circle: true,
               onClick: add,

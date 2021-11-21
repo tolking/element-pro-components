@@ -1,5 +1,6 @@
 import { defineComponent, h, inject, toRefs, PropType, Slot, VNode } from 'vue'
 import { ElTableColumn } from 'element-plus'
+import get from 'lodash/get'
 import { useTableBind } from '../composables'
 import { isFunction } from '../utils/index'
 import ProTableItem from './TableItem'
@@ -57,7 +58,7 @@ export default defineComponent({
             : String(item.value.render)
         )
       } else {
-        list.push(scope.row[item.value.prop] as string)
+        list.push(get(scope.row, item.value.prop, '') as string)
       }
 
       return list
