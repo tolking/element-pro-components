@@ -17,7 +17,7 @@ type DeepNested<T> = T extends UnknownObject
 
 type WithNumber<T, Q extends keyof T> = `${Q & string}${T[Q] extends unknown[]
   ? `[${number}]`
-  : ''}${`.${DeepNested<T[Q]>}` | ''}`
+  : ''}${`.${DeepNested<T[Q]> & string}` | ''}`
 
 /**
  * Get the deep key of the object
