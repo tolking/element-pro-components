@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.16.0
+
+fix
+
+- Form: missing icon on plus^1.2.0
+
+feat
+
+- Descriptions: support get nested value
+- Table: support get nested value
+- Form: support get and set nested value
+- Crud: support get and set nested value
+
+other
+
+- type: optimization type DeepKeyof
+
 ## 0.15.0
 
 breaking changes
