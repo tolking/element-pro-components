@@ -156,11 +156,11 @@ describe('Form', () => {
           <template #default>
             <p class="default">default slot</p>
           </template>
-          <template #menu-left>
-            <button>menu-left</button>
+          <template #menu-left="{ loading }">
+            <button>menu-left-{{ loading }}</button>
           </template>
-          <template #menu-right>
-            <button>menu-right</button>
+          <template #menu-right="{ loading }">
+            <button>menu-right-{{ loading }}</button>
           </template>
         </pro-form>
       `,
@@ -181,8 +181,8 @@ describe('Form', () => {
     expect(getComponentList(wrapper)[0]).not.toContain('el-switch')
     expect(getComponentList(wrapper)[0]).toContain('el-input')
     expect(wrapper.find('label[for="slot"]').text()).toBe('slot-label')
-    expect(getFormBtnList(wrapper)).toContain('menu-left')
-    expect(getFormBtnList(wrapper)).toContain('menu-right')
+    expect(getFormBtnList(wrapper)).toContain('menu-left-false')
+    expect(getFormBtnList(wrapper)).toContain('menu-right-false')
     expect(wrapper.find('.pro-form .default').text()).toBe('default slot')
   })
 

@@ -978,8 +978,8 @@ export default defineComponent({
 | name         | 说明                                                           |
 | :----------- | :------------------------------------------------------------- |
 | -            | 在底部菜单前插入的任意内容                                     |
-| menu-left    | 表单底部按钮左侧                                               |
-| menu-right   | 表单底部按钮右侧                                               |
+| menu-left    | 表单底部按钮左侧，参数为 { loading }                           |
+| menu-right   | 表单底部按钮右侧，参数为 { loading }                           |
 | [prop]       | 当前这项的 Form Item 的内容，参数为 { item, value, setValue }  |
 | [prop]-label | 当前这项的标签文本的内容，参数为 { item }                      |
 | [prop]-error | 当前这项的自定义表单校验信息的显示方式，参数为 { error, item } |

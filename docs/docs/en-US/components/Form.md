@@ -970,8 +970,8 @@ export default defineComponent({
 | Name         | Description                                                              |
 | :----------- | :----------------------------------------------------------------------- |
 | -            | anything inserted before the menu                                        |
-| menu-left    | control the menu left display content                                    |
-| menu-right   | control the menu right display content                                   |
+| menu-left    | control the menu left display content, parameters { loading }            |
+| menu-right   | control the menu right display content, parameters { loading }           |
 | [prop]       | control the `Item` display content, parameters { item, value, setValue } |
 | [prop]-label | control the `Item` label display content, parameters { item }            |
 | [prop]-error | control the `Item` error display content, parameters { error, item }     |
