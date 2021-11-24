@@ -24,6 +24,8 @@ When columns is bound to a reactive array, changes in the array will affect Crud
     :columns="columns"
     :menu="{ label: 'Operations' }"
     :data="data"
+    :before-open="beforeOpen1"
+    label-width="100px"
     @search="search"
     @submit="submit"
     @delete="deleteRow"
@@ -84,6 +86,13 @@ export default {
       },
     ])
 
+    const beforeOpen1 = (done, type, row) => {
+      if (type === 'edit') {
+        form.value = row || {}
+      }
+      done()
+    }
+
     const search = (done, isValid, invalidFields) => {
       console.log('search', isValid, invalidFields)
       setTimeout(() => {
@@ -107,6 +116,7 @@ export default {
       serachForm,
       data,
       columns,
+      beforeOpen1,
       search,
       submit,
       deleteRow,
@@ -128,6 +138,7 @@ export default {
     :columns="columns9"
     :menu="{ label: 'Operations' }"
     :data="data9"
+    :before-open="beforeOpen9"
     label-width="100px"
     @search="search"
     @submit="submit"
@@ -173,6 +184,15 @@ export default {
       },
     ]
 
+    const beforeOpen9 = (done, type, row) => {
+      if (type === 'edit') {
+        form9.value = row || {}
+      } else {
+        form9.value = { 'a.b': undefined }
+      }
+      done()
+    }
+
     const search = (done, isValid, invalidFields) => {
       console.log('search', isValid, invalidFields)
       setTimeout(() => {
@@ -196,6 +216,7 @@ export default {
       serachForm9,
       data9,
       columns9,
+      beforeOpen9,
       search,
       submit,
       deleteRow,
@@ -1323,8 +1344,8 @@ If you use `typescript`, you can export `ICrudExpose` from the component to prov
 | [prop]-label        | control the `Item` label display content of form, parameters { item }                                                                                                                         |
 | [prop]-error        | control the `Item` error display content of form, parameters { error, item }                                                                                                                  |
 | search              | anything inserted before the menu of search                                                                                                                                                   |
-| search-menu-left    | control the menu left display content of search                                                                                                                                               |
-| search-menu-right   | control the menu right display content of search                                                                                                                                              |
+| search-menu-left    | control the menu left display content of search, parameters { loading }                                                                                                                       |
+| search-menu-right   | control the menu right display content of search, parameters { loading }                                                                                                                      |
 | search-[prop]       | control the `Item` display content of search, parameters { item, value, setValue }                                                                                                            |
 | search-[prop]-label | control the `Item` label display content of search, parameters { item }                                                                                                                       |
 | search-[prop]-error | control the `Item` error display content of search, parameters { error, item }                                                                                                                |

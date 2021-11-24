@@ -3,6 +3,7 @@ import { ElFormItem, ElButton } from 'element-plus'
 import { Plus, Minus } from '@element-plus/icons'
 import get from 'lodash/get'
 import set from 'lodash/set'
+import has from 'lodash/has'
 import { useFormItemBind, useFormChild, useCol } from '../composables/index'
 import { isArray } from '../utils/index'
 import ProFormItem from './FormItem'
@@ -40,8 +41,6 @@ export default defineComponent({
       emit
     )
 
-    upData(undefined)
-
     function upData(value: unknown) {
       emit('update:modelValue', set(modelValue.value, item.value.prop, value))
     }
@@ -62,6 +61,7 @@ export default defineComponent({
     }
 
     function createDefault() {
+      !has(modelValue.value, item.value.prop) && upData(undefined)
       const currentValue = get(modelValue.value, item.value.prop, undefined)
       let list: VNode[] = []
 
