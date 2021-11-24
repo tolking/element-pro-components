@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.16.1
+
+fix
+
+- Form: clear the default value
+
+feat
+
+- Form: add loading for slots menu-left and menu-right
+- Crud: add loading for slots form-menu-left and form-menu-right
+
 ## 0.16.0
 
 fix
