@@ -24,6 +24,8 @@ meta:
     :columns="columns"
     :menu="{ label: '操作' }"
     :data="data"
+    :before-open="beforeOpen1"
+    label-width="100px"
     @search="search"
     @submit="submit"
     @delete="deleteRow"
@@ -84,6 +86,13 @@ export default {
       },
     ])
 
+    const beforeOpen1 = (done, type, row) => {
+      if (type === 'edit') {
+        form.value = row || {}
+      }
+      done()
+    }
+
     const search = (done, isValid, invalidFields) => {
       console.log('search', isValid, invalidFields)
       setTimeout(() => {
@@ -107,6 +116,7 @@ export default {
       serachForm,
       data,
       columns,
+      beforeOpen1,
       search,
       submit,
       deleteRow,
@@ -128,6 +138,7 @@ export default {
     :columns="columns9"
     :menu="{ label: '操作' }"
     :data="data9"
+    :before-open="beforeOpen9"
     label-width="100px"
     @search="search"
     @submit="submit"
@@ -173,6 +184,15 @@ export default {
       },
     ]
 
+    const beforeOpen9 = (done, type, row) => {
+      if (type === 'edit') {
+        form9.value = row || {}
+      } else {
+        form9.value = { 'a.b': undefined }
+      }
+      done()
+    }
+
     const search = (done, isValid, invalidFields) => {
       console.log('search', isValid, invalidFields)
       setTimeout(() => {
@@ -196,6 +216,7 @@ export default {
       serachForm9,
       data9,
       columns9,
+      beforeOpen9,
       search,
       submit,
       deleteRow,
@@ -1323,8 +1344,8 @@ export default {
 | [prop]-label        | 当前这项的标签文本的内容，参数为 { item }                                |
 | [prop]-error        | 当前这项的自定义表单校验信息的显示方式，参数为 { error, item }           |
 | search              | 在搜索按钮菜单前插入的任意内容                                           |
-| search-menu-left    | 搜索表单按钮左侧                                                         |
-| search-menu-right   | 搜索表单按钮右侧                                                         |
+| search-menu-left    | 搜索表单按钮左侧，参数为 { loading }                                     |
+| search-menu-right   | 搜索表单按钮右侧，参数为 { loading }                                     |
 | search-[prop]       | 当前这项的 Form Item 的内容，参数为 { item, value, setValue }            |
 | search-[prop]-label | 当前这项的标签文本的内容，参数为 { item }                                |
 | search-[prop]-error | 当前这项的自定义表单校验信息的显示方式，参数为 { error, item }           |
