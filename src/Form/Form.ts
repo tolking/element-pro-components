@@ -82,7 +82,7 @@ export default defineComponent({
       let list: VNode[] = []
 
       if (slots['menu-left']) {
-        list = list.concat(slots['menu-left']())
+        list = list.concat(slots['menu-left']({ loading: loading.value }))
       }
       if (menu.value.submit) {
         list.push(
@@ -111,7 +111,7 @@ export default defineComponent({
         )
       }
       if (slots['menu-right']) {
-        list = list.concat(slots['menu-right']())
+        list = list.concat(slots['menu-right']({ loading: loading.value }))
       }
 
       return h(ElFormItem, { class: 'pro-form-menu' }, () => list)
@@ -121,14 +121,17 @@ export default defineComponent({
       const config = createFormProps(props)
       return h(
         ElForm,
-        Object.assign({
-          ref: form,
-          model: modelValue.value,
-          inline: inline.value,
-          labelPosition: labelPosition.value,
-          style: !inline.value ? rowStyle.value : undefined,
-          class: ['pro-form', !inline.value ? rowClass.value : ''],
-        }, config),
+        Object.assign(
+          {
+            ref: form,
+            model: modelValue.value,
+            inline: inline.value,
+            labelPosition: labelPosition.value,
+            style: !inline.value ? rowStyle.value : undefined,
+            class: ['pro-form', !inline.value ? rowClass.value : ''],
+          },
+          config
+        ),
         () => [createColumn(), slots.default && slots.default(), createMenu()]
       )
     }
