@@ -1,7 +1,7 @@
 <template>
   <div class="pro-code">
     <div class="source">
-      <slot />
+      <slot name="source" />
     </div>
     <div
       ref="meta"
