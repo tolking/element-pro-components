@@ -16,115 +16,13 @@ meta:
 When columns is bound to a reactive array, changes in the array will affect table changes (dynamic table). If you don't need a dynamic table, it is recommended to bind an ordinary array.
 
 ::: demo
-
-<template>
-  <pro-table
-    :data="data"
-    :columns="columns"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const columns = [
-      {
-        label: 'Date',
-        prop: 'date',
-      },
-      {
-        label: 'Name',
-        prop: 'name',
-      },
-      {
-        label: 'Address',
-        prop: 'address',
-      },
-    ]
-    const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-
-    return {
-      data,
-      columns,
-    }
-  }
-}
-</script>
-
+@/demo/Table/base.vue
 :::
 
 ### Nested value
 
 ::: demo
-
-<template>
-  <pro-table
-    :data="data4"
-    :columns="columns5"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const columns5 = [
-      {
-        label: 'Break',
-        prop: 'b.c',
-      },
-      {
-        label: 'Object',
-        prop: 'b.d',
-      },
-      {
-        label: 'Array',
-        prop: 'd[0].e',
-      },
-    ]
-    const data4 = ref([
-      {
-        'b.c': 'break nested value',
-        b: {
-          c: 'nested value c in b',
-          d: 'nested value d in b',
-        },
-        d: [{ e: 'nested value in array' }],
-      },
-    ])
-
-    return {
-      data4,
-      columns5,
-    }
-  }
-}
-</script>
-
+@/demo/Table/nested.vue
 :::
 
 ### Index Columns
@@ -132,65 +30,7 @@ export default {
 Set `index` attribute to display index columns
 
 ::: demo
-
-<template>
-  <pro-table
-    :data="data"
-    :columns="columns"
-    :index="{ label: '#' }"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const columns = [
-      {
-        label: 'Date',
-        prop: 'date',
-      },
-      {
-        label: 'Name',
-        prop: 'name',
-      },
-      {
-        label: 'Address',
-        prop: 'address',
-      },
-    ]
-    const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-
-    return {
-      data,
-      columns,
-    }
-  }
-}
-</script>
-
+@/demo/Table/index.vue
 :::
 
 ### Selection Columns
@@ -198,65 +38,7 @@ export default {
 Set `selection` attribute to display selection columns
 
 ::: demo
-
-<template>
-  <pro-table
-    :data="data"
-    :columns="columns"
-    selection
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const columns = [
-      {
-        label: 'Date',
-        prop: 'date',
-      },
-      {
-        label: 'Name',
-        prop: 'name',
-      },
-      {
-        label: 'Address',
-        prop: 'address',
-      },
-    ]
-    const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-
-    return {
-      data,
-      columns,
-    }
-  }
-}
-</script>
-
+@/demo/Table/selection.vue
 :::
 
 ### Expand Columns
@@ -264,68 +46,7 @@ export default {
 Use expand slot to define display content, and Set `expand` attribute to control expand columns
 
 ::: demo
-
-<template>
-  <pro-table
-    :data="data"
-    :columns="columns"
-  >
-    <template #expand="{ row }">
-      {{ row }}
-    </template>
-  </pro-table>
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const columns = [
-      {
-        label: 'Date',
-        prop: 'date',
-      },
-      {
-        label: 'Name',
-        prop: 'name',
-      },
-      {
-        label: 'Address',
-        prop: 'address',
-      },
-    ]
-    const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-
-    return {
-      data,
-      columns,
-    }
-  }
-}
-</script>
-
+@/demo/Table/expand.vue
 :::
 
 ### Menu Columns
@@ -333,79 +54,7 @@ export default {
 Use menu slot to define display content, and Set `menu` attribute to control menu Columns
 
 ::: demo
-
-<template>
-  <pro-table
-    :data="data"
-    :columns="columns"
-    :menu="menu"
-  >
-    <template #menu="{ size }">
-      <el-button
-        :size="size"
-        type="text"
-      >
-        Detail
-      </el-button>
-    </template>
-  </pro-table>
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const menu = ref({
-      label: 'Operations',
-      align: 'center',
-    })
-    const columns = [
-      {
-        label: 'Date',
-        prop: 'date',
-      },
-      {
-        label: 'Name',
-        prop: 'name',
-      },
-      {
-        label: 'Address',
-        prop: 'address',
-      },
-    ]
-    const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-
-    return {
-      menu,
-      data,
-      columns,
-    }
-  }
-}
-</script>
-
+@/demo/Table/menu.vue
 :::
 
 ### Slots
@@ -413,75 +62,7 @@ export default {
 Use simple [render-function](https://v3.cn.vuejs.org/guide/render-function.html) by `render` in `columns`. or directly add some slot with `[prop]` in the template.
 
 ::: demo
-
-<template>
-  <pro-table
-    :data="data"
-    :columns="columns3"
-  >
-    <template #name-header="{ column }">
-      <s>{{ column.label }}</s>
-    </template>
-    <template #name="{ row, size }">
-      <el-tag :size="size">
-        {{ row?.name }}
-      </el-tag>
-    </template>
-  </pro-table>
-</template>
-
-<script>
-import { h, ref } from 'vue'
-
-export default {
-  setup() {
-    const columns3 = ref([
-      {
-        label: 'Date',
-        prop: 'date',
-        render: '--',
-      },
-      {
-        label: 'Name',
-        prop: 'name',
-      },
-      {
-        label: 'Address',
-        prop: 'address',
-        render: (row) => h('em', null, row.address),
-      },
-    ])
-    const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-
-    return {
-      data,
-      columns3,
-    }
-  }
-}
-</script>
-
+@/demo/Table/slots.vue
 :::
 
 ### Pagination
@@ -489,73 +70,7 @@ export default {
 Set `total` attribute to display pagination, use `v-model:current-page` to bind current page; use `v-model:page-size` to bind current page size
 
 ::: demo
-
-<template>
-  <pro-table
-    v-model:current-page="currentPage"
-    v-model:page-size="pageSize"
-    :data="data"
-    :columns="columns"
-    :total="total"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const currentPage = ref(1)
-    const pageSize = ref(10)
-    const total = ref(50)
-    const columns = [
-      {
-        label: 'Date',
-        prop: 'date',
-      },
-      {
-        label: 'Name',
-        prop: 'name',
-      },
-      {
-        label: 'Address',
-        prop: 'address',
-      },
-    ]
-    const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-
-    return {
-      currentPage,
-      pageSize,
-      total,
-      data,
-      columns,
-    }
-  }
-}
-</script>
-
+@/demo/Table/pagination.vue
 :::
 
 ### Grouping table head
@@ -563,69 +78,7 @@ export default {
 Set `children` in `columns` will automatic generate the grouping table head
 
 ::: demo
-
-<template>
-  <pro-table
-    :data="data"
-    :columns="columns2"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const columns2 = ref([
-      {
-        label: 'Date',
-        prop: 'date',
-      },
-      {
-        label: 'User',
-        children: [
-          {
-            label: 'Name',
-            prop: 'name',
-          },
-          {
-            label: 'Address',
-            prop: 'address',
-          },
-        ],
-      },
-    ])
-    const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-
-    return {
-      data,
-      columns2,
-    }
-  }
-}
-</script>
-
+@/demo/Table/group.vue
 :::
 
 ### Async Table
@@ -633,104 +86,7 @@ export default {
 To implement Async Table, columns must be bound to a reactive array
 
 ::: demo
-
-<template>
-  <div style="margin-bottom:20px">
-    <el-button
-      type="primary"
-      @click="createTable"
-    >
-      Load Table
-    </el-button>
-    <el-button
-      type="info"
-      @click="createDict"
-    >
-      Load Dict
-    </el-button>
-    <el-button
-      type="danger"
-      @click="destroyTable"
-    >
-      Destroy
-    </el-button>
-  </div>
-  <pro-table
-    :data="data2"
-    :columns="columns4"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const data2 = ref([])
-    const columns4 = ref([])
-    const submit = (done, isValid, invalidFields) => {
-      console.log(isValid, invalidFields)
-      setTimeout(() => {
-        done()
-      }, 1000)
-    }
-    const createTable = () => {
-      columns4.value = [
-        {
-          label: 'Date',
-          prop: 'date',
-        },
-        {
-          label: 'Name',
-          prop: 'name',
-        },
-        {
-          label: 'Address',
-          prop: 'address',
-        },
-      ]
-    }
-    const createDict = () => {
-      data2.value = [
-        {
-          date: '2016-05-03',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-02',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-04',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-01',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-      ]
-    }
-    const destroyTable = () => {
-      columns4.value = []
-      data2.value = []
-    }
-
-    return {
-      data2,
-      columns4,
-      submit,
-      createTable,
-      createDict,
-      destroyTable,
-    }
-  }
-}
-</script>
-
+@/demo/Table/async.vue
 :::
 
 ### Props

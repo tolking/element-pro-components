@@ -16,36 +16,7 @@ meta:
 传入 data 数据将自动生成选项
 
 ::: demo
-
-<template>
-  <pro-checkbox
-    v-model="checkbox"
-    :data="data"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const checkbox = ref(undefined)
-    const data = ref([
-      { value: 'Go', label: 'go' },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      checkbox,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/Checkbox/base.vue
 :::
 
 ### 控制不可选项目
@@ -53,36 +24,7 @@ export default {
 将传入 data 数据中的某项设置为 `disabled: true` 即可
 
 ::: demo
-
-<template>
-  <pro-checkbox
-    v-model="checkbox1"
-    :data="list"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const checkbox1 = ref([])
-    const list = ref([
-      { value: 'Go', label: 'go', disabled: true },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      checkbox1,
-      list,
-    }
-  }
-}
-</script>
-
+@/demo/Checkbox/disabled.vue
 :::
 
 ### 配置绑定数据键值
@@ -90,39 +32,7 @@ export default {
 通过 config 配置数据键值。`value`- v-model 绑定的键值、`label`-显示键值、`disabled`-控制不可选的键值、`name`-原生 name 的键值
 
 ::: demo
-
-<template>
-  <pro-checkbox
-    v-model="checkbox2"
-    :data="data"
-    :config="config"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const checkbox2 = ref([])
-    const config = ref({ value: 'label', label: 'value' })
-    const data = ref([
-      { value: 'Go', label: 'go' },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      checkbox2,
-      config,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/Checkbox/config.vue
 :::
 
 ### 按钮样式
@@ -130,36 +40,7 @@ export default {
 使用 `pro-checkbox-button` 显示按钮样式的多选框组
 
 ::: demo
-
-<template>
-  <pro-checkbox-button
-    v-model="checkboxbutton"
-    :data="data"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const checkboxbutton = ref([])
-    const data = ref([
-      { value: 'Go', label: 'go' },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      checkboxbutton,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/CheckboxButton/base.vue
 :::
 
 ### Checkbox 配置

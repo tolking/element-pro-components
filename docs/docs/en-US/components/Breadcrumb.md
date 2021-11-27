@@ -16,15 +16,7 @@ meta:
 Will be auto generated according to the current routes
 
 ::: demo
-
-<template>
-  <pro-breadcrumb />
-</template>
-
-<script>
-export default {}
-</script>
-
+@/demo/Breadcrumb/base.vue
 :::
 
 ### Props

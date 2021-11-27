@@ -16,36 +16,7 @@ meta:
 Set `data` attribute will automatic generate options
 
 ::: demo
-
-<template>
-  <pro-select
-    v-model="select"
-    :data="data"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select = ref('')
-    const data = ref([
-      { value: 'Go', label: 'go' },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      select,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/Select/base.vue
 :::
 
 ### Disabled State
@@ -53,36 +24,7 @@ export default {
 Set the `disabled` attribute in prop `data`
 
 ::: demo
-
-<template>
-  <pro-select
-    v-model="select1"
-    :data="list"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select1 = ref('')
-    const list = ref([
-      { value: 'Go', label: 'go', disabled: true },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      select1,
-      list,
-    }
-  }
-}
-</script>
-
+@/demo/Select/disabled.vue
 :::
 
 ### Configure binding data key
@@ -90,39 +32,7 @@ export default {
 Set `config` attribute. `value`- v-model bind key; `label`- display key; `disabled`- Disabled key; `children`- children key
 
 ::: demo
-
-<template>
-  <pro-select
-    v-model="select2"
-    :data="data"
-    :config="config"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select2 = ref('')
-    const config = ref({ value: 'label', label: 'value' })
-    const data = ref([
-      { value: 'Go', label: 'go' },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      select2,
-      config,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/Select/config.vue
 :::
 
 ### Slots
@@ -130,44 +40,7 @@ export default {
 You can customize HTML templates for options
 
 ::: demo
-
-<template>
-  <pro-select
-    v-model="select5"
-    :data="data"
-    :config="config"
-  >
-    <template #default="{ data }">
-      <span>{{ data.label }}</span>
-      <span style="float:right">{{ data.value }}</span>
-    </template>
-  </pro-select>
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select5 = ref('')
-    const config = ref({ value: 'label', label: 'value' })
-    const data = ref([
-      { value: 'Go', label: 'go' },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      select5,
-      config,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/Select/slots.vue
 :::
 
 ### Basic multiple select
@@ -175,37 +48,7 @@ export default {
 Set `multiple` attribute to enable multiple mode. In this case, the value of v-model will be an array of selected options
 
 ::: demo
-
-<template>
-  <pro-select
-    v-model="select3"
-    :data="data"
-    multiple
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select3 = ref([])
-    const data = ref([
-      { value: 'Go', label: 'go' },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      select3,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/Select/multiple.vue
 :::
 
 ### Grouping
@@ -213,54 +56,7 @@ export default {
 Set `children` in `data` will automatic generate the children options (If there is a multi-layer hierarchies, `TreeSelect` is recommended)
 
 ::: demo
-
-<template>
-  <pro-select
-    v-model="select4"
-    :data="data1"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select4 = ref('')
-    const data1 = ref([{
-      label: 'Popular cities',
-      children: [{
-        value: 'Shanghai',
-        label: 'Shanghai'
-      }, {
-        value: 'Beijing',
-        label: 'Beijing'
-      }]
-    }, {
-      label: 'City name',
-      children: [{
-        value: 'Chengdu',
-        label: 'Chengdu'
-      }, {
-        value: 'Shenzhen',
-        label: 'Shenzhen'
-      }, {
-        value: 'Guangzhou',
-        label: 'Guangzhou'
-      }, {
-        value: 'Dalian',
-        label: 'Dalian'
-      }]
-    }])
-
-    return {
-      select4,
-      data1,
-    }
-  }
-}
-</script>
-
+@/demo/Select/group.vue
 :::
 
 ### Props

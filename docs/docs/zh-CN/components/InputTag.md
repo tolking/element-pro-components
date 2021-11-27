@@ -16,28 +16,7 @@ meta:
 使用 `pro-input-tag` 支持 type="text" 的大部分配置
 
 ::: demo
-
-<template>
-  <pro-input-tag
-    v-model="inputTags"
-    placeholder="请输入内容后点击空格按键"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const inputTags = ref([])
-
-    return {
-      inputTags
-    }
-  }
-}
-</script>
-
+@/demo/InputTag/base.vue
 :::
 
 ### 通过 Enter 键触发
@@ -45,29 +24,7 @@ export default {
 默认通过空格键触发输入，通过 `trigger` 为 `enter`时，将通过回车键触发输入
 
 ::: demo
-
-<template>
-  <pro-input-tag
-    v-model="inputTags1"
-    trigger="enter"
-    placeholder="请输入内容后点击回车按键"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const inputTags1 = ref([])
-
-    return {
-      inputTags1
-    }
-  }
-}
-</script>
-
+@/demo/InputTag/trigger.vue
 :::
 
 ### 限制输入数量
@@ -75,29 +32,7 @@ export default {
 通过 `max` 可以配置可以输入标签的最大数量
 
 ::: demo
-
-<template>
-  <pro-input-tag
-    v-model="inputTags3"
-    :max="3"
-    placeholder="最多输入3个标签"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const inputTags3 = ref([])
-
-    return {
-      inputTags3
-    }
-  }
-}
-</script>
-
+@/demo/InputTag/max.vue
 :::
 
 ### 尺寸
@@ -105,43 +40,7 @@ export default {
 可通过 `size` 属性指定输入框和标签的尺寸
 
 ::: demo
-
-<template>
-  <pro-input-tag
-    v-for="item in sizeList"
-    v-model="inputTags2"
-    :key="item"
-    :size="item"
-    placeholder="请输入内容后点击空格按键"
-    class="input-tag-size"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const inputTags2 = ref([])
-    const sizeList = ['medium', 'small', 'mini']
-
-    return {
-      inputTags2,
-      sizeList,
-    }
-  }
-}
-</script>
-
-<style>
-.input-tag-size {
-  margin-bottom: 10px;
-}
-.input-tag-size:last-child {
-  margin-bottom: 0;
-}
-</style>
-
+@/demo/InputTag/size.vue
 :::
 
 ### 带输入建议
@@ -149,42 +48,7 @@ export default {
 `pro-autocomplete-tag` 提供输入建议，支持 autocomplete 的大部分配置
 
 ::: demo
-
-<template>
-  <pro-autocomplete-tag
-    v-model="autocompleteTags"
-    :fetch-suggestions="querySearch"
-    placeholder="请输入内容后点击空格按键"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const autocompleteTags = ref([])
-    const list = [
-      { value: 'Go', tag: 'go' },
-      { value: 'JavaScript', tag: 'javascript' },
-      { value: 'Python', tag: 'python' },
-    ]
-
-    function querySearch(queryString, cb) {
-      cb(queryString ? list.filter(i => {
-        return i.value.indexOf(queryString.toLowerCase()) === 0
-      }) : list)
-    }
-
-    return {
-      autocompleteTags,
-      list,
-      querySearch,
-    }
-  }
-}
-</script>
-
+@/demo/AutocompleteTag/base.vue
 :::
 
 ### InputTag 配置

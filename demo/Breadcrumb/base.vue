@@ -1,0 +1,3 @@
+<template>
+  <pro-breadcrumb />
+</template>

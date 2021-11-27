@@ -14,11 +14,7 @@ meta:
 ### 基础用法
 
 ::: demo 将自动记录路由变化
-
-<template>
-  <pro-tabs />
-</template>
-
+@/demo/Tabs/base.vue
 :::
 
 ### 外部调用关闭
@@ -26,38 +22,7 @@ meta:
 通过 `ref` 绑定 `Tabs` 进而通过外部调用关闭 tab 页
 
 ::: demo `const tabs = inject('tabs')` 由顶层 `Layout` 注入 [参考](https://github.com/tolking/element-pro-components/blob/master/docs/src/layout/Layout.vue)
-
-<template>
-  <pro-tabs ref="childTabs" style="margin-bottom:15px" />
-  <el-button @click="childTabs.close('/zh-CN/guide/')">关闭主页</el-button>
-  <el-button @click="childTabs.closeOther">关闭其它</el-button>
-  <el-button @click="asyncList">同步</el-button>
-</template>
-
-<script>
-import { inject, onMounted, shallowRef } from 'vue'
-
-export default {
-  setup() {
-    const tabs = inject('tabs') // 获取顶层 `Tabs` 注入
-    const childTabs = shallowRef({})
-
-    onMounted(() => {
-      asyncList()
-    })
-
-    function asyncList() {
-      childTabs.value.list = tabs.value.list
-    }
-
-    return {
-      childTabs,
-      asyncList,
-    }
-  }
-}
-</script>
-
+@/demo/Tabs/ref.vue
 :::
 
 ### 配置

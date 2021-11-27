@@ -16,73 +16,7 @@ meta:
 传入 data 数据，生成树形结构 (格式同 Select 分组)
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select"
-    :data="data"
-    clearable
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select = ref('')
-    const data = ref([{
-      label: '1',
-      value: 1,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1' },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1' },
-        ],
-      }],
-    }])
-
-    return {
-      select,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/base.vue
 :::
 
 ### 控制不可选项目
@@ -90,74 +24,7 @@ export default {
 将传入 data 数据中的某项设置为 `disabled: true` 即可
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select1"
-    :data="data1"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select1 = ref('')
-    const data1 = ref([{
-      label: '1',
-      value: 1,
-      disabled: true,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        disabled: true,
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1', disabled: true },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1', disabled: true },
-        ],
-      }],
-    }])
-
-    return {
-      select1,
-      data1,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/disabled.vue
 :::
 
 ### 配置绑定数据键值
@@ -165,74 +32,7 @@ export default {
 通过 config 配置数据键值。`value`- v-model 绑定的键值、`label`-显示键值、`disabled`-控制不可选的键值、`children`-子节点的键值
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select2"
-    :data="data"
-    :config="config"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select2 = ref('')
-    const config = ref({ value: 'label', label: 'value' })
-    const data = ref([{
-      label: '1',
-      value: 1,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1' },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1' },
-        ],
-      }],
-    }])
-
-    return {
-      select2,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/config.vue
 :::
 
 ### 开启多选
@@ -240,74 +40,7 @@ export default {
 当 `multiple` 为 `true` 时，启用多选。此时绑定的 model-value 为数组格式
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select3"
-    :data="data"
-    multiple
-    clearable
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select3 = ref([])
-    const data = ref([{
-      label: '1',
-      value: 1,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1' },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1' },
-        ],
-      }],
-    }])
-
-    return {
-      select3,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/multiple.vue
 :::
 
 ### 多选控制不可选项目
@@ -315,76 +48,7 @@ export default {
 同单选只需将传入 data 数据中的某项设置为 `disabled: true` 即可
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select4"
-    :data="data1"
-    multiple
-    default-expand-all
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select4 = ref([])
-    const data1 = ref([{
-      label: '1',
-      value: 1,
-      disabled: true,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        disabled: true,
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1', disabled: true },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1', disabled: true },
-        ],
-      }],
-    }])
-
-    return {
-      select4,
-      data1,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/multiple-disabled.vue
 :::
 
 ### 多选父子节点互不关联
@@ -392,74 +56,7 @@ export default {
 当 `check-strictly` 为 `true` 时，父子节点互不关联
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select5"
-    :data="data"
-    multiple
-    check-strictly
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select5 = ref([])
-    const data = ref([{
-      label: '1',
-      value: 1,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1' },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1' },
-        ],
-      }],
-    }])
-
-    return {
-      select5,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/check-strictly.vue
 :::
 
 ### 只选取子节点
@@ -467,74 +64,7 @@ export default {
 当 `only-select-leaf` 为 `true` 时，只会选取子节点的数据
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select6"
-    :data="data"
-    multiple
-    only-select-leaf
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select6 = ref([])
-    const data = ref([{
-      label: '1',
-      value: 1,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1' },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1' },
-        ],
-      }],
-    }])
-
-    return {
-      select6,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/only-select-leaf.vue
 :::
 
 ### 自定义节点显示
@@ -542,95 +72,7 @@ export default {
 通过 `default` 插槽可以定义内容。**注意：在单选模式下需要参考下面内容自定义 class 实现控制不可选项目样式**
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select7"
-    :data="data1"
-  >
-    <template #default="{ node, data, multiple }">
-      <p
-        :class="node.disabled && !multiple ? 'is-disabled' : ''"
-        class="custom-tree-node"
-      >
-        <span>{{ data.label }}</span>
-        <em>{{ data.value }}</em>
-      </p>
-    </template>
-  </pro-tree-select>
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select7 = ref('')
-    const data1 = ref([{
-      label: '1',
-      value: 1,
-      disabled: true,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        disabled: true,
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1', disabled: true },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1', disabled: true },
-        ],
-      }],
-    }])
-
-    return {
-      select7,
-      data1,
-    }
-  }
-}
-</script>
-
-<style>
-.custom-tree-node {
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-}
-.custom-tree-node em {
-  padding-right: 15px;
-}
-</style>
-
+@/demo/TreeSelect/slots.vue
 :::
 
 ### 选择节点过滤
@@ -638,74 +80,7 @@ export default {
 当 `filterable` 为 `true` 时，启用选择节点过滤。在选择框中输入文本，将过滤节点内容
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select8"
-    :data="data"
-    multiple
-    filterable
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select8 = ref([])
-    const data = ref([{
-      label: '1',
-      value: 1,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1' },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1' },
-        ],
-      }],
-    }])
-
-    return {
-      select8,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/filterable.vue
 :::
 
 ### 懒加载
@@ -713,58 +88,7 @@ export default {
 与 `ElTree` 一样，配置 `lazy` `load` 即可使用懒加载数据
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select9"
-    :data="data2"
-    :load="loadNode"
-    lazy
-    multiple
-    filterable
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select9 = ref([])
-    const data2 = []
-
-    function loadNode(node, resolve) {
-      if (node.level === 0) {
-        return resolve([{
-          label: 'region',
-          value: 'region',
-          isLeaf: true,
-        }])
-      }
-      if (node.level > 2) return resolve([])
-
-      setTimeout(() => {
-        const data = [{
-          label: 'leaf-' + node.level,
-          value: 'leaf-' + node.level,
-          isLeaf: node.level <= 2,
-        }, {
-          label: 'zone-' + node.level,
-          value: 'zone-' + node.level,
-        }]
-        resolve(data)
-      }, 500)
-    }
-
-    return {
-      select9,
-      data2,
-      loadNode,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/lazy.vue
 :::
 
 ### 配置
