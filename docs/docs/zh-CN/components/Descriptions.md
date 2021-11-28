@@ -33,6 +33,14 @@ meta:
 @/demo/Descriptions/slots.vue
 :::
 
+### TypeScript
+
+从组件库中引用类型 IDescriptionsColumns 用来辅助编辑 columns，支持传入一个泛型用来推断 `prop` 值
+
+::: demo
+@/demo/Descriptions/typescript.vue
+:::
+
 ### 配置
 
 | 参数      | 说明                       | 类型    | 可选值                | 默认值     |

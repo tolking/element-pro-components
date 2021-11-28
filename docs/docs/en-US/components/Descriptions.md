@@ -33,6 +33,14 @@ Directly add some slot with `[prop]` in the template
 @/demo/Descriptions/slots.vue
 :::
 
+### TypeScript
+
+import type IDescriptionsColumns from the component library is used to assist in editing columns, and a Generics type is supported to infer the value of `prop`
+
+::: demo
+@/demo/Descriptions/typescript.vue
+:::
+
 ### Props
 
 | Name      | Description                                        | Type    | Options               | Default    |

@@ -91,6 +91,14 @@ Use simple <pro-link to="https://v3.vuejs.org/guide/render-function.html">render
 @/demo/Crud/slots.vue
 :::
 
+### TypeScript
+
+import type ICrudColumns from the component library is used to assist in editing columns, and a Generics type is supported to infer the value of `prop`
+
+::: demo
+@/demo/Crud/typescript.vue
+:::
+
 ### Props
 
 | Name                    | Description                                                                                                                                                                                                                                                                 | Type                                                    | Options                                             | Default                                                                        |
@@ -318,10 +326,6 @@ Other attributes are the same as `Table columns`
 | validateField      | validate one or several form items                                                                                                                                                                                                                                               | Function(props: string \| array, callback: Function(errorMessage: string)) |
 | resetFields        | reset all the fields and remove validation result                                                                                                                                                                                                                                | —                                                                          |
 | clearValidate      | clear validation message for certain fields. The parameter is prop name or an array of prop names of the form items whose validation messages will be removed. When omitted, all fields' validation messages will be cleared                                                     | Function(props: string \| array)                                           |
-
-::: tip Tip
-If you use `typescript`, you can export `ICrudExpose` from the component to provide better type inference
-:::
 
 ### Slots
 

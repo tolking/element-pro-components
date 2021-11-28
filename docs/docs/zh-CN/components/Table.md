@@ -89,6 +89,14 @@ meta:
 @/demo/Table/async.vue
 :::
 
+### TypeScript
+
+从组件库中引用类型 ITableColumns 用来辅助编辑 columns，支持传入一个泛型用来推断 `prop` 值
+
+::: demo
+@/demo/Table/typescript.vue
+:::
+
 ### 配置
 
 | 参数                    | 说明                                                                | 类型                                                    | 可选值                         | 默认值                                               |
@@ -212,10 +220,6 @@ meta:
 | clearFilter        | 不传入参数时用于清空所有过滤条件，数据会恢复成未过滤的状态，也可传入由 columnKey 组成的数组以清除指定列的过滤条件       | columnKey                   |
 | doLayout           | 对 Table 进行重新布局。当 Table 或其祖先元素由隐藏切换为显示时，可能需要调用此方法                                      | -                           |
 | sort               | 手动对 Table 进行排序。参数`prop`属性指定排序列，`order`指定排序顺序。                                                  | prop: string, order: string |
-
-::: tip 提示
-如果使用 `typescript` 可以从组件中导出 `ITableExpose` 提供更好的类型推导
-:::
 
 ### 插槽
 

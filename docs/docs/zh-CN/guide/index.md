@@ -130,7 +130,7 @@ import 'element-pro-components/lib/styles/layout'
 ```
 
 ::: tip 提示
-完整组件列表[参考里面的 components](https://github.com/tolking/element-pro-components/blob/master/src/index.ts)
+完整组件列表[参考里面的 components](https://github.com/tolking/element-pro-components/blob/master/src/components.ts)
 
 在导出组件的同时，一起导出的还包括内部使用的[utils](https://github.com/tolking/element-pro-components/blob/master/src/utils/)与[composables](https://github.com/tolking/element-pro-components/blob/master/src/composables/)，如果需要可以引用使用
 :::
@@ -175,8 +175,6 @@ app.use(ElementPro, {
 ```
 
 对于 webstorm 也提供了完整的组件、属性、事件补全
-
-如果使用 TypeScript 编写，可以参考 [example](https://github.com/tolking/element-pro-components/tree/master/docs/src/views/)。内部提供部分类型方便使用
 :::
 
 <<< @/docs/src/layout/Layout.vue

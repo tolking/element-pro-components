@@ -89,6 +89,14 @@ To implement Async Table, columns must be bound to a reactive array
 @/demo/Table/async.vue
 :::
 
+### TypeScript
+
+import type ITableColumns from the component library is used to assist in editing columns, and a Generics type is supported to infer the value of `prop`
+
+::: demo
+@/demo/Table/typescript.vue
+:::
+
 ### Props
 
 | Name                    | Description                                                                                                                                                                                                                                                                 | Type                                                    | Options                        | Default                                                                        |
@@ -212,10 +220,6 @@ To implement Async Table, columns must be bound to a reactive array
 | clearFilter        | clear filters of the columns whose `columnKey` are passed in. If no params, clear all filters                                                                     | columnKeys                  |
 | doLayout           | refresh the layout of Table. When the visibility of Table changes, you may need to call this method to get a correct layout                                       | -                           |
 | sort               | sort Table manually. Property `prop` is used to set sort column, property `order` is used to set sort order                                                       | prop: string, order: string |
-
-::: tip Tip
-If you use `typescript`, you can export `ITableExpose` from the component to provide better type inference
-:::
 
 ### Slots
 

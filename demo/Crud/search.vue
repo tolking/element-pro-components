@@ -48,7 +48,7 @@ export default defineComponent({
     ])
 
     const search = (done, isValid, invalidFields) => {
-      console.log('search', isValid, invalidFields)
+      console.log('search', serachForm.value, isValid, invalidFields)
       setTimeout(() => {
         done()
       }, 1000)

@@ -91,6 +91,14 @@ meta:
 @/demo/Crud/slots.vue
 :::
 
+### TypeScript
+
+从组件库中引用类型 ICrudColumns 用来辅助编辑 columns，支持传入一个泛型用来推断 `prop` 值
+
+::: demo
+@/demo/Crud/typescript.vue
+:::
+
 ### 配置
 
 | 参数                    | 说明                                                                    | 类型                                                    | 可选值                                              | 默认值                                               |
@@ -318,10 +326,6 @@ meta:
 | validateField      | 对部分表单字段进行校验的方法                                                                                                                                         | Function(props: array \| string, callback: Function(errorMessage: string)) |
 | resetFields        | 对整个表单进行重置，将所有字段值重置为初始值并移除校验结果                                                                                                           | -                                                                          |
 | clearValidate      | 移除表单项的校验结果。传入待移除的表单项的 prop 属性或者 prop 组成的数组，如不传则移除整个表单的校验结果                                                             | Function(props: array \| string)                                           |
-
-::: tip 提示
-如果使用 `typescript` 可以从组件中导出 `ICrudExpose` 提供更好的类型推导
-:::
 
 ### 插槽
 

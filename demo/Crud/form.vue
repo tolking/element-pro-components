@@ -74,7 +74,7 @@ export default defineComponent({
     ])
 
     const submit = (close, done, formType, isValid, invalidFields) => {
-      console.log('submit', formType, isValid, invalidFields)
+      console.log('submit', form.value, formType, isValid, invalidFields)
       setTimeout(() => {
         isValid ? close() : done()
       }, 1000)

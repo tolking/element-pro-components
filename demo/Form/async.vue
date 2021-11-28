@@ -36,7 +36,7 @@ export default defineComponent({
     const form = ref({})
     const columns = ref([])
     const submit = (done, isValid, invalidFields) => {
-      console.log(isValid, invalidFields)
+      console.log(form.value, isValid, invalidFields)
       setTimeout(() => {
         done()
       }, 1000)

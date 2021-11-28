@@ -107,6 +107,14 @@ To implement Async Form, columns must be bound to a reactive array
 @/demo/Form/async.vue
 :::
 
+### TypeScript
+
+import type IFormColumns from the component library is used to assist in editing columns, and a Generics type is supported to infer the value of `prop`
+
+::: demo
+@/demo/Form/typescript.vue
+:::
+
 ### Props
 
 | Name                    | Description                                                                                                                       | Type    | Options                                             | Default |
@@ -198,42 +206,6 @@ props: {
 | validateField | validate one or several form items                                                                                                                                                                                                                                               | Function(props: string \| array, callback: Function(errorMessage: string)) |
 | resetFields   | reset all the fields and remove validation result                                                                                                                                                                                                                                | —                                                                          |
 | clearValidate | clear validation message for certain fields. The parameter is prop name or an array of prop names of the form items whose validation messages will be removed. When omitted, all fields' validation messages will be cleared                                                     | Function(props: string \| array)                                           |
-
-::: tip Tip
-If you use `typescript`, you can export `IFormExpose` from the component to provide better type inference. example:
-
-```vue
-<template>
-  <pro-form ref="ruleForm" v-model="form" :columns="columns" />
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import type { IFormExpose } from 'element-pro-components'
-
-export default defineComponent({
-  setup() {
-    const ruleForm = ref<IFormExpose>({} as IFormExpose)
-    // code...
-
-    function submitForm() {
-      ruleForm.value
-        .validate()
-        .then(() => {
-          alert('submit!')
-        })
-        .catch(() => {
-          console.log('error submit!!')
-        })
-    }
-
-    return { ruleForm, submitForm }
-  },
-})
-</script>
-```
-
-:::
 
 ### Slots
 
