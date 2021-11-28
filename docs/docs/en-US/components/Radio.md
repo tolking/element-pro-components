@@ -16,36 +16,7 @@ meta:
 Set `data` attribute will automatic generate options
 
 ::: demo
-
-<template>
-  <pro-radio
-    v-model="radio"
-    :data="data"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const radio = ref('')
-    const data = ref([
-      { value: 'Go', label: 'go' },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      radio,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/Radio/base.vue
 :::
 
 ### Disabled State
@@ -53,36 +24,7 @@ export default {
 Set the `disabled` attribute in prop `data`
 
 ::: demo
-
-<template>
-  <pro-radio
-    v-model="radio1"
-    :data="list"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const radio1 = ref('')
-    const list = ref([
-      { value: 'Go', label: 'go', disabled: true },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      radio1,
-      list,
-    }
-  }
-}
-</script>
-
+@/demo/Radio/disabled.vue
 :::
 
 ### Configure binding data key value
@@ -90,39 +32,7 @@ export default {
 Set `config` attribute. `value`- v-model bind key; `label`- display key; `disabled`- Disabled key; `name`- name key
 
 ::: demo
-
-<template>
-  <pro-radio
-    v-model="radio2"
-    :data="data"
-    :config="config"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const radio2 = ref('')
-    const config = ref({ value: 'label', label: 'value' })
-    const data = ref([
-      { value: 'Go', label: 'go' },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      radio2,
-      config,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/Radio/config.vue
 :::
 
 ### Button style
@@ -130,36 +40,7 @@ export default {
 use `pro-radio-button` then checkbox with button styles
 
 ::: demo
-
-<template>
-  <pro-radio-button
-    v-model="radiobutton"
-    :data="data"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const radiobutton = ref('')
-    const data = ref([
-      { value: 'Go', label: 'go' },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      radiobutton,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/RadioButton/base.vue
 :::
 
 ### Radio Props

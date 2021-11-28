@@ -171,14 +171,14 @@ const beforeOpen: ICrudBeforeOpen<CrudForm | undefined> = (done, type, row) => {
 }
 
 const search: ICrudSearch = (done, isValid, invalidFields) => {
-  console.log('search', isValid, invalidFields)
+  console.log('search', serachForm.value, isValid, invalidFields)
   setTimeout(() => {
     done()
   }, 1000)
 }
 
 const submit: ICrudSubmit = (close, done, formType, isValid, invalidFields) => {
-  console.log('submit', formType, isValid, invalidFields)
+  console.log('submit', form.value, formType, isValid, invalidFields)
   setTimeout(() => {
     isValid ? close() : done()
   }, 1000)

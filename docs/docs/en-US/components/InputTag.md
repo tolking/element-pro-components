@@ -16,28 +16,7 @@ meta:
 When using `pro-input-tag`, most attribute of `type="text"` are supported
 
 ::: demo
-
-<template>
-  <pro-input-tag
-    v-model="inputTags"
-    placeholder="Please click the space button after input"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const inputTags = ref([])
-
-    return {
-      inputTags
-    }
-  }
-}
-</script>
-
+@/demo/InputTag/base.vue
 :::
 
 ### Trigger by Enter
@@ -45,29 +24,7 @@ export default {
 Input is triggered by the space bar by default, Set `trigger="enter"` attribute to enable trigger by `Enter`
 
 ::: demo
-
-<template>
-  <pro-input-tag
-    v-model="inputTags1"
-    trigger="enter"
-    placeholder="Please click the enter button after input"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const inputTags1 = ref([])
-
-    return {
-      inputTags1
-    }
-  }
-}
-</script>
-
+@/demo/InputTag/trigger.vue
 :::
 
 ### Limit max tags
@@ -75,29 +32,7 @@ export default {
 The max number of tags that can be entered can be configured through `max`
 
 ::: demo
-
-<template>
-  <pro-input-tag
-    v-model="inputTags3"
-    :max="3"
-    placeholder="Enter up to 3 tags"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const inputTags3 = ref([])
-
-    return {
-      inputTags3
-    }
-  }
-}
-</script>
-
+@/demo/InputTag/max.vue
 :::
 
 ### Component Size
@@ -105,43 +40,7 @@ export default {
 Set `size` attribute to change the size of Input and Tag
 
 ::: demo
-
-<template>
-  <pro-input-tag
-    v-for="item in sizeList"
-    v-model="inputTags2"
-    :key="item"
-    :size="item"
-    placeholder="Please click the space button after input"
-    class="input-tag-size"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const inputTags2 = ref([])
-    const sizeList = ['medium', 'small', 'mini']
-
-    return {
-      inputTags2,
-      sizeList,
-    }
-  }
-}
-</script>
-
-<style>
-.input-tag-size {
-  margin-bottom: 10px;
-}
-.input-tag-size:last-child {
-  margin-bottom: 0;
-}
-</style>
-
+@/demo/InputTag/size.vue
 :::
 
 ### Autocomplete
@@ -149,42 +48,7 @@ export default {
 When using `pro-autocomplete-tag`, most attribute of `ElAutocomplete` are supported
 
 ::: demo
-
-<template>
-  <pro-autocomplete-tag
-    v-model="autocompleteTags"
-    :fetch-suggestions="querySearch"
-    placeholder="Please click the space button after input"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const autocompleteTags = ref([])
-    const list = [
-      { value: 'Go', tag: 'go' },
-      { value: 'JavaScript', tag: 'javascript' },
-      { value: 'Python', tag: 'python' },
-    ]
-
-    function querySearch(queryString, cb) {
-      cb(queryString ? list.filter(i => {
-        return i.value.indexOf(queryString.toLowerCase()) === 0
-      }) : list)
-    }
-
-    return {
-      autocompleteTags,
-      list,
-      querySearch,
-    }
-  }
-}
-</script>
-
+@/demo/AutocompleteTag/base.vue
 :::
 
 ### InputTag Props

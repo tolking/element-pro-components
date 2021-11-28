@@ -16,115 +16,13 @@ meta:
 当 columns 绑定的是一个具有响应式的数组时，数组的变动会影响表格变动（及动态表格）。如果不需要动态表格推荐绑定一个普通数组
 
 ::: demo
-
-<template>
-  <pro-table
-    :data="data"
-    :columns="columns"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const columns = [
-      {
-        label: '日期',
-        prop: 'date',
-      },
-      {
-        label: '姓名',
-        prop: 'name',
-      },
-      {
-        label: '地址',
-        prop: 'address',
-      },
-    ]
-    const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-
-    return {
-      data,
-      columns,
-    }
-  }
-}
-</script>
-
+@/demo/Table/base.vue
 :::
 
 ### 获取嵌套键值
 
 ::: demo
-
-<template>
-  <pro-table
-    :data="data4"
-    :columns="columns5"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const columns5 = [
-      {
-        label: 'Break',
-        prop: 'b.c',
-      },
-      {
-        label: 'Object',
-        prop: 'b.d',
-      },
-      {
-        label: 'Array',
-        prop: 'd[0].e',
-      },
-    ]
-    const data4 = ref([
-      {
-        'b.c': 'break nested value',
-        b: {
-          c: 'nested value c in b',
-          d: 'nested value d in b',
-        },
-        d: [{ e: 'nested value in array' }],
-      },
-    ])
-
-    return {
-      data4,
-      columns5,
-    }
-  }
-}
-</script>
-
+@/demo/Table/nested.vue
 :::
 
 ### 索引表格
@@ -132,65 +30,7 @@ export default {
 通过配置 `index` 显示索引列，支持 columns 的参数
 
 ::: demo
-
-<template>
-  <pro-table
-    :data="data"
-    :columns="columns"
-    :index="{ label: '#' }"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const columns = [
-      {
-        label: '日期',
-        prop: 'date',
-      },
-      {
-        label: '姓名',
-        prop: 'name',
-      },
-      {
-        label: '地址',
-        prop: 'address',
-      },
-    ]
-    const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-
-    return {
-      data,
-      columns,
-    }
-  }
-}
-</script>
-
+@/demo/Table/index.vue
 :::
 
 ### 多选表格
@@ -198,65 +38,7 @@ export default {
 通过配置 `selection` 显示多选框，支持 columns 的参数
 
 ::: demo
-
-<template>
-  <pro-table
-    :data="data"
-    :columns="columns"
-    selection
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const columns = [
-      {
-        label: '日期',
-        prop: 'date',
-      },
-      {
-        label: '姓名',
-        prop: 'name',
-      },
-      {
-        label: '地址',
-        prop: 'address',
-      },
-    ]
-    const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-
-    return {
-      data,
-      columns,
-    }
-  }
-}
-</script>
-
+@/demo/Table/selection.vue
 :::
 
 ### 可展开表格
@@ -264,68 +46,7 @@ export default {
 通过 #expand 插槽定制显示可展开内容，通过 `expand` 可进行相关配置，支持 columns 的参数
 
 ::: demo
-
-<template>
-  <pro-table
-    :data="data"
-    :columns="columns"
-  >
-    <template #expand="{ row }">
-      {{ row }}
-    </template>
-  </pro-table>
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const columns = [
-      {
-        label: '日期',
-        prop: 'date',
-      },
-      {
-        label: '姓名',
-        prop: 'name',
-      },
-      {
-        label: '地址',
-        prop: 'address',
-      },
-    ]
-    const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-
-    return {
-      data,
-      columns,
-    }
-  }
-}
-</script>
-
+@/demo/Table/expand.vue
 :::
 
 ### 定义操作按钮
@@ -333,79 +54,7 @@ export default {
 通过 #menu 插槽定制显示操作按钮内容，通过 `menu` 可进行相关配置，支持 columns 的参数
 
 ::: demo
-
-<template>
-  <pro-table
-    :data="data"
-    :columns="columns"
-    :menu="menu"
-  >
-    <template #menu="{ size }">
-      <el-button
-        :size="size"
-        type="text"
-      >
-        详情
-      </el-button>
-    </template>
-  </pro-table>
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const menu = {
-      label: '操作',
-      align: 'center',
-    }
-    const columns = [
-      {
-        label: '日期',
-        prop: 'date',
-      },
-      {
-        label: '姓名',
-        prop: 'name',
-      },
-      {
-        label: '地址',
-        prop: 'address',
-      },
-    ]
-    const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-
-    return {
-      menu,
-      data,
-      columns,
-    }
-  }
-}
-</script>
-
+@/demo/Table/menu.vue
 :::
 
 ### 插槽
@@ -413,75 +62,7 @@ export default {
 在 `columns` 中配置 `render` 可以使用简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)。或者直接在模版中增加带 `[prop]` 相关的插槽
 
 ::: demo
-
-<template>
-  <pro-table
-    :data="data"
-    :columns="columns3"
-  >
-    <template #name-header="{ column }">
-      <s>{{ column.label }}</s>
-    </template>
-    <template #name="{ row, size }">
-      <el-tag :size="size">
-        {{ row?.name }}
-      </el-tag>
-    </template>
-  </pro-table>
-</template>
-
-<script>
-import { h, ref } from 'vue'
-
-export default {
-  setup() {
-    const columns3 = ref([
-      {
-        label: '日期',
-        prop: 'date',
-        render: '--',
-      },
-      {
-        label: '姓名',
-        prop: 'name',
-      },
-      {
-        label: '地址',
-        prop: 'address',
-        render: (row) => h('em', null, row.address),
-      },
-    ])
-    const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-
-    return {
-      data,
-      columns3,
-    }
-  }
-}
-</script>
-
+@/demo/Table/slots.vue
 :::
 
 ### 显示分页
@@ -489,73 +70,7 @@ export default {
 当传入 `total` 数据时，将自动显示分页。可以通过 `v-model:current-page` 绑定当前页数、通过 `v-model:page-size` 绑定每页显示条目个数
 
 ::: demo
-
-<template>
-  <pro-table
-    v-model:current-page="currentPage"
-    v-model:page-size="pageSize"
-    :data="data"
-    :columns="columns"
-    :total="total"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const currentPage = ref(1)
-    const pageSize = ref(10)
-    const total = ref(50)
-    const columns = [
-      {
-        label: '日期',
-        prop: 'date',
-      },
-      {
-        label: '姓名',
-        prop: 'name',
-      },
-      {
-        label: '地址',
-        prop: 'address',
-      },
-    ]
-    const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-
-    return {
-      currentPage,
-      pageSize,
-      total,
-      data,
-      columns,
-    }
-  }
-}
-</script>
-
+@/demo/Table/pagination.vue
 :::
 
 ### 多级表头
@@ -563,69 +78,7 @@ export default {
 通过 columns 的 `children` 配置多级表头
 
 ::: demo
-
-<template>
-  <pro-table
-    :data="data"
-    :columns="columns2"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const columns2 = ref([
-      {
-        label: '日期',
-        prop: 'date',
-      },
-      {
-        label: '用户',
-        children: [
-          {
-            label: '姓名',
-            prop: 'name',
-          },
-          {
-            label: '地址',
-            prop: 'address',
-          },
-        ],
-      },
-    ])
-    const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ])
-
-    return {
-      data,
-      columns2,
-    }
-  }
-}
-</script>
-
+@/demo/Table/group.vue
 :::
 
 ### 异步表格
@@ -633,104 +86,15 @@ export default {
 想要实现异步表格 columns 必须绑定一个动态数组
 
 ::: demo
+@/demo/Table/async.vue
+:::
 
-<template>
-  <div style="margin-bottom:20px">
-    <el-button
-      type="primary"
-      @click="createTable"
-    >
-      加载表单
-    </el-button>
-    <el-button
-      type="info"
-      @click="createDict"
-    >
-      加载数据
-    </el-button>
-    <el-button
-      type="danger"
-      @click="destroyTable"
-    >
-      销毁
-    </el-button>
-  </div>
-  <pro-table
-    :data="data2"
-    :columns="columns4"
-  />
-</template>
+### TypeScript
 
-<script>
-import { ref } from 'vue'
+从组件库中引用类型 ITableColumns 用来辅助编辑 columns，支持传入一个泛型用来推断 `prop` 值
 
-export default {
-  setup() {
-    const data2 = ref([])
-    const columns4 = ref([])
-    const submit = (done, isValid, invalidFields) => {
-      console.log(isValid, invalidFields)
-      setTimeout(() => {
-        done()
-      }, 1000)
-    }
-    const createTable = () => {
-      columns4.value = [
-        {
-          label: '日期',
-          prop: 'date',
-        },
-        {
-          label: '姓名',
-          prop: 'name',
-        },
-        {
-          label: '地址',
-          prop: 'address',
-        },
-      ]
-    }
-    const createDict = () => {
-      data2.value = [
-        {
-          date: '2016-05-03',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-02',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-04',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-          date: '2016-05-01',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        },
-      ]
-    }
-    const destroyTable = () => {
-      columns4.value = []
-      data2.value = []
-    }
-
-    return {
-      data2,
-      columns4,
-      submit,
-      createTable,
-      createDict,
-      destroyTable,
-    }
-  }
-}
-</script>
-
+::: demo
+@/demo/Table/typescript.vue
 :::
 
 ### 配置
@@ -856,10 +220,6 @@ export default {
 | clearFilter        | 不传入参数时用于清空所有过滤条件，数据会恢复成未过滤的状态，也可传入由 columnKey 组成的数组以清除指定列的过滤条件       | columnKey                   |
 | doLayout           | 对 Table 进行重新布局。当 Table 或其祖先元素由隐藏切换为显示时，可能需要调用此方法                                      | -                           |
 | sort               | 手动对 Table 进行排序。参数`prop`属性指定排序列，`order`指定排序顺序。                                                  | prop: string, order: string |
-
-::: tip 提示
-如果使用 `typescript` 可以从组件中导出 `ITableExpose` 提供更好的类型推导
-:::
 
 ### 插槽
 

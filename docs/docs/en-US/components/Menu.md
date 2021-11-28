@@ -16,18 +16,7 @@ meta:
 By default, the component will generate routes from vue-router, Go to <pro-link to="/zh-CN/guide/router">Router and Menu</pro-link> to view routing related usage
 
 ::: demo
-
-<template>
-  <pro-menu class="docs-menu" />
-</template>
-
-<style>
-.docs-menu {
-  max-height: 400px;
-  overflow: auto;
-}
-</style>
-
+@/demo/Menu/base.vue
 :::
 
 ### Custom Mode
@@ -35,33 +24,7 @@ By default, the component will generate routes from vue-router, Go to <pro-link 
 Set `mode` attribute to enable custom Mode
 
 ::: demo
-
-<template>
-  <pro-radio-button
-    v-model="mode"
-    :data="data"
-  />
-  <pro-menu :mode="mode" class="docs-menu" />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const mode = ref('horizontal')
-    const data = [
-      { value: 'vertical', label: 'Vertical' },
-      { value: 'horizontal', label: 'Horizontal' },
-    ]
-
-    return {
-      mode,
-    }
-  }
-}
-</script>
-
+@/demo/Menu/mode.vue
 :::
 
 ### Custom routes
@@ -69,32 +32,7 @@ export default {
 Set `routes` attribute to enable custom routes
 
 ::: demo
-
-<template>
-  <pro-menu :routes="routes" class="docs-menu" />
-</template>
-
-<script>
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-
-export default {
-  setup() {
-    const router = useRouter()
-    const routes = computed(() => {
-      const _routes = router.options.routes
-      return _routes.find(item => {
-        return item.path === '/en-US/components/'
-      })?.children || []
-    })
-
-    return {
-      routes,
-    }
-  }
-}
-</script>
-
+@/demo/Menu/routes.vue
 :::
 
 ### Slots
@@ -104,44 +42,7 @@ Starting from `0.12.0`, the internal menu will be implemented using svgicon by d
 :::
 
 ::: demo How to display the menu content through the default slot
-
-<template>
-  <pro-menu :routes="routes1" class="docs-menu">
-    <template #default="item">
-      <pro-link :to="item.path">
-        <i
-          v-if="item.meta?.icon"
-          :class="item.meta.icon"
-        />
-        <span v-if="item.meta?.title">
-          {{ item.meta.title }}
-        </span>
-      </pro-link>
-    </template>
-  </pro-menu>
-</template>
-
-<script>
-export default {
-  setup() {
-    const routes1 = [
-      {
-        path: '/en-US/components/menu',
-        meta: { title: 'FontIcon', icon: 'el-icon-potato-strips' },
-      },
-      {
-        path: '/en-US/components/menu',
-        meta: { title: 'Development', icon: 'el-icon-cpu' },
-      },
-    ]
-
-    return {
-      routes1,
-    }
-  }
-}
-</script>
-
+@/demo/Menu/slots.vue
 :::
 
 ### Props

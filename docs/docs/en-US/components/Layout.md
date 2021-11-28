@@ -16,20 +16,7 @@ meta:
 By default, the component will generate routes from vue-router, Go to <pro-link to="/zh-CN/guide/router">Router and Menu</pro-link> to view routing related usage
 
 ::: demo
-
-<template>
-  <pro-layout class="docs-layout" />
-</template>
-
-<style>
-.docs-layout {
-  --pro-layout-height: 400px;
-  --pro-layout-index-header: 1;
-  border: 1px solid var(--c-border);
-  max-height: 400px;
-}
-</style>
-
+@/demo/Layout/base.vue
 :::
 
 ### Top mode
@@ -37,70 +24,7 @@ By default, the component will generate routes from vue-router, Go to <pro-link 
 Implement top bar mode by `mode="horizontal"`
 
 ::: demo
-
-<template>
-  <pro-layout mode="horizontal" class="docs-layout" />
-</template>
-
-:::
-
-### Slots
-
-More complex interface through slots
-
-::: demo
-
-<template>
-  <pro-radio-button
-    v-model="mode"
-    :data="data"
-  />
-  <pro-layout :mode="mode" class="docs-layout">
-    <template #logo="{ collapse }">
-      <span style="line-height: 54px">
-        {{ collapse ? 'L' : 'logo' }}
-      </span>
-    </template>
-    <template #footer>
-      <p>footer</p>
-    </template>
-    <template #header-left>
-      <span>header-left</span>
-    </template>
-    <template #header-right>
-      <span>header-right</span>
-    </template>
-    <template #header-bottom>
-      <span>header-bottom</span>
-    </template>
-    <template #main-top>
-      <p>main-top</p>
-    </template>
-    <template #main-bottom>
-      <p>main-bottom</p>
-    </template>
-  </pro-layout>
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const mode = ref('vertical')
-    const data = [
-      { value: 'vertical', label: 'Menu vertical' },
-      { value: 'horizontal', label: 'Menu horizontal' },
-    ]
-
-    return {
-      mode,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/Layout/mode.vue
 :::
 
 ### Custom routes
@@ -108,35 +32,15 @@ export default {
 Set `routes` attribute to enable custom routes
 
 ::: demo
+@/demo/Layout/routes.vue
+:::
 
-<template>
-  <pro-layout
-    :routes="routes"
-    class="docs-layout"
-  />
-</template>
+### Slots
 
-<script>
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+More complex interface through slots
 
-export default {
-  setup() {
-    const router = useRouter()
-    const routes = computed(() => {
-      const _routes = router.options.routes
-      return _routes.find(item => {
-        return item.path === '/en-US/components/'
-      })?.children || []
-    })
-
-    return {
-      routes,
-    }
-  }
-}
-</script>
-
+::: demo
+@/demo/Layout/slots.vue
 :::
 
 ### Props

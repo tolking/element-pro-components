@@ -16,36 +16,13 @@ meta:
 当 columns 绑定的是一个具有响应式的数组时，数组的变动会影响 Descriptions 变动（及动态 Descriptions）。如果不需要动态 Descriptions 推荐绑定一个普通数组
 
 ::: demo
+@/demo/Descriptions/base.vue
+:::
 
-<template>
-  <pro-descriptions
-    :columns="columns"
-    :detail="detail"
-  />
-</template>
+### 获取嵌套键值
 
-<script>
-export default {
-  setup() {
-    const columns = [
-      { label: 'Date', prop: 'date' },
-      { label: 'Name', prop: 'name' },
-      { label: 'Address', prop: 'address' },
-    ]
-    const detail = {
-      date: '2016-05-03',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    }
-
-    return {
-      columns,
-      detail,
-    }
-  }
-}
-</script>
-
+::: demo
+@/demo/Descriptions/nested.vue
 :::
 
 ### 插槽
@@ -53,95 +30,15 @@ export default {
 直接在模版中增加带 `[prop]` 相关的插槽即可使用插槽
 
 ::: demo
-
-<template>
-  <pro-descriptions
-    :columns="columns"
-    :detail="detail"
-    border
-    size="small"
-  >
-    <template #title>
-      <span>title</span>
-    </template>
-    <template #extra="{ size }">
-      <el-button :size="size">extra</el-button>
-    </template>
-    <template #name="{ detail, size }">
-      <el-tag :size="size">{{ detail.name }}</el-tag>
-    </template>
-    <template #name-label="{ item }">
-      <span>{{ item.label }}:</span>
-    </template>
-  </pro-descriptions>
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const size = ref('')
-    const columns = [
-      { label: 'Date', prop: 'date' },
-      { label: 'Name', prop: 'name' },
-      { label: 'Address', prop: 'address' },
-    ]
-    const detail = {
-      date: '2016-05-03',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    }
-
-    return {
-      columns,
-      detail,
-    }
-  }
-}
-</script>
-
+@/demo/Descriptions/slots.vue
 :::
 
-### 获取嵌套键值
+### TypeScript
+
+从组件库中引用类型 IDescriptionsColumns 用来辅助编辑 columns，支持传入一个泛型用来推断 `prop` 值
 
 ::: demo
-
-<template>
-  <pro-descriptions
-    :columns="columns3"
-    :detail="detail3"
-    :column="1"
-  />
-</template>
-
-<script>
-export default {
-  setup() {
-    const columns3 = [
-      { label: 'A', prop: 'a' },
-      { label: 'B', prop: 'b.c' },
-      { label: 'C', prop: 'b.d' },
-      { label: 'D', prop: 'd[0].e' },
-    ]
-    const detail3 = {
-      a: 'a value',
-      'b.c': 'break nested value',
-      b: {
-        c: 'nested value c in b',
-        d: 'nested value d in b',
-      },
-      d: [{ e: 'nested value in array' }]
-    }
-
-    return {
-      columns3,
-      detail3,
-    }
-  }
-}
-</script>
-
+@/demo/Descriptions/typescript.vue
 :::
 
 ### 配置

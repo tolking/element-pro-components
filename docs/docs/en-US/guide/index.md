@@ -129,7 +129,7 @@ import 'element-pro-components/lib/styles/layout.css'
 ```
 
 ::: tip Tip
-Component list reference [components](https://github.com/tolking/element-pro-components/blob/master/src/index.ts)
+Component list reference [components](https://github.com/tolking/element-pro-components/blob/master/src/components.ts)
 
 In addition to components, you can also use some internal [utils](https://github.com/tolking/element-pro-components/blob/master/src/utils/) or [composables](https://github.com/tolking/element-pro-components/blob/master/src/composables/)
 :::
@@ -174,8 +174,6 @@ If you use VS Code with typescript to develop, It is recommended to use plug-in 
 ```
 
 If you use webstorm to develop, complete components, prop, and event completions
-
-If you use TypeScript to develop, You can refer to the [example](https://github.com/tolking/element-pro-components/tree/master/docs/src/views/), Some types are provided internally for easy use
 :::
 
 <<< @/docs/src/layout/Layout.vue
