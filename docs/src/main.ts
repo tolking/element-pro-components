@@ -14,6 +14,7 @@ import {
 import ElementPro from '/@src/index'
 import ProCode from './components/ProCode.vue'
 import Layout from './App.vue'
+import 'element-plus/theme-chalk/index.css'
 import '/@src/styles/index.css'
 import './styles/index.css'
 import type { Router } from 'vue-router'

@@ -100,7 +100,7 @@ function handleScroll() {
 .pro-code .meta {
   padding: 0 10px;
   height: 0;
-  background-color: var(--el-background-color-base);
+  background-color: var(--el-bg-color-base, --el-background-color-base);
   overflow: hidden;
   transition: var(--el-transition-all);
 }
@@ -153,7 +153,7 @@ function handleScroll() {
   bottom: 0;
 }
 .pro-code .control:hover {
-  background-color: var(--el-background-color-base);
+  background-color: var(--el-bg-color-base, --el-background-color-base);
   color: var(--el-color-primary);
 }
 .pro-code .control .control-icon {
