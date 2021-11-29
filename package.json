@@ -29,7 +29,7 @@
     "build:docs": "rimraf dist && vite build --ssrManifest --outDir ../dist/static && vite build --ssr src/entry-server.ts --outDir ../dist/server && esno build/prerender.ts",
     "test": "jest",
     "lint": "eslint . --fix --ext .ts,.vue,.js --ignore-pattern \"/lib/\" --ignore-pattern \"/types/\"",
-    "prettier": "prettier --check --write --ignore-unknown \"{example,src,docs,test}/**\"",
+    "prettier": "prettier --check --write --ignore-unknown \"demo,src,docs,test/**\"",
     "prepare": "husky install"
   },
   "repository": {
@@ -52,18 +52,18 @@
   },
   "homepage": "https://github.com/tolking/element-pro-components#readme",
   "peerDependencies": {
-    "@vueuse/core": "^6.x.x",
+    "@vueuse/core": "^7.x.x",
     "element-plus": "^1.1.0-beta.x",
     "vue": "^3.2.x",
     "vue-router": "^4.0.x"
   },
   "dependencies": {
     "@element-plus/icons": "^0.0.11",
-    "@vue/shared": "^3.2.22",
-    "@vueuse/core": "^6.9.2",
-    "element-plus": "^1.2.0-beta.3",
+    "@vue/shared": "^3.2.23",
+    "@vueuse/core": "^7.1.2",
+    "element-plus": "^1.2.0-beta.4",
     "lodash": "^4.17.21",
-    "vue": "^3.2.22",
+    "vue": "^3.2.23",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
@@ -78,11 +78,11 @@
     "@types/markdown-it-container": "^2.0.4",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
-    "@vitejs/plugin-vue": "^1.10.0",
-    "@vue/compiler-sfc": "^3.2.22",
-    "@vue/server-renderer": "^3.2.22",
+    "@vitejs/plugin-vue": "^1.10.1",
+    "@vue/compiler-sfc": "^3.2.23",
+    "@vue/server-renderer": "^3.2.23",
     "@vue/test-utils": "^2.0.0-rc.17",
-    "@vueuse/head": "^0.6.0",
+    "@vueuse/head": "^0.7.2",
     "babel-jest": "^26.6.3",
     "components-helper": "^1.0.4",
     "escape-html": "^1.0.3",
@@ -97,7 +97,7 @@
     "lint-staged": "^11.2.6",
     "markdown-it-anchor": "^8.4.1",
     "markdown-it-container": "^3.0.0",
-    "postcss": "^8.3.11",
+    "postcss": "^8.4.4",
     "postcss-clean": "^1.2.2",
     "postcss-cli": "^8.3.1",
     "postcss-import": "^14.0.2",
