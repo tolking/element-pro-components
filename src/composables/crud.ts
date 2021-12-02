@@ -1,5 +1,5 @@
 import { ComputedRef, computed, ref, unref, useSlots, Ref, Slot } from 'vue'
-import { useLocaleInject } from 'element-plus'
+import { useLocale } from 'element-plus'
 import { useProOptions } from './index'
 import {
   isFunction,
@@ -14,7 +14,7 @@ import type { ITableColumns } from '../Table/index'
 
 function useCrudMenu(): ComputedRef<ICrudMenuColumns> {
   const localeMenu = computed(() => {
-    const { t } = useLocaleInject()
+    const { t } = useLocale()
     const menu: ICrudMenuColumns = {}
     const menuList = [
       'add',

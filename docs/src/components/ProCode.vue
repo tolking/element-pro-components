@@ -39,11 +39,11 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
-import { useLocaleInject } from 'element-plus'
+import { useLocale } from 'element-plus'
 import { CaretTop, CaretBottom } from '@element-plus/icons'
 import { useShow } from '/@src/index'
 
-const { t } = useLocaleInject()
+const { t } = useLocale()
 const { show, toggleShow } = useShow()
 const meta = ref<HTMLElement>({} as HTMLElement)
 const isFixContorl = ref(false)

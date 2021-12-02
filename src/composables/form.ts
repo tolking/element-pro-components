@@ -7,7 +7,7 @@ import {
   getCurrentInstance,
   shallowRef,
 } from 'vue'
-import { useLocaleInject } from 'element-plus'
+import { useLocale } from 'element-plus'
 import { useProOptions, useShow } from './index'
 import {
   isObject,
@@ -83,7 +83,7 @@ export function useFormMenu(
   props: Readonly<{ menu?: IFormMenuColumns }>
 ): ComputedRef<IFormMenuColumns> {
   const localeMenu = computed(() => {
-    const { t } = useLocaleInject()
+    const { t } = useLocale()
     const menu: IFormMenuColumns = {}
 
     if (t('pro.form.submit')) {
