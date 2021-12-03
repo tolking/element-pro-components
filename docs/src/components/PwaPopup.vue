@@ -28,10 +28,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useLocaleInject } from 'element-plus'
+import { useLocale } from 'element-plus'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 
-const { t } = useLocaleInject()
+const { t } = useLocale()
 const _useRegisterSW = !import.meta.env.SSR
   ? useRegisterSW()
   : {
