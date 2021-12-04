@@ -57,7 +57,6 @@ export default defineComponent({
             ElTree,
             Object.assign(
               {
-                ...attrs.value,
                 ref: tree,
                 data: data.value,
                 showCheckbox: multiple?.value,
@@ -75,7 +74,8 @@ export default defineComponent({
                 onNodeClick: upData,
                 onCheckChange: upData,
               },
-              config
+              config,
+              attrs.value
             ),
             {
               default: (scope: TreeScope) => {
