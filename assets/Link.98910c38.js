@@ -1,0 +1,25 @@
+import{u as p}from"./index.e5437f2a.js";import{L as l}from"./base.56d3e13b.js";import{H as i,o as u,B as r,a as s,M as t,aw as e,L as n,a4 as a}from"./modules-vue.3dfb25a8.js";import"./modules-element-plus.b561c7ee.js";const k={class:"markdown-body"},d=e('<h1 id="link" tabindex="-1">Link <a class="header-anchor" href="#link" aria-hidden="true">#</a></h1><blockquote><p>Generate appropriate tags based on link information</p></blockquote><h2 id="use" tabindex="-1">Use <a class="header-anchor" href="#use" aria-hidden="true">#</a></h2><h3 id="basic-use" tabindex="-1">Basic Use <a class="header-anchor" href="#basic-use" aria-hidden="true">#</a></h3>',4),h=n("pre",null,[n("code",{"v-pre":""},[n("span",{class:"token tag"},[n("span",{class:"token tag"},[n("span",{class:"token punctuation"},"<"),a("template")]),n("span",{class:"token punctuation"},">")]),a(`
+  `),n("span",{class:"token tag"},[n("span",{class:"token tag"},[n("span",{class:"token punctuation"},"<"),a("pro-link")]),a(),n("span",{class:"token attr-name"},"class"),n("span",{class:"token attr-value"},[n("span",{class:"token punctuation attr-equals"},"="),n("span",{class:"token punctuation"},'"'),a("docs-link"),n("span",{class:"token punctuation"},'"')]),n("span",{class:"token punctuation"},">")]),a(`
+    normal text
+  `),n("span",{class:"token tag"},[n("span",{class:"token tag"},[n("span",{class:"token punctuation"},"</"),a("pro-link")]),n("span",{class:"token punctuation"},">")]),a(`
+  `),n("span",{class:"token tag"},[n("span",{class:"token tag"},[n("span",{class:"token punctuation"},"<"),a("pro-link")]),a(`
+    `),n("span",{class:"token attr-name"},"to"),n("span",{class:"token attr-value"},[n("span",{class:"token punctuation attr-equals"},"="),n("span",{class:"token punctuation"},'"'),a("/en-US/guide/"),n("span",{class:"token punctuation"},'"')]),a(`
+    `),n("span",{class:"token attr-name"},"class"),n("span",{class:"token attr-value"},[n("span",{class:"token punctuation attr-equals"},"="),n("span",{class:"token punctuation"},'"'),a("docs-link"),n("span",{class:"token punctuation"},'"')]),a(`
+  `),n("span",{class:"token punctuation"},">")]),a(`
+    guide
+  `),n("span",{class:"token tag"},[n("span",{class:"token tag"},[n("span",{class:"token punctuation"},"</"),a("pro-link")]),n("span",{class:"token punctuation"},">")]),a(`
+  `),n("span",{class:"token tag"},[n("span",{class:"token tag"},[n("span",{class:"token punctuation"},"<"),a("pro-link")]),a(`
+    `),n("span",{class:"token attr-name"},"to"),n("span",{class:"token attr-value"},[n("span",{class:"token punctuation attr-equals"},"="),n("span",{class:"token punctuation"},'"'),a("https://github.com/tolking/element-pro-components#readme"),n("span",{class:"token punctuation"},'"')]),a(`
+    `),n("span",{class:"token attr-name"},"class"),n("span",{class:"token attr-value"},[n("span",{class:"token punctuation attr-equals"},"="),n("span",{class:"token punctuation"},'"'),a("docs-link"),n("span",{class:"token punctuation"},'"')]),a(`
+  `),n("span",{class:"token punctuation"},">")]),a(`
+    github
+  `),n("span",{class:"token tag"},[n("span",{class:"token tag"},[n("span",{class:"token punctuation"},"</"),a("pro-link")]),n("span",{class:"token punctuation"},">")]),a(`
+`),n("span",{class:"token tag"},[n("span",{class:"token tag"},[n("span",{class:"token punctuation"},"</"),a("template")]),n("span",{class:"token punctuation"},">")]),a(`
+
+`),n("span",{class:"token tag"},[n("span",{class:"token tag"},[n("span",{class:"token punctuation"},"<"),a("style")]),n("span",{class:"token punctuation"},">")]),n("span",{class:"token style"},[n("span",{class:"token language-css"},[a(`
+`),n("span",{class:"token selector"},".docs-link"),a(),n("span",{class:"token punctuation"},"{"),a(`
+  `),n("span",{class:"token property"},"display"),n("span",{class:"token punctuation"},":"),a(" block"),n("span",{class:"token punctuation"},";"),a(`
+  `),n("span",{class:"token property"},"margin-bottom"),n("span",{class:"token punctuation"},":"),a(" 10px"),n("span",{class:"token punctuation"},";"),a(`
+`),n("span",{class:"token punctuation"},"}"),a(`
+`)])]),n("span",{class:"token tag"},[n("span",{class:"token tag"},[n("span",{class:"token punctuation"},"</"),a("style")]),n("span",{class:"token punctuation"},">")]),a(`
+`)])],-1),m=n("p",null,"@/demo/Link/base.vue",-1),g=e('<h3 id="props" tabindex="-1">Props <a class="header-anchor" href="#props" aria-hidden="true">#</a></h3><table><thead><tr><th>Name</th><th>Description</th><th>Type</th><th>Options</th><th>Default</th></tr></thead><tbody><tr><td>to</td><td>link address</td><td>string / undefind</td><td>-</td><td>-</td></tr></tbody></table>',2),N={setup(b,{expose:o}){return o({frontmatter:{title:"Link",meta:[{name:"description",content:"Generate appropriate tags based on link information"},{property:"og:title",content:"Link"}]}}),p({title:"Link",meta:[{name:"description",content:"Generate appropriate tags based on link information"},{property:"og:title",content:"Link"}]}),(y,x)=>{const c=i("pro-code");return u(),r("div",k,[d,s(c,null,{source:t(()=>[s(l)]),code:t(()=>[h]),default:t(()=>[m]),_:1}),g])}}};export{N as default};
