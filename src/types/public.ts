@@ -9,15 +9,22 @@ export type UnknownObject = Record<string | number, unknown>
 
 export type UnknownFunction = (...arg: unknown[]) => unknown
 
-type DeepNested<T> = T extends UnknownObject
-  ? DeepKeyof<T>
-  : T extends UnknownObject[]
-  ? DeepKeyof<T[number]>
+// eslint-disable-next-line @typescript-eslint/ban-types
+type DeepNested<T> = T extends object[]
+  ? DeepKeyof<Exclude<T[number], undefined>>
+  : T extends unknown[]
+  ? never
+  : // eslint-disable-next-line @typescript-eslint/ban-types
+  T extends object
+  ? DeepKeyof<Exclude<T, undefined>>
   : never
 
-type WithNumber<T, Q extends keyof T> = `${Q & string}${T[Q] extends unknown[]
+type WithNumber<T, Q extends keyof T> = `${Q & string}${Exclude<
+  T[Q],
+  undefined
+> extends unknown[]
   ? `[${number}]`
-  : ''}${`.${DeepNested<T[Q]> & string}` | ''}`
+  : ''}${`.${DeepNested<Exclude<T[Q], undefined>> & string}` | ''}`
 
 /**
  * Get the deep key of the object
@@ -40,7 +47,7 @@ type WithNumber<T, Q extends keyof T> = `${Q & string}${T[Q] extends unknown[]
  * ```
  */
 export type DeepKeyof<T> = {
-  [Q in keyof T]: Q | DeepNested<T[Q]> | WithNumber<T, Q>
+  [Q in keyof T]-?: Q | DeepNested<Exclude<T[Q], undefined>> | WithNumber<T, Q>
 }[keyof T]
 
 export type MaybeArray<T> = T | Array<T>

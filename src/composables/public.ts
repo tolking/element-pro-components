@@ -54,8 +54,9 @@ export function useShow(
 
 /** Gets the responsive breakpoint of the current screen */
 export function useScreenSize(): ComputedRef<IScreenSize> {
+  const { width } = useWindowSize()
+
   return computed(() => {
-    const { width } = useWindowSize()
     return getScreenSize(width.value)
   })
 }

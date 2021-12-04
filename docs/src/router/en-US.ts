@@ -35,11 +35,6 @@ const enUS: RouteRecordRaw[] = [
         component: () => import('../../docs/en-US/guide/router.md'),
         meta: { title: 'Router and Menu' },
       },
-      {
-        path: '/en-US/guide/design',
-        component: () => import('../../docs/en-US/guide/design.md'),
-        meta: { title: 'Components Design' },
-      },
     ],
   },
   {

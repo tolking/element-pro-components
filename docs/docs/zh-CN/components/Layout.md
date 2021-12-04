@@ -16,20 +16,7 @@ meta:
 组件默认将从 `vue-router` 中获取生成菜单的路由信息，前往<pro-link to="/zh-CN/guide/router">路由和菜单</pro-link>查看路由相关使用
 
 ::: demo
-
-<template>
-  <pro-layout class="docs-layout" />
-</template>
-
-<style>
-.docs-layout {
-  --pro-layout-height: 400px;
-  --pro-layout-index-header: 1;
-  border: 1px solid var(--c-border);
-  max-height: 400px;
-}
-</style>
-
+@/demo/Layout/base.vue
 :::
 
 ### 顶栏模式
@@ -37,70 +24,7 @@ meta:
 通过配置 `mode="horizontal"` 作用于菜单实现顶栏模式
 
 ::: demo
-
-<template>
-  <pro-layout mode="horizontal" class="docs-layout" />
-</template>
-
-:::
-
-### 插槽
-
-通过插槽实现更复杂的界面
-
-::: demo
-
-<template>
-  <pro-radio-button
-    v-model="mode"
-    :data="data"
-  />
-  <pro-layout :mode="mode" class="docs-layout">
-    <template #logo="{ collapse }">
-      <span style="line-height: 54px">
-        {{ collapse ? 'L' : 'logo' }}
-      </span>
-    </template>
-    <template #footer>
-      <p>footer</p>
-    </template>
-    <template #header-left>
-      <span>header-left</span>
-    </template>
-    <template #header-right>
-      <span>header-right</span>
-    </template>
-    <template #header-bottom>
-      <span>header-bottom</span>
-    </template>
-    <template #main-top>
-      <p>main-top</p>
-    </template>
-    <template #main-bottom>
-      <p>main-bottom</p>
-    </template>
-  </pro-layout>
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const mode = ref('vertical')
-    const data = [
-      { value: 'vertical', label: '菜单垂直' },
-      { value: 'horizontal', label: '菜单水平' },
-    ]
-
-    return {
-      mode,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/Layout/mode.vue
 :::
 
 ### 自定义路由
@@ -108,35 +32,15 @@ export default {
 通过传入 `routes` 实现自定义路由显示
 
 ::: demo
+@/demo/Layout/routes.vue
+:::
 
-<template>
-  <pro-layout
-    :routes="routes"
-    class="docs-layout"
-  />
-</template>
+### 插槽
 
-<script>
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+通过插槽实现更复杂的界面
 
-export default {
-  setup() {
-    const router = useRouter()
-    const routes = computed(() => {
-      const _routes = router.options.routes
-      return _routes.find(item => {
-        return item.path === '/zh-CN/components/'
-      })?.children || []
-    })
-
-    return {
-      routes,
-    }
-  }
-}
-</script>
-
+::: demo
+@/demo/Layout/slots.vue
 :::
 
 ### 配置

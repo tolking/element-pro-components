@@ -24,105 +24,13 @@ meta:
 当 columns 绑定的是一个具有响应式的数组时，数组的变动会影响表单变动（及动态表单）。如果不需要动态表单推荐绑定一个普通数组
 
 ::: demo
-
-<template>
-  <pro-form
-    v-model="form"
-    :columns="columns"
-    label-width="100px"
-    @submit="submit"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const form = ref({})
-    const columns = [
-      {
-        label: '名字',
-        prop: 'name',
-        component: 'el-input',
-      },
-      {
-        label: '地址',
-        prop: 'address',
-        component: 'el-input',
-      },
-    ]
-    const submit = (done, isValid, invalidFields) => {
-      console.log(isValid, invalidFields)
-      setTimeout(() => {
-        done()
-      }, 1000)
-    }
-
-    return {
-      form,
-      columns,
-      submit,
-    }
-  }
-}
-</script>
-
+@/demo/Form/base.vue
 :::
 
 ### 嵌套键值
 
 ::: demo
-
-<template>
-  <p>{{ form9 }}</p>
-  <pro-form
-    v-model="form9"
-    :columns="columns9"
-    label-width="100px"
-    @submit="submit"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const form9 = ref({ 'a.b': undefined })
-    const columns9 = [
-      {
-        label: 'Break',
-        prop: 'a.b',
-        component: 'el-input',
-      },
-      {
-        label: 'Object',
-        prop: 'a.b.c',
-        component: 'el-input',
-      },
-      {
-        label: 'Array',
-        prop: 'b[0]',
-        component: 'el-input',
-      },
-    ]
-    const submit = (done, isValid, invalidFields) => {
-      console.log(isValid, invalidFields)
-      setTimeout(() => {
-        done()
-      }, 1000)
-    }
-
-    return {
-      form9,
-      columns9,
-      submit,
-    }
-  }
-}
-</script>
-
+@/demo/Form/nested.vue
 :::
 
 ### 指定对应的组件
@@ -130,84 +38,7 @@ export default {
 通过 columns 的 `component` 定义该项生成什么组件，要求对应组件可以通过 `v-model` 绑定值。通过 `props` 可以向组件中传值，通过 `props` 里面的 `slots` 可以向组件传递简单的 <pro-link to="https://v3.cn.vuejs.org/guide/render-function.html">渲染函数</pro-link>
 
 ::: demo
-
-<template>
-  <pro-form
-    v-model="form1"
-    :columns="columns1"
-    label-width="100px"
-  />
-</template>
-
-<script>
-import { h, ref } from 'vue'
-
-export default {
-  setup() {
-    const form1 = ref({})
-    const list = ref([
-      { value: 'Go', label: 'go' },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-    const columns1 = [
-      {
-        label: 'input',
-        prop: 'input',
-        component: 'el-input',
-        props: {
-          clearable: true,
-          placeholder: '请输入内容',
-          slots: {
-            prefix: () => h('i', { className: 'el-input__icon el-icon-search' }),
-            append: () => '搜索'
-          },
-        },
-      },
-      {
-        label: 'input-tag',
-        prop: 'inputTag',
-        component: 'pro-input-tag',
-        props: {
-          placeholder: '请输入内容后点击空格按键',
-        },
-      },
-      {
-        label: 'radio',
-        prop: 'radio',
-        component: 'pro-radio',
-        props: {
-          data: list.value,
-        },
-      },
-      {
-        label: 'checkbox',
-        prop: 'checkbox',
-        component: 'pro-checkbox',
-        props: {
-          data: list.value,
-        },
-      },
-      {
-        label: 'select',
-        prop: 'select',
-        component: 'pro-select',
-        props: {
-          data: list.value,
-        },
-      },
-    ]
-
-    return {
-      form1,
-      columns1,
-    }
-  }
-}
-</script>
-
+@/demo/Form/component.vue
 :::
 
 ### 使用局部组件
@@ -215,55 +46,7 @@ export default {
 通过 `component` 也可以直接传入局部组件 (请使用 `markRaw` 标记)
 
 ::: demo
-
-<template>
-  <pro-form
-    v-model="form7"
-    :columns="columns7"
-    :gutter="20"
-    label-width="100px"
-    @submit="submit"
-  />
-</template>
-
-<script>
-import { ref, markRaw } from 'vue'
-import { ElSwitch } from 'element-plus'
-
-export default {
-  setup() {
-    const list = ref([
-      { value: 'Go', label: 'go' },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-    const form7 = ref({})
-    const columns7 = ref([
-      {
-        label: 'radio',
-        prop: 'radio',
-        component: 'pro-radio',
-        props: {
-          data: list,
-        },
-      },
-      {
-        label: 'switch',
-        prop: 'switch',
-        component: markRaw(ElSwitch),
-      }
-    ])
-
-    return {
-      form7,
-      columns7,
-    }
-  }
-}
-</script>
-
+@/demo/Form/local.vue
 :::
 
 ### 使用插槽
@@ -271,98 +54,7 @@ export default {
 直接在模版中增加带 `[prop]` 相关的插槽即可使用插槽。虽然在启用插槽后可以通过 `v-model="form.slot"` 这种方式绑定值，但更推荐使用 `value` 与 `setValue`
 
 ::: demo
-
-<template>
-  <pro-form
-    v-model="form2"
-    :columns="columns2"
-    label-width="100px"
-  >
-    <template #slot-label>
-      <picture-rounded class="icon-picture" />
-      <span>图片</span>
-    </template>
-    <template #slot="{ value, setValue }">
-      <el-upload
-        :show-file-list="false"
-        :before-upload="(file) => beforeUpload(file, setValue)"
-        action=""
-        class="avatar-uploader"
-      >
-        <img
-          v-if="value"
-          :src="value"
-          class="avatar"
-        >
-        <plus
-          v-else
-          class="icon-uploader"
-        />
-      </el-upload>
-    </template>
-  </pro-form>
-</template>
-
-<script>
-import { ref } from 'vue'
-import { Plus, PictureRounded } from '@element-plus/icons'
-
-export default {
-  setup() {
-    const form2 = ref({})
-    const columns2 = ref([
-      {
-        prop: 'slot',
-      },
-    ])
-
-    function beforeUpload(file, setValue) {
-      // 模拟上传图片
-      const fileReader = new FileReader()
-      fileReader.onloadend = e => setValue(e.target.result)
-      fileReader.readAsDataURL(file)
-      return false
-    }
-
-    return {
-      form2,
-      columns2,
-      beforeUpload,
-    }
-  }
-}
-</script>
-
-<style>
-.icon-picture {
-  margin-right: 6px;
-  width: 16px;
-  height: 16px;
-}
-.avatar-uploader .el-upload {
-  width: 178px;
-  height: 178px;
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  overflow: hidden;
-  text-align: center;
-  line-height: 200px;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader .icon-uploader {
-  width: 50px;
-  height: 50px;
-  color: #8c939d;
-}
-.avatar-uploader .avatar {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-</style>
-
+@/demo/Form/slots.vue
 :::
 
 ### 配置按钮
@@ -372,48 +64,7 @@ export default {
 按钮也可以通过 <pro-link to="/zh-CN/guide/#全局配置">全局配置</pro-link> 或者 <pro-link to="/zh-CN/guide/i18n">国际化</pro-link> 来配置
 
 ::: demo
-
-<template>
-  <pro-form
-    v-model="form"
-    :columns="columns"
-    :menu="menu"
-    label-width="100px"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const menu = {
-      submitText: '提 交',
-      reset: false,
-    }
-    const form = ref({})
-    const columns = ref([
-      {
-        label: '名字',
-        prop: 'name',
-        component: 'el-input',
-      },
-      {
-        label: '地址',
-        prop: 'address',
-        component: 'el-input',
-      },
-    ])
-
-    return {
-      menu,
-      form,
-      columns,
-    }
-  }
-}
-</script>
-
+@/demo/Form/menu.vue
 :::
 
 ### 配置子表单
@@ -421,72 +72,7 @@ export default {
 通过 columns 的 `children` 配置子表单，当然你也可以配置多层的 `children` 结构实现反复套娃
 
 ::: demo 通过 `max` 限制子表单的最大数量
-
-<template>
-  <pro-form
-    v-model="form3"
-    :columns="columns3"
-    label-width="100px"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const form3 = ref({})
-    const columns3 = [
-      {
-        label: '商品名',
-        prop: 'name',
-        component: 'el-input',
-      },
-      {
-        label: '规格',
-        prop: 'spec',
-        size: 'small',
-        max: 3,
-        children: [
-          {
-            label: '重量',
-            prop: 'weight',
-            component: 'el-input',
-          },
-          {
-            label: '尺寸',
-            prop: 'size',
-            max: 1,
-            children: [
-              {
-                label: '长',
-                prop: 'length',
-                component: 'el-input',
-              },
-              {
-                label: '宽',
-                prop: 'width',
-                component: 'el-input',
-              },
-              {
-                label: '高',
-                prop: 'height',
-                component: 'el-input',
-              },
-            ]
-          },
-        ],
-      },
-    ]
-
-    return {
-      form3,
-      columns3,
-    }
-  }
-}
-</script>
-
+@/demo/Form/sub.vue
 :::
 
 ### 表单验证
@@ -494,78 +80,7 @@ export default {
 像 el-form 一样可以通过 `rules` 配置表单验证。对于子表单更推荐使用 columns 里面的 `rules` 字段实现验证。否则你需要通过 `${父级的 prop}.${当前项的 index}.${当前的 prop}` 这种方式配置子表单的验证
 
 ::: demo submit 方法第二个参数表示是否通过表单验证
-
-<template>
-  <pro-form
-    v-model="form4"
-    :columns="columns4"
-    :rules="rules"
-    label-width="100px"
-    @submit="submitForm"
-    @reset="resetForm"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const form4 = ref({})
-    const rules = ref({
-      date: { required: true, message: '日期不能为空', trigger: 'blur' },
-      user: { required: true, message: '用户不能为空', trigger: 'blur' },
-    })
-    const columns4 = [
-      {
-        label: '日期',
-        prop: 'date',
-        component: 'el-input',
-      },
-      {
-        label: '用户',
-        prop: 'user',
-        max: 3,
-        size: 'small',
-        children: [
-          {
-            label: '名字',
-            prop: 'name',
-            component: 'el-input',
-            rules: { required: true, message: '名字不能为空', trigger: 'blur' },
-          },
-          {
-            label: '地址',
-            prop: 'address',
-            component: 'el-input',
-          },
-        ],
-      },
-    ]
-
-    function submitForm(done, isValid, invalidFields) {
-      if (isValid) {
-        alert('submit!')
-      } else {
-        console.log('error submit!!')
-      }
-      done()
-    }
-
-    function resetForm() {
-      console.log('reset form')
-    }
-
-    return {
-      form4,
-      columns4,
-      submitForm,
-      resetForm,
-    }
-  }
-}
-</script>
-
+@/demo/Form/rules.vue
 :::
 
 ### 动态表单
@@ -573,77 +88,7 @@ export default {
 如果传入的 `columns` 是一个响应性数据，动态的修改 columns 表单也会随之改变
 
 ::: demo
-
-<template>
-  <pro-form
-    v-model="form5"
-    :columns="columns5"
-    :menu="menu5"
-    label-width="100px"
-  >
-    <template #menu-left>
-      <el-button
-        v-show="columns5.length < 5"
-        @click="add"
-      >
-        增加
-      </el-button>
-    </template>
-    <template #menu-right>
-      <el-button
-        v-show="columns5.length"
-        @click="del"
-      >
-        减少
-      </el-button>
-    </template>
-  </pro-form>
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const menu5 = {
-      submit: false,
-      reset: false,
-    }
-    const count = ref(0)
-    const form5 = ref({})
-    const columns5 = ref([
-      {
-        label: '项-0',
-        prop: 'prop0',
-        component: 'el-input',
-      },
-    ])
-
-    function add() {
-      count.value++
-      columns5.value.push({
-        label: '项-' + count.value,
-        prop: 'prop' + count.value,
-        component: 'el-input',
-      })
-    }
-
-    function del() {
-      const index = Math.floor(Math.random() * columns5.value.length)
-      columns5.value.splice(index, 1)
-    }
-
-    return {
-      menu5,
-      form5,
-      columns5,
-      add,
-      del,
-    }
-  }
-}
-</script>
-
+@/demo/Form/dynamically.vue
 :::
 
 ### 栅格布局
@@ -651,96 +96,7 @@ export default {
 与使用 `el-row` 和 `el-col` 组件相同 (`el-row` 对应 `pro-form`；`el-col` 对应 `columns`)，通过相关配置可以自由地组合布局。**当 `inline` 为 `true` 时无效**
 
 ::: demo
-
-<template>
-  <pro-form
-    v-model="form6"
-    :columns="columns6"
-    :gutter="20"
-    label-width="100px"
-    @submit="submit"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const form6 = ref({})
-    const columns6 = [
-      {
-        label: '商品名',
-        prop: 'name',
-        component: 'el-input',
-        span: 24,
-      },
-      {
-        label: '重量',
-        prop: 'weight',
-        component: 'el-input',
-        xs: 24,
-        md: 12,
-      },
-      {
-        label: '数量',
-        prop: 'count',
-        component: 'el-input',
-        xs: 24,
-        md: 12,
-      },
-      {
-        label: '长',
-        prop: 'length',
-        component: 'el-input',
-        xs: 24,
-        md: 8,
-      },
-      {
-        label: '宽',
-        prop: 'width',
-        component: 'el-input',
-        xs: 24,
-        md: 8,
-      },
-      {
-        label: '高',
-        prop: 'height',
-        component: 'el-input',
-        xs: 24,
-        md: 8,
-      },
-      {
-        label: '销售价',
-        prop: 'price',
-        component: 'el-input',
-        xs: 24,
-        md: 12,
-      },
-      {
-        label: '市场价',
-        prop: 'marketPrice',
-        component: 'el-input',
-        xs: 24,
-        md: 12,
-      },
-    ]
-    const submit = (done, isValid, invalidFields) => {
-      console.log(isValid, invalidFields)
-      setTimeout(() => {
-        done()
-      }, 1000)
-    }
-
-    return {
-      form6,
-      columns6,
-      submit,
-    }
-  }
-}
-</script>
-
+@/demo/Form/layout.vue
 :::
 
 ### 异步表单
@@ -748,93 +104,15 @@ export default {
 想要实现异步表单 columns 必须绑定一个动态数组
 
 ::: demo
+@/demo/Form/async.vue
+:::
 
-<template>
-  <div style="margin-bottom:20px">
-    <el-button
-      type="primary"
-      @click="createForm"
-    >
-      加载表单
-    </el-button>
-    <el-button
-      type="info"
-      @click="createDict"
-    >
-      加载数据
-    </el-button>
-    <el-button
-      type="danger"
-      @click="destroyForm"
-    >
-      销毁
-    </el-button>
-  </div>
-  <pro-form
-    v-model="form8"
-    :columns="columns8"
-    label-width="100px"
-    @submit="submit"
-  />
-</template>
+### TypeScript
 
-<script>
-import { ref } from 'vue'
+从组件库中引用类型 IFormColumns 用来辅助编辑 columns，支持传入一个泛型用来推断 `prop` 值
 
-export default {
-  setup() {
-    const list8 = ref([])
-    const form8 = ref({})
-    const columns8 = ref([])
-    const submit = (done, isValid, invalidFields) => {
-      console.log(isValid, invalidFields)
-      setTimeout(() => {
-        done()
-      }, 1000)
-    }
-    const createForm = () => {
-      columns8.value = [
-        {
-          label: '姓名',
-          prop: 'name',
-          component: 'el-input',
-        },
-        {
-          label: '语言',
-          prop: 'language',
-          component: 'pro-radio',
-          props: {
-            data: list8,
-          },
-        },
-      ]
-    }
-    const createDict = () => {
-      list8.value = [
-        { value: 'Go', label: 'go' },
-        { value: 'JavaScript', label: 'javascript' },
-        { value: 'Python', label: 'python' },
-        { value: 'Dart', label: 'dart' },
-        { value: 'V', label: 'v' },
-      ]
-    }
-    const destroyForm = () => {
-      columns8.value = []
-      list8.value = []
-    }
-
-    return {
-      form8,
-      columns8,
-      submit,
-      createForm,
-      createDict,
-      destroyForm,
-    }
-  }
-}
-</script>
-
+::: demo
+@/demo/Form/typescript.vue
 :::
 
 ### 配置
@@ -936,42 +214,6 @@ props: {
 | validateField | 对部分表单字段进行校验的方法                                                                                                                                         | Function(props: array \| string, callback: Function(errorMessage: string)) |
 | resetFields   | 对整个表单进行重置，将所有字段值重置为初始值并移除校验结果                                                                                                           | -                                                                          |
 | clearValidate | 移除表单项的校验结果。传入待移除的表单项的 prop 属性或者 prop 组成的数组，如不传则移除整个表单的校验结果                                                             | Function(props: array \| string)                                           |
-
-::: tip 提示
-如果使用 `typescript` 可以从组件中导出 `IFormExpose` 提供更好的类型推导。参考如下在 setup 中使用
-
-```vue
-<template>
-  <pro-form ref="ruleForm" v-model="form" :columns="columns" />
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import type { IFormExpose } from 'element-pro-components'
-
-export default defineComponent({
-  setup() {
-    const ruleForm = ref<IFormExpose>({} as IFormExpose)
-    // code...
-
-    function submitForm() {
-      ruleForm.value
-        .validate()
-        .then(() => {
-          alert('submit!')
-        })
-        .catch(() => {
-          console.log('error submit!!')
-        })
-    }
-
-    return { ruleForm, submitForm }
-  },
-})
-</script>
-```
-
-:::
 
 ### 插槽
 

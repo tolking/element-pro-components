@@ -307,7 +307,7 @@ const columns1 = ref<IFormColumns<RuleForm>>([
   },
 ])
 const submitForm: IFormSubmit = (done, isValid, invalidFields) => {
-  console.log(isValid, invalidFields)
+  console.log(form.value, isValid, invalidFields)
   setTimeout(() => {
     done()
   }, 1000)

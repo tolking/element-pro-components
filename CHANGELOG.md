@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.16.2
+
+fix
+
+- sync css variable name changes from Element
+- sync hook name change from Element
+- Form|Layout: remove warning message
+
+other
+
+- type: optimization type DeepKeyof
+
 ## 0.16.1
 
 fix

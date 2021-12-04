@@ -1,0 +1,3 @@
+<template>
+  <pro-tabs />
+</template>

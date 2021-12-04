@@ -28,7 +28,10 @@ function initialize() {
   --docsearch-searchbox-shadow: inset 0 0 0 2px var(--docsearch-primary-color);
   --docsearch-text-color: var(--el-text-color-primary);
   --docsearch-muted-color: var(--el-text-color-primary);
-  --docsearch-searchbox-background: var(--el-background-color-base);
+  --docsearch-searchbox-background: var(
+    --el-bg-color-base,
+    --el-background-color-base
+  );
   --docsearch-modal-shadow: var(--el-box-shadow-base);
 }
 </style>

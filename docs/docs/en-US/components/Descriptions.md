@@ -16,36 +16,13 @@ meta:
 When columns is bound to a reactive array, changes in the array will affect Descriptions changes. If you don't need a dynamic Descriptions, it is recommended to bind an ordinary array.
 
 ::: demo
+@/demo/Descriptions/base.vue
+:::
 
-<template>
-  <pro-descriptions
-    :columns="columns"
-    :detail="detail"
-  />
-</template>
+### Nested value
 
-<script>
-export default {
-  setup() {
-    const columns = [
-      { label: 'Date', prop: 'date' },
-      { label: 'Name', prop: 'name' },
-      { label: 'Address', prop: 'address' },
-    ]
-    const detail = {
-      date: '2016-05-03',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    }
-
-    return {
-      columns,
-      detail,
-    }
-  }
-}
-</script>
-
+::: demo
+@/demo/Descriptions/nested.vue
 :::
 
 ### Slots
@@ -53,95 +30,15 @@ export default {
 Directly add some slot with `[prop]` in the template
 
 ::: demo
-
-<template>
-  <pro-descriptions
-    :columns="columns"
-    :detail="detail"
-    border
-    size="small"
-  >
-    <template #title>
-      <span>title</span>
-    </template>
-    <template #extra="{ size }">
-      <el-button :size="size">extra</el-button>
-    </template>
-    <template #name="{ detail, size }">
-      <el-tag :size="size">{{ detail.name }}</el-tag>
-    </template>
-    <template #name-label="{ item }">
-      <span>{{ item.label }}:</span>
-    </template>
-  </pro-descriptions>
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const size = ref('')
-    const columns = [
-      { label: 'Date', prop: 'date' },
-      { label: 'Name', prop: 'name' },
-      { label: 'Address', prop: 'address' },
-    ]
-    const detail = {
-      date: '2016-05-03',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    }
-
-    return {
-      columns,
-      detail,
-    }
-  }
-}
-</script>
-
+@/demo/Descriptions/slots.vue
 :::
 
-### Nested value
+### TypeScript
+
+import type IDescriptionsColumns from the component library is used to assist in editing columns, and a Generics type is supported to infer the value of `prop`
 
 ::: demo
-
-<template>
-  <pro-descriptions
-    :columns="columns3"
-    :detail="detail3"
-    :column="1"
-  />
-</template>
-
-<script>
-export default {
-  setup() {
-    const columns3 = [
-      { label: 'A', prop: 'a' },
-      { label: 'B', prop: 'b.c' },
-      { label: 'C', prop: 'b.d' },
-      { label: 'D', prop: 'd[0].e' },
-    ]
-    const detail3 = {
-      a: 'a value',
-      'b.c': 'break nested value',
-      b: {
-        c: 'nested value c in b',
-        d: 'nested value d in b',
-      },
-      d: [{ e: 'nested value in array' }]
-    }
-
-    return {
-      columns3,
-      detail3,
-    }
-  }
-}
-</script>
-
+@/demo/Descriptions/typescript.vue
 :::
 
 ### Props

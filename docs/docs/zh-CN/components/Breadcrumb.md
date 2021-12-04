@@ -16,15 +16,7 @@ meta:
 将根据当前路由自动生成
 
 ::: demo
-
-<template>
-  <pro-breadcrumb />
-</template>
-
-<script>
-export default {}
-</script>
-
+@/demo/Breadcrumb/base.vue
 :::
 
 ### 配置

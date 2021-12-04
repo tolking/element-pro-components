@@ -16,36 +16,7 @@ meta:
 Set `data` attribute will automatic generate options
 
 ::: demo
-
-<template>
-  <pro-checkbox
-    v-model="checkbox"
-    :data="data"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const checkbox = ref([])
-    const data = ref([
-      { value: 'Go', label: 'go' },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      checkbox,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/Checkbox/base.vue
 :::
 
 ### Disabled State
@@ -53,36 +24,7 @@ export default {
 Set the `disabled` attribute in prop `data`
 
 ::: demo
-
-<template>
-  <pro-checkbox
-    v-model="checkbox1"
-    :data="list"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const checkbox1 = ref([])
-    const list = ref([
-      { value: 'Go', label: 'go', disabled: true },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      checkbox1,
-      list,
-    }
-  }
-}
-</script>
-
+@/demo/Checkbox/disabled.vue
 :::
 
 ### Configure key of binding data
@@ -90,39 +32,7 @@ export default {
 Set `config` attribute. `value`- v-model bind key; `label`- display key; `disabled`- Disabled key; `name`- name key
 
 ::: demo
-
-<template>
-  <pro-checkbox
-    v-model="checkbox2"
-    :data="data"
-    :config="config"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const checkbox2 = ref([])
-    const config = ref({ value: 'label', label: 'value' })
-    const data = ref([
-      { value: 'Go', label: 'go' },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      checkbox2,
-      config,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/Checkbox/config.vue
 :::
 
 ### Button style
@@ -130,36 +40,7 @@ export default {
 use `pro-checkbox-button` then checkbox with button styles
 
 ::: demo
-
-<template>
-  <pro-checkbox-button
-    v-model="checkboxbutton"
-    :data="data"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const checkboxbutton = ref([])
-    const data = ref([
-      { value: 'Go', label: 'go' },
-      { value: 'JavaScript', label: 'javascript' },
-      { value: 'Python', label: 'python' },
-      { value: 'Dart', label: 'dart' },
-      { value: 'V', label: 'v' },
-    ])
-
-    return {
-      checkboxbutton,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/CheckboxButton/base.vue
 :::
 
 ### Checkbox Props

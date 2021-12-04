@@ -16,18 +16,7 @@ meta:
 组件默认将从 `vue-router` 中获取路由生成路由，前往<pro-link to="/zh-CN/guide/router">路由和菜单</pro-link>查看路由相关使用
 
 ::: demo
-
-<template>
-  <pro-menu class="docs-menu" />
-</template>
-
-<style>
-.docs-menu {
-  max-height: 400px;
-  overflow: auto;
-}
-</style>
-
+@/demo/Menu/base.vue
 :::
 
 ### 模式
@@ -35,33 +24,7 @@ meta:
 通过传入 `mode` 实现自定义菜单模式
 
 ::: demo
-
-<template>
-  <pro-radio-button
-    v-model="mode"
-    :data="data"
-  />
-  <pro-menu :mode="mode" class="docs-menu" />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const mode = ref('horizontal')
-    const data = [
-      { value: 'vertical', label: '垂直' },
-      { value: 'horizontal', label: '水平' },
-    ]
-
-    return {
-      mode,
-    }
-  }
-}
-</script>
-
+@/demo/Menu/mode.vue
 :::
 
 ### 自定义路由
@@ -69,32 +32,7 @@ export default {
 通过传入 `routes` 实现自定义路由显示
 
 ::: demo
-
-<template>
-  <pro-menu :routes="routes" class="docs-menu" />
-</template>
-
-<script>
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-
-export default {
-  setup() {
-    const router = useRouter()
-    const routes = computed(() => {
-      const _routes = router.options.routes
-      return _routes.find(item => {
-        return item.path === '/zh-CN/components/'
-      })?.children || []
-    })
-
-    return {
-      routes,
-    }
-  }
-}
-</script>
-
+@/demo/Menu/routes.vue
 :::
 
 ### 使用插槽
@@ -104,44 +42,7 @@ export default {
 :::
 
 ::: demo 通过默认插槽可以很方便的定义如何显示菜单内容
-
-<template>
-  <pro-menu :routes="routes1" class="docs-menu">
-    <template #default="item">
-      <pro-link :to="item.path">
-        <i
-          v-if="item.meta?.icon"
-          :class="item.meta.icon"
-        />
-        <span v-if="item.meta?.title">
-          {{ item.meta.title }}
-        </span>
-      </pro-link>
-    </template>
-  </pro-menu>
-</template>
-
-<script>
-export default {
-  setup() {
-    const routes1 = [
-      {
-        path: '/zh-CN/components/menu',
-        meta: { title: 'FontIcon', icon: 'el-icon-potato-strips' },
-      },
-      {
-        path: '/zh-CN/components/menu',
-        meta: { title: 'Development', icon: 'el-icon-cpu' },
-      },
-    ]
-
-    return {
-      routes1,
-    }
-  }
-}
-</script>
-
+@/demo/Menu/slots.vue
 :::
 
 ### 配置

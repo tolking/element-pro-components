@@ -16,73 +16,7 @@ meta:
 Set `data` attribute will automatic generate options (same like Select Group)
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select"
-    :data="data"
-    clearable
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select = ref('')
-    const data = ref([{
-      label: '1',
-      value: 1,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1' },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1' },
-        ],
-      }],
-    }])
-
-    return {
-      select,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/base.vue
 :::
 
 ### Disabled State
@@ -90,74 +24,7 @@ export default {
 Set the `disabled` attribute in prop `data`
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select1"
-    :data="data1"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select1 = ref('')
-    const data1 = ref([{
-      label: '1',
-      value: 1,
-      disabled: true,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        disabled: true,
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1', disabled: true },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1', disabled: true },
-        ],
-      }],
-    }])
-
-    return {
-      select1,
-      data1,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/disabled.vue
 :::
 
 ### Configure binding data key
@@ -165,74 +32,7 @@ export default {
 Set `config` attribute. `value`- v-model bind key; `label`- display key; `disabled`- Disabled key; `children`- children key
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select2"
-    :data="data"
-    :config="config"
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select2 = ref('')
-    const config = ref({ value: 'label', label: 'value' })
-    const data = ref([{
-      label: '1',
-      value: 1,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1' },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1' },
-        ],
-      }],
-    }])
-
-    return {
-      select2,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/config.vue
 :::
 
 ### Basic multiple select
@@ -240,74 +40,7 @@ export default {
 Set `multiple` attribute to enable multiple mode. In this case, the value of v-model will be an array of selected options
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select3"
-    :data="data"
-    multiple
-    clearable
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select3 = ref([])
-    const data = ref([{
-      label: '1',
-      value: 1,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1' },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1' },
-        ],
-      }],
-    }])
-
-    return {
-      select3,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/multiple.vue
 :::
 
 ### Disabled State on multiple select
@@ -315,76 +48,7 @@ export default {
 Same like default select. Set the `disabled` attribute in prop `data`
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select4"
-    :data="data1"
-    multiple
-    default-expand-all
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select4 = ref([])
-    const data1 = ref([{
-      label: '1',
-      value: 1,
-      disabled: true,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        disabled: true,
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1', disabled: true },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1', disabled: true },
-        ],
-      }],
-    }])
-
-    return {
-      select4,
-      data1,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/multiple-disabled.vue
 :::
 
 ### Check Strictly
@@ -392,74 +56,7 @@ export default {
 Set `check-strictly` attribute to checked state of a node not affects its father and child nodes
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select5"
-    :data="data"
-    multiple
-    check-strictly
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select5 = ref([])
-    const data = ref([{
-      label: '1',
-      value: 1,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1' },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1' },
-        ],
-      }],
-    }])
-
-    return {
-      select5,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/check-strictly.vue
 :::
 
 ### Only Select Leaf
@@ -467,74 +64,7 @@ export default {
 Set `only-select-leaf` attribute to only the data of child nodes will be selected
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select6"
-    :data="data"
-    multiple
-    only-select-leaf
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select6 = ref([])
-    const data = ref([{
-      label: '1',
-      value: 1,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1' },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1' },
-        ],
-      }],
-    }])
-
-    return {
-      select6,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/only-select-leaf.vue
 :::
 
 ### Custom node content
@@ -542,95 +72,7 @@ export default {
 Use `default` slot to enable custom node content. **Note: In the single select mode, you need to refer to the following content to customize the class to achieve control disabled item styles**
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select7"
-    :data="data1"
-  >
-    <template #default="{ node, data, multiple }">
-      <p
-        :class="node.disabled && !multiple ? 'is-disabled' : ''"
-        class="custom-tree-node"
-      >
-        <span>{{ data.label }}</span>
-        <em>{{ data.value }}</em>
-      </p>
-    </template>
-  </pro-tree-select>
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select7 = ref('')
-    const data1 = ref([{
-      label: '1',
-      value: 1,
-      disabled: true,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        disabled: true,
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1', disabled: true },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1', disabled: true },
-        ],
-      }],
-    }])
-
-    return {
-      select7,
-      data1,
-    }
-  }
-}
-</script>
-
-<style>
-.custom-tree-node {
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-}
-.custom-tree-node em {
-  padding-right: 15px;
-}
-</style>
-
+@/demo/TreeSelect/slots.vue
 :::
 
 ### Tree node filtering
@@ -638,74 +80,7 @@ export default {
 Set `filterable` attribute to enable node filtering. Enter text in the input, the content of the tree node will be filtered
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select8"
-    :data="data"
-    multiple
-    filterable
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select8 = ref([])
-    const data = ref([{
-      label: '1',
-      value: 1,
-      children: [{
-        value: 11,
-        label: '1-1',
-        children: [
-          { value: 111, label: '1-1-1' },
-        ],
-      }],
-    }, {
-      value: 2,
-      label: '2',
-      children: [{
-        value: 21,
-        label: '2-1',
-        children: [
-          { value: 211, label: '2-1-1' },
-        ],
-      }, {
-        value: 22,
-        label: '2-2',
-        children: [
-          { value: 221, label: '2-2-1' },
-        ],
-      }],
-    }, {
-      value: 3,
-      label: '3',
-      children: [{
-        value: 31,
-        label: '3-1',
-        children: [
-          { value: 311, label: '3-1-1' },
-        ],
-      }, {
-        value: 32,
-        label: '3-2',
-        children: [
-          { value: 321, label: '3-2-1' },
-        ],
-      }],
-    }])
-
-    return {
-      select8,
-      data,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/filterable.vue
 :::
 
 ### Lazy Mode
@@ -713,58 +88,7 @@ export default {
 Same like `ElTree`, set `lazy` and `load` attribute to enable lazy mode
 
 ::: demo
-
-<template>
-  <pro-tree-select
-    v-model="select9"
-    :data="data2"
-    :load="loadNode"
-    lazy
-    multiple
-    filterable
-  />
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {
-    const select9 = ref([])
-    const data2 = []
-
-    function loadNode(node, resolve) {
-      if (node.level === 0) {
-        return resolve([{
-          label: 'region',
-          value: 'region',
-          isLeaf: true,
-        }])
-      }
-      if (node.level > 2) return resolve([])
-
-      setTimeout(() => {
-        const data = [{
-          label: 'leaf-' + node.level,
-          value: 'leaf-' + node.level,
-          isLeaf: node.level <= 2,
-        }, {
-          label: 'zone-' + node.level,
-          value: 'zone-' + node.level,
-        }]
-        resolve(data)
-      }, 500)
-    }
-
-    return {
-      select9,
-      data2,
-      loadNode,
-    }
-  }
-}
-</script>
-
+@/demo/TreeSelect/lazy.vue
 :::
 
 ### Props
