@@ -1,6 +1,6 @@
 {
   "name": "element-pro-components",
-  "version": "0.16.1",
+  "version": "0.16.2",
   "description": "a component library for Vue 3 base on element-plus",
   "main": "lib/element-pro-components.umd.js",
   "module": "lib/element-pro-components.es.js",
@@ -28,8 +28,8 @@
     "build:styles": "rimraf lib/styles && esno build/build-styles.ts",
     "build:docs": "rimraf dist && vite build --ssrManifest --outDir ../dist/static && vite build --ssr src/entry-server.ts --outDir ../dist/server && esno build/prerender.ts",
     "test": "jest",
-    "lint": "eslint . --fix --ext .ts,.vue,.js --ignore-pattern \"/lib/\" --ignore-pattern \"/types/\"",
-    "prettier": "prettier --check --write --ignore-unknown \"demo,src,docs,test/**\"",
+    "lint": "eslint . --fix --ext .ts,.vue,.js --ignore-pattern \"/lib/\" --ignore-pattern \"/dist/\" --ignore-pattern \"/types/\"",
+    "prettier": "prettier --check --write --ignore-unknown \"{build,demo,src,docs,test}/**\"",
     "prepare": "husky install"
   },
   "repository": {
@@ -70,8 +70,8 @@
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
     "@babel/preset-typescript": "^7.16.0",
-    "@docsearch/css": "^3.0.0-alpha.41",
-    "@docsearch/js": "^3.0.0-alpha.41",
+    "@docsearch/css": "^3.0.0-alpha.42",
+    "@docsearch/js": "^3.0.0-alpha.42",
     "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.177",
     "@types/markdown-it": "^12.2.3",
@@ -113,8 +113,8 @@
     "vite-plugin-md": "^0.11.4",
     "vite-plugin-pwa": "^0.11.9",
     "vue-jest": "^5.0.0-alpha.10",
-    "workbox-build": "^6.4.1",
-    "workbox-window": "^6.4.1"
+    "workbox-build": "^6.4.2",
+    "workbox-window": "^6.4.2"
   },
   "vetur": {
     "tags": "lib/tags.json",
