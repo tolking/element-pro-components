@@ -49,11 +49,11 @@ const _mount = (options: Record<string, unknown>) =>
   )
 const addClass = '.pro-crud .pro-crud-menu button'
 const searchClass =
-  '.pro-crud .pro-crud-search .el-form-item:last-child .el-form-item__content button'
+  '.pro-crud .pro-crud-search .pro-form-menu .el-form-item__content button'
 const menuClass =
   '.pro-crud .pro-crud-table .el-table__body-wrapper .el-table__body .el-table__row td:last-child .cell button'
 const formClass =
-  '.pro-crud .pro-crud-dialog .pro-crud-form .el-form-item:last-child button'
+  '.pro-crud .pro-crud-dialog .pro-crud-form .pro-form-menu .el-form-item__content button'
 const dialogClose =
   '.pro-crud .pro-crud-dialog .el-dialog__header .el-dialog__headerbtn'
 const headerClass =

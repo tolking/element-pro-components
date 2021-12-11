@@ -1,4 +1,5 @@
-import { isObject } from './index'
+import cloneDeep from 'lodash/cloneDeep'
+import merge from 'lodash/merge'
 import type { IScreenSize, UnknownObject } from '../types/index'
 
 /**
@@ -28,57 +29,14 @@ export function objectDeepMerge<T = UnknownObject, Q = T>(
   obj1: T,
   obj2: Q
 ): T & Q {
-  const _obj = { ...obj1 } as T & Q
-
-  for (const key in obj2) {
-    _obj[key] =
-      _obj[key] && isObject(_obj[key])
-        ? objectDeepMerge(_obj[key], obj2[key])
-        : (obj2[key] as (T & Q)[Extract<keyof Q, string>])
-  }
-
-  return _obj
+  const _obj = cloneDeep(obj1) as T & Q
+  return merge(_obj, obj2)
 }
 
 /**
- * Select keys from object to form new object
- * @param obj object
- * @param keys pick keys
+ * Check the integrity of the url
+ * @param url checkUrl
  */
-export function objectPick<T extends Q, Q = UnknownObject>(
-  obj: T,
-  keys: Array<keyof Q>
-): Q {
-  const _obj = {} as Q
-
-  keys.forEach((item) => {
-    _obj[item] = obj[item]
-  })
-
-  return _obj
-}
-
-/**
- * Omit keys from object to form new object
- * @param obj object
- * @param keys pick keys
- */
-export function objectOmit<T extends Q, Q = UnknownObject>(
-  obj: T,
-  keys: Array<keyof T>
-): Q {
-  const _obj = {} as Q
-
-  for (const key in obj) {
-    if (!keys.includes(key)) {
-      const _key = (key as unknown) as keyof Q
-      _obj[_key] = obj[_key]
-    }
-  }
-
-  return _obj
-}
-
-export function isBoolean(val: unknown): val is boolean {
-  return typeof val === 'boolean'
+export function checkUrl(url: string): boolean {
+  return /^((ht|f)tps?):\/\/?/.test(url)
 }
