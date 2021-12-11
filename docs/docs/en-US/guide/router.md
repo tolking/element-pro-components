@@ -32,22 +32,22 @@ The Icon render as a components, so you can define as any icon component.
 
 Install the required icon component library
 
-- [@element-plus/icons](https://www.npmjs.com/package/@element-plus/icons)
+- [@element-plus/icons-vue](https://www.npmjs.com/package/@element-plus/icons-vue)
 - [bootstrap-icons-vue](https://www.npmjs.com/package/bootstrap-icons-vue)
 - and more
 
-Let's use @element-plus/icons as an example
+Let's use @element-plus/icons-vue as an example
 
 ```
-yarn add @element-plus/icons
+yarn add @element-plus/icons-vue
 # or
-npm install @element-plus/icons
+npm install @element-plus/icons-vue
 ```
 
 - Globally register
 
 ```js
-import { Edit } from '@element-plus/icons'
+import { Edit } from '@element-plus/icons-vue'
 
 app.component(Edit.name, Edit)
 ```
@@ -65,7 +65,7 @@ app.component(Edit.name, Edit)
 
 ```js
 import { markRaw } from 'vue'
-import { Edit } from '@element-plus/icons'
+import { Edit } from '@element-plus/icons-vue'
 // ...
 {
   name: 'admin',

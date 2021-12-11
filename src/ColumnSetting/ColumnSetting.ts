@@ -1,6 +1,6 @@
 import { defineComponent, computed, h, toRefs } from 'vue'
 import { ElDropdown, ElDropdownMenu, ElButton, ElTree } from 'element-plus'
-import { Setting } from '@element-plus/icons'
+import { Setting } from '@element-plus/icons-vue'
 import { filterFlat } from '../utils/index'
 import props, { treeProps } from './props'
 import type { ICrudColumns, CrudColumn } from '../Crud/index'

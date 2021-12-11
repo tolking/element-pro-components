@@ -1,6 +1,6 @@
 import { defineComponent, h, toRefs, markRaw, PropType, Slot, VNode } from 'vue'
 import { ElFormItem, ElButton } from 'element-plus'
-import { Plus, Minus } from '@element-plus/icons'
+import { Plus, Minus } from '@element-plus/icons-vue'
 import { useFormItemBind, useFormChild, useCol } from '../composables/index'
 import { get, set, has, isArray } from '../utils/index'
 import ProFormItem from './FormItem'
