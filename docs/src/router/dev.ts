@@ -1,5 +1,5 @@
 import { markRaw } from 'vue'
-import { Edit } from '@element-plus/icons'
+import { Edit } from '@element-plus/icons-vue'
 import BaseLayout from '../layout/Layout.vue'
 import type { RouteRecordRaw } from 'vue-router'
 

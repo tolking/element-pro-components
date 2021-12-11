@@ -1,5 +1,5 @@
 import { markRaw } from 'vue'
-import { House, TakeawayBox } from '@element-plus/icons'
+import { House, TakeawayBox } from '@element-plus/icons-vue'
 import BaseLayout from '../layout/Layout.vue'
 import type { RouteRecordRaw } from 'vue-router'
 

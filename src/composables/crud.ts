@@ -27,9 +27,12 @@ function useCrudMenu(): ComputedRef<ICrudMenuColumns> {
     ]
 
     menuList.forEach((item) => {
-      if (t(`pro.crud.${item}`)) {
+      const menuKey = `pro.crud.${item}`
+      const menuText = t(menuKey)
+
+      if (menuText && menuText !== menuKey) {
         const key = `${item}Text` as keyof ICrudMenuColumns
-        menu[key] = t(`pro.crud.${item}`) as ExternalParam
+        menu[key] = menuText as ExternalParam
       }
     })
 

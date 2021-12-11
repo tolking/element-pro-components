@@ -76,13 +76,15 @@ export function useFormMenu(
 ): ComputedRef<IFormMenuColumns> {
   const localeMenu = computed(() => {
     const { t } = useLocale()
+    const submitText = t('pro.form.submit')
+    const resetText = t('pro.form.reset')
     const menu: IFormMenuColumns = {}
 
-    if (t('pro.form.submit')) {
-      menu.submitText = t('pro.form.submit')
+    if (submitText && submitText !== 'pro.form.submit') {
+      menu.submitText = submitText
     }
-    if (t('pro.form.reset')) {
-      menu.resetText = t('pro.form.reset')
+    if (resetText && resetText !== 'pro.form.reset') {
+      menu.resetText = resetText
     }
 
     return menu

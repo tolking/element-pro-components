@@ -32,22 +32,22 @@ interface RouteMeta {
 
 安装需要的图标组件库
 
-- [@element-plus/icons](https://www.npmjs.com/package/@element-plus/icons)
+- [@element-plus/icons-vue](https://www.npmjs.com/package/@element-plus/icons-vue)
 - [bootstrap-icons-vue](https://www.npmjs.com/package/bootstrap-icons-vue)
 - 等
 
-下面使用 @element-plus/icons 举例
+下面使用 @element-plus/icons-vue 举例
 
 ```
-yarn add @element-plus/icons
+yarn add @element-plus/icons-vue
 # 或者
-npm install @element-plus/icons
+npm install @element-plus/icons-vue
 ```
 
 - 全局注册
 
 ```js
-import { Edit } from '@element-plus/icons'
+import { Edit } from '@element-plus/icons-vue'
 
 app.component(Edit.name, Edit)
 ```
@@ -65,7 +65,7 @@ app.component(Edit.name, Edit)
 
 ```js
 import { markRaw } from 'vue'
-import { Edit } from '@element-plus/icons'
+import { Edit } from '@element-plus/icons-vue'
 // ...
 {
   name: 'admin',
