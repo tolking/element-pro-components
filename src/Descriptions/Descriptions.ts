@@ -1,6 +1,6 @@
 import { defineComponent, h, Slot } from 'vue'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
-import get from 'lodash/get'
+import { get } from '../utils/index'
 import props from './props'
 
 export default defineComponent({
