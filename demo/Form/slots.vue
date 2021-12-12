@@ -31,7 +31,7 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
-import { Plus, PictureRounded } from '@element-plus/icons'
+import { Plus, PictureRounded } from '@element-plus/icons-vue'
 
 export default defineComponent({
   components: { Plus, PictureRounded },

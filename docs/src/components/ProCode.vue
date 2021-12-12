@@ -40,7 +40,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { useLocale } from 'element-plus'
-import { CaretTop, CaretBottom } from '@element-plus/icons'
+import { CaretTop, CaretBottom } from '@element-plus/icons-vue'
 import { useShow } from '/@src/index'
 
 const { t } = useLocale()
@@ -100,7 +100,7 @@ function handleScroll() {
 .pro-code .meta {
   padding: 0 10px;
   height: 0;
-  background-color: var(--el-bg-color-base, --el-background-color-base);
+  background-color: var(--el-bg-color);
   overflow: hidden;
   transition: var(--el-transition-all);
 }
@@ -153,7 +153,7 @@ function handleScroll() {
   bottom: 0;
 }
 .pro-code .control:hover {
-  background-color: var(--el-bg-color-base, --el-background-color-base);
+  background-color: var(--el-bg-color);
   color: var(--el-color-primary);
 }
 .pro-code .control .control-icon {

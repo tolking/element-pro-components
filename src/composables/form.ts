@@ -1,12 +1,4 @@
-import {
-  ComputedRef,
-  computed,
-  Ref,
-  unref,
-  inject,
-  getCurrentInstance,
-  shallowRef,
-} from 'vue'
+import { ComputedRef, computed, Ref, unref, inject, shallowRef } from 'vue'
 import { useLocale } from 'element-plus'
 import { useProOptions, useShow } from './index'
 import {
@@ -71,7 +63,7 @@ export function useFormItemBind(
     ]
     const _currentBind = unref(currentBind)
     const _option = isObject(_currentBind)
-      ? objectOmit<FormColumn, FormItemBind>(_currentBind, omitKeys)
+      ? objectOmit<FormColumn>(_currentBind, omitKeys)
       : ({} as FormColumn)
 
     _option.size = _option.size || useFormSize().value
@@ -84,13 +76,15 @@ export function useFormMenu(
 ): ComputedRef<IFormMenuColumns> {
   const localeMenu = computed(() => {
     const { t } = useLocale()
+    const submitText = t('pro.form.submit')
+    const resetText = t('pro.form.reset')
     const menu: IFormMenuColumns = {}
 
-    if (t('pro.form.submit')) {
-      menu.submitText = t('pro.form.submit')
+    if (submitText && submitText !== 'pro.form.submit') {
+      menu.submitText = submitText
     }
-    if (t('pro.form.reset')) {
-      menu.resetText = t('pro.form.reset')
+    if (resetText && resetText !== 'pro.form.reset') {
+      menu.resetText = resetText
     }
 
     return menu
@@ -184,27 +178,14 @@ export function useFormMethods(
   }
 }
 
-interface ElInstallOptions {
-  size: IComponentSize
-  zIndex: number
-  locale?: unknown
-}
-
-function useGlobalConfig(): ElInstallOptions {
-  const vm = getCurrentInstance()
-  const proxy = (vm?.proxy || {}) as { $ELEMENT: ElInstallOptions }
-  return ('$ELEMENT' in proxy ? proxy.$ELEMENT : {}) as ElInstallOptions
-}
-
 export function useFormSize(
   props?: Readonly<{ size?: IComponentSize }>
 ): ComputedRef<IComponentSize> {
   const elForm = inject<{ size?: IComponentSize }>('elForm', {})
   const elFormItem = inject<{ size?: IComponentSize }>('elFormItem', {})
-  const elConfig = useGlobalConfig()
 
   return computed(() => {
-    return props?.size || elFormItem.size || elForm.size || elConfig.size
+    return props?.size || elFormItem.size || elForm.size
   })
 }
 
