@@ -3,7 +3,7 @@ import { copyFileSync, mkdir, writeFileSync } from 'fs'
 import execa from 'execa'
 
 export function toAbsolute(path: string): string {
-  return resolve(__dirname, path).replace(/\\/, '/')
+  return resolve(__dirname, path)
 }
 
 export function camelize(name: string): string {
