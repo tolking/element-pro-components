@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.16.3
+
+fix
+
+- sync package name changes from @element-plus/icons-vue
+- sync css-variables name changes from Element
+- sync useLocale changes from Element
+
+other
+
+- refactor some function
+
 ## 0.16.2
 
 fix
