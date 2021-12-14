@@ -8,7 +8,7 @@ import type {
   IColProps,
   MaybeArray,
   ExternalParam,
-} from '../types/index'
+} from './index'
 
 interface InvalidFields {
   [prop: string]: { message: string; field: string }[]

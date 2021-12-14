@@ -3,8 +3,12 @@ import { ElTableColumn } from 'element-plus'
 import { useTableBind } from '../composables'
 import { get, isFunction } from '../utils/index'
 import ProTableItem from './TableItem'
-import type { IComponentSize } from '../types/index'
-import type { TableColumn, ITableColumns, TableColumnsProps } from './type'
+import type {
+  IComponentSize,
+  TableColumn,
+  ITableColumns,
+  TableColumnsProps,
+} from '../types/index'
 
 interface ColumnScope {
   row: Record<string, unknown>

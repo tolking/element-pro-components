@@ -9,14 +9,14 @@ import {
 } from '../composables'
 import props from './props'
 import ProTableItem from './TableItem'
-import { StringObject } from '../types/index'
-import type {
-  ITableProps,
+import {
+  StringObject,
   ITableSelectionColumns,
   ITableExpandColumns,
   ITableIndexColumns,
   ITableMenuColumns,
-} from './index'
+} from '../types/index'
+import type { ITableProps } from './index'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function createTableProps(props: ITableProps) {
@@ -172,7 +172,7 @@ export default defineComponent({
         {
           default: () => createColumn(),
           append: slots.append,
-        },
+        }
       )
       const paginationNode = h(ElPagination, {
         ...pagination.value,

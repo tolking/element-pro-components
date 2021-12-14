@@ -1,4 +1,3 @@
-export * from './type'
 import ProSelect from './Select'
 import props from './props'
 import type { IDefinePlugin, IDefineProps } from '../types/index'

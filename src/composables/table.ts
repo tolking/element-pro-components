@@ -7,13 +7,11 @@ import type {
   MaybeRef,
   MaybeArray,
   ExternalParam,
-} from '../types/index'
-import type {
   ITableColumns,
   TableColumnsProps,
   ITableExpose,
   IPagination,
-} from '../Table/index'
+} from '../types/index'
 
 export function useTableColumns(
   props: Readonly<{ columns?: ITableColumns }>

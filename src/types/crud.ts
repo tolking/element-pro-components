@@ -1,11 +1,15 @@
-import type { IButtonProps, UnknownObject, ExternalParam } from '../types/index'
 import {
+  IButtonProps,
+  UnknownObject,
+  ExternalParam,
   FormColumn,
   IFormMenuColumns,
   IFormExpose,
   IFormSubmit,
-} from '../Form/index'
-import { TableColumn, ITableMenuColumns, ITableExpose } from '../Table/index'
+  TableColumn,
+  ITableMenuColumns,
+  ITableExpose,
+} from './index'
 
 export interface CrudColumn<T = ExternalParam>
   extends FormColumn<T>,
