@@ -3,9 +3,13 @@ import { ElDropdown, ElDropdownMenu, ElButton, ElTree } from 'element-plus'
 import { Setting } from '@element-plus/icons-vue'
 import { filterFlat } from '../utils/index'
 import props, { treeProps } from './props'
-import type { ICrudColumns, CrudColumn } from '../Crud/index'
-import type { ITableColumns, TableColumn } from '../Table/index'
-import type { IDefineProps } from '../types/index'
+import type {
+  IDefineProps,
+  ICrudColumns,
+  CrudColumn,
+  ITableColumns,
+  TableColumn,
+} from '../types/index'
 
 type Columns = ICrudColumns | ITableColumns
 type Column = CrudColumn | TableColumn

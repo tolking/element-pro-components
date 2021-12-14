@@ -2,7 +2,8 @@ import { defineComponent, h, VNode } from 'vue'
 import { ElSelect, ElOptionGroup, ElOption } from 'element-plus'
 import { useSelectData, useEmitValue } from '../composables/index'
 import props from './props'
-import type { ISelectProps, SelectDataItem } from './index'
+import type { SelectDataItem } from '../types/index'
+import type { ISelectProps } from './index'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function createSelectProps(props: ISelectProps) {

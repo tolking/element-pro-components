@@ -5,7 +5,7 @@ import type {
   DeepKeyof,
   MaybeArray,
   ExternalParam,
-} from '../types/index'
+} from './index'
 
 /** Table Column Options for pro-table */
 export interface TableColumnsProps {

@@ -12,14 +12,12 @@ import type {
   UnknownObject,
   MaybeArray,
   MaybeRef,
-} from '../types/index'
-import type {
   FormColumn,
   IFormExpose,
   IFormValidateCallback,
   IFormValidateFieldCallback,
   IFormMenuColumns,
-} from '../Form/index'
+} from '../types/index'
 
 type FormItemBind = Omit<
   FormColumn,
