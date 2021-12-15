@@ -152,9 +152,21 @@ app.use(ElementPro, {
 })
 ```
 
-::: tip Tip
-If you use on demand import components, you can inject global config through one of `ProCrud` `ProForm` `ProTable`
-:::
+- On-demand
+
+```js
+import { defineOptions } from 'element-pro-components'
+
+const options = defineOptions({
+  pagination: {
+    small: true,
+    hideOnSinglePage: true,
+    layout: 'prev, pager, next',
+  },
+})
+
+app.config.globalProperties.$PROOPTIONS = options
+```
 
 ## Start using
 
