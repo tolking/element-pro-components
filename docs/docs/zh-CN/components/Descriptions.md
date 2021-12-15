@@ -19,6 +19,14 @@ meta:
 @/demo/Descriptions/base.vue
 :::
 
+### 智能提示
+
+通过辅助函数 `defineDescriptionsColumns` 提供智能提示
+
+::: demo
+@/demo/Descriptions/define.vue
+:::
+
 ### 获取嵌套键值
 
 ::: demo
@@ -35,7 +43,7 @@ meta:
 
 ### TypeScript
 
-从组件库中引用类型 IDescriptionsColumns 用来辅助编辑 columns，支持传入一个泛型用来推断 `prop` 值
+`defineDescriptionsColumns` 支持传入一个泛型用来推断 `prop` 值
 
 ::: demo
 @/demo/Descriptions/typescript.vue

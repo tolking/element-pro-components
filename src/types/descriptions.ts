@@ -13,3 +13,13 @@ interface DescriptionsColumn<T = ExternalParam> {
 }
 
 export type IDescriptionsColumns<T = ExternalParam> = DescriptionsColumn<T>[]
+
+/**
+ * Type helper to make it easier to define columns
+ * @param columns the columns of Descriptions
+ */
+export function defineDescriptionsColumns<T = ExternalParam>(
+  columns: IDescriptionsColumns<T>
+): IDescriptionsColumns<T> {
+  return columns
+}
