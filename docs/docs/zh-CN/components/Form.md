@@ -27,6 +27,14 @@ meta:
 @/demo/Form/base.vue
 :::
 
+### 智能提示
+
+通过辅助函数 `defineFormColumns` `defineFormMenuColumns` `defineFormSubmit` 提供智能提示
+
+::: demo
+@/demo/Form/define.vue
+:::
+
 ### 嵌套键值
 
 ::: demo
@@ -109,7 +117,7 @@ meta:
 
 ### TypeScript
 
-从组件库中引用类型 IFormColumns 用来辅助编辑 columns，支持传入一个泛型用来推断 `prop` 值
+`defineFormColumns` 支持传入一个泛型用来推断 `prop` 值
 
 ::: demo
 @/demo/Form/typescript.vue

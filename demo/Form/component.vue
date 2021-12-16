@@ -3,11 +3,14 @@
     v-model="form"
     :columns="columns"
     label-width="100px"
+    @submit="submit"
   />
 </template>
 
 <script>
-import { defineComponent, h, ref } from 'vue'
+import { defineComponent, markRaw, ref } from 'vue'
+import { Search } from '@element-plus/icons-vue'
+import { defineFormColumns, defineFormSubmit } from 'element-pro-components'
 
 export default defineComponent({
   setup() {
@@ -19,7 +22,7 @@ export default defineComponent({
       { value: 'Dart', label: 'dart' },
       { value: 'V', label: 'v' },
     ])
-    const columns = [
+    const columns = defineFormColumns([
       {
         label: 'input',
         prop: 'input',
@@ -27,9 +30,8 @@ export default defineComponent({
         props: {
           clearable: true,
           placeholder: 'Please input',
+          prefixIcon: markRaw(Search),
           slots: {
-            prefix: () =>
-              h('i', { className: 'el-input__icon el-icon-search' }),
             append: () => 'Search',
           },
         },
@@ -66,11 +68,18 @@ export default defineComponent({
           data: list.value,
         },
       },
-    ]
+    ])
+    const submit = defineFormSubmit((done, isValid, invalidFields) => {
+      console.log(form.value, isValid, invalidFields)
+      setTimeout(() => {
+        done()
+      }, 1000)
+    })
 
     return {
       form,
       columns,
+      submit,
     }
   },
 })
