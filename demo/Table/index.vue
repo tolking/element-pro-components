@@ -2,16 +2,23 @@
   <pro-table
     :data="data"
     :columns="columns"
-    :index="{ label: '#' }"
+    :index="index"
   />
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue'
+import {
+  defineTableColumns,
+  defineTableIndexColumns,
+} from 'element-pro-components'
 
 export default defineComponent({
   setup() {
-    const columns = [
+    const index = defineTableIndexColumns({
+      label: '#',
+    })
+    const columns = defineTableColumns([
       {
         label: 'Date',
         prop: 'date',
@@ -24,7 +31,7 @@ export default defineComponent({
         label: 'Address',
         prop: 'address',
       },
-    ]
+    ])
     const data = ref([
       {
         date: '2016-05-03',
@@ -49,6 +56,7 @@ export default defineComponent({
     ])
 
     return {
+      index,
       data,
       columns,
     }

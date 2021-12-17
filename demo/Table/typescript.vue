@@ -7,7 +7,10 @@
 </template>
 
 <script setup lang="ts">
-import type { ITableColumns, ITableMenuColumns } from '/@src/index'
+import {
+  defineTableColumns,
+  defineTableMenuColumns,
+} from 'element-pro-components'
 
 interface DataItem {
   date: string
@@ -15,11 +18,11 @@ interface DataItem {
   address: string
 }
 
-const menu: ITableMenuColumns = {
+const menu = defineTableMenuColumns({
   label: 'Operations',
   align: 'center',
-}
-const columns: ITableColumns<DataItem> = [
+})
+const columns = defineTableColumns<DataItem>([
   {
     label: 'Date',
     prop: 'date',
@@ -32,7 +35,7 @@ const columns: ITableColumns<DataItem> = [
     label: 'Address',
     prop: 'address',
   },
-]
+])
 const data: DataItem[] = [
   {
     date: '2016-05-03',

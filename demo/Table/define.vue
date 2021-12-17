@@ -1,22 +1,16 @@
 <template>
   <pro-table
-    v-model:current-page="currentPage"
-    v-model:page-size="pageSize"
     :data="data"
     :columns="columns"
-    :total="total"
   />
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import { defineTableColumns } from 'element-pro-components'
 
 export default defineComponent({
   setup() {
-    const currentPage = ref(1)
-    const pageSize = ref(10)
-    const total = ref(50)
     const columns = defineTableColumns([
       {
         label: 'Date',
@@ -31,7 +25,7 @@ export default defineComponent({
         prop: 'address',
       },
     ])
-    const data = ref([
+    const data = [
       {
         date: '2016-05-03',
         name: 'Tom',
@@ -52,12 +46,9 @@ export default defineComponent({
         name: 'Tom',
         address: 'No. 189, Grove St, Los Angeles',
       },
-    ])
+    ]
 
     return {
-      currentPage,
-      pageSize,
-      total,
       data,
       columns,
     }

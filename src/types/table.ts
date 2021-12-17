@@ -88,7 +88,7 @@ export interface ITableIndexColumns extends TableCommonColumn {
 
 /** Table Selection Columns Options */
 export interface ITableSelectionColumns<T = ExternalParam>
-  extends TableCommonColumn {
+  extends TableCommonColumn<T> {
   /** function that determines if a certain row can be selected */
   selectable?: (row: T, index: number) => unknown
   /** whether to reserve selection after data refreshing. Note that row-key is required for this to work */
@@ -139,4 +139,54 @@ export interface IPagination {
   disabled?: boolean
   /** whether to hide when there's only one page */
   hideOnSinglePage?: boolean
+}
+
+/**
+ * Type helper to make it easier to define columns
+ * @param columns the columns of Table
+ */
+export function defineTableColumns<T = ExternalParam>(
+  columns: ITableColumns<T>
+): ITableColumns<T> {
+  return columns
+}
+
+/**
+ * Type helper to make it easier to define menu columns
+ * @param columns the columns of Menu
+ */
+export function defineTableMenuColumns(
+  columns: ITableMenuColumns
+): ITableMenuColumns {
+  return columns
+}
+
+/**
+ * Type helper to make it easier to define selection columns
+ * @param columns the columns of Selection
+ */
+export function defineTableSelectionColumns<T = ExternalParam>(
+  columns: ITableSelectionColumns<T>
+): ITableSelectionColumns<T> {
+  return columns
+}
+
+/**
+ * Type helper to make it easier to define index columns
+ * @param columns the columns of Index
+ */
+export function defineTableIndexColumns(
+  columns: ITableIndexColumns
+): ITableIndexColumns {
+  return columns
+}
+
+/**
+ * Type helper to make it easier to define expand columns
+ * @param columns the columns of Expand
+ */
+export function defineTableExpandColumns<T = ExternalParam>(
+  columns: ITableExpandColumns<T>
+): ITableExpandColumns<T> {
+  return columns
 }
