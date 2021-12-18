@@ -2,7 +2,6 @@
   <pro-form
     v-model="form"
     :columns="columns"
-    :menu="menu"
     label-width="100px"
     @submit="submit"
   />
@@ -10,7 +9,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { IFormColumns, IFormMenuColumns, IFormSubmit } from '/@src/index'
+import { defineFormColumns, defineFormSubmit } from 'element-pro-components'
 
 interface Form {
   name?: string
@@ -18,11 +17,7 @@ interface Form {
 }
 
 const form = ref<Form>({})
-const menu: IFormMenuColumns = {
-  submitText: 'Create',
-  reset: false,
-}
-const columns: IFormColumns<Form> = [
+const columns = defineFormColumns<Form>([
   {
     label: 'Name',
     prop: 'name',
@@ -33,11 +28,11 @@ const columns: IFormColumns<Form> = [
     prop: 'address',
     component: 'el-input',
   },
-]
-const submit: IFormSubmit = (done, isValid, invalidFields) => {
+])
+const submit = defineFormSubmit((done, isValid, invalidFields) => {
   console.log(form.value, isValid, invalidFields)
   setTimeout(() => {
     done()
   }, 1000)
-}
+})
 </script>

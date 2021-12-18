@@ -6,16 +6,22 @@
     :data="data"
     :before-open="beforeOpen"
     :before-close="beforeClose"
+    label-width="100px"
   />
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue'
+import {
+  defineCrudColumns,
+  defineCrudBeforeOpen,
+  defineCrudBeforeClose,
+} from 'element-pro-components'
 
 export default defineComponent({
   setup() {
     const form = ref({})
-    const columns = ref([
+    const columns = defineCrudColumns([
       {
         label: 'Date',
         prop: 'date',
@@ -53,20 +59,18 @@ export default defineComponent({
         address: 'No. 189, Grove St, Los Angeles',
       },
     ])
-
-    function beforeOpen(done, type, row) {
+    const beforeOpen = defineCrudBeforeOpen((done, type, row) => {
       console.log('beforeOpen', type, row)
       setTimeout(() => {
         done()
       }, 1000)
-    }
-
-    function beforeClose(done) {
+    })
+    const beforeClose = defineCrudBeforeClose((done) => {
       console.log('beforeClose')
       setTimeout(() => {
         done()
       }, 1000)
-    }
+    })
 
     return {
       form,

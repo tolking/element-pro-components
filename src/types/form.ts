@@ -95,3 +95,31 @@ export interface IFormExpose {
     cb: IFormValidateFieldCallback
   ) => void
 }
+
+/**
+ * Type helper to make it easier to define columns
+ * @param columns the columns of Form
+ */
+export function defineFormColumns<T = ExternalParam>(
+  columns: IFormColumns<T>
+): IFormColumns<T> {
+  return columns
+}
+
+/**
+ * Type helper to make it easier to define menu columns
+ * @param columns the columns of Form menu
+ */
+export function defineFormMenuColumns(
+  columns: IFormMenuColumns
+): IFormMenuColumns {
+  return columns
+}
+
+/**
+ * Type helper to make it easier to define submit function
+ * @param fun submit function
+ */
+export function defineFormSubmit(fun: IFormSubmit): IFormSubmit {
+  return fun
+}

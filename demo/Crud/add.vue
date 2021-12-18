@@ -12,11 +12,16 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import {
+  defineCrudColumns,
+  defineCrudSubmit,
+  defineFormColumns,
+} from 'element-pro-components'
 
 export default defineComponent({
   setup() {
     const form = ref({})
-    const columns = ref([
+    const columns = defineCrudColumns([
       {
         label: 'Date',
         prop: 'date',
@@ -30,7 +35,7 @@ export default defineComponent({
         prop: 'address',
       },
     ])
-    const addColumns = ref([
+    const addColumns = defineFormColumns([
       {
         label: 'Name',
         prop: 'name',
@@ -49,12 +54,14 @@ export default defineComponent({
       },
     ])
 
-    const submit = (close, done, formType, isValid, invalidFields) => {
-      console.log('submit', form.value, formType, isValid, invalidFields)
-      setTimeout(() => {
-        isValid ? close() : done()
-      }, 1000)
-    }
+    const submit = defineCrudSubmit(
+      (close, done, formType, isValid, invalidFields) => {
+        console.log('submit', form.value, formType, isValid, invalidFields)
+        setTimeout(() => {
+          isValid ? close() : done()
+        }, 1000)
+      }
+    )
 
     const reset = () => {
       console.log('reset')

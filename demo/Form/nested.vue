@@ -10,11 +10,12 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { defineFormColumns, defineFormSubmit } from 'element-pro-components'
 
 export default defineComponent({
   setup() {
     const form = ref({ 'a.b': undefined })
-    const columns = [
+    const columns = defineFormColumns([
       {
         label: 'Break',
         prop: 'a.b',
@@ -30,13 +31,13 @@ export default defineComponent({
         prop: 'b[0]',
         component: 'el-input',
       },
-    ]
-    const submit = (done, isValid, invalidFields) => {
+    ])
+    const submit = defineFormSubmit((done, isValid, invalidFields) => {
       console.log(form.value, isValid, invalidFields)
       setTimeout(() => {
         done()
       }, 1000)
-    }
+    })
 
     return {
       form,

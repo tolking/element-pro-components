@@ -8,10 +8,11 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { defineTableColumns } from 'element-pro-components'
 
 export default defineComponent({
   setup() {
-    const columns = [
+    const columns = defineTableColumns([
       {
         label: 'Date',
         prop: 'date',
@@ -24,7 +25,7 @@ export default defineComponent({
         label: 'Address',
         prop: 'address',
       },
-    ]
+    ])
     const data = ref([
       {
         date: '2016-05-03',

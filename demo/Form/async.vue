@@ -29,20 +29,21 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { defineFormColumns, defineFormSubmit } from 'element-pro-components'
 
 export default defineComponent({
   setup() {
     const list = ref([])
     const form = ref({})
-    const columns = ref([])
-    const submit = (done, isValid, invalidFields) => {
+    const columns = ref(defineFormColumns([]))
+    const submit = defineFormSubmit((done, isValid, invalidFields) => {
       console.log(form.value, isValid, invalidFields)
       setTimeout(() => {
         done()
       }, 1000)
-    }
+    })
     const createForm = () => {
-      columns.value = [
+      columns.value = defineFormColumns([
         {
           label: 'Name',
           prop: 'name',
@@ -56,7 +57,7 @@ export default defineComponent({
             data: list,
           },
         },
-      ]
+      ])
     }
     const createDict = () => {
       list.value = [

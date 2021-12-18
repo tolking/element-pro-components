@@ -3,6 +3,7 @@
     v-model="form"
     :columns="columns"
     label-width="100px"
+    @submit="submit"
   >
     <template #slot-label>
       <picture-rounded class="icon-picture" />
@@ -32,16 +33,23 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import { Plus, PictureRounded } from '@element-plus/icons-vue'
+import { defineFormColumns, defineFormSubmit } from 'element-pro-components'
 
 export default defineComponent({
   components: { Plus, PictureRounded },
   setup() {
     const form = ref({})
-    const columns = ref([
+    const columns = defineFormColumns([
       {
         prop: 'slot',
       },
     ])
+    const submit = defineFormSubmit((done, isValid, invalidFields) => {
+      console.log(form.value, isValid, invalidFields)
+      setTimeout(() => {
+        done()
+      }, 1000)
+    })
 
     function beforeUpload(file, setValue) {
       // Simulate uploading pictures
@@ -54,6 +62,7 @@ export default defineComponent({
     return {
       form,
       columns,
+      submit,
       beforeUpload,
     }
   },

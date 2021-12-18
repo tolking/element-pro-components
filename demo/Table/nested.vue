@@ -7,10 +7,11 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { defineTableColumns } from 'element-pro-components'
 
 export default defineComponent({
   setup() {
-    const columns = [
+    const columns = defineTableColumns([
       {
         label: 'Break',
         prop: 'b.c',
@@ -23,7 +24,7 @@ export default defineComponent({
         label: 'Array',
         prop: 'd[0].e',
       },
-    ]
+    ])
     const data = [
       {
         'b.c': 'break nested value',

@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IDescriptionsColumns } from '/@src/index'
+import { defineDescriptionsColumns } from 'element-pro-components'
 
 interface DescriptionsItem {
   date: string
@@ -14,11 +14,11 @@ interface DescriptionsItem {
   address: string
 }
 
-const columns: IDescriptionsColumns<DescriptionsItem> = [
+const columns = defineDescriptionsColumns<DescriptionsItem>([
   { label: 'Date', prop: 'date' },
   { label: 'Name', prop: 'name' },
   { label: 'Address', prop: 'address' },
-]
+])
 const detail: DescriptionsItem = {
   date: '2016-05-03',
   name: 'Tom',

@@ -2,26 +2,7 @@
   <pro-descriptions
     :columns="columns"
     :detail="detail"
-    border
-    size="small"
-  >
-    <template #title>
-      <span>title</span>
-    </template>
-    <template #extra="{ size }">
-      <el-button :size="size">
-        extra
-      </el-button>
-    </template>
-    <template #name="{ detail: item, size }">
-      <el-tag :size="size">
-        {{ item.name }}
-      </el-tag>
-    </template>
-    <template #name-label="{ item }">
-      <span>{{ item.label }}:</span>
-    </template>
-  </pro-descriptions>
+  />
 </template>
 
 <script>

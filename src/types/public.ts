@@ -68,6 +68,14 @@ export interface InstallOptions {
   menu?: MenuOptions
 }
 
+/**
+ * type helper to make it easier to define options
+ * @param options the components options
+ */
+export function defineOptions(options: InstallOptions): InstallOptions {
+  return options
+}
+
 // TODO: will use element-plus types (the current type is not perfect)
 
 export type IComponentSize = 'medium' | 'small' | 'mini' | undefined

@@ -87,3 +87,57 @@ export type ICrudSubmit = (
 ) => void
 
 export type ICrudExpose<T = UnknownObject> = IFormExpose & ITableExpose<T>
+
+/**
+ * Type helper to make it easier to define columns
+ * @param columns the columns of Crud
+ */
+export function defineCrudColumns<T = ExternalParam>(
+  columns: ICrudColumns<T>
+): ICrudColumns<T> {
+  return columns
+}
+
+/**
+ * Type helper to make it easier to define menu columns
+ * @param columns the columns of Menu
+ */
+export function defineCrudMenuColumns<T = ExternalParam>(
+  columns: ICrudMenuColumns<T>
+): ICrudMenuColumns<T> {
+  return columns
+}
+
+/**
+ * Type helper to make it easier to define function (before the dialog is opened)
+ * @param fun function
+ */
+export function defineCrudBeforeOpen<T = ExternalParam>(
+  fun: ICrudBeforeOpen<T>
+): ICrudBeforeOpen<T> {
+  return fun
+}
+
+/**
+ * Type helper to make it easier to define function (before the dialog is closed)
+ * @param fun function
+ */
+export function defineCrudBeforeClose(fun: ICrudBeforeClose): ICrudBeforeClose {
+  return fun
+}
+
+/**
+ * Type helper to make it easier to define search function
+ * @param fun search function
+ */
+export function defineCrudSearch(fun: ICrudSearch): ICrudSearch {
+  return fun
+}
+
+/**
+ * Type helper to make it easier to define submit function
+ * @param fun submit function
+ */
+export function defineCrudSubmit(fun: ICrudSubmit): ICrudSubmit {
+  return fun
+}

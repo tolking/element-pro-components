@@ -15,12 +15,17 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import {
+  defineCrudColumns,
+  defineCrudSubmit,
+  defineTableColumns,
+} from 'element-pro-components'
 
 export default defineComponent({
   setup() {
     const form = ref({})
     const serachForm = ref({})
-    const columns = ref([
+    const columns = defineCrudColumns([
       {
         label: 'Date',
         prop: 'date',
@@ -40,7 +45,7 @@ export default defineComponent({
         component: 'el-input',
       },
     ])
-    const tableColumns = ref([
+    const tableColumns = defineTableColumns([
       {
         label: 'Date',
         prop: 'date',
@@ -82,12 +87,14 @@ export default defineComponent({
       },
     ])
 
-    const submit = (close, done, formType, isValid, invalidFields) => {
-      console.log('submit', form.value, formType, isValid, invalidFields)
-      setTimeout(() => {
-        isValid ? close() : done()
-      }, 1000)
-    }
+    const submit = defineCrudSubmit(
+      (close, done, formType, isValid, invalidFields) => {
+        console.log('submit', form.value, formType, isValid, invalidFields)
+        setTimeout(() => {
+          isValid ? close() : done()
+        }, 1000)
+      }
+    )
 
     const reset = () => {
       console.log('reset')

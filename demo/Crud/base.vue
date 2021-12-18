@@ -5,7 +5,7 @@
     :columns="columns"
     :menu="{ label: 'Operations' }"
     :data="data"
-    :before-open="beforeOpen1"
+    :before-open="beforeOpen"
     label-width="100px"
     @search="search"
     @submit="submit"
@@ -67,7 +67,7 @@ export default defineComponent({
       },
     ])
 
-    const beforeOpen1 = (done, type, row) => {
+    const beforeOpen = (done, type, row) => {
       if (type === 'edit') {
         form.value = row || {}
       }
@@ -97,7 +97,7 @@ export default defineComponent({
       serachForm,
       data,
       columns,
-      beforeOpen1,
+      beforeOpen,
       search,
       submit,
       deleteRow,

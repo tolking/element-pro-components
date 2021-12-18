@@ -10,7 +10,7 @@ meta:
 > Form consists of `input`, `radio`, `select`, `checkbox` and so on. With form, you can collect, verify and submit data
 
 ::: tip Tip
-Applicable to any component that can bind value ​​through `v-model`. example:
+Applicable to any component that can bind value through `v-model`. example:
 
 - Support `el-input` `el-switch` ...
 - Not support `el-upload` ... (The relevant components need to be rewritten to support `v-model` components)
@@ -27,6 +27,14 @@ When columns is bound to a reactive array, changes in the array will affect form
 @/demo/Form/base.vue
 :::
 
+### Intellisense
+
+Use the `defineFormColumns` `defineFormMenuColumns` `defineFormSubmit` to make it easier to define columns
+
+::: demo
+@/demo/Form/define.vue
+:::
+
 ### Nested value
 
 ::: demo
@@ -35,7 +43,7 @@ When columns is bound to a reactive array, changes in the array will affect form
 
 ### Custom Component
 
-Set `component` in `columns` attribute to dfine what component the item generates, that component should can bind value ​​through `v-model`. props ​​can be passed to the component through `props`, <pro-link to="https://v3.vuejs.org/guide/render-function.html">render-function</pro-link> can be passed to the component thrrough `slots` in `props`
+Set `component` in `columns` attribute to dfine what component the item generates, that component should can bind value through `v-model`. props can be passed to the component through `props`, <pro-link to="https://v3.vuejs.org/guide/render-function.html">render-function</pro-link> can be passed to the component thrrough `slots` in `props`
 
 ::: demo
 @/demo/Form/component.vue
@@ -109,7 +117,7 @@ To implement Async Form, columns must be bound to a reactive array
 
 ### TypeScript
 
-import type IFormColumns from the component library is used to assist in editing columns, and a Generics type is supported to infer the value of `prop`
+The function `defineFormColumns` supports passing in a Generics type to infer the value of `prop`
 
 ::: demo
 @/demo/Form/typescript.vue
