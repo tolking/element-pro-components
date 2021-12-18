@@ -8,6 +8,7 @@
     "resolveJsonModule": true,
     "declaration": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "declarationDir": "types",
     "lib": ["ESNext", "DOM"],
     "paths": {
