@@ -15,12 +15,18 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import {
+  defineCrudColumns,
+  defineCrudBeforeOpen,
+  defineCrudSubmit,
+  defineCrudSearch,
+} from 'element-pro-components'
 
 export default defineComponent({
   setup() {
     const form = ref({ 'a.b': undefined })
     const serachForm = ref({ 'a.b': undefined })
-    const columns = [
+    const columns = defineCrudColumns([
       {
         label: 'Break',
         prop: 'a.b',
@@ -42,7 +48,7 @@ export default defineComponent({
         form: true,
         search: true,
       },
-    ]
+    ])
     const data = [
       {
         'a.b': 'break nested value',
@@ -51,28 +57,30 @@ export default defineComponent({
       },
     ]
 
-    const beforeOpen = (done, type, row) => {
+    const beforeOpen = defineCrudBeforeOpen((done, type, row) => {
       if (type === 'edit') {
         form.value = row || {}
       } else {
         form.value = { 'a.b': undefined }
       }
       done()
-    }
+    })
 
-    const search = (done, isValid, invalidFields) => {
+    const search = defineCrudSearch((done, isValid, invalidFields) => {
       console.log('search', serachForm.value, isValid, invalidFields)
       setTimeout(() => {
         done()
       }, 1000)
-    }
+    })
 
-    const submit = (close, done, formType, isValid, invalidFields) => {
-      console.log('submit', form.value, formType, isValid, invalidFields)
-      setTimeout(() => {
-        isValid ? close() : done()
-      }, 1000)
-    }
+    const submit = defineCrudSubmit(
+      (close, done, formType, isValid, invalidFields) => {
+        console.log('submit', form.value, formType, isValid, invalidFields)
+        setTimeout(() => {
+          isValid ? close() : done()
+        }, 1000)
+      }
+    )
 
     const deleteRow = (row) => {
       console.log('deleteRow', row)

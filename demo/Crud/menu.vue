@@ -5,6 +5,8 @@
     :columns="columns"
     :menu="menu"
     :data="data"
+    :before-open="beforeOpen"
+    label-width="100px"
     @search="search"
     @searchReset="reset"
     @submit="submit"
@@ -15,10 +17,17 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import {
+  defineCrudColumns,
+  defineCrudMenuColumns,
+  defineCrudSubmit,
+  defineCrudSearch,
+  defineCrudBeforeOpen,
+} from 'element-pro-components'
 
 export default defineComponent({
   setup() {
-    const menu = ref({
+    const menu = defineCrudMenuColumns({
       label: 'Operations',
       addText: 'New',
       editText: 'Edit Row',
@@ -35,7 +44,7 @@ export default defineComponent({
     })
     const form = ref({})
     const serachForm = ref({})
-    const columns = ref([
+    const columns = defineCrudColumns([
       {
         label: 'Date',
         prop: 'date',
@@ -79,19 +88,28 @@ export default defineComponent({
       },
     ])
 
-    const search = (done, isValid, invalidFields) => {
+    const beforeOpen = defineCrudBeforeOpen((done, type, row) => {
+      if (type === 'edit') {
+        form.value = row || {}
+      }
+      done()
+    })
+
+    const search = defineCrudSearch((done, isValid, invalidFields) => {
       console.log('search', serachForm.value, isValid, invalidFields)
       setTimeout(() => {
         done()
       }, 1000)
-    }
+    })
 
-    const submit = (close, done, formType, isValid, invalidFields) => {
-      console.log('submit', form.value, formType, isValid, invalidFields)
-      setTimeout(() => {
-        isValid ? close() : done()
-      }, 1000)
-    }
+    const submit = defineCrudSubmit(
+      (close, done, formType, isValid, invalidFields) => {
+        console.log('submit', form.value, formType, isValid, invalidFields)
+        setTimeout(() => {
+          isValid ? close() : done()
+        }, 1000)
+      }
+    )
 
     const reset = () => {
       console.log('reset')
@@ -107,6 +125,7 @@ export default defineComponent({
       columns,
       menu,
       data,
+      beforeOpen,
       search,
       submit,
       reset,

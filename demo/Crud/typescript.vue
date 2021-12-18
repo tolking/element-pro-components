@@ -15,13 +15,13 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import type {
-  ICrudColumns,
-  ICrudMenuColumns,
-  ICrudBeforeOpen,
-  ICrudSearch,
-  ICrudSubmit,
-} from '/@src/index'
+import {
+  defineCrudColumns,
+  defineCrudMenuColumns,
+  defineCrudSubmit,
+  defineCrudSearch,
+  defineCrudBeforeOpen,
+} from 'element-pro-components'
 
 interface DataItem {
   date: string
@@ -31,13 +31,13 @@ interface DataItem {
 
 const form = ref({})
 const serachForm = ref({})
-const menu: ICrudMenuColumns<DataItem> = {
+const menu = defineCrudMenuColumns<DataItem>({
   label: 'Operations',
   edit: (row) => row.date !== '2016-05-02',
   del: (row) => row.date !== '2016-05-04',
   searchReset: false,
-}
-const columns: ICrudColumns<DataItem> = [
+})
+const columns = defineCrudColumns<DataItem>([
   {
     label: 'Date',
     prop: 'date',
@@ -60,7 +60,7 @@ const columns: ICrudColumns<DataItem> = [
     add: true,
     edit: true,
   },
-]
+])
 const data = ref<DataItem[]>([
   {
     date: '2016-05-03',
@@ -84,26 +84,28 @@ const data = ref<DataItem[]>([
   },
 ])
 
-const beforeOpen: ICrudBeforeOpen = (done, type, row) => {
+const beforeOpen = defineCrudBeforeOpen<DataItem>((done, type, row) => {
   if (type === 'edit') {
     form.value = row || {}
   }
   done()
-}
+})
 
-const search: ICrudSearch = (done, isValid, invalidFields) => {
+const search = defineCrudSearch((done, isValid, invalidFields) => {
   console.log('search', serachForm.value, isValid, invalidFields)
   setTimeout(() => {
     done()
   }, 1000)
-}
+})
 
-const submit: ICrudSubmit = (close, done, formType, isValid, invalidFields) => {
-  console.log('submit', form.value, formType, isValid, invalidFields)
-  setTimeout(() => {
-    isValid ? close() : done()
-  }, 1000)
-}
+const submit = defineCrudSubmit(
+  (close, done, formType, isValid, invalidFields) => {
+    console.log('submit', form.value, formType, isValid, invalidFields)
+    setTimeout(() => {
+      isValid ? close() : done()
+    }, 1000)
+  }
+)
 
 const deleteRow = (row: DataItem) => {
   console.log('deleteRow', row)

@@ -5,49 +5,21 @@
     :columns="columns"
     :menu="{ label: 'Operations' }"
     :data="data"
-    selection
+    :before-open="beforeOpen"
     label-width="100px"
     @search="search"
     @submit="submit"
     @delete="deleteRow"
-  >
-    <template #menu-right="{ size }">
-      <el-button
-        :size="size"
-        type="danger"
-      >
-        Remove
-      </el-button>
-    </template>
-    <template #menu="{ size }">
-      <el-button
-        :size="size"
-        type="text"
-      >
-        Detail
-      </el-button>
-    </template>
-    <template #form-name>
-      <span>form slot</span>
-    </template>
-    <template #table-name="{ row, size }">
-      <el-tag :size="size">
-        {{ row?.name }}
-      </el-tag>
-    </template>
-    <template #name-header="{ column }">
-      <s>{{ column.label }}</s>
-    </template>
-  </pro-crud>
+  />
 </template>
 
 <script>
-import { defineComponent, h, ref } from 'vue'
-import { Clock } from '@element-plus/icons-vue'
+import { defineComponent, ref } from 'vue'
 import {
   defineCrudColumns,
   defineCrudSubmit,
   defineCrudSearch,
+  defineCrudBeforeOpen,
 } from 'element-pro-components'
 
 export default defineComponent({
@@ -62,12 +34,6 @@ export default defineComponent({
         add: true,
         edit: true,
         search: true,
-        render: '--',
-        props: {
-          slots: {
-            suffix: () => h('span', { className: 'el-input__icon' }, h(Clock)),
-          },
-        },
       },
       {
         label: 'Name',
@@ -75,7 +41,6 @@ export default defineComponent({
         component: 'el-input',
         add: true,
         search: true,
-        slot: true,
       },
       {
         label: 'Address',
@@ -83,7 +48,6 @@ export default defineComponent({
         component: 'el-input',
         add: true,
         edit: true,
-        render: (row) => h('em', null, row.address),
       },
     ])
     const data = ref([
@@ -108,6 +72,13 @@ export default defineComponent({
         address: 'No. 189, Grove St, Los Angeles',
       },
     ])
+
+    const beforeOpen = defineCrudBeforeOpen((done, type, row) => {
+      if (type === 'edit') {
+        form.value = row || {}
+      }
+      done()
+    })
 
     const search = defineCrudSearch((done, isValid, invalidFields) => {
       console.log('search', serachForm.value, isValid, invalidFields)
@@ -134,6 +105,7 @@ export default defineComponent({
       serachForm,
       data,
       columns,
+      beforeOpen,
       search,
       submit,
       deleteRow,
