@@ -22,9 +22,11 @@ meta:
 [![Npm Last Updated](https://img.shields.io/badge/dynamic/json.svg?style=flat-square&logo=npm&label=last%20release&url=http%3A%2F%2Fregistry.npmjs.org%2Felement-pro-components&query=$.time.modified)](https://www.npmjs.com/package/element-pro-components)
 
 ```
+npm i element-pro-components
+# 或者
 yarn add element-pro-components
 # 或者
-npm i element-pro-components
+pnpm add element-pro-components
 ```
 
 ## 完整引入
