@@ -1,7 +1,7 @@
-import type { ExternalParam, DeepKeyof } from './index'
+import type { ExternalParam, IsAny, DeepKeyof } from './index'
 
 interface DescriptionsColumn<T = ExternalParam> {
-  prop: keyof T extends string ? DeepKeyof<T> : string
+  prop: IsAny<T> extends true ? string : DeepKeyof<T>
   label?: string
   span?: number
   width?: string | number
