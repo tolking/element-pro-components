@@ -8,6 +8,7 @@ import type {
   IColProps,
   MaybeArray,
   ExternalParam,
+  IsAny,
 } from './index'
 
 interface InvalidFields {
@@ -26,7 +27,7 @@ export interface FormColumn<T = ExternalParam> extends IColProps {
   /** max number of sub-form */
   max?: number
   /** keys of model that passed to form */
-  prop: keyof T extends string ? DeepKeyof<T> : string
+  prop: IsAny<T> extends true ? string : DeepKeyof<T>
   /** label name */
   label?: string
   /** width of label, e.g. '50px'. Width auto is supported */

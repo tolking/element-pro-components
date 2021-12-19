@@ -55,6 +55,8 @@ export type MaybeRef<T> = T | Ref<T>
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExternalParam = any
 
+export type IsAny<T> = 0 extends T & 1 ? true : false
+
 export type IDefinePlugin<T> = T & Plugin
 
 export type IDefineProps<T> = Readonly<ExtractPropTypes<T>>

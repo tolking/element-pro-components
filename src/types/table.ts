@@ -5,6 +5,7 @@ import type {
   DeepKeyof,
   MaybeArray,
   ExternalParam,
+  IsAny,
 } from './index'
 
 /** Table Column Options for pro-table */
@@ -60,7 +61,7 @@ export interface TableCommonColumn<T = ExternalParam>
 /** Table Column Options */
 export interface TableColumn<T = ExternalParam> extends TableCommonColumn<T> {
   /** field name */
-  prop: keyof T extends string ? DeepKeyof<T> : string
+  prop: IsAny<T> extends true ? string : DeepKeyof<T>
   /** @deprecated */
   slot?: boolean
   /** When the data structure is complex, you can use children to show the data hierarchy */
