@@ -3,16 +3,18 @@
     v-model="form"
     :columns="columns"
     label-width="100px"
+    @submit="submit"
   />
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { defineFormColumns, defineFormSubmit } from 'element-pro-components'
 
 export default defineComponent({
   setup() {
     const form = ref({})
-    const columns = [
+    const columns = defineFormColumns([
       {
         label: 'Goods',
         prop: 'name',
@@ -53,11 +55,18 @@ export default defineComponent({
           },
         ],
       },
-    ]
+    ])
+    const submit = defineFormSubmit((done, isValid, invalidFields) => {
+      console.log(form.value, isValid, invalidFields)
+      setTimeout(() => {
+        done()
+      }, 1000)
+    })
 
     return {
       form,
       columns,
+      submit,
     }
   },
 })

@@ -3,15 +3,15 @@ import type {
   TableProps,
   DefaultRow,
 } from 'element-plus/es/components/table/src/table/defaults'
-import type { IComponentSize } from '../types/index'
 import type {
+  IComponentSize,
   ITableSelectionColumns,
   ITableExpandColumns,
   ITableIndexColumns,
   ITableMenuColumns,
   ITableColumns,
   IPagination,
-} from './type'
+} from '../types/index'
 
 export default {
   selection: {

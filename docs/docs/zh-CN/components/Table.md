@@ -19,6 +19,14 @@ meta:
 @/demo/Table/base.vue
 :::
 
+### 智能提示
+
+通过辅助函数 `defineTableColumns` `defineTableMenuColumns` `defineTableSelectionColumns` `defineTableIndexColumns` `defineTableExpandColumns` 提供智能提示
+
+::: demo
+@/demo/Table/define.vue
+:::
+
 ### 获取嵌套键值
 
 ::: demo
@@ -91,7 +99,7 @@ meta:
 
 ### TypeScript
 
-从组件库中引用类型 ITableColumns 用来辅助编辑 columns，支持传入一个泛型用来推断 `prop` 值
+`defineTableColumns` 支持传入一个泛型用来推断 `prop` 值
 
 ::: demo
 @/demo/Table/typescript.vue

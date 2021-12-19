@@ -1,4 +1,3 @@
-export * from './type'
 import { objectDeepMerge } from '../utils/index'
 import ProForm from './Form'
 import props from './props'

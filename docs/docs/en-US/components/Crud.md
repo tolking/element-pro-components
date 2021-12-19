@@ -19,6 +19,14 @@ When columns is bound to a reactive array, changes in the array will affect Crud
 @/demo/Crud/base.vue
 :::
 
+### Intellisense
+
+Use the `defineCrudColumns` `defineCrudMenuColumns` `defineCrudBeforeOpen` `defineCrudBeforeClose` `defineCrudSearch` `defineCrudSubmit` to make it easier to define columns
+
+::: demo
+@/demo/Crud/define.vue
+:::
+
 ### Nested value
 
 ::: demo
@@ -93,7 +101,7 @@ Use simple <pro-link to="https://v3.vuejs.org/guide/render-function.html">render
 
 ### TypeScript
 
-import type ICrudColumns from the component library is used to assist in editing columns, and a Generics type is supported to infer the value of `prop`
+The function `defineCrudColumns` supports passing in a Generics type to infer the value of `prop`
 
 ::: demo
 @/demo/Crud/typescript.vue

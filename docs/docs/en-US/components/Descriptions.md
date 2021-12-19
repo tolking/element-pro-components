@@ -19,6 +19,14 @@ When columns is bound to a reactive array, changes in the array will affect Desc
 @/demo/Descriptions/base.vue
 :::
 
+### Intellisense
+
+Use the `defineDescriptionsColumns` to make it easier to define columns
+
+::: demo
+@/demo/Descriptions/define.vue
+:::
+
 ### Nested value
 
 ::: demo
@@ -35,7 +43,7 @@ Directly add some slot with `[prop]` in the template
 
 ### TypeScript
 
-import type IDescriptionsColumns from the component library is used to assist in editing columns, and a Generics type is supported to infer the value of `prop`
+The function `defineDescriptionsColumns` supports passing in a Generics type to infer the value of `prop`
 
 ::: demo
 @/demo/Descriptions/typescript.vue

@@ -1,4 +1,3 @@
-export * from './type'
 import { objectDeepMerge } from '../utils/index'
 import ProCrud from './Crud'
 import props from './props'

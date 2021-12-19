@@ -1,6 +1,6 @@
 {
   "name": "element-pro-components",
-  "version": "0.16.3",
+  "version": "0.16.4",
   "description": "a component library for Vue 3 base on element-plus",
   "main": "lib/element-pro-components.umd.js",
   "module": "lib/element-pro-components.es.js",
@@ -21,13 +21,14 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:lib && npm run build:helper && npm run build:styles && npm run build:types",
+    "build": "npm run check && npm run build:lib && npm run build:helper && npm run build:styles && npm run build:types",
     "build:lib": "rimraf lib && vite build -c build/build-lib.ts",
-    "build:types": "rimraf types && tsc -d",
+    "build:types": "rimraf types && vue-tsc --declaration --emitDeclarationOnly",
     "build:helper": "esno build/build-helper.ts",
     "build:styles": "rimraf lib/styles && esno build/build-styles.ts",
-    "build:docs": "rimraf dist && vite build --ssrManifest --outDir ../dist/static && vite build --ssr src/entry-server.ts --outDir ../dist/server && esno build/prerender.ts",
-    "test": "jest",
+    "build:docs": "npm run check && rimraf dist && vite build --ssrManifest --outDir ../dist/static && vite build --ssr src/entry-server.ts --outDir ../dist/server && esno build/prerender.ts",
+    "check": "vue-tsc --noEmit",
+    "test": "npm run check && jest",
     "lint": "eslint . --fix --ext .ts,.vue,.js --ignore-pattern \"/lib/\" --ignore-pattern \"/dist/\" --ignore-pattern \"/types/\"",
     "prettier": "prettier --check --write --ignore-unknown \"{build,demo,src,docs,test}/**\"",
     "prepare": "husky install"
@@ -113,6 +114,7 @@
     "vite-plugin-md": "^0.11.4",
     "vite-plugin-pwa": "^0.11.11",
     "vue-jest": "^5.0.0-alpha.10",
+    "vue-tsc": "^0.29.8",
     "workbox-build": "^6.4.2",
     "workbox-window": "^6.4.2"
   },

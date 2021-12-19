@@ -1,7 +1,5 @@
 import type { ExtractPropTypes, Ref, Plugin } from 'vue'
-import type { CrudMenu } from '../Crud/index'
-import type { FormMenu } from '../Form/index'
-import type { IPagination } from '../Table/index'
+import type { CrudMenu, FormMenu, IPagination } from './index'
 
 export type StringObject = Record<string, unknown>
 
@@ -57,6 +55,8 @@ export type MaybeRef<T> = T | Ref<T>
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExternalParam = any
 
+export type IsAny<T> = 0 extends T & 1 ? true : false
+
 export type IDefinePlugin<T> = T & Plugin
 
 export type IDefineProps<T> = Readonly<ExtractPropTypes<T>>
@@ -68,6 +68,14 @@ export interface InstallOptions {
   pagination?: IPagination
   /** Menu Attributes */
   menu?: MenuOptions
+}
+
+/**
+ * type helper to make it easier to define options
+ * @param options the components options
+ */
+export function defineOptions(options: InstallOptions): InstallOptions {
+  return options
 }
 
 // TODO: will use element-plus types (the current type is not perfect)

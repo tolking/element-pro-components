@@ -22,9 +22,11 @@ meta:
 [![Npm Last Updated](https://img.shields.io/badge/dynamic/json.svg?style=flat-square&logo=npm&label=last%20release&url=http%3A%2F%2Fregistry.npmjs.org%2Felement-pro-components&query=$.time.modified)](https://www.npmjs.com/package/element-pro-components)
 
 ```
+npm i element-pro-components
+# 或者
 yarn add element-pro-components
 # 或者
-npm i element-pro-components
+pnpm add element-pro-components
 ```
 
 ## 完整引入
@@ -141,7 +143,7 @@ import 'element-pro-components/lib/styles/layout'
 
 <<< @/src/utils/config.ts
 
-- 配置
+- 全局配置
 
 ```js
 app.use(ElementPro, {
@@ -153,9 +155,21 @@ app.use(ElementPro, {
 })
 ```
 
-::: tip 提示
-如果使用按需引入，可以通过 `ProCrud` `ProForm` `ProTable` 中的一个注入全局配置
-:::
+- 按需配置
+
+```js
+import { defineOptions } from 'element-pro-components'
+
+const options = defineOptions({
+  pagination: {
+    small: true,
+    hideOnSinglePage: true,
+    layout: 'prev, pager, next',
+  },
+})
+
+app.config.globalProperties.$PROOPTIONS = options
+```
 
 ## 开始使用
 

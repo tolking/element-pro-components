@@ -1,7 +1,10 @@
 import type { PropType } from 'vue'
-import type { IComponentSize, ExternalParam } from '../types/index'
-import type { ICrudColumns } from '../Crud/index'
-import type { ITableColumns } from '../Table/index'
+import type {
+  IComponentSize,
+  ExternalParam,
+  ICrudColumns,
+  ITableColumns,
+} from '../types/index'
 
 export const treeProps = {
   emptyText: String,

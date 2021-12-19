@@ -8,15 +8,16 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { defineDescriptionsColumns } from 'element-pro-components'
 
 export default defineComponent({
   setup() {
-    const columns = [
+    const columns = defineDescriptionsColumns([
       { label: 'A', prop: 'a' },
       { label: 'B', prop: 'b.c' },
       { label: 'C', prop: 'b.d' },
       { label: 'D', prop: 'd[0].e' },
-    ]
+    ])
     const detail = {
       a: 'a value',
       'b.c': 'break nested value',

@@ -22,9 +22,11 @@ You may need the vue3 version of the scaffolding tool before you start
 [![Npm Last Updated](https://img.shields.io/badge/dynamic/json.svg?style=flat-square&logo=npm&label=last%20release&url=http%3A%2F%2Fregistry.npmjs.org%2Felement-pro-components&query=$.time.modified)](https://www.npmjs.com/package/element-pro-components)
 
 ```
+npm i element-pro-components
+# or
 yarn add element-pro-components
 # or
-npm i element-pro-components
+pnpm add element-pro-components
 ```
 
 ## Fully import
@@ -152,9 +154,21 @@ app.use(ElementPro, {
 })
 ```
 
-::: tip Tip
-If you use on demand import components, you can inject global config through one of `ProCrud` `ProForm` `ProTable`
-:::
+- On-demand
+
+```js
+import { defineOptions } from 'element-pro-components'
+
+const options = defineOptions({
+  pagination: {
+    small: true,
+    hideOnSinglePage: true,
+    layout: 'prev, pager, next',
+  },
+})
+
+app.config.globalProperties.$PROOPTIONS = options
+```
 
 ## Start using
 

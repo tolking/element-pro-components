@@ -11,6 +11,7 @@
 <script>
 import { defineComponent, ref, markRaw } from 'vue'
 import { ElSwitch } from 'element-plus'
+import { defineFormColumns, defineFormSubmit } from 'element-pro-components'
 
 export default defineComponent({
   setup() {
@@ -22,27 +23,29 @@ export default defineComponent({
       { value: 'V', label: 'v' },
     ])
     const form = ref({})
-    const columns = ref([
-      {
-        label: 'radio',
-        prop: 'radio',
-        component: 'pro-radio',
-        props: {
-          data: list,
+    const columns = ref(
+      defineFormColumns([
+        {
+          label: 'radio',
+          prop: 'radio',
+          component: 'pro-radio',
+          props: {
+            data: list,
+          },
         },
-      },
-      {
-        label: 'switch',
-        prop: 'switch',
-        component: markRaw(ElSwitch),
-      },
-    ])
-    const submit = (done, isValid, invalidFields) => {
+        {
+          label: 'switch',
+          prop: 'switch',
+          component: markRaw(ElSwitch),
+        },
+      ])
+    )
+    const submit = defineFormSubmit((done, isValid, invalidFields) => {
       console.log(form.value, isValid, invalidFields)
       setTimeout(() => {
         done()
       }, 1000)
-    }
+    })
 
     return {
       form,

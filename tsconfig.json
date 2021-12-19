@@ -7,7 +7,6 @@
     "strict": true,
     "resolveJsonModule": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "declarationDir": "types",

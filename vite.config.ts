@@ -18,6 +18,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '/@src': resolve(__dirname, 'src'),
+      'element-pro-components': resolve(__dirname, 'src'),
     },
   },
   build: {

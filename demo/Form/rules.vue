@@ -4,13 +4,14 @@
     :columns="columns"
     :rules="rules"
     label-width="100px"
-    @submit="submitForm"
+    @submit="submit"
     @reset="resetForm"
   />
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { defineFormColumns, defineFormSubmit } from 'element-pro-components'
 
 export default defineComponent({
   setup() {
@@ -19,7 +20,7 @@ export default defineComponent({
       date: { required: true, message: 'Please input date', trigger: 'blur' },
       user: { required: true, message: 'Please input user', trigger: 'blur' },
     })
-    const columns = ref([
+    const columns = defineFormColumns([
       {
         label: 'Date',
         prop: 'date',
@@ -49,15 +50,12 @@ export default defineComponent({
         ],
       },
     ])
-
-    function submitForm(done, isValid, invalidFields) {
-      if (isValid) {
-        alert('submit!')
-      } else {
-        console.log('error submit!!')
-      }
-      done()
-    }
+    const submit = defineFormSubmit((done, isValid, invalidFields) => {
+      console.log(form.value, isValid, invalidFields)
+      setTimeout(() => {
+        done()
+      }, 1000)
+    })
 
     function resetForm() {
       console.log('reset form')
@@ -67,7 +65,7 @@ export default defineComponent({
       form,
       rules,
       columns,
-      submitForm,
+      submit,
       resetForm,
     }
   },

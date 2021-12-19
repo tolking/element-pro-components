@@ -4,6 +4,7 @@
     :columns="columns"
     :menu="menu"
     label-width="100px"
+    @submit="submit"
   >
     <template #menu-left>
       <el-button
@@ -26,22 +27,35 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import {
+  defineFormColumns,
+  defineFormMenuColumns,
+  defineFormSubmit,
+} from 'element-pro-components'
 
 export default defineComponent({
   setup() {
-    const menu = {
+    const menu = defineFormMenuColumns({
       submit: false,
       reset: false,
-    }
+    })
     const count = ref(0)
     const form = ref({})
-    const columns = ref([
-      {
-        label: 'Label-0',
-        prop: 'prop0',
-        component: 'el-input',
-      },
-    ])
+    const columns = ref(
+      defineFormColumns([
+        {
+          label: 'Label-0',
+          prop: 'prop0',
+          component: 'el-input',
+        },
+      ])
+    )
+    const submit = defineFormSubmit((done, isValid, invalidFields) => {
+      console.log(form.value, isValid, invalidFields)
+      setTimeout(() => {
+        done()
+      }, 1000)
+    })
 
     function add() {
       count.value++
@@ -61,6 +75,7 @@ export default defineComponent({
       menu,
       form,
       columns,
+      submit,
       add,
       del,
     }

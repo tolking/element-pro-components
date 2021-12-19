@@ -8,7 +8,8 @@ import type {
   IColProps,
   MaybeArray,
   ExternalParam,
-} from '../types/index'
+  IsAny,
+} from './index'
 
 interface InvalidFields {
   [prop: string]: { message: string; field: string }[]
@@ -26,7 +27,7 @@ export interface FormColumn<T = ExternalParam> extends IColProps {
   /** max number of sub-form */
   max?: number
   /** keys of model that passed to form */
-  prop: keyof T extends string ? DeepKeyof<T> : string
+  prop: IsAny<T> extends true ? string : DeepKeyof<T>
   /** label name */
   label?: string
   /** width of label, e.g. '50px'. Width auto is supported */
@@ -94,4 +95,32 @@ export interface IFormExpose {
     props: MaybeArray<string>,
     cb: IFormValidateFieldCallback
   ) => void
+}
+
+/**
+ * Type helper to make it easier to define columns
+ * @param columns the columns of Form
+ */
+export function defineFormColumns<T = ExternalParam>(
+  columns: IFormColumns<T>
+): IFormColumns<T> {
+  return columns
+}
+
+/**
+ * Type helper to make it easier to define menu columns
+ * @param columns the columns of Form menu
+ */
+export function defineFormMenuColumns(
+  columns: IFormMenuColumns
+): IFormMenuColumns {
+  return columns
+}
+
+/**
+ * Type helper to make it easier to define submit function
+ * @param fun submit function
+ */
+export function defineFormSubmit(fun: IFormSubmit): IFormSubmit {
+  return fun
 }
