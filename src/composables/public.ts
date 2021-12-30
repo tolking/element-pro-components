@@ -6,28 +6,22 @@ import {
   reactive,
   watchEffect,
   computed,
-  ComputedRef,
 } from 'vue'
 import { useRouter, RouteRecordRaw } from 'vue-router'
-import { useWindowSize } from '@vueuse/core'
+import { createSharedComposable, useWindowSize } from '@vueuse/core'
 import { config } from '../utils/config'
 import { getScreenSize, objectDeepMerge } from '../utils/index'
-import type {
-  IRouteRecordRaw,
-  IScreenSize,
-  InstallOptions,
-  MaybeRef,
-} from '../types/index'
+import type { IRouteRecordRaw, InstallOptions, MaybeRef } from '../types/index'
 
 /** get the global config */
-export function useProOptions(): Required<InstallOptions> {
+export const useProOptions = createSharedComposable(() => {
   const vm = getCurrentInstance()
   const proxy = (vm?.proxy || {}) as { $PROOPTIONS: InstallOptions }
 
   return '$PROOPTIONS' in proxy
     ? objectDeepMerge(config, proxy.$PROOPTIONS)
     : config
-}
+})
 
 /**
  * toggle show
@@ -53,13 +47,28 @@ export function useShow(
 }
 
 /** Gets the responsive breakpoint of the current screen */
-export function useScreenSize(): ComputedRef<IScreenSize> {
+export const useScreenSize = createSharedComposable(() => {
   const { width } = useWindowSize()
 
   return computed(() => {
     return getScreenSize(width.value)
   })
-}
+})
+
+/** Gets the routes from `vue-router` */
+export const useSharedRoutes = createSharedComposable(() => {
+  const router = useRouter()
+  router.options.routes = reactive<RouteRecordRaw[]>(
+    router.options.routes
+  ) as IRouteRecordRaw[]
+  const routes = ref<IRouteRecordRaw[]>([] as IRouteRecordRaw[])
+
+  watchEffect(() => {
+    routes.value = router.options.routes
+  })
+
+  return routes as Ref<IRouteRecordRaw[]>
+})
 
 /**
  * routes with no value will get `vue-router` routes
@@ -69,21 +78,11 @@ export function useCurrentRoutes(
   props: Readonly<{
     routes?: IRouteRecordRaw[]
   }>
-): Ref<IRouteRecordRaw[]> | ComputedRef<IRouteRecordRaw[]> {
+): Ref<IRouteRecordRaw[]> {
   if (props.routes && props.routes.length) {
     return computed(() => props.routes as IRouteRecordRaw[])
   } else {
-    const router = useRouter()
-    router.options.routes = reactive<RouteRecordRaw[]>(
-      router.options.routes
-    ) as IRouteRecordRaw[]
-    const routes = ref<IRouteRecordRaw[]>([] as IRouteRecordRaw[])
-
-    watchEffect(() => {
-      routes.value = router.options.routes
-    })
-
-    return routes as Ref<IRouteRecordRaw[]>
+    return useSharedRoutes()
   }
 }
 
