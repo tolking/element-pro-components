@@ -13,8 +13,12 @@
     width: auto;
     overflow: hidden;
     visibility: visible;
-    & .pro-menu-icon {
-      margin-right: 0;
+    & span {
+      height: 0;
+      width: 0;
+      overflow: hidden;
+      visibility: hidden;
+      display: inline-block;
     }
   }
 }
