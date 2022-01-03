@@ -58,7 +58,7 @@ When using `pro-autocomplete-tag`, most attribute of `ElAutocomplete` are suppor
 | v-model         | binding value                        | array   | -                                 | -       |
 | trigger         | the key to trigger input tag         | string  | space / enter                     | space   |
 | max             | max number tags that can be enter    | number  | -                                 | -       |
-| size            | component size                       | string  | medium / small / mini             | -       |
+| size            | component size                       | string  | large / default /small            | -       |
 | type            | tag Type                             | string  | success / info / warning / danger | -       |
 | hit             | whether Tag has a highlighted border | boolean | -                                 | false   |
 | color           | background color of the Tag          | string  | -                                 | -       |
@@ -92,7 +92,7 @@ When using `pro-autocomplete-tag`, most attribute of `ElAutocomplete` are suppor
 | v-model               | binding value                                                                                                              | array                           | -                                                              | -            |
 | trigger               | the key to trigger input tag                                                                                               | string                          | space / enter                                                  | space        |
 | max                   | max number that can be enter                                                                                               | number                          | -                                                              | -            |
-| size                  | component size                                                                                                             | string                          | medium / small / mini                                          | -            |
+| size                  | component size                                                                                                             | string                          | large / default /small                                         | -            |
 | type                  | tag Type                                                                                                                   | string                          | success / info / warning / danger                              | -            |
 | hit                   | whether Tag has a highlighted border                                                                                       | boolean                         | -                                                              | false        |
 | color                 | background color of the Tag                                                                                                | string                          | -                                                              | -            |

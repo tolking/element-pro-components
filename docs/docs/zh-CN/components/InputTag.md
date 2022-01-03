@@ -58,7 +58,7 @@ meta:
 | v-model         | 绑定值                   | array   | -                                 | -      |
 | trigger         | 触发输入按键             | string  | space / enter                     | space  |
 | max             | 可输入的最大数量         | number  | -                                 | -      |
-| size            | 尺寸                     | string  | medium / small / mini             | -      |
+| size            | 尺寸                     | string  | large / default /small            | -      |
 | type            | tag 类型                 | string  | success / info / warning / danger | -      |
 | hit             | tag 是否有边框描边       | boolean | -                                 | false  |
 | color           | tag 背景色               | string  | -                                 | -      |
@@ -92,7 +92,7 @@ meta:
 | v-model               | 绑定值                                 | array                           | -                                                              | -            |
 | trigger               | 触发输入按键                           | string                          | space / enter                                                  | space        |
 | max                   | 可输入的最大数量                       | number                          | -                                                              | -            |
-| size                  | 尺寸                                   | string                          | medium / small / mini                                          | -            |
+| size                  | 尺寸                                   | string                          | large / default /small                                         | -            |
 | type                  | tag 类型                               | string                          | success / info / warning / danger                              | -            |
 | hit                   | tag 是否有边框描边                     | boolean                         | -                                                              | false        |
 | color                 | tag 背景色                             | string                          | -                                                              | -            |

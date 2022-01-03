@@ -7,8 +7,8 @@ import {
   objectOmit,
   isBoolean,
 } from '../utils/index'
+import type { ComponentSize } from 'element-plus/lib/utils/types'
 import type {
-  IComponentSize,
   UnknownObject,
   MaybeArray,
   MaybeRef,
@@ -21,7 +21,6 @@ import type {
 
 type FormItemBind = Omit<
   FormColumn,
-  | 'slot'
   | 'component'
   | 'max'
   | 'props'
@@ -43,7 +42,6 @@ export function useFormItemBind(
 ): ComputedRef<FormItemBind> {
   return computed(() => {
     const omitKeys: Array<keyof FormColumn> = [
-      'slot',
       'component',
       'max',
       'props',
@@ -177,10 +175,10 @@ export function useFormMethods(
 }
 
 export function useFormSize(
-  props?: Readonly<{ size?: IComponentSize }>
-): ComputedRef<IComponentSize> {
-  const elForm = inject<{ size?: IComponentSize }>('elForm', {})
-  const elFormItem = inject<{ size?: IComponentSize }>('elFormItem', {})
+  props?: Readonly<{ size?: ComponentSize }>
+): ComputedRef<ComponentSize | undefined> {
+  const elForm = inject<{ size?: ComponentSize }>('elForm', {})
+  const elFormItem = inject<{ size?: ComponentSize }>('elFormItem', {})
 
   return computed(() => {
     return props?.size || elFormItem.size || elForm.size

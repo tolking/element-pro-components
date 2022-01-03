@@ -140,7 +140,7 @@ The function `defineFormColumns` supports passing in a Generics type to infer th
 | inline-message          | whether to display the error message inline with the form item                                                                    | boolean | —                                                   | false   |
 | status-icon             | whether to display an icon indicating the validation result                                                                       | boolean | —                                                   | false   |
 | validate-on-rule-change | whether to trigger validation when the `rules` prop is changed                                                                    | boolean | —                                                   | true    |
-| size                    | control the size of components in this form                                                                                       | string  | medium / small / mini                               | —       |
+| size                    | control the size of components in this form                                                                                       | string  | large / default /small                              | —       |
 | disabled                | whether to disabled all components in this form. If set to true, it cannot be overridden by its inner components' `disabled` prop | boolean | —                                                   | false   |
 | gutter                  | grid spacing                                                                                                                      | number  | —                                                   | 0       |
 | justify                 | horizontal alignment of flex layout                                                                                               | string  | start / end / center / space-around / space-between | start   |
@@ -148,30 +148,30 @@ The function `defineFormColumns` supports passing in a Generics type to infer th
 
 #### columns
 
-| Name          | Description                                                                                            | Type                                        | Options               | Default |
-| :------------ | :----------------------------------------------------------------------------------------------------- | :------------------------------------------ | :-------------------- | :------ |
-| prop          | a key of `v-model`                                                                                     | string                                      | -                     | -       |
-| label         | label text                                                                                             | string                                      | —                     | —       |
-| component     | binding component                                                                                      | string                                      | -                     | -       |
-| props         | transfer `props` to the current component                                                              | object                                      | -                     | -       |
-| children      | sub-columns                                                                                            | array                                       | -                     | -       |
-| max           | limit the maximum number of sub-columns                                                                | number                                      | -                     | -       |
-| labelWidth    | width of label, e.g. '50px'. Width `auto` is supported.                                                | string                                      | —                     | —       |
-| required      | whether the field is required or not, will be determined by validation rules if omitted                | boolean                                     | —                     | false   |
-| rules         | validation rules of form                                                                               | object                                      | —                     | —       |
-| error         | field error message, set its value and the field will validate error and show this message immediately | string                                      | —                     | —       |
-| showMessage   | whether to show the error message                                                                      | boolean                                     | —                     | true    |
-| inlineMessage | inline style validate message                                                                          | boolean                                     | —                     | false   |
-| size          | control the size of components in this form-item                                                       | string                                      | medium / small / mini | -       |
-| span          | number of column the grid spans                                                                        | number                                      | —                     | 24      |
-| offset        | number of spacing on the left side of the grid                                                         | number                                      | —                     | 0       |
-| push          | number of columns that grid moves to the right                                                         | number                                      | —                     | 0       |
-| pull          | number of columns that grid moves to the left                                                          | number                                      | —                     | 0       |
-| xs            | `<768px` Responsive columns or column props object                                                     | number / object (e.g. {span: 4, offset: 4}) | —                     | —       |
-| sm            | `≥768px` Responsive columns or column props object                                                     | number / object (e.g. {span: 4, offset: 4}) | —                     | —       |
-| md            | `≥992px` Responsive columns or column props object                                                     | number / object (e.g. {span: 4, offset: 4}) | —                     | —       |
-| lg            | `≥1200px` Responsive columns or column props object                                                    | number / object (e.g. {span: 4, offset: 4}) | —                     | —       |
-| xl            | `≥1920px` Responsive columns or column props object                                                    | number / object (e.g. {span: 4, offset: 4}) | —                     | —       |
+| Name          | Description                                                                                            | Type                                        | Options                | Default |
+| :------------ | :----------------------------------------------------------------------------------------------------- | :------------------------------------------ | :--------------------- | :------ |
+| prop          | a key of `v-model`                                                                                     | string                                      | -                      | -       |
+| label         | label text                                                                                             | string                                      | —                      | —       |
+| component     | binding component                                                                                      | string                                      | -                      | -       |
+| props         | transfer `props` to the current component                                                              | object                                      | -                      | -       |
+| children      | sub-columns                                                                                            | array                                       | -                      | -       |
+| max           | limit the maximum number of sub-columns                                                                | number                                      | -                      | -       |
+| labelWidth    | width of label, e.g. '50px'. Width `auto` is supported.                                                | string                                      | —                      | —       |
+| required      | whether the field is required or not, will be determined by validation rules if omitted                | boolean                                     | —                      | false   |
+| rules         | validation rules of form                                                                               | object                                      | —                      | —       |
+| error         | field error message, set its value and the field will validate error and show this message immediately | string                                      | —                      | —       |
+| showMessage   | whether to show the error message                                                                      | boolean                                     | —                      | true    |
+| inlineMessage | inline style validate message                                                                          | boolean                                     | —                      | false   |
+| size          | control the size of components in this form-item                                                       | string                                      | large / default /small | -       |
+| span          | number of column the grid spans                                                                        | number                                      | —                      | 24      |
+| offset        | number of spacing on the left side of the grid                                                         | number                                      | —                      | 0       |
+| push          | number of columns that grid moves to the right                                                         | number                                      | —                      | 0       |
+| pull          | number of columns that grid moves to the left                                                          | number                                      | —                      | 0       |
+| xs            | `<768px` Responsive columns or column props object                                                     | number / object (e.g. {span: 4, offset: 4}) | —                      | —       |
+| sm            | `≥768px` Responsive columns or column props object                                                     | number / object (e.g. {span: 4, offset: 4}) | —                      | —       |
+| md            | `≥992px` Responsive columns or column props object                                                     | number / object (e.g. {span: 4, offset: 4}) | —                      | —       |
+| lg            | `≥1200px` Responsive columns or column props object                                                    | number / object (e.g. {span: 4, offset: 4}) | —                      | —       |
+| xl            | `≥1920px` Responsive columns or column props object                                                    | number / object (e.g. {span: 4, offset: 4}) | —                      | —       |
 
 ::: tip about props
 The props attribute will all be passed to the component. **For events need to be bound by `on[Event]`. example: `change` -> `onChange`, `input` -> `onInput`**

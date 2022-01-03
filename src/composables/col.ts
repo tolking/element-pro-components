@@ -1,7 +1,14 @@
 // NOTE modify from element-plus, if a same hooks is added to the element-plus, replace this file by hooks
 import { ComputedRef, computed, inject, Ref, unref } from 'vue'
 import { isObject } from '../utils/index'
-import type { IColProps, IColSizeObject } from '../types/index'
+import type { ColProps } from 'element-plus'
+
+type IColProps = Partial<Omit<ColProps, 'tag'>>
+
+interface ColSizeObject {
+  span?: number
+  offset?: number
+}
 
 export function useCol(
   props: Readonly<IColProps> | IColProps | Ref<IColProps>
@@ -56,7 +63,7 @@ export function useCol(
         ret.push(`el-col-${size}-${sizeProps}`)
       } else if (isObject(sizeProps)) {
         Object.keys(sizeProps).forEach((prop) => {
-          const _prop = prop as keyof IColSizeObject
+          const _prop = prop as keyof ColSizeObject
           ret.push(
             _prop !== 'span'
               ? `el-col-${size}-${_prop}-${sizeProps[_prop]}`

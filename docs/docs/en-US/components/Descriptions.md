@@ -51,16 +51,16 @@ The function `defineDescriptionsColumns` supports passing in a Generics type to 
 
 ### Props
 
-| Name      | Description                                        | Type    | Options               | Default    |
-| :-------- | :------------------------------------------------- | :------ | :-------------------- | :--------- |
-| columns   | to generate descriptions list, reference `columns` | array   | -                     | -          |
-| detail    | detail data of display                             | object  | -                     | -          |
-| border    | with or without border                             | boolean | —                     | false      |
-| column    | numbers of `Descriptions Item` in one line         | number  | —                     | 3          |
-| direction | direction of list                                  | string  | vertical / horizontal | horizontal |
-| size      | size of list                                       | string  | medium / small / mini | —          |
-| title     | title text, display on the top left                | string  | —                     | —          |
-| extra     | extra text, display on the top right               | string  | —                     | —          |
+| Name      | Description                                        | Type    | Options                | Default    |
+| :-------- | :------------------------------------------------- | :------ | :--------------------- | :--------- |
+| columns   | to generate descriptions list, reference `columns` | array   | -                      | -          |
+| detail    | detail data of display                             | object  | -                      | -          |
+| border    | with or without border                             | boolean | —                      | false      |
+| column    | numbers of `Descriptions Item` in one line         | number  | —                      | 3          |
+| direction | direction of list                                  | string  | vertical / horizontal  | horizontal |
+| size      | size of list                                       | string  | large / default /small | —          |
+| title     | title text, display on the top left                | string  | —                      | —          |
+| extra     | extra text, display on the top right               | string  | —                      | —          |
 
 ### columns
 

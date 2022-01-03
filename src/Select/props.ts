@@ -1,5 +1,6 @@
 import type { PropType } from 'vue'
-import type { IComponentSize, SelectConfig, SelectData } from '../types/index'
+import type { ComponentSize } from 'element-plus/lib/utils/types'
+import type { SelectConfig, SelectData } from '../types/index'
 
 export const commonProps = {
   data: {
@@ -18,7 +19,7 @@ export const selectProps = {
   },
   automaticDropdown: Boolean,
   size: {
-    type: String as PropType<IComponentSize>,
+    type: String as PropType<ComponentSize>,
   },
   disabled: Boolean,
   clearable: Boolean,

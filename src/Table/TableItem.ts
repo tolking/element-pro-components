@@ -3,8 +3,8 @@ import { ElTableColumn } from 'element-plus'
 import { useTableBind } from '../composables'
 import { get, isFunction } from '../utils/index'
 import ProTableItem from './TableItem'
+import type { ComponentSize } from 'element-plus/lib/utils/types'
 import type {
-  IComponentSize,
   TableColumn,
   ITableColumns,
   TableColumnsProps,
@@ -22,7 +22,7 @@ export default defineComponent({
       required: true,
     },
     size: {
-      type: String as PropType<IComponentSize>,
+      type: String as PropType<ComponentSize>,
       default: undefined,
     },
   },

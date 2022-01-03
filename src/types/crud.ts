@@ -1,5 +1,5 @@
-import {
-  IButtonProps,
+import type { ButtonProps } from 'element-plus'
+import type {
   UnknownObject,
   ExternalParam,
   FormColumn,
@@ -35,31 +35,31 @@ export interface CrudMenu<T = ExternalParam> {
   /** text of add button */
   addText?: string
   /** props of add button */
-  addProps?: IButtonProps
+  addProps?: Partial<ButtonProps>
   /** show edit button */
   edit?: boolean | ((row: T) => boolean)
   /** text of edit button */
   editText?: string
   /** props of edit button */
-  editProps?: IButtonProps
+  editProps?: Partial<ButtonProps>
   /** show del button */
   del?: boolean | ((row: T) => boolean)
   /** text of del button */
   delText?: string
   /** props of del button */
-  delProps?: IButtonProps
+  delProps?: Partial<ButtonProps>
   /** show search button */
   search?: boolean
   /** text of search button */
   searchText?: string
   /** props of search button */
-  searchProps?: IButtonProps
+  searchProps?: Partial<ButtonProps>
   /** show search reset button */
   searchReset?: boolean
   /** text of search reset button */
   searchResetText?: string
   /** props of search reset button */
-  searchResetProps?: IButtonProps
+  searchResetProps?: Partial<ButtonProps>
 }
 
 export type ICrudMenuColumns<T = ExternalParam> = CrudMenu<T> &

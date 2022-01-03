@@ -45,17 +45,17 @@ use `pro-checkbox-button` then checkbox with button styles
 
 ### Checkbox Props
 
-| Name       | Description                                       | Type    | Options               | Default                                                                |
-| :--------- | :------------------------------------------------ | :------ | :-------------------- | :--------------------------------------------------------------------- |
-| v-model    | binding value                                     | array   | -                     | -                                                                      |
-| data       | binding data                                      | array   | -                     | -                                                                      |
-| config     | config the key of data                            | object  | -                     | { value: 'value', label: 'label', disabled: 'disabled', name: 'name' } |
-| size       | component size                                    | string  | medium / small / mini | -                                                                      |
-| disabled   | whether disabled                                  | boolean | -                     | false                                                                  |
-| min        | minimum number of checkbox checked                | number  | -                     | -                                                                      |
-| max        | maximum number of checkbox checked                | number  | -                     | -                                                                      |
-| text-color | font color when button is active                  | string  | -                     | #ffffff                                                                |
-| fill       | border and background color when button is active | string  | -                     | #409EFF                                                                |
+| Name       | Description                                       | Type    | Options                | Default                                                                |
+| :--------- | :------------------------------------------------ | :------ | :--------------------- | :--------------------------------------------------------------------- |
+| v-model    | binding value                                     | array   | -                      | -                                                                      |
+| data       | binding data                                      | array   | -                      | -                                                                      |
+| config     | config the key of data                            | object  | -                      | { value: 'value', label: 'label', disabled: 'disabled', name: 'name' } |
+| size       | component size                                    | string  | large / default /small | -                                                                      |
+| disabled   | whether disabled                                  | boolean | -                      | false                                                                  |
+| min        | minimum number of checkbox checked                | number  | -                      | -                                                                      |
+| max        | maximum number of checkbox checked                | number  | -                      | -                                                                      |
+| text-color | font color when button is active                  | string  | -                      | #ffffff                                                                |
+| fill       | border and background color when button is active | string  | -                      | #409EFF                                                                |
 
 ### Checkbox Events
 
@@ -69,17 +69,17 @@ use `pro-checkbox-button` then checkbox with button styles
 
 ### CheckboxButton Props
 
-| Name       | Description                                       | Type    | Options               | Default                                                                |
-| :--------- | :------------------------------------------------ | :------ | :-------------------- | :--------------------------------------------------------------------- |
-| v-model    | binding value                                     | array   | -                     | -                                                                      |
-| data       | binding data                                      | array   | -                     | -                                                                      |
-| config     | config the key of data                            | object  | -                     | { value: 'value', label: 'label', disabled: 'disabled', name: 'name' } |
-| size       | component size                                    | string  | medium / small / mini | -                                                                      |
-| disabled   | whether disabled                                  | boolean | -                     | false                                                                  |
-| min        | minimum number of checkbox checked                | number  | -                     | -                                                                      |
-| max        | maximum number of checkbox checked                | number  | -                     | -                                                                      |
-| text-color | font color when button is active                  | string  | -                     | #ffffff                                                                |
-| fill       | border and background color when button is active | string  | -                     | #409EFF                                                                |
+| Name       | Description                                       | Type    | Options                | Default                                                                |
+| :--------- | :------------------------------------------------ | :------ | :--------------------- | :--------------------------------------------------------------------- |
+| v-model    | binding value                                     | array   | -                      | -                                                                      |
+| data       | binding data                                      | array   | -                      | -                                                                      |
+| config     | config the key of data                            | object  | -                      | { value: 'value', label: 'label', disabled: 'disabled', name: 'name' } |
+| size       | component size                                    | string  | large / default /small | -                                                                      |
+| disabled   | whether disabled                                  | boolean | -                      | false                                                                  |
+| min        | minimum number of checkbox checked                | number  | -                      | -                                                                      |
+| max        | maximum number of checkbox checked                | number  | -                      | -                                                                      |
+| text-color | font color when button is active                  | string  | -                      | #ffffff                                                                |
+| fill       | border and background color when button is active | string  | -                      | #409EFF                                                                |
 
 ### CheckboxButton Events
 

@@ -1,10 +1,6 @@
 import type { PropType } from 'vue'
-import type {
-  IComponentSize,
-  ExternalParam,
-  ICrudColumns,
-  ITableColumns,
-} from '../types/index'
+import type { ComponentSize } from 'element-plus/lib/utils/types'
+import type { ExternalParam, ICrudColumns, ITableColumns } from '../types/index'
 
 export const treeProps = {
   emptyText: String,
@@ -38,7 +34,7 @@ export default {
     default: 'bottom',
   },
   size: {
-    type: String as PropType<IComponentSize>,
+    type: String as PropType<ComponentSize>,
   },
   highlightCurrent: Boolean,
   filterNodeMethod: {

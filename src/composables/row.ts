@@ -1,6 +1,8 @@
 // NOTE modify from element-plus, if a same hooks is added to the element-plus, replace this file by hooks
 import { ComputedRef, computed, provide } from 'vue'
-import type { IRowProps } from '../types/index'
+import type { RowProps } from 'element-plus'
+
+type IRowProps = Partial<Omit<RowProps, 'tag'>>
 
 export function useRow(
   props: Readonly<IRowProps> | IRowProps

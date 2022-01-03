@@ -81,6 +81,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import type { ComponentSize } from 'element-plus/lib/utils/types'
 import type {
   ICrudBeforeOpen,
   ICrudColumns,
@@ -88,7 +89,6 @@ import type {
   ICrudExpose,
   ICrudSubmit,
   ICrudSearch,
-  IComponentSize,
 } from '/@src/index'
 
 interface DataItem {
@@ -100,7 +100,7 @@ interface DataItem {
 type SerachForm = Pick<DataItem, 'date'>
 type CrudForm = Pick<DataItem, 'date' | 'name'>
 
-const componentsSize = ref<IComponentSize>('medium')
+const componentsSize = ref<ComponentSize>('large')
 const crud = ref<ICrudExpose<DataItem>>({} as ICrudExpose<DataItem>)
 const form = ref<CrudForm>({} as CrudForm)
 const serachForm = ref<SerachForm>({} as SerachForm)
@@ -202,6 +202,6 @@ function deleteRow(row: DataItem) {
 }
 
 function changeSize() {
-  componentsSize.value = componentsSize.value === 'mini' ? 'medium' : 'mini'
+  componentsSize.value = componentsSize.value === 'small' ? 'large' : 'small'
 }
 </script>

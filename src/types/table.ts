@@ -1,7 +1,7 @@
 import type { VNode } from 'vue'
+import type { Placement } from 'element-plus'
 import type {
   UnknownFunction,
-  IPlacementType,
   DeepKeyof,
   MaybeArray,
   ExternalParam,
@@ -49,7 +49,7 @@ export interface TableCommonColumn<T = ExternalParam>
   /** an array of data filtering options. For each element in this array, text and value are required */
   filters?: Array<'text' | 'value' | string>
   /** placement for the filter dropdown */
-  filterPlacement?: IPlacementType
+  filterPlacement?: Placement
   /** whether data filtering supports multiple options */
   filterMultiple?: boolean
   /** data filtering method. If filter-multiple is on, this method will be called multiple times for each row, and a row will display if one of the calls returns true */
@@ -62,8 +62,6 @@ export interface TableCommonColumn<T = ExternalParam>
 export interface TableColumn<T = ExternalParam> extends TableCommonColumn<T> {
   /** field name */
   prop: IsAny<T> extends true ? string : DeepKeyof<T>
-  /** @deprecated */
-  slot?: boolean
   /** When the data structure is complex, you can use children to show the data hierarchy */
   children?: ITableColumns<T>
   /** whether to hide in the table */
