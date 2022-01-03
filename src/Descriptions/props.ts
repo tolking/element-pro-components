@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { IComponentSize } from '..'
+import type { ComponentSize } from 'element-plus/lib/utils/types'
 import type { IDescriptionsColumns } from '../types/index'
 
 export default {
@@ -16,7 +16,7 @@ export default {
     type: String as PropType<'vertical' | 'horizontal'>,
   },
   size: {
-    type: String as PropType<IComponentSize>,
+    type: String as PropType<ComponentSize>,
   },
   title: String,
   extra: String,

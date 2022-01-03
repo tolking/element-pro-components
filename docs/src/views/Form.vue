@@ -238,7 +238,7 @@ const columns = shallowRef<IFormColumns>([
     prop: 'checkboxButton',
     component: 'pro-checkbox-button',
     xs: { span: 24, offset: 2 },
-    sm: { span: 12, pull: 2 },
+    sm: { span: 12, offset: 2 },
     md: 12,
     props: {
       data: list,
@@ -285,7 +285,7 @@ const columns1 = ref<IFormColumns<RuleForm>>([
     label: 'User',
     prop: 'user',
     // max: 3,
-    size: 'mini',
+    size: 'small',
     children: [
       {
         label: 'Name',

@@ -1,10 +1,7 @@
 import type { PropType } from 'vue'
 import type { FormRulesMap } from 'element-plus/lib/components/form/src/form.type'
-import type {
-  IComponentSize,
-  IFormColumns,
-  IFormMenuColumns,
-} from '../types/index'
+import type { ComponentSize } from 'element-plus/lib/utils/types'
+import type { IFormColumns, IFormMenuColumns } from '../types/index'
 
 export default {
   modelValue: {
@@ -54,7 +51,7 @@ export default {
     default: true,
   },
   size: {
-    type: String as PropType<IComponentSize>,
+    type: String as PropType<ComponentSize>,
   },
   disabled: Boolean,
   scrollToError: Boolean,

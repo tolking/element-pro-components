@@ -3,8 +3,8 @@ import type {
   TableProps,
   DefaultRow,
 } from 'element-plus/es/components/table/src/table/defaults'
+import type { ComponentSize } from 'element-plus/lib/utils/types'
 import type {
-  IComponentSize,
   ITableSelectionColumns,
   ITableExpandColumns,
   ITableIndexColumns,
@@ -143,7 +143,7 @@ export default {
     default: undefined,
   },
   size: {
-    type: String as PropType<IComponentSize>,
+    type: String as PropType<ComponentSize>,
     default: undefined,
   },
 }
