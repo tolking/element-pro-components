@@ -2,7 +2,7 @@ export * from './components'
 export * from './composables/index'
 export * from './utils/index'
 export * from './types/index'
-import * as components from './components'
+import components from './components'
 import type { App, Plugin } from 'vue'
 import type { InstallOptions } from './types/index'
 

@@ -1,6 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep'
 import merge from 'lodash/merge'
-import type { IScreenSize, UnknownObject } from '../types/index'
+import type { IScreenSize, UnknownObject, IDefinePlugin } from '../types/index'
 
 /**
  * determine the current screen size
@@ -39,4 +39,20 @@ export function objectDeepMerge<T = UnknownObject, Q = T>(
  */
 export function checkUrl(url: string): boolean {
   return /^((ht|f)tps?):\/\/?/.test(url)
+}
+
+/**
+ * add install function for plugin
+ * @param plugin the vue components and plugin
+ */
+export function withInstall<T extends { name: string }>(
+  plugin: T
+): IDefinePlugin<T> {
+  const _plugin = plugin as IDefinePlugin<T>
+
+  _plugin.install = (app) => {
+    app.component(_plugin.name, _plugin)
+  }
+
+  return _plugin
 }

@@ -1,14 +1,7 @@
-import ProForm from './Form'
+import { withInstall } from '../utils/index'
+import Form from './Form'
 import props from './props'
-import type { IDefinePlugin, IDefineProps } from '../types/index'
+import type { IDefineProps } from '../types/index'
 
-const _ProForm: IDefinePlugin<typeof ProForm> = ProForm as IDefinePlugin<
-  typeof ProForm
->
-
-_ProForm.install = (app) => {
-  app.component(_ProForm.name, _ProForm)
-}
-
-export default _ProForm
+export const ProForm = withInstall(Form)
 export type IFormProps = IDefineProps<typeof props>

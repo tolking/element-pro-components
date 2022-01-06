@@ -1,14 +1,7 @@
-import ProCrud from './Crud'
+import { withInstall } from '../utils/index'
+import Crud from './Crud'
 import props from './props'
-import type { IDefinePlugin, IDefineProps } from '../types/index'
+import type { IDefineProps } from '../types/index'
 
-const _ProCrud: IDefinePlugin<typeof ProCrud> = ProCrud as IDefinePlugin<
-  typeof ProCrud
->
-
-_ProCrud.install = (app) => {
-  app.component(_ProCrud.name, _ProCrud)
-}
-
-export default _ProCrud
+export const ProCrud = withInstall(Crud)
 export type ICrudProps = IDefineProps<typeof props>

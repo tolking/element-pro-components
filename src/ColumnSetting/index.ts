@@ -1,14 +1,7 @@
-import ProColumnSetting from './ColumnSetting'
+import { withInstall } from '../utils/index'
+import ColumnSetting from './ColumnSetting'
 import props from './props'
-import type { IDefinePlugin, IDefineProps } from '../types/index'
+import type { IDefineProps } from '../types/index'
 
-const _ProColumnSetting: IDefinePlugin<
-  typeof ProColumnSetting
-> = ProColumnSetting as IDefinePlugin<typeof ProColumnSetting>
-
-_ProColumnSetting.install = (app) => {
-  app.component(_ProColumnSetting.name, _ProColumnSetting)
-}
-
-export default _ProColumnSetting
+export const ProColumnSetting = withInstall(ColumnSetting)
 export type IColumnSettingProps = IDefineProps<typeof props>

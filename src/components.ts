@@ -17,26 +17,27 @@ export * from './Table/index'
 export * from './Tabs/index'
 export * from './TreeSelect/index'
 
-import ProAutocompleteTag from './AutocompleteTag/index'
-import ProBreadcrumb from './Breadcrumb/index'
-import ProCheckbox from './Checkbox/index'
-import ProCheckboxButton from './CheckboxButton/index'
-import ProColumnSetting from './ColumnSetting/index'
-import ProCrud from './Crud/index'
-import ProDescriptions from './Descriptions/index'
-import ProForm from './Form/index'
-import ProInputTag from './InputTag/index'
-import ProLayout from './Layout/index'
-import ProLink from './Link/index'
-import ProMenu from './Menu/index'
-import ProRadio from './Radio/index'
-import ProRadioButton from './RadioButton/index'
-import ProSelect from './Select/index'
-import ProTable from './Table/index'
-import ProTabs from './Tabs/index'
-import ProTreeSelect from './TreeSelect/index'
+import { ProAutocompleteTag } from './AutocompleteTag/index'
+import { ProBreadcrumb } from './Breadcrumb/index'
+import { ProCheckbox } from './Checkbox/index'
+import { ProCheckboxButton } from './CheckboxButton/index'
+import { ProColumnSetting } from './ColumnSetting/index'
+import { ProCrud } from './Crud/index'
+import { ProDescriptions } from './Descriptions/index'
+import { ProForm } from './Form/index'
+import { ProInputTag } from './InputTag/index'
+import { ProLayout } from './Layout/index'
+import { ProLink } from './Link/index'
+import { ProMenu } from './Menu/index'
+import { ProRadio } from './Radio/index'
+import { ProRadioButton } from './RadioButton/index'
+import { ProSelect } from './Select/index'
+import { ProTable } from './Table/index'
+import { ProTabs } from './Tabs/index'
+import { ProTreeSelect } from './TreeSelect/index'
+import type { Plugin } from 'vue'
 
-export {
+export default {
   ProAutocompleteTag,
   ProBreadcrumb,
   ProCheckbox,
@@ -55,7 +56,7 @@ export {
   ProTable,
   ProTabs,
   ProTreeSelect,
-}
+} as Record<string, Plugin>
 
 declare module 'vue' {
   export interface GlobalComponents {

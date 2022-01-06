@@ -9,7 +9,7 @@ import { ElMenu } from 'element-plus'
 import { useCurrentRoutes } from '../composables/index'
 import props from './props'
 import ProMenuItem from './MenuItem'
-import ProLink from '../Link/index'
+import { ProLink } from '../Link/index'
 import type { IRouteRecordRaw } from '../types/index'
 import type { IMenuProps } from './index'
 
