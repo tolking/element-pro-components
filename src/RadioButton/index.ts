@@ -1,14 +1,6 @@
-import ProRadioButton from './RadioButton'
-import type { IDefinePlugin } from '../types/index'
+import { withInstall } from '../utils/index'
+import RadioButton from './RadioButton'
 import type { IRadioProps } from '../Radio/index'
 
-const _ProRadioButton: IDefinePlugin<
-  typeof ProRadioButton
-> = ProRadioButton as IDefinePlugin<typeof ProRadioButton>
-
-_ProRadioButton.install = (app) => {
-  app.component(_ProRadioButton.name, _ProRadioButton)
-}
-
-export default _ProRadioButton
+export const ProRadioButton = withInstall(RadioButton)
 export type IRadioButtonProps = IRadioProps
