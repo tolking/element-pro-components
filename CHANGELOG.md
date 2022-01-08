@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.17.0
+
+breaking changes
+
+- global configuration injection via components is no longer supported
+- Form|Table|Crud: remove InstallOptions
+
+fix
+
+- Menu: style error when collapse
+
+feat
+
+- sync components size chang from element-plus
+- optimize composable function
+
+other
+
+- import some types from element-plus
+- optimized build
+
 ## 0.16.4
 
 feat
