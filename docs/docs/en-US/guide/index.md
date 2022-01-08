@@ -138,6 +138,10 @@ In addition to components, you can also use some internal [utils](https://github
 
 ## Global config
 
+::: danger Danger
+The global configuration will be modified or removed in the near future, it is recommended to use related components to pass parameters or internationalization
+:::
+
 - refer
 
 <<< @/src/utils/config.ts
