@@ -15,7 +15,7 @@ import { defineComponent, ref } from 'vue'
 export default defineComponent({
   setup() {
     const inputTags = ref([])
-    const sizeList = ['medium', 'small', 'mini']
+    const sizeList = ['large', 'default', 'small']
 
     return {
       inputTags,
