@@ -2,7 +2,7 @@ import { defineComponent, h } from 'vue'
 import { useRoute } from 'vue-router'
 import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'
 import props from './props'
-import ProLink from '../Link/index'
+import { ProLink } from '../Link/index'
 
 export default defineComponent({
   name: 'ProBreadcrumb',

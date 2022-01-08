@@ -1,14 +1,7 @@
-import ProRadio from './Radio'
+import { withInstall } from '../utils/index'
+import Radio from './Radio'
 import props from './props'
-import type { IDefinePlugin, IDefineProps } from '../types/index'
+import type { IDefineProps } from '../types/index'
 
-const _ProRadio: IDefinePlugin<typeof ProRadio> = ProRadio as IDefinePlugin<
-  typeof ProRadio
->
-
-_ProRadio.install = (app) => {
-  app.component(_ProRadio.name, _ProRadio)
-}
-
-export default _ProRadio
+export const ProRadio = withInstall(Radio)
 export type IRadioProps = IDefineProps<typeof props>

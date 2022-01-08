@@ -1,6 +1,6 @@
 import { commonProps } from '../Select/props'
 import type { PropType } from 'vue'
-import type { IComponentSize } from '../types/index'
+import type { ComponentSize } from 'element-plus/lib/utils/types'
 
 export default {
   ...commonProps,
@@ -8,7 +8,7 @@ export default {
     type: [String, Number, Boolean],
   },
   size: {
-    type: String as PropType<IComponentSize>,
+    type: String as PropType<ComponentSize>,
   },
   disabled: {
     type: Boolean,

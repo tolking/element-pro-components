@@ -35,6 +35,11 @@ const enUS: RouteRecordRaw[] = [
         component: () => import('../../docs/en-US/guide/router.md'),
         meta: { title: 'Router and Menu' },
       },
+      {
+        path: '/en-US/guide/changelog',
+        component: () => import('../../../CHANGELOG.md'),
+        meta: { title: 'Changelog' },
+      },
     ],
   },
   {

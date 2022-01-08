@@ -15,7 +15,7 @@ import { ElScrollbar } from 'element-plus'
 import { useScreenSize, useShow } from '../composables/index'
 import { createMenuProps } from '../Menu/Menu'
 import props from './props'
-import ProMenu from '../Menu/index'
+import { ProMenu } from '../Menu/index'
 import type { IRouteRecordRaw } from '../types/index'
 
 interface RouterViewSlot {

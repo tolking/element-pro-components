@@ -1,11 +1,10 @@
 import type { Component } from 'vue'
+import type { ButtonProps, ColProps } from 'element-plus'
+import type { ComponentSize } from 'element-plus/lib/utils/types'
 import type { FormItemRule } from 'element-plus/lib/components/form/src/form.type'
 import type {
   UnknownObject,
-  IComponentSize,
-  IButtonProps,
   DeepKeyof,
-  IColProps,
   MaybeArray,
   ExternalParam,
   IsAny,
@@ -15,9 +14,8 @@ interface InvalidFields {
   [prop: string]: { message: string; field: string }[]
 }
 
-export interface FormColumn<T = ExternalParam> extends IColProps {
-  /** @deprecated */
-  slot?: boolean
+export interface FormColumn<T = ExternalParam>
+  extends Partial<Omit<ColProps, 'tag'>> {
   /** component name */
   component?: string | Component
   /** props for component */
@@ -43,7 +41,7 @@ export interface FormColumn<T = ExternalParam> extends IColProps {
   /** inline style validate message */
   inlineMessage?: boolean
   /** control the size of components in this form-item */
-  size?: IComponentSize
+  size?: ComponentSize
 }
 
 /** Form Columns Option */
@@ -56,13 +54,13 @@ export interface FormMenu {
   /** text of submit button */
   submitText?: string
   /** props of submit button */
-  submitProps?: IButtonProps
+  submitProps?: Partial<ButtonProps>
   /** show reset button */
   reset?: boolean
   /** text of reset button */
   resetText?: string
   /** props of reset button */
-  resetProps?: IButtonProps
+  resetProps?: Partial<ButtonProps>
 }
 
 /** Form Menu Option */

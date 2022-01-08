@@ -14,17 +14,14 @@ import { isFunction, isObject } from '../utils/index'
 import { createTableProps } from '../Table/Table'
 import { createFormProps } from '../Form/Form'
 import props from './props'
-import ProForm from '../Form/index'
-import ProTable from '../Table/index'
-import type {
-  IComponentSize,
-  StringObject,
-  UnknownObject,
-} from '../types/index'
+import { ProForm } from '../Form/index'
+import { ProTable } from '../Table/index'
+import type { ComponentSize } from 'element-plus/lib/utils/types'
+import type { StringObject, UnknownObject } from '../types/index'
 
 interface TableMenuScope {
   row: StringObject
-  size: IComponentSize
+  size: ComponentSize
 }
 
 export default defineComponent({
@@ -220,23 +217,28 @@ export default defineComponent({
 
       return h(
         ProTable,
-        Object.assign({
-          ref: table,
-          selection: props.selection,
-          expand: props.expand,
-          index: props.index,
-          menu: menuColumns.value,
-          columns: tableColumns.value,
-          currentPage: props.currentPage,
-          pageSize: props.pageSize,
-          total: props.total,
-          class: 'pro-crud-table pro-table',
-          'onUpdate:pageSize': sizeChange,
-          'onUpdate:currentPage': currentChange,
-          onPrevClick: prevClick,
-          onNextClick: nextClick,
-        }, config, pagination.value, attrs.value),
-        Object.assign({}, tableSlots, menuSlots),
+        Object.assign(
+          {
+            ref: table,
+            selection: props.selection,
+            expand: props.expand,
+            index: props.index,
+            menu: menuColumns.value,
+            columns: tableColumns.value,
+            currentPage: props.currentPage,
+            pageSize: props.pageSize,
+            total: props.total,
+            class: 'pro-crud-table pro-table',
+            'onUpdate:pageSize': sizeChange,
+            'onUpdate:currentPage': currentChange,
+            onPrevClick: prevClick,
+            onNextClick: nextClick,
+          },
+          config,
+          pagination.value,
+          attrs.value
+        ),
+        Object.assign({}, tableSlots, menuSlots)
       )
     }
 
@@ -303,19 +305,23 @@ export default defineComponent({
               dialogVisible.value
                 ? h(
                     ProForm,
-                    Object.assign({
-                      ref: form,
-                      modelValue: props.modelValue,
-                      columns: formColumns.value,
-                      menu: menuColumns.value,
-                      inline: props.inline,
-                      labelPosition: props.labelPosition,
-                      class: 'pro-crud-form',
-                      'onUpdate:modelValue': upFormData,
-                      onSubmit: submitForm,
-                      onReset: resetForm,
-                    }, option, attrs.value),
-                    formSlots,
+                    Object.assign(
+                      {
+                        ref: form,
+                        modelValue: props.modelValue,
+                        columns: formColumns.value,
+                        menu: menuColumns.value,
+                        inline: props.inline,
+                        labelPosition: props.labelPosition,
+                        class: 'pro-crud-form',
+                        'onUpdate:modelValue': upFormData,
+                        onSubmit: submitForm,
+                        onReset: resetForm,
+                      },
+                      option,
+                      attrs.value
+                    ),
+                    formSlots
                   )
                 : null
           )

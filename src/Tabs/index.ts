@@ -1,14 +1,7 @@
-import ProTabs from './Tabs'
+import { withInstall } from '../utils/index'
+import Tabs from './Tabs'
 import props from './props'
-import type { IDefinePlugin, IDefineProps } from '../types/index'
+import type { IDefineProps } from '../types/index'
 
-const _ProTabs: IDefinePlugin<typeof ProTabs> = ProTabs as IDefinePlugin<
-  typeof ProTabs
->
-
-_ProTabs.install = (app) => {
-  app.component(_ProTabs.name, _ProTabs)
-}
-
-export default _ProTabs
+export const ProTabs = withInstall(Tabs)
 export type ITabsProps = IDefineProps<typeof props>

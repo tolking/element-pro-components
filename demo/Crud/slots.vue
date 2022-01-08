@@ -38,12 +38,20 @@
     <template #name-header="{ column }">
       <s>{{ column.label }}</s>
     </template>
+    <template #action>
+      <el-button
+        :icon="Refresh"
+        circle
+        style="margin-right: 8px"
+      />
+      <pro-column-setting v-model="columns" />
+    </template>
   </pro-crud>
 </template>
 
 <script>
 import { defineComponent, h, ref } from 'vue'
-import { Clock } from '@element-plus/icons-vue'
+import { Clock, Refresh } from '@element-plus/icons-vue'
 import {
   defineCrudColumns,
   defineCrudSubmit,
@@ -54,38 +62,41 @@ export default defineComponent({
   setup() {
     const form = ref({})
     const serachForm = ref({})
-    const columns = defineCrudColumns([
-      {
-        label: 'Date',
-        prop: 'date',
-        component: 'el-input',
-        add: true,
-        edit: true,
-        search: true,
-        render: '--',
-        props: {
-          slots: {
-            suffix: () => h('span', { className: 'el-input__icon' }, h(Clock)),
+    const columns = ref(
+      defineCrudColumns([
+        {
+          label: 'Date',
+          prop: 'date',
+          component: 'el-input',
+          add: true,
+          edit: true,
+          search: true,
+          render: '--',
+          props: {
+            slots: {
+              suffix: () =>
+                h('span', { className: 'el-input__icon' }, h(Clock)),
+            },
           },
         },
-      },
-      {
-        label: 'Name',
-        prop: 'name',
-        component: 'el-input',
-        add: true,
-        search: true,
-        slot: true,
-      },
-      {
-        label: 'Address',
-        prop: 'address',
-        component: 'el-input',
-        add: true,
-        edit: true,
-        render: (row) => h('em', null, row.address),
-      },
-    ])
+        {
+          label: 'Name',
+          prop: 'name',
+          component: 'el-input',
+          add: true,
+          search: true,
+          slot: true,
+        },
+        {
+          label: 'Address',
+          prop: 'address',
+          component: 'el-input',
+          add: true,
+          edit: true,
+          render: (row) => h('em', null, row.address),
+        },
+      ])
+    )
     const data = ref([
       {
         date: '2016-05-03',
@@ -130,6 +141,7 @@ export default defineComponent({
     }
 
     return {
+      Refresh,
       form,
       serachForm,
       data,
@@ -141,3 +153,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style>
+.el-input__icon {
+  width: 14px;
+}
+</style>
