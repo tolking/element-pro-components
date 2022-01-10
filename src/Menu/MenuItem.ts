@@ -38,11 +38,7 @@ export default defineComponent({
               slots.default && slots.default({ meta: item.value?.meta }),
             default: () =>
               item.value?.children?.map((child) => {
-                return h(
-                  ProMenuItem,
-                  { item: child },
-                  () => slots.default && slots.default(child)
-                )
+                return h(ProMenuItem, { item: child }, slots.default)
               }),
           }
         )
