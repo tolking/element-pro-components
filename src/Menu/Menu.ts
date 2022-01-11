@@ -4,13 +4,11 @@ import {
   h,
   resolveDynamicComponent,
 } from 'vue'
-import { useRoute } from 'vue-router'
-import { ElMenu } from 'element-plus'
+import { useRoute, RouteRecordRaw } from 'vue-router'
+import { ElMenu, ElMenuItem, ElSubMenu } from 'element-plus'
 import { useCurrentRoutes } from '../composables/index'
 import props from './props'
-import ProMenuItem from './MenuItem'
 import { ProLink } from '../Link/index'
-import type { IRouteRecordRaw } from '../types/index'
 import type { IMenuProps } from './index'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -32,8 +30,9 @@ export default defineComponent({
   setup(props, { slots }) {
     const route = useRoute()
     const routes = useCurrentRoutes(props)
+    const config = createMenuProps(props)
 
-    function createDefault(item: IRouteRecordRaw) {
+    function createDefault(item: RouteRecordRaw) {
       if (slots.default) {
         return slots.default(item)
       } else {
@@ -47,9 +46,41 @@ export default defineComponent({
       }
     }
 
-    return () => {
-      const config = createMenuProps(props)
-      return h(
+    function hasMultiChild(item: RouteRecordRaw) {
+      return item.children
+        ? item.children.filter((item) => !item.meta?.hidden).length > 1
+        : false
+    }
+
+    function createList(list?: RouteRecordRaw[]) {
+      if (!list) return undefined
+      return list.map((item) => {
+        const showItem = item && !item.meta?.hidden
+
+        if (showItem && !hasMultiChild(item)) {
+          return h(
+            ElMenuItem,
+            { index: (item.redirect || item.path) as string },
+            () => createDefault(item)
+          )
+        } else if (showItem) {
+          return h(
+            ElSubMenu,
+            { index: item.path },
+            {
+              title: () =>
+                createDefault({ meta: item?.meta } as RouteRecordRaw),
+              default: () => createList(item?.children),
+            }
+          )
+        } else {
+          return undefined
+        }
+      })
+    }
+
+    return () =>
+      h(
         ElMenu,
         Object.assign(
           {
@@ -60,15 +91,7 @@ export default defineComponent({
           },
           config
         ),
-        () =>
-          routes.value.map((menu) => {
-            return h(
-              ProMenuItem,
-              { item: menu },
-              { default: (scope: IRouteRecordRaw) => createDefault(scope) }
-            )
-          })
+        () => createList(routes.value)
       )
-    }
   },
 })

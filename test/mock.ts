@@ -1,5 +1,4 @@
-import { useRouter, useRoute } from 'vue-router'
-import type { IRouteRecordRaw } from '../src/types/index'
+import { useRouter, useRoute, RouteRecordRaw } from 'vue-router'
 
 jest.mock('vue-router', () => ({
   useRoute: jest.fn(),
@@ -112,7 +111,7 @@ export const slotList: SlotItem[] = [
   },
 ]
 
-export const routes: IRouteRecordRaw[] = [
+export const routes: RouteRecordRaw[] = [
   {
     path: '/',
     redirect: '/index',
