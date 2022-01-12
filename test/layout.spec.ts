@@ -2,7 +2,7 @@ import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { initRouter } from './mock'
 import ProLayout from '../src/Layout/Layout'
-import type { IRouteRecordRaw } from '../src/types/index'
+import type { RouteRecordRaw } from 'vue-router'
 
 initRouter()
 
@@ -55,7 +55,7 @@ describe('Layout', () => {
     const wrapper = _mount({
       template: '<pro-layout :routes="routes"/>',
       setup() {
-        const routes: IRouteRecordRaw[] = [
+        const routes: RouteRecordRaw[] = [
           {
             path: '/one',
             component: { template: 'one page' },
@@ -78,7 +78,7 @@ describe('Layout', () => {
         return { routes }
       },
     })
-    const vm = (wrapper.vm as unknown) as { routes: IRouteRecordRaw[] }
+    const vm = (wrapper.vm as unknown) as { routes: RouteRecordRaw[] }
 
     expect(getSubMenuList(wrapper)).toHaveLength(1)
     expect(getSubMenuList(wrapper)[0].find('span').text()).toBe('one')

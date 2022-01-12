@@ -2,7 +2,7 @@ import { ComponentPublicInstance } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { initRouter } from './mock'
 import ProMenu from '../src/Menu/Menu'
-import type { IRouteRecordRaw } from '../src/types/index'
+import type { RouteRecordRaw } from 'vue-router'
 
 initRouter()
 
@@ -51,7 +51,7 @@ describe('Menu', () => {
     const wrapper = _mount({
       template: '<pro-menu :routes="routes"/>',
       setup() {
-        const routes: IRouteRecordRaw[] = [
+        const routes: RouteRecordRaw[] = [
           {
             path: '/one',
             component: { template: 'one page' },
@@ -66,6 +66,18 @@ describe('Menu', () => {
                 path: '/one/info',
                 component: { template: 'one info page' },
                 meta: { title: 'oneInfo' },
+                children: [
+                  {
+                    path: '/two/index',
+                    component: { template: 'two page' },
+                    meta: { title: 'twoIndex' },
+                  },
+                  {
+                    path: '/two/info',
+                    component: { template: 'two page' },
+                    meta: { title: 'twoInfo' },
+                  },
+                ],
               },
             ],
           },
@@ -74,20 +86,26 @@ describe('Menu', () => {
         return { routes }
       },
     })
-    const vm = (wrapper.vm as unknown) as { routes: IRouteRecordRaw[] }
+    const vm = (wrapper.vm as unknown) as { routes: RouteRecordRaw[] }
 
-    expect(getSubMenuList(wrapper)).toHaveLength(1)
+    expect(getSubMenuList(wrapper)).toHaveLength(2)
     expect(getSubMenuList(wrapper)[0].find('span').text()).toBe('one')
-    expect(getMenuList(wrapper)).toHaveLength(2)
+    expect(getSubMenuList(wrapper)[1].find('span').text()).toBe('oneInfo')
+    expect(getMenuList(wrapper)).toHaveLength(3)
     expect(getMenuList(wrapper)[0].find('span').text()).toBe('oneIndex')
     expect(getMenuList(wrapper)[0].attributes()).toEqual({
       class: 'pro-link',
       to: '/one/index',
     })
-    expect(getMenuList(wrapper)[1].find('span').text()).toBe('oneInfo')
+    expect(getMenuList(wrapper)[1].find('span').text()).toBe('twoIndex')
     expect(getMenuList(wrapper)[1].attributes()).toEqual({
       class: 'pro-link',
-      to: '/one/info',
+      to: '/two/index',
+    })
+    expect(getMenuList(wrapper)[2].find('span').text()).toBe('twoInfo')
+    expect(getMenuList(wrapper)[2].attributes()).toEqual({
+      class: 'pro-link',
+      to: '/two/info',
     })
 
     await vm.routes[0].children?.push({
@@ -95,9 +113,9 @@ describe('Menu', () => {
       component: { template: 'one dynamic page' },
       meta: { title: 'oneDynamic' },
     })
-    expect(getMenuList(wrapper)).toHaveLength(3)
-    expect(getMenuList(wrapper)[2].find('span').text()).toBe('oneDynamic')
-    expect(getMenuList(wrapper)[2].attributes()).toEqual({
+    expect(getMenuList(wrapper)).toHaveLength(4)
+    expect(getMenuList(wrapper)[3].find('span').text()).toBe('oneDynamic')
+    expect(getMenuList(wrapper)[3].attributes()).toEqual({
       class: 'pro-link',
       to: '/one/dynamic',
     })

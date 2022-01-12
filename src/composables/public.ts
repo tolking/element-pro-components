@@ -11,7 +11,7 @@ import { useRouter, RouteRecordRaw } from 'vue-router'
 import { createSharedComposable, useWindowSize } from '@vueuse/core'
 import { config } from '../utils/config'
 import { getScreenSize, objectDeepMerge } from '../utils/index'
-import type { IRouteRecordRaw, InstallOptions, MaybeRef } from '../types/index'
+import type { InstallOptions, MaybeRef } from '../types/index'
 
 /** get the global config */
 export const useProOptions = createSharedComposable(() => {
@@ -58,16 +58,15 @@ export const useScreenSize = createSharedComposable(() => {
 /** Gets the routes from `vue-router` */
 export const useSharedRoutes = createSharedComposable(() => {
   const router = useRouter()
-  router.options.routes = reactive<RouteRecordRaw[]>(
-    router.options.routes
-  ) as IRouteRecordRaw[]
-  const routes = ref<IRouteRecordRaw[]>([] as IRouteRecordRaw[])
+  const routes = ref([]) as Ref<RouteRecordRaw[]>
+
+  router.options.routes = reactive(router.options.routes)
 
   watchEffect(() => {
     routes.value = router.options.routes
   })
 
-  return routes as Ref<IRouteRecordRaw[]>
+  return routes
 })
 
 /**
@@ -76,11 +75,11 @@ export const useSharedRoutes = createSharedComposable(() => {
  */
 export function useCurrentRoutes(
   props: Readonly<{
-    routes?: IRouteRecordRaw[]
+    routes?: RouteRecordRaw[]
   }>
-): Ref<IRouteRecordRaw[]> {
+): Ref<RouteRecordRaw[]> {
   if (props.routes && props.routes.length) {
-    return computed(() => props.routes as IRouteRecordRaw[])
+    return computed(() => props.routes as RouteRecordRaw[])
   } else {
     return useSharedRoutes()
   }
