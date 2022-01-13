@@ -116,6 +116,13 @@ body {
     & .header-slot {
       display: flex;
       align-items: center;
+      &:first-child {
+        flex: 1;
+        & .pro-menu {
+          flex: 1;
+          border-bottom: 0;
+        }
+      }
       & .header-fold-btn {
         display: inline-block;
         margin-right: 20px;
