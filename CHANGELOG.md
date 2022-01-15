@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.17.1
+
+fix
+
+- Menu: nested route slot error
+- Menu: style error when collapse
+- Layout: styles error when mode="horizontal"
+
 ## 0.17.0
 
 breaking changes
