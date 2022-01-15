@@ -1,9 +1,9 @@
 import type { PropType } from 'vue'
-import type { IRouteRecordRaw } from '../types/index'
+import type { RouteRecordRaw } from 'vue-router'
 
 export default {
   routes: {
-    type: Array as PropType<IRouteRecordRaw[]>,
+    type: Array as PropType<RouteRecordRaw[]>,
   },
   mode: {
     type: String as PropType<'horizontal' | 'vertical'>,

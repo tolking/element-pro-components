@@ -1,4 +1,4 @@
-import { ComponentPublicInstance, ref } from 'vue'
+import { ComponentPublicInstance, ref, nextTick } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import ProSelect from '../src/Select/Select'
 import { dicList, DicItem } from './mock'
@@ -8,12 +8,15 @@ const _mount = (options: Record<string, unknown>) =>
     components: { ProSelect },
     ...options,
   })
-const selectItemClass =
-  '.pro-select .el-select__popper .el-select-dropdown__item'
-const getList = (wrapper: VueWrapper<ComponentPublicInstance>, calss = '') =>
-  wrapper
-    .findAll(selectItemClass + calss)
-    .map((item) => item.find('span').text())
+
+const getInputValue = (wrapper: VueWrapper<ComponentPublicInstance>) =>
+  wrapper.find('.el-input__inner').element.value
+const getOptions = () =>
+  Array.from(
+    document.querySelectorAll<HTMLElement>(
+      'body > div:last-child .el-select-dropdown__item'
+    )
+  )
 
 describe('Select', () => {
   afterEach(() => {
@@ -26,32 +29,35 @@ describe('Select', () => {
         <pro-select
           v-model="value"
           :data="data"
-          :popper-append-to-body="false"
         />
       `,
       setup() {
-        const value = ref('Javascript')
-        const data = ref(dicList)
-        return { value, data }
+        const value = ref('')
+        return { value, data: dicList }
       },
     })
     const vm = (wrapper.vm as unknown) as { value: string }
 
     // init
     await wrapper.find('.select-trigger').trigger('click')
-    expect(wrapper.find('.el-input__inner').element.value).toBe('Javascript')
-    expect(getList(wrapper)).toContain('javascript')
-    expect(getList(wrapper)).toContain('python')
-    expect(getList(wrapper)).toContain('dart')
-    expect(getList(wrapper, '.is-disabled')).toContain('go')
+    const options = getOptions()
+    expect(vm.value).toBe('')
+    expect(getInputValue(wrapper)).toBe('')
 
-    // await wrapper.find(selectItemClass + ':last-child').trigger('click')
-    // expect(wrapper.find('.el-input__inner').element.value).toBe('v')
-    // expect(vm.value).toBe('V')
+    options[2].click()
+    await nextTick()
+    expect(vm.value).toBe('Python')
+    expect(getInputValue(wrapper)).toBe('python')
+
+    options[4].click()
+    await nextTick()
+    expect(vm.value).toBe('V')
+    expect(getInputValue(wrapper)).toBe('v')
 
     // change model-value
-    // await (vm.value = 'Dart')
-    // expect(wrapper.find('.el-input__inner').element.value).toBe('dart')
+    await (vm.value = 'Dart')
+    expect(vm.value).toBe('Dart')
+    expect(getInputValue(wrapper)).toBe('dart')
   })
 
   test('change data', async () => {
@@ -60,19 +66,21 @@ describe('Select', () => {
         <pro-select
           v-model="value"
           :data="data"
-          :popper-append-to-body="false"
         />
       `,
       setup() {
-        const value = ref('JavaScript')
+        const value = ref('')
         const data = ref(dicList)
         return { value, data }
       },
     })
-    const vm = (wrapper.vm as unknown) as { data: DicItem[] }
+    const vm = (wrapper.vm as unknown) as { value: string; data: DicItem[] }
 
-    expect(getList(wrapper)).not.toContain('vue')
     await vm.data.push({ value: 'Vue', label: 'vue' })
-    expect(getList(wrapper)).toContain('vue')
+    await wrapper.find('.select-trigger').trigger('click')
+    const options = getOptions()
+
+    options[5].click()
+    expect(vm.value).toBe('Vue')
   })
 })
