@@ -1,6 +1,7 @@
 import { defineComponent, h, VNode } from 'vue'
 import { ElCheckboxGroup, ElCheckbox } from 'element-plus'
 import { useSelectData, useEmitValue } from '../composables/index'
+import { modelValueEmit } from '../utils/index'
 import props from './props'
 import type { ICheckboxProps } from './index'
 
@@ -44,7 +45,7 @@ export function createDefault<T>(
 export default defineComponent({
   name: 'ProCheckbox',
   props,
-  emits: ['update:modelValue'],
+  emits: modelValueEmit,
   setup(props) {
     return createDefault<typeof ElCheckbox>(props, ElCheckbox, 'pro-checkbox')
   },
