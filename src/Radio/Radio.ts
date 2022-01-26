@@ -1,6 +1,7 @@
 import { defineComponent, h, VNode } from 'vue'
 import { ElRadioGroup, ElRadio } from 'element-plus'
 import { useSelectData, useEmitValue } from '../composables/index'
+import { modelValueEmit } from '../utils/index'
 import props from './props'
 import type { IRadioProps } from './index'
 
@@ -42,7 +43,7 @@ export function createDefault<T>(
 export default defineComponent({
   name: 'ProRadio',
   props,
-  emits: ['update:modelValue'],
+  emits: modelValueEmit,
   setup(props) {
     return createDefault<typeof ElRadio>(props, ElRadio, 'pro-radio')
   },
