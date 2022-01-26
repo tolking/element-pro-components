@@ -1,10 +1,13 @@
 import { computed, Ref, ref } from 'vue'
 import type { IInputTagProps, IInputTagEmits } from '../InputTag/index'
-import type { IAutocompleteTagProps } from '../AutocompleteTag/index'
+import type {
+  IAutocompleteTagProps,
+  IAutocompleteTagEmits,
+} from '../AutocompleteTag/index'
 
 export function useInputTag(
   props: IInputTagProps | IAutocompleteTagProps,
-  emit: IInputTagEmits
+  emit: IInputTagEmits | IAutocompleteTagEmits
 ): {
   input: Ref<string>
   list: Ref<string[]>

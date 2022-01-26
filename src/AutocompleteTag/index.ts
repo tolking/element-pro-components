@@ -5,4 +5,4 @@ import type { IDefineProps, IDefineEmits } from '../types/index'
 
 export const ProAutocompleteTag = withInstall(AutocompleteTag)
 export type IAutocompleteTagProps = IDefineProps<typeof props>
-export type IInputTagEmits = IDefineEmits<typeof modelValueEmit>
+export type IAutocompleteTagEmits = IDefineEmits<typeof modelValueEmit>
