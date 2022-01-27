@@ -1,6 +1,7 @@
 import { defineComponent, h, VNode } from 'vue'
 import { ElSelect, ElOptionGroup, ElOption } from 'element-plus'
 import { useSelectData, useEmitValue } from '../composables/index'
+import { modelValueEmit } from '../utils/index'
 import props from './props'
 import type { SelectDataItem } from '../types/index'
 import type { ISelectProps } from './index'
@@ -36,7 +37,7 @@ export function createSelectProps(props: ISelectProps) {
 export default defineComponent({
   name: 'ProSelect',
   props,
-  emits: ['update:modelValue'],
+  emits: modelValueEmit,
   setup(props, { slots }) {
     const data = useSelectData(props)
     const emitValue = useEmitValue()
