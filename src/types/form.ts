@@ -10,7 +10,7 @@ import type {
   IsAny,
 } from './index'
 
-interface InvalidFields {
+export interface InvalidFields {
   [prop: string]: { message: string; field: string }[]
 }
 

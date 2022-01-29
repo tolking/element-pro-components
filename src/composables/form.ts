@@ -8,6 +8,7 @@ import {
   isBoolean,
 } from '../utils/index'
 import type { ComponentSize } from 'element-plus/lib/utils/types'
+import type { IFormEmits } from '../Form/index'
 import type {
   UnknownObject,
   MaybeArray,
@@ -17,6 +18,7 @@ import type {
   IFormValidateCallback,
   IFormValidateFieldCallback,
   IFormMenuColumns,
+  InvalidFields,
 } from '../types/index'
 
 type FormItemBind = Omit<
@@ -100,10 +102,7 @@ export function useFormMenu(
 }
 
 export function useFormMethods(
-  emit: (
-    event: 'update:modelValue' | 'submit' | 'reset',
-    ...args: unknown[]
-  ) => void
+  emit: IFormEmits
 ): {
   form: Ref<IFormExpose>
   loading: Ref<boolean>
@@ -144,7 +143,7 @@ export function useFormMethods(
       .then((isValid) => {
         emit('submit', toggleShow, isValid)
       })
-      .catch((invalidFields: UnknownObject) => {
+      .catch((invalidFields: InvalidFields) => {
         emit('submit', toggleShow, false, invalidFields)
       })
   }
