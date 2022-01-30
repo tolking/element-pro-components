@@ -9,6 +9,7 @@ import type {
   TableColumn,
   ITableMenuColumns,
   ITableExpose,
+  InvalidFields,
 } from './index'
 
 export interface CrudColumn<T = ExternalParam>
@@ -83,7 +84,7 @@ export type ICrudSubmit = (
   done: () => void,
   formType: ICrudFormType,
   isValid: boolean,
-  invalidFields?: UnknownObject
+  invalidFields?: InvalidFields
 ) => void
 
 export type ICrudExpose<T = UnknownObject> = IFormExpose & ITableExpose<T>

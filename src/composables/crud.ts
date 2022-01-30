@@ -18,7 +18,7 @@ import type {
   IFormSubmit,
   ITableColumns,
 } from '../types/index'
-import type { ICrudProps } from '../Crud/index'
+import type { ICrudProps, ICrudEmits } from '../Crud/index'
 
 function useCrudMenu(): ComputedRef<ICrudMenuColumns> {
   const localeMenu = computed(() => {
@@ -87,7 +87,7 @@ export function useCrudColumns(
 
 export function useCrudForm(
   props: Readonly<ICrudProps>,
-  emit: (event: 'submit', ...args: unknown[]) => void,
+  emit: ICrudEmits,
   resetForm: (reset?: boolean) => void
 ): {
   dialogVisible: Ref<boolean>
@@ -159,10 +159,7 @@ export function useCrudForm(
 }
 
 export function useCrudSearchForm(
-  emit: (
-    event: 'update:search' | 'search' | 'searchReset',
-    ...args: unknown[]
-  ) => void,
+  emit: ICrudEmits,
   menuColumns?: MaybeRef<ICrudMenuColumns | undefined>
 ): {
   searchMenu: ComputedRef<IFormMenuColumns>
