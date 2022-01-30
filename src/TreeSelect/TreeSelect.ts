@@ -4,6 +4,7 @@ import { useSelectData, useTreeSelect } from '../composables/index'
 import { createSelectProps } from '../Select/Select'
 import { createTreeProps } from '../ColumnSetting/ColumnSetting'
 import props from './props'
+import emits from './emits'
 
 interface TreeScope {
   node: {
@@ -15,14 +16,7 @@ interface TreeScope {
 export default defineComponent({
   name: 'ProTreeSelect',
   props,
-  emits: [
-    'update:modelValue',
-    'clear',
-    'remove-tag',
-    'visible-change',
-    'node-click',
-    'check-change',
-  ],
+  emits,
   setup(props, { emit, slots }) {
     const attrs = useAttrs()
     const data = useSelectData(props)

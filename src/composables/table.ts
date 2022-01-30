@@ -1,6 +1,7 @@
 import { ComputedRef, computed, Ref, unref, shallowRef } from 'vue'
 import { useProOptions } from './index'
 import { filterDeep, isObject, objectDeepMerge } from '../utils/index'
+import type { ITableEmits } from '../Table/index'
 import type {
   UnknownObject,
   StringObject,
@@ -106,16 +107,7 @@ export function useTableMethods<T = UnknownObject>(): {
 
 export function usePagination(
   props: Readonly<{ pagination?: IPagination }>,
-  emit: (
-    event:
-      | 'update:currentPage'
-      | 'update:pageSize'
-      | 'size-change'
-      | 'current-change'
-      | 'prev-click'
-      | 'next-click',
-    ...args: unknown[]
-  ) => void
+  emit: ITableEmits
 ): {
   pagination: ComputedRef<IPagination>
   sizeChange: (size: number) => void
@@ -142,11 +134,11 @@ export function usePagination(
   }
 
   function prevClick(current: number) {
-    emit('current-change', current)
+    emit('prev-click', current)
   }
 
   function nextClick(current: number) {
-    emit('current-change', current)
+    emit('next-click', current)
   }
 
   return {

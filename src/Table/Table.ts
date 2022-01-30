@@ -8,8 +8,9 @@ import {
   usePagination,
 } from '../composables'
 import props from './props'
+import emits from './emits'
 import ProTableItem from './TableItem'
-import {
+import type {
   StringObject,
   ITableSelectionColumns,
   ITableExpandColumns,
@@ -62,14 +63,7 @@ export function createTableProps(props: ITableProps) {
 export default defineComponent({
   name: 'ProTable',
   props,
-  emits: [
-    'update:currentPage',
-    'update:pageSize',
-    'size-change',
-    'current-change',
-    'prev-click',
-    'next-click',
-  ],
+  emits,
   setup(props, { slots, emit, expose }) {
     const { selection, expand, index, menu } = toRefs(props)
     const attrs = useAttrs()

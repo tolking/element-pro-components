@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, Ref, Plugin } from 'vue'
+import type { ExtractPropTypes, Ref, Plugin, SetupContext } from 'vue'
 import type { CrudMenu, FormMenu, IPagination } from './index'
 
 export type StringObject = Record<string, unknown>
@@ -62,6 +62,8 @@ export type IScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 export type IDefinePlugin<T> = T & Plugin
 
 export type IDefineProps<T> = Readonly<ExtractPropTypes<T>>
+
+export type IDefineEmits<T> = SetupContext<T>['emit']
 
 export type MenuOptions = CrudMenu & FormMenu
 

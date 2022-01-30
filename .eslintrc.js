@@ -27,5 +27,6 @@ module.exports = {
     semi: ['error', 'never'],
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
+    'vue/require-explicit-emits': 'off',
   },
 }

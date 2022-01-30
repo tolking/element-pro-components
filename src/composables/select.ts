@@ -16,7 +16,7 @@ import type {
   SelectDataItem,
   SelectData,
 } from '../types/index'
-import type { ITreeSelectProps } from '../TreeSelect/index'
+import type { ITreeSelectProps, ITreeSelectEmits } from '../TreeSelect/index'
 import type TreeStore from 'element-plus/es/components/tree/src/model/tree-store'
 import type { FilterNodeMethodFunction } from 'element-plus/es/components/tree/src/tree.type'
 
@@ -68,16 +68,7 @@ export function useSelectData(
 
 export function useTreeSelect(
   props: ITreeSelectProps,
-  emit: (
-    event:
-      | 'update:modelValue'
-      | 'clear'
-      | 'remove-tag'
-      | 'visible-change'
-      | 'node-click'
-      | 'check-change',
-    ...args: unknown[]
-  ) => void
+  emit: ITreeSelectEmits
 ): {
   tree: Ref<ITreeStore>
   modelValue?: Ref<

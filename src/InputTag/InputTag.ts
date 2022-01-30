@@ -1,12 +1,13 @@
 import { defineComponent, h, VNode } from 'vue'
 import { ElInput, ElTag, useAttrs } from 'element-plus'
 import { useInputTag, useFormSize } from '../composables/index'
+import { modelValueEmit } from '../utils/index'
 import props from './props'
 
 export default defineComponent({
   name: 'ProInputTag',
   props,
-  emits: ['update:modelValue'],
+  emits: modelValueEmit,
   setup(props, { emit }) {
     const attrs = useAttrs()
     const size = useFormSize(props)

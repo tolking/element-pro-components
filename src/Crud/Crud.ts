@@ -14,10 +14,12 @@ import { isFunction, isObject } from '../utils/index'
 import { createTableProps } from '../Table/Table'
 import { createFormProps } from '../Form/Form'
 import props from './props'
+import emits from './emits'
 import { ProForm } from '../Form/index'
 import { ProTable } from '../Table/index'
 import type { ComponentSize } from 'element-plus/lib/utils/types'
 import type { StringObject, UnknownObject } from '../types/index'
+import type { IFormEmits } from '../Form/index'
 
 interface TableMenuScope {
   row: StringObject
@@ -27,21 +29,7 @@ interface TableMenuScope {
 export default defineComponent({
   name: 'ProCrud',
   props,
-  emits: [
-    'update:modelValue',
-    'update:search',
-    'submit',
-    'reset',
-    'delete',
-    'search',
-    'searchReset',
-    'update:currentPage',
-    'update:pageSize',
-    'size-change',
-    'current-change',
-    'prev-click',
-    'next-click',
-  ],
+  emits,
   setup(props, { slots, emit, expose }) {
     const { searchColumns, tableColumns, menuColumns } = useCrudColumns(props)
     const {
@@ -71,7 +59,7 @@ export default defineComponent({
       validateField,
       upFormData,
       resetForm,
-    } = useFormMethods(emit)
+    } = useFormMethods((emit as unknown) as IFormEmits)
     const {
       dialogVisible,
       formType,
