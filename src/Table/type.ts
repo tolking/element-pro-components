@@ -6,7 +6,7 @@ import type {
   MaybeArray,
   ExternalParam,
   IsAny,
-} from './index'
+} from '../types/index'
 
 /** Table Column Options for pro-table */
 export interface TableColumnsProps {
