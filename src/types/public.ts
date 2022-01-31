@@ -1,5 +1,7 @@
 import type { ExtractPropTypes, Ref, Plugin, SetupContext } from 'vue'
-import type { CrudMenu, FormMenu, IPagination } from './index'
+import type { CrudMenu } from '../Crud/index'
+import type { FormMenu } from '../Form/index'
+import type { IPagination } from '../Table/index'
 
 export type StringObject = Record<string, unknown>
 

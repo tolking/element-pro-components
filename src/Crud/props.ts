@@ -2,14 +2,14 @@ import form from '../Form/props'
 import table from '../Table/props'
 import type { PropType } from 'vue'
 import type { FormRulesMap } from 'element-plus/lib/components/form/src/form.type'
+import type { IFormColumns } from '../Form/index'
+import type { ITableColumns } from '../Table/index'
 import type {
-  IFormColumns,
-  ITableColumns,
   ICrudColumns,
   ICrudMenuColumns,
   ICrudBeforeOpen,
   ICrudBeforeClose,
-} from '../types/index'
+} from './type'
 
 export default {
   ...form,

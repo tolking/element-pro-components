@@ -1,10 +1,8 @@
 import FormEmits from '../Form/emits'
 import TableEmits from '..//Table/emits'
-import type {
-  InvalidFields,
-  ExternalParam,
-  ICrudFormType,
-} from '../types/index'
+import type { ExternalParam } from '../types/index'
+import type { InvalidFields } from '../Form/index'
+import type { ICrudFormType } from './type'
 
 export default {
   ...FormEmits,
