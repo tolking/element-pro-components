@@ -3,8 +3,7 @@ import { ElSelect, ElOptionGroup, ElOption } from 'element-plus'
 import { useSelectData, useEmitValue } from '../composables/index'
 import { modelValueEmit } from '../utils/index'
 import props from './props'
-import type { SelectDataItem } from '../types/index'
-import type { ISelectProps } from './index'
+import type { ISelectProps, SelectDataItem } from './index'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function createSelectProps(props: ISelectProps) {

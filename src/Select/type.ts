@@ -1,4 +1,4 @@
-import type { ExternalParam } from './index'
+import type { ExternalParam } from '../types/index'
 
 export interface SelectConfig {
   value?: string
