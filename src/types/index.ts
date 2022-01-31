@@ -1,5 +1,4 @@
 export * from './crud'
-export * from './descriptions'
 export * from './form'
 export * from './public'
 export * from './router'
