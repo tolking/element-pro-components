@@ -8,7 +8,7 @@ import type {
   MaybeArray,
   ExternalParam,
   IsAny,
-} from './index'
+} from '../types/index'
 
 export interface InvalidFields {
   [prop: string]: { message: string; field: string }[]
