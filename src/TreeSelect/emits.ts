@@ -1,5 +1,5 @@
 import { modelValueEmit } from '../utils/index'
-import type { SelectDataItem } from '../types/index'
+import type { SelectDataItem } from '../Select/index'
 
 export default {
   ...modelValueEmit,

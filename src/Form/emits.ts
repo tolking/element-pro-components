@@ -1,5 +1,5 @@
 import { modelValueEmit } from '../utils/index'
-import type { InvalidFields } from '../types/index'
+import type { InvalidFields } from './type'
 
 export default {
   ...modelValueEmit,

@@ -1,6 +1,8 @@
 import type { PropType } from 'vue'
 import type { ComponentSize } from 'element-plus/lib/utils/types'
-import type { ExternalParam, ICrudColumns, ITableColumns } from '../types/index'
+import type { ExternalParam } from '../types/index'
+import type { ICrudColumns } from '../Crud/index'
+import type { ITableColumns } from '../Table/index'
 
 export const treeProps = {
   emptyText: String,

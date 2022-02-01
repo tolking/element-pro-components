@@ -10,14 +10,14 @@ import {
 import props from './props'
 import emits from './emits'
 import ProTableItem from './TableItem'
+import type { StringObject } from '../types/index'
 import type {
-  StringObject,
+  ITableProps,
   ITableSelectionColumns,
   ITableExpandColumns,
   ITableIndexColumns,
   ITableMenuColumns,
-} from '../types/index'
-import type { ITableProps } from './index'
+} from './index'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function createTableProps(props: ITableProps) {

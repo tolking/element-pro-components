@@ -8,18 +8,16 @@ import {
   isBoolean,
 } from '../utils/index'
 import type { ComponentSize } from 'element-plus/lib/utils/types'
-import type { IFormEmits } from '../Form/index'
+import type { UnknownObject, MaybeArray, MaybeRef } from '../types/index'
 import type {
-  UnknownObject,
-  MaybeArray,
-  MaybeRef,
+  IFormEmits,
   FormColumn,
   IFormExpose,
   IFormValidateCallback,
   IFormValidateFieldCallback,
   IFormMenuColumns,
   InvalidFields,
-} from '../types/index'
+} from '../Form/index'
 
 type FormItemBind = Omit<
   FormColumn,

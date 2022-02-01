@@ -1,16 +1,17 @@
 import type { ButtonProps } from 'element-plus'
+import type { UnknownObject, ExternalParam } from '../types/index'
 import type {
-  UnknownObject,
-  ExternalParam,
   FormColumn,
   IFormMenuColumns,
   IFormExpose,
   IFormSubmit,
+  InvalidFields,
+} from '../Form/index'
+import type {
   TableColumn,
   ITableMenuColumns,
   ITableExpose,
-  InvalidFields,
-} from './index'
+} from '../Table/index'
 
 export interface CrudColumn<T = ExternalParam>
   extends FormColumn<T>,

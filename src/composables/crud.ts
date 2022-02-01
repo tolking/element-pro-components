@@ -7,18 +7,15 @@ import {
   filterDeep,
   objectDeepMerge,
 } from '../utils/index'
+import type { UnknownObject, MaybeRef, ExternalParam } from '../types/index'
+import type { IFormColumns, IFormMenuColumns, IFormSubmit } from '../Form/index'
+import type { ITableColumns } from '../Table/index'
 import type {
-  UnknownObject,
-  MaybeRef,
-  ExternalParam,
+  ICrudProps,
+  ICrudEmits,
   ICrudFormType,
   ICrudMenuColumns,
-  IFormColumns,
-  IFormMenuColumns,
-  IFormSubmit,
-  ITableColumns,
-} from '../types/index'
-import type { ICrudProps, ICrudEmits } from '../Crud/index'
+} from '../Crud/index'
 
 function useCrudMenu(): ComputedRef<ICrudMenuColumns> {
   const localeMenu = computed(() => {

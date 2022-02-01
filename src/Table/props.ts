@@ -11,7 +11,7 @@ import type {
   ITableMenuColumns,
   ITableColumns,
   IPagination,
-} from '../types/index'
+} from './type'
 
 export default {
   selection: {
