@@ -60,7 +60,6 @@ helper({
   reDocUrl,
   reAttribute,
   reWebTypesSource,
-  titleRegExp: '#+\\s+(.*)\n+>\\s*([^(#|\\n)]*)',
-  tableRegExp:
-    '#+\\s+(.*\\s*Props|.*\\s*Events|.*\\s*Slots|.*\\s*Directives)\\s*\\n+(\\|?.+\\|.+)\\n\\|?\\s*:?-+:?\\s*\\|.+((\\n\\|?.+\\|.+)+)',
+  titleRegExp: /#+\s+(.*)\n+>\s*([^(#|\n)]*)/g,
+  tableRegExp: /#+\s+(.*\s*Props|.*\s*Events|.*\s*Slots|.*\s*Directives)\s*\n+(\|?.+\|.+)\n\|?\s*:?-+:?\s*\|.+((\n\|?.+\|.+)+)/g,
 })
