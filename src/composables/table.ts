@@ -127,15 +127,17 @@ export function usePagination(
       defaultCurrentPage: props.defaultCurrentPage,
       pageCount: props.pageCount,
       pagerCount:
-        props.pagerCount === 7
+        props.pagerCount === 7 && options.pagination.pagerCount
           ? options.pagination.pagerCount
           : props.pagerCount,
       layout:
-        props.layout === 'prev, pager, next, jumper, ->, total'
+        props.layout === 'prev, pager, next, jumper, ->, total' &&
+        options.pagination.layout
           ? options.pagination.layout
           : props.layout,
       pageSizes:
-        props.pageSizes === [10, 20, 30, 40, 50, 100]
+        props.pageSizes === [10, 20, 30, 40, 50, 100] &&
+        options.pagination.pageSizes
           ? options.pagination.pageSizes
           : props.pageSizes,
       popperClass: props.popperClass,

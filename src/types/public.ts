@@ -71,7 +71,7 @@ export type MenuOptions = CrudMenu & FormMenu
 
 export interface InstallOptions {
   /** Pagination Attributes */
-  pagination?: PaginationProps
+  pagination?: Partial<PaginationProps>
   /** Menu Attributes */
   menu?: MenuOptions
 }
