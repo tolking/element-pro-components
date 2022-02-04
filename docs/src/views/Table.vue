@@ -8,10 +8,11 @@
     :index="index"
     :menu="menu"
     selection
+    small
     align="center"
     size="small"
     @cell-click="test"
-    @current-change="test"
+    @load="test"
   >
     <template #expand="{ row }">
       {{ row }}
@@ -105,7 +106,7 @@ const columns1 = ref<ITableColumns<ListItem>>([
     ],
   },
 ])
-const total = 50
+const total = ref(50)
 const currentPage = ref(1)
 const pageSize = ref(10)
 const data = [

@@ -76,13 +76,7 @@ export default defineComponent({
     const bindExpand = useTableBind<ITableExpandColumns>(expand, defaultBind)
     const bindIndex = useTableBind<ITableIndexColumns>(index, defaultBind)
     const bindMenu = useTableBind<ITableMenuColumns>(menu, defaultBind)
-    const {
-      pagination,
-      sizeChange,
-      currentChange,
-      prevClick,
-      nextClick,
-    } = usePagination(props, emit)
+    const { pagination, sizeChange, currentChange } = usePagination(props, emit)
     const {
       table,
       clearSelection,
@@ -170,13 +164,8 @@ export default defineComponent({
       )
       const paginationNode = h(ElPagination, {
         ...pagination.value,
-        currentPage: props.currentPage,
-        pageSize: props.pageSize,
-        total: props.total,
         'onUpdate:pageSize': sizeChange,
         'onUpdate:currentPage': currentChange,
-        onPrevClick: prevClick,
-        onNextClick: nextClick,
       })
 
       return [tableNode, props.total ? paginationNode : null]

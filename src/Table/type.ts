@@ -116,30 +116,6 @@ export interface ITableExpose<T = ExternalParam> {
   sort: (prop: string, order: string) => void
 }
 
-/** Pagination Attributes */
-export interface IPagination {
-  /** whether to use small pagination */
-  small?: boolean
-  /** number of pagers. Pagination collapses when the total page count exceeds this value */
-  pagerCount?: number
-  /** layout of Pagination, elements separated with a comma */
-  layout?: string
-  /** options of item count per page, default: `[10, 20, 30, 40, 50, 100]` */
-  pageSizes?: Array<number>
-  /** custom class name for the page size Select's dropdown */
-  popperClass?: string
-  /** text for the prev button */
-  prevText?: string
-  /** text for the next button */
-  nextText?: string
-  /** whether the buttons have a background color */
-  background?: boolean
-  /** whether Pagination is disabled */
-  disabled?: boolean
-  /** whether to hide when there's only one page */
-  hideOnSinglePage?: boolean
-}
-
 /**
  * Type helper to make it easier to define columns
  * @param columns the columns of Table

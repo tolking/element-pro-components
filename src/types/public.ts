@@ -1,7 +1,7 @@
 import type { ExtractPropTypes, Ref, Plugin, SetupContext } from 'vue'
+import type { PaginationProps } from 'element-plus'
 import type { CrudMenu } from '../Crud/index'
 import type { FormMenu } from '../Form/index'
-import type { IPagination } from '../Table/index'
 
 export type StringObject = Record<string, unknown>
 
@@ -71,7 +71,7 @@ export type MenuOptions = CrudMenu & FormMenu
 
 export interface InstallOptions {
   /** Pagination Attributes */
-  pagination?: IPagination
+  pagination?: Partial<PaginationProps>
   /** Menu Attributes */
   menu?: MenuOptions
 }
