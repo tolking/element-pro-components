@@ -5,6 +5,7 @@
     :data="data"
     :columns="columns"
     :total="total"
+    @load="load"
   />
 </template>
 
@@ -54,12 +55,17 @@ export default defineComponent({
       },
     ])
 
+    function load() {
+      data.value.sort(() => (Math.random() >= 0.5 ? 1 : -1))
+    }
+
     return {
       currentPage,
       pageSize,
       total,
       data,
       columns,
+      load,
     }
   },
 })
