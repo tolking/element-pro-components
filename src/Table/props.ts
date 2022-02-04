@@ -1,3 +1,4 @@
+import { paginationProps } from 'element-plus'
 import type { PropType, CSSProperties } from 'vue'
 import type {
   TableProps,
@@ -10,10 +11,10 @@ import type {
   ITableIndexColumns,
   ITableMenuColumns,
   ITableColumns,
-  IPagination,
 } from './type'
 
 export default {
+  ...paginationProps,
   selection: {
     type: [Boolean, Object] as PropType<boolean | ITableSelectionColumns>,
     default: false,
@@ -113,22 +114,6 @@ export default {
   className: {
     type: String,
     default: '',
-  },
-  total: {
-    type: Number,
-    default: 0,
-  },
-  pageSize: {
-    type: Number,
-    default: 10,
-  },
-  currentPage: {
-    type: Number,
-    default: 1,
-  },
-  pagination: {
-    type: Object as PropType<IPagination>,
-    default: undefined,
   },
   showOverflowTooltip: {
     type: Boolean,

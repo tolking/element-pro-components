@@ -44,13 +44,7 @@ export default defineComponent({
       doLayout,
       sort,
     } = useTableMethods()
-    const {
-      pagination,
-      sizeChange,
-      currentChange,
-      prevClick,
-      nextClick,
-    } = usePagination(props, emit)
+    const { pagination, sizeChange, currentChange } = usePagination(props, emit)
     const {
       form,
       validate,
@@ -219,8 +213,6 @@ export default defineComponent({
             class: 'pro-crud-table pro-table',
             'onUpdate:pageSize': sizeChange,
             'onUpdate:currentPage': currentChange,
-            onPrevClick: prevClick,
-            onNextClick: nextClick,
           },
           config,
           pagination.value,
