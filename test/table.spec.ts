@@ -1,6 +1,6 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import { ElTableColumn } from 'element-plus'
+import { ElTableColumn, PaginationProps } from 'element-plus'
 import ProTable from '../src/Table/Table'
 import { config } from '../src/utils/config'
 import { tableData, TableItem } from './mock'
@@ -9,7 +9,6 @@ import type {
   ITableIndexColumns,
   ITableExpandColumns,
   ITableMenuColumns,
-  IPagination,
 } from '../src/Table/index'
 
 const columns: ITableColumns = [
@@ -223,16 +222,16 @@ describe('Table', () => {
         <pro-table
           v-model:current-page="currentPage"
           v-model:page-size="pageSize"
+          v-bind="pagination"
           :columns="columns"
           :total="total"
-          :pagination="pagination"
         />
       `,
       setup() {
         const total = ref(50)
         const currentPage = ref(1)
         const pageSize = ref(10)
-        const pagination = ref<IPagination>(config.pagination)
+        const pagination = ref<Partial<PaginationProps>>(config.pagination)
         return { columns, total, currentPage, pageSize, pagination }
       },
     })
@@ -240,7 +239,9 @@ describe('Table', () => {
       total: number
       currentPage: number
       pageSize: number
-      pagination: IPagination
+      pagination: {
+        layout: string
+      }
     }
 
     expect(wrapper.find('.el-pagination')).not.toBeNull()
