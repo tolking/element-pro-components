@@ -50,6 +50,7 @@ export default defineComponent({
       validate,
       resetFields,
       clearValidate,
+      scrollToField,
       validateField,
       upFormData,
       resetForm,
@@ -131,6 +132,7 @@ export default defineComponent({
       sort,
       validate,
       resetFields,
+      scrollToField,
       clearValidate,
       validateField,
     })
