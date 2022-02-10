@@ -28,8 +28,11 @@ export function createSelectProps(props: ISelectProps) {
     reserveKeyword: props.reserveKeyword,
     valueKey: props.valueKey,
     collapseTags: props.collapseTags,
-    popperAppendToBody: props.popperAppendToBody,
+    teleported: props.teleported,
     clearIcon: props.clearIcon,
+    fitInputWidth: props.fitInputWidth,
+    suffixIcon: props.suffixIcon,
+    tagType: props.tagType,
   }
 }
 

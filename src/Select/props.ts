@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { Component, PropType } from 'vue'
 import type { ComponentSize } from 'element-plus/lib/utils/types'
 import type { SelectConfig, SelectData } from './type'
 
@@ -45,12 +45,23 @@ export const selectProps = {
     type: String,
   },
   collapseTags: Boolean,
-  popperAppendToBody: {
+  teleported: {
     type: Boolean,
     default: true,
   },
   clearIcon: {
-    type: String,
+    type: [String, Object] as PropType<string | Component>,
+  },
+  fitInputWidth: {
+    type: Boolean,
+    default: false,
+  },
+  suffixIcon: {
+    type: [String, Object] as PropType<string | Component>,
+  },
+  tagType: {
+    type: String as PropType<'success' | 'info' | 'warning' | 'danger'>,
+    default: 'info',
   },
 }
 
