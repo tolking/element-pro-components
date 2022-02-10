@@ -55,7 +55,7 @@ export default defineComponent({
           triggerOnFocus: props.triggerOnFocus,
           selectWhenUnmatched: props.selectWhenUnmatched,
           hideLoading: props.hideLoading,
-          popperAppendToBody: props.popperAppendToBody,
+          teleported: props.teleported,
           highlightFirstItem: props.highlightFirstItem,
           onSelect: add,
           onBlur: add,
