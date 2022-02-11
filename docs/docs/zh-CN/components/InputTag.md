@@ -111,5 +111,5 @@ meta:
 | prefix-icon           | 输入框头部图标                         | string                          | -                                                              | -            |
 | suffix-icon           | 输入框尾部图标                         | string                          | -                                                              | -            |
 | hide-loading          | 是否隐藏远程加载时的加载图标           | boolean                         | -                                                              | false        |
-| popper-append-to-body | 是否将下拉列表插入至 body 元素         | boolean                         | -                                                              | false        |
+| teleported            | 是否将下拉列表插入至 body 元素         | boolean                         | -                                                              | true         |
 | highlight-first-item  | 是否默认突出显示远程搜索建议中的第一项 | boolean                         | -                                                              | false        |

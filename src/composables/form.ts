@@ -119,6 +119,10 @@ export function useFormMethods(
     form.value.resetFields()
   }
 
+  function scrollToField(prop: string) {
+    form.value.scrollToField(prop)
+  }
+
   function clearValidate(props?: MaybeArray<string>) {
     form.value.clearValidate(props)
   }
@@ -163,6 +167,7 @@ export function useFormMethods(
     loading: show,
     validate,
     resetFields,
+    scrollToField,
     clearValidate,
     validateField,
     upFormData,

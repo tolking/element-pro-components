@@ -39,6 +39,7 @@ export default defineComponent({
       loading,
       validate,
       resetFields,
+      scrollToField,
       clearValidate,
       validateField,
       upFormData,
@@ -57,6 +58,7 @@ export default defineComponent({
     expose({
       validate,
       resetFields,
+      scrollToField,
       clearValidate,
       validateField,
     })

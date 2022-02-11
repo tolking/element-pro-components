@@ -136,7 +136,7 @@ export function usePagination(
           ? options.pagination.layout
           : props.layout,
       pageSizes:
-        props.pageSizes === [10, 20, 30, 40, 50, 100] &&
+        props.pageSizes.toString() === '10,20,30,40,50,100' &&
         options.pagination.pageSizes
           ? options.pagination.pageSizes
           : props.pageSizes,

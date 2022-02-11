@@ -52,6 +52,7 @@ meta:
 | routes              | 当前程序路由                                         | array   | -                     | 从 `vue-router` 中获取 |
 | mode                | 模式                                                 | string  | horizontal / vertical | vertical               |
 | collapse            | 是否水平折叠收起菜单（仅在 mode 为 vertical 时可用） | boolean | -                     | false                  |
+| ellipsis            | 是否省略多余的子项（仅在横向模式生效）               | boolean | —                     | true                   |
 | background-color    | 菜单的背景色（仅支持 hex 格式）                      | string  | -                     | #ffffff                |
 | text-color          | 菜单的文字颜色（仅支持 hex 格式）                    | string  | -                     | #303133                |
 | active-text-color   | 当前激活菜单的文字颜色（仅支持 hex 格式）            | string  | -                     | #409EFF                |

@@ -21,7 +21,7 @@ Will be auto generated according to the current routes
 
 ### Props
 
-| Name           | Description                 | Type   | Options | Default |
-| :------------- | :-------------------------- | :----- | :------ | :------ |
-| separator      | separator character         | string | -       | `/`     |
-| separator-icon | icon name of icon separator | string | -       | -       |
+| Name           | Description                 | Type               | Options | Default |
+| :------------- | :-------------------------- | :----------------- | :------ | :------ |
+| separator      | separator character         | string             | -       | `/`     |
+| separator-icon | icon name of icon separator | string / Component | -       | -       |
