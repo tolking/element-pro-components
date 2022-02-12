@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.18.0
+
+breaking changes
+
+- updata element-plus to v2
+- Table|Crud: flat the props of pagination
+- Table|Crud: remove the `size-change` `current-change` `prev-click` `next-click` event, use `load` replace
+- change `popperAppendToBody` to `teleported`
+
+fix
+
+- InputTag: styles error
+
+feat
+
+- Table|Crud: add `load` event
+- Form|Crud: add `scrollToField` for Methods
+- sync the props change from element-plus v2
+
+other
+
+- type: optimized the type of emits
+
 ## 0.17.1
 
 fix
