@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import type { ComponentSize } from 'element-plus/lib/utils/types'
-import type { IDescriptionsColumns } from '../types/index'
+import type { IDescriptionsColumns } from './type'
 
 export default {
   columns: {

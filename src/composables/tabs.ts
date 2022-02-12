@@ -1,6 +1,6 @@
 import { Ref, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import type { ITabsExpose, ITab } from '../types/index'
+import type { ITabsExpose, ITab } from '../Tabs/index'
 
 interface UseTabs extends ITabsExpose {
   active: Ref<string>

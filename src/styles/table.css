@@ -1,4 +1,5 @@
 .pro-table .el-pagination {
+  justify-content: flex-end;
   padding: 15px 0;
   overflow: auto hidden;
   text-align: right;

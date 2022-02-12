@@ -8,16 +8,16 @@ import {
   isBoolean,
 } from '../utils/index'
 import type { ComponentSize } from 'element-plus/lib/utils/types'
+import type { UnknownObject, MaybeArray, MaybeRef } from '../types/index'
 import type {
-  UnknownObject,
-  MaybeArray,
-  MaybeRef,
+  IFormEmits,
   FormColumn,
   IFormExpose,
   IFormValidateCallback,
   IFormValidateFieldCallback,
   IFormMenuColumns,
-} from '../types/index'
+  InvalidFields,
+} from '../Form/index'
 
 type FormItemBind = Omit<
   FormColumn,
@@ -100,10 +100,7 @@ export function useFormMenu(
 }
 
 export function useFormMethods(
-  emit: (
-    event: 'update:modelValue' | 'submit' | 'reset',
-    ...args: unknown[]
-  ) => void
+  emit: IFormEmits
 ): {
   form: Ref<IFormExpose>
   loading: Ref<boolean>
@@ -120,6 +117,10 @@ export function useFormMethods(
 
   function resetFields() {
     form.value.resetFields()
+  }
+
+  function scrollToField(prop: string) {
+    form.value.scrollToField(prop)
   }
 
   function clearValidate(props?: MaybeArray<string>) {
@@ -144,7 +145,7 @@ export function useFormMethods(
       .then((isValid) => {
         emit('submit', toggleShow, isValid)
       })
-      .catch((invalidFields: UnknownObject) => {
+      .catch((invalidFields: InvalidFields) => {
         emit('submit', toggleShow, false, invalidFields)
       })
   }
@@ -166,6 +167,7 @@ export function useFormMethods(
     loading: show,
     validate,
     resetFields,
+    scrollToField,
     clearValidate,
     validateField,
     upFormData,

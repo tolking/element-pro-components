@@ -9,16 +9,11 @@ import {
   watch,
 } from 'vue'
 import { isArray } from '../utils/index'
-import type {
-  MaybeArray,
-  UnknownObject,
-  SelectConfig,
-  SelectDataItem,
-  SelectData,
-} from '../types/index'
-import type { ITreeSelectProps } from '../TreeSelect/index'
+import type { ITreeSelectProps, ITreeSelectEmits } from '../TreeSelect/index'
 import type TreeStore from 'element-plus/es/components/tree/src/model/tree-store'
 import type { FilterNodeMethodFunction } from 'element-plus/es/components/tree/src/tree.type'
+import type { MaybeArray, UnknownObject } from '../types/index'
+import type { SelectConfig, SelectDataItem, SelectData } from '../Select/index'
 
 interface ITreeStore extends TreeStore {
   setCurrentKey: (value: string | number | null) => void
@@ -68,16 +63,7 @@ export function useSelectData(
 
 export function useTreeSelect(
   props: ITreeSelectProps,
-  emit: (
-    event:
-      | 'update:modelValue'
-      | 'clear'
-      | 'remove-tag'
-      | 'visible-change'
-      | 'node-click'
-      | 'check-change',
-    ...args: unknown[]
-  ) => void
+  emit: ITreeSelectEmits
 ): {
   tree: Ref<ITreeStore>
   modelValue?: Ref<

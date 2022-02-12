@@ -1,5 +1,7 @@
-import type { ExtractPropTypes, Ref, Plugin } from 'vue'
-import type { CrudMenu, FormMenu, IPagination } from './index'
+import type { ExtractPropTypes, Ref, Plugin, SetupContext } from 'vue'
+import type { PaginationProps } from 'element-plus'
+import type { CrudMenu } from '../Crud/index'
+import type { FormMenu } from '../Form/index'
 
 export type StringObject = Record<string, unknown>
 
@@ -63,11 +65,13 @@ export type IDefinePlugin<T> = T & Plugin
 
 export type IDefineProps<T> = Readonly<ExtractPropTypes<T>>
 
+export type IDefineEmits<T> = SetupContext<T>['emit']
+
 export type MenuOptions = CrudMenu & FormMenu
 
 export interface InstallOptions {
   /** Pagination Attributes */
-  pagination?: IPagination
+  pagination?: Partial<PaginationProps>
   /** Menu Attributes */
   menu?: MenuOptions
 }

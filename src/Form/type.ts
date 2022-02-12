@@ -8,9 +8,9 @@ import type {
   MaybeArray,
   ExternalParam,
   IsAny,
-} from './index'
+} from '../types/index'
 
-interface InvalidFields {
+export interface InvalidFields {
   [prop: string]: { message: string; field: string }[]
 }
 
@@ -86,6 +86,8 @@ export interface IFormExpose {
   validate: (callback?: IFormValidateCallback) => Promise<boolean>
   /** reset all the fields and remove validation result */
   resetFields: () => void
+  /** Scroll to the specified form field */
+  scrollToField: (prop: string) => void
   /** clear validation message for certain fields. The parameter is prop name or an array of prop names of the form items whose validation messages will be removed. When omitted, all fields' validation messages will be cleared */
   clearValidate: (props?: MaybeArray<string>) => void
   /** validate one or several form items */

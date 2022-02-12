@@ -53,6 +53,7 @@ More complex interface through slots
 | routes              | current routes of menu                                              | array   | -                     | from `vue-router` |
 | mode                | menu display mode                                                   | string  | horizontal / vertical | vertical          |
 | collapse            | whether the menu is collapsed (available only in vertical mode)     | boolean | -                     | false             |
+| ellipsis            | whether the menu is ellipsis (available only in horizontal mode)    | boolean | —                     | true              |
 | background-color    | background color of Menu (hex format)                               | string  | -                     | #ffffff           |
 | text-color          | text color of Menu (hex format)                                     | string  | -                     | #303133           |
 | active-text-color   | text color of currently active menu item (hex format)               | string  | -                     | #409EFF           |

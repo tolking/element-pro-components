@@ -8,15 +8,16 @@ import {
   usePagination,
 } from '../composables'
 import props from './props'
+import emits from './emits'
 import ProTableItem from './TableItem'
-import {
-  StringObject,
+import type { StringObject } from '../types/index'
+import type {
+  ITableProps,
   ITableSelectionColumns,
   ITableExpandColumns,
   ITableIndexColumns,
   ITableMenuColumns,
-} from '../types/index'
-import type { ITableProps } from './index'
+} from './index'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function createTableProps(props: ITableProps) {
@@ -62,14 +63,7 @@ export function createTableProps(props: ITableProps) {
 export default defineComponent({
   name: 'ProTable',
   props,
-  emits: [
-    'update:currentPage',
-    'update:pageSize',
-    'size-change',
-    'current-change',
-    'prev-click',
-    'next-click',
-  ],
+  emits,
   setup(props, { slots, emit, expose }) {
     const { selection, expand, index, menu } = toRefs(props)
     const attrs = useAttrs()
@@ -82,13 +76,7 @@ export default defineComponent({
     const bindExpand = useTableBind<ITableExpandColumns>(expand, defaultBind)
     const bindIndex = useTableBind<ITableIndexColumns>(index, defaultBind)
     const bindMenu = useTableBind<ITableMenuColumns>(menu, defaultBind)
-    const {
-      pagination,
-      sizeChange,
-      currentChange,
-      prevClick,
-      nextClick,
-    } = usePagination(props, emit)
+    const { pagination, sizeChange, currentChange } = usePagination(props, emit)
     const {
       table,
       clearSelection,
@@ -176,13 +164,8 @@ export default defineComponent({
       )
       const paginationNode = h(ElPagination, {
         ...pagination.value,
-        currentPage: props.currentPage,
-        pageSize: props.pageSize,
-        total: props.total,
         'onUpdate:pageSize': sizeChange,
         'onUpdate:currentPage': currentChange,
-        onPrevClick: prevClick,
-        onNextClick: nextClick,
       })
 
       return [tableNode, props.total ? paginationNode : null]

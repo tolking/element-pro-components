@@ -36,7 +36,7 @@ export default {
     type: Boolean,
     default: false,
   },
-  popperAppendToBody: {
+  teleported: {
     type: Boolean,
     default: true,
   },

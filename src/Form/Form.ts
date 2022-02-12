@@ -7,6 +7,7 @@ import {
   useRow,
 } from '../composables/index'
 import props from './props'
+import emits from './emits'
 import ProFormItem from './FormItem'
 import type { IFormProps } from './index'
 
@@ -30,7 +31,7 @@ export function createFormProps(props: Omit<IFormProps, 'menu' | 'align'>) {
 export default defineComponent({
   name: 'ProForm',
   props,
-  emits: ['update:modelValue', 'submit', 'reset'],
+  emits,
   setup(props, { slots, emit, expose }) {
     const { columns, modelValue, inline } = toRefs(props)
     const {
@@ -38,6 +39,7 @@ export default defineComponent({
       loading,
       validate,
       resetFields,
+      scrollToField,
       clearValidate,
       validateField,
       upFormData,
@@ -56,6 +58,7 @@ export default defineComponent({
     expose({
       validate,
       resetFields,
+      scrollToField,
       clearValidate,
       validateField,
     })

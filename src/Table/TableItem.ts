@@ -4,11 +4,7 @@ import { useTableBind } from '../composables'
 import { get, isFunction } from '../utils/index'
 import ProTableItem from './TableItem'
 import type { ComponentSize } from 'element-plus/lib/utils/types'
-import type {
-  TableColumn,
-  ITableColumns,
-  TableColumnsProps,
-} from '../types/index'
+import type { TableColumn, ITableColumns, TableColumnsProps } from './type'
 
 interface ColumnScope {
   row: Record<string, unknown>

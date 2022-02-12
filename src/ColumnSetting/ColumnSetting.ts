@@ -1,15 +1,11 @@
 import { defineComponent, computed, h, toRefs } from 'vue'
 import { ElDropdown, ElDropdownMenu, ElButton, ElTree } from 'element-plus'
 import { Setting } from '@element-plus/icons-vue'
-import { filterFlat } from '../utils/index'
+import { filterFlat, modelValueEmit } from '../utils/index'
 import props, { treeProps } from './props'
-import type {
-  IDefineProps,
-  ICrudColumns,
-  CrudColumn,
-  ITableColumns,
-  TableColumn,
-} from '../types/index'
+import type { IDefineProps } from '../types/index'
+import type { ICrudColumns, CrudColumn } from '../Crud/index'
+import type { ITableColumns, TableColumn } from '../Table/index'
 
 type Columns = ICrudColumns | ITableColumns
 type Column = CrudColumn | TableColumn
@@ -34,7 +30,7 @@ export function createTreeProps(props: IDefineProps<typeof treeProps>) {
 export default defineComponent({
   name: 'ProColumnSetting',
   props,
-  emits: ['updata:modelValue'],
+  emits: modelValueEmit,
   setup(props, { emit }) {
     const { modelValue } = toRefs(props)
     const checkedKeys = computed(() => {
@@ -48,17 +44,17 @@ export default defineComponent({
 
     function handleDropStart({ data }: { data: Column }) {
       data.hide = !data.hide
-      emit('updata:modelValue', modelValue)
+      emit('update:modelValue', modelValue)
     }
 
     function handleDropEnd({ data }: { data: Column }) {
       data.hide = !data.hide
-      emit('updata:modelValue', modelValue)
+      emit('update:modelValue', modelValue)
     }
 
     function handleCheckChange(data: Column) {
       data.hide = !data.hide
-      emit('updata:modelValue', modelValue)
+      emit('update:modelValue', modelValue)
     }
 
     function createMenu() {

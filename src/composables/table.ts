@@ -1,17 +1,21 @@
 import { ComputedRef, computed, Ref, unref, shallowRef } from 'vue'
 import { useProOptions } from './index'
 import { filterDeep, isObject, objectDeepMerge } from '../utils/index'
+import type { PaginationProps } from 'element-plus'
 import type {
   UnknownObject,
   StringObject,
   MaybeRef,
   MaybeArray,
   ExternalParam,
+} from '../types/index'
+import type {
+  ITableProps,
+  ITableEmits,
   ITableColumns,
   TableColumnsProps,
   ITableExpose,
-  IPagination,
-} from '../types/index'
+} from '../Table/index'
 
 export function useTableColumns(
   props: Readonly<{ columns?: ITableColumns }>
@@ -105,55 +109,60 @@ export function useTableMethods<T = UnknownObject>(): {
 }
 
 export function usePagination(
-  props: Readonly<{ pagination?: IPagination }>,
-  emit: (
-    event:
-      | 'update:currentPage'
-      | 'update:pageSize'
-      | 'size-change'
-      | 'current-change'
-      | 'prev-click'
-      | 'next-click',
-    ...args: unknown[]
-  ) => void
+  props: Readonly<ITableProps>,
+  emit: ITableEmits
 ): {
-  pagination: ComputedRef<IPagination>
+  pagination: ComputedRef<PaginationProps>
   sizeChange: (size: number) => void
   currentChange: (current: number) => void
-  prevClick: (current: number) => void
-  nextClick: (current: number) => void
 } {
   const pagination = computed(() => {
     const options = useProOptions()
 
-    return props.pagination
-      ? objectDeepMerge<IPagination>(options.pagination, props.pagination)
-      : options.pagination
+    return objectDeepMerge(options.pagination, {
+      total: props.total,
+      pageSize: props.pageSize,
+      defaultPageSize: props.defaultPageSize,
+      currentPage: props.currentPage,
+      defaultCurrentPage: props.defaultCurrentPage,
+      pageCount: props.pageCount,
+      pagerCount:
+        props.pagerCount === 7 && options.pagination.pagerCount
+          ? options.pagination.pagerCount
+          : props.pagerCount,
+      layout:
+        props.layout === 'prev, pager, next, jumper, ->, total' &&
+        options.pagination.layout
+          ? options.pagination.layout
+          : props.layout,
+      pageSizes:
+        props.pageSizes.toString() === '10,20,30,40,50,100' &&
+        options.pagination.pageSizes
+          ? options.pagination.pageSizes
+          : props.pageSizes,
+      popperClass: props.popperClass,
+      prevText: props.prevText,
+      nextText: props.nextText,
+      small: props.small,
+      background: props.background,
+      disabled: props.disabled,
+      hideOnSinglePage: props.hideOnSinglePage,
+    })
   })
 
   function sizeChange(size: number) {
     emit('update:pageSize', size)
-    emit('size-change', size)
+    emit('load')
   }
 
   function currentChange(current: number) {
     emit('update:currentPage', current)
-    emit('current-change', current)
-  }
-
-  function prevClick(current: number) {
-    emit('current-change', current)
-  }
-
-  function nextClick(current: number) {
-    emit('current-change', current)
+    emit('load')
   }
 
   return {
     pagination,
     sizeChange,
     currentChange,
-    prevClick,
-    nextClick,
   }
 }

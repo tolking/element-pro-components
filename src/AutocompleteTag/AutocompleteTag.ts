@@ -1,12 +1,13 @@
 import { defineComponent, h, VNode } from 'vue'
 import { ElTag, ElAutocomplete, useAttrs } from 'element-plus'
 import { useInputTag, useFormSize } from '../composables/index'
+import { modelValueEmit } from '../utils/index'
 import props from './props'
 
 export default defineComponent({
   name: 'ProAutocompleteTag',
   props,
-  emits: ['update:modelValue'],
+  emits: modelValueEmit,
   setup(props, { emit }) {
     const attrs = useAttrs()
     const size = useFormSize(props)
@@ -54,7 +55,7 @@ export default defineComponent({
           triggerOnFocus: props.triggerOnFocus,
           selectWhenUnmatched: props.selectWhenUnmatched,
           hideLoading: props.hideLoading,
-          popperAppendToBody: props.popperAppendToBody,
+          teleported: props.teleported,
           highlightFirstItem: props.highlightFirstItem,
           onSelect: add,
           onBlur: add,
