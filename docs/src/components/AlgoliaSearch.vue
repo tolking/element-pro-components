@@ -13,7 +13,8 @@ onMounted(initialize)
 
 function initialize() {
   docsearch({
-    apiKey: 'a6ea2182ffda25f1f17c2e3ecfb640ea',
+    appId: 'MZMDSXIML4',
+    apiKey: '3834102f0d5e8cdcd86443e4e836817c',
     indexName: 'element-pro-components',
     container: search.value,
     debug: false,
