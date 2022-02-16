@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import type { ComponentSize } from 'element-plus/lib/utils/types'
+import type { ComponentSize } from 'element-plus/lib/constants/index'
 
 export const commonProps = {
   modelValue: {

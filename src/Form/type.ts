@@ -1,6 +1,6 @@
 import type { Component } from 'vue'
 import type { ButtonProps, ColProps } from 'element-plus'
-import type { ComponentSize } from 'element-plus/lib/utils/types'
+import type { ComponentSize } from 'element-plus/lib/constants/index'
 import type { FormItemRule } from 'element-plus/lib/components/form/src/form.type'
 import type {
   UnknownObject,

@@ -7,7 +7,7 @@ import {
   objectOmit,
   isBoolean,
 } from '../utils/index'
-import type { ComponentSize } from 'element-plus/lib/utils/types'
+import type { ComponentSize } from 'element-plus/lib/constants/index'
 import type { UnknownObject, MaybeArray, MaybeRef } from '../types/index'
 import type {
   IFormEmits,

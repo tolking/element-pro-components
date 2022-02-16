@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import type { ComponentSize } from 'element-plus/lib/utils/types'
+import type { ComponentSize } from 'element-plus/lib/constants/index'
 import type { ExternalParam } from '../types/index'
 import type { ICrudColumns } from '../Crud/index'
 import type { ITableColumns } from '../Table/index'

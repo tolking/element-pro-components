@@ -9,7 +9,6 @@
         "./src/styles/vars.css"
       ]
     },
-    "autoprefixer": {},
-    "postcss-clean": {}
+    "autoprefixer": {}
   }
 }

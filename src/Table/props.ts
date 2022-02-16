@@ -4,7 +4,7 @@ import type {
   TableProps,
   DefaultRow,
 } from 'element-plus/es/components/table/src/table/defaults'
-import type { ComponentSize } from 'element-plus/lib/utils/types'
+import type { ComponentSize } from 'element-plus/lib/constants/index'
 import type {
   ITableSelectionColumns,
   ITableExpandColumns,
