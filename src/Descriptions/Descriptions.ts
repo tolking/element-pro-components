@@ -13,13 +13,9 @@ export default defineComponent({
             return h(
               ElDescriptionsItem,
               {
-                label: item.label,
-                border: props.border,
-                column: props.column,
-                direction: props.direction,
-                size: props.size,
-                title: props.title,
-                extra: props.extra,
+                ...item,
+                align: item.align ?? props.align,
+                labelAlign: item.labelAlign ?? props.labelAlign,
               },
               {
                 default: () => {
