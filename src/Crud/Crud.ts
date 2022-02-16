@@ -17,7 +17,7 @@ import props from './props'
 import emits from './emits'
 import { ProForm } from '../Form/index'
 import { ProTable } from '../Table/index'
-import type { ComponentSize } from 'element-plus/lib/utils/types'
+import type { ComponentSize } from 'element-plus/lib/constants/index'
 import type { StringObject, UnknownObject } from '../types/index'
 import type { IFormEmits } from '../Form/index'
 
