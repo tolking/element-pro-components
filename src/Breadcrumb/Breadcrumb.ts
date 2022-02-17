@@ -1,12 +1,11 @@
 import { defineComponent, h } from 'vue'
 import { useRoute } from 'vue-router'
-import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'
-import props from './props'
+import { breadcrumbProps, ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'
 import { ProLink } from '../Link/index'
 
 export default defineComponent({
   name: 'ProBreadcrumb',
-  props,
+  props: breadcrumbProps,
   setup(props) {
     const route = useRoute()
 
@@ -14,8 +13,7 @@ export default defineComponent({
       h(
         ElBreadcrumb,
         {
-          separator: props.separator,
-          separatorIcon: props.separatorIcon,
+          ...props,
           class: 'pro-breadcrumb',
         },
         () =>
