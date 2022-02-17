@@ -13,7 +13,7 @@ import {
 import { RouterView, RouteRecordRaw } from 'vue-router'
 import { ElScrollbar } from 'element-plus'
 import { useScreenSize, useShow } from '../composables/index'
-import { createMenuProps } from '../Menu/Menu'
+import { objectOmit } from '../utils/index'
 import props from './props'
 import { ProMenu } from '../Menu/index'
 
@@ -34,7 +34,11 @@ export default defineComponent({
     })
 
     function createMenu() {
-      const config = createMenuProps(props)
+      const config = objectOmit(props, [
+        'fixedHeader',
+        'fixedMain',
+        'transition',
+      ])
       const menuSlots = slots.menu
         ? {
             default: (scope: unknown) => slots.menu && slots.menu(scope),
@@ -43,14 +47,10 @@ export default defineComponent({
 
       return h(
         ProMenu,
-        Object.assign(
-          {
-            collapse: collapse.value,
-            mode: mode.value,
-            routes: props.routes,
-          },
-          config
-        ),
+        {
+          ...config,
+          collapse: collapse.value,
+        },
         menuSlots
       )
     }
