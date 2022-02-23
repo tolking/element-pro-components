@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.18.1
+
+fix
+
+- Descriptions: the columns error
+
+feat
+
+- Descriptions: add props align and labelAlign
+
+other
+
+- sync ComponentSize change from element
+- Tabs|Breadcrumb|Menu|Radio: import props from element-plus
+
 ## 0.18.0
 
 breaking changes
