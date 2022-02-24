@@ -1,23 +1,7 @@
+import { radioGroupProps } from 'element-plus'
 import { commonProps } from '../Select/props'
-import type { PropType } from 'vue'
-import type { ComponentSize } from 'element-plus/lib/utils/types'
 
 export default {
+  ...radioGroupProps,
   ...commonProps,
-  modelValue: {
-    type: [String, Number, Boolean],
-  },
-  size: {
-    type: String as PropType<ComponentSize>,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  textColor: {
-    type: String,
-  },
-  fill: {
-    type: String,
-  },
 }

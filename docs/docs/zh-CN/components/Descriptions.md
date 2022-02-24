@@ -33,6 +33,12 @@ meta:
 @/demo/Descriptions/nested.vue
 :::
 
+### 对齐方式
+
+::: demo
+@/demo/Descriptions/alignment.vue
+:::
+
 ### 插槽
 
 直接在模版中增加带 `[prop]` 相关的插槽即可使用插槽
@@ -51,16 +57,18 @@ meta:
 
 ### 配置
 
-| 参数      | 说明                       | 类型    | 可选值                 | 默认值     |
-| :-------- | :------------------------- | :------ | :--------------------- | :--------- |
-| columns   | 表单配置参考下面 `columns` | array   | -                      | -          |
-| detail    | 显示的详情数据             | object  | -                      | -          |
-| border    | 是否带有边框               | boolean | —                      | false      |
-| column    | 一行显示的数量             | number  | —                      | 3          |
-| direction | 排列的方向                 | string  | vertical / horizontal  | horizontal |
-| size      | 列表的尺寸                 | string  | large / default /small | —          |
-| title     | 标题文本，显示在左上方     | string  | —                      | —          |
-| extra     | 操作区文本，显示在右上方   | string  | —                      | —          |
+| 参数        | 说明                                                                                   | 类型    | 可选值                 | 默认值     |
+| :---------- | :------------------------------------------------------------------------------------- | :------ | :--------------------- | :--------- |
+| columns     | 表单配置参考下面 `columns`                                                             | array   | -                      | -          |
+| detail      | 显示的详情数据                                                                         | object  | -                      | -          |
+| border      | 是否带有边框                                                                           | boolean | —                      | false      |
+| column      | 一行显示的数量                                                                         | number  | —                      | 3          |
+| direction   | 排列的方向                                                                             | string  | vertical / horizontal  | horizontal |
+| size        | 列表的尺寸                                                                             | string  | large / default /small | —          |
+| title       | 标题文本，显示在左上方                                                                 | string  | —                      | —          |
+| extra       | 操作区文本，显示在右上方                                                               | string  | —                      | —          |
+| align       | 列的内容对齐方式（如无 border，对标签和内容均生效）                                    | string  | left / center / right  | -          |
+| label-align | 列的标签对齐方式，若不设置该项，则使用内容的对齐方式（如无 border，请使用 align 参数） | string  | left / center / right  | —          |
 
 ### columns 的参数
 

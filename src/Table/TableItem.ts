@@ -3,7 +3,7 @@ import { ElTableColumn } from 'element-plus'
 import { useTableBind } from '../composables'
 import { get, isFunction } from '../utils/index'
 import ProTableItem from './TableItem'
-import type { ComponentSize } from 'element-plus/lib/utils/types'
+import type { ComponentSize } from 'element-plus/lib/constants/index'
 import type { TableColumn, ITableColumns, TableColumnsProps } from './type'
 
 interface ColumnScope {

@@ -9,20 +9,6 @@ import { ElMenu, ElMenuItem, ElSubMenu } from 'element-plus'
 import { useCurrentRoutes } from '../composables/index'
 import props from './props'
 import { ProLink } from '../Link/index'
-import type { IMenuProps } from './index'
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function createMenuProps(props: IMenuProps) {
-  return {
-    defaultOpeneds: props.defaultOpeneds,
-    uniqueOpened: props.uniqueOpened,
-    menuTrigger: props.menuTrigger,
-    backgroundColor: props.backgroundColor,
-    textColor: props.textColor,
-    activeTextColor: props.activeTextColor,
-    collapseTransition: props.collapseTransition,
-  }
-}
 
 export default defineComponent({
   name: 'ProMenu',
@@ -30,7 +16,6 @@ export default defineComponent({
   setup(props, { slots }) {
     const route = useRoute()
     const routes = useCurrentRoutes(props)
-    const config = createMenuProps(props)
 
     function createDefault(item: RouteRecordRaw) {
       if (slots.default) {
@@ -82,15 +67,11 @@ export default defineComponent({
     return () =>
       h(
         ElMenu,
-        Object.assign(
-          {
-            defaultActive: route?.path,
-            mode: props.mode,
-            collapse: props.collapse,
-            class: 'pro-menu',
-          },
-          config
-        ),
+        {
+          ...props,
+          defaultActive: route?.path,
+          class: 'pro-menu',
+        },
         () => createList(routes.value)
       )
   },

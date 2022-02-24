@@ -1,12 +1,18 @@
 import { createApp } from './main'
 import { renderToString } from '@vue/server-renderer'
 import { renderHeadToString } from '@vueuse/head'
+import { ID_INJECTION_KEY } from 'element-plus'
 
 export async function render(
   url: string,
   manifest: Record<string, string[]>
 ): Promise<string[]> {
   const { app, router, head } = createApp()
+
+  app.provide(ID_INJECTION_KEY, {
+    prefix: Math.floor(Math.random() * 10000),
+    current: 0,
+  })
 
   // set the router to the desired URL before rendering
   router.push(url)

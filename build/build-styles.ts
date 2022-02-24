@@ -4,7 +4,6 @@ import postcss from 'postcss'
 import postcssImport from 'postcss-import'
 import postcssPresetEnv from 'postcss-preset-env'
 import autoprefixer from 'autoprefixer'
-import postcssClean from 'postcss-clean'
 import { writeFileRecursive, copyFileRecursive, toAbsolute } from './utils'
 
 function transform(input: string) {
@@ -23,7 +22,6 @@ function transform(input: string) {
           ],
         }),
         autoprefixer,
-        postcssClean,
       ])
         .process(css, { from: input, to: outDir })
         .then((result) => {

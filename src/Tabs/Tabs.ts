@@ -19,12 +19,9 @@ export default defineComponent({
       h(
         ElTabs,
         {
+          ...props,
           modelValue: active.value,
           closable: list.value.length > 1,
-          type: props.type,
-          tabPosition: props.tabPosition,
-          beforeLeave: props.beforeLeave,
-          stretch: props.stretch,
           class: 'pro-tabs',
           onTabClick: to,
           onTabRemove: close,
