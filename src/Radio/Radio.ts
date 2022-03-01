@@ -1,5 +1,5 @@
 import { defineComponent, h, VNode } from 'vue'
-import { reactivePick } from '@vueuse/core'
+import { reactiveOmit } from '@vueuse/core'
 import { ElRadioGroup, ElRadio } from 'element-plus'
 import { useSelectData, useEmitValue } from '../composables/index'
 import { modelValueEmit } from '../utils/index'
@@ -13,14 +13,7 @@ export function createDefault<T>(
 ): () => VNode {
   const data = useSelectData(props)
   const emitValue = useEmitValue()
-  const config = reactivePick(
-    props,
-    'modelValue',
-    'size',
-    'disabled',
-    'textColor',
-    'fill'
-  )
+  const config = reactiveOmit(props, 'data', 'config')
 
   return () =>
     h(
