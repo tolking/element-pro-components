@@ -1,4 +1,5 @@
 import { defineComponent, h, VNode } from 'vue'
+import { reactiveOmit } from '@vueuse/core'
 import { ElCheckboxGroup, ElCheckbox } from 'element-plus'
 import { useSelectData, useEmitValue } from '../composables/index'
 import { modelValueEmit } from '../utils/index'
@@ -12,18 +13,13 @@ export function createDefault<T>(
 ): () => VNode {
   const data = useSelectData(props)
   const emitValue = useEmitValue()
+  const config = reactiveOmit(props, 'data', 'config')
 
   return () =>
     h(
       ElCheckboxGroup,
       {
-        modelValue: props.modelValue || [],
-        size: props.size,
-        disabled: props.disabled,
-        textColor: props.textColor,
-        fill: props.fill,
-        min: props.min,
-        max: props.max,
+        ...config,
         class: className,
         'onUpdate:modelValue': emitValue,
       },
