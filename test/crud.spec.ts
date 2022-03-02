@@ -2,7 +2,7 @@ import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { ElInput, ElSwitch, ElTableColumn } from 'element-plus'
 import ProCrud from '../src/Crud/Crud'
-import { tableData } from './mock'
+import { doubleWait, tableData } from './mock'
 import type { ICrudColumns, ICrudMenuColumns } from '../src/Crud/index'
 
 interface Form {
@@ -35,8 +35,8 @@ const commonColumns: ICrudColumns<Form> = [
     add: true,
   },
 ]
-const _mount = (options: Record<string, unknown>) =>
-  mount(
+const _mount = async (options: Record<string, unknown>) => {
+  const _mount = mount(
     {
       components: { ProCrud, ElTableColumn },
       ...options,
@@ -47,6 +47,9 @@ const _mount = (options: Record<string, unknown>) =>
       },
     }
   )
+  await doubleWait()
+  return _mount
+}
 const addClass = '.pro-crud .pro-crud-menu button'
 const searchClass =
   '.pro-crud .pro-crud-search .pro-form-menu .el-form-item__content button'
@@ -54,8 +57,7 @@ const menuClass =
   '.pro-crud .pro-crud-table .el-table__body-wrapper .el-table__body .el-table__row td:last-child .cell button'
 const formClass =
   '.pro-crud .pro-crud-dialog .pro-crud-form .pro-form-menu .el-form-item__content button'
-const dialogClose =
-  '.pro-crud .pro-crud-dialog .el-dialog__header .el-dialog__headerbtn'
+const dialogClose = '.pro-crud .pro-crud-dialog .el-dialog__headerbtn'
 const headerClass =
   '.pro-crud .pro-crud-table .el-table__header-wrapper .el-table__header thead tr'
 const getHeader = (wrapper: VueWrapper<ComponentPublicInstance>) =>
@@ -255,7 +257,7 @@ describe('Crud', () => {
       '.pro-crud .pro-crud-dialog .pro-crud-form .pro-form-item .el-form-item__content input'
 
     await wrapper.find(addClass).trigger('click')
-    // expect(wrapper.find(formInput).element.value).toBe('date')
+    expect(wrapper.find(formInput).element.value).toBe('date')
 
     await wrapper.find(formInput).setValue('value')
     expect(vm.form.date).toBe('value')
@@ -285,7 +287,7 @@ describe('Crud', () => {
     const searchInput =
       '.pro-crud .pro-crud-search .pro-form-item .el-form-item__content input'
 
-    // expect(wrapper.find(searchInput).element.value).toBe('date')
+    expect(wrapper.find(searchInput).element.value).toBe('date')
 
     await wrapper.find(searchInput).setValue('value')
     expect(vm.searchForm.date).toBe('value')

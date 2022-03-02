@@ -105,7 +105,7 @@ describe('Form', () => {
           {
             label: 'User',
             prop: 'user',
-            size: 'mini',
+            size: 'small',
             children: [
               {
                 label: 'Name',
@@ -220,7 +220,7 @@ describe('Form', () => {
     }
 
     expect(getFormList(wrapper)).toHaveLength(2)
-    // expect(wrapper.find('input').element.value).toBe('123')
+    expect(wrapper.find('input').element.value).toBe('123')
     expect(wrapper.find('.el-switch').classes()).not.toContain('is-checked')
 
     await wrapper.find('.el-switch').trigger('click')

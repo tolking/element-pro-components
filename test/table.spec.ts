@@ -3,7 +3,7 @@ import { mount, VueWrapper } from '@vue/test-utils'
 import { ElTableColumn, PaginationProps } from 'element-plus'
 import ProTable from '../src/Table/Table'
 import { config } from '../src/utils/config'
-import { tableData, TableItem } from './mock'
+import { doubleWait, tableData, TableItem } from './mock'
 import type {
   ITableColumns,
   ITableIndexColumns,
@@ -25,11 +25,14 @@ const columns: ITableColumns = [
     prop: 'address',
   },
 ]
-const _mount = (options: Record<string, unknown>) =>
-  mount({
+const _mount = async (options: Record<string, unknown>) => {
+  const _mount = mount({
     components: { ProTable, ElTableColumn },
     ...options,
   })
+  await doubleWait()
+  return _mount
+}
 const headerClass =
   '.pro-table .el-table__header-wrapper .el-table__header thead tr'
 const getHeader = (wrapper: VueWrapper<ComponentPublicInstance>) =>

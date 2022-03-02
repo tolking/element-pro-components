@@ -1,3 +1,4 @@
+import { nextTick } from 'vue'
 import { useRouter, useRoute, RouteRecordRaw } from 'vue-router'
 
 jest.mock('vue-router', () => ({
@@ -188,3 +189,8 @@ export const treeList: TreeItem[] = [
     ],
   },
 ]
+
+export async function doubleWait() {
+  await nextTick()
+  await nextTick()
+}
