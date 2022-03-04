@@ -52,7 +52,6 @@ export default defineComponent({
       'config',
       'onlySelectLeaf',
       'checkStrictly',
-      'checkDescendants',
       ...treeKeys
     )
 
