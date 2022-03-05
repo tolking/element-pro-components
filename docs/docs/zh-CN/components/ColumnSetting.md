@@ -13,13 +13,17 @@ meta:
 
 ### 配合 Table
 
-::: demo 通过 `v-model` 绑定数据，默认点击多选框切换列的显隐，直接拖动实现切换排序
+通过 `v-model` 绑定数据，默认点击多选框切换列的显隐，直接拖动实现切换排序
+
+::: demo
 @/demo/ColumnSetting/table.vue
 :::
 
 ### 配合 Crud
 
-::: demo 推荐通过 `action` 插槽使用，可以绑定 `Crud` 的 `columns` 和 `table-columns`
+推荐通过 `action` 插槽使用，可以绑定 `Crud` 的 `columns` 和 `table-columns`
+
+::: demo
 @/demo/ColumnSetting/crud.vue
 :::
 
@@ -29,13 +33,17 @@ meta:
 
 ### 点击触发弹窗
 
-::: demo 通过 `trigger` 控制触发方式，支持 `hover` `click` `contextmenu`-鼠标右键
+通过 `trigger` 控制触发方式，支持 `hover` `click` `contextmenu`-鼠标右键
+
+::: demo
 @/demo/ColumnSetting/trigger.vue
 :::
 
 ### 支持多级表头
 
-::: demo 支持对多级表头的操作，可以将列拖入或拖出子表头
+支持对多级表头的操作，可以将列拖入或拖出子表头
+
+::: demo
 @/demo/ColumnSetting/group.vue
 :::
 
