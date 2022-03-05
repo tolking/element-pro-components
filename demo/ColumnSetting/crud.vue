@@ -5,6 +5,7 @@
     :columns="columns"
     :menu="{ label: 'Operations' }"
     :data="data"
+    label-width="100px"
     @search="search"
     @submit="submit"
     @delete="deleteRow"

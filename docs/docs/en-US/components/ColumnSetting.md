@@ -13,13 +13,17 @@ meta:
 
 ### Use with Table
 
-::: demo Bind data through `v-model`, click the multi-select box to togglen display and hide, and drag it directly to togglen sort
+Bind data through `v-model`, click the multi-select box to togglen display and hide, and drag it directly to togglen sort
+
+::: demo
 @/demo/ColumnSetting/table.vue
 :::
 
 ### Use with Crud
 
-::: demo It is recommended to use the `action` slot, bind `columns` or `table-columns` of Crud
+It is recommended to use the `action` slot, bind `columns` or `table-columns` of Crud
+
+::: demo
 @/demo/ColumnSetting/crud.vue
 :::
 
@@ -29,13 +33,17 @@ If `ColumnSetting` is directly bind `columns` of `Crud`, the sort change will af
 
 ### How to trigger
 
-::: demo Use the attribute trigger. By default, it is `hover`. support `hover` `click` `contextmenu`
+Use the attribute trigger. By default, it is `hover`. support `hover` `click` `contextmenu`
+
+::: demo
 @/demo/ColumnSetting/trigger.vue
 :::
 
 ### Grouping table head
 
-::: demo Supports operations on grouping table head, and columns can be dragged into or out of the grouping table head
+Supports operations on grouping table head, and columns can be dragged into or out of the grouping table head
+
+::: demo
 @/demo/ColumnSetting/group.vue
 :::
 
