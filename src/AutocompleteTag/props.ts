@@ -2,6 +2,7 @@ import { commonProps } from '../InputTag/props'
 import type { PropType } from 'vue'
 import type { ExternalParam } from '../types/index'
 
+// TODO: import autocompleteProps from element-plus v2.0.5?
 export default {
   ...commonProps,
   valueKey: {
@@ -43,5 +44,23 @@ export default {
   highlightFirstItem: {
     type: Boolean,
     default: false,
+  },
+  placeholder: {
+    type: String,
+  },
+  disabled: {
+    type: Boolean,
+    default: undefined,
+  },
+  readonly: Boolean,
+  name: String,
+  label: {
+    type: String,
+  },
+  suffixIcon: {
+    type: String,
+  },
+  prefixIcon: {
+    type: String,
   },
 }

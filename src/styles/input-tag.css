@@ -3,8 +3,8 @@
   flex-wrap: wrap;
   align-items: center;
   width: 100%;
-  border: var(--el-border-base);
   border-radius: var(--el-border-radius-base);
+  box-shadow: 0 0 0 1px var(--el-border-color-base) inset;
   background-color: var(--el-bg-color);
   & .el-tag {
     margin: 3px;
@@ -12,8 +12,5 @@
   & .el-input {
     flex: 1;
     min-width: 80px;
-  }
-  & .el-input .el-input__inner {
-    border: 0;
   }
 }

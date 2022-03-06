@@ -1,21 +1,47 @@
 import { computed, Ref, ref } from 'vue'
+import { reactiveOmit, reactivePick } from '@vueuse/core'
+import { useAttrs } from 'element-plus'
+import { useFormSize } from './index'
+import { commonProps } from '../InputTag/props'
 import type { IInputTagProps, IInputTagEmits } from '../InputTag/index'
 import type {
   IAutocompleteTagProps,
   IAutocompleteTagEmits,
 } from '../AutocompleteTag/index'
 
-export function useInputTag(
-  props: IInputTagProps | IAutocompleteTagProps,
-  emit: IInputTagEmits | IAutocompleteTagEmits
-): {
+type CommonKeys = Array<keyof typeof commonProps>
+
+export interface InputTagCore {
+  attrs: Ref<Record<string, unknown>>
+  size: Ref<'default' | 'small' | 'large' | undefined>
+  tagProps: Partial<IInputTagProps>
+  inputProps: Partial<IInputTagProps>
   input: Ref<string>
   list: Ref<string[]>
   disabled: Ref<boolean | undefined>
+  closable: Ref<boolean>
   add: () => void
+  change: (value: string) => void
   close: (index: number) => void
   keyup: (event: KeyboardEvent) => void
-} {
+}
+
+export function useInputTag(
+  props: IInputTagProps | IAutocompleteTagProps,
+  emit: IInputTagEmits | IAutocompleteTagEmits
+): InputTagCore {
+  const attrs = useAttrs()
+  const size = useFormSize(props)
+  const tagProps = reactivePick(
+    props,
+    'type',
+    'hit',
+    'color',
+    'effect',
+    'disableTransitions'
+  )
+  const commonKeys = Object.keys(commonProps) as CommonKeys
+  const inputProps = reactiveOmit(props, ...commonKeys, 'size')
   const input = ref('')
   const list = computed(() => props.modelValue || [])
   const triggerKey = computed(() => {
@@ -23,10 +49,13 @@ export function useInputTag(
     return { space: ' ', enter: 'Enter' }[key]
   })
   const disabled = computed(() => {
-    if (props.disabled === undefined && props.max !== undefined) {
+    if (!props.disabled && props.max !== undefined) {
       return (props.modelValue?.length || 0) >= props.max
     }
     return props.disabled
+  })
+  const closable = computed(() => {
+    return !(props.readonly || props.disabled) ?? true
   })
 
   function add() {
@@ -35,6 +64,12 @@ export function useInputTag(
       emit('update:modelValue', _list)
       input.value = ''
     }
+  }
+
+  function change(value: string) {
+    console.log(value)
+
+    input.value = value
   }
 
   function close(index: number) {
@@ -48,10 +83,16 @@ export function useInputTag(
   }
 
   return {
+    attrs,
+    size,
+    tagProps,
+    inputProps,
     input,
     list,
     disabled,
+    closable,
     add,
+    change,
     close,
     keyup,
   }
