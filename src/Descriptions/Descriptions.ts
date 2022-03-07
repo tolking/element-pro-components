@@ -1,4 +1,5 @@
 import { defineComponent, h, Slot } from 'vue'
+import { reactiveOmit } from '@vueuse/core'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
 import { get } from '../utils/index'
 import props from './props'
@@ -7,6 +8,14 @@ export default defineComponent({
   name: 'ProDescriptions',
   props,
   setup(props, { slots }) {
+    const confog = reactiveOmit(
+      props,
+      'columns',
+      'detail',
+      'align',
+      'labelAlign'
+    )
+
     function createDefault() {
       return props.columns
         ? props.columns.map((item) => {
@@ -48,12 +57,7 @@ export default defineComponent({
       h(
         ElDescriptions,
         {
-          border: props.border,
-          column: props.column,
-          direction: props.direction,
-          size: props.size,
-          title: props.title,
-          extra: props.extra,
+          ...confog,
           class: 'pro-descriptions',
         },
         {
