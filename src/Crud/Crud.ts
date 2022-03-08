@@ -100,7 +100,7 @@ export default defineComponent({
         beforeClose,
         destroyOnClose: true,
         width: props.width ?? sizeWidth[screenSize.value],
-        customClass: props.customClass ?? 'pro-crud-dialog',
+        customClass: props.customClass || 'pro-crud-dialog',
       }
     })
     const formProps = (reactivePick(
