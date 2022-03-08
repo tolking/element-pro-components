@@ -1,5 +1,6 @@
 import { computed, defineComponent, h, VNode, Slot } from 'vue'
-import { ElDialog, ElButton, useAttrs } from 'element-plus'
+import { reactivePick } from '@vueuse/core'
+import { ElDialog, ElButton, useAttrs, DialogProps } from 'element-plus'
 import {
   useCrudColumns,
   useCrudForm,
@@ -11,15 +12,13 @@ import {
   useCrudSlots,
 } from '../composables/index'
 import { isFunction, isObject } from '../utils/index'
-import { createTableProps } from '../Table/Table'
-import { createFormProps } from '../Form/Form'
-import props from './props'
+import props, { formKeys, tableKeys, dialogKeys } from './props'
 import emits from './emits'
 import { ProForm } from '../Form/index'
 import { ProTable } from '../Table/index'
 import type { ComponentSize } from 'element-plus/lib/constants/index'
 import type { StringObject, UnknownObject } from '../types/index'
-import type { IFormEmits } from '../Form/index'
+import type { IFormProps, IFormEmits } from '../Form/index'
 
 interface TableMenuScope {
   row: StringObject
@@ -99,10 +98,17 @@ export default defineComponent({
       return {
         title,
         beforeClose,
+        destroyOnClose: true,
         width: props.width ?? sizeWidth[screenSize.value],
-        customClass: props.customClass ?? 'pro-crud-dialog',
+        customClass: props.customClass || 'pro-crud-dialog',
       }
     })
+    const formProps = (reactivePick(
+      props,
+      ...formKeys
+    ) as unknown) as IFormProps
+    const tableProps = reactivePick(props, ...tableKeys)
+    const dialogProps = reactivePick(props, ...dialogKeys)
 
     function checkEdit(row: StringObject) {
       return isFunction(menuColumns.value?.edit)
@@ -138,24 +144,23 @@ export default defineComponent({
     })
 
     function createSearch() {
-      return searchColumns.value?.length
-        ? h(
-            ProForm,
-            {
-              modelValue: props.search,
-              columns: searchColumns.value,
-              menu: searchMenu.value,
-              rules: props.searchRules,
-              size: props.size,
-              inline: true,
-              class: 'pro-crud-search',
-              'onUpdate:modelValue': upSearchData,
-              onSubmit: searchForm,
-              onReset: searchReset,
-            },
-            searchSlots
-          )
-        : null
+      if (!searchColumns.value?.length) return null
+      return h(
+        ProForm,
+        {
+          modelValue: props.search,
+          columns: searchColumns.value,
+          menu: searchMenu.value,
+          rules: props.searchRules,
+          size: props.size,
+          inline: true,
+          class: 'pro-crud-search',
+          'onUpdate:modelValue': upSearchData,
+          onSubmit: searchForm,
+          onReset: searchReset,
+        },
+        searchSlots
+      )
     }
 
     function createMenu() {
@@ -192,7 +197,6 @@ export default defineComponent({
     }
 
     function createTable() {
-      const config = createTableProps(props)
       const showMenu =
         menuColumns.value?.edit || menuColumns.value?.del || slots.menu
       const menuSlots = showMenu
@@ -201,25 +205,17 @@ export default defineComponent({
 
       return h(
         ProTable,
-        Object.assign(
-          {
-            ref: table,
-            selection: props.selection,
-            expand: props.expand,
-            index: props.index,
-            menu: menuColumns.value,
-            columns: tableColumns.value,
-            currentPage: props.currentPage,
-            pageSize: props.pageSize,
-            total: props.total,
-            class: 'pro-crud-table pro-table',
-            'onUpdate:pageSize': sizeChange,
-            'onUpdate:currentPage': currentChange,
-          },
-          config,
-          pagination.value,
-          attrs.value
-        ),
+        {
+          ...tableProps,
+          ...pagination.value,
+          ...attrs.value,
+          ref: table,
+          menu: menuColumns.value,
+          columns: tableColumns.value,
+          class: 'pro-crud-table pro-table',
+          'onUpdate:pageSize': sizeChange,
+          'onUpdate:currentPage': currentChange,
+        },
         Object.assign({}, tableSlots, menuSlots)
       )
     }
@@ -261,53 +257,31 @@ export default defineComponent({
     }
 
     function createForm() {
-      const option = createFormProps(props)
-      return formColumns.value?.length
-        ? h(
-            ElDialog,
+      if (!formColumns.value?.length) return null
+      return h(
+        ElDialog,
+        {
+          ...dialogProps,
+          ...bindDialog.value,
+          modelValue: dialogVisible.value,
+        } as DialogProps,
+        () =>
+          h(
+            ProForm,
             {
-              ...bindDialog.value,
-              modelValue: dialogVisible.value,
-              appendToBody: props.appendToBody,
-              destroyOnClose: props.destroyOnClose,
-              center: props.center,
-              closeOnClickModal: props.closeOnClickModal,
-              closeOnPressEscape: props.closeOnPressEscape,
-              fullscreen: props.fullscreen,
-              lockScroll: props.lockScroll,
-              modal: props.modal,
-              showClose: props.showClose,
-              openDelay: props.openDelay,
-              closeDelay: props.closeDelay,
-              top: props.top,
-              modalClass: props.modalClass,
-              zIndex: props.zIndex,
+              ...formProps,
+              ...attrs.value,
+              ref: form,
+              columns: formColumns.value,
+              menu: menuColumns.value,
+              class: 'pro-crud-form',
+              'onUpdate:modelValue': upFormData,
+              onSubmit: submitForm,
+              onReset: resetForm,
             },
-            () =>
-              dialogVisible.value
-                ? h(
-                    ProForm,
-                    Object.assign(
-                      {
-                        ref: form,
-                        modelValue: props.modelValue,
-                        columns: formColumns.value,
-                        menu: menuColumns.value,
-                        inline: props.inline,
-                        labelPosition: props.labelPosition,
-                        class: 'pro-crud-form',
-                        'onUpdate:modelValue': upFormData,
-                        onSubmit: submitForm,
-                        onReset: resetForm,
-                      },
-                      option,
-                      attrs.value
-                    ),
-                    formSlots
-                  )
-                : null
+            formSlots
           )
-        : null
+      )
     }
 
     return () =>
