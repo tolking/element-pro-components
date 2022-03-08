@@ -1,3 +1,5 @@
+import { dialogProps } from 'element-plus'
+import { objectOmit } from '../utils/index'
 import form from '../Form/props'
 import table from '../Table/props'
 import type { PropType } from 'vue'
@@ -11,9 +13,22 @@ import type {
   ICrudBeforeClose,
 } from './type'
 
+type FormKeys = Array<keyof typeof form>
+type TableKeys = Array<keyof typeof table>
+type DialogKeys = Array<keyof typeof dialogProps>
+
+const _formProps = objectOmit(form, 'columns', 'menu')
+const _tableProps = objectOmit(table, 'columns', 'menu')
+const _dialogProps = objectOmit(dialogProps, 'modelValue')
+
+export const formKeys = Object.keys(_formProps) as FormKeys
+export const tableKeys = Object.keys(_tableProps) as TableKeys
+export const dialogKeys = Object.keys(_dialogProps) as DialogKeys
+
 export default {
-  ...form,
-  ...table,
+  ..._formProps,
+  ..._tableProps,
+  ..._dialogProps,
   columns: {
     type: Array as PropType<ICrudColumns>,
     default: undefined,
@@ -57,69 +72,5 @@ export default {
   beforeClose: {
     type: Function as PropType<ICrudBeforeClose>,
     default: undefined,
-  },
-  appendToBody: {
-    type: Boolean,
-    default: false,
-  },
-  destroyOnClose: {
-    type: Boolean,
-    default: false,
-  },
-  center: {
-    type: Boolean,
-    default: false,
-  },
-  customClass: {
-    type: String,
-    default: undefined,
-  },
-  closeOnClickModal: {
-    type: Boolean,
-    default: true,
-  },
-  closeOnPressEscape: {
-    type: Boolean,
-    default: true,
-  },
-  fullscreen: {
-    type: Boolean,
-    default: false,
-  },
-  lockScroll: {
-    type: Boolean,
-    default: true,
-  },
-  modal: {
-    type: Boolean,
-    default: true,
-  },
-  showClose: {
-    type: Boolean,
-    default: true,
-  },
-  title: {
-    type: String,
-    default: undefined,
-  },
-  openDelay: {
-    type: Number,
-    default: 0,
-  },
-  closeDelay: {
-    type: Number,
-    default: 0,
-  },
-  top: {
-    type: String,
-    default: '15vh',
-  },
-  modalClass: String,
-  width: {
-    type: [String, Number],
-    default: undefined,
-  },
-  zIndex: {
-    type: Number,
   },
 }
