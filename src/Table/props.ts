@@ -13,6 +13,10 @@ import type {
   ITableColumns,
 } from './type'
 
+type PaginationKeys = Array<keyof typeof paginationProps>
+
+export const paginationKeys = Object.keys(paginationProps) as PaginationKeys
+
 export default {
   ...paginationProps,
   selection: {
