@@ -1,22 +1,13 @@
+import { rowProps } from 'element-plus'
+import { objectOmit } from '../utils/index'
 import type { PropType } from 'vue'
 import type { FormRulesMap } from 'element-plus/lib/components/form/src/form.type'
 import type { ComponentSize } from 'element-plus/lib/constants/index'
 import type { IFormColumns, IFormMenuColumns } from './type'
 
-export default {
-  modelValue: {
-    type: Object,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    default: () => ({}),
-  },
-  columns: {
-    type: Array as PropType<IFormColumns>,
-    default: undefined,
-  },
-  menu: {
-    type: Object as PropType<IFormMenuColumns>,
-    default: undefined,
-  },
+type FormKeys = Array<keyof typeof _formProps>
+
+const _formProps = {
   rules: {
     type: Object as PropType<FormRulesMap>,
   },
@@ -55,18 +46,25 @@ export default {
   },
   disabled: Boolean,
   scrollToError: Boolean,
-  gutter: {
-    type: Number,
+}
+const _rowProps = objectOmit(rowProps, 'tag')
+
+export const formKeys = Object.keys(_formProps) as FormKeys
+
+export default {
+  ..._formProps,
+  ..._rowProps,
+  modelValue: {
+    type: Object,
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    default: () => ({}),
+  },
+  columns: {
+    type: Array as PropType<IFormColumns>,
     default: undefined,
   },
-  justify: {
-    type: String as PropType<
-      'start' | 'end' | 'center' | 'space-around' | 'space-between'
-    >,
-    default: undefined,
-  },
-  align: {
-    type: String as PropType<'top' | 'middle' | 'bottom'>,
+  menu: {
+    type: Object as PropType<IFormMenuColumns>,
     default: undefined,
   },
 }
