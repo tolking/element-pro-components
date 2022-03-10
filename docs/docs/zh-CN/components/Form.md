@@ -125,26 +125,26 @@ meta:
 
 ### 配置
 
-| 参数                    | 说明                                                                    | 类型    | 可选值                                              | 默认值 |
-| :---------------------- | :---------------------------------------------------------------------- | :------ | :-------------------------------------------------- | :----- |
-| v-model                 | 绑定值                                                                  | object  | -                                                   | -      |
-| columns                 | 表单配置参考下面 `columns`                                              | array   | -                                                   | -      |
-| menu                    | 按钮配置参考下面 `menu`                                                 | object  | -                                                   | -      |
-| rules                   | 表单验证规则                                                            | object  | -                                                   | -      |
-| inline                  | 行内表单模式                                                            | boolean | -                                                   | false  |
-| label-position          | 表单域标签的位置，如果值为 left 或者 right 时，则需要设置 `label-width` | string  | right / left / top                                  | right  |
-| label-width             | 表单域标签的宽度，例如 '50px' 或 'auto'                                 | string  | -                                                   | -      |
-| label-suffix            | 表单域标签的后缀                                                        | string  | -                                                   | -      |
-| hide-required-asterisk  | 是否显示必填字段的标签旁边的红色星号                                    | boolean | -                                                   | false  |
-| show-message            | 是否显示校验错误信息                                                    | boolean | -                                                   | true   |
-| inline-message          | 是否以行内形式展示校验信息                                              | boolean | -                                                   | false  |
-| status-icon             | 是否在输入框中显示校验结果反馈图标                                      | boolean | -                                                   | false  |
-| validate-on-rule-change | 是否在 `rules` 属性改变后立即触发一次验证                               | boolean | -                                                   | true   |
-| size                    | 用于控制该表单内组件的尺寸                                              | string  | large / default /small                              | -      |
-| disabled                | 是否禁用该表单内的所有组件                                              | boolean | -                                                   | false  |
-| gutter                  | 栅格间隔                                                                | number  | -                                                   | 0      |
-| justify                 | flex 布局下的水平排列方式                                               | string  | start / end / center / space-around / space-between | start  |
-| align                   | flex 布局下的垂直排列方式                                               | string  | top / middle / bottom                               | top    |
+| 参数                    | 说明                                                                    | 类型    | 可选值                                                               | 默认值 |
+| :---------------------- | :---------------------------------------------------------------------- | :------ | :------------------------------------------------------------------- | :----- |
+| v-model                 | 绑定值                                                                  | object  | -                                                                    | -      |
+| columns                 | 表单配置参考下面 `columns`                                              | array   | -                                                                    | -      |
+| menu                    | 按钮配置参考下面 `menu`                                                 | object  | -                                                                    | -      |
+| rules                   | 表单验证规则                                                            | object  | -                                                                    | -      |
+| inline                  | 行内表单模式                                                            | boolean | -                                                                    | false  |
+| label-position          | 表单域标签的位置，如果值为 left 或者 right 时，则需要设置 `label-width` | string  | right / left / top                                                   | right  |
+| label-width             | 表单域标签的宽度，例如 '50px' 或 'auto'                                 | string  | -                                                                    | -      |
+| label-suffix            | 表单域标签的后缀                                                        | string  | -                                                                    | -      |
+| hide-required-asterisk  | 是否显示必填字段的标签旁边的红色星号                                    | boolean | -                                                                    | false  |
+| show-message            | 是否显示校验错误信息                                                    | boolean | -                                                                    | true   |
+| inline-message          | 是否以行内形式展示校验信息                                              | boolean | -                                                                    | false  |
+| status-icon             | 是否在输入框中显示校验结果反馈图标                                      | boolean | -                                                                    | false  |
+| validate-on-rule-change | 是否在 `rules` 属性改变后立即触发一次验证                               | boolean | -                                                                    | true   |
+| size                    | 用于控制该表单内组件的尺寸                                              | string  | large / default /small                                               | -      |
+| disabled                | 是否禁用该表单内的所有组件                                              | boolean | -                                                                    | false  |
+| gutter                  | 栅格间隔                                                                | number  | -                                                                    | 0      |
+| justify                 | flex 布局下的水平排列方式                                               | string  | start / end / center / space-around / space-between / spacing-evenly | start  |
+| align                   | flex 布局下的垂直排列方式                                               | string  | top / middle / bottom                                                | top    |
 
 #### columns 的参数
 
