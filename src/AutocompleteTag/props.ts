@@ -1,6 +1,6 @@
 import { autocompleteProps } from 'element-plus'
+import { objectOmit } from '../utils/index'
 import { commonProps } from '../InputTag/props'
-import { objectOmit } from '../utils'
 
 const props = objectOmit(autocompleteProps, 'modelValue')
 
