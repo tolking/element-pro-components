@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, VNode, Slot } from 'vue'
+import { computed, defineComponent, h, VNode, Slot, mergeProps } from 'vue'
 import { reactivePick } from '@vueuse/core'
 import { ElDialog, ElButton, useAttrs, DialogProps } from 'element-plus'
 import {
@@ -173,11 +173,10 @@ export default defineComponent({
         list.push(
           h(
             ElButton,
-            {
-              ...menuColumns.value.addProps,
+            mergeProps(menuColumns.value.addProps || {}, {
               size: props.size,
               onClick: () => openForm('add'),
-            },
+            }),
             () => menuColumns.value?.addText || ''
           )
         )
@@ -205,17 +204,14 @@ export default defineComponent({
 
       return h(
         ProTable,
-        {
-          ...tableProps,
-          ...pagination.value,
-          ...attrs.value,
+        mergeProps(tableProps, pagination.value, attrs.value, {
           ref: table,
           menu: menuColumns.value,
           columns: tableColumns.value,
           class: 'pro-crud-table pro-table',
           'onUpdate:pageSize': sizeChange,
           'onUpdate:currentPage': currentChange,
-        },
+        }),
         Object.assign({}, tableSlots, menuSlots)
       )
     }
@@ -227,11 +223,10 @@ export default defineComponent({
         list.push(
           h(
             ElButton,
-            {
-              ...menuColumns.value.editProps,
+            mergeProps(menuColumns.value.editProps || {}, {
               size: props.size,
               onClick: () => openForm('edit', scope.row),
-            },
+            }),
             () => menuColumns.value?.editText || ''
           )
         )
@@ -240,11 +235,10 @@ export default defineComponent({
         list.push(
           h(
             ElButton,
-            {
-              ...menuColumns.value.delProps,
+            mergeProps(menuColumns.value.delProps || {}, {
               size: props.size,
               onClick: () => delRow(scope.row),
-            },
+            }),
             () => menuColumns.value?.delText || ''
           )
         )
@@ -260,17 +254,13 @@ export default defineComponent({
       if (!formColumns.value?.length) return null
       return h(
         ElDialog,
-        {
-          ...dialogProps,
-          ...bindDialog.value,
+        mergeProps(dialogProps, bindDialog.value, {
           modelValue: dialogVisible.value,
-        } as DialogProps,
+        }) as DialogProps,
         () =>
           h(
             ProForm,
-            {
-              ...formProps,
-              ...attrs.value,
+            mergeProps(formProps, attrs.value, {
               ref: form,
               columns: formColumns.value,
               menu: menuColumns.value,
@@ -278,7 +268,7 @@ export default defineComponent({
               'onUpdate:modelValue': upFormData,
               onSubmit: submitForm,
               onReset: resetForm,
-            },
+            }),
             formSlots
           )
       )

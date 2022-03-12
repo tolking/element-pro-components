@@ -1,4 +1,4 @@
-import { defineComponent, h, Slot } from 'vue'
+import { defineComponent, h, mergeProps, Slot } from 'vue'
 import { reactiveOmit } from '@vueuse/core'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
 import { get } from '../utils/index'
@@ -54,19 +54,12 @@ export default defineComponent({
     }
 
     return () =>
-      h(
-        ElDescriptions,
-        {
-          ...confog,
-          class: 'pro-descriptions',
-        },
-        {
-          default: () => createDefault(),
-          title: () =>
-            slots['title'] ? slots['title']({ size: props.size }) : null,
-          extra: () =>
-            slots['extra'] ? slots['extra']({ size: props.size }) : null,
-        }
-      )
+      h(ElDescriptions, mergeProps(confog, { class: 'pro-descriptions' }), {
+        default: () => createDefault(),
+        title: () =>
+          slots['title'] ? slots['title']({ size: props.size }) : null,
+        extra: () =>
+          slots['extra'] ? slots['extra']({ size: props.size }) : null,
+      })
   },
 })

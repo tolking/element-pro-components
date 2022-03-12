@@ -9,6 +9,7 @@ import {
   Transition,
   KeepAlive,
   VNode,
+  mergeProps,
 } from 'vue'
 import { RouterView, RouteRecordRaw } from 'vue-router'
 import { ElScrollbar } from 'element-plus'
@@ -47,10 +48,7 @@ export default defineComponent({
 
       return h(
         ProMenu,
-        {
-          ...config,
-          collapse: collapse.value,
-        },
+        mergeProps(config, { collapse: collapse.value }),
         menuSlots
       )
     }

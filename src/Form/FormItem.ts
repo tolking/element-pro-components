@@ -1,4 +1,13 @@
-import { defineComponent, h, toRefs, markRaw, PropType, Slot, VNode } from 'vue'
+import {
+  defineComponent,
+  h,
+  toRefs,
+  markRaw,
+  PropType,
+  Slot,
+  VNode,
+  mergeProps,
+} from 'vue'
 import { ElFormItem, ElButton } from 'element-plus'
 import { Plus, Minus } from '@element-plus/icons-vue'
 import { useFormItemBind, useFormChild, useCol } from '../composables/index'
@@ -120,12 +129,14 @@ export default defineComponent({
         )
       } else {
         list.push(
-          h(ProFormComponent, {
-            ...item.value.props,
-            is: item.value.component,
-            modelValue: currentValue,
-            'onUpdate:modelValue': upData,
-          })
+          h(
+            ProFormComponent,
+            mergeProps(item.value.props || {}, {
+              is: item.value.component,
+              modelValue: currentValue,
+              'onUpdate:modelValue': upData,
+            })
+          )
         )
       }
 
@@ -135,12 +146,11 @@ export default defineComponent({
     return () =>
       h(
         ElFormItem,
-        {
-          ...bindItem.value,
+        mergeProps(bindItem.value, {
           prop: hasChild.value ? undefined : prop.value,
           style: !inline.value ? colStyle.value : undefined,
           class: ['pro-form-item', !inline.value ? colClass.value : ''],
-        },
+        }),
         {
           label: () => createLabel(),
           error: (scope: UnknownObject) => createError(scope),

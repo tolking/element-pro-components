@@ -1,4 +1,4 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import { reactiveOmit, reactivePick } from '@vueuse/core'
 import { ElSelect, ElOption, ElTree, useAttrs } from 'element-plus'
 import { useSelectData, useTreeSelect } from '../composables/index'
@@ -66,9 +66,7 @@ export default defineComponent({
         () =>
           h(
             ElTree,
-            {
-              ...treeProps,
-              ...attrs.value,
+            mergeProps(treeProps, attrs.value, {
               ref: tree,
               data: data.value,
               showCheckbox: multiple?.value,
@@ -80,7 +78,7 @@ export default defineComponent({
               class: 'pro-tree-select-tree',
               onNodeClick: upData,
               onCheckChange: upData,
-            },
+            }),
             {
               default: (scope: TreeScope) => {
                 if (slots.default) {
@@ -117,8 +115,7 @@ export default defineComponent({
     return () =>
       h(
         ElSelect,
-        {
-          ...selectProps,
+        mergeProps(selectProps, {
           modelValue: modelValue?.value,
           multiple: multiple?.value,
           filterable: filterable?.value,
@@ -128,7 +125,7 @@ export default defineComponent({
           onVisibleChange: togglePopper,
           onRemoveTag: remove,
           onClear: clear,
-        },
+        }),
         () => [createTree(), createList()]
       )
   },

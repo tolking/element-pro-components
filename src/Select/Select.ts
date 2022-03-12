@@ -1,4 +1,4 @@
-import { defineComponent, h, VNode } from 'vue'
+import { defineComponent, h, mergeProps, VNode } from 'vue'
 import { reactiveOmit } from '@vueuse/core'
 import { ElSelect, ElOptionGroup, ElOption } from 'element-plus'
 import { useSelectData, useEmitValue } from '../composables/index'
@@ -42,11 +42,10 @@ export default defineComponent({
     return () =>
       h(
         ElSelect,
-        {
-          ...config,
+        mergeProps(config, {
           class: 'pro-select',
           'onUpdate:modelValue': emitValue,
-        },
+        }),
         () => createDefault()
       )
   },
