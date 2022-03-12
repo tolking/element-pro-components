@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, toRefs, VNode } from 'vue'
+import { computed, defineComponent, h, mergeProps, toRefs, VNode } from 'vue'
 import { reactivePick } from '@vueuse/core'
 import { ElForm, ElFormItem, ElButton } from 'element-plus'
 import {
@@ -75,11 +75,10 @@ export default defineComponent({
         list.push(
           h(
             ElButton,
-            {
-              ...menu.value.submitProps,
+            mergeProps(menu.value.submitProps || {}, {
               loading: loading.value,
               onClick: submitForm,
-            },
+            }),
             () => menu.value.submitText
           )
         )
@@ -88,11 +87,10 @@ export default defineComponent({
         list.push(
           h(
             ElButton,
-            {
-              ...menu.value.resetProps,
+            mergeProps(menu.value.resetProps || {}, {
               loading: loading.value,
               onClick: () => resetForm(),
-            },
+            }),
             () => menu.value.resetText
           )
         )
@@ -107,15 +105,14 @@ export default defineComponent({
     return () =>
       h(
         ElForm,
-        {
-          ...config,
+        mergeProps(config, {
           ref: form,
           model: modelValue.value,
           inline: inline.value,
           labelPosition: labelPosition.value,
           style: !inline.value ? rowStyle.value : undefined,
           class: ['pro-form', !inline.value ? rowClass.value : ''],
-        },
+        }),
         () => [createColumn(), slots.default && slots.default(), createMenu()]
       )
   },

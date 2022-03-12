@@ -1,4 +1,4 @@
-import { defineComponent, h, VNode } from 'vue'
+import { defineComponent, h, mergeProps, VNode } from 'vue'
 import { reactiveOmit } from '@vueuse/core'
 import { ElCheckboxGroup, ElCheckbox } from 'element-plus'
 import { useSelectData, useEmitValue } from '../composables/index'
@@ -18,11 +18,10 @@ export function createDefault<T>(
   return () =>
     h(
       ElCheckboxGroup,
-      {
-        ...config,
+      mergeProps(config, {
         class: className,
         'onUpdate:modelValue': emitValue,
-      },
+      }),
       () =>
         data.value.map((item) => {
           return h(

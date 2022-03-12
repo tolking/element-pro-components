@@ -1,4 +1,4 @@
-import { defineComponent, computed, h, toRefs } from 'vue'
+import { defineComponent, computed, h, toRefs, mergeProps } from 'vue'
 import { reactiveOmit } from '@vueuse/core'
 import { ElDropdown, ElDropdownMenu, ElButton, ElTree } from 'element-plus'
 import { Setting } from '@element-plus/icons-vue'
@@ -43,18 +43,20 @@ export default defineComponent({
 
     function createMenu() {
       return h(ElDropdownMenu, null, () =>
-        h(ElTree, {
-          ...config,
-          data: modelValue.value,
-          defaultCheckedKeys: checkedKeys.value,
-          showCheckbox: true,
-          checkStrictly: true,
-          draggable: true,
-          nodeKey: 'prop',
-          class: 'pro-column-setting-tree',
-          onNodeDragEnd: handleDropEnd,
-          onCheck: handleCheckChange,
-        })
+        h(
+          ElTree,
+          mergeProps(config, {
+            data: modelValue.value,
+            defaultCheckedKeys: checkedKeys.value,
+            showCheckbox: true,
+            checkStrictly: true,
+            draggable: true,
+            nodeKey: 'prop',
+            class: 'pro-column-setting-tree',
+            onNodeDragEnd: handleDropEnd,
+            onCheck: handleCheckChange,
+          })
+        )
       )
     }
 

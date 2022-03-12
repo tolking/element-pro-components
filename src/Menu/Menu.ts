@@ -2,6 +2,7 @@ import {
   DefineComponent,
   defineComponent,
   h,
+  mergeProps,
   resolveDynamicComponent,
 } from 'vue'
 import { useRoute, RouteRecordRaw } from 'vue-router'
@@ -67,11 +68,10 @@ export default defineComponent({
     return () =>
       h(
         ElMenu,
-        {
-          ...props,
+        mergeProps(props, {
           defaultActive: route?.path,
           class: 'pro-menu',
-        },
+        }),
         () => createList(routes.value)
       )
   },

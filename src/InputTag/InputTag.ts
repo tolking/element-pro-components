@@ -1,4 +1,4 @@
-import { defineComponent, h, VNode } from 'vue'
+import { defineComponent, h, mergeProps, VNode } from 'vue'
 import { ElInput, ElTag } from 'element-plus'
 import { useInputTag, InputTagCore } from '../composables/index'
 import { modelValueEmit } from '../utils/index'
@@ -8,28 +8,28 @@ export function createDefault<T>(component: T, core: InputTagCore): VNode[] {
   const vNode: VNode[] = core.list.value.map((item, index) =>
     h(
       ElTag,
-      {
-        ...core.tagProps,
+      mergeProps(core.tagProps, {
         size: core.size.value,
         closable: core.closable.value,
         onClose: () => core.close(index),
-      },
+      }),
       () => item
     )
   )
   vNode.push(
-    h(component, {
-      ...core.inputProps,
-      ...core.attrs.value,
-      modelValue: core.input.value,
-      size: core.size.value,
-      disabled: core.disabled.value,
-      type: 'text',
-      onSelect: core.add,
-      onBlur: core.add,
-      onKeyup: core.keyup,
-      'onUpdate:modelValue': core.change,
-    })
+    h(
+      component,
+      mergeProps(core.inputProps, core.attrs.value, {
+        modelValue: core.input.value,
+        size: core.size.value,
+        disabled: core.disabled.value,
+        type: 'text',
+        onSelect: core.add,
+        onBlur: core.add,
+        onKeyup: core.keyup,
+        'onUpdate:modelValue': core.change,
+      })
+    )
   )
   return vNode
 }
