@@ -3,8 +3,7 @@ import { objectOmit } from '../utils/index'
 import form from '../Form/props'
 import table from '../Table/props'
 import type { PropType } from 'vue'
-import type { FormRulesMap } from 'element-plus/lib/components/form/src/form.type'
-import type { IFormColumns } from '../Form/index'
+import type { IFormProps, IFormColumns } from '../Form/index'
 import type { ITableColumns } from '../Table/index'
 import type {
   ICrudColumns,
@@ -62,7 +61,7 @@ export default {
     default: undefined,
   },
   searchRules: {
-    type: Object as PropType<FormRulesMap>,
+    type: Object as PropType<IFormProps['rules']>,
     default: undefined,
   },
   beforeOpen: {
