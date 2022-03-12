@@ -1,5 +1,5 @@
 import {
-  checkUrl,
+  isURL,
   getScreenSize,
   objectDeepMerge,
   objectPick,
@@ -10,15 +10,15 @@ import {
 import { slotList, SlotItem } from './mock'
 
 describe('all utils', () => {
-  describe('checkUrl', () => {
-    test('checkUrl https://ououe.com', () => {
-      expect(checkUrl('https://ououe.com')).toBeTruthy()
+  describe('isURL', () => {
+    test('isURL https://ououe.com', () => {
+      expect(isURL('https://ououe.com')).toBeTruthy()
     })
-    test('checkUrl http://ououe.com', () => {
-      expect(checkUrl('https://ououe.com')).toBeTruthy()
+    test('isURL http://ououe.com', () => {
+      expect(isURL('https://ououe.com')).toBeTruthy()
     })
-    test('checkUrl /children', () => {
-      expect(checkUrl('/children')).toBeFalsy()
+    test('isURL /children', () => {
+      expect(isURL('/children')).toBeFalsy()
     })
   })
 

@@ -1,5 +1,5 @@
 import { computed, ComputedRef } from 'vue'
-import { checkUrl } from '../utils/index'
+import { isURL } from '../utils/index'
 import type { ILinkProps } from '../Link'
 
 export function useLink(
@@ -19,12 +19,12 @@ export function useLink(
   >
 } {
   const type = computed(() => {
-    return props.to ? (checkUrl(props.to) ? 'a' : 'router-link') : 'span'
+    return props.to ? (isURL(props.to) ? 'a' : 'router-link') : 'span'
   })
 
   const attr = computed(() => {
     return props.to
-      ? checkUrl(props.to)
+      ? isURL(props.to)
         ? {
             href: props.to,
             target: '_blank',

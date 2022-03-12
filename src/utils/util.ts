@@ -35,9 +35,9 @@ export function objectDeepMerge<T = UnknownObject, Q = T>(
 
 /**
  * Check the integrity of the url
- * @param url checkUrl
+ * @param url isURL
  */
-export function checkUrl(url: string): boolean {
+export function isURL(url: string): boolean {
   return /^((ht|f)tps?):\/\/?/.test(url)
 }
 
