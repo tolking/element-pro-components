@@ -1,47 +1,29 @@
+import { autocompleteProps } from 'element-plus'
+import { objectOmit } from '../utils/index'
 import { commonProps } from '../InputTag/props'
-import type { PropType } from 'vue'
-import type { ExternalParam } from '../types/index'
+
+const props = objectOmit(autocompleteProps, 'modelValue')
 
 export default {
   ...commonProps,
-  valueKey: {
+  ...props,
+  // TODO: miss some in autocompleteProps
+  placeholder: {
     type: String,
   },
-  debounce: {
-    type: Number,
+  disabled: {
+    type: Boolean,
+    default: undefined,
   },
-  placement: {
-    type: String as PropType<
-      'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end'
-    >,
-  },
-  fetchSuggestions: {
-    type: Function as PropType<
-      (queryString: string, cb: (data: ExternalParam[]) => void) => void
-    >,
-  },
-  popperClass: {
+  readonly: Boolean,
+  name: String,
+  label: {
     type: String,
-    default: '',
   },
-  triggerOnFocus: {
-    type: Boolean,
-    default: true,
+  suffixIcon: {
+    type: String,
   },
-  selectWhenUnmatched: {
-    type: Boolean,
-    default: false,
-  },
-  hideLoading: {
-    type: Boolean,
-    default: false,
-  },
-  teleported: {
-    type: Boolean,
-    default: true,
-  },
-  highlightFirstItem: {
-    type: Boolean,
-    default: false,
+  prefixIcon: {
+    type: String,
   },
 }

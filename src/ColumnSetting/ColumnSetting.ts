@@ -1,31 +1,14 @@
-import { defineComponent, computed, h, toRefs } from 'vue'
+import { defineComponent, computed, h, toRefs, mergeProps } from 'vue'
+import { reactiveOmit } from '@vueuse/core'
 import { ElDropdown, ElDropdownMenu, ElButton, ElTree } from 'element-plus'
 import { Setting } from '@element-plus/icons-vue'
 import { filterFlat, modelValueEmit } from '../utils/index'
-import props, { treeProps } from './props'
-import type { IDefineProps } from '../types/index'
+import props from './props'
 import type { ICrudColumns, CrudColumn } from '../Crud/index'
 import type { ITableColumns, TableColumn } from '../Table/index'
 
 type Columns = ICrudColumns | ITableColumns
 type Column = CrudColumn | TableColumn
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function createTreeProps(props: IDefineProps<typeof treeProps>) {
-  return {
-    emptyText: props.emptyText,
-    renderAfterExpand: props.renderAfterExpand,
-    expandOnClickNode: props.expandOnClickNode,
-    defaultExpandAll: props.defaultExpandAll,
-    checkOnClickNode: props.checkOnClickNode,
-    autoExpandParent: props.autoExpandParent,
-    allowDrag: props.allowDrag,
-    allowDrop: props.allowDrop,
-    accordion: props.accordion,
-    indent: props.indent,
-    iconClass: props.iconClass,
-  }
-}
 
 export default defineComponent({
   name: 'ProColumnSetting',
@@ -33,6 +16,13 @@ export default defineComponent({
   emits: modelValueEmit,
   setup(props, { emit }) {
     const { modelValue } = toRefs(props)
+    const config = reactiveOmit(
+      props,
+      'modelValue',
+      'trigger',
+      'placement',
+      'size'
+    )
     const checkedKeys = computed(() => {
       return filterFlat<Columns, string[]>(
         props.modelValue,
@@ -42,45 +32,32 @@ export default defineComponent({
       )
     })
 
-    function handleDropStart({ data }: { data: Column }) {
-      data.hide = !data.hide
-      emit('update:modelValue', modelValue)
-    }
-
-    function handleDropEnd({ data }: { data: Column }) {
-      data.hide = !data.hide
-      emit('update:modelValue', modelValue)
+    function handleDropEnd() {
+      emit('update:modelValue', modelValue.value)
     }
 
     function handleCheckChange(data: Column) {
       data.hide = !data.hide
-      emit('update:modelValue', modelValue)
+      emit('update:modelValue', modelValue.value)
     }
 
     function createMenu() {
-      return h(ElDropdownMenu, null, () => {
-        const config = createTreeProps(props)
-        return h(
+      return h(ElDropdownMenu, null, () =>
+        h(
           ElTree,
-          Object.assign(
-            {
-              data: modelValue.value,
-              defaultCheckedKeys: checkedKeys.value,
-              highlightCurrent: props.highlightCurrent,
-              filterNodeMethod: props.filterNodeMethod,
-              showCheckbox: true,
-              checkStrictly: true,
-              draggable: true,
-              nodeKey: 'prop',
-              class: 'pro-column-setting-tree',
-              onNodeDragStart: handleDropStart,
-              onNodeDragEnd: handleDropEnd,
-              onCheck: handleCheckChange,
-            },
-            config
-          )
+          mergeProps(config, {
+            data: modelValue.value,
+            defaultCheckedKeys: checkedKeys.value,
+            showCheckbox: true,
+            checkStrictly: true,
+            draggable: true,
+            nodeKey: 'prop',
+            class: 'pro-column-setting-tree',
+            onNodeDragEnd: handleDropEnd,
+            onCheck: handleCheckChange,
+          })
         )
-      })
+      )
     }
 
     return () =>

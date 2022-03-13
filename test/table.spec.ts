@@ -3,7 +3,7 @@ import { mount, VueWrapper } from '@vue/test-utils'
 import { ElTableColumn, PaginationProps } from 'element-plus'
 import ProTable from '../src/Table/Table'
 import { config } from '../src/utils/config'
-import { tableData, TableItem } from './mock'
+import { doubleWait, tableData, TableItem } from './mock'
 import type {
   ITableColumns,
   ITableIndexColumns,
@@ -25,11 +25,14 @@ const columns: ITableColumns = [
     prop: 'address',
   },
 ]
-const _mount = (options: Record<string, unknown>) =>
-  mount({
+const _mount = async (options: Record<string, unknown>) => {
+  const _mount = mount({
     components: { ProTable, ElTableColumn },
     ...options,
   })
+  await doubleWait()
+  return _mount
+}
 const headerClass =
   '.pro-table .el-table__header-wrapper .el-table__header thead tr'
 const getHeader = (wrapper: VueWrapper<ComponentPublicInstance>) =>
@@ -54,7 +57,7 @@ const getBodyClass = (wrapper: VueWrapper<ComponentPublicInstance>) =>
 const getCheckBox = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   wrapper.find(headerClass + ' th .cell .el-checkbox')
 const getPager = (wrapper: VueWrapper<ComponentPublicInstance>, classes = '') =>
-  wrapper.find('.el-pagination .el-pager .number' + classes)
+  wrapper.find('.pro-table .el-pagination .el-pager .number' + classes)
 const getSizesItem = (classes = '') =>
   document.querySelector(
     '.el-select__popper .el-select-dropdown__item' + classes
@@ -253,7 +256,7 @@ describe('Table', () => {
     expect(vm.currentPage).toBe(3)
 
     await (vm.currentPage = 1)
-    await expect(getPager(wrapper, '.active').text()).toBe('1')
+    await expect(getPager(wrapper, '.is-active').text()).toBe('1')
 
     await (vm.pageSize = 10)
     await wrapper

@@ -1,4 +1,5 @@
-import { computed, defineComponent, h, toRefs, VNode } from 'vue'
+import { computed, defineComponent, h, mergeProps, toRefs, VNode } from 'vue'
+import { reactivePick } from '@vueuse/core'
 import { ElForm, ElFormItem, ElButton } from 'element-plus'
 import {
   useFormMethods,
@@ -6,27 +7,9 @@ import {
   useFormMenu,
   useRow,
 } from '../composables/index'
-import props from './props'
+import props, { formKeys } from './props'
 import emits from './emits'
 import ProFormItem from './FormItem'
-import type { IFormProps } from './index'
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function createFormProps(props: Omit<IFormProps, 'menu' | 'align'>) {
-  return {
-    rules: props.rules,
-    labelWidth: props.labelWidth,
-    labelSuffix: props.labelSuffix,
-    hideRequiredAsterisk: props.hideRequiredAsterisk,
-    showMessage: props.showMessage,
-    inlineMessage: props.inlineMessage,
-    statusIcon: props.statusIcon,
-    validateOnRuleChange: props.validateOnRuleChange,
-    size: props.size,
-    disabled: props.disabled,
-    scrollToError: props.scrollToError,
-  }
-}
 
 export default defineComponent({
   name: 'ProForm',
@@ -54,6 +37,7 @@ export default defineComponent({
         ? 'top'
         : props.labelPosition
     })
+    const config = reactivePick(props, ...formKeys)
 
     expose({
       validate,
@@ -91,11 +75,10 @@ export default defineComponent({
         list.push(
           h(
             ElButton,
-            {
-              ...menu.value.submitProps,
+            mergeProps(menu.value.submitProps || {}, {
               loading: loading.value,
               onClick: submitForm,
-            },
+            }),
             () => menu.value.submitText
           )
         )
@@ -104,11 +87,10 @@ export default defineComponent({
         list.push(
           h(
             ElButton,
-            {
-              ...menu.value.resetProps,
+            mergeProps(menu.value.resetProps || {}, {
               loading: loading.value,
               onClick: () => resetForm(),
-            },
+            }),
             () => menu.value.resetText
           )
         )
@@ -120,23 +102,18 @@ export default defineComponent({
       return h(ElFormItem, { class: 'pro-form-menu' }, () => list)
     }
 
-    return () => {
-      const config = createFormProps(props)
-      return h(
+    return () =>
+      h(
         ElForm,
-        Object.assign(
-          {
-            ref: form,
-            model: modelValue.value,
-            inline: inline.value,
-            labelPosition: labelPosition.value,
-            style: !inline.value ? rowStyle.value : undefined,
-            class: ['pro-form', !inline.value ? rowClass.value : ''],
-          },
-          config
-        ),
+        mergeProps(config, {
+          ref: form,
+          model: modelValue.value,
+          inline: inline.value,
+          labelPosition: labelPosition.value,
+          style: !inline.value ? rowStyle.value : undefined,
+          class: ['pro-form', !inline.value ? rowClass.value : ''],
+        }),
         () => [createColumn(), slots.default && slots.default(), createMenu()]
       )
-    }
   },
 })

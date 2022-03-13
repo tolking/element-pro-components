@@ -2,6 +2,7 @@ import {
   DefineComponent,
   defineComponent,
   h,
+  mergeProps,
   resolveDynamicComponent,
 } from 'vue'
 import { useLink } from '../composables/index'
@@ -16,10 +17,7 @@ export default defineComponent({
     return () =>
       h(
         resolveDynamicComponent(type.value) as DefineComponent,
-        {
-          ...attr.value,
-          class: 'pro-link',
-        },
+        mergeProps(attr.value || {}, { class: 'pro-link' }),
         slots
       )
   },

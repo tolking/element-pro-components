@@ -1,6 +1,8 @@
 import { ComputedRef, computed, Ref, unref, shallowRef } from 'vue'
+import { reactivePick } from '@vueuse/core'
 import { useProOptions } from './index'
 import { filterDeep, isObject, objectDeepMerge } from '../utils/index'
+import { paginationKeys } from '../Table/props'
 import type { PaginationProps } from 'element-plus'
 import type {
   UnknownObject,
@@ -116,16 +118,11 @@ export function usePagination(
   sizeChange: (size: number) => void
   currentChange: (current: number) => void
 } {
+  const options = useProOptions()
+  const config = reactivePick(props, ...paginationKeys)
   const pagination = computed(() => {
-    const options = useProOptions()
-
     return objectDeepMerge(options.pagination, {
-      total: props.total,
-      pageSize: props.pageSize,
-      defaultPageSize: props.defaultPageSize,
-      currentPage: props.currentPage,
-      defaultCurrentPage: props.defaultCurrentPage,
-      pageCount: props.pageCount,
+      ...config,
       pagerCount:
         props.pagerCount === 7 && options.pagination.pagerCount
           ? options.pagination.pagerCount
@@ -140,13 +137,6 @@ export function usePagination(
         options.pagination.pageSizes
           ? options.pagination.pageSizes
           : props.pageSizes,
-      popperClass: props.popperClass,
-      prevText: props.prevText,
-      nextText: props.nextText,
-      small: props.small,
-      background: props.background,
-      disabled: props.disabled,
-      hideOnSinglePage: props.hideOnSinglePage,
     })
   })
 

@@ -1,10 +1,12 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
+import { reactiveOmit, reactivePick } from '@vueuse/core'
 import { ElSelect, ElOption, ElTree, useAttrs } from 'element-plus'
 import { useSelectData, useTreeSelect } from '../composables/index'
-import { createSelectProps } from '../Select/Select'
-import { createTreeProps } from '../ColumnSetting/ColumnSetting'
+import { treeProps } from '../ColumnSetting/props'
 import props from './props'
 import emits from './emits'
+
+type TreeKeys = Array<keyof typeof props>
 
 interface TreeScope {
   node: {
@@ -12,6 +14,13 @@ interface TreeScope {
     label: string
   }
 }
+const treeKeys = Object.keys(treeProps).concat([
+  'currentNodeKey',
+  'renderContent',
+  'draggable',
+  'lazy',
+  'load',
+]) as TreeKeys
 
 export default defineComponent({
   name: 'ProTreeSelect',
@@ -36,6 +45,15 @@ export default defineComponent({
       upData,
       clear,
     } = useTreeSelect(props, emit)
+    const treeProps = reactivePick(props, ...treeKeys)
+    const selectProps = reactiveOmit(
+      props,
+      'data',
+      'config',
+      'onlySelectLeaf',
+      'checkStrictly',
+      ...treeKeys
+    )
 
     function createTree() {
       return h(
@@ -45,32 +63,22 @@ export default defineComponent({
           label: label.value,
           class: 'pro-tree-select-options',
         },
-        () => {
-          const config = createTreeProps(props)
-          return h(
+        () =>
+          h(
             ElTree,
-            Object.assign(
-              {
-                ref: tree,
-                data: data.value,
-                showCheckbox: multiple?.value,
-                checkStrictly: checkStrictly?.value,
-                defaultExpandedKeys: expandedKeys?.value,
-                filterNodeMethod: filter,
-                highlightCurrent: true,
-                currentNodeKey: props.currentNodeKey,
-                renderContent: props.renderContent,
-                draggable: props.draggable,
-                lazy: props.lazy,
-                load: props.load,
-                nodeKey: 'value',
-                class: 'pro-tree-select-tree',
-                onNodeClick: upData,
-                onCheckChange: upData,
-              },
-              config,
-              attrs.value
-            ),
+            mergeProps(treeProps, attrs.value, {
+              ref: tree,
+              data: data.value,
+              showCheckbox: multiple?.value,
+              checkStrictly: checkStrictly?.value,
+              defaultExpandedKeys: expandedKeys?.value,
+              filterNodeMethod: filter,
+              highlightCurrent: true,
+              nodeKey: 'value',
+              class: 'pro-tree-select-tree',
+              onNodeClick: upData,
+              onCheckChange: upData,
+            }),
             {
               default: (scope: TreeScope) => {
                 if (slots.default) {
@@ -90,7 +98,6 @@ export default defineComponent({
               },
             }
           )
-        }
       )
     }
 
@@ -105,26 +112,21 @@ export default defineComponent({
       })
     }
 
-    return () => {
-      const config = createSelectProps(props)
-      return h(
+    return () =>
+      h(
         ElSelect,
-        Object.assign(
-          {
-            modelValue: modelValue?.value,
-            multiple: multiple?.value,
-            filterable: filterable?.value,
-            filterMethod: tree.value.filter,
-            popperClass: 'pro-tree-select-popper',
-            class: 'pro-tree-select',
-            onVisibleChange: togglePopper,
-            onRemoveTag: remove,
-            onClear: clear,
-          },
-          config
-        ),
+        mergeProps(selectProps, {
+          modelValue: modelValue?.value,
+          multiple: multiple?.value,
+          filterable: filterable?.value,
+          filterMethod: tree.value.filter,
+          popperClass: 'pro-tree-select-popper',
+          class: 'pro-tree-select',
+          onVisibleChange: togglePopper,
+          onRemoveTag: remove,
+          onClear: clear,
+        }),
         () => [createTree(), createList()]
       )
-    }
   },
 })

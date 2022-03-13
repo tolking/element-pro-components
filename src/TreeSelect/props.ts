@@ -16,10 +16,6 @@ export default {
   onlySelectLeaf: Boolean,
   checkStrictly: Boolean,
   checkOnClickNode: Boolean,
-  checkDescendants: {
-    type: Boolean,
-    default: false,
-  },
   currentNodeKey: [String, Number] as PropType<string | number>,
   renderContent: Function,
   draggable: {

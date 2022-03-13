@@ -1,40 +1,10 @@
-import { defineComponent, h, VNode } from 'vue'
+import { defineComponent, h, mergeProps, VNode } from 'vue'
+import { reactiveOmit } from '@vueuse/core'
 import { ElSelect, ElOptionGroup, ElOption } from 'element-plus'
 import { useSelectData, useEmitValue } from '../composables/index'
 import { modelValueEmit } from '../utils/index'
 import props from './props'
-import type { ISelectProps, SelectDataItem } from './index'
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function createSelectProps(props: ISelectProps) {
-  return {
-    name: props.name,
-    id: props.id,
-    autocomplete: props.autocomplete,
-    automaticDropdown: props.automaticDropdown,
-    size: props.size,
-    disabled: props.disabled,
-    clearable: props.clearable,
-    allowCreate: props.allowCreate,
-    loading: props.loading,
-    remote: props.remote,
-    loadingText: props.loadingText,
-    noMatchText: props.noMatchText,
-    noDataText: props.noDataText,
-    remoteMethod: props.remoteMethod,
-    multipleLimit: props.multipleLimit,
-    placeholder: props.placeholder,
-    defaultFirstOption: props.defaultFirstOption,
-    reserveKeyword: props.reserveKeyword,
-    valueKey: props.valueKey,
-    collapseTags: props.collapseTags,
-    teleported: props.teleported,
-    clearIcon: props.clearIcon,
-    fitInputWidth: props.fitInputWidth,
-    suffixIcon: props.suffixIcon,
-    tagType: props.tagType,
-  }
-}
+import type { SelectDataItem } from './index'
 
 export default defineComponent({
   name: 'ProSelect',
@@ -43,6 +13,7 @@ export default defineComponent({
   setup(props, { slots }) {
     const data = useSelectData(props)
     const emitValue = useEmitValue()
+    const config = reactiveOmit(props, 'data', 'config')
 
     function createOption(item: SelectDataItem): VNode {
       return h(
@@ -68,24 +39,14 @@ export default defineComponent({
       })
     }
 
-    return () => {
-      const config = createSelectProps(props)
-      return h(
+    return () =>
+      h(
         ElSelect,
-        Object.assign(
-          {
-            modelValue: props.modelValue,
-            filterable: props.filterable,
-            popperClass: props.popperClass,
-            filterMethod: props.filterMethod,
-            multiple: props.multiple,
-            class: 'pro-select',
-            'onUpdate:modelValue': emitValue,
-          },
-          config
-        ),
+        mergeProps(config, {
+          class: 'pro-select',
+          'onUpdate:modelValue': emitValue,
+        }),
         () => createDefault()
       )
-    }
   },
 })
