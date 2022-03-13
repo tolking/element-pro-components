@@ -5,15 +5,17 @@
 [![Github last commit](https://img.shields.io/github/last-commit/tolking/element-pro-components.svg?&style=flat-square&logo=github)](https://github.com/tolking/element-pro-components/commits)
 [![Latest tag via GitHub](https://img.shields.io/github/v/tag/tolking/element-pro-components.svg?sort=semver&style=flat-square&logo=github)](https://github.com/tolking/element-pro-components/tags)
 
-# element-pro-components (Beta)
+# element-pro-components (rc)
 
 > a component library for Vue 3 base on element-plus
 
-[Documentation](https://tolking.github.io/element-pro-components) | [Changelog](./CHANGELOG.md)
+[Documentation](https://tolking.github.io/element-pro-components) | [Template](https://github.com/tolking/element-admin-template) | [Changelog](./CHANGELOG.md)
 
 ## Installation
 
 ```sh
+pnpm add element-pro-components
+# or
 yarn add element-pro-components
 # or
 npm i element-pro-components
@@ -38,14 +40,14 @@ createApp(App).use(ElementPro).mount('#app')
 
 ## Development project
 
-nodejs ^12
+nodejs ^12.2
 
 start
 
 ```bash
-yarn
+pnpm install
 
-yarn dev
+pnpm dev
 ```
 
 then, preview on `http://localhost:3000/`
@@ -53,13 +55,13 @@ then, preview on `http://localhost:3000/`
 test build
 
 ```bash
-yarn build
+pnpm build
 ```
 
 before push
 
 ```bash
-yarn test
+pnpm test
 ```
 
 [commit-convention](https://github.com/vuejs/vue-next/blob/master/.github/commit-convention.md)

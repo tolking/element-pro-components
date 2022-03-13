@@ -7,6 +7,8 @@ meta:
 
 # 快速上手
 
+你可以直接使用已经准备好的[模版项目](https://github.com/tolking/element-admin-template)快速开始，或者参考下面内容自行搭建
+
 ## 准备
 
 在开始前你可能需要 vue3 版本脚手架工具
