@@ -1,6 +1,6 @@
 {
   "name": "element-pro-components",
-  "version": "0.18.1",
+  "version": "0.18.2",
   "description": "a component library for Vue 3 base on element-plus",
   "main": "lib/element-pro-components.umd.js",
   "module": "lib/element-pro-components.es.js",
@@ -46,7 +46,7 @@
     "vue",
     "ui"
   ],
-  "author": "<tolking qw13131wang@gmail.com>",
+  "author": "tolking <qw13131wang@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/tolking/element-pro-components/issues"
@@ -62,7 +62,7 @@
     "@element-plus/icons-vue": "^1.1.1",
     "@vue/shared": "^3.2.31",
     "@vueuse/core": "^7.7.1",
-    "element-plus": "^2.0.6",
+    "element-plus": "^2.1.0",
     "lodash": "^4.17.21",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14"

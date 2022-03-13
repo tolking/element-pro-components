@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.18.2
+
+breaking changes
+
+- rename checkUrl to isURL
+
+feat
+
+- InputTag|AutocompleteTag: sync the style chang
+
+other
+
+- refacto: rewite props
+
 ## 0.18.1
 
 fix

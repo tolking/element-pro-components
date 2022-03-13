@@ -7,6 +7,8 @@ meta:
 
 # Quick start
 
+You can refer to the [template project](https://github.com/tolking/element-admin-template) to use, or build it yourself through the following content
+
 ## Ready
 
 You may need the vue3 version of the scaffolding tool before you start
