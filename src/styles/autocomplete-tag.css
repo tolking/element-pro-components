@@ -4,7 +4,7 @@
   align-items: center;
   border-radius: var(--el-border-radius-base);
   box-shadow: 0 0 0 1px var(--el-border-color-base) inset;
-  background-color: var(--el-bg-color);
+  background-color: var(--el-fill-color-light);
   & .el-tag {
     margin: 3px;
   }

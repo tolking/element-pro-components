@@ -86,7 +86,7 @@ function handleScroll() {
 <style>
 .pro-code {
   margin: 1rem 0;
-  border: var(--el-border-base);
+  border: var(--el-border);
   border-radius: var(--el-border-radius-base);
   background: var(--el-color-white);
   transition: var(--el-transition-all);
@@ -100,14 +100,14 @@ function handleScroll() {
 .pro-code .meta {
   padding: 0 10px;
   height: 0;
-  background-color: var(--el-bg-color);
+  background-color: var(--el-fill-color-light);
   overflow: hidden;
   transition: var(--el-transition-all);
 }
 .pro-code .meta .description {
   padding: 20px;
   margin: 10px 0;
-  border: var(--el-border-base);
+  border: var(--el-border);
   box-sizing: border-box;
   background: var(--el-color-white);
   font-size: 14px;
@@ -136,8 +136,8 @@ function handleScroll() {
   justify-content: center;
   height: 44px;
   box-sizing: border-box;
-  border-top: var(--el-border-base);
-  border-bottom: var(--el-border-base);
+  border-top: var(--el-border);
+  border-bottom: var(--el-border);
   border-bottom-left-radius: var(--el-border-radius-base);
   border-bottom-right-radius: var(--el-border-radius-base);
   background: var(--el-color-white);
@@ -153,7 +153,7 @@ function handleScroll() {
   bottom: 0;
 }
 .pro-code .control:hover {
-  background-color: var(--el-bg-color);
+  background-color: var(--el-fill-color-light);
   color: var(--el-color-primary);
 }
 .pro-code .control .control-icon {
