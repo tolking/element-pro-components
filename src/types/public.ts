@@ -59,6 +59,8 @@ export type ExternalParam = any
 
 export type IsAny<T> = 0 extends T & 1 ? true : false
 
+export type Mutable<T> = { -readonly [P in keyof T]: T[P] }
+
 export type IScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 export type IDefinePlugin<T> = T & Plugin

@@ -13,6 +13,8 @@ declare module '*.md' {
 declare module 'prismjs'
 declare module 'prismjs/components/index'
 declare module 'escape-html'
+declare module '@docsearch/js'
+declare module 'virtual:pwa-register/vue'
 
 interface ImportMeta {
   env: {

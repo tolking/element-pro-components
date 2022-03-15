@@ -2,6 +2,7 @@ import type { VNode } from 'vue'
 import type { Placement } from 'element-plus'
 import type {
   UnknownFunction,
+  UnknownObject,
   DeepKeyof,
   MaybeArray,
   ExternalParam,
@@ -19,7 +20,8 @@ export interface TableColumnsProps {
 }
 
 export interface TableCommonColumn<T = ExternalParam>
-  extends TableColumnsProps {
+  extends UnknownObject,
+    TableColumnsProps {
   /** column label */
   label?: string
   /** column width */

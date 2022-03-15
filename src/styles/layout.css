@@ -7,7 +7,7 @@ body {
     display: flex;
   }
   &.layout-topmenu {
-    background-color: var(--el-bg-color);
+    background-color: var(--el-fill-color-light);
   }
   &.fixed-main {
     height: var(--pro-layout-height);
@@ -18,7 +18,7 @@ body {
     display: flex;
     flex-direction: column;
     width: calc(100% - var(--pro-layout-width-aside));
-    background-color: var(--el-bg-color);
+    background-color: var(--el-fill-color-light);
   }
   & .aside-collapse + .pro-container {
     width: calc(100% - var(--pro-layout-width-aside-collapse));
@@ -36,14 +36,14 @@ body {
       flex-direction: column;
       width: var(--pro-layout-width-aside);
       height: 100%;
-      border-right: var(--el-border-base);
+      border-right: var(--el-border);
       background-color: var(--pro-layout-aside-background-color);
       transition: var(--el-transition-all);
       & .pro-aside-logo {
         padding-left: 20px;
         height: var(--pro-layout-height-header);
         min-height: var(--pro-layout-height-header);
-        border-bottom: var(--el-border-base);
+        border-bottom: var(--el-border);
         background-color: var(--pro-layout-aside-background-color);
         overflow: hidden;
       }
@@ -110,7 +110,7 @@ body {
       padding: 0 20px;
       height: var(--pro-layout-height-header);
       min-height: var(--pro-layout-height-header);
-      border-bottom: var(--el-border-base);
+      border-bottom: var(--el-border);
       background-color: var(--pro-layout-header-background-color);
     }
     & .header-slot {
@@ -154,7 +154,7 @@ body {
     flex: 1;
     margin: var(--pro-layout-main-margin);
     padding: var(--pro-layout-main-padding);
-    border: var(--el-border-base);
+    border: var(--el-border);
     border-radius: var(--el-border-radius-base);
     background-color: var(--pro-layout-main-background-color);
     &.el-scrollbar .el-scrollbar__wrap {

@@ -1,6 +1,11 @@
-import type { ExternalParam, IsAny, DeepKeyof } from '../types/index'
+import type {
+  ExternalParam,
+  IsAny,
+  DeepKeyof,
+  UnknownObject,
+} from '../types/index'
 
-interface DescriptionsColumn<T = ExternalParam> {
+interface DescriptionsColumn<T = ExternalParam> extends UnknownObject {
   prop: IsAny<T> extends true ? string : DeepKeyof<T>
   label?: string
   span?: number

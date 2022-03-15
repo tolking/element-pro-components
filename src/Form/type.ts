@@ -1,12 +1,12 @@
 import type { Component } from 'vue'
-import type { ButtonProps, ColProps, FormItemRule } from 'element-plus'
-import type { ComponentSize } from 'element-plus/lib/constants/index'
+import type { ButtonProps, ColProps, FormItemProps } from 'element-plus'
 import type {
   UnknownObject,
   DeepKeyof,
   MaybeArray,
   ExternalParam,
   IsAny,
+  Mutable,
 } from '../types/index'
 
 export interface InvalidFields {
@@ -14,7 +14,9 @@ export interface InvalidFields {
 }
 
 export interface FormColumn<T = ExternalParam>
-  extends Partial<Omit<ColProps, 'tag'>> {
+  extends UnknownObject,
+    Mutable<Partial<Omit<FormItemProps, 'prop'>>>,
+    Partial<Omit<ColProps, 'tag'>> {
   /** component name */
   component?: string | Component
   /** props for component */
@@ -25,22 +27,6 @@ export interface FormColumn<T = ExternalParam>
   max?: number
   /** keys of model that passed to form */
   prop: IsAny<T> extends true ? string : DeepKeyof<T>
-  /** label name */
-  label?: string
-  /** width of label, e.g. '50px'. Width auto is supported */
-  labelWidth?: string
-  /** whether the field is required or not, will be determined by validation rules if omitted */
-  required?: boolean
-  /** validation rules of form */
-  rules?: MaybeArray<FormItemRule>
-  /** field error message, set its value and the field will validate error and show this message immediately */
-  error?: string
-  /** whether to show the error message */
-  showMessage?: boolean
-  /** inline style validate message */
-  inlineMessage?: boolean
-  /** control the size of components in this form-item */
-  size?: ComponentSize
 }
 
 /** Form Columns Option */
