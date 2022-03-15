@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.18.3
+
+feat
+
+- sync css var change from element-plus
+
+other
+
+- type: optimization type
+
 ## 0.18.2
 
 breaking changes
