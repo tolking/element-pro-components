@@ -46,7 +46,7 @@ function useCrudMenu(): ComputedRef<ICrudMenuColumns> {
 
   return computed(() => {
     const options = useProOptions()
-    return objectDeepMerge<ICrudMenuColumns>(options.menu, localeMenu.value)
+    return objectDeepMerge(options.menu, localeMenu.value)
   })
 }
 
