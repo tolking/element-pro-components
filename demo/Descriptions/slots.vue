@@ -25,13 +25,18 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, h } from 'vue'
 import { defineDescriptionsColumns } from 'element-pro-components'
 
 export default defineComponent({
   setup() {
     const columns = defineDescriptionsColumns([
-      { label: 'Date', prop: 'date' },
+      {
+        label: 'Date',
+        prop: 'date',
+        render: (row) => h('em', row.date),
+        renderLabel: ({ item }) => h('em', item.label),
+      },
       { label: 'Name', prop: 'name' },
       { label: 'Address', prop: 'address' },
     ])
