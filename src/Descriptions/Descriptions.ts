@@ -1,7 +1,7 @@
 import { defineComponent, h, mergeProps, Slot } from 'vue'
 import { reactiveOmit } from '@vueuse/core'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
-import { get } from '../utils/index'
+import { get, isFunction } from '../utils/index'
 import props from './props'
 
 export default defineComponent({
@@ -33,6 +33,10 @@ export default defineComponent({
                       size: props.size,
                       detail: props.detail,
                     })
+                  } else if (item.render) {
+                    return isFunction(item.render)
+                      ? item.render(props.detail)
+                      : String(item.render)
                   } else {
                     return get(props.detail, item.prop, '')
                   }
@@ -43,6 +47,10 @@ export default defineComponent({
                       size: props.size,
                       item,
                     })
+                  } else if (item.renderLabel) {
+                    return isFunction(item.renderLabel)
+                      ? item.renderLabel({ detail: props.detail, item: item })
+                      : String(item.renderLabel)
                   } else {
                     return null
                   }
