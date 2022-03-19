@@ -72,17 +72,19 @@ meta:
 
 ### columns 的参数
 
-| 参数             | 说明                                                                                                                                       | 类型            | 可选值                | 默认值 |
-| :--------------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :-------------- | :-------------------- | :----- |
-| prop             | 对应 detail 的字段名                                                                                                                       | string          | —                     | —      |
-| label            | 标签文本                                                                                                                                   | string          | —                     | —      |
-| span             | 列的数量                                                                                                                                   | number          | —                     | 1      |
-| width            | 列的宽度，不同行相同列的宽度按最大值设定（如无 border ，宽度包含标签与内容）                                                               | string / number | —                     | —      |
-| min-width        | 列的最小宽度，与 width 的区别是 width 是固定的，min-width 会把剩余宽度按比例分配给设置了 min-width 的列（如无 border，宽度包含标签与内容） | string / number | —                     | —      |
-| align            | 列的内容对齐方式（如无 border，对标签和内容均生效）                                                                                        | string          | left / center / right | left   |
-| label-align      | 列的标签对齐方式，若不设置该项，则使用内容的对齐方式（如无 border，请使用 align 参数）                                                     | string          | left / center / right | —      |
-| class-name       | 列的内容自定义类名                                                                                                                         | string          | —                     | —      |
-| label-class-name | 列的标签自定义类名                                                                                                                         | string          | —                     | —      |
+| 参数           | 说明                                                                                                                                       | 类型                       | 可选值                | 默认值 |
+| :------------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :------------------------- | :-------------------- | :----- |
+| prop           | 对应 detail 的字段名                                                                                                                       | string                     | —                     | —      |
+| label          | 标签文本                                                                                                                                   | string                     | —                     | —      |
+| span           | 列的数量                                                                                                                                   | number                     | —                     | 1      |
+| width          | 列的宽度，不同行相同列的宽度按最大值设定（如无 border ，宽度包含标签与内容）                                                               | string / number            | —                     | —      |
+| minWidth       | 列的最小宽度，与 width 的区别是 width 是固定的，min-width 会把剩余宽度按比例分配给设置了 min-width 的列（如无 border，宽度包含标签与内容） | string / number            | —                     | —      |
+| align          | 列的内容对齐方式（如无 border，对标签和内容均生效）                                                                                        | string                     | left / center / right | left   |
+| labelAlign     | 列的标签对齐方式，若不设置该项，则使用内容的对齐方式（如无 border，请使用 align 参数）                                                     | string                     | left / center / right | —      |
+| className      | 列的内容自定义类名                                                                                                                         | string                     | —                     | —      |
+| labelClassName | 列的标签自定义类名                                                                                                                         | string                     | —                     | —      |
+| render         | 通过渲染函数实现简单的插槽功能                                                                                                             | function(detail)           | -                     | -      |
+| renderLabel    | 通过渲染函数实现简单的 Label 插槽功能                                                                                                      | function({ detail, item }) | -                     | -      |
 
 ## 插槽
 
