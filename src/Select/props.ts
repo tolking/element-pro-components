@@ -1,13 +1,15 @@
 import type { Component, PropType } from 'vue'
 import type { ComponentSize } from 'element-plus/lib/constants/index'
-import type { SelectConfig, SelectData } from './type'
+import type { SelectConfig, SelectDataItem } from './type'
 
 export const commonProps = {
   data: {
-    type: Array as PropType<SelectData>,
+    type: Array as PropType<SelectDataItem[]>,
+    default: () => [],
   },
   config: {
     type: Object as PropType<SelectConfig>,
+    default: () => ({}),
   },
 }
 
