@@ -8,12 +8,4 @@ export interface SelectConfig {
   children?: string
 }
 
-export type SelectData = Record<string, ExternalParam>[]
-
-export interface SelectDataItem {
-  value: string | number | boolean
-  label: string
-  name?: string
-  disabled?: boolean
-  children?: SelectDataItem[]
-}
+export type SelectDataItem = Record<string, ExternalParam>
