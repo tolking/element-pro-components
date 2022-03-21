@@ -43,7 +43,7 @@ export default defineComponent({
       doLayout,
       sort,
     } = useTableMethods()
-    const { pagination, sizeChange, currentChange } = usePagination(props, emit)
+    const { sizeChange, currentChange } = usePagination(emit)
     const {
       form,
       validate,
@@ -204,7 +204,7 @@ export default defineComponent({
 
       return h(
         ProTable,
-        mergeProps(tableProps, pagination.value, attrs.value, {
+        mergeProps(tableProps, attrs.value, {
           ref: table,
           menu: menuColumns.value,
           columns: tableColumns.value,

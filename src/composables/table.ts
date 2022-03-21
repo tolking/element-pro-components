@@ -1,9 +1,5 @@
 import { ComputedRef, computed, Ref, unref, shallowRef } from 'vue'
-import { reactivePick } from '@vueuse/core'
-import { useProOptions } from './index'
-import { filterDeep, isObject, objectDeepMerge } from '../utils/index'
-import { paginationKeys } from '../Table/props'
-import type { PaginationProps } from 'element-plus'
+import { filterDeep, isObject } from '../utils/index'
 import type {
   UnknownObject,
   StringObject,
@@ -12,7 +8,6 @@ import type {
   ExternalParam,
 } from '../types/index'
 import type {
-  ITableProps,
   ITableEmits,
   ITableColumns,
   TableColumnsProps,
@@ -111,35 +106,11 @@ export function useTableMethods<T = UnknownObject>(): {
 }
 
 export function usePagination(
-  props: Readonly<ITableProps>,
   emit: ITableEmits
 ): {
-  pagination: ComputedRef<PaginationProps>
   sizeChange: (size: number) => void
   currentChange: (current: number) => void
 } {
-  const options = useProOptions()
-  const config = reactivePick(props, ...paginationKeys)
-  const pagination = computed(() => {
-    return objectDeepMerge(options.pagination, {
-      ...config,
-      pagerCount:
-        props.pagerCount === 7 && options.pagination.pagerCount
-          ? options.pagination.pagerCount
-          : props.pagerCount,
-      layout:
-        props.layout === 'prev, pager, next, jumper, ->, total' &&
-        options.pagination.layout
-          ? options.pagination.layout
-          : props.layout,
-      pageSizes:
-        props.pageSizes.toString() === '10,20,30,40,50,100' &&
-        options.pagination.pageSizes
-          ? options.pagination.pageSizes
-          : props.pageSizes,
-    })
-  })
-
   function sizeChange(size: number) {
     emit('update:pageSize', size)
     emit('load')
@@ -151,7 +122,6 @@ export function usePagination(
   }
 
   return {
-    pagination,
     sizeChange,
     currentChange,
   }
