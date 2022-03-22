@@ -1,5 +1,5 @@
 import { defineComponent, h, toRefs, VNode, provide, mergeProps } from 'vue'
-import { reactiveOmit } from '@vueuse/core'
+import { reactiveOmit, reactivePick } from '@vueuse/core'
 import { ElTable, ElTableColumn, ElPagination, useAttrs } from 'element-plus'
 import {
   useTableColumns,
@@ -35,7 +35,7 @@ export default defineComponent({
     const bindExpand = useTableBind<ITableExpandColumns>(expand, defaultBind)
     const bindIndex = useTableBind<ITableIndexColumns>(index, defaultBind)
     const bindMenu = useTableBind<ITableMenuColumns>(menu, defaultBind)
-    const { pagination, sizeChange, currentChange } = usePagination(props, emit)
+    const { sizeChange, currentChange } = usePagination(emit)
     const {
       table,
       clearSelection,
@@ -48,13 +48,14 @@ export default defineComponent({
       doLayout,
       sort,
     } = useTableMethods()
-    const config = reactiveOmit(
+    const tableConfig = reactiveOmit(
       props,
       ...paginationKeys,
       'showOverflowTooltip',
       'align',
       'headerAlign'
     )
+    const paginationConfig = reactivePick(props, ...paginationKeys)
 
     provide('defaultBind', defaultBind)
 
@@ -118,7 +119,7 @@ export default defineComponent({
     function createDefault() {
       const tableNode = h(
         ElTable,
-        mergeProps(config, attrs.value, { ref: table }),
+        mergeProps(tableConfig, attrs.value, { ref: table }),
         {
           default: () => createColumn(),
           append: slots.append,
@@ -126,7 +127,7 @@ export default defineComponent({
       )
       const paginationNode = h(
         ElPagination,
-        mergeProps(pagination.value, {
+        mergeProps(paginationConfig, {
           'onUpdate:pageSize': sizeChange,
           'onUpdate:currentPage': currentChange,
         })

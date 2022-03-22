@@ -9,7 +9,7 @@
   align-items: flex-end;
   padding-top: 15px;
   width: 100%;
-  border-top: var(--el-border-width-base) dashed var(--el-border-color-base);
+  border-top: var(--el-border-width) dashed var(--el-border-color);
   &:first-child {
     padding-top: 0;
     border-top-width: 0;

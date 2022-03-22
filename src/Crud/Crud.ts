@@ -3,6 +3,7 @@ import { reactivePick } from '@vueuse/core'
 import { ElDialog, ElButton, useAttrs, DialogProps } from 'element-plus'
 import {
   useCrudColumns,
+  useCrudMenu,
   useCrudForm,
   useCrudSearchForm,
   useTableMethods,
@@ -11,7 +12,7 @@ import {
   useScreenSize,
   useCrudSlots,
 } from '../composables/index'
-import { isFunction, isObject } from '../utils/index'
+import { isFunction } from '../utils/index'
 import props, { formKeys, tableKeys, dialogKeys } from './props'
 import emits from './emits'
 import { ProForm } from '../Form/index'
@@ -30,7 +31,8 @@ export default defineComponent({
   props,
   emits,
   setup(props, { slots, emit, expose }) {
-    const { searchColumns, tableColumns, menuColumns } = useCrudColumns(props)
+    const { searchColumns, tableColumns } = useCrudColumns(props)
+    const menuColumns = useCrudMenu(props)
     const {
       table,
       clearSelection,
@@ -43,7 +45,7 @@ export default defineComponent({
       doLayout,
       sort,
     } = useTableMethods()
-    const { pagination, sizeChange, currentChange } = usePagination(props, emit)
+    const { sizeChange, currentChange } = usePagination(emit)
     const {
       form,
       validate,
@@ -72,11 +74,12 @@ export default defineComponent({
     const { searchSlots, tableSlots, formSlots } = useCrudSlots()
     const bindDialog = computed(() => {
       const title =
-        props.title ?? isObject(menuColumns.value)
+        props.title ||
+        (props.menu
           ? formType.value === 'add'
-            ? menuColumns.value?.addText
-            : menuColumns.value?.editText
-          : formType.value
+            ? menuColumns.value.addText
+            : menuColumns.value.editText
+          : formType.value)
       const sizeWidth = {
         xs: '90%',
         sm: '80%',
@@ -111,15 +114,15 @@ export default defineComponent({
     const dialogProps = reactivePick(props, ...dialogKeys)
 
     function checkEdit(row: StringObject) {
-      return isFunction(menuColumns.value?.edit)
-        ? menuColumns.value?.edit(row)
-        : menuColumns.value?.edit
+      return isFunction(menuColumns.value.edit)
+        ? menuColumns.value.edit(row)
+        : menuColumns.value.edit
     }
 
     function checkDel(row: StringObject) {
-      return isFunction(menuColumns.value?.del)
-        ? menuColumns.value?.del(row)
-        : menuColumns.value?.del
+      return isFunction(menuColumns.value.del)
+        ? menuColumns.value.del(row)
+        : menuColumns.value.del
     }
 
     function delRow(row: UnknownObject) {
@@ -169,7 +172,7 @@ export default defineComponent({
       if (slots['menu-left']) {
         list = list.concat(slots['menu-left']({ size: props.size }))
       }
-      if (menuColumns.value?.add) {
+      if (props.menu && menuColumns.value.add) {
         list.push(
           h(
             ElButton,
@@ -197,14 +200,15 @@ export default defineComponent({
 
     function createTable() {
       const showMenu =
-        menuColumns.value?.edit || menuColumns.value?.del || slots.menu
+        props.menu &&
+        (menuColumns.value.edit || menuColumns.value.del || slots.menu)
       const menuSlots = showMenu
         ? { menu: (scope: TableMenuScope) => createTableMenu(scope) }
         : {}
 
       return h(
         ProTable,
-        mergeProps(tableProps, pagination.value, attrs.value, {
+        mergeProps(tableProps, attrs.value, {
           ref: table,
           menu: menuColumns.value,
           columns: tableColumns.value,
@@ -219,7 +223,7 @@ export default defineComponent({
     function createTableMenu(scope: TableMenuScope) {
       let list: VNode[] = []
 
-      if (menuColumns.value && checkEdit(scope.row)) {
+      if (props.menu && checkEdit(scope.row)) {
         list.push(
           h(
             ElButton,
@@ -231,7 +235,7 @@ export default defineComponent({
           )
         )
       }
-      if (menuColumns.value && checkDel(scope.row)) {
+      if (props.menu && menuColumns.value && checkDel(scope.row)) {
         list.push(
           h(
             ElButton,

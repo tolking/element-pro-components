@@ -1,6 +1,6 @@
 import { ComputedRef, computed, Ref, unref, inject, shallowRef } from 'vue'
 import { useLocale } from 'element-plus'
-import { useProOptions, useShow } from './index'
+import { useShow } from './index'
 import {
   isObject,
   objectDeepMerge,
@@ -70,11 +70,17 @@ export function useFormItemBind(
 export function useFormMenu(
   props: Readonly<{ menu?: IFormMenuColumns }>
 ): ComputedRef<IFormMenuColumns> {
-  const localeMenu = computed(() => {
+  return computed(() => {
     const { t } = useLocale()
     const submitText = t('pro.form.submit')
     const resetText = t('pro.form.reset')
-    const menu: IFormMenuColumns = {}
+    const menu: IFormMenuColumns = {
+      submit: true,
+      submitText: 'Submit',
+      submitProps: { type: 'primary' },
+      reset: true,
+      resetText: 'Reset',
+    }
 
     if (submitText && submitText !== 'pro.form.submit') {
       menu.submitText = submitText
@@ -83,19 +89,7 @@ export function useFormMenu(
       menu.resetText = resetText
     }
 
-    return menu
-  })
-
-  return computed(() => {
-    const options = useProOptions()
-    const defaultMenu = objectDeepMerge<IFormMenuColumns>(
-      options.menu,
-      localeMenu.value
-    )
-
-    return props.menu
-      ? objectDeepMerge<IFormMenuColumns>(defaultMenu, props.menu)
-      : defaultMenu
+    return props.menu ? objectDeepMerge(menu, props.menu) : menu
   })
 }
 

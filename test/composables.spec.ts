@@ -1,13 +1,11 @@
 import { ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import {
-  useProOptions,
   useShow,
   useScreenSize,
   useRow,
   useCol,
 } from '../src/composables/index'
-import { config } from '../src/utils/config'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
@@ -16,10 +14,6 @@ const _mount = (options: Record<string, unknown>) =>
   })
 
 describe('some composables', () => {
-  describe('useProOptions', () => {
-    expect(useProOptions()).toEqual(config)
-  })
-
   describe('useShow', () => {
     test('false', async () => {
       const { show, toggleShow } = useShow()
