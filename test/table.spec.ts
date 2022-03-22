@@ -2,7 +2,6 @@ import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { ElTableColumn, PaginationProps } from 'element-plus'
 import ProTable from '../src/Table/Table'
-import { config } from '../src/utils/config'
 import { doubleWait, tableData, TableItem } from './mock'
 import type {
   ITableColumns,
@@ -225,7 +224,7 @@ describe('Table', () => {
         <pro-table
           v-model:current-page="currentPage"
           v-model:page-size="pageSize"
-          v-bind="pagination"
+          :layout="layout"
           :columns="columns"
           :total="total"
         />
@@ -234,17 +233,15 @@ describe('Table', () => {
         const total = ref(50)
         const currentPage = ref(1)
         const pageSize = ref(10)
-        const pagination = ref<Partial<PaginationProps>>(config.pagination)
-        return { columns, total, currentPage, pageSize, pagination }
+        const layout = ref('prev, pager, next, sizes')
+        return { columns, total, currentPage, pageSize, layout }
       },
     })
     const vm = (wrapper.vm as unknown) as {
       total: number
       currentPage: number
       pageSize: number
-      pagination: {
-        layout: string
-      }
+      layout: string
     }
 
     expect(wrapper.find('.el-pagination')).not.toBeNull()
@@ -264,7 +261,7 @@ describe('Table', () => {
       .trigger('click')
     expect(getSizesItem('.selected')?.innerHTML).toMatch(/10/)
 
-    await (vm.pagination.layout = 'sizes, prev, pager, next')
+    await (vm.layout = 'sizes, prev, pager, next')
     expect(wrapper.find('.el-pagination .el-pagination__total').exists()).toBe(
       false
     )
