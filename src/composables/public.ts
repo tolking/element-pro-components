@@ -9,19 +9,8 @@ import {
 } from 'vue'
 import { useRouter, RouteRecordRaw } from 'vue-router'
 import { createSharedComposable, useWindowSize } from '@vueuse/core'
-import { config } from '../utils/config'
-import { getScreenSize, objectDeepMerge } from '../utils/index'
-import type { InstallOptions, MaybeRef } from '../types/index'
-
-/** get the global config */
-export const useProOptions = createSharedComposable(() => {
-  const vm = getCurrentInstance()
-  const proxy = (vm?.proxy || {}) as { $PROOPTIONS: InstallOptions }
-
-  return '$PROOPTIONS' in proxy
-    ? objectDeepMerge(config, proxy.$PROOPTIONS)
-    : config
-})
+import { getScreenSize } from '../utils/index'
+import type { MaybeRef } from '../types/index'
 
 /**
  * toggle show
