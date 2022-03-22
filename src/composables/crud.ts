@@ -1,13 +1,12 @@
-import { ComputedRef, computed, ref, unref, useSlots, Ref, Slot } from 'vue'
+import { ComputedRef, computed, ref, useSlots, Ref, Slot } from 'vue'
 import { useLocale } from 'element-plus'
-import { useProOptions } from './index'
 import {
   isFunction,
   isObject,
   filterDeep,
   objectDeepMerge,
 } from '../utils/index'
-import type { UnknownObject, MaybeRef, ExternalParam } from '../types/index'
+import type { UnknownObject, ExternalParam } from '../types/index'
 import type { IFormColumns, IFormMenuColumns, IFormSubmit } from '../Form/index'
 import type { ITableColumns } from '../Table/index'
 import type {
@@ -17,10 +16,32 @@ import type {
   ICrudMenuColumns,
 } from '../Crud/index'
 
-function useCrudMenu(): ComputedRef<ICrudMenuColumns> {
-  const localeMenu = computed(() => {
+export function useCrudMenu(
+  props: Readonly<{ menu?: ICrudMenuColumns | boolean }>
+): ComputedRef<ICrudMenuColumns> {
+  return computed(() => {
     const { t } = useLocale()
-    const menu: ICrudMenuColumns = {}
+    const menu: ICrudMenuColumns = {
+      add: true,
+      addText: 'Add',
+      addProps: { type: 'primary' },
+      edit: true,
+      editText: 'Edit',
+      editProps: { type: 'text' },
+      del: true,
+      delText: 'Delete',
+      delProps: { type: 'text' },
+      submit: true,
+      submitText: 'Submit',
+      submitProps: { type: 'primary' },
+      reset: true,
+      resetText: 'Reset',
+      search: true,
+      searchText: 'Search',
+      searchProps: { type: 'primary' },
+      searchReset: true,
+      searchResetText: 'Reset',
+    }
     const menuList = [
       'add',
       'edit',
@@ -41,12 +62,7 @@ function useCrudMenu(): ComputedRef<ICrudMenuColumns> {
       }
     })
 
-    return menu
-  })
-
-  return computed(() => {
-    const options = useProOptions()
-    return objectDeepMerge(options.menu, localeMenu.value)
+    return isObject(props.menu) ? objectDeepMerge(menu, props.menu) : menu
   })
 }
 
@@ -55,7 +71,6 @@ export function useCrudColumns(
 ): {
   searchColumns: ComputedRef<IFormColumns | undefined>
   tableColumns: ComputedRef<ITableColumns | undefined>
-  menuColumns: ComputedRef<ICrudMenuColumns | undefined>
 } {
   const searchColumns = computed(() => {
     return props.searchColumns
@@ -65,20 +80,12 @@ export function useCrudColumns(
       : undefined
   })
   const tableColumns = computed(() => {
-    return props.tableColumns ? props.tableColumns : props.columns
-  })
-  const menuColumns = computed(() => {
-    if (!props.menu) return undefined
-    const defaultMenu = useCrudMenu()
-    return isObject(props.menu)
-      ? objectDeepMerge<ICrudMenuColumns>(defaultMenu.value, props.menu)
-      : defaultMenu.value
+    return props.tableColumns || props.columns
   })
 
   return {
     searchColumns,
     tableColumns,
-    menuColumns,
   }
 }
 
@@ -157,27 +164,21 @@ export function useCrudForm(
 
 export function useCrudSearchForm(
   emit: ICrudEmits,
-  menuColumns?: MaybeRef<ICrudMenuColumns | undefined>
+  menuColumns: ComputedRef<ICrudMenuColumns>
 ): {
   searchMenu: ComputedRef<IFormMenuColumns>
   searchForm: IFormSubmit
   searchReset: () => void
   upSearchData: (value: unknown) => void
 } {
-  const searchMenu = computed<IFormMenuColumns>(() => {
-    const _menuColumns = unref(menuColumns)
-    const defaultMenu = useCrudMenu()
-    const menu = _menuColumns ? _menuColumns : defaultMenu.value
-
-    return {
-      submit: menu.search,
-      submitText: menu.searchText,
-      submitProps: menu.searchProps,
-      reset: menu.searchReset,
-      resetText: menu.searchResetText,
-      resetProps: menu.searchResetProps,
-    }
-  })
+  const searchMenu = computed<IFormMenuColumns>(() => ({
+    submit: menuColumns.value.search,
+    submitText: menuColumns.value.searchText,
+    submitProps: menuColumns.value.searchProps,
+    reset: menuColumns.value.searchReset,
+    resetText: menuColumns.value.searchResetText,
+    resetProps: menuColumns.value.searchResetProps,
+  }))
 
   const searchForm: IFormSubmit = (done, isValid, invalidFields) => {
     emit('search', done, isValid, invalidFields)

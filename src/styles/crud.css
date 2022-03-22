@@ -3,6 +3,6 @@
   align-items: center;
   justify-content: space-between;
   & + .pro-table {
-    margin-top: 15px;
+    margin-top: 16px;
   }
 }
