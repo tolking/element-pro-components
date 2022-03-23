@@ -13,7 +13,7 @@ import {
 } from 'vue'
 import { RouterView, RouteRecordRaw } from 'vue-router'
 import { ElScrollbar } from 'element-plus'
-import { useScreenSize, useShow } from '../composables/index'
+import { useSharedBreakpoint, useShow } from '../composables/index'
 import { objectOmit } from '../utils/index'
 import props from './props'
 import { ProMenu } from '../Menu/index'
@@ -28,10 +28,10 @@ export default defineComponent({
   props,
   setup(props, { slots }) {
     const { mode, fixedHeader, fixedMain } = toRefs(props)
-    const size = useScreenSize()
+    const breakpoint = useSharedBreakpoint()
     const { show, toggleShow } = useShow(props.collapse)
     const collapse = computed(() => {
-      return size.value === 'xs' ? false : show.value
+      return breakpoint.value === 'xs' ? false : show.value
     })
 
     function createMenu() {

@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import {
   useShow,
-  useScreenSize,
+  useSharedBreakpoint,
   useBreakpointWidth,
   useRow,
   useCol,
@@ -45,12 +45,12 @@ describe('some composables', () => {
     })
   })
 
-  describe('useScreenSize', () => {
+  describe('useSharedBreakpoint', () => {
     test('size', async () => {
       const wrapper = await mount({
         template: '<p class="size">{{ size }}</p>',
         setup() {
-          const size = useScreenSize()
+          const size = useSharedBreakpoint()
           return { size }
         },
       })
