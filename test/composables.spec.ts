@@ -3,6 +3,7 @@ import { mount } from '@vue/test-utils'
 import {
   useShow,
   useScreenSize,
+  useBreakpointWidth,
   useRow,
   useCol,
 } from '../src/composables/index'
@@ -56,6 +57,42 @@ describe('some composables', () => {
 
       expect(['xl', 'lg', 'md', 'sm', 'xs']).toContain(
         wrapper.find('.size').text()
+      )
+    })
+  })
+
+  describe('useBreakpointWidth', () => {
+    test('default', async () => {
+      const wrapper = await mount({
+        template: '<p class="width">{{ width }}</p>',
+        setup() {
+          const width = useBreakpointWidth()
+          return { width }
+        },
+      })
+
+      expect(['90%', '80%', '70%', '60%', '50%']).toContain(
+        wrapper.find('.width').text()
+      )
+    })
+
+    test('default', async () => {
+      const wrapper = await mount({
+        template: '<p class="width">{{ width }}</p>',
+        setup() {
+          const width = useBreakpointWidth({
+            xs: '100px',
+            sm: '200px',
+            md: '300px',
+            lg: '400px',
+            xl: '500px',
+          })
+          return { width }
+        },
+      })
+
+      expect(['100px', '200px', '300px', '400px', '500px']).toContain(
+        wrapper.find('.width').text()
       )
     })
   })

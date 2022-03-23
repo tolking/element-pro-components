@@ -10,7 +10,7 @@ import {
 import { useRouter, RouteRecordRaw } from 'vue-router'
 import { createSharedComposable, useWindowSize } from '@vueuse/core'
 import { getScreenSize } from '../utils/index'
-import type { MaybeRef } from '../types/index'
+import type { MaybeRef, IScreenSize } from '../types/index'
 
 /**
  * toggle show
@@ -43,6 +43,28 @@ export const useScreenSize = createSharedComposable(() => {
     return getScreenSize(width.value)
   })
 })
+
+/**
+ * Get the width of the responsive breakpoint
+ * @param config the config of width
+ */
+export function useBreakpointWidth(
+  config?: Partial<Record<IScreenSize, string>>
+): Ref<string> {
+  const screenSize = useScreenSize()
+  const sizeWidth = Object.assign(
+    {
+      xs: '90%',
+      sm: '80%',
+      md: '70%',
+      lg: '60%',
+      xl: '50%',
+    },
+    config || {}
+  )
+
+  return computed(() => sizeWidth[screenSize.value])
+}
 
 /** Gets the routes from `vue-router` */
 export const useSharedRoutes = createSharedComposable(() => {

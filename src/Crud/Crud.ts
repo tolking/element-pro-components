@@ -5,11 +5,12 @@ import {
   useCrudColumns,
   useCrudMenu,
   useCrudForm,
+  useCrudSearchMenu,
   useCrudSearchForm,
   useTableMethods,
   useFormMethods,
   usePagination,
-  useScreenSize,
+  useBreakpointWidth,
   useCrudSlots,
 } from '../composables/index'
 import { isFunction } from '../utils/index'
@@ -63,15 +64,11 @@ export default defineComponent({
       openForm,
       submitForm,
     } = useCrudForm(props, emit, resetForm)
-    const {
-      searchMenu,
-      searchForm,
-      searchReset,
-      upSearchData,
-    } = useCrudSearchForm(emit, menuColumns)
-    const attrs = useAttrs()
-    const screenSize = useScreenSize()
+    const searchMenu = useCrudSearchMenu(menuColumns)
+    const { searchForm, searchReset, upSearchData } = useCrudSearchForm(emit)
     const { searchSlots, tableSlots, formSlots } = useCrudSlots()
+    const attrs = useAttrs()
+    const dialogWidth = useBreakpointWidth()
     const bindDialog = computed(() => {
       const title =
         props.title ||
@@ -80,13 +77,6 @@ export default defineComponent({
             ? menuColumns.value.addText
             : menuColumns.value.editText
           : formType.value)
-      const sizeWidth = {
-        xs: '90%',
-        sm: '80%',
-        md: '70%',
-        lg: '60%',
-        xl: '50%',
-      }
 
       function beforeClose(done: () => void) {
         function callback() {
@@ -102,7 +92,7 @@ export default defineComponent({
         title,
         beforeClose,
         destroyOnClose: true,
-        width: props.width ?? sizeWidth[screenSize.value],
+        width: props.width ?? dialogWidth.value,
         customClass: props.customClass || 'pro-crud-dialog',
       }
     })
@@ -235,7 +225,7 @@ export default defineComponent({
           )
         )
       }
-      if (props.menu && menuColumns.value && checkDel(scope.row)) {
+      if (props.menu && checkDel(scope.row)) {
         list.push(
           h(
             ElButton,
