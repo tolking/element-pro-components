@@ -36,7 +36,7 @@ export function useShow(
 }
 
 /** Gets the responsive breakpoint of the current screen */
-export const useScreenSize = createSharedComposable(() => {
+export const useSharedBreakpoint = createSharedComposable(() => {
   const { width } = useWindowSize()
 
   return computed(() => {
@@ -51,7 +51,7 @@ export const useScreenSize = createSharedComposable(() => {
 export function useBreakpointWidth(
   config?: Partial<Record<IScreenSize, string>>
 ): Ref<string> {
-  const screenSize = useScreenSize()
+  const breakpoint = useSharedBreakpoint()
   const sizeWidth = Object.assign(
     {
       xs: '90%',
@@ -63,7 +63,7 @@ export function useBreakpointWidth(
     config || {}
   )
 
-  return computed(() => sizeWidth[screenSize.value])
+  return computed(() => sizeWidth[breakpoint.value])
 }
 
 /** Gets the routes from `vue-router` */

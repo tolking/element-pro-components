@@ -3,7 +3,7 @@ import { reactivePick } from '@vueuse/core'
 import { ElForm, ElFormItem, ElButton } from 'element-plus'
 import {
   useFormMethods,
-  useScreenSize,
+  useSharedBreakpoint,
   useFormMenu,
   useRow,
 } from '../composables/index'
@@ -31,11 +31,10 @@ export default defineComponent({
     } = useFormMethods(emit)
     const menu = useFormMenu(props)
     const { rowStyle, rowClass } = useRow(props)
-    const screenSize = useScreenSize()
+    const breakpoint = useSharedBreakpoint()
     const labelPosition = computed(() => {
-      return screenSize.value === 'xs' && !inline?.value
-        ? 'top'
-        : props.labelPosition
+      const xs = breakpoint.value === 'xs' && !inline?.value
+      return props.labelPosition || (xs ? 'top' : undefined)
     })
     const config = reactivePick(props, ...formKeys)
 
