@@ -17,6 +17,7 @@ export default defineComponent({
   emits,
   setup(props, { slots, emit, expose }) {
     const { columns, modelValue, inline } = toRefs(props)
+    const config = reactivePick(props, ...formKeys)
     const {
       form,
       loading,
@@ -36,7 +37,15 @@ export default defineComponent({
       const xs = breakpoint.value === 'xs' && !inline?.value
       return props.labelPosition || (xs ? 'top' : undefined)
     })
-    const config = reactivePick(props, ...formKeys)
+    const menuStyle = computed(() => {
+      if (props.gutter) {
+        return {
+          paddingLeft: `${props.gutter / 2}px`,
+          paddingRight: `${props.gutter / 2}px`,
+        }
+      }
+      return {}
+    })
 
     expose({
       validate,
@@ -98,7 +107,11 @@ export default defineComponent({
         list = list.concat(slots['menu-right']({ loading: loading.value }))
       }
 
-      return h(ElFormItem, { class: 'pro-form-menu' }, () => list)
+      return h(
+        ElFormItem,
+        { class: 'pro-form-menu', style: menuStyle.value },
+        () => list
+      )
     }
 
     return () =>
