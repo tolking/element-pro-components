@@ -1,3 +1,8 @@
+.pro-form .pro-form-menu {
+  margin-bottom: 0;
+  width: 100%;
+}
+
 .pro-form.el-form .el-form-item.is-guttered {
   display: flex;
 }
