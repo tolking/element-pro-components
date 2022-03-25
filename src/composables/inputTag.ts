@@ -45,7 +45,7 @@ export function useInputTag(
   const input = ref('')
   const list = computed(() => props.modelValue || [])
   const triggerKey = computed(() => {
-    const key = props.trigger || 'space'
+    const key = props.trigger
     return { space: ' ', enter: 'Enter' }[key]
   })
   const disabled = computed(() => {
@@ -67,8 +67,6 @@ export function useInputTag(
   }
 
   function change(value: string) {
-    console.log(value)
-
     input.value = value
   }
 
