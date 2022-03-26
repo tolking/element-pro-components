@@ -18,7 +18,7 @@ import props, { formKeys, tableKeys, dialogKeys } from './props'
 import emits from './emits'
 import { ProForm } from '../Form/index'
 import { ProTable } from '../Table/index'
-import type { ComponentSize } from 'element-plus/lib/constants/index'
+import type { ComponentSize } from 'element-plus'
 import type { StringObject, UnknownObject } from '../types/index'
 import type { IFormProps, IFormEmits } from '../Form/index'
 

@@ -81,7 +81,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import type { ComponentSize } from 'element-plus/lib/constants/index'
+import type { ComponentSize } from 'element-plus'
 import type {
   ICrudBeforeOpen,
   ICrudColumns,
