@@ -1,5 +1,5 @@
 import type { Component, PropType } from 'vue'
-import type { ComponentSize } from 'element-plus/lib/constants/index'
+import type { ComponentSize } from 'element-plus'
 import type { SelectConfig, SelectDataItem } from './type'
 
 export const commonProps = {

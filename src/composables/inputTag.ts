@@ -3,6 +3,7 @@ import { reactiveOmit, reactivePick } from '@vueuse/core'
 import { useAttrs } from 'element-plus'
 import { useFormSize } from './index'
 import { commonProps } from '../InputTag/props'
+import type { ComponentSize } from 'element-plus'
 import type { IInputTagProps, IInputTagEmits } from '../InputTag/index'
 import type {
   IAutocompleteTagProps,
@@ -13,7 +14,7 @@ type CommonKeys = Array<keyof typeof commonProps>
 
 export interface InputTagCore {
   attrs: Ref<Record<string, unknown>>
-  size: Ref<'default' | 'small' | 'large' | undefined>
+  size: Ref<ComponentSize | undefined>
   tagProps: Partial<IInputTagProps>
   inputProps: Partial<IInputTagProps>
   input: Ref<string>
