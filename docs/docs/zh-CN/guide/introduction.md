@@ -9,10 +9,6 @@ meta:
 
 element-pro-components 是一个基于 [element-plus](https://element-plus.org/), [vue](https://v3.vuejs.org/), [vue-router](https://next.router.vuejs.org/) 的一个适用于中后台开发的一套组件库
 
-::: warning 警告
-在进入 v1.0.0 前，我们可能会对组件进行大幅度改动。如果你现在就在使用，版本升级的时候可以参考 [CHANGELOG](https://github.com/tolking/element-pro-components/blob/master/CHANGELOG.md)
-:::
-
 ## 起因
 
 对于中后台开发来说，大部分的表格表单等页面都可以复用，通过将非业务逻辑的部分封装起来成组件能够更加方便使用。同时组件可以和路由等绑定，减少传值。以及实现一些 `element-plus` 上没有后台常用的功能等
@@ -39,4 +35,8 @@ git 提交信息风格参考 [vue commit-convention](https://github.com/vuejs/vu
 
 ## 浏览器支持
 
-不再支持 IE 浏览器，仅支持现代浏览器
+理论上同 element-plus
+
+| ![IE](https://cdn.jsdelivr.net/npm/@browser-logos/edge/edge_32x32.png) | ![Firefox](https://cdn.jsdelivr.net/npm/@browser-logos/firefox/firefox_32x32.png) | ![Chrome](https://cdn.jsdelivr.net/npm/@browser-logos/chrome/chrome_32x32.png) | ![Safari](https://cdn.jsdelivr.net/npm/@browser-logos/safari/safari_32x32.png) |
+| ---------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| Edge ≥ 79                                                              | Firefox ≥ 78                                                                      | Chrome ≥ 64                                                                    | Safari ≥ 12                                                                    |

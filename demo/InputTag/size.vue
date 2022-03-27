@@ -4,7 +4,7 @@
     :key="item"
     v-model="inputTags"
     :size="item"
-    placeholder="Please click the space button after input"
+    placeholder="Please click the Enter button after input"
     class="input-tag-size"
   />
 </template>

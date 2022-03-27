@@ -29,6 +29,8 @@ Use the `defineDescriptionsColumns` to make it easier to define columns
 
 ### Nested value
 
+Support for get the objects or arrays with nested structures value, only need to configure the `prop`
+
 ::: demo
 @/demo/Descriptions/nested.vue
 :::

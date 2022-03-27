@@ -29,6 +29,8 @@ Use the `defineTableColumns` `defineTableMenuColumns` `defineTableSelectionColum
 
 ### Nested value
 
+Support for get the objects or arrays with nested structures value, only need to configure the `prop`
+
 ::: demo
 @/demo/Table/nested.vue
 :::
