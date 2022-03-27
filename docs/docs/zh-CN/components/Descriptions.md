@@ -29,6 +29,8 @@ meta:
 
 ### 获取嵌套键值
 
+支持直接对具有嵌套结构的对象或数组进行取值，仅需要配置 `prop`
+
 ::: demo
 @/demo/Descriptions/nested.vue
 :::

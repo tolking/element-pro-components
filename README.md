@@ -1,11 +1,11 @@
 [![License](https://img.shields.io/github/license/tolking/element-pro-components.svg?style=flat-square&logo=opensourceinitiative)](https://github.com/tolking/element-pro-components/blob/master/LICENSE)
 [![Latest tag via npm](https://img.shields.io/npm/v/element-pro-components.svg?style=flat-square&logo=npm)](https://npmjs.com/package/element-pro-components)
-[![npm bundle size](https://img.shields.io/bundlephobia/min/element-pro-components?label=size&logo=npm&style=flat-square)](https://npmjs.com/package/element-pro-components)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/element-pro-components?label=size&logo=npm&style=flat-square)](https://npmjs.com/package/element-pro-components)
 [![Npm Last Updated](https://img.shields.io/badge/dynamic/json.svg?style=flat-square&logo=npm&label=last%20release&url=http%3A%2F%2Fregistry.npmjs.org%2Felement-pro-components&query=$.time.modified)](https://www.npmjs.com/package/element-pro-components)
 [![Github last commit](https://img.shields.io/github/last-commit/tolking/element-pro-components.svg?&style=flat-square&logo=github)](https://github.com/tolking/element-pro-components/commits)
 [![Latest tag via GitHub](https://img.shields.io/github/v/tag/tolking/element-pro-components.svg?sort=semver&style=flat-square&logo=github)](https://github.com/tolking/element-pro-components/tags)
 
-# element-pro-components (rc)
+# element-pro-components
 
 > a component library for Vue 3 base on element-plus
 
