@@ -1,11 +1,9 @@
 import {
   Component,
   computed,
-  DefineComponent,
   defineComponent,
   h,
   toRefs,
-  resolveDynamicComponent,
   Transition,
   KeepAlive,
   VNode,
@@ -123,9 +121,7 @@ export default defineComponent({
     }
 
     function createDefaultMain({ Component, route }: RouterViewSlot) {
-      const defaultMain = h(
-        resolveDynamicComponent(Component) as DefineComponent
-      )
+      const defaultMain = h(Component)
 
       return [
         slots['main-top'] && slots['main-top'](),
@@ -135,25 +131,35 @@ export default defineComponent({
     }
 
     function createMain() {
-      return h(RouterView, null, {
-        default: (scope: RouterViewSlot) =>
-          h(
-            Transition,
-            {
-              mode: 'out-in',
-              name: props.transition,
-            },
-            () => {
-              if (fixedMain.value) {
-                return h(ElScrollbar, { class: 'pro-main' }, () =>
-                  createDefaultMain(scope)
-                )
-              } else {
-                return h('div', { class: 'pro-main' }, createDefaultMain(scope))
-              }
+      return h(
+        RouterView,
+        {},
+        {
+          default: (scope: RouterViewSlot) => {
+            const mainProps = {
+              key: scope?.route?.path,
+              class: 'pro-main',
             }
-          ),
-      })
+
+            return h(
+              Transition,
+              {
+                mode: 'out-in',
+                name: props.transition,
+              },
+              () => {
+                if (fixedMain.value) {
+                  return h(ElScrollbar, mainProps, () =>
+                    createDefaultMain(scope)
+                  )
+                } else {
+                  return h('div', mainProps, createDefaultMain(scope))
+                }
+              }
+            )
+          },
+        }
+      )
     }
 
     function createDefault() {
