@@ -11,7 +11,7 @@ declare module 'vue-router' {
     hidden?: boolean
     /** whether the current route is keepAlive */
     keepAlive?: boolean
+    /** the animation name of transition pages */
+    transition?: string
   }
 }
-
-export type { RouteRecordRaw as IRouteRecordRaw } from 'vue-router'

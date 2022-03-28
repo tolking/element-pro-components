@@ -11,16 +11,9 @@ By default, layout-related components will automatically obtain the required rou
 
 ## Format
 
-Compared with the vue-router type, only the `meta` attribute is extended
+The meta type
 
-```ts
-interface RouteMeta {
-  title?: string // Show menu title
-  icon?: string | Component // Show menu icon
-  hidden?: boolean // Whether to display in the menu, does not affect the router jump
-  keepAlive?: boolean // Whether to keepAlive
-}
-```
+<<< @/src/types/router.ts
 
 refer router
 

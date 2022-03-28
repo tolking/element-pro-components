@@ -10,9 +10,9 @@ import {
   mergeProps,
 } from 'vue'
 import { RouterView, RouteRecordRaw } from 'vue-router'
+import { reactiveOmit } from '@vueuse/core'
 import { ElScrollbar } from 'element-plus'
 import { useSharedBreakpoint, useShow } from '../composables/index'
-import { objectOmit } from '../utils/index'
 import props from './props'
 import { ProMenu } from '../Menu/index'
 
@@ -26,6 +26,7 @@ export default defineComponent({
   props,
   setup(props, { slots }) {
     const { mode, fixedHeader, fixedMain } = toRefs(props)
+    const config = reactiveOmit(props, 'fixedHeader', 'fixedMain', 'transition')
     const breakpoint = useSharedBreakpoint()
     const { show, toggleShow } = useShow(props.collapse)
     const collapse = computed(() => {
@@ -33,11 +34,6 @@ export default defineComponent({
     })
 
     function createMenu() {
-      const config = objectOmit(props, [
-        'fixedHeader',
-        'fixedMain',
-        'transition',
-      ])
       const menuSlots = slots.menu
         ? {
             default: (scope: unknown) => slots.menu && slots.menu(scope),
@@ -121,7 +117,7 @@ export default defineComponent({
     }
 
     function createDefaultMain({ Component, route }: RouterViewSlot) {
-      const defaultMain = h(Component)
+      const defaultMain = Component ? h(Component) : undefined
 
       return [
         slots['main-top'] && slots['main-top'](),
@@ -145,7 +141,7 @@ export default defineComponent({
               Transition,
               {
                 mode: 'out-in',
-                name: props.transition,
+                name: scope?.route?.meta?.transition ?? props.transition,
               },
               () => {
                 if (fixedMain.value) {
