@@ -1,5 +1,8 @@
 <template>
-  <pro-layout :routes="routes">
+  <pro-layout
+    :routes="routes"
+    transition="el-fade-in"
+  >
     <template #logo="{ collapse }">
       <transition
         name="el-zoom-in-top"
