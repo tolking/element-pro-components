@@ -11,16 +11,9 @@ meta:
 
 ## 统一格式
 
-相比原生 router 类型仅扩展了 `meta` 属性
+meta 类型
 
-```ts
-interface RouteMeta {
-  title?: string // 用于显示菜单标题
-  icon?: string | Component // 用于显示菜单图标
-  hidden?: boolean // 用于判断是否在菜单中显示，不影响 router-link 跳转
-  keepAlive?: boolean // 控制 keepAlive
-}
-```
+<<< @/src/types/router.ts
 
 参考路由
 
