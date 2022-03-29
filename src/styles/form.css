@@ -1,4 +1,4 @@
-.pro-form .pro-form-menu {
+.pro-form:not(.el-form--inline) .pro-form-menu {
   margin-bottom: 0;
   width: 100%;
 }
