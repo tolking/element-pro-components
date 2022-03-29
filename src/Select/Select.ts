@@ -23,7 +23,7 @@ export default defineComponent({
           label: item[configKeys.value.label],
           disabled: item[configKeys.value.disabled],
         },
-        () => slots.default && slots.default({ data: item })
+        () => slots.default && slots.default({ item })
       )
     }
 

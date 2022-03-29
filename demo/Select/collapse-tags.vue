@@ -1,14 +1,23 @@
 <template>
-  <pro-select
-    v-model="select"
-    :data="data"
-    :config="config"
-  >
-    <template #default="{ item }">
-      <span>{{ item.label }}</span>
-      <span style="float: right">{{ item.value }}</span>
-    </template>
-  </pro-select>
+  <div>
+    <span>collapse-tags: </span>
+    <pro-select
+      v-model="select"
+      :data="data"
+      multiple
+      collapse-tags
+    />
+  </div>
+  <div>
+    <span>collapse-tags-tooltip: </span>
+    <pro-select
+      v-model="select"
+      :data="data"
+      multiple
+      collapse-tags
+      collapse-tags-tooltip
+    />
+  </div>
 </template>
 
 <script>
@@ -16,8 +25,7 @@ import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   setup() {
-    const select = ref('')
-    const config = ref({ value: 'label', label: 'value' })
+    const select = ref([])
     const data = ref([
       { value: 'Go', label: 'go' },
       { value: 'JavaScript', label: 'javascript' },
@@ -28,7 +36,6 @@ export default defineComponent({
 
     return {
       select,
-      config,
       data,
     }
   },
