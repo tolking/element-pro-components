@@ -120,4 +120,4 @@ Set `children` in `data` will automatic generate the children options (If there 
 
 | Name | Description                               |
 | ---- | ----------------------------------------- |
-| -    | Custom content. The parameter is { data } |
+| -    | Custom content. The parameter is { item } |
