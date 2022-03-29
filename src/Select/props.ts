@@ -65,6 +65,18 @@ export const selectProps = {
     type: String as PropType<'success' | 'info' | 'warning' | 'danger'>,
     default: 'info',
   },
+  effect: {
+    type: String as PropType<'light' | 'dark' | string>,
+    default: 'light',
+  },
+  collapseTagsTooltip: {
+    type: Boolean,
+    default: false,
+  },
+  persistent: {
+    type: Boolean,
+    default: true,
+  },
 }
 
 export default {
