@@ -1,5 +1,4 @@
 import {
-  Component,
   computed,
   defineComponent,
   h,
@@ -8,25 +7,32 @@ import {
   KeepAlive,
   VNode,
   mergeProps,
+  KeepAliveProps,
 } from 'vue'
-import { RouterView, RouteRecordRaw } from 'vue-router'
-import { reactiveOmit } from '@vueuse/core'
+import { RouterView, RouteLocationNormalizedLoaded } from 'vue-router'
+import { reactivePick } from '@vueuse/core'
 import { ElScrollbar } from 'element-plus'
 import { useSharedBreakpoint, useShow } from '../composables/index'
-import props from './props'
+import props, { menuKeys } from './props'
 import { ProMenu } from '../Menu/index'
 
 interface RouterViewSlot {
-  Component: Component
-  route: RouteRecordRaw
+  Component: VNode
+  route: RouteLocationNormalizedLoaded
 }
 
 export default defineComponent({
   name: 'ProLayout',
   props,
   setup(props, { slots }) {
-    const { mode, fixedHeader, fixedMain } = toRefs(props)
-    const config = reactiveOmit(props, 'fixedHeader', 'fixedMain', 'transition')
+    const { mode, fixedHeader } = toRefs(props)
+    const menuConfig = reactivePick(props, ...menuKeys)
+    const keepAliveConfig = reactivePick(
+      props,
+      'include',
+      'exclude',
+      'max'
+    ) as KeepAliveProps
     const breakpoint = useSharedBreakpoint()
     const { show, toggleShow } = useShow(props.collapse)
     const collapse = computed(() => {
@@ -42,7 +48,7 @@ export default defineComponent({
 
       return h(
         ProMenu,
-        mergeProps(config, { collapse: collapse.value }),
+        mergeProps(menuConfig, { collapse: collapse.value }),
         menuSlots
       )
     }
@@ -116,43 +122,28 @@ export default defineComponent({
       )
     }
 
-    function createDefaultMain({ Component, route }: RouterViewSlot) {
-      const defaultMain = Component ? h(Component) : undefined
-
-      return [
-        slots['main-top'] && slots['main-top'](),
-        route.meta?.keepAlive ? h(KeepAlive, null, defaultMain) : defaultMain,
-        slots['main-bottom'] && slots['main-bottom'](),
-      ]
-    }
-
     function createMain() {
+      if (slots.default) return slots.default()
       return h(
         RouterView,
         {},
         {
-          default: (scope: RouterViewSlot) => {
-            const mainProps = {
-              key: scope?.route?.path,
-              class: 'pro-main',
-            }
+          default: ({ Component, route }: RouterViewSlot) => {
+            const withKeepAlive = props.keepAlive
+              ? h(KeepAlive, keepAliveConfig, Component)
+              : Component
 
-            return h(
-              Transition,
-              {
-                mode: 'out-in',
-                name: scope?.route?.meta?.transition ?? props.transition,
-              },
-              () => {
-                if (fixedMain.value) {
-                  return h(ElScrollbar, mainProps, () =>
-                    createDefaultMain(scope)
-                  )
-                } else {
-                  return h('div', mainProps, createDefaultMain(scope))
-                }
-              }
-            )
+            return props.transition
+              ? h(
+                  Transition,
+                  {
+                    mode: 'out-in',
+                    appear: true,
+                    name: route?.meta?.transition ?? props.transition,
+                  },
+                  () => withKeepAlive
+                )
+              : withKeepAlive
           },
         }
       )
@@ -178,7 +169,6 @@ export default defineComponent({
           class: [
             'pro-layout',
             mode.value === 'vertical' ? 'layout-aside' : 'layout-topmenu',
-            fixedMain.value && 'fixed-main',
           ],
         },
         createDefault()

@@ -24,11 +24,8 @@
     <template #header-bottom>
       <span>header-bottom</span>
     </template>
-    <template #main-top>
-      <p>main-top</p>
-    </template>
-    <template #main-bottom>
-      <p>main-bottom</p>
+    <template #default>
+      <p>default</p>
     </template>
   </pro-layout>
 </template>

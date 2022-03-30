@@ -9,8 +9,6 @@ declare module 'vue-router' {
     icon?: string | Component
     /** whether to show in the Menu */
     hidden?: boolean
-    /** whether the current route is keepAlive */
-    keepAlive?: boolean
     /** the animation name of transition pages */
     transition?: string
   }

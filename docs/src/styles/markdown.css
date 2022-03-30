@@ -1,3 +1,16 @@
+.markdown-body {
+  flex: 1;
+  margin: 10px;
+  padding: 20px;
+  border: var(--el-border);
+  border-radius: var(--el-border-radius-base);
+  background-color: var(--el-color-white);
+  @media (--xs-medium) {
+    margin: 4px;
+    padding: 10px;
+  }
+}
+
 html {
   line-height: 1.4;
   font-size: 16px;
