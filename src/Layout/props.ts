@@ -1,14 +1,21 @@
 import props from '../Menu/props'
 
+type MenuKeys = Array<keyof typeof props>
+
+export const menuKeys = Object.keys(props) as MenuKeys
+
 export default {
   ...props,
   fixedHeader: {
     type: Boolean,
     default: true,
   },
-  fixedMain: {
+  transition: String,
+  keepAlive: {
     type: Boolean,
     default: false,
   },
-  transition: String,
+  include: [String, RegExp, Array],
+  exclude: [String, RegExp, Array],
+  max: [String, Number],
 }
