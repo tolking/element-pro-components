@@ -35,6 +35,32 @@ Set `routes` attribute to enable custom routes
 @/demo/Layout/routes.vue
 :::
 
+### Custom Transition
+
+Provides animated transition effects by `transition`
+
+::: tip Tip
+When used `transition`, the page must have only one root element due to `Transition` component restrictions
+:::
+
+::: demo The transition animation of the current route can be configured through `meta.transition` in the router
+@/demo/Layout/transition.vue
+:::
+
+### Custom keepAlive
+
+enable cache by `keep-alive`, use `include` `exclude` `max` to Control cache
+
+::: tip Tip
+`include` and `exclude` match the name of the page
+
+It is recommended to name the pages that need to be cached starting with `Keep`, and then configure `:include="/^Keep/"` to use
+:::
+
+::: demo
+@/demo/Layout/keep-alive.vue
+:::
+
 ### Slots
 
 More complex interface through slots
@@ -45,32 +71,34 @@ More complex interface through slots
 
 ### Props
 
-| Name                | Description                                                         | Type    | Options               | Default           |
-| :------------------ | :------------------------------------------------------------------ | :------ | :-------------------- | :---------------- |
-| fixed-header        | whether to fix the page header                                      | boolean | -                     | true              |
-| fixed-main          | whether to fix the page main                                        | boolean | -                     | false             |
-| transition          | the animation name of transition pages                              | string  | -                     | -                 |
-| routes              | current routes of menu                                              | array   | -                     | from `vue-router` |
-| mode                | menu display mode                                                   | string  | horizontal / vertical | vertical          |
-| collapse            | whether the menu is collapsed (available only in vertical mode)     | boolean | -                     | false             |
-| ellipsis            | whether the menu is ellipsis (available only in horizontal mode)    | boolean | —                     | true              |
-| background-color    | background color of Menu (hex format)                               | string  | -                     | #ffffff           |
-| text-color          | text color of Menu (hex format)                                     | string  | -                     | #303133           |
-| active-text-color   | text color of currently active menu item (hex format)               | string  | -                     | #409EFF           |
-| default-openeds     | array that contains indexes of currently active sub-menus           | Array   | -                     | -                 |
-| unique-opened       | whether only one sub-menu can be active                             | boolean | -                     | false             |
-| menu-trigger        | how sub-menus are triggered, only works when `mode` is 'horizontal' | string  | hover / click         | hover             |
-| collapse-transition | whether to enable the collapse transition                           | boolean | -                     | true              |
+| Name                | Description                                                                                   | Type                    | Options               | Default           |
+| :------------------ | :-------------------------------------------------------------------------------------------- | :---------------------- | :-------------------- | :---------------- |
+| fixed-header        | whether to fix the page header                                                                | boolean                 | -                     | true              |
+| keep-alive          | whether to enable cache pages                                                                 | boolean                 | -                     | false             |
+| include             | match the name of the page that need to be cache, takes effect when keep-alive is true        | string / array / RegExp | -                     | -                 |
+| exclude             | match the name of the page that do not need to be cache, takes effect when keep-alive is true | string / array / RegExp | -                     | -                 |
+| max                 | limit the max number of cache, takes effect when keep-alive is true                           | string / number         | -                     | -                 |
+| transition          | the animation name of transition pages                                                        | string                  | -                     | -                 |
+| routes              | current routes of menu                                                                        | array                   | -                     | from `vue-router` |
+| mode                | menu display mode                                                                             | string                  | horizontal / vertical | vertical          |
+| collapse            | whether the menu is collapsed (available only in vertical mode)                               | boolean                 | -                     | false             |
+| ellipsis            | whether the menu is ellipsis (available only in horizontal mode)                              | boolean                 | —                     | true              |
+| background-color    | background color of Menu (hex format)                                                         | string                  | -                     | #ffffff           |
+| text-color          | text color of Menu (hex format)                                                               | string                  | -                     | #303133           |
+| active-text-color   | text color of currently active menu item (hex format)                                         | string                  | -                     | #409EFF           |
+| default-openeds     | array that contains indexes of currently active sub-menus                                     | Array                   | -                     | -                 |
+| unique-opened       | whether only one sub-menu can be active                                                       | boolean                 | -                     | false             |
+| menu-trigger        | how sub-menus are triggered, only works when `mode` is 'horizontal'                           | string                  | hover / click         | hover             |
+| collapse-transition | whether to enable the collapse transition                                                     | boolean                 | -                     | true              |
 
 ### Slots
 
 | Name          | Description                                                       |
 | :------------ | :---------------------------------------------------------------- |
+| default       | custom implementation RouterView                                  |
 | logo          | control logo display content, parameters { collapse }             |
 | menu          | control menu display content, parameters { meta, path, redirect } |
 | footer        | control the footer of page display content                        |
 | header-left   | control the header left display content                           |
 | header-right  | control the header right display content                          |
 | header-bottom | control the header bottom display content                         |
-| main-top      | control the main top display content                              |
-| main-bottom   | control the main bottom display content                           |
