@@ -1,50 +1,52 @@
 <template>
-  <pro-table
-    v-model:current-page="currentPage"
-    v-model:page-size="pageSize"
-    :data="data"
-    :columns="columns"
-    :total="total"
-    :index="index"
-    :menu="menu"
-    selection
-    small
-    align="center"
-    size="small"
-    @cell-click="test"
-    @load="test"
-  >
-    <template #expand="{ row }">
-      {{ row }}
-    </template>
-    <template #date-header="{ column }">
-      <i class="el-icon-time" />
-      <span>{{ column.label }}</span>
-    </template>
-    <template #date="{ row }">
-      - {{ row.date }} -
-    </template>
-    <template #menu="{ size, row }">
-      <el-button
-        :size="size"
-        type="text"
-        @click="test(row)"
-      >
-        test{{ size }}
-      </el-button>
-    </template>
-  </pro-table>
-  <pro-table
-    v-model:current-page="currentPage"
-    v-model:page-size="pageSize"
-    :data="data"
-    :columns="columns1"
-    :total="total"
-  >
-    <template #name="{ row }">
-      - {{ row.name }} -
-    </template>
-  </pro-table>
+  <pro-card shadow="never">
+    <pro-table
+      v-model:current-page="currentPage"
+      v-model:page-size="pageSize"
+      :data="data"
+      :columns="columns"
+      :total="total"
+      :index="index"
+      :menu="menu"
+      selection
+      small
+      align="center"
+      size="small"
+      @cell-click="test"
+      @load="test"
+    >
+      <template #expand="{ row }">
+        {{ row }}
+      </template>
+      <template #date-header="{ column }">
+        <i class="el-icon-time" />
+        <span>{{ column.label }}</span>
+      </template>
+      <template #date="{ row }">
+        - {{ row.date }} -
+      </template>
+      <template #menu="{ size, row }">
+        <el-button
+          :size="size"
+          type="text"
+          @click="test(row)"
+        >
+          test{{ size }}
+        </el-button>
+      </template>
+    </pro-table>
+    <pro-table
+      v-model:current-page="currentPage"
+      v-model:page-size="pageSize"
+      :data="data"
+      :columns="columns1"
+      :total="total"
+    >
+      <template #name="{ row }">
+        - {{ row.name }} -
+      </template>
+    </pro-table>
+  </pro-card>
 </template>
 
 <script setup lang="ts">
