@@ -1,5 +1,5 @@
 // NOTE modify from element-plus, if a same hooks is added to the element-plus, replace this file by hooks
-import { ComputedRef, computed, inject, Ref, unref } from 'vue'
+import { ComputedRef, computed, inject, Ref, unref, ref } from 'vue'
 import { isObject } from '../utils/index'
 import type { ColProps } from 'element-plus'
 
@@ -18,8 +18,9 @@ export function useCol(
     paddingRight?: string
   }>
   colClass: ComputedRef<string[]>
+  gutter: Ref<number | undefined>
 } {
-  const { gutter } = inject('ElRow', { gutter: { value: 0 } })
+  const { gutter } = inject('ElRow', { gutter: ref<number | undefined>() })
 
   const colStyle = computed(() => {
     if (gutter.value) {
@@ -82,5 +83,6 @@ export function useCol(
   return {
     colStyle,
     colClass,
+    gutter,
   }
 }

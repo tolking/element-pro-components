@@ -1,82 +1,84 @@
 <template>
-  <pro-crud
-    ref="crud"
-    v-model="form"
-    v-model:search="serachForm"
-    v-model:current-page="currentPage"
-    v-model:page-size="pageSize"
-    :columns="columns"
-    :data="data"
-    :total="total"
-    :menu="menu"
-    :size="componentsSize"
-    :before-open="beforeOpen"
-    :before-close="beforeClose"
-    selection
-    expand
-    border
-    label-width="100px"
-    append-to-body
-    class="ffff"
-    @search="search"
-    @searchReset="reset"
-    @submit="submit"
-    @reset="reset"
-    @delete="deleteRow"
-  >
-    <template #expand="{ row }">
-      {{ row }}
-    </template>
-    <template #action="{ size }">
-      <pro-column-setting
-        v-model="columns"
-        :size="size"
-        trigger="click"
-      />
-    </template>
-    <template #menu-right="{ size }">
-      <el-button
-        :size="size"
-        icon="el-icon-delete"
-        type="danger"
-      />
-      <el-button
-        :size="size"
-        @click="changeSize"
-      >
-        change size
-      </el-button>
-    </template>
-    <template #menu="{ size, row }">
-      <el-button
-        :size="size"
-        type="text"
-        @click="deleteRow(row)"
-      >
-        Detail
-      </el-button>
-    </template>
-    <template #search-date-label>
-      <span>search slot</span>
-    </template>
-    <template #search-menu-right>
-      <el-button>Export</el-button>
-    </template>
-    <template #form-name>
-      <span>test form slot</span>
-    </template>
-    <template #table-name="{ row, size }">
-      <el-tag :size="size">
-        {{ row.name }}
-      </el-tag>
-    </template>
-    <template #form-menu-left>
-      <el-button>Prev</el-button>
-    </template>
-    <template #form-menu-right>
-      <el-button>Next</el-button>
-    </template>
-  </pro-crud>
+  <pro-card shadow="never">
+    <pro-crud
+      ref="crud"
+      v-model="form"
+      v-model:search="serachForm"
+      v-model:current-page="currentPage"
+      v-model:page-size="pageSize"
+      :columns="columns"
+      :data="data"
+      :total="total"
+      :menu="menu"
+      :size="componentsSize"
+      :before-open="beforeOpen"
+      :before-close="beforeClose"
+      selection
+      expand
+      border
+      label-width="100px"
+      append-to-body
+      class="ffff"
+      @search="search"
+      @searchReset="reset"
+      @submit="submit"
+      @reset="reset"
+      @delete="deleteRow"
+    >
+      <template #expand="{ row }">
+        {{ row }}
+      </template>
+      <template #action="{ size }">
+        <pro-column-setting
+          v-model="columns"
+          :size="size"
+          trigger="click"
+        />
+      </template>
+      <template #menu-right="{ size }">
+        <el-button
+          :size="size"
+          icon="el-icon-delete"
+          type="danger"
+        />
+        <el-button
+          :size="size"
+          @click="changeSize"
+        >
+          change size
+        </el-button>
+      </template>
+      <template #menu="{ size, row }">
+        <el-button
+          :size="size"
+          type="text"
+          @click="deleteRow(row)"
+        >
+          Detail
+        </el-button>
+      </template>
+      <template #search-date-label>
+        <span>search slot</span>
+      </template>
+      <template #search-menu-right>
+        <el-button>Export</el-button>
+      </template>
+      <template #form-name>
+        <span>test form slot</span>
+      </template>
+      <template #table-name="{ row, size }">
+        <el-tag :size="size">
+          {{ row.name }}
+        </el-tag>
+      </template>
+      <template #form-menu-left>
+        <el-button>Prev</el-button>
+      </template>
+      <template #form-menu-right>
+        <el-button>Next</el-button>
+      </template>
+    </pro-crud>
+  </pro-card>
 </template>
 
 <script setup lang="ts">

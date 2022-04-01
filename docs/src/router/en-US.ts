@@ -54,6 +54,11 @@ const enUS: RouteRecordRaw[] = [
         meta: { title: 'Layout' },
       },
       {
+        path: '/en-US/components/card',
+        component: () => import('../../docs/en-US/components/Card.md'),
+        meta: { title: 'Card' },
+      },
+      {
         path: '/en-US/components/menu',
         component: () => import('../../docs/en-US/components/Menu.md'),
         meta: { title: 'Menu' },

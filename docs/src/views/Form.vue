@@ -1,36 +1,38 @@
 <template>
-  <pro-form
-    v-model="form"
-    :columns="columns"
-    :menu="menu"
-    label-width="180px"
-    :gutter="20"
-    size="small"
-    @submit="submitForm"
-  >
-    <template #slot-label>
-      <i class="el-icon-time" />
-      <span>Slot</span>
-    </template>
-    <template #slot="{ item, value, setValue }">
-      <span>{{ item }} - {{ value }} - {{ setValue }}</span>
-    </template>
-  </pro-form>
-  <pro-form
-    ref="ruleForm"
-    v-model="form1"
-    :columns="columns1"
-    :rules="rules"
-    label-width="180px"
-    @submit="submitForm"
-  >
-    <template #address="{ value, setValue }">
-      <pro-input-tag
-        :model-value="value"
-        @update:modelValue="setValue"
-      />
-    </template>
-  </pro-form>
+  <pro-card shadow="never">
+    <pro-form
+      v-model="form"
+      :columns="columns"
+      :menu="menu"
+      label-width="180px"
+      :gutter="20"
+      size="small"
+      @submit="submitForm"
+    >
+      <template #slot-label>
+        <i class="el-icon-time" />
+        <span>Slot</span>
+      </template>
+      <template #slot="{ item, value, setValue }">
+        <span>{{ item }} - {{ value }} - {{ setValue }}</span>
+      </template>
+    </pro-form>
+    <pro-form
+      ref="ruleForm"
+      v-model="form1"
+      :columns="columns1"
+      :rules="rules"
+      label-width="180px"
+      @submit="submitForm"
+    >
+      <template #address="{ value, setValue }">
+        <pro-input-tag
+          :model-value="value"
+          @update:modelValue="setValue"
+        />
+      </template>
+    </pro-form>
+  </pro-card>
 </template>
 
 <script setup lang="ts">

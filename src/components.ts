@@ -1,5 +1,6 @@
 export * from './AutocompleteTag/index'
 export * from './Breadcrumb/index'
+export * from './Card/index'
 export * from './Checkbox/index'
 export * from './CheckboxButton/index'
 export * from './ColumnSetting/index'
@@ -19,6 +20,7 @@ export * from './TreeSelect/index'
 
 import { ProAutocompleteTag } from './AutocompleteTag/index'
 import { ProBreadcrumb } from './Breadcrumb/index'
+import { ProCard } from './Card/index'
 import { ProCheckbox } from './Checkbox/index'
 import { ProCheckboxButton } from './CheckboxButton/index'
 import { ProColumnSetting } from './ColumnSetting/index'
@@ -40,6 +42,7 @@ import type { Plugin } from 'vue'
 export default {
   ProAutocompleteTag,
   ProBreadcrumb,
+  ProCard,
   ProCheckbox,
   ProCheckboxButton,
   ProColumnSetting,
@@ -62,6 +65,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     ProAutocompleteTag: typeof ProAutocompleteTag
     ProBreadcrumb: typeof ProBreadcrumb
+    ProCard: typeof ProCard
     ProCheckbox: typeof ProCheckbox
     ProCheckboxButton: typeof ProCheckboxButton
     ProColumnSetting: typeof ProColumnSetting
