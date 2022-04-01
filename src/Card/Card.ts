@@ -1,6 +1,6 @@
-import { Component, computed, defineComponent, h, mergeProps } from 'vue'
+import { computed, defineComponent, h, mergeProps } from 'vue'
 import { useCol, useRow } from '../composables/index'
-import { isObject } from '../utils/index'
+import { findNodeByName } from '../utils/index'
 import props from './props'
 
 export default defineComponent({
@@ -8,16 +8,14 @@ export default defineComponent({
   props,
   setup(props, { slots }) {
     const { rowStyle, rowClass } = useRow(props)
-    const { colStyle, colClass } = useCol(props)
-    const withCard = computed(() => {
-      return slots.default
-        ? !!slots.default().find((item) => {
-            const name = isObject(item.type)
-              ? (item.type as Component)?.name
-              : item.type
-            return name === 'ProCard'
-          })
-        : false
+    const { colStyle, colClass, gutter } = useCol(props)
+    const defaultSlot = computed(() => slots.default && slots.default())
+    const isNestedCard = computed(() => {
+      return !!findNodeByName(defaultSlot.value, 'ProCard')
+    })
+    const isCol = computed(() => {
+      const regExp = /^el-col,el-col-24(,is-guttered)?$/
+      return !(!props.span && regExp.test(colClass.value.join()))
     })
 
     function createHeader() {
@@ -40,13 +38,15 @@ export default defineComponent({
           {
             class: [
               'pro-card__body',
-              withCard.value && rowClass.value,
-              props.direction && `is-direction-${props.direction}`,
+              isNestedCard.value && rowClass.value,
+              isNestedCard.value &&
+                props.direction &&
+                `is-direction-${props.direction}`,
             ],
-            style: withCard.value && rowStyle.value,
+            style: isNestedCard.value && rowStyle.value,
           }
         ),
-        slots.default && slots.default()
+        defaultSlot.value
       )
     }
 
@@ -57,16 +57,21 @@ export default defineComponent({
           class: [
             'pro-card',
             props.ghost && 'is-ghost',
-            props.split && 'is-split',
+            isNestedCard.value && props.split && 'is-split',
             props.shadow && `is-${props.shadow}-shadow`,
           ],
+          style: !isCol.value &&
+            gutter.value && {
+              marginLeft: `${gutter.value / 2}px`,
+              marginRight: `${gutter.value / 2}px`,
+            },
         },
         [createHeader(), createBody()]
       )
     }
 
     return () => {
-      if (colClass.value.join() !== 'el-col,el-col-24') {
+      if (isCol.value) {
         return h(
           'div',
           {
