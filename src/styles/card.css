@@ -74,11 +74,11 @@
   }
   & .pro-card {
     margin: 0;
-    @media (--xs-medium) {
+    @media (max-width: 767px) {
       margin: 0px;
     }
   }
-  @media (--xs-medium) {
+  @media (max-width: 767px) {
     margin: var(--pro-card-xs-margin);
   }
 }

@@ -4,6 +4,7 @@ import postcss from 'postcss'
 import postcssImport from 'postcss-import'
 import postcssPresetEnv from 'postcss-preset-env'
 import autoprefixer from 'autoprefixer'
+import cssnano from 'cssnano'
 import { writeFileRecursive, copyFileRecursive, toAbsolute } from './utils'
 
 function transformSSR(input: string) {
@@ -27,7 +28,12 @@ function transform(input: string) {
   if (input.endsWith('.css')) {
     readFile(input, (err, css) => {
       if (err) return console.error(err)
-      postcss([postcssImport, postcssPresetEnv({ stage: 1 }), autoprefixer])
+      postcss([
+        postcssImport,
+        postcssPresetEnv({ stage: 1 }),
+        autoprefixer,
+        cssnano({ preset: 'default' }),
+      ])
         .process(css, { from: input, to: outDir })
         .then((result) => {
           writeFileRecursive(outDir, result.css)
