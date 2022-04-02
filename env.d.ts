@@ -1,3 +1,6 @@
+/// <reference types="vite/client" />
+/// <reference types="element-plus/global" />
+
 declare module '*.vue' {
   import { DefineComponent } from 'vue'
   const comp: DefineComponent
@@ -15,13 +18,3 @@ declare module 'prismjs/components/index'
 declare module 'escape-html'
 declare module '@docsearch/js'
 declare module 'virtual:pwa-register/vue'
-
-interface ImportMeta {
-  env: {
-    MODE: string
-    BASE_URL: string
-    PROD: boolean
-    DEV: boolean
-    SSR: boolean
-  }
-}

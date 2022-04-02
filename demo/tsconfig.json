@@ -6,11 +6,5 @@
       "/@src/*": ["./src/*"],
       "element-pro-components": ["./src/index"]
     }
-  },
-  "include": [
-    ".",
-    "../shims-vue.d.ts",
-    "../node_modules/element-plus/global.d.ts",
-    "../types/components.d.ts"
-  ]
+  }
 }
