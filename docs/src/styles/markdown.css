@@ -5,7 +5,7 @@
   border: var(--el-border);
   border-radius: var(--el-border-radius-base);
   background-color: var(--el-color-white);
-  @media (--xs-medium) {
+  @media (max-width: 767px) {
     margin: 4px;
     padding: 10px;
   }

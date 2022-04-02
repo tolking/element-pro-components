@@ -1,5 +1,3 @@
-@custom-media --xs-medium (width < 768px);
-
 :root {
   --pro-layout-header-background-color: var(--el-color-white);
   --pro-layout-aside-background-color: var(--el-color-white);
