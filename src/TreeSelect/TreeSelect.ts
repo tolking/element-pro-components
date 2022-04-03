@@ -5,10 +5,12 @@ import { useTreeSelect } from '../composables/index'
 import { treeProps } from '../ColumnSetting/props'
 import props from './props'
 import emits from './emits'
+import type { SelectDataItem } from '../Select/type'
 
 type TreeKeys = Array<keyof typeof props>
 
 interface TreeScope {
+  data: SelectDataItem
   node: {
     disabled: boolean
     label: string
@@ -80,19 +82,23 @@ export default defineComponent({
               onCheckChange: upData,
             }),
             {
-              default: (scope: TreeScope) => {
+              default: ({ node, data }: TreeScope) => {
                 if (slots.default) {
-                  return slots.default({ ...scope, multiple: multiple?.value })
+                  // NOTE: Remove `data` on next major release
+                  return slots.default({
+                    node,
+                    data,
+                    item: data,
+                    multiple: multiple?.value,
+                  })
                 } else {
                   return h(
                     'span',
                     {
                       class:
-                        scope.node.disabled && !multiple?.value
-                          ? 'is-disabled'
-                          : '',
+                        node.disabled && !multiple?.value ? 'is-disabled' : '',
                     },
-                    scope.node.label
+                    node.label
                   )
                 }
               },

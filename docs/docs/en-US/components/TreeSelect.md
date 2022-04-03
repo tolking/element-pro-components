@@ -161,4 +161,4 @@ Same like `ElTree`, set `lazy` and `load` attribute to enable lazy mode
 
 | Name | Description                                                                    |
 | ---- | ------------------------------------------------------------------------------ |
-| -    | Custom content for tree nodes. The scope parameter is { node, data, multiple } |
+| -    | Custom content for tree nodes. The scope parameter is { node, item, multiple } |
