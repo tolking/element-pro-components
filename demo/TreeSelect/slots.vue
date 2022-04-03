@@ -3,7 +3,7 @@
     v-model="select"
     :data="data"
   >
-    <template #default="{ node, data: item, multiple }">
+    <template #default="{ node, item, multiple }">
       <p
         :class="node.disabled && !multiple ? 'is-disabled' : ''"
         class="custom-tree-node"
