@@ -13,7 +13,7 @@
         extra
       </el-button>
     </template>
-    <template #name="{ detail: item, size }">
+    <template #name="{ item, size }">
       <el-tag :size="size">
         {{ item.name }}
       </el-tag>
@@ -35,7 +35,7 @@ export default defineComponent({
         label: 'Date',
         prop: 'date',
         render: (row) => h('em', row.date),
-        renderLabel: ({ item }) => h('em', item.label),
+        renderLabel: (item) => h('em', item.label),
       },
       { label: 'Name', prop: 'name' },
       { label: 'Address', prop: 'address' },

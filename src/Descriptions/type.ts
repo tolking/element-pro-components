@@ -18,13 +18,7 @@ interface DescriptionsColumn<T = ExternalParam> extends UnknownObject {
   className?: string
   labelClassName?: string
   render?: (detail: T) => string | MaybeArray<VNode>
-  renderLabel?: ({
-    detail,
-    item,
-  }: {
-    detail: T
-    item: DescriptionsColumn<T>
-  }) => string | MaybeArray<VNode>
+  renderLabel?: (column: DescriptionsColumn<T>) => string | MaybeArray<VNode>
 }
 
 export type IDescriptionsColumns<T = ExternalParam> = DescriptionsColumn<T>[]

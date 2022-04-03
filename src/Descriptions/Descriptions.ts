@@ -29,8 +29,10 @@ export default defineComponent({
               {
                 default: () => {
                   if (slots[item.prop]) {
+                    // NOTE: Remove `detail: props.detail` on next major release
                     return (slots[item.prop] as Slot)({
                       size: props.size,
+                      item: props.detail,
                       detail: props.detail,
                     })
                   } else if (item.render) {
@@ -49,7 +51,7 @@ export default defineComponent({
                     })
                   } else if (item.renderLabel) {
                     return isFunction(item.renderLabel)
-                      ? item.renderLabel({ detail: props.detail, item: item })
+                      ? item.renderLabel(item)
                       : String(item.renderLabel)
                   } else {
                     return null
