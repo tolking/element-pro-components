@@ -19,6 +19,14 @@ Will be auto generated according to the current routes
 @/demo/Breadcrumb/base.vue
 :::
 
+### Custom Separator
+
+Modify the separator by `separator`
+
+::: demo
+@/demo/Breadcrumb/separator.vue
+:::
+
 ### Props
 
 | Name           | Description                 | Type               | Options | Default |
