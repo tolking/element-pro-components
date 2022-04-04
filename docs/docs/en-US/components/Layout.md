@@ -52,6 +52,8 @@ When used `transition`, the page must have only one root element due to `Transit
 enable cache by `keep-alive`, use `include` `exclude` `max` to Control cache
 
 ::: tip Tip
+When enabled, all pages will be cached by default
+
 `include` and `exclude` match the name of the page
 
 It is recommended to name the pages that need to be cached starting with `Keep`, and then configure `:include="/^Keep/"` to use
@@ -67,6 +69,14 @@ More complex interface through slots
 
 ::: demo
 @/demo/Layout/slots.vue
+:::
+
+### Custom RouterView
+
+Custom RouterView by the default slot
+
+::: demo
+@/demo/Layout/router-view.vue
 :::
 
 ### Props

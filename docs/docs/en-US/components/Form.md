@@ -109,6 +109,22 @@ Use the same way as `el-row` `el-col` (`el-row` corresponds to `pro-form`; `el-c
 @/demo/Form/layout.vue
 :::
 
+### Inline Form
+
+Set the `inline` attribute to `true` and the form will be inline
+
+::: demo
+@/demo/Form/inline.vue
+:::
+
+### Custom Alignment
+
+The `label-position` attribute decides how labels align
+
+::: demo When the breakpoint is `xs`, the defaults value is `top`, otherwise is `right`
+@/demo/Form/label-position.vue
+:::
+
 ### Async Form
 
 To implement Async Form, columns must be bound to a reactive array

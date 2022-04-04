@@ -52,6 +52,8 @@ meta:
 通过配置 `keep-alive` 启用缓存，`include` `exclude` `max` 控制缓存内容
 
 ::: tip 提示
+启用后默认将缓存所有页面
+
 `include` `exclude` 匹配的是页面的 name
 
 推荐将需要缓存的页面以 `Keep` 开头命名，然后配置 `:include="/^Keep/"` 使用
@@ -67,6 +69,14 @@ meta:
 
 ::: demo
 @/demo/Layout/slots.vue
+:::
+
+### 自定义 RouterView
+
+通过默认插槽改写 RouterView
+
+::: demo
+@/demo/Layout/router-view.vue
 :::
 
 ### 配置
