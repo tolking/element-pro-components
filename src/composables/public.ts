@@ -9,19 +9,8 @@ import {
 } from 'vue'
 import { useRouter, RouteRecordRaw } from 'vue-router'
 import { createSharedComposable, useWindowSize } from '@vueuse/core'
-import { config } from '../utils/config'
-import { getScreenSize, objectDeepMerge } from '../utils/index'
-import type { InstallOptions, MaybeRef } from '../types/index'
-
-/** get the global config */
-export const useProOptions = createSharedComposable(() => {
-  const vm = getCurrentInstance()
-  const proxy = (vm?.proxy || {}) as { $PROOPTIONS: InstallOptions }
-
-  return '$PROOPTIONS' in proxy
-    ? objectDeepMerge(config, proxy.$PROOPTIONS)
-    : config
-})
+import { getScreenSize } from '../utils/index'
+import type { MaybeRef, IScreenSize } from '../types/index'
 
 /**
  * toggle show
@@ -47,13 +36,35 @@ export function useShow(
 }
 
 /** Gets the responsive breakpoint of the current screen */
-export const useScreenSize = createSharedComposable(() => {
+export const useSharedBreakpoint = createSharedComposable(() => {
   const { width } = useWindowSize()
 
   return computed(() => {
     return getScreenSize(width.value)
   })
 })
+
+/**
+ * Get the width of the responsive breakpoint
+ * @param config the config of width
+ */
+export function useBreakpointWidth(
+  config?: Partial<Record<IScreenSize, string>>
+): Ref<string> {
+  const breakpoint = useSharedBreakpoint()
+  const sizeWidth = Object.assign(
+    {
+      xs: '90%',
+      sm: '80%',
+      md: '70%',
+      lg: '60%',
+      xl: '50%',
+    },
+    config || {}
+  )
+
+  return computed(() => sizeWidth[breakpoint.value])
+}
 
 /** Gets the routes from `vue-router` */
 export const useSharedRoutes = createSharedComposable(() => {

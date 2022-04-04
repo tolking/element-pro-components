@@ -29,6 +29,8 @@ meta:
 
 ### 嵌套键值
 
+支持直接对具有嵌套结构的对象或数组进行取值或赋值，仅需要配置 `prop`
+
 ::: demo
 @/demo/Crud/nested.vue
 :::
@@ -37,7 +39,7 @@ meta:
 
 默认不显示新增、编辑、删除按钮，需要配置 menu 或者启用 menu 插槽时才会显示
 
-按钮也可以通过 <pro-link to="/zh-CN/guide/#全局配置">全局配置</pro-link> 或者 <pro-link to="/zh-CN/guide/i18n">国际化</pro-link> 来配置
+按钮也可以通过 <pro-link to="/zh-CN/guide/i18n">国际化</pro-link> 来配置
 
 ::: demo
 @/demo/Crud/menu.vue

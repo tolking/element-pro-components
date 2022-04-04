@@ -12,7 +12,7 @@ meta:
 ::: tip Tip
 Applicable to any component that can bind value through `v-model`. example:
 
-- Support `el-input` `el-switch` ...
+- Support `el-input` `el-switch` `input` ...
 - Not support `el-upload` ... (The relevant components need to be rewritten to support `v-model` components)
 
 :::
@@ -37,7 +37,9 @@ Use the `defineFormColumns` `defineFormMenuColumns` `defineFormSubmit` to make i
 
 ### Nested value
 
-::: demo
+Support for set the objects or arrays with nested structures value, only need to configure the `prop`
+
+::: demo Prevent assignment to nested keys when `prop` has a default value
 @/demo/Form/nested.vue
 :::
 
@@ -69,7 +71,7 @@ Directly add some slot with `[prop]` in the template
 
 Set `menu` attribute to enable custom menu
 
-Menu can also be configured through <pro-link to="/en-US/guide/#global-config">Global config</pro-link> or <pro-link to="/en-US/guide/i18n">Localization</pro-link>
+Menu can also be configured through <pro-link to="/en-US/guide/i18n">Localization</pro-link>
 
 ::: demo
 @/demo/Form/menu.vue
@@ -105,6 +107,22 @@ Use the same way as `el-row` `el-col` (`el-row` corresponds to `pro-form`; `el-c
 
 ::: demo
 @/demo/Form/layout.vue
+:::
+
+### Inline Form
+
+Set the `inline` attribute to `true` and the form will be inline
+
+::: demo
+@/demo/Form/inline.vue
+:::
+
+### Custom Alignment
+
+The `label-position` attribute decides how labels align
+
+::: demo When the breakpoint is `xs`, the defaults value is `top`, otherwise is `right`
+@/demo/Form/label-position.vue
 :::
 
 ### Async Form

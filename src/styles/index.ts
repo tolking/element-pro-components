@@ -1,5 +1,6 @@
 import './autocomplete-tag'
 import './breadcrumb'
+import './card'
 import './checkbox-button'
 import './checkbox'
 import './column-setting'

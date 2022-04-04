@@ -1,13 +1,12 @@
-import { ComputedRef, computed, ref, unref, useSlots, Ref, Slot } from 'vue'
+import { computed, ref, useSlots, Ref, Slot } from 'vue'
 import { useLocale } from 'element-plus'
-import { useProOptions } from './index'
 import {
   isFunction,
   isObject,
   filterDeep,
   objectDeepMerge,
 } from '../utils/index'
-import type { UnknownObject, MaybeRef, ExternalParam } from '../types/index'
+import type { UnknownObject, ExternalParam } from '../types/index'
 import type { IFormColumns, IFormMenuColumns, IFormSubmit } from '../Form/index'
 import type { ITableColumns } from '../Table/index'
 import type {
@@ -17,10 +16,32 @@ import type {
   ICrudMenuColumns,
 } from '../Crud/index'
 
-function useCrudMenu(): ComputedRef<ICrudMenuColumns> {
-  const localeMenu = computed(() => {
+export function useCrudMenu(
+  props: Readonly<{ menu?: ICrudMenuColumns | boolean }>
+): Ref<ICrudMenuColumns> {
+  return computed(() => {
     const { t } = useLocale()
-    const menu: ICrudMenuColumns = {}
+    const menu: ICrudMenuColumns = {
+      add: true,
+      addText: 'Add',
+      addProps: { type: 'primary' },
+      edit: true,
+      editText: 'Edit',
+      editProps: { type: 'text' },
+      del: true,
+      delText: 'Delete',
+      delProps: { type: 'text' },
+      submit: true,
+      submitText: 'Submit',
+      submitProps: { type: 'primary' },
+      reset: true,
+      resetText: 'Reset',
+      search: true,
+      searchText: 'Search',
+      searchProps: { type: 'primary' },
+      searchReset: true,
+      searchResetText: 'Reset',
+    }
     const menuList = [
       'add',
       'edit',
@@ -41,21 +62,18 @@ function useCrudMenu(): ComputedRef<ICrudMenuColumns> {
       }
     })
 
-    return menu
-  })
-
-  return computed(() => {
-    const options = useProOptions()
-    return objectDeepMerge(options.menu, localeMenu.value)
+    return isObject(props.menu) ? objectDeepMerge(menu, props.menu) : menu
   })
 }
 
 export function useCrudColumns(
   props: Readonly<ICrudProps>
 ): {
-  searchColumns: ComputedRef<IFormColumns | undefined>
-  tableColumns: ComputedRef<ITableColumns | undefined>
-  menuColumns: ComputedRef<ICrudMenuColumns | undefined>
+  searchColumns: Ref<IFormColumns | undefined>
+  tableColumns: Ref<ITableColumns | undefined>
+  addColumns: Ref<IFormColumns | undefined>
+  editColumns: Ref<IFormColumns | undefined>
+  formColumns: Ref<IFormColumns | undefined>
 } {
   const searchColumns = computed(() => {
     return props.searchColumns
@@ -65,36 +83,8 @@ export function useCrudColumns(
       : undefined
   })
   const tableColumns = computed(() => {
-    return props.tableColumns ? props.tableColumns : props.columns
+    return props.tableColumns || props.columns
   })
-  const menuColumns = computed(() => {
-    if (!props.menu) return undefined
-    const defaultMenu = useCrudMenu()
-    return isObject(props.menu)
-      ? objectDeepMerge<ICrudMenuColumns>(defaultMenu.value, props.menu)
-      : defaultMenu.value
-  })
-
-  return {
-    searchColumns,
-    tableColumns,
-    menuColumns,
-  }
-}
-
-export function useCrudForm(
-  props: Readonly<ICrudProps>,
-  emit: ICrudEmits,
-  resetForm: (reset?: boolean) => void
-): {
-  dialogVisible: Ref<boolean>
-  formType: Ref<ICrudFormType>
-  formColumns: ComputedRef<IFormColumns | undefined>
-  openForm: (type: ICrudFormType, row?: UnknownObject) => void
-  submitForm: IFormSubmit
-} {
-  const dialogVisible = ref(false)
-  const formType = ref<ICrudFormType>('add')
   const addColumns = computed(() => {
     return props.addColumns
       ? props.addColumns
@@ -109,16 +99,40 @@ export function useCrudForm(
       ? filterDeep<IFormColumns>(props.columns, 'edit')
       : undefined
   })
-  const _formColumns = computed(() => {
+  const formColumns = computed(() => {
     return props.formColumns
       ? props.formColumns
       : props.columns
       ? filterDeep<IFormColumns>(props.columns, 'form')
       : undefined
   })
-  const formColumns = computed(() => {
-    return _formColumns.value && _formColumns.value.length
-      ? _formColumns.value
+
+  return {
+    searchColumns,
+    tableColumns,
+    addColumns,
+    editColumns,
+    formColumns,
+  }
+}
+
+export function useCrudForm(
+  props: Readonly<ICrudProps>,
+  emit: ICrudEmits,
+  resetForm: (reset?: boolean) => void
+): {
+  dialogVisible: Ref<boolean>
+  formType: Ref<ICrudFormType>
+  formColumns: Ref<IFormColumns | undefined>
+  openForm: (type: ICrudFormType, row?: UnknownObject) => void
+  submitForm: IFormSubmit
+} {
+  const { addColumns, editColumns, formColumns } = useCrudColumns(props)
+  const dialogVisible = ref(false)
+  const formType = ref<ICrudFormType>('add')
+  const currentFormColumns = computed(() => {
+    return formColumns.value && formColumns.value.length
+      ? formColumns.value
       : formType.value === 'add'
       ? addColumns.value
       : editColumns.value
@@ -139,46 +153,38 @@ export function useCrudForm(
       dialogVisible.value = true
     }
 
-    if (props.beforeOpen && isFunction(props.beforeOpen)) {
-      props.beforeOpen(done, type, row)
-    } else {
-      done()
-    }
+    isFunction(props.beforeOpen) ? props.beforeOpen(done, type, row) : done()
   }
 
   return {
     dialogVisible,
     formType,
-    formColumns,
+    formColumns: currentFormColumns,
     openForm,
     submitForm,
   }
 }
 
+export function useCrudSearchMenu(
+  menuColumns: Ref<ICrudMenuColumns>
+): Ref<IFormMenuColumns> {
+  return computed<IFormMenuColumns>(() => ({
+    submit: menuColumns.value.search,
+    submitText: menuColumns.value.searchText,
+    submitProps: menuColumns.value.searchProps,
+    reset: menuColumns.value.searchReset,
+    resetText: menuColumns.value.searchResetText,
+    resetProps: menuColumns.value.searchResetProps,
+  }))
+}
+
 export function useCrudSearchForm(
-  emit: ICrudEmits,
-  menuColumns?: MaybeRef<ICrudMenuColumns | undefined>
+  emit: ICrudEmits
 ): {
-  searchMenu: ComputedRef<IFormMenuColumns>
   searchForm: IFormSubmit
   searchReset: () => void
   upSearchData: (value: unknown) => void
 } {
-  const searchMenu = computed<IFormMenuColumns>(() => {
-    const _menuColumns = unref(menuColumns)
-    const defaultMenu = useCrudMenu()
-    const menu = _menuColumns ? _menuColumns : defaultMenu.value
-
-    return {
-      submit: menu.search,
-      submitText: menu.searchText,
-      submitProps: menu.searchProps,
-      reset: menu.searchReset,
-      resetText: menu.searchResetText,
-      resetProps: menu.searchResetProps,
-    }
-  })
-
   const searchForm: IFormSubmit = (done, isValid, invalidFields) => {
     emit('search', done, isValid, invalidFields)
   }
@@ -192,7 +198,6 @@ export function useCrudSearchForm(
   }
 
   return {
-    searchMenu,
     searchForm,
     searchReset,
     upSearchData,

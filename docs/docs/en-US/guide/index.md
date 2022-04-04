@@ -20,7 +20,7 @@ You may need the vue3 version of the scaffolding tool before you start
 ## Install
 
 [![Latest tag via npm](https://img.shields.io/npm/v/element-pro-components.svg?style=flat-square&logo=npm)](https://npmjs.com/package/element-pro-components)
-[![npm bundle size](https://img.shields.io/bundlephobia/min/element-pro-components?label=size&logo=npm&style=flat-square)](https://npmjs.com/package/element-pro-components)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/element-pro-components?label=minzip&logo=npm&style=flat-square)](https://npmjs.com/package/element-pro-components)
 [![Npm Last Updated](https://img.shields.io/badge/dynamic/json.svg?style=flat-square&logo=npm&label=last%20release&url=http%3A%2F%2Fregistry.npmjs.org%2Felement-pro-components&query=$.time.modified)](https://www.npmjs.com/package/element-pro-components)
 
 ```
@@ -48,7 +48,9 @@ app.mount('#app')
 ## On demand
 
 ::: tip Tip
-Since `0.12.0`, it is recommended to use the js file in the style folder imported on demand instead of the css file to avoid repeated references of styles. (Note: Referencing js style files requires compilation tools to support ES modules)
+Since `0.12.0`, it is recommended to use the js file in the style folder imported on demand instead of the css file to avoid repeated references of styles.
+
+Since `1.0.0`, support CommonJS by import `.cjs`
 :::
 
 ### Recommended unplugin-vue-components
@@ -138,43 +140,11 @@ Component list reference [components](https://github.com/tolking/element-pro-com
 In addition to components, you can also use some internal [utils](https://github.com/tolking/element-pro-components/blob/master/src/utils/) or [composables](https://github.com/tolking/element-pro-components/blob/master/src/composables/)
 :::
 
-## Global config
+## ~~Global config~~
 
 ::: danger Danger
-The global configuration will be modified or removed in the near future, it is recommended to use related components to pass parameters or internationalization
+Since `1.0.0`, The global configuration has been removed, it is recommended to use related components to pass parameters or internationalization
 :::
-
-- refer
-
-<<< @/src/utils/config.ts
-
-- config
-
-```js
-app.use(ElementPro, {
-  pagination: {
-    small: true,
-    hideOnSinglePage: true,
-    layout: 'prev, pager, next',
-  },
-})
-```
-
-- On-demand
-
-```js
-import { defineOptions } from 'element-pro-components'
-
-const options = defineOptions({
-  pagination: {
-    small: true,
-    hideOnSinglePage: true,
-    layout: 'prev, pager, next',
-  },
-})
-
-app.config.globalProperties.$PROOPTIONS = options
-```
 
 ## Start using
 

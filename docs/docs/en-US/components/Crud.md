@@ -29,6 +29,8 @@ Use the `defineCrudColumns` `defineCrudMenuColumns` `defineCrudBeforeOpen` `defi
 
 ### Nested value
 
+Support for get or set the objects or arrays with nested structures value, only need to configure the `prop`
+
 ::: demo
 @/demo/Crud/nested.vue
 :::
@@ -37,7 +39,7 @@ Use the `defineCrudColumns` `defineCrudMenuColumns` `defineCrudBeforeOpen` `defi
 
 By default, the add, edit, and delete buttons are not displayed, you need to config through the menu or use menu slot to display
 
-Menu can also be configured through <pro-link to="/en-US/guide/#global-config">Global config</pro-link> or <pro-link to="/en-US/guide/i18n">Localization</pro-link>
+Menu can also be configured through <pro-link to="/en-US/guide/i18n">Localization</pro-link>
 
 ::: demo
 @/demo/Crud/menu.vue

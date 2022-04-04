@@ -1,8 +1,8 @@
 <template>
   <pro-input-tag
     v-model="inputTags"
-    trigger="enter"
-    placeholder="Please click the enter button after input"
+    trigger="space"
+    placeholder="Please click the space button after input"
   />
 </template>
 

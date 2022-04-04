@@ -20,7 +20,7 @@ meta:
 ## 安装
 
 [![Latest tag via npm](https://img.shields.io/npm/v/element-pro-components.svg?style=flat-square&logo=npm)](https://npmjs.com/package/element-pro-components)
-[![npm bundle size](https://img.shields.io/bundlephobia/min/element-pro-components?label=size&logo=npm&style=flat-square)](https://npmjs.com/package/element-pro-components)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/element-pro-components?label=minzip&logo=npm&style=flat-square)](https://npmjs.com/package/element-pro-components)
 [![Npm Last Updated](https://img.shields.io/badge/dynamic/json.svg?style=flat-square&logo=npm&label=last%20release&url=http%3A%2F%2Fregistry.npmjs.org%2Felement-pro-components&query=$.time.modified)](https://www.npmjs.com/package/element-pro-components)
 
 ```
@@ -45,10 +45,12 @@ app.use(ElementPro)
 app.mount('#app')
 ```
 
-## 按需引入
+## 按需引入样式
 
 ::: tip 提示
-自 `0.12.0` 起，推荐使用按需引入样式文件夹中的 js 文件替代 css 文件，避免样式的重复引用。(注：引用 js 样式文件需要编译工具支持 ES modules)
+自 `0.12.0` 起，推荐使用按需引入样式文件夹中的 js 文件替代 css 文件，避免样式的重复引用
+
+自 `1.0.0` 起，增加对 CommonJS 支持，导入 `.cjs` 使用
 :::
 
 ### 推荐使用 unplugin-vue-components
@@ -139,43 +141,11 @@ import 'element-pro-components/lib/styles/layout'
 在导出组件的同时，一起导出的还包括内部使用的[utils](https://github.com/tolking/element-pro-components/blob/master/src/utils/)与[composables](https://github.com/tolking/element-pro-components/blob/master/src/composables/)，如果需要可以引用使用
 :::
 
-## 全局配置
+## ~~全局配置~~
 
 ::: danger 危险
-全局配置将在不久之后修改或移除，推荐现在使用相关组件传参或者国际化实现
+自 `1.0.0` 起，已经移除全局配置，推荐现在使用相关组件传参或者国际化实现
 :::
-
-- 参考
-
-<<< @/src/utils/config.ts
-
-- 全局配置
-
-```js
-app.use(ElementPro, {
-  pagination: {
-    small: true,
-    hideOnSinglePage: true,
-    layout: 'prev, pager, next',
-  },
-})
-```
-
-- 按需配置
-
-```js
-import { defineOptions } from 'element-pro-components'
-
-const options = defineOptions({
-  pagination: {
-    small: true,
-    hideOnSinglePage: true,
-    layout: 'prev, pager, next',
-  },
-})
-
-app.config.globalProperties.$PROOPTIONS = options
-```
 
 ## 开始使用
 

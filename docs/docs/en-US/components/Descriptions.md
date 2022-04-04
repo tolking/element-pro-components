@@ -29,6 +29,8 @@ Use the `defineDescriptionsColumns` to make it easier to define columns
 
 ### Nested value
 
+Support for get the objects or arrays with nested structures value, only need to configure the `prop`
+
 ::: demo
 @/demo/Descriptions/nested.vue
 :::
@@ -72,17 +74,19 @@ The function `defineDescriptionsColumns` supports passing in a Generics type to 
 
 ### columns
 
-| Name             | Description                                                                                                                                                                                  | Type            | Options               | Default |
-| :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------- | :-------------------- | :------ |
-| prop             | the key of detail                                                                                                                                                                            | string          | —                     | —       |
-| label            | label text                                                                                                                                                                                   | string          | —                     | —       |
-| span             | colspan of column                                                                                                                                                                            | number          | —                     | 1       |
-| width            | column width, the width of the same column in different rows is set by the max value (If no `border`, width contains label and content)                                                      | string / number | —                     | —       |
-| min-width        | column minimum width, columns with `width` has a fixed width, while columns with `min-width` has a width that is distributed in proportion (If no`border`, width contains label and content) | string / number | —                     | —       |
-| align            | column content alignment (If no `border`, effective for both label and content)                                                                                                              | string          | left / center / right | left    |
-| label-align      | column label alignment, if omitted, the value of the above `align` attribute will be applied (If no `border`, please use `align` attribute)                                                  | string          | left / center / right | —       |
-| class-name       | column content custom class name                                                                                                                                                             | string          | —                     | —       |
-| label-class-name | column label custom class name                                                                                                                                                               | string          | —                     | —       |
+| Name           | Description                                                                                                                                                                                  | Type             | Options               | Default |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------- | :-------------------- | :------ |
+| prop           | the key of detail                                                                                                                                                                            | string           | —                     | —       |
+| label          | label text                                                                                                                                                                                   | string           | —                     | —       |
+| span           | colspan of column                                                                                                                                                                            | number           | —                     | 1       |
+| width          | column width, the width of the same column in different rows is set by the max value (If no `border`, width contains label and content)                                                      | string / number  | —                     | —       |
+| minWidth       | column minimum width, columns with `width` has a fixed width, while columns with `min-width` has a width that is distributed in proportion (If no`border`, width contains label and content) | string / number  | —                     | —       |
+| align          | column content alignment (If no `border`, effective for both label and content)                                                                                                              | string           | left / center / right | left    |
+| labelAlign     | column label alignment, if omitted, the value of the above `align` attribute will be applied (If no `border`, please use `align` attribute)                                                  | string           | left / center / right | —       |
+| className      | column content custom class name                                                                                                                                                             | string           | —                     | —       |
+| labelClassName | column label custom class name                                                                                                                                                               | string           | —                     | —       |
+| render         | render function for descriptions columns                                                                                                                                                     | function(detail) | -                     | -       |
+| renderLabel    | render function for Label                                                                                                                                                                    | function(column) | -                     | -       |
 
 ## Slots
 
@@ -90,7 +94,7 @@ The function `defineDescriptionsColumns` supports passing in a Generics type to 
 | ------------ | ------------------------------------------------------------------- |
 | title        | custom title, display on the top left, parameters { size }          |
 | extra        | custom extra area, display on the top right, parameters { size }    |
-| [prop]       | control the `Item` display content, parameters { size, detail }     |
+| [prop]       | control the `Item` display content, parameters { size, item }       |
 | [prop]-label | control the `Item` label display content, parameters { size, item } |
 
 ::: tip Tip

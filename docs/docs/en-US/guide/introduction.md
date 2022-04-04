@@ -9,10 +9,6 @@ meta:
 
 element-pro-components is a component library for Vue 3 base on [element-plus](https://element-plus.org/), [vue](https://v3.vuejs.org/), [vue-router](https://next.router.vuejs.org/)
 
-::: warning Warning
-Before v1.0.0, we may make a large change in the components. If you are using it now, you can refer to the [CHANGELOG](https://github.com/tolking/element-pro-components/blob/master/CHANGELOG.md) when you upgrade.
-:::
-
 ## Cause
 
 For development, most of the forms and table can be reused, and it is more convenient to use by encapsulating the non-business logic parts into components. At the same time, components can be bound with routing, reducing value passing. And to realize some components that are not used in the admin template on element-plus, etc.
@@ -39,4 +35,8 @@ git contribute information style reference [vue commit-convention](https://githu
 
 ## Browser support
 
-IE browser is no longer supported, only modern browsers are supported
+Same with element-plus
+
+| ![IE](https://cdn.jsdelivr.net/npm/@browser-logos/edge/edge_32x32.png) | ![Firefox](https://cdn.jsdelivr.net/npm/@browser-logos/firefox/firefox_32x32.png) | ![Chrome](https://cdn.jsdelivr.net/npm/@browser-logos/chrome/chrome_32x32.png) | ![Safari](https://cdn.jsdelivr.net/npm/@browser-logos/safari/safari_32x32.png) |
+| ---------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| Edge ≥ 79                                                              | Firefox ≥ 78                                                                      | Chrome ≥ 64                                                                    | Safari ≥ 12                                                                    |

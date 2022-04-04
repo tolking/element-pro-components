@@ -1,5 +1,8 @@
+import { Fragment } from 'vue'
 import cloneDeep from 'lodash/cloneDeep'
 import merge from 'lodash/merge'
+import { isObject } from './index'
+import type { Component, VNode } from 'vue'
 import type { IScreenSize, UnknownObject, IDefinePlugin } from '../types/index'
 
 /**
@@ -39,6 +42,27 @@ export function objectDeepMerge<T = UnknownObject, Q = T>(
  */
 export function isURL(url: string): boolean {
   return /^((ht|f)tps?):\/\/?/.test(url)
+}
+
+/**
+ * Find the first matching Node by name from a VNode list
+ * @param list VNode list
+ * @param name matching name
+ */
+export function findNodeByName(
+  list: VNode[] | undefined,
+  name: string
+): VNode | undefined {
+  return list?.find((item) => {
+    if (item.type === Fragment || item.type === 'template') {
+      return findNodeByName(item.children as VNode[], name)
+    } else {
+      const typeName = isObject(item.type)
+        ? (item.type as Component)?.name
+        : item.type
+      return typeName === name
+    }
+  })
 }
 
 /**

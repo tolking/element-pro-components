@@ -22,6 +22,7 @@ export const commonProps = {
   },
   trigger: {
     type: String as PropType<'space' | 'enter'>,
+    default: 'enter',
   },
 }
 

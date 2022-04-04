@@ -27,7 +27,7 @@ describe('Layout', () => {
 
   test('empt', async () => {
     const wrapper = _mount({
-      template: '<pro-layout/>',
+      template: '<pro-layout><p>router-view</p></pro-layout>',
     })
 
     expect(wrapper.find('.pro-layout').exists()).toBe(true)
@@ -53,7 +53,7 @@ describe('Layout', () => {
 
   test('routes', async () => {
     const wrapper = _mount({
-      template: '<pro-layout :routes="routes"/>',
+      template: '<pro-layout :routes="routes"><p>router-view</p></pro-layout>',
       setup() {
         const routes: RouteRecordRaw[] = [
           {
@@ -109,7 +109,7 @@ describe('Layout', () => {
 
   test('mode', async () => {
     const wrapper = _mount({
-      template: '<pro-layout :mode="mode"/>',
+      template: '<pro-layout :mode="mode"><p>router-view</p></pro-layout>',
       setup() {
         const mode = ref('horizontal')
 
@@ -128,7 +128,8 @@ describe('Layout', () => {
 
   test('fixed-header', async () => {
     const wrapper = _mount({
-      template: '<pro-layout :fixed-header="fixed"/>',
+      template:
+        '<pro-layout :fixed-header="fixed"><p>router-view</p></pro-layout>',
       setup() {
         const fixed = ref(true)
 
@@ -141,23 +142,6 @@ describe('Layout', () => {
 
     await (vm.fixed = false)
     expect(wrapper.find('.pro-header').classes()).not.toContain('fixed-header')
-  })
-
-  test('fixed-main', async () => {
-    const wrapper = _mount({
-      template: '<pro-layout :fixed-main="fixed"/>',
-      setup() {
-        const fixed = ref(true)
-
-        return { fixed }
-      },
-    })
-    const vm = (wrapper.vm as unknown) as { fixed: boolean }
-
-    expect(wrapper.find('.pro-layout').classes()).toContain('fixed-main')
-
-    await (vm.fixed = false)
-    expect(wrapper.find('.pro-layout').classes()).not.toContain('fixed-main')
   })
 
   test('slots', () => {
@@ -179,11 +163,8 @@ describe('Layout', () => {
           <template #header-bottom>
             <span class="header-bottom">header-bottom</span>
           </template>
-          <template #main-top>
-            <p class="main-top">main-top</p>
-          </template>
-          <template #main-bottom>
-            <p class="main-bottom">main-bottom</p>
+          <template #default>
+            <p class="default">default</p>
           </template>
         </pro-layout>
       `,
@@ -198,8 +179,6 @@ describe('Layout', () => {
     expect(wrapper.find('.pro-layout .header-bottom').text()).toBe(
       'header-bottom'
     )
-    //NOTE perfect RouterView in mock
-    // expect(wrapper.find('.pro-layout .main-top').text()).toBe('main-top')
-    // expect(wrapper.find('.pro-layout .main-bottom').text()).toBe('main-bottom')
+    expect(wrapper.find('.pro-layout .default').text()).toBe('default')
   })
 })

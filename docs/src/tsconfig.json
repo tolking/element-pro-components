@@ -1,9 +1,4 @@
 {
   "extends": "../../tsconfig.json",
-  "include": [
-    ".",
-    "../../shims-vue.d.ts",
-    "../../node_modules/element-plus/global.d.ts",
-    "../../types/components.d.ts"
-  ]
+  "include": [".", "../../env.d.ts"]
 }

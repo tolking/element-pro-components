@@ -19,7 +19,11 @@ When using `pro-input-tag`, most attribute of `type="text"` are supported
 @/demo/InputTag/base.vue
 :::
 
-### Trigger by Enter
+### Trigger
+
+::: tip TIP
+Since `1.0.0`, The default trigger mode is adjusted to `Enter`
+:::
 
 Input is triggered by the space bar by default, Set `trigger="enter"` attribute to enable trigger by `Enter`
 
@@ -56,7 +60,7 @@ When using `pro-autocomplete-tag`, most attribute of `ElAutocomplete` are suppor
 | Name            | Description                          | Type    | Options                           | Default |
 | :-------------- | :----------------------------------- | :------ | :-------------------------------- | :------ |
 | v-model         | binding value                        | array   | -                                 | -       |
-| trigger         | the key to trigger input tag         | string  | space / enter                     | space   |
+| trigger         | the key to trigger input tag         | string  | space / enter                     | enter   |
 | max             | max number tags that can be enter    | number  | -                                 | -       |
 | size            | component size                       | string  | large / default /small            | -       |
 | type            | tag Type                             | string  | success / info / warning / danger | -       |
@@ -90,7 +94,7 @@ When using `pro-autocomplete-tag`, most attribute of `ElAutocomplete` are suppor
 | Name                  | Description                                                                                                              | Type                            | Options                                                        | Default      |
 | :-------------------- | :----------------------------------------------------------------------------------------------------------------------- | :------------------------------ | :------------------------------------------------------------- | :----------- |
 | v-model               | binding value                                                                                                            | array                           | -                                                              | -            |
-| trigger               | the key to trigger input tag                                                                                             | string                          | space / enter                                                  | space        |
+| trigger               | the key to trigger input tag                                                                                             | string                          | space / enter                                                  | enter        |
 | max                   | max number that can be enter                                                                                             | number                          | -                                                              | -            |
 | size                  | component size                                                                                                           | string                          | large / default /small                                         | -            |
 | type                  | tag Type                                                                                                                 | string                          | success / info / warning / danger                              | -            |

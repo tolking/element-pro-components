@@ -1,14 +1,16 @@
 import { defineComponent, h, mergeProps } from 'vue'
 import { reactiveOmit, reactivePick } from '@vueuse/core'
 import { ElSelect, ElOption, ElTree, useAttrs } from 'element-plus'
-import { useSelectData, useTreeSelect } from '../composables/index'
+import { useTreeSelect } from '../composables/index'
 import { treeProps } from '../ColumnSetting/props'
 import props from './props'
 import emits from './emits'
+import type { SelectDataItem } from '../Select/type'
 
 type TreeKeys = Array<keyof typeof props>
 
 interface TreeScope {
+  data: SelectDataItem
   node: {
     disabled: boolean
     label: string
@@ -28,13 +30,13 @@ export default defineComponent({
   emits,
   setup(props, { emit, slots }) {
     const attrs = useAttrs()
-    const data = useSelectData(props)
     const {
       modelValue,
       multiple,
       checkStrictly,
       expandedKeys,
       filterable,
+      configKeys,
       tree,
       value,
       label,
@@ -45,7 +47,7 @@ export default defineComponent({
       upData,
       clear,
     } = useTreeSelect(props, emit)
-    const treeProps = reactivePick(props, ...treeKeys)
+    const treeProps = reactivePick(props, ...treeKeys, 'data')
     const selectProps = reactiveOmit(
       props,
       'data',
@@ -68,7 +70,7 @@ export default defineComponent({
             ElTree,
             mergeProps(treeProps, attrs.value, {
               ref: tree,
-              data: data.value,
+              props: configKeys.value,
               showCheckbox: multiple?.value,
               checkStrictly: checkStrictly?.value,
               defaultExpandedKeys: expandedKeys?.value,
@@ -80,19 +82,23 @@ export default defineComponent({
               onCheckChange: upData,
             }),
             {
-              default: (scope: TreeScope) => {
+              default: ({ node, data }: TreeScope) => {
                 if (slots.default) {
-                  return slots.default({ ...scope, multiple: multiple?.value })
+                  // NOTE: Remove `data` on next major release
+                  return slots.default({
+                    node,
+                    data,
+                    item: data,
+                    multiple: multiple?.value,
+                  })
                 } else {
                   return h(
                     'span',
                     {
                       class:
-                        scope.node.disabled && !multiple?.value
-                          ? 'is-disabled'
-                          : '',
+                        node.disabled && !multiple?.value ? 'is-disabled' : '',
                     },
-                    scope.node.label
+                    node.label
                   )
                 }
               },
@@ -104,9 +110,9 @@ export default defineComponent({
     function createList() {
       return list.value.map((item) => {
         return h(ElOption, {
-          value: item.value,
-          label: item.label,
-          disabled: item.disabled,
+          value: item[configKeys.value.value],
+          label: item[configKeys.value.label],
+          disabled: item[configKeys.value.disabled],
           class: 'is-hidden',
         })
       })

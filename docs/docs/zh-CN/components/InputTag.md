@@ -19,9 +19,13 @@ meta:
 @/demo/InputTag/base.vue
 :::
 
-### 通过 Enter 键触发
+### 触发方式
 
-默认通过空格键触发输入，通过 `trigger` 为 `enter`时，将通过回车键触发输入
+::: tip 提示
+自 `1.0.0` 起，默认触发方式调整为 `enter`
+:::
+
+通过 `trigger` 配置触发方式，支持 `space` `enter`
 
 ::: demo
 @/demo/InputTag/trigger.vue
@@ -56,7 +60,7 @@ meta:
 | 参数            | 说明                     | 类型    | 可选值                            | 默认值 |
 | :-------------- | :----------------------- | :------ | :-------------------------------- | :----- |
 | v-model         | 绑定值                   | array   | -                                 | -      |
-| trigger         | 触发输入按键             | string  | space / enter                     | space  |
+| trigger         | 触发输入按键             | string  | space / enter                     | enter  |
 | max             | 可输入的最大数量         | number  | -                                 | -      |
 | size            | 尺寸                     | string  | large / default /small            | -      |
 | type            | tag 类型                 | string  | success / info / warning / danger | -      |
@@ -90,7 +94,7 @@ meta:
 | 参数                  | 说明                                   | 类型                            | 可选值                                                         | 默认值       |
 | :-------------------- | :------------------------------------- | :------------------------------ | :------------------------------------------------------------- | :----------- |
 | v-model               | 绑定值                                 | array                           | -                                                              | -            |
-| trigger               | 触发输入按键                           | string                          | space / enter                                                  | space        |
+| trigger               | 触发输入按键                           | string                          | space / enter                                                  | enter        |
 | max                   | 可输入的最大数量                       | number                          | -                                                              | -            |
 | size                  | 尺寸                                   | string                          | large / default /small                                         | -            |
 | type                  | tag 类型                               | string                          | success / info / warning / danger                              | -            |

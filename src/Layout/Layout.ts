@@ -1,45 +1,45 @@
 import {
-  Component,
   computed,
-  DefineComponent,
   defineComponent,
   h,
   toRefs,
-  resolveDynamicComponent,
   Transition,
   KeepAlive,
   VNode,
   mergeProps,
+  KeepAliveProps,
 } from 'vue'
-import { RouterView, RouteRecordRaw } from 'vue-router'
+import { RouterView, RouteLocationNormalizedLoaded } from 'vue-router'
+import { reactivePick } from '@vueuse/core'
 import { ElScrollbar } from 'element-plus'
-import { useScreenSize, useShow } from '../composables/index'
-import { objectOmit } from '../utils/index'
-import props from './props'
+import { useSharedBreakpoint, useShow } from '../composables/index'
+import props, { menuKeys } from './props'
 import { ProMenu } from '../Menu/index'
 
 interface RouterViewSlot {
-  Component: Component
-  route: RouteRecordRaw
+  Component: VNode
+  route: RouteLocationNormalizedLoaded
 }
 
 export default defineComponent({
   name: 'ProLayout',
   props,
   setup(props, { slots }) {
-    const { mode, fixedHeader, fixedMain } = toRefs(props)
-    const size = useScreenSize()
+    const { mode, fixedHeader } = toRefs(props)
+    const menuConfig = reactivePick(props, ...menuKeys)
+    const keepAliveConfig = reactivePick(
+      props,
+      'include',
+      'exclude',
+      'max'
+    ) as KeepAliveProps
+    const breakpoint = useSharedBreakpoint()
     const { show, toggleShow } = useShow(props.collapse)
     const collapse = computed(() => {
-      return size.value === 'xs' ? false : show.value
+      return breakpoint.value === 'xs' ? false : show.value
     })
 
     function createMenu() {
-      const config = objectOmit(props, [
-        'fixedHeader',
-        'fixedMain',
-        'transition',
-      ])
       const menuSlots = slots.menu
         ? {
             default: (scope: unknown) => slots.menu && slots.menu(scope),
@@ -48,7 +48,7 @@ export default defineComponent({
 
       return h(
         ProMenu,
-        mergeProps(config, { collapse: collapse.value }),
+        mergeProps(menuConfig, { collapse: collapse.value }),
         menuSlots
       )
     }
@@ -122,38 +122,31 @@ export default defineComponent({
       )
     }
 
-    function createDefaultMain({ Component, route }: RouterViewSlot) {
-      const defaultMain = h(
-        resolveDynamicComponent(Component) as DefineComponent
-      )
-
-      return [
-        slots['main-top'] && slots['main-top'](),
-        route.meta?.keepAlive ? h(KeepAlive, null, defaultMain) : defaultMain,
-        slots['main-bottom'] && slots['main-bottom'](),
-      ]
-    }
-
     function createMain() {
-      return h(RouterView, null, {
-        default: (scope: RouterViewSlot) =>
-          h(
-            Transition,
-            {
-              mode: 'out-in',
-              name: props.transition,
-            },
-            () => {
-              if (fixedMain.value) {
-                return h(ElScrollbar, { class: 'pro-main' }, () =>
-                  createDefaultMain(scope)
+      if (slots.default) return slots.default()
+      return h(
+        RouterView,
+        {},
+        {
+          default: ({ Component, route }: RouterViewSlot) => {
+            const withKeepAlive = props.keepAlive
+              ? h(KeepAlive, keepAliveConfig, Component)
+              : Component
+
+            return props.transition
+              ? h(
+                  Transition,
+                  {
+                    mode: 'out-in',
+                    appear: true,
+                    name: route?.meta?.transition ?? props.transition,
+                  },
+                  () => withKeepAlive
                 )
-              } else {
-                return h('div', { class: 'pro-main' }, createDefaultMain(scope))
-              }
-            }
-          ),
-      })
+              : withKeepAlive
+          },
+        }
+      )
     }
 
     function createDefault() {
@@ -176,7 +169,6 @@ export default defineComponent({
           class: [
             'pro-layout',
             mode.value === 'vertical' ? 'layout-aside' : 'layout-topmenu',
-            fixedMain.value && 'fixed-main',
           ],
         },
         createDefault()

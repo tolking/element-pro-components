@@ -1,5 +1,47 @@
 # Changelog
 
+## 1.0.0
+
+breaking changes
+
+- Table|Crud|Form: remove global config
+- Layout: reimplement the KeepAlive
+- Layout: remove the props `fixed-main`
+- Layout: remove the slots `main-top` `main-bottom`
+- InputTag: change the trigger default value `space` to `enter`
+- Select|TreeSelect|Descriptions: rename the slot parameter data to item
+- rename `useScreenSize` to `useSharedBreakpoint`
+
+feat
+
+- Card: add a new component Card
+- Descriptions: add `render` and `renderLabel` in columns
+- Checkbox|Radio|Select|TreeSelect: cancel the conversion of the data
+- Layout: support transition form RouteMeta
+- Layout: add default slot to custom RouterView
+- Select|TreeSelect: sync props change from element-plus
+- add composables function `useBreakpointWidth` to get reactive Dialog width
+- sync css var change from element-plus
+- sync ComponentSize change from element-plus
+- styles: add cjs form SSR
+- styles: compressed CSS by cssnano
+
+fix
+
+- Form: style error when used gutter
+- Layout: the KeepAlive and Transition do not work
+
+### migration guide
+
+Compare [0.18.3...v1.0.0](https://github.com/tolking/element-pro-components/compare/v0.18.3...v1.0.0)
+
+To support both Transition and KeepAlive, the Layout component had to be refactored. The original internal card-like has been removed.
+
+- It is recommended to use the new Card component to wrap your pages.
+- If you don't care about KeepAlive, you can use default slots to override RouterView to implement global Card wrapping, [demo](https://github.com/tolking/element-pro-components/blob/main/demo/Layout/router-view.vue).
+
+The global configuration has been removed, it is recommended to use related components to pass parameters or internationalization.
+
 ## 0.18.3
 
 feat

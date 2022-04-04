@@ -1,10 +1,10 @@
 import { paginationProps } from 'element-plus'
 import type { PropType, CSSProperties } from 'vue'
+import type { ComponentSize } from 'element-plus'
 import type {
   TableProps,
   DefaultRow,
 } from 'element-plus/es/components/table/src/table/defaults'
-import type { ComponentSize } from 'element-plus/lib/constants/index'
 import type {
   ITableSelectionColumns,
   ITableExpandColumns,

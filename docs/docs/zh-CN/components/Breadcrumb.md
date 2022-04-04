@@ -19,6 +19,14 @@ meta:
 @/demo/Breadcrumb/base.vue
 :::
 
+### 分隔符
+
+通过 `separator` 修改分隔符
+
+::: demo
+@/demo/Breadcrumb/separator.vue
+:::
+
 ### 配置
 
 | 参数           | 说明            | 类型               | 可选值 | 默认值 |

@@ -4,7 +4,7 @@
     :data="data"
     :config="config"
   >
-    <template #default="{ data: item }">
+    <template #default="{ item }">
       <span>{{ item.label }}</span>
       <span style="float: right">{{ item.value }}</span>
     </template>

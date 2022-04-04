@@ -1,8 +1,10 @@
+import type { VNode } from 'vue'
 import type {
   ExternalParam,
   IsAny,
   DeepKeyof,
   UnknownObject,
+  MaybeArray,
 } from '../types/index'
 
 interface DescriptionsColumn<T = ExternalParam> extends UnknownObject {
@@ -15,6 +17,8 @@ interface DescriptionsColumn<T = ExternalParam> extends UnknownObject {
   labelAlign?: 'left' | 'center' | 'right'
   className?: string
   labelClassName?: string
+  render?: (detail: T) => string | MaybeArray<VNode>
+  renderLabel?: (column: DescriptionsColumn<T>) => string | MaybeArray<VNode>
 }
 
 export type IDescriptionsColumns<T = ExternalParam> = DescriptionsColumn<T>[]

@@ -3,20 +3,22 @@ import { reactivePick } from '@vueuse/core'
 import { ElDialog, ElButton, useAttrs, DialogProps } from 'element-plus'
 import {
   useCrudColumns,
+  useCrudMenu,
   useCrudForm,
+  useCrudSearchMenu,
   useCrudSearchForm,
   useTableMethods,
   useFormMethods,
   usePagination,
-  useScreenSize,
+  useBreakpointWidth,
   useCrudSlots,
 } from '../composables/index'
-import { isFunction, isObject } from '../utils/index'
+import { isFunction } from '../utils/index'
 import props, { formKeys, tableKeys, dialogKeys } from './props'
 import emits from './emits'
 import { ProForm } from '../Form/index'
 import { ProTable } from '../Table/index'
-import type { ComponentSize } from 'element-plus/lib/constants/index'
+import type { ComponentSize } from 'element-plus'
 import type { StringObject, UnknownObject } from '../types/index'
 import type { IFormProps, IFormEmits } from '../Form/index'
 
@@ -30,7 +32,8 @@ export default defineComponent({
   props,
   emits,
   setup(props, { slots, emit, expose }) {
-    const { searchColumns, tableColumns, menuColumns } = useCrudColumns(props)
+    const { searchColumns, tableColumns } = useCrudColumns(props)
+    const menuColumns = useCrudMenu(props)
     const {
       table,
       clearSelection,
@@ -43,7 +46,7 @@ export default defineComponent({
       doLayout,
       sort,
     } = useTableMethods()
-    const { pagination, sizeChange, currentChange } = usePagination(props, emit)
+    const { sizeChange, currentChange } = usePagination(emit)
     const {
       form,
       validate,
@@ -61,29 +64,19 @@ export default defineComponent({
       openForm,
       submitForm,
     } = useCrudForm(props, emit, resetForm)
-    const {
-      searchMenu,
-      searchForm,
-      searchReset,
-      upSearchData,
-    } = useCrudSearchForm(emit, menuColumns)
-    const attrs = useAttrs()
-    const screenSize = useScreenSize()
+    const searchMenu = useCrudSearchMenu(menuColumns)
+    const { searchForm, searchReset, upSearchData } = useCrudSearchForm(emit)
     const { searchSlots, tableSlots, formSlots } = useCrudSlots()
+    const attrs = useAttrs()
+    const dialogWidth = useBreakpointWidth()
     const bindDialog = computed(() => {
       const title =
-        props.title ?? isObject(menuColumns.value)
+        props.title ||
+        (props.menu
           ? formType.value === 'add'
-            ? menuColumns.value?.addText
-            : menuColumns.value?.editText
-          : formType.value
-      const sizeWidth = {
-        xs: '90%',
-        sm: '80%',
-        md: '70%',
-        lg: '60%',
-        xl: '50%',
-      }
+            ? menuColumns.value.addText
+            : menuColumns.value.editText
+          : formType.value)
 
       function beforeClose(done: () => void) {
         function callback() {
@@ -99,7 +92,7 @@ export default defineComponent({
         title,
         beforeClose,
         destroyOnClose: true,
-        width: props.width ?? sizeWidth[screenSize.value],
+        width: props.width ?? dialogWidth.value,
         customClass: props.customClass || 'pro-crud-dialog',
       }
     })
@@ -111,15 +104,15 @@ export default defineComponent({
     const dialogProps = reactivePick(props, ...dialogKeys)
 
     function checkEdit(row: StringObject) {
-      return isFunction(menuColumns.value?.edit)
-        ? menuColumns.value?.edit(row)
-        : menuColumns.value?.edit
+      return isFunction(menuColumns.value.edit)
+        ? menuColumns.value.edit(row)
+        : menuColumns.value.edit
     }
 
     function checkDel(row: StringObject) {
-      return isFunction(menuColumns.value?.del)
-        ? menuColumns.value?.del(row)
-        : menuColumns.value?.del
+      return isFunction(menuColumns.value.del)
+        ? menuColumns.value.del(row)
+        : menuColumns.value.del
     }
 
     function delRow(row: UnknownObject) {
@@ -169,7 +162,7 @@ export default defineComponent({
       if (slots['menu-left']) {
         list = list.concat(slots['menu-left']({ size: props.size }))
       }
-      if (menuColumns.value?.add) {
+      if (props.menu && menuColumns.value.add) {
         list.push(
           h(
             ElButton,
@@ -197,14 +190,15 @@ export default defineComponent({
 
     function createTable() {
       const showMenu =
-        menuColumns.value?.edit || menuColumns.value?.del || slots.menu
+        props.menu &&
+        (menuColumns.value.edit || menuColumns.value.del || slots.menu)
       const menuSlots = showMenu
         ? { menu: (scope: TableMenuScope) => createTableMenu(scope) }
         : {}
 
       return h(
         ProTable,
-        mergeProps(tableProps, pagination.value, attrs.value, {
+        mergeProps(tableProps, attrs.value, {
           ref: table,
           menu: menuColumns.value,
           columns: tableColumns.value,
@@ -219,7 +213,7 @@ export default defineComponent({
     function createTableMenu(scope: TableMenuScope) {
       let list: VNode[] = []
 
-      if (menuColumns.value && checkEdit(scope.row)) {
+      if (props.menu && checkEdit(scope.row)) {
         list.push(
           h(
             ElButton,
@@ -231,7 +225,7 @@ export default defineComponent({
           )
         )
       }
-      if (menuColumns.value && checkDel(scope.row)) {
+      if (props.menu && checkDel(scope.row)) {
         list.push(
           h(
             ElButton,

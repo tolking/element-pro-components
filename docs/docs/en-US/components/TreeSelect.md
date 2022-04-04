@@ -43,6 +43,14 @@ Set `multiple` attribute to enable multiple mode. In this case, the value of v-m
 @/demo/TreeSelect/multiple.vue
 :::
 
+### Hide extra tags
+
+You can collapse tags to a text by using `collapse-tags` attribute. You can check them when mouse hover collapse text by using `collapse-tags-tooltip` attribute.
+
+::: demo
+@/demo/TreeSelect/collapse-tags.vue
+:::
+
 ### Disabled State on multiple select
 
 Same like default select. Set the `disabled` attribute in prop `data`
@@ -103,6 +111,7 @@ Same like `ElTree`, set `lazy` and `load` attribute to enable lazy mode
 | size                  | component size                                                                                                                                                                                                                                                                                                                                                              | string                                 | large / default /small            | -                                                                              |
 | clearable             | whether clearable                                                                                                                                                                                                                                                                                                                                                           | boolean                                | -                                 | false                                                                          |
 | collapse-tags         | whether to collapse tags to a text when multiple selecting                                                                                                                                                                                                                                                                                                                  | boolean                                | -                                 | false                                                                          |
+| collapse-tags-tooltip | whether show all selected tags when mouse hover text of collapse-tags. To use this, `collapse-tags` must be true                                                                                                                                                                                                                                                            | boolean                                | -                                 | false                                                                          |
 | name                  | the name attribute of select input                                                                                                                                                                                                                                                                                                                                          | string                                 | -                                 | -                                                                              |
 | autocomplete          | the autocomplete attribute of select input                                                                                                                                                                                                                                                                                                                                  | string                                 | on / off                          | off                                                                            |
 | placeholder           | placeholder                                                                                                                                                                                                                                                                                                                                                                 | string                                 | -                                 | Select                                                                         |
@@ -161,4 +170,4 @@ Same like `ElTree`, set `lazy` and `load` attribute to enable lazy mode
 
 | Name | Description                                                                    |
 | ---- | ------------------------------------------------------------------------------ |
-| -    | Custom content for tree nodes. The scope parameter is { node, data, multiple } |
+| -    | Custom content for tree nodes. The scope parameter is { node, item, multiple } |

@@ -1,20 +1,11 @@
-@custom-media --xs-medium (width < 768px);
-
 :root {
-  --pro-background-color-mask: rgba(0, 0, 0, 0.5);
   --pro-layout-header-background-color: var(--el-color-white);
   --pro-layout-aside-background-color: var(--el-color-white);
-  --pro-layout-main-background-color: var(--el-color-white);
   --pro-tabs-background-color: var(--el-color-white);
   --pro-layout-width-aside: 240px;
   --pro-layout-width-aside-collapse: 60px;
   --pro-layout-height: 100vh;
   --pro-layout-height-header: 54px;
-  --pro-layout-main-margin: 10px;
-  --pro-layout-main-padding: 20px;
-  --pro-layout-main-max-width: 1200px;
-  --pro-layout-xs-main-margin: 4px;
-  --pro-layout-xs-main-padding: 10px;
   --pro-layout-index-header: 10;
   --pro-layout-index-sidebar: 1800;
 }

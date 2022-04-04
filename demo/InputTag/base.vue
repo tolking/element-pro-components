@@ -1,7 +1,7 @@
 <template>
   <pro-input-tag
     v-model="inputTags"
-    placeholder="Please click the space button after input"
+    placeholder="Please click the Enter button after input"
   />
 </template>
 

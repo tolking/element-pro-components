@@ -9,10 +9,6 @@ body {
   &.layout-topmenu {
     background-color: var(--el-fill-color-light);
   }
-  &.fixed-main {
-    height: var(--pro-layout-height);
-    overflow: hidden;
-  }
   & .pro-container {
     flex: 1;
     display: flex;
@@ -60,7 +56,7 @@ body {
         padding-left: 0;
       }
     }
-    @media (--xs-medium) {
+    @media (max-width: 767px) {
       position: fixed;
       left: 0;
       top: 0;
@@ -81,7 +77,7 @@ body {
         bottom: 0;
         left: 0;
         right: 0;
-        background-color: var(--pro-background-color-mask);
+        background-color: var(--el-overlay-color-lighter);
         opacity: 1;
       }
       & .pro-aside-wrapper {
@@ -149,28 +145,5 @@ body {
         line-height: var(--pro-layout-height-header);
       }
     }
-  }
-  & .pro-main {
-    flex: 1;
-    margin: var(--pro-layout-main-margin);
-    padding: var(--pro-layout-main-padding);
-    border: var(--el-border);
-    border-radius: var(--el-border-radius-base);
-    background-color: var(--pro-layout-main-background-color);
-    &.el-scrollbar .el-scrollbar__wrap {
-      margin-bottom: 0 !important;
-      overflow-x: hidden;
-    }
-    @media (--xs-medium) {
-      margin: var(--pro-layout-xs-main-margin);
-      padding: var(--pro-layout-xs-main-padding);
-      &.el-scrollbar .el-scrollbar__wrap {
-        margin-right: 0 !important;
-      }
-    }
-  }
-  & > .pro-main {
-    margin: var(--pro-layout-main-margin) auto;
-    max-width: var(--pro-layout-main-max-width);
   }
 }

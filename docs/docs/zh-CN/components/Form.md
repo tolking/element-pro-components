@@ -12,7 +12,7 @@ meta:
 ::: tip 提示
 适用于可以通过 `v-model` 绑定值的任意组件，例如：
 
-- 支持 `el-input` `el-switch` ...
+- 支持 `el-input` `el-switch` `input` ...
 - 不支持 `el-upload` ... (需要将相关组件重新封装为支持 `v-model` 的组件)
 
 :::
@@ -37,7 +37,9 @@ meta:
 
 ### 嵌套键值
 
-::: demo
+支持直接对具有嵌套结构的对象或数组进行赋值，仅需要配置 `prop`
+
+::: demo 当 `prop` 存在默认值时会阻止对嵌套键值赋值
 @/demo/Form/nested.vue
 :::
 
@@ -67,9 +69,9 @@ meta:
 
 ### 配置按钮
 
-通过 menu 配置按钮显示、文字、参数
+通过 `menu` 配置按钮显示、文字、参数
 
-按钮也可以通过 <pro-link to="/zh-CN/guide/#全局配置">全局配置</pro-link> 或者 <pro-link to="/zh-CN/guide/i18n">国际化</pro-link> 来配置
+按钮文字也可以通过 <pro-link to="/zh-CN/guide/i18n">国际化</pro-link> 来配置
 
 ::: demo
 @/demo/Form/menu.vue
@@ -105,6 +107,22 @@ meta:
 
 ::: demo
 @/demo/Form/layout.vue
+:::
+
+### 行内表单
+
+通过设置 `inline` 属性为 `true` 可以让表单域变为行内的表单域
+
+::: demo
+@/demo/Form/inline.vue
+:::
+
+### 对齐方式
+
+通过设置 `label-position` 属性可以改变表单域标签的位置
+
+::: demo 当断点是 `xs` 时，默认为 `top`；其余则是 `right`
+@/demo/Form/label-position.vue
 :::
 
 ### 异步表单

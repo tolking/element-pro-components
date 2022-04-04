@@ -1,3 +1,8 @@
+.pro-form:not(.el-form--inline) .pro-form-menu {
+  margin-bottom: 0;
+  width: 100%;
+}
+
 .pro-form.el-form .el-form-item.is-guttered {
   display: flex;
 }
@@ -9,7 +14,7 @@
   align-items: flex-end;
   padding-top: 15px;
   width: 100%;
-  border-top: var(--el-border-width-base) dashed var(--el-border-color-base);
+  border-top: var(--el-border-width) dashed var(--el-border-color);
   &:first-child {
     padding-top: 0;
     border-top-width: 0;

@@ -1,0 +1,84 @@
+.pro-card {
+  --pro-card-border-color: var(--el-border-color-light);
+  --pro-card-border-radius: 4px;
+  --pro-card-padding: 20px;
+  --pro-card-bg-color: var(--el-fill-color-blank);
+  --pro-card-margin: 12px;
+  --pro-card-xs-margin: 4px;
+}
+
+.pro-card {
+  flex: 1;
+  margin: var(--pro-card-margin);
+  border-radius: var(--pro-card-border-radius);
+  border: 1px solid var(--pro-card-border-color);
+  background-color: var(--pro-card-bg-color);
+  overflow: hidden;
+  color: var(--el-text-color-primary);
+  transition: var(--el-transition-duration);
+  &.is-always-shadow {
+    box-shadow: var(--el-box-shadow-light);
+  }
+  &.is-hover-shadow:focus,
+  &.is-hover-shadow:hover {
+    box-shadow: var(--el-box-shadow-light);
+  }
+  &.is-ghost {
+    border: 0;
+    box-shadow: none;
+    background-color: transparent;
+    & > .pro-card__header {
+      border-bottom: 0;
+    }
+    & > .pro-card__body {
+      padding: 0;
+    }
+  }
+  &.is-split {
+    & > .pro-card__body {
+      padding: 0;
+      height: 100%;
+      &.is-direction-row > div:nth-child(n + 2),
+      &.is-direction-row-reverse > div:nth-child(n + 2) {
+        border-left: 1px solid var(--pro-card-border-color);
+      }
+      &.is-direction-column > div:nth-child(n + 2),
+      &.is-direction-column-reverse > div:nth-child(n + 2) {
+        border-top: 1px solid var(--pro-card-border-color);
+      }
+      & > .el-col > .pro-card,
+      & > .pro-card {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        background-color: transparent;
+      }
+    }
+  }
+  & .pro-card__header {
+    padding: calc(var(--pro-card-padding) - 2px) var(--pro-card-padding);
+    border-bottom: 1px solid var(--pro-card-border-color);
+    box-sizing: border-box;
+  }
+  & .pro-card__body {
+    padding: var(--pro-card-padding);
+    &.is-direction-row-reverse {
+      flex-direction: row-reverse;
+    }
+    &.is-direction-column {
+      flex-direction: column;
+    }
+    &.is-direction-column-reverse {
+      flex-direction: column-reverse;
+    }
+  }
+  & .pro-card {
+    margin: 0;
+    @media (max-width: 767px) {
+      margin: 0px;
+    }
+  }
+  @media (max-width: 767px) {
+    margin: var(--pro-card-xs-margin);
+  }
+}

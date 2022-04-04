@@ -1,7 +1,7 @@
 import { defineComponent, h, mergeProps, VNode } from 'vue'
 import { reactiveOmit } from '@vueuse/core'
 import { ElSelect, ElOptionGroup, ElOption } from 'element-plus'
-import { useSelectData, useEmitValue } from '../composables/index'
+import { useSelectConfig, useEmitValue } from '../composables/index'
 import { modelValueEmit } from '../utils/index'
 import props from './props'
 import type { SelectDataItem } from './index'
@@ -11,7 +11,7 @@ export default defineComponent({
   props,
   emits: modelValueEmit,
   setup(props, { slots }) {
-    const data = useSelectData(props)
+    const configKeys = useSelectConfig(props)
     const emitValue = useEmitValue()
     const config = reactiveOmit(props, 'data', 'config')
 
@@ -19,19 +19,22 @@ export default defineComponent({
       return h(
         ElOption,
         {
-          value: item.value,
-          label: item.label,
-          disabled: item.disabled,
+          value: item[configKeys.value.value],
+          label: item[configKeys.value.label],
+          disabled: item[configKeys.value.disabled],
         },
-        () => slots.default && slots.default({ data: item })
+        // NOTE: Remove `data: item` on next major release
+        () => slots.default && slots.default({ item, data: item })
       )
     }
 
     function createDefault() {
-      return data.value.map((item) => {
-        if (item.children && item.children.length) {
-          return h(ElOptionGroup, { label: item.label }, () =>
-            item.children?.map((child) => createOption(child))
+      return props.data.map((item) => {
+        if (item[configKeys.value.children]?.length) {
+          return h(ElOptionGroup, { label: item[configKeys.value.label] }, () =>
+            item[configKeys.value.children]?.map((child: SelectDataItem[]) => {
+              return createOption(child)
+            })
           )
         } else {
           return createOption(item)
