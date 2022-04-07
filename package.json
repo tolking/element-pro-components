@@ -9,7 +9,6 @@
       "import": "./lib/element-pro-components.es.js",
       "require": "./lib/element-pro-components.umd.js"
     },
-    "./lib/styles/*.css": "./lib/styles/*.css",
     "./lib/styles/*": {
       "import": "./lib/styles/*.js",
       "require": "./lib/styles/*.cjs"
@@ -19,7 +18,7 @@
   "types": "types/index.d.ts",
   "style": "lib/styles/index.css",
   "sideEffects": [
-    "lib/styles/*.css"
+    "lib/styles/*"
   ],
   "engines": {
     "node": ">=12.2.0"
