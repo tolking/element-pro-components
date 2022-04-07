@@ -3,7 +3,7 @@
   width: 100%;
 }
 
-.pro-form.el-form .el-form-item.is-guttered {
+.pro-form:not(.el-form--label-top) .el-form-item.is-guttered {
   display: flex;
 }
 

@@ -4,16 +4,16 @@
   --pro-card-padding: 20px;
   --pro-card-bg-color: var(--el-fill-color-blank);
   --pro-card-margin: 12px;
-  --pro-card-xs-margin: 4px;
 }
 
 .pro-card {
   flex: 1;
   margin: var(--pro-card-margin);
+  width: calc(100% - var(--pro-card-margin) * 2);
   border-radius: var(--pro-card-border-radius);
   border: 1px solid var(--pro-card-border-color);
   background-color: var(--pro-card-bg-color);
-  overflow: hidden;
+  box-sizing: border-box;
   color: var(--el-text-color-primary);
   transition: var(--el-transition-duration);
   &.is-always-shadow {
@@ -73,12 +73,10 @@
     }
   }
   & .pro-card {
-    margin: 0;
-    @media (max-width: 767px) {
-      margin: 0px;
-    }
+    --pro-card-margin: 0px;
   }
   @media (max-width: 767px) {
-    margin: var(--pro-card-xs-margin);
+    --pro-card-margin: 4px;
+    --pro-card-padding: 10px;
   }
 }
