@@ -6,5 +6,6 @@
       "/@src/*": ["./src/*"],
       "element-pro-components": ["./src/index"]
     }
-  }
+  },
+  "include": [".", "../shims-vue.d.ts"]
 }
