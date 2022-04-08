@@ -11,6 +11,7 @@ import {
   ElDatePicker,
   ElCard,
   ElSwitch,
+  ElTooltip,
 } from 'element-plus'
 import ElementPro from '/@src/index'
 import ProCode from './components/ProCode.vue'
@@ -44,6 +45,7 @@ export function createApp(): {
     .use(ElDatePicker)
     .use(ElCard)
     .use(ElSwitch)
+    .use(ElTooltip)
     .component('ProCode', ProCode)
     .use(ElementPro)
 
