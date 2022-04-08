@@ -17,7 +17,7 @@ export default defineComponent({
       return (
         _routes.find((item) => {
           return item.path === '/en-US/components/'
-        })?.children || []
+        })?.children || _routes
       )
     })
 

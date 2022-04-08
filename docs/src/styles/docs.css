@@ -1,0 +1,11 @@
+.docs-layout {
+  --pro-layout-height: 400px;
+  --pro-layout-index-header: 1;
+  border: 1px solid var(--c-border);
+  max-height: 400px;
+}
+
+.docs-menu {
+  max-height: 400px;
+  overflow: auto;
+}

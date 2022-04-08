@@ -19,7 +19,7 @@ import { defineComponent, inject, onMounted, shallowRef } from 'vue'
 
 export default defineComponent({
   setup() {
-    const tabs = inject('tabs') // Get top-level `Tabs` inject
+    const tabs = inject('tabs', undefined) // Get top-level `Tabs` inject
     const childTabs = shallowRef({})
 
     onMounted(() => {
@@ -27,7 +27,9 @@ export default defineComponent({
     })
 
     function asyncList() {
-      childTabs.value.list = tabs.value.list
+      if (tabs) {
+        childTabs.value.list = tabs.value.list
+      }
     }
 
     return {
