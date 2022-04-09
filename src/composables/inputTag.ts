@@ -62,6 +62,7 @@ export function useInputTag(
   function add() {
     if (input.value.trim()) {
       const _list = [...list.value, input.value]
+      emit('tag-add', input.value)
       emit('update:modelValue', _list)
       input.value = ''
     }
@@ -69,9 +70,11 @@ export function useInputTag(
 
   function change(value: string) {
     input.value = value
+    emit('input', value)
   }
 
   function close(index: number) {
+    emit('tag-remove', list.value[index])
     const _list = [...list.value]
     _list.splice(index, 1)
     emit('update:modelValue', _list)
