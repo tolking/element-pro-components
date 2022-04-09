@@ -85,6 +85,14 @@ When using `pro-autocomplete-tag`, most attribute of `ElAutocomplete` are suppor
 | validate-event  | whether to trigger form validation   | boolean | -                                 | true    |
 | input-style     | the style of input                   | object  | -                                 | -       |
 
+## InputTag Events
+
+| Name       | Description                           | Parameters      |
+| ---------- | ------------------------------------- | --------------- |
+| input      | triggers when the Input value change  | (value: string) |
+| tag-add    | triggers when add a tag               | (value: string) |
+| tag-remove | triggers when close button is clicked | (value: string) |
+
 ## AutocompleteTag
 
 > Enter an array of tags with some recommended tips
@@ -117,3 +125,11 @@ When using `pro-autocomplete-tag`, most attribute of `ElAutocomplete` are suppor
 | hide-loading          | whether to hide the loading icon in remote search                                                                        | boolean                         | -                                                              | false        |
 | teleported            | whether select dropdown is teleported to the body                                                                        | boolean                         | -                                                              | true         |
 | highlight-first-item  | whether to highlight first item in remote search suggestions by default                                                  | boolean                         | -                                                              | false        |
+
+## AutocompleteTag Events
+
+| Name       | Description                           | Parameters      |
+| ---------- | ------------------------------------- | --------------- |
+| input      | triggers when the Input value change  | (value: string) |
+| tag-add    | triggers when add a tag               | (value: string) |
+| tag-remove | triggers when close button is clicked | (value: string) |

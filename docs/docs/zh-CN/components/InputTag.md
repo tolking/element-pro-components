@@ -85,6 +85,14 @@ meta:
 | validate-event  | 输入时是否触发表单的校验 | boolean | -                                 | true   |
 | input-style     | input 元素的样式         | object  | -                                 | -      |
 
+### InputTag 事件
+
+| 事件名     | 说明               | 参数            |
+| ---------- | ------------------ | --------------- |
+| input      | Input 值改变时触发 | (value: string) |
+| tag-add    | 新增 tag 时触发    | (value: string) |
+| tag-remove | 关闭 tag 时触发    | (value: string) |
+
 ## AutocompleteTag
 
 > 基于 `ElTag` `ElAutocomplete` 的输入多个标签的输入框
@@ -117,3 +125,11 @@ meta:
 | hide-loading          | 是否隐藏远程加载时的加载图标           | boolean                         | -                                                              | false        |
 | teleported            | 是否将下拉列表插入至 body 元素         | boolean                         | -                                                              | true         |
 | highlight-first-item  | 是否默认突出显示远程搜索建议中的第一项 | boolean                         | -                                                              | false        |
+
+### AutocompleteTag 事件
+
+| 事件名     | 说明               | 参数            |
+| ---------- | ------------------ | --------------- |
+| input      | Input 值改变时触发 | (value: string) |
+| tag-add    | 新增 tag 时触发    | (value: string) |
+| tag-remove | 关闭 tag 时触发    | (value: string) |
