@@ -11,7 +11,7 @@ import {
 } from 'vue'
 import { RouterView, RouteLocationNormalizedLoaded } from 'vue-router'
 import { reactivePick } from '@vueuse/core'
-import { ElScrollbar } from 'element-plus'
+import { ElScrollbar, useAttrs } from 'element-plus'
 import { useSharedBreakpoint, useShow } from '../composables/index'
 import props, { menuKeys } from './props'
 import { ProMenu } from '../Menu/index'
@@ -33,11 +33,16 @@ export default defineComponent({
       'exclude',
       'max'
     ) as KeepAliveProps
+    const attrs = useAttrs()
     const breakpoint = useSharedBreakpoint()
     const { show, toggleShow } = useShow(props.collapse)
     const collapse = computed(() => {
       return breakpoint.value === 'xs' ? false : show.value
     })
+
+    function closeAside() {
+      breakpoint.value === 'xs' && toggleShow()
+    }
 
     function createMenu() {
       const menuSlots = slots.menu
@@ -48,7 +53,10 @@ export default defineComponent({
 
       return h(
         ProMenu,
-        mergeProps(menuConfig, { collapse: collapse.value }),
+        mergeProps(attrs.value, menuConfig, {
+          collapse: collapse.value,
+          onSelect: closeAside,
+        }),
         menuSlots
       )
     }
