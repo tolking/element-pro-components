@@ -15,7 +15,6 @@ meta:
 
 - [vite](https://vitejs.dev/)
 - [vue-cli](https://cli.vuejs.org/zh/)
-- [nuxt](https://zh.nuxtjs.org/)
 
 ## 安装
 
@@ -158,9 +157,9 @@ import 'element-pro-components/lib/styles/layout'
 
 ```diff
 {
-  "include": [
-+   "node_modules/element-pro-components/types/components.d.ts"
-  ]
+  "compilerOptions": {
++    "types": ["element-pro-components/types/components"]
+  }
 }
 ```
 

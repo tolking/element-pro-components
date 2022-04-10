@@ -14,8 +14,7 @@ You can refer to the [template project](https://github.com/tolking/element-admin
 You may need the vue3 version of the scaffolding tool before you start
 
 - [vite](https://vitejs.dev/)
-- [vue-cli](https://cli.vuejs.org/zh/)
-- [nuxt](https://zh.nuxtjs.org/)
+- [vue-cli](https://cli.vuejs.org/)
 
 ## Install
 
@@ -37,7 +36,7 @@ pnpm add element-pro-components
 import { createApp } from 'vue'
 import App from './App.vue'
 import ElementPro from 'element-pro-components'
-import 'element-pro-components/lib/styles/index.css'
+import 'element-pro-components/lib/styles/index'
 
 const app = createApp(App)
 
@@ -157,9 +156,9 @@ If you use VS Code with typescript to develop, It is recommended to use plug-in 
 
 ```diff
 {
-  "include": [
-+   "node_modules/element-pro-components/types/components.d.ts"
-  ]
+  "compilerOptions": {
++    "types": ["element-pro-components/types/components"]
+  }
 }
 ```
 

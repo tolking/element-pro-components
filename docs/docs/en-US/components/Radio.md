@@ -57,9 +57,9 @@ use `pro-radio-button` then checkbox with button styles
 
 ### Radio Events
 
-| Event Name | Description                           | Parameters                          |
-| ---------- | ------------------------------------- | ----------------------------------- |
-| change     | triggers when the bound value changes | the label value of the chosen radio |
+| Name   | Description                           | Parameters                          |
+| ------ | ------------------------------------- | ----------------------------------- |
+| change | triggers when the bound value changes | the label value of the chosen radio |
 
 ## RadioButton
 

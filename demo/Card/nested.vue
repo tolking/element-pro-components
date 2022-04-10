@@ -35,6 +35,7 @@
         shadow="never"
         direction="column"
         split
+        style="margin-top: 12px"
       >
         <pro-card shadow="never">
           card-1

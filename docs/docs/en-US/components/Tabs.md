@@ -13,7 +13,9 @@ meta:
 
 ### Basic Use
 
-::: demo Automatic record routes
+Automatic record routes
+
+::: demo
 @/demo/Tabs/base.vue
 :::
 
@@ -33,6 +35,14 @@ Use `ref` bind `Tabs` then execute internal methods to close tab
 | tab-position | position of tabs                                                                                                                        | string                              | top / right / bottom / left | top     |
 | stretch      | whether width of tab automatically fits its container                                                                                   | boolean                             | -                           | false   |
 | before-leave | hook function before switching tab. If `false` is returned or a `Promise` is returned and then is rejected, switching will be prevented | Function(activeName, oldActiveName) | -                           | -       |
+
+## Events
+
+| Name       | Description                                | Parameters                             |
+| ---------- | ------------------------------------------ | -------------------------------------- |
+| tab-click  | triggers when a tab is clicked             | (pane: `TabsPaneContext`, ev: `Event`) |
+| tab-change | triggers when `activeName` is changed      | (path name)                            |
+| tab-remove | triggers when tab-remove button is clicked | (path name)                            |
 
 ### Methods
 
