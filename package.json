@@ -1,6 +1,6 @@
 {
   "name": "element-pro-components",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a component library for Vue 3 base on element-plus",
   "main": "lib/element-pro-components.umd.js",
   "module": "lib/element-pro-components.es.js",
@@ -9,7 +9,6 @@
       "import": "./lib/element-pro-components.es.js",
       "require": "./lib/element-pro-components.umd.js"
     },
-    "./lib/styles/*.css": "./lib/styles/*.css",
     "./lib/styles/*": {
       "import": "./lib/styles/*.js",
       "require": "./lib/styles/*.cjs"
@@ -19,7 +18,7 @@
   "types": "types/index.d.ts",
   "style": "lib/styles/index.css",
   "sideEffects": [
-    "lib/styles/*.css"
+    "lib/styles/*"
   ],
   "engines": {
     "node": ">=12.2.0"
@@ -78,6 +77,7 @@
     "@babel/preset-typescript": "^7.16.7",
     "@docsearch/css": "^3.0.0",
     "@docsearch/js": "^3.0.0",
+    "@stackblitz/sdk": "^1.6.0",
     "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.181",
     "@types/markdown-it": "^12.2.3",

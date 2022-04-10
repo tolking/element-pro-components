@@ -36,7 +36,7 @@ export default {
       scripts.push(`import ${camelize(componentName)} from '${rawPath}'`)
 
       return `
-      <pro-code>
+      <pro-code link="${link}" content="${encodeURIComponent(content)}">
         ${
           componentName
             ? `<template #source><${componentName}/></template>`

@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.0.1
+
+feat
+
+- Layout: when the breakpoint is xs, close the sidebar when the menu is clicked
+- InputTag|AutocompleteTag: add emits `input` `tag-add` `tag-remove`
+- docs: extended demo capabilities
+  - Edit on StackBlitz
+  - View on Github
+  - Copy code
+
+fix
+
+- TreeSelect: some config ​​are not converted
+- styles: add width for Card
+- fix: exports error
+
 ## 1.0.0
 
 breaking changes

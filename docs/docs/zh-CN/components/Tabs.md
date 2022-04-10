@@ -13,7 +13,9 @@ meta:
 
 ### 基础用法
 
-::: demo 将自动记录路由变化
+将自动记录路由变化
+
+::: demo
 @/demo/Tabs/base.vue
 :::
 
@@ -33,6 +35,14 @@ meta:
 | tab-position | 标签位置                                                                    | string                              | top / right / bottom / left | top    |
 | stretch      | 标签的宽度是否自撑开                                                        | boolean                             | -                           | false  |
 | before-leave | 切换标签之前的钩子，若返回 false 或者返回 Promise 且被 reject，则阻止切换。 | Function(activeName, oldActiveName) | -                           | -      |
+
+### 事件
+
+| 事件名     | 说明                    | 参数                                   |
+| ---------- | ----------------------- | -------------------------------------- |
+| tab-click  | tab 被选中时触发        | (pane: `TabsPaneContext`, ev: `Event`) |
+| tab-change | `activeName` 变动后触发 | (path name)                            |
+| tab-remove | 关闭时触发              | (path name)                            |
 
 ### 方法
 

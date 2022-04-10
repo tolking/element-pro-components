@@ -27,6 +27,10 @@ const lang: Record<
       code: {
         hide: 'Hide',
         show: 'Expand',
+        edit: 'Edit on StackBlitz',
+        view: 'View on Github',
+        copy: 'Copy code',
+        copied: 'Copied',
       },
       pwa: {
         message: 'New content is available.',
@@ -56,6 +60,10 @@ const lang: Record<
       code: {
         hide: '隐藏代码',
         show: '显示代码',
+        edit: '在 StackBlitz 中编辑',
+        view: '在 Github 中查看',
+        copy: '复制代码',
+        copied: '已经复制',
       },
       pwa: {
         message: '发现新内容可用',

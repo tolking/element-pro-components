@@ -101,6 +101,14 @@ Custom RouterView by the default slot
 | menu-trigger        | how sub-menus are triggered, only works when `mode` is 'horizontal'                           | string                  | hover / click         | hover             |
 | collapse-transition | whether to enable the collapse transition                                                     | boolean                 | -                     | true              |
 
+## Events
+
+| Name   | Description                               | Parameters                                                                                            |
+| ------ | ----------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| select | callback function when menu is activated  | index: index of activated menu, indexPath: index path of activated menu, item: the selected menu item |
+| open   | callback function when sub-menu expands   | index: index of expanded sub-menu, indexPath: index path of expanded sub-menu                         |
+| close  | callback function when sub-menu collapses | index: index of collapsed sub-menu, indexPath: index path of collapsed sub-menu                       |
+
 ### Slots
 
 | Name          | Description                                                       |

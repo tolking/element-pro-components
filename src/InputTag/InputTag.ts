@@ -1,8 +1,8 @@
 import { defineComponent, h, mergeProps, VNode } from 'vue'
 import { ElInput, ElTag } from 'element-plus'
 import { useInputTag, InputTagCore } from '../composables/index'
-import { modelValueEmit } from '../utils/index'
 import props from './props'
+import emits from './emits'
 
 export function createDefault<T>(component: T, core: InputTagCore): VNode[] {
   const vNode: VNode[] = core.list.value.map((item, index) =>
@@ -37,7 +37,7 @@ export function createDefault<T>(component: T, core: InputTagCore): VNode[] {
 export default defineComponent({
   name: 'ProInputTag',
   props,
-  emits: modelValueEmit,
+  emits,
   setup(props, { emit }) {
     const core = useInputTag(props, emit)
 

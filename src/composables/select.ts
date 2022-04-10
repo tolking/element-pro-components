@@ -79,7 +79,7 @@ export function useTreeSelect(
   })
   const filter: FilterNodeMethodFunction = (value, item) => {
     if (!value) return true
-    return item.label.indexOf(value) !== -1
+    return item[configKeys.value.label].indexOf(value) !== -1
   }
 
   onMounted(() => {
@@ -125,7 +125,7 @@ export function useTreeSelect(
       if (onlySelectLeaf?.value && item[configKeys.value.children]?.length)
         return
       label.value = item[configKeys.value.label]
-      emit('update:modelValue', item.value)
+      emit('update:modelValue', item[configKeys.value.value])
       emit('node-click', item, node, self)
     }
   }

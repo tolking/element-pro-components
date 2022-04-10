@@ -5,6 +5,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import docsearch from '@docsearch/js'
+import { algolia } from '../utils/index'
 import '@docsearch/css'
 
 const search = ref()
@@ -13,11 +14,8 @@ onMounted(initialize)
 
 function initialize() {
   docsearch({
-    appId: 'MZMDSXIML4',
-    apiKey: '3834102f0d5e8cdcd86443e4e836817c',
-    indexName: 'element-pro-components',
+    ...algolia,
     container: search.value,
-    debug: false,
   })
 }
 </script>

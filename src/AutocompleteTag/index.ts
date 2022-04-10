@@ -1,8 +1,9 @@
-import { withInstall, modelValueEmit } from '../utils/index'
+import { withInstall } from '../utils/index'
 import AutocompleteTag from './AutocompleteTag'
 import props from './props'
-import type { IDefineProps, IDefineEmits } from '../types/index'
+import type { IDefineProps } from '../types/index'
+import type { IInputTagEmits } from '../InputTag/index'
 
 export const ProAutocompleteTag = withInstall(AutocompleteTag)
 export type IAutocompleteTagProps = IDefineProps<typeof props>
-export type IAutocompleteTagEmits = IDefineEmits<typeof modelValueEmit>
+export type IAutocompleteTagEmits = IInputTagEmits

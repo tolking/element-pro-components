@@ -61,8 +61,16 @@ meta:
 | menu-trigger        | 子菜单打开的触发方式(只在 mode 为 horizontal 时有效) | string  | hover / click         | hover                  |
 | collapse-transition | 是否开启折叠动画                                     | boolean | -                     | true                   |
 
+### 事件
+
+| 事件名 | 说明                | 参数                                                                            |
+| ------ | ------------------- | ------------------------------------------------------------------------------- |
+| select | 菜单激活回调        | index: 选中菜单项的 index, indexPath: 选中菜单项的 index path, item: 选中菜单项 |
+| open   | sub-menu 展开的回调 | index: 打开的 sub-menu 的 index, indexPath: 打开的 sub-menu 的 index path       |
+| close  | sub-menu 收起的回调 | index: 收起的 sub-menu 的 index, indexPath: 收起的 sub-menu 的 index path       |
+
 ### 插槽
 
-| name | 说明                                                 |
+| 名称 | 说明                                                 |
 | :--- | :--------------------------------------------------- |
 | -    | 控制菜单显示内容，参数为 { meta, path, redirect } 等 |
