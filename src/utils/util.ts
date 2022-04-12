@@ -6,7 +6,7 @@ import type { Component, VNode } from 'vue'
 import type { IScreenSize, UnknownObject, IDefinePlugin } from '../types/index'
 
 /**
- * determine the current screen size
+ * @deprecated determine the current screen size
  * @param width current screen width
  */
 export function getScreenSize(width: number): IScreenSize {
