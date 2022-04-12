@@ -12,7 +12,7 @@ import {
 import { RouterView, RouteLocationNormalizedLoaded } from 'vue-router'
 import { reactivePick } from '@vueuse/core'
 import { ElScrollbar, useAttrs } from 'element-plus'
-import { useSharedBreakpoint, useShow } from '../composables/index'
+import { useCurrentBreakpoint, useShow } from '../composables/index'
 import props, { menuKeys } from './props'
 import { ProMenu } from '../Menu/index'
 
@@ -34,7 +34,7 @@ export default defineComponent({
       'max'
     ) as KeepAliveProps
     const attrs = useAttrs()
-    const breakpoint = useSharedBreakpoint()
+    const breakpoint = useCurrentBreakpoint()
     const { show, toggleShow } = useShow(props.collapse)
     const collapse = computed(() => {
       return breakpoint.value === 'xs' ? false : show.value

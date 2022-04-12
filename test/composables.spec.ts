@@ -2,7 +2,8 @@ import { ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import {
   useShow,
-  useSharedBreakpoint,
+  useSharedBreakpoints,
+  useCurrentBreakpoint,
   useBreakpointWidth,
   useRow,
   useCol,
@@ -45,55 +46,40 @@ describe('some composables', () => {
     })
   })
 
-  describe('useSharedBreakpoint', () => {
-    test('size', async () => {
-      const wrapper = await mount({
-        template: '<p class="size">{{ size }}</p>',
-        setup() {
-          const size = useSharedBreakpoint()
-          return { size }
-        },
-      })
+  describe('useSharedBreakpoints', () => {
+    test('size', () => {
+      const breakpoints = useSharedBreakpoints()
 
-      expect(['xl', 'lg', 'md', 'sm', 'xs']).toContain(
-        wrapper.find('.size').text()
-      )
+      expect(breakpoints.sm.value).toBeFalsy()
+    })
+  })
+
+  describe('useCurrentBreakpoint', () => {
+    test('size', () => {
+      const size = useCurrentBreakpoint()
+
+      expect(['xl', 'lg', 'md', 'sm', 'xs']).toContain(size.value)
     })
   })
 
   describe('useBreakpointWidth', () => {
-    test('default', async () => {
-      const wrapper = await mount({
-        template: '<p class="width">{{ width }}</p>',
-        setup() {
-          const width = useBreakpointWidth()
-          return { width }
-        },
-      })
+    test('default', () => {
+      const width = useBreakpointWidth()
 
-      expect(['90%', '80%', '70%', '60%', '50%']).toContain(
-        wrapper.find('.width').text()
-      )
+      expect(['90%', '80%', '70%', '60%', '50%']).toContain(width.value)
     })
 
-    test('default', async () => {
-      const wrapper = await mount({
-        template: '<p class="width">{{ width }}</p>',
-        setup() {
-          const width = useBreakpointWidth({
-            xs: '100px',
-            sm: '200px',
-            md: '300px',
-            lg: '400px',
-            xl: '500px',
-          })
-          return { width }
-        },
-      })
+    test('default', () => {
+      const config = {
+        xs: '100px',
+        sm: '200px',
+        md: '300px',
+        lg: '400px',
+        xl: '500px',
+      }
+      const width = useBreakpointWidth(config)
 
-      expect(['100px', '200px', '300px', '400px', '500px']).toContain(
-        wrapper.find('.width').text()
-      )
+      expect(Object.values(config)).toContain(width.value)
     })
   })
 

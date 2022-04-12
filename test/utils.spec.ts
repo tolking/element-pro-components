@@ -1,6 +1,5 @@
 import {
   isURL,
-  getScreenSize,
   objectDeepMerge,
   objectPick,
   objectOmit,
@@ -20,14 +19,6 @@ describe('all utils', () => {
     test('isURL /children', () => {
       expect(isURL('/children')).toBeFalsy()
     })
-  })
-
-  describe('getScreenSize', () => {
-    expect(getScreenSize(1920)).toBe('xl')
-    expect(getScreenSize(1500)).toBe('lg')
-    expect(getScreenSize(1100)).toBe('md')
-    expect(getScreenSize(920)).toBe('sm')
-    expect(getScreenSize(375)).toBe('xs')
   })
 
   describe('objectDeepMerge', () => {
