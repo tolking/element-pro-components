@@ -65,7 +65,7 @@ export default defineComponent({
 
     return () =>
       h(ElDescriptions, mergeProps(confog, { class: 'pro-descriptions' }), {
-        default: () => createDefault(),
+        default: () => [createDefault(), slots.default && slots.default()],
         title: () =>
           slots['title'] ? slots['title']({ size: props.size }) : null,
         extra: () =>

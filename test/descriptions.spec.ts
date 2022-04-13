@@ -1,11 +1,12 @@
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
+import { ElDescriptionsItem } from 'element-plus'
 import ProDescriptions from '../src/Descriptions/Descriptions'
 import type { IDescriptionsColumns } from '../src/Descriptions/index'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
-    components: { ProDescriptions },
+    components: { ProDescriptions, ElDescriptionsItem },
     ...options,
   })
 const headerClass = '.pro-descriptions .el-descriptions__header'
@@ -105,6 +106,11 @@ describe('Descriptions', () => {
           <template #date-label="{ item }">
             <span>slot-{{ item.label }}</span>
           </template>
+          <template #default>
+            <el-descriptions-item label="default">
+              default slot
+            </el-descriptions-item>
+          </template>
         </pro-descriptions>
       `,
       setup() {
@@ -119,6 +125,8 @@ describe('Descriptions', () => {
 
     expect(getLabelList(wrapper)).toContain('slot-Date')
     expect(getPropList(wrapper)).toContain('slot-2016-05-03')
+    expect(getLabelList(wrapper)).toContain('default')
+    expect(getPropList(wrapper)).toContain('default slot')
     expect(wrapper.find(headerClass + ' .el-descriptions__title').text()).toBe(
       'slot-title'
     )
