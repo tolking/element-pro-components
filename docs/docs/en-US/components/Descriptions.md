@@ -92,6 +92,7 @@ The function `defineDescriptionsColumns` supports passing in a Generics type to 
 
 | Name         | Description                                                         |
 | ------------ | ------------------------------------------------------------------- |
+| -            | insert more descriptions information at the end                     |
 | title        | custom title, display on the top left, parameters { size }          |
 | extra        | custom extra area, display on the top right, parameters { size }    |
 | [prop]       | control the `Item` display content, parameters { size, item }       |
