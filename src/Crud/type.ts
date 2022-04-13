@@ -12,10 +12,12 @@ import type {
   ITableMenuColumns,
   ITableExpose,
 } from '../Table/index'
+import type { DescriptionsColumn } from '../Descriptions/type'
 
 export interface CrudColumn<T = ExternalParam>
   extends FormColumn<T>,
-    TableColumn<T> {
+    TableColumn<T>,
+    Omit<DescriptionsColumn<T>, 'span'> {
   /** sub-form and multi-level header */
   children?: ICrudColumns<T>
   /** whether to display in the add form */
@@ -24,6 +26,8 @@ export interface CrudColumn<T = ExternalParam>
   edit?: boolean
   /** whether to display in the add and edit form */
   form?: boolean
+  /** whether to display in the view descriptions */
+  view?: boolean
   /** whether to display in the search form */
   search?: boolean
 }
@@ -44,6 +48,12 @@ export interface CrudMenu<T = ExternalParam> {
   editText?: string
   /** props of edit button */
   editProps?: Partial<ButtonProps>
+  /** show view button */
+  view?: boolean | ((row: T) => boolean)
+  /** text of view button */
+  viewText?: string
+  /** props of view button */
+  viewProps?: Partial<ButtonProps>
   /** show del button */
   del?: boolean | ((row: T) => boolean)
   /** text of del button */
@@ -68,11 +78,11 @@ export type ICrudMenuColumns<T = ExternalParam> = CrudMenu<T> &
   ITableMenuColumns &
   IFormMenuColumns
 
-export type ICrudFormType = 'add' | 'edit'
+export type ICrudDialogType = 'add' | 'edit' | 'view'
 
 export type ICrudBeforeOpen<T = ExternalParam> = (
   done: () => void,
-  formType: ICrudFormType,
+  type: ICrudDialogType,
   row?: T
 ) => void
 
@@ -83,7 +93,7 @@ export type ICrudSearch = IFormSubmit
 export type ICrudSubmit = (
   close: () => void,
   done: () => void,
-  formType: ICrudFormType,
+  type: Exclude<ICrudDialogType, 'view'>,
   isValid: boolean,
   invalidFields?: InvalidFields
 ) => void

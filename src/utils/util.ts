@@ -80,3 +80,7 @@ export function withInstall<T extends { name: string }>(
 
   return _plugin
 }
+
+export function throwWarn(err: string) {
+  import.meta.env.DEV && console.warn(`ElementProComponents Error: ${err}`)
+}

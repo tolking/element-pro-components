@@ -2,7 +2,7 @@ import FormEmits from '../Form/emits'
 import TableEmits from '..//Table/emits'
 import type { ExternalParam } from '../types/index'
 import type { InvalidFields } from '../Form/index'
-import type { ICrudFormType } from './type'
+import type { ICrudDialogType } from './type'
 
 export default {
   ...FormEmits,
@@ -10,13 +10,16 @@ export default {
   submit: (
     close: () => void,
     done: () => void,
-    formType: ICrudFormType,
+    form: ICrudDialogType,
     isValid: boolean,
     invalidFields?: InvalidFields
   ) => true,
   search: (done: () => void, isValid: boolean, invalidFields?: InvalidFields) =>
     true,
   searchReset: () => true,
+  add: () => true,
+  edit: (row: ExternalParam) => true,
+  view: (row: ExternalParam) => true,
   delete: (row: ExternalParam) => true,
   'update:search': (value?: ExternalParam) => true,
 }
