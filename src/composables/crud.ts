@@ -30,9 +30,9 @@ export function useCrudMenu(
       edit: true,
       editText: 'Edit',
       editProps: { type: 'text' },
-      view: true,
-      viewText: 'View',
-      viewProps: { type: 'text' },
+      detail: true,
+      detailText: 'View',
+      detailProps: { type: 'text' },
       del: true,
       delText: 'Delete',
       delProps: { type: 'text' },
@@ -50,7 +50,7 @@ export function useCrudMenu(
     const menuList = [
       'add',
       'edit',
-      'view',
+      'detail',
       'del',
       'submit',
       'reset',
@@ -80,7 +80,7 @@ export function useCrudColumns(
   addColumns: Ref<IFormColumns | undefined>
   editColumns: Ref<IFormColumns | undefined>
   formColumns: Ref<IFormColumns | undefined>
-  descriptionsColumns: Ref<IDescriptionsColumns | undefined>
+  detailColumns: Ref<IDescriptionsColumns | undefined>
 } {
   const searchColumns = computed(() => {
     return props.searchColumns
@@ -113,13 +113,13 @@ export function useCrudColumns(
       ? filterDeep<IFormColumns>(props.columns, 'form')
       : undefined
   })
-  const descriptionsColumns = computed(() => {
-    return props.searchColumns
-      ? props.searchColumns
+  const detailColumns = computed(() => {
+    return props.detailColumns
+      ? props.detailColumns
       : props.columns
       ? filterDeep<IDescriptionsColumns>(
           props.columns,
-          'view',
+          'detail',
           true,
           (item) => ({ ...item, span: undefined })
         )
@@ -132,7 +132,7 @@ export function useCrudColumns(
     addColumns,
     editColumns,
     formColumns,
-    descriptionsColumns,
+    detailColumns,
   }
 }
 
@@ -233,13 +233,13 @@ export function useCrudSlots(): {
   searchSlots: Record<string, Slot | undefined>
   tableSlots: Record<string, Slot | undefined>
   formSlots: Record<string, Slot | undefined>
-  descriptionsSlots: Record<string, Slot | undefined>
+  detailSlots: Record<string, Slot | undefined>
 } {
   const slots = useSlots()
   const searchSlots: Record<string, Slot | undefined> = {}
   const tableSlots: Record<string, Slot | undefined> = {}
   const formSlots: Record<string, Slot | undefined> = {}
-  const descriptionsSlots: Record<string, Slot | undefined> = {}
+  const detailSlots: Record<string, Slot | undefined> = {}
 
   for (const key in slots) {
     const item = slots[key]
@@ -285,11 +285,11 @@ export function useCrudSlots(): {
       formSlots[key] = item
     } else if (/^form$/.test(key)) {
       formSlots.default = item
-    } else if (/^descriptions-/.test(key)) {
-      const _key = key.replace(/^descriptions-/, '')
-      descriptionsSlots[_key] = item
-    } else if (/^descriptions$/.test(key)) {
-      descriptionsSlots.default = item
+    } else if (/^detail-/.test(key)) {
+      const _key = key.replace(/^detail-/, '')
+      detailSlots[_key] = item
+    } else if (/^detail$/.test(key)) {
+      detailSlots.default = item
     }
   }
 
@@ -297,6 +297,6 @@ export function useCrudSlots(): {
     searchSlots,
     tableSlots,
     formSlots,
-    descriptionsSlots,
+    detailSlots,
   }
 }

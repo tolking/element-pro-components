@@ -6,6 +6,7 @@ import descriptions from '../Descriptions/props'
 import type { PropType } from 'vue'
 import type { IFormProps, IFormColumns } from '../Form/index'
 import type { ITableColumns } from '../Table/index'
+import type { IDescriptionsColumns } from '../Descriptions/index'
 import type {
   ICrudColumns,
   ICrudMenuColumns,
@@ -57,6 +58,10 @@ export default {
   },
   tableColumns: {
     type: Array as PropType<ITableColumns>,
+    default: undefined,
+  },
+  detailColumns: {
+    type: Array as PropType<IDescriptionsColumns>,
     default: undefined,
   },
   menu: {

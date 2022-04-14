@@ -19,7 +19,7 @@ export default {
   searchReset: () => true,
   add: () => true,
   edit: (row: ExternalParam) => true,
-  view: (row: ExternalParam) => true,
+  detail: (row: ExternalParam) => true,
   delete: (row: ExternalParam) => true,
   'update:search': (value?: ExternalParam) => true,
 }

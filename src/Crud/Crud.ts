@@ -46,9 +46,7 @@ export default defineComponent({
     const descriptionsProps = reactivePick(props, ...descriptionsKeys)
     const dialogProps = reactivePick(props, ...dialogKeys)
 
-    const { searchColumns, tableColumns, descriptionsColumns } = useCrudColumns(
-      props
-    )
+    const { searchColumns, tableColumns, detailColumns } = useCrudColumns(props)
     const menuColumns = useCrudMenu(props)
     const {
       table,
@@ -82,12 +80,7 @@ export default defineComponent({
     } = useCrudForm(props, emit, resetForm)
     const searchMenu = useCrudSearchMenu(menuColumns)
     const { searchForm, searchReset, upSearchData } = useCrudSearchForm(emit)
-    const {
-      searchSlots,
-      tableSlots,
-      formSlots,
-      descriptionsSlots,
-    } = useCrudSlots()
+    const { searchSlots, tableSlots, formSlots, detailSlots } = useCrudSlots()
 
     const attrs = useAttrs()
     const dialogWidth = useBreakpointWidth()
@@ -95,8 +88,8 @@ export default defineComponent({
       const title =
         props.title ||
         (props.menu
-          ? type.value === 'view'
-            ? menuColumns.value.viewText
+          ? type.value === 'detail'
+            ? menuColumns.value.detailText
             : type.value === 'add'
             ? menuColumns.value.addText
             : menuColumns.value.editText
@@ -105,7 +98,9 @@ export default defineComponent({
       function beforeClose(done: () => void) {
         function callback() {
           showDialog.value = false
-          type.value !== 'view' && resetForm(true)
+          type.value !== 'detail' &&
+            formColumns.value?.length &&
+            resetForm(true)
           done()
         }
 
@@ -121,10 +116,10 @@ export default defineComponent({
       }
     })
 
-    function checkView(row: StringObject) {
-      return isFunction(menuColumns.value.view)
-        ? menuColumns.value.view(row)
-        : menuColumns.value.view
+    function checkDetail(row: StringObject) {
+      return isFunction(menuColumns.value.detail)
+        ? menuColumns.value.detail(row)
+        : menuColumns.value.detail
     }
 
     function checkEdit(row: StringObject) {
@@ -215,7 +210,10 @@ export default defineComponent({
     function createTable() {
       const showMenu =
         props.menu &&
-        (menuColumns.value.edit || menuColumns.value.del || slots.menu)
+        (menuColumns.value.edit ||
+          menuColumns.value.detail ||
+          menuColumns.value.del ||
+          slots.menu)
       const menuSlots = showMenu
         ? { menu: (scope: TableMenuScope) => createTableMenu(scope) }
         : {}
@@ -237,18 +235,6 @@ export default defineComponent({
     function createTableMenu(scope: TableMenuScope) {
       let list: VNode[] = []
 
-      if (props.menu && checkView(scope.row)) {
-        list.push(
-          h(
-            ElButton,
-            mergeProps(menuColumns.value.viewProps || {}, {
-              size: props.size,
-              onClick: () => openDialog('view', scope.row),
-            }),
-            () => menuColumns.value?.viewText || ''
-          )
-        )
-      }
       if (props.menu && checkEdit(scope.row)) {
         list.push(
           h(
@@ -258,6 +244,18 @@ export default defineComponent({
               onClick: () => openDialog('edit', scope.row),
             }),
             () => menuColumns.value?.editText || ''
+          )
+        )
+      }
+      if (props.menu && checkDetail(scope.row)) {
+        list.push(
+          h(
+            ElButton,
+            mergeProps(menuColumns.value.detailProps || {}, {
+              size: props.size,
+              onClick: () => openDialog('detail', scope.row),
+            }),
+            () => menuColumns.value?.detailText || ''
           )
         )
       }
@@ -298,17 +296,14 @@ export default defineComponent({
     }
 
     function createDescriptions() {
-      if (!descriptionsColumns.value?.length) return null
+      if (!detailColumns.value?.length) return null
       return h(
         ProDescriptions,
-        mergeProps(
-          descriptionsProps,
-          {
-            columns: descriptionsColumns.value,
-            class: 'pro-crud-descriptions',
-          },
-          descriptionsSlots
-        )
+        mergeProps(descriptionsProps, {
+          columns: detailColumns.value,
+          class: 'pro-crud-detail',
+        }),
+        detailSlots
       )
     }
 
@@ -320,7 +315,7 @@ export default defineComponent({
         }) as DialogProps,
         () => [
           slots['dialog-top'] && slots['dialog-top']({ type }),
-          type.value === 'view' ? createDescriptions() : createForm(),
+          type.value === 'detail' ? createDescriptions() : createForm(),
           slots['dialog-bottom'] && slots['dialog-bottom']({ type }),
         ]
       )

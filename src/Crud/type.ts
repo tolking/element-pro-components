@@ -26,8 +26,8 @@ export interface CrudColumn<T = ExternalParam>
   edit?: boolean
   /** whether to display in the add and edit form */
   form?: boolean
-  /** whether to display in the view descriptions */
-  view?: boolean
+  /** whether to display in the detail descriptions */
+  detail?: boolean
   /** whether to display in the search form */
   search?: boolean
 }
@@ -48,12 +48,12 @@ export interface CrudMenu<T = ExternalParam> {
   editText?: string
   /** props of edit button */
   editProps?: Partial<ButtonProps>
-  /** show view button */
-  view?: boolean | ((row: T) => boolean)
-  /** text of view button */
-  viewText?: string
-  /** props of view button */
-  viewProps?: Partial<ButtonProps>
+  /** show detail button */
+  detail?: boolean | ((row: T) => boolean)
+  /** text of detail button */
+  detailText?: string
+  /** props of detail button */
+  detailProps?: Partial<ButtonProps>
   /** show del button */
   del?: boolean | ((row: T) => boolean)
   /** text of del button */
@@ -78,7 +78,7 @@ export type ICrudMenuColumns<T = ExternalParam> = CrudMenu<T> &
   ITableMenuColumns &
   IFormMenuColumns
 
-export type ICrudDialogType = 'add' | 'edit' | 'view'
+export type ICrudDialogType = 'add' | 'edit' | 'detail'
 
 export type ICrudBeforeOpen<T = ExternalParam> = (
   done: () => void,
@@ -93,7 +93,7 @@ export type ICrudSearch = IFormSubmit
 export type ICrudSubmit = (
   close: () => void,
   done: () => void,
-  type: Exclude<ICrudDialogType, 'view'>,
+  type: Exclude<ICrudDialogType, 'detail'>,
   isValid: boolean,
   invalidFields?: InvalidFields
 ) => void
