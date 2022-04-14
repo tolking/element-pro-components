@@ -2,11 +2,11 @@ import type { Component } from 'vue'
 import type { ButtonProps, ColProps, FormItemProps } from 'element-plus'
 import type {
   UnknownObject,
-  DeepKeyof,
   MaybeArray,
   ExternalParam,
-  IsAny,
   Mutable,
+  ColumnProp,
+  FormColumnChildren,
 } from '../types/index'
 
 export interface InvalidFields {
@@ -22,11 +22,11 @@ export interface FormColumn<T = ExternalParam>
   /** props for component */
   props?: UnknownObject
   /** sub-form */
-  children?: IFormColumns<T>
+  children?: IFormColumns<FormColumnChildren<T>>
   /** max number of sub-form */
   max?: number
   /** keys of model that passed to form */
-  prop: IsAny<T> extends true ? string : DeepKeyof<T>
+  prop: ColumnProp<T>
 }
 
 /** Form Columns Option */

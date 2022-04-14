@@ -6,25 +6,68 @@ export type UnknownObject = Record<string | number, unknown>
 
 export type UnknownFunction = (...arg: unknown[]) => unknown
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type DeepNested<T> = T extends object[]
-  ? DeepKeyof<Exclude<T[number], undefined>>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ExternalParam = any
+
+export type IsAny<T> = 0 extends T & 1 ? true : false
+
+export type Mutable<T> = { -readonly [P in keyof T]: T[P] }
+
+export type MaybeArray<T> = T | Array<T>
+
+export type MaybeRef<T> = T | Ref<T>
+
+export type ObjectValueType<T> = T[keyof T]
+
+export type FilterObject<T> = T extends object[]
+  ? T[number]
   : T extends unknown[]
   ? never
-  : // eslint-disable-next-line @typescript-eslint/ban-types
-  T extends object
-  ? DeepKeyof<Exclude<T, undefined>>
+  : T extends object
+  ? T
   : never
 
-type WithNumber<T, Q extends keyof T> = `${Q & string}${Exclude<
-  T[Q],
-  undefined
-> extends unknown[]
-  ? `[${number}]`
-  : ''}${`.${DeepNested<Exclude<T[Q], undefined>> & string}` | ''}`
+// NOTE: chang to `type ArrayPath<T, Q = ''> = `${T & strng}[${number}]${Q & strng}`` when the typescript version is v4.7.0
+type ArrayPath<
+  T extends string,
+  Q extends string = ''
+> = `${T}[${number}]${Q extends '' ? '' : `.${Q}`}`
+
+type ObjectPath<T extends string, Q extends string> = `${T}.${Q}`
+
+type ExtractTemplatePath<T, U> = T extends
+  | `${infer P}[${string}`
+  | `${infer P}.${string}`
+  ? P extends U
+    ? T
+    : never
+  : never
+
+type ExtractPath<T extends object> =
+  | ExtractTemplatePath<DeepKeyof<T>, keyof T>
+  | keyof T
+
+type DeepNested<K extends string, V> = V extends object[]
+  ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore FIXME: Type instantiation is excessively deep and possibly infinite.
+    | ArrayPath<
+          K,
+          | (ExtractPath<V[number]> extends string
+              ? ExtractPath<V[number]>
+              : never)
+          | ''
+        >
+      | DeepKeyof<V[number]>
+  : V extends unknown[]
+  ? ArrayPath<K>
+  : V extends object
+  ?
+      | ObjectPath<K, ExtractPath<V> extends string ? ExtractPath<V> : never>
+      | DeepKeyof<V>
+  : never
 
 /**
- * Get the deep key of the object
+ * Get the deep key path of the object
  *
  * for example:
  *
@@ -43,20 +86,17 @@ type WithNumber<T, Q extends keyof T> = `${Q & string}${Exclude<
  *  }> // -> "date" | "user" | "name" | "address" | `user[${number}]` | `user[${number}].name` | `user[${number}].address`
  * ```
  */
-export type DeepKeyof<T> = {
-  [Q in keyof T]-?: Q | DeepNested<Exclude<T[Q], undefined>> | WithNumber<T, Q>
+export type DeepKeyof<T extends object> = {
+  [Q in keyof T]-?: Q | DeepNested<Q & string, Exclude<T[Q], undefined>>
 }[keyof T]
+// TODO: 继续优化，当类型复杂是类型推到缺失
+export type ColumnProp<T> = IsAny<T> extends true
+  ? string
+  : DeepKeyof<FilterObject<T>>
 
-export type MaybeArray<T> = T | Array<T>
-
-export type MaybeRef<T> = T | Ref<T>
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ExternalParam = any
-
-export type IsAny<T> = 0 extends T & 1 ? true : false
-
-export type Mutable<T> = { -readonly [P in keyof T]: T[P] }
+export type FormColumnChildren<T> = IsAny<T> extends true
+  ? T
+  : FilterObject<ObjectValueType<FilterObject<T>>>
 
 export type IScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 

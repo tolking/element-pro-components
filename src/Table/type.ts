@@ -3,10 +3,9 @@ import type { Placement } from 'element-plus'
 import type {
   UnknownFunction,
   UnknownObject,
-  DeepKeyof,
   MaybeArray,
   ExternalParam,
-  IsAny,
+  ColumnProp,
 } from '../types/index'
 
 /** Table Column Options for pro-table */
@@ -63,7 +62,7 @@ export interface TableCommonColumn<T = ExternalParam>
 /** Table Column Options */
 export interface TableColumn<T = ExternalParam> extends TableCommonColumn<T> {
   /** field name */
-  prop: IsAny<T> extends true ? string : DeepKeyof<T>
+  prop: ColumnProp<T>
   /** When the data structure is complex, you can use children to show the data hierarchy */
   children?: ITableColumns<T>
   /** whether to hide in the table */

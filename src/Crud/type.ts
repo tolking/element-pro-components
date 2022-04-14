@@ -1,5 +1,10 @@
 import type { ButtonProps } from 'element-plus'
-import type { UnknownObject, ExternalParam } from '../types/index'
+import type {
+  UnknownObject,
+  ExternalParam,
+  ColumnProp,
+  FormColumnChildren,
+} from '../types/index'
 import type {
   FormColumn,
   IFormMenuColumns,
@@ -15,11 +20,13 @@ import type {
 import type { DescriptionsColumn } from '../Descriptions/type'
 
 export interface CrudColumn<T = ExternalParam>
-  extends FormColumn<T>,
-    TableColumn<T>,
-    Omit<DescriptionsColumn<T>, 'span'> {
+  extends Omit<FormColumn<T>, 'prop' | 'children'>,
+    Omit<TableColumn<T>, 'prop' | 'children'>,
+    Omit<DescriptionsColumn<T>, 'prop' | 'span'> {
+  /** keys of model that passed to form */
+  prop: ColumnProp<T>
   /** sub-form and multi-level header */
-  children?: ICrudColumns<T>
+  children?: ICrudColumns<T | FormColumnChildren<T>>
   /** whether to display in the add form */
   add?: boolean
   /** whether to display in the edit form */
