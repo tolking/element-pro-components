@@ -1,14 +1,13 @@
 import type { VNode } from 'vue'
 import type {
   ExternalParam,
-  IsAny,
-  DeepKeyof,
   UnknownObject,
   MaybeArray,
+  ColumnProp,
 } from '../types/index'
 
 export interface DescriptionsColumn<T = ExternalParam> extends UnknownObject {
-  prop: IsAny<T> extends true ? string : DeepKeyof<T>
+  prop: ColumnProp<T>
   label?: string
   span?: number
   width?: string | number
