@@ -5,6 +5,8 @@
     :edit-columns="editColumns"
     :menu="true"
     :data="data"
+    :detail="detail"
+    :before-open="beforeOpen"
     label-width="100px"
     @submit="submit"
     @reset="reset"
@@ -14,29 +16,35 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { ElMessage } from 'element-plus'
 import {
   defineCrudColumns,
   defineCrudSubmit,
   defineFormColumns,
+  defineCrudBeforeOpen,
 } from 'element-pro-components'
 
 export default defineComponent({
   setup() {
     const form = ref({})
+    const detail = ref({})
     const columns = defineCrudColumns([
       {
         label: 'Date',
         prop: 'date',
         component: 'el-input',
         add: true,
+        detail: true,
       },
       {
         label: 'Name',
         prop: 'name',
+        detail: true,
       },
       {
         label: 'Address',
         prop: 'address',
+        detail: true,
       },
     ])
     const editColumns = defineFormColumns([
@@ -63,26 +71,19 @@ export default defineComponent({
         name: 'Tom',
         address: 'No. 189, Grove St, Los Angeles',
       },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
     ])
 
+    const beforeOpen = defineCrudBeforeOpen((done, type, row) => {
+      if (type === 'detail') {
+        detail.value = row || {}
+      }
+      done()
+    })
+
     const submit = defineCrudSubmit(
-      (close, done, formType, isValid, invalidFields) => {
-        console.log('submit', form.value, formType, isValid, invalidFields)
+      (close, done, type, isValid, invalidFields) => {
+        ElMessage(`submit: ${type}, ${isValid}`)
+        console.log('submit', form.value, type, isValid, invalidFields)
         setTimeout(() => {
           isValid ? close() : done()
         }, 1000)
@@ -90,18 +91,22 @@ export default defineComponent({
     )
 
     const reset = () => {
+      ElMessage('reset')
       console.log('reset')
     }
 
     const deleteRow = (row) => {
+      ElMessage('deleteRow')
       console.log('deleteRow', row)
     }
 
     return {
       form,
       columns,
+      detail,
       editColumns,
       data,
+      beforeOpen,
       submit,
       reset,
       deleteRow,

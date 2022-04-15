@@ -5,6 +5,7 @@
     :columns="columns"
     :menu="menu"
     :data="data"
+    :detail="detail"
     :before-open="beforeOpen"
     label-width="100px"
     @search="search"
@@ -17,6 +18,7 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { ElMessage } from 'element-plus'
 import {
   defineCrudColumns,
   defineCrudMenuColumns,
@@ -30,26 +32,31 @@ export default defineComponent({
     const menu = defineCrudMenuColumns({
       label: 'Operations',
       addText: 'New',
+      detailText: 'View Row',
       editText: 'Edit Row',
-      delText: 'Clean',
+      delText: 'Remove',
       searchText: 'Search',
       searchResetText: 'Reset Search',
       submitText: 'Create',
       resetText: 'Reset Form',
-      edit: (row) => row.date !== '2016-05-02',
+      detail: (row) => row.date !== '2016-05-02',
+      edit: (row) => row.date !== '2016-05-03',
       del: (row) => row.date !== '2016-05-04',
       searchReset: false,
+      detailProps: { type: 'success', plain: true },
       editProps: { type: 'default', plain: true },
-      delProps: { type: 'danger', plain: true },
+      delProps: { type: 'info', plain: true },
     })
     const form = ref({})
     const serachForm = ref({})
+    const detail = ref({})
     const columns = defineCrudColumns([
       {
         label: 'Date',
         prop: 'date',
         component: 'el-input',
         form: true,
+        detail: true,
       },
       {
         label: 'Name',
@@ -57,12 +64,14 @@ export default defineComponent({
         component: 'el-input',
         form: true,
         search: true,
+        detail: true,
       },
       {
         label: 'Address',
         prop: 'address',
         component: 'el-input',
         form: true,
+        detail: true,
       },
     ])
     const data = ref([
@@ -91,11 +100,14 @@ export default defineComponent({
     const beforeOpen = defineCrudBeforeOpen((done, type, row) => {
       if (type === 'edit') {
         form.value = row || {}
+      } else if (type === 'detail') {
+        detail.value = row || {}
       }
       done()
     })
 
     const search = defineCrudSearch((done, isValid, invalidFields) => {
+      ElMessage(`search: ${isValid}`)
       console.log('search', serachForm.value, isValid, invalidFields)
       setTimeout(() => {
         done()
@@ -103,8 +115,9 @@ export default defineComponent({
     })
 
     const submit = defineCrudSubmit(
-      (close, done, formType, isValid, invalidFields) => {
-        console.log('submit', form.value, formType, isValid, invalidFields)
+      (close, done, type, isValid, invalidFields) => {
+        ElMessage(`submit: ${type}, ${isValid}`)
+        console.log('submit', form.value, type, isValid, invalidFields)
         setTimeout(() => {
           isValid ? close() : done()
         }, 1000)
@@ -112,10 +125,12 @@ export default defineComponent({
     )
 
     const reset = () => {
+      ElMessage('reset')
       console.log('reset')
     }
 
     const deleteRow = (row) => {
+      ElMessage('deleteRow')
       console.log('deleteRow', row)
     }
 
@@ -125,6 +140,7 @@ export default defineComponent({
       columns,
       menu,
       data,
+      detail,
       beforeOpen,
       search,
       submit,
