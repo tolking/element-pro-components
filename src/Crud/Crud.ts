@@ -224,7 +224,7 @@ export default defineComponent({
           ref: table,
           menu: menuColumns.value,
           columns: tableColumns.value,
-          class: 'pro-crud-table pro-table',
+          class: 'pro-crud-table',
           'onUpdate:pageSize': sizeChange,
           'onUpdate:currentPage': currentChange,
         }),
@@ -314,9 +314,10 @@ export default defineComponent({
           modelValue: showDialog.value,
         }) as DialogProps,
         () => [
-          slots['dialog-top'] && slots['dialog-top']({ type }),
+          slots['dialog-top'] && slots['dialog-top']({ type: type.value }),
           type.value === 'detail' ? createDescriptions() : createForm(),
-          slots['dialog-bottom'] && slots['dialog-bottom']({ type }),
+          slots['dialog-bottom'] &&
+            slots['dialog-bottom']({ type: type.value }),
         ]
       )
     }
