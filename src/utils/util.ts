@@ -82,5 +82,6 @@ export function withInstall<T extends { name: string }>(
 }
 
 export function throwWarn(err: string) {
-  import.meta.env.DEV && console.warn(`ElementProComponents Error: ${err}`)
+  process.env.NODE_ENV === 'development' &&
+    console.warn(`[ElementProComponents warn]: ${err}`)
 }
