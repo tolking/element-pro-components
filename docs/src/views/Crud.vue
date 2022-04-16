@@ -27,7 +27,7 @@
       @delete="deleteRow"
       @load="load"
     >
-      <template #expand="{ row }">
+      <template #table-expand="{ row }">
         {{ row }}
       </template>
       <template #action="{ size }">
