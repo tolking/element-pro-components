@@ -19,6 +19,7 @@ const commonColumns: ICrudColumns<Form> = [
     add: true,
     edit: true,
     search: true,
+    detail: true,
     hide: true,
   },
   {
@@ -27,6 +28,7 @@ const commonColumns: ICrudColumns<Form> = [
     component: 'el-input',
     add: true,
     edit: true,
+    detail: true,
   },
   {
     label: 'Address',
@@ -55,11 +57,13 @@ const searchClass =
   '.pro-crud .pro-crud-search .pro-form-menu .el-form-item__content button'
 const menuClass =
   '.pro-crud .pro-crud-table .el-table__body-wrapper .el-table__body .el-table__row td:last-child .cell button'
-const formClass =
-  '.pro-crud .pro-crud-dialog .pro-crud-form .pro-form-menu .el-form-item__content button'
 const dialogClose = '.pro-crud .pro-crud-dialog .el-dialog__headerbtn'
+const dialogBody = '.pro-crud .pro-crud-dialog .el-dialog__body'
+const formClass =
+  dialogBody + ' .pro-crud-form .pro-form-menu .el-form-item__content button'
 const headerClass =
   '.pro-crud .pro-crud-table .el-table__header-wrapper .el-table__header thead tr'
+const detailClass = dialogBody + ' .pro-crud-detail'
 const getHeader = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   wrapper.findAll(headerClass + ' th')
 const bodyClass =
@@ -87,6 +91,18 @@ const getLabelList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
 const getComponentList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   getFormList(wrapper).map((item) =>
     item.find('.el-form-item__content div').classes()
+  )
+const getDetailList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
+  wrapper.findAll(
+    detailClass + ' .el-descriptions__body .el-descriptions__table tbody tr td'
+  )
+const getDetailLabelList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
+  getDetailList(wrapper).map((item) =>
+    item.find('.el-descriptions__label').text()
+  )
+const getDetailValueList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
+  getDetailList(wrapper).map((item) =>
+    item.find('.el-descriptions__content').text()
   )
 
 describe('Crud', () => {
@@ -144,6 +160,13 @@ describe('Crud', () => {
     expect(getComponentList(wrapper)[1]).toContain('el-input')
     await wrapper.find(dialogClose).trigger('click')
 
+    await wrapper.find(menuClass + ':nth-child(2)').trigger('click')
+    expect(getDetailList(wrapper)).toHaveLength(2)
+    expect(getDetailLabelList(wrapper)).toContain('Date')
+    expect(getDetailLabelList(wrapper)).toContain('Name')
+    expect(getDetailLabelList(wrapper)).not.toContain('Address')
+    await wrapper.find(dialogClose).trigger('click')
+
     await (vm.columns[0] = {
       label: 'Date-label',
       prop: 'date',
@@ -151,6 +174,7 @@ describe('Crud', () => {
       add: false,
       edit: false,
       search: false,
+      detail: false,
       hide: false,
     })
     expect(getHeaderList(wrapper)).toContain('Date-label')
@@ -168,6 +192,13 @@ describe('Crud', () => {
     expect(getLabelList(wrapper)).not.toContain('Date')
     expect(getLabelList(wrapper)).toContain('Name')
     expect(getLabelList(wrapper)).not.toContain('Address')
+    await wrapper.find(dialogClose).trigger('click')
+
+    await wrapper.find(menuClass + ':nth-child(2)').trigger('click')
+    expect(getDetailList(wrapper)).toHaveLength(1)
+    expect(getDetailLabelList(wrapper)).not.toContain('Date')
+    expect(getDetailLabelList(wrapper)).toContain('Name')
+    expect(getDetailLabelList(wrapper)).not.toContain('Address')
     await wrapper.find(dialogClose).trigger('click')
 
     await (vm.columns[0].search = true)
@@ -195,12 +226,14 @@ describe('Crud', () => {
           label: 'Label',
           addText: 'add-text',
           editText: 'edit-text',
+          detailText: 'detail-text',
           delText: 'del-text',
           searchText: 'search-text',
           searchResetText: 'reset-text',
           submitText: 'submit-text',
           resetText: 'reset-text',
           editProps: { type: 'default', plain: true },
+          detailProps: { type: 'success', plain: true },
           delProps: { type: 'danger', plain: true },
         })
 
@@ -222,7 +255,16 @@ describe('Crud', () => {
       'reset-text'
     )
     expect(wrapper.find(menuClass).text()).toBe('edit-text')
+    expect(wrapper.find(menuClass + ':nth-child(2)').text()).toBe('detail-text')
     expect(wrapper.find(menuClass + ':last-child').text()).toBe('del-text')
+    expect(wrapper.find(menuClass).classes()).toContain('is-plain')
+    expect(wrapper.find(menuClass).classes()).toContain('el-button--default')
+    expect(wrapper.find(menuClass + ':nth-child(2)').classes()).toContain(
+      'el-button--success'
+    )
+    expect(wrapper.find(menuClass + ':last-child').classes()).toContain(
+      'el-button--danger'
+    )
 
     await (vm.menu.addText = 'add')
     expect(wrapper.find(addClass).text()).toBe('add')
@@ -254,7 +296,7 @@ describe('Crud', () => {
     })
     const vm = (wrapper.vm as unknown) as { form: Form; searchForm: Form }
     const formInput =
-      '.pro-crud .pro-crud-dialog .pro-crud-form .pro-form-item .el-form-item__content input'
+      dialogBody + ' .pro-crud-form .pro-form-item .el-form-item__content input'
 
     await wrapper.find(addClass).trigger('click')
     expect(wrapper.find(formInput).element.value).toBe('date')
@@ -293,6 +335,38 @@ describe('Crud', () => {
     expect(vm.searchForm.date).toBe('value')
   })
 
+  test('detail', async () => {
+    const wrapper = await _mount({
+      template: `
+        <pro-crud
+          :columns="columns"
+          :data="data"
+          :detail="detail"
+          :menu="true"
+          :append-to-body="false"
+        />
+      `,
+      setup() {
+        const detail = ref<Form>({})
+
+        return { detail, columns: commonColumns, data: tableData }
+      },
+    })
+    const vm = (wrapper.vm as unknown) as { detail: Form }
+
+    await wrapper.find(menuClass + ':nth-child(2)').trigger('click')
+    expect(getDetailList(wrapper)).toHaveLength(2)
+    expect(getDetailLabelList(wrapper)).toContain('Date')
+    expect(getDetailLabelList(wrapper)).toContain('Name')
+    expect(getDetailValueList(wrapper)).not.toContain('2016-05-03')
+    expect(getDetailValueList(wrapper)).not.toContain('Tom')
+
+    await (vm.detail = tableData[0])
+    expect(getDetailValueList(wrapper)).toContain('2016-05-03')
+    expect(getDetailValueList(wrapper)).toContain('Tom')
+    await wrapper.find(dialogClose).trigger('click')
+  })
+
   test('slots', async () => {
     const wrapper = await _mount({
       template: `
@@ -301,6 +375,7 @@ describe('Crud', () => {
           v-model:search="searchForm"
           :columns="columns"
           :data="data"
+          :detail="data[0]"
           :menu="{ label: 'Label' }"
           :append-to-body="false"
           expand
@@ -317,10 +392,10 @@ describe('Crud', () => {
           <template #menu="{ size }">
             <button class="size">@menu-</button>
           </template>
-          <template #expand="{ row }">
+          <template #table-expand="{ row }">
             <p class="">@expand-{{ JSON.stringify(row) }}</p>
           </template>
-          <template #append>
+          <template #table-append>
             <p class="append">append slot</p>
           </template>
           <template #table>
@@ -332,7 +407,7 @@ describe('Crud', () => {
           <template #table-slot="{ row }">
             @table-{{ row.slot }}
           </template>
-          <template #slot-header>
+          <template #table-slot-header>
             slot-header
           </template>
           <template #form>
@@ -351,7 +426,7 @@ describe('Crud', () => {
               @input="e => setValue(e.taget.value)"
             />
           </template>
-          <template #slot-label>
+          <template #form-slot-label>
             slot-label
           </template>
           <template #search>
@@ -373,6 +448,20 @@ describe('Crud', () => {
           <template #search-slot-label>
             search-slot-label
           </template>
+          <template #dialog-top="{ type }">
+            <p class="dialog-top">dialog-top-{{ type }}</p>
+          </template>
+          <template #dialog-bottom="{ type }">
+            <p class="dialog-bottom">dialog-bottom-{{ type }}</p>
+          </template>
+          <template #detail-title>detail-title</template>
+          <template #detail-extra>detail-extra</template>
+          <template #detail-slot="{ item }">
+            @detail-{{ item.slot }}
+          </template>
+          <template #detail-slot-label>
+            detail-slot-label
+          </template>
         </pro-crud>
       `,
       setup() {
@@ -385,6 +474,7 @@ describe('Crud', () => {
             component: 'el-switch',
             form: true,
             search: true,
+            detail: true,
           },
         ]
 
@@ -431,9 +521,36 @@ describe('Crud', () => {
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getLabelList(wrapper)).toContain('slot-label')
     expect(getComponentList(wrapper)[0]).toContain('form-slot')
+    expect(wrapper.find(dialogBody + ' .pro-crud-form .form').text()).toBe(
+      'form slot'
+    )
+    expect(wrapper.find(dialogBody + ' .dialog-top').text()).toBe(
+      'dialog-top-add'
+    )
+    expect(wrapper.find(dialogBody + ' .dialog-bottom').text()).toBe(
+      'dialog-bottom-add'
+    )
+    await wrapper.find(dialogClose).trigger('click')
+
+    await wrapper.find(menuClass + ':nth-child(2)').trigger('click')
     expect(
-      wrapper.find('.pro-crud .pro-crud-dialog .pro-crud-form .form').text()
-    ).toBe('form slot')
+      wrapper
+        .find(detailClass + ' .el-descriptions__header .el-descriptions__title')
+        .text()
+    ).toBe('detail-title')
+    expect(
+      wrapper
+        .find(detailClass + ' .el-descriptions__header .el-descriptions__extra')
+        .text()
+    ).toBe('detail-extra')
+    expect(getDetailLabelList(wrapper)).toContain('detail-slot-label')
+    expect(getDetailValueList(wrapper)[0]).toMatch(/^@detail-/)
+    expect(wrapper.find(dialogBody + ' .dialog-top').text()).toBe(
+      'dialog-top-detail'
+    )
+    expect(wrapper.find(dialogBody + ' .dialog-bottom').text()).toBe(
+      'dialog-bottom-detail'
+    )
     await wrapper.find(dialogClose).trigger('click')
   })
 })

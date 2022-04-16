@@ -255,6 +255,16 @@ export function useCrudSlots(): {
       tableSlots[_key] = item
     } else if (/^table$/.test(key)) {
       tableSlots.default = item
+    } else if (/^form-/.test(key)) {
+      const _key = key.replace(/^form-/, '')
+      formSlots[_key] = item
+    } else if (/^form$/.test(key)) {
+      formSlots.default = item
+    } else if (/^detail-/.test(key)) {
+      const _key = key.replace(/^detail-/, '')
+      detailSlots[_key] = item
+    } else if (/^detail$/.test(key)) {
+      detailSlots.default = item
     } else if (/\w+-header$/.test(key)) {
       throwWarn(
         `[ProCrud] the [prop]-header slot will to remove, use 'table-[prop]-header' replace ${key}`
@@ -270,9 +280,6 @@ export function useCrudSlots(): {
         `[ProCrud] the expand slot will to remove, use 'table-expand' replace ${key}`
       )
       tableSlots[key] = item
-    } else if (/^form-/.test(key)) {
-      const _key = key.replace(/^form-/, '')
-      formSlots[_key] = item
     } else if (/\w+-error$/.test(key)) {
       throwWarn(
         `[ProCrud] the [prop]-error slot will to remove, use 'form-[prop]-error' replace ${key}`
@@ -283,13 +290,6 @@ export function useCrudSlots(): {
         `[ProCrud] the [prop]-label slot will to remove, use 'form-[prop]-label' replace ${key}`
       )
       formSlots[key] = item
-    } else if (/^form$/.test(key)) {
-      formSlots.default = item
-    } else if (/^detail-/.test(key)) {
-      const _key = key.replace(/^detail-/, '')
-      detailSlots[_key] = item
-    } else if (/^detail$/.test(key)) {
-      detailSlots.default = item
     }
   }
 
