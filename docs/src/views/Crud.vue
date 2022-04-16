@@ -8,6 +8,7 @@
       v-model:page-size="pageSize"
       :columns="columns"
       :data="data"
+      :detail="detail"
       :total="total"
       :menu="menu"
       :size="componentsSize"
@@ -24,6 +25,7 @@
       @submit="submit"
       @reset="reset"
       @delete="deleteRow"
+      @load="load"
     >
       <template #expand="{ row }">
         {{ row }}
@@ -38,11 +40,6 @@
       <template #menu-right="{ size }">
         <el-button
           :size="size"
-          icon="el-icon-delete"
-          type="danger"
-        />
-        <el-button
-          :size="size"
           @click="changeSize"
         >
           change size
@@ -54,7 +51,7 @@
           type="text"
           @click="deleteRow(row)"
         >
-          Detail
+          More
         </el-button>
       </template>
       <template #search-date-label>
@@ -71,19 +68,29 @@
           {{ row.name }}
         </el-tag>
       </template>
-      <template #form-menu-left>
-        <el-button>Prev</el-button>
+      <template #detail-name="{ item, size }">
+        <el-tag :size="size">
+          {{ item.name }}
+        </el-tag>
       </template>
-      <template #form-menu-right>
-        <el-button>Next</el-button>
+      <template #form-menu-left="{ loading }">
+        <el-button :loading="loading">
+          Prev
+        </el-button>
+      </template>
+      <template #form-menu-right="{ loading }">
+        <el-button :loading="loading">
+          Next
+        </el-button>
       </template>
     </pro-crud>
   </pro-card>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { markRaw, onMounted, ref } from 'vue'
 import type { ComponentSize } from 'element-plus'
+import { Plus } from '@element-plus/icons-vue'
 import type {
   ICrudBeforeOpen,
   ICrudColumns,
@@ -106,8 +113,9 @@ const componentsSize = ref<ComponentSize>('large')
 const crud = ref<ICrudExpose<DataItem>>({} as ICrudExpose<DataItem>)
 const form = ref<CrudForm>({} as CrudForm)
 const serachForm = ref<SerachForm>({} as SerachForm)
+const detail = ref({})
 const menu = ref<ICrudMenuColumns<DataItem>>({
-  addProps: { icon: 'el-icon-plus' },
+  addProps: { icon: markRaw(Plus) },
   label: 'Menu',
   edit: (row) => row.date !== '2016-05-02',
 })
@@ -122,6 +130,7 @@ const columns = ref<ICrudColumns<DataItem>>([
     add: true,
     edit: true,
     search: true,
+    detail: true,
     rules: {
       required: true,
       message: 'please input name',
@@ -133,12 +142,15 @@ const columns = ref<ICrudColumns<DataItem>>([
     prop: 'name',
     component: 'el-input',
     add: true,
+    edit: true,
+    detail: true,
     // hide: true,
   },
   {
     label: 'Address',
     prop: 'address',
     component: 'el-input',
+    detail: true,
   },
 ])
 const data: DataItem[] = [
@@ -168,6 +180,8 @@ const beforeOpen: ICrudBeforeOpen<CrudForm | undefined> = (done, type, row) => {
   console.log('beforeOpen', type, row)
   if (type === 'edit') {
     form.value = row || ({} as CrudForm)
+  } else if (type === 'detail') {
+    detail.value = row || {}
   }
   done()
 }
@@ -193,6 +207,10 @@ onMounted(() => {
 function beforeClose(done: () => void) {
   console.log('beforeClose')
   done()
+}
+
+function load() {
+  console.log('load', currentPage.value)
 }
 
 function reset() {
