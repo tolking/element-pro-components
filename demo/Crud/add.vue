@@ -12,6 +12,7 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { ElMessage } from 'element-plus'
 import {
   defineCrudColumns,
   defineCrudSubmit,
@@ -55,8 +56,9 @@ export default defineComponent({
     ])
 
     const submit = defineCrudSubmit(
-      (close, done, formType, isValid, invalidFields) => {
-        console.log('submit', form.value, formType, isValid, invalidFields)
+      (close, done, type, isValid, invalidFields) => {
+        ElMessage(`submit: ${type}, ${isValid}`)
+        console.log('submit', form.value, type, isValid, invalidFields)
         setTimeout(() => {
           isValid ? close() : done()
         }, 1000)
@@ -64,6 +66,7 @@ export default defineComponent({
     )
 
     const reset = () => {
+      ElMessage('reset')
       console.log('reset')
     }
 

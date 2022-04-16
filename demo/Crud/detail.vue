@@ -1,13 +1,16 @@
 <template>
   <pro-crud
     v-model="form"
+    v-model:search="serachForm"
     :columns="columns"
+    :detail-columns="detailColumns"
     :menu="{ label: 'Operations' }"
     :data="data"
     :detail="detail"
     :before-open="beforeOpen"
-    :before-close="beforeClose"
     label-width="100px"
+    @search="search"
+    @submit="submit"
     @delete="deleteRow"
   />
 </template>
@@ -17,13 +20,16 @@ import { defineComponent, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import {
   defineCrudColumns,
+  defineCrudSubmit,
+  defineCrudSearch,
   defineCrudBeforeOpen,
-  defineCrudBeforeClose,
+  defineDescriptionsColumns,
 } from 'element-pro-components'
 
 export default defineComponent({
   setup() {
     const form = ref({})
+    const serachForm = ref({})
     const detail = ref({})
     const columns = defineCrudColumns([
       {
@@ -31,17 +37,24 @@ export default defineComponent({
         prop: 'date',
         component: 'el-input',
         form: true,
-        detail: true,
       },
       {
         label: 'Name',
         prop: 'name',
-        detail: true,
+      },
+    ])
+    const detailColumns = defineDescriptionsColumns([
+      {
+        label: 'Date',
+        prop: 'date',
+      },
+      {
+        label: 'Name',
+        prop: 'name',
       },
       {
         label: 'Address',
         prop: 'address',
-        detail: true,
       },
     ])
     const data = ref([
@@ -58,8 +71,6 @@ export default defineComponent({
     ])
 
     const beforeOpen = defineCrudBeforeOpen((done, type, row) => {
-      ElMessage(`beforeOpen: ${type}`)
-      console.log('beforeOpen', type, row)
       if (type === 'edit') {
         form.value = row || {}
       } else if (type === 'detail') {
@@ -68,11 +79,23 @@ export default defineComponent({
       done()
     })
 
-    const beforeClose = defineCrudBeforeClose((done) => {
-      ElMessage('beforeClose')
-      console.log('beforeClose')
-      done()
+    const search = defineCrudSearch((done, isValid, invalidFields) => {
+      ElMessage(`search: ${isValid}`)
+      console.log('search', serachForm.value, isValid, invalidFields)
+      setTimeout(() => {
+        done()
+      }, 1000)
     })
+
+    const submit = defineCrudSubmit(
+      (close, done, type, isValid, invalidFields) => {
+        ElMessage(`submit: ${type}, ${isValid}`)
+        console.log('submit', form.value, type, isValid, invalidFields)
+        setTimeout(() => {
+          isValid ? close() : done()
+        }, 1000)
+      }
+    )
 
     const deleteRow = (row) => {
       ElMessage('deleteRow')
@@ -81,11 +104,14 @@ export default defineComponent({
 
     return {
       form,
+      serachForm,
       columns,
+      detailColumns,
       data,
       detail,
       beforeOpen,
-      beforeClose,
+      search,
+      submit,
       deleteRow,
     }
   },

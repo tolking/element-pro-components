@@ -5,6 +5,7 @@
     :columns="columns"
     :menu="{ label: 'Operations' }"
     :data="data"
+    :detail="detail"
     :before-open="beforeOpen"
     label-width="100px"
     @search="search"
@@ -15,6 +16,7 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { ElMessage } from 'element-plus'
 import {
   defineCrudColumns,
   defineCrudBeforeOpen,
@@ -26,6 +28,7 @@ export default defineComponent({
   setup() {
     const form = ref({ 'a.b': undefined })
     const serachForm = ref({ 'a.b': undefined })
+    const detail = ref({})
     const columns = defineCrudColumns([
       {
         label: 'Break',
@@ -33,6 +36,7 @@ export default defineComponent({
         component: 'el-input',
         form: true,
         search: true,
+        detail: true,
       },
       {
         label: 'Object',
@@ -40,6 +44,7 @@ export default defineComponent({
         component: 'el-input',
         form: true,
         search: true,
+        detail: true,
       },
       {
         label: 'Array',
@@ -47,6 +52,7 @@ export default defineComponent({
         component: 'el-input',
         form: true,
         search: true,
+        detail: true,
       },
     ])
     const data = [
@@ -60,6 +66,8 @@ export default defineComponent({
     const beforeOpen = defineCrudBeforeOpen((done, type, row) => {
       if (type === 'edit') {
         form.value = row || {}
+      } else if (type === 'detail') {
+        detail.value = row || {}
       } else {
         form.value = { 'a.b': undefined }
       }
@@ -67,6 +75,7 @@ export default defineComponent({
     })
 
     const search = defineCrudSearch((done, isValid, invalidFields) => {
+      ElMessage(`search: ${isValid}`)
       console.log('search', serachForm.value, isValid, invalidFields)
       setTimeout(() => {
         done()
@@ -74,8 +83,9 @@ export default defineComponent({
     })
 
     const submit = defineCrudSubmit(
-      (close, done, formType, isValid, invalidFields) => {
-        console.log('submit', form.value, formType, isValid, invalidFields)
+      (close, done, type, isValid, invalidFields) => {
+        ElMessage(`submit: ${type}, ${isValid}`)
+        console.log('submit', form.value, type, isValid, invalidFields)
         setTimeout(() => {
           isValid ? close() : done()
         }, 1000)
@@ -83,6 +93,7 @@ export default defineComponent({
     )
 
     const deleteRow = (row) => {
+      ElMessage('deleteRow')
       console.log('deleteRow', row)
     }
 
@@ -90,6 +101,7 @@ export default defineComponent({
       form,
       serachForm,
       data,
+      detail,
       columns,
       beforeOpen,
       search,

@@ -80,3 +80,8 @@ export function withInstall<T extends { name: string }>(
 
   return _plugin
 }
+
+export function throwWarn(err: string) {
+  process.env.NODE_ENV === 'development' &&
+    console.warn(`[ElementProComponents warn]: ${err}`)
+}

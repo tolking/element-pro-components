@@ -16,6 +16,7 @@ const lang: Record<
       crud: {
         add: 'Add',
         edit: 'Edit',
+        detail: 'Detail',
         del: 'Delete',
         submit: 'Submit',
         reset: 'Reset',
@@ -49,6 +50,7 @@ const lang: Record<
       crud: {
         add: '新增',
         edit: '编辑',
+        detail: '详情',
         del: '删除',
         submit: '提交',
         reset: '重置',

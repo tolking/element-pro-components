@@ -5,6 +5,7 @@ import {
   isObject,
   filterDeep,
   objectDeepMerge,
+  throwWarn,
 } from '../utils/index'
 import type { UnknownObject, ExternalParam } from '../types/index'
 import type { IFormColumns, IFormMenuColumns, IFormSubmit } from '../Form/index'
@@ -12,9 +13,10 @@ import type { ITableColumns } from '../Table/index'
 import type {
   ICrudProps,
   ICrudEmits,
-  ICrudFormType,
+  ICrudDialogType,
   ICrudMenuColumns,
 } from '../Crud/index'
+import type { IDescriptionsColumns } from '../Descriptions/index'
 
 export function useCrudMenu(
   props: Readonly<{ menu?: ICrudMenuColumns | boolean }>
@@ -28,6 +30,9 @@ export function useCrudMenu(
       edit: true,
       editText: 'Edit',
       editProps: { type: 'text' },
+      detail: true,
+      detailText: 'View',
+      detailProps: { type: 'text' },
       del: true,
       delText: 'Delete',
       delProps: { type: 'text' },
@@ -45,6 +50,7 @@ export function useCrudMenu(
     const menuList = [
       'add',
       'edit',
+      'detail',
       'del',
       'submit',
       'reset',
@@ -74,6 +80,7 @@ export function useCrudColumns(
   addColumns: Ref<IFormColumns | undefined>
   editColumns: Ref<IFormColumns | undefined>
   formColumns: Ref<IFormColumns | undefined>
+  detailColumns: Ref<IDescriptionsColumns | undefined>
 } {
   const searchColumns = computed(() => {
     return props.searchColumns
@@ -106,6 +113,18 @@ export function useCrudColumns(
       ? filterDeep<IFormColumns>(props.columns, 'form')
       : undefined
   })
+  const detailColumns = computed(() => {
+    return props.detailColumns
+      ? props.detailColumns
+      : props.columns
+      ? filterDeep<IDescriptionsColumns>(
+          props.columns,
+          'detail',
+          true,
+          (item) => ({ ...item, span: undefined })
+        )
+      : undefined
+  })
 
   return {
     searchColumns,
@@ -113,6 +132,7 @@ export function useCrudColumns(
     addColumns,
     editColumns,
     formColumns,
+    detailColumns,
   }
 }
 
@@ -121,19 +141,19 @@ export function useCrudForm(
   emit: ICrudEmits,
   resetForm: (reset?: boolean) => void
 ): {
-  dialogVisible: Ref<boolean>
-  formType: Ref<ICrudFormType>
+  showDialog: Ref<boolean>
+  type: Ref<ICrudDialogType>
   formColumns: Ref<IFormColumns | undefined>
-  openForm: (type: ICrudFormType, row?: UnknownObject) => void
+  openDialog: (type: ICrudDialogType, row?: UnknownObject) => void
   submitForm: IFormSubmit
 } {
   const { addColumns, editColumns, formColumns } = useCrudColumns(props)
-  const dialogVisible = ref(false)
-  const formType = ref<ICrudFormType>('add')
+  const showDialog = ref(false)
+  const type = ref<ICrudDialogType>('add')
   const currentFormColumns = computed(() => {
     return formColumns.value && formColumns.value.length
       ? formColumns.value
-      : formType.value === 'add'
+      : type.value === 'add'
       ? addColumns.value
       : editColumns.value
   })
@@ -141,26 +161,31 @@ export function useCrudForm(
     function close() {
       done()
       resetForm(true)
-      dialogVisible.value = false
+      showDialog.value = false
     }
 
-    emit('submit', close, done, formType.value, isValid, invalidFields)
+    emit('submit', close, done, type.value, isValid, invalidFields)
   }
 
-  function openForm(type: ICrudFormType, row?: UnknownObject) {
+  function openDialog(dialogType: ICrudDialogType, row?: UnknownObject) {
     function done() {
-      formType.value = type
-      dialogVisible.value = true
+      type.value = dialogType
+      showDialog.value = true
     }
 
-    isFunction(props.beforeOpen) ? props.beforeOpen(done, type, row) : done()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    emit(dialogType, row)
+    isFunction(props.beforeOpen)
+      ? props.beforeOpen(done, dialogType, row)
+      : done()
   }
 
   return {
-    dialogVisible,
-    formType,
+    showDialog,
+    type,
     formColumns: currentFormColumns,
-    openForm,
+    openDialog,
     submitForm,
   }
 }
@@ -208,15 +233,18 @@ export function useCrudSlots(): {
   searchSlots: Record<string, Slot | undefined>
   tableSlots: Record<string, Slot | undefined>
   formSlots: Record<string, Slot | undefined>
+  detailSlots: Record<string, Slot | undefined>
 } {
   const slots = useSlots()
   const searchSlots: Record<string, Slot | undefined> = {}
   const tableSlots: Record<string, Slot | undefined> = {}
   const formSlots: Record<string, Slot | undefined> = {}
+  const detailSlots: Record<string, Slot | undefined> = {}
 
   for (const key in slots) {
     const item = slots[key]
 
+    // NOTE: Remove `/\w+-header$/` `/^append$/` `/^expand$/` `/\w+-error$/` `/\w+-label$/` on next major release
     if (/^search-/.test(key)) {
       const _key = key.replace(/^search-/, '')
       searchSlots[_key] = item
@@ -227,21 +255,41 @@ export function useCrudSlots(): {
       tableSlots[_key] = item
     } else if (/^table$/.test(key)) {
       tableSlots.default = item
-    } else if (/\w+-header$/.test(key)) {
-      tableSlots[key] = item
-    } else if (/^append$/.test(key)) {
-      tableSlots[key] = item
-    } else if (/^expand$/.test(key)) {
-      tableSlots[key] = item
     } else if (/^form-/.test(key)) {
       const _key = key.replace(/^form-/, '')
       formSlots[_key] = item
-    } else if (/\w+-error$/.test(key)) {
-      formSlots[key] = item
-    } else if (/\w+-label$/.test(key)) {
-      formSlots[key] = item
     } else if (/^form$/.test(key)) {
       formSlots.default = item
+    } else if (/^detail-/.test(key)) {
+      const _key = key.replace(/^detail-/, '')
+      detailSlots[_key] = item
+    } else if (/^detail$/.test(key)) {
+      detailSlots.default = item
+    } else if (/\w+-header$/.test(key)) {
+      throwWarn(
+        `[ProCrud] the [prop]-header slot will to remove, use 'table-[prop]-header' replace ${key}`
+      )
+      tableSlots[key] = item
+    } else if (/^append$/.test(key)) {
+      throwWarn(
+        `[ProCrud] the append slot will to remove, use 'table-append' replace ${key}`
+      )
+      tableSlots[key] = item
+    } else if (/^expand$/.test(key)) {
+      throwWarn(
+        `[ProCrud] the expand slot will to remove, use 'table-expand' replace ${key}`
+      )
+      tableSlots[key] = item
+    } else if (/\w+-error$/.test(key)) {
+      throwWarn(
+        `[ProCrud] the [prop]-error slot will to remove, use 'form-[prop]-error' replace ${key}`
+      )
+      formSlots[key] = item
+    } else if (/\w+-label$/.test(key)) {
+      throwWarn(
+        `[ProCrud] the [prop]-label slot will to remove, use 'form-[prop]-label' replace ${key}`
+      )
+      formSlots[key] = item
     }
   }
 
@@ -249,5 +297,6 @@ export function useCrudSlots(): {
     searchSlots,
     tableSlots,
     formSlots,
+    detailSlots,
   }
 }

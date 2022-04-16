@@ -14,10 +14,16 @@ import {
   useCrudSlots,
 } from '../composables/index'
 import { isFunction } from '../utils/index'
-import props, { formKeys, tableKeys, dialogKeys } from './props'
+import props, {
+  formKeys,
+  tableKeys,
+  dialogKeys,
+  descriptionsKeys,
+} from './props'
 import emits from './emits'
 import { ProForm } from '../Form/index'
 import { ProTable } from '../Table/index'
+import { ProDescriptions } from '../Descriptions/index'
 import type { ComponentSize } from 'element-plus'
 import type { StringObject, UnknownObject } from '../types/index'
 import type { IFormProps, IFormEmits } from '../Form/index'
@@ -32,7 +38,15 @@ export default defineComponent({
   props,
   emits,
   setup(props, { slots, emit, expose }) {
-    const { searchColumns, tableColumns } = useCrudColumns(props)
+    const formProps = (reactivePick(
+      props,
+      ...formKeys
+    ) as unknown) as IFormProps
+    const tableProps = reactivePick(props, ...tableKeys)
+    const descriptionsProps = reactivePick(props, ...descriptionsKeys)
+    const dialogProps = reactivePick(props, ...dialogKeys)
+
+    const { searchColumns, tableColumns, detailColumns } = useCrudColumns(props)
     const menuColumns = useCrudMenu(props)
     const {
       table,
@@ -58,30 +72,35 @@ export default defineComponent({
       resetForm,
     } = useFormMethods((emit as unknown) as IFormEmits)
     const {
-      dialogVisible,
-      formType,
+      showDialog,
+      type,
       formColumns,
-      openForm,
+      openDialog,
       submitForm,
     } = useCrudForm(props, emit, resetForm)
     const searchMenu = useCrudSearchMenu(menuColumns)
     const { searchForm, searchReset, upSearchData } = useCrudSearchForm(emit)
-    const { searchSlots, tableSlots, formSlots } = useCrudSlots()
+    const { searchSlots, tableSlots, formSlots, detailSlots } = useCrudSlots()
+
     const attrs = useAttrs()
     const dialogWidth = useBreakpointWidth()
     const bindDialog = computed(() => {
       const title =
         props.title ||
         (props.menu
-          ? formType.value === 'add'
+          ? type.value === 'detail'
+            ? menuColumns.value.detailText
+            : type.value === 'add'
             ? menuColumns.value.addText
             : menuColumns.value.editText
-          : formType.value)
+          : type.value)
 
       function beforeClose(done: () => void) {
         function callback() {
-          dialogVisible.value = false
-          resetForm(true)
+          showDialog.value = false
+          type.value !== 'detail' &&
+            formColumns.value?.length &&
+            resetForm(true)
           done()
         }
 
@@ -96,12 +115,12 @@ export default defineComponent({
         customClass: props.customClass || 'pro-crud-dialog',
       }
     })
-    const formProps = (reactivePick(
-      props,
-      ...formKeys
-    ) as unknown) as IFormProps
-    const tableProps = reactivePick(props, ...tableKeys)
-    const dialogProps = reactivePick(props, ...dialogKeys)
+
+    function checkDetail(row: StringObject) {
+      return isFunction(menuColumns.value.detail)
+        ? menuColumns.value.detail(row)
+        : menuColumns.value.detail
+    }
 
     function checkEdit(row: StringObject) {
       return isFunction(menuColumns.value.edit)
@@ -168,7 +187,7 @@ export default defineComponent({
             ElButton,
             mergeProps(menuColumns.value.addProps || {}, {
               size: props.size,
-              onClick: () => openForm('add'),
+              onClick: () => openDialog('add'),
             }),
             () => menuColumns.value?.addText || ''
           )
@@ -191,7 +210,10 @@ export default defineComponent({
     function createTable() {
       const showMenu =
         props.menu &&
-        (menuColumns.value.edit || menuColumns.value.del || slots.menu)
+        (menuColumns.value.edit ||
+          menuColumns.value.detail ||
+          menuColumns.value.del ||
+          slots.menu)
       const menuSlots = showMenu
         ? { menu: (scope: TableMenuScope) => createTableMenu(scope) }
         : {}
@@ -202,7 +224,7 @@ export default defineComponent({
           ref: table,
           menu: menuColumns.value,
           columns: tableColumns.value,
-          class: 'pro-crud-table pro-table',
+          class: 'pro-crud-table',
           'onUpdate:pageSize': sizeChange,
           'onUpdate:currentPage': currentChange,
         }),
@@ -219,9 +241,21 @@ export default defineComponent({
             ElButton,
             mergeProps(menuColumns.value.editProps || {}, {
               size: props.size,
-              onClick: () => openForm('edit', scope.row),
+              onClick: () => openDialog('edit', scope.row),
             }),
             () => menuColumns.value?.editText || ''
+          )
+        )
+      }
+      if (props.menu && checkDetail(scope.row)) {
+        list.push(
+          h(
+            ElButton,
+            mergeProps(menuColumns.value.detailProps || {}, {
+              size: props.size,
+              onClick: () => openDialog('detail', scope.row),
+            }),
+            () => menuColumns.value?.detailText || ''
           )
         )
       }
@@ -247,24 +281,44 @@ export default defineComponent({
     function createForm() {
       if (!formColumns.value?.length) return null
       return h(
+        ProForm,
+        mergeProps(formProps, attrs.value, {
+          ref: form,
+          columns: formColumns.value,
+          menu: menuColumns.value,
+          class: 'pro-crud-form',
+          'onUpdate:modelValue': upFormData,
+          onSubmit: submitForm,
+          onReset: resetForm,
+        }),
+        formSlots
+      )
+    }
+
+    function createDescriptions() {
+      if (!detailColumns.value?.length) return null
+      return h(
+        ProDescriptions,
+        mergeProps(descriptionsProps, {
+          columns: detailColumns.value,
+          class: 'pro-crud-detail',
+        }),
+        detailSlots
+      )
+    }
+
+    function createDialog() {
+      return h(
         ElDialog,
         mergeProps(dialogProps, bindDialog.value, {
-          modelValue: dialogVisible.value,
+          modelValue: showDialog.value,
         }) as DialogProps,
-        () =>
-          h(
-            ProForm,
-            mergeProps(formProps, attrs.value, {
-              ref: form,
-              columns: formColumns.value,
-              menu: menuColumns.value,
-              class: 'pro-crud-form',
-              'onUpdate:modelValue': upFormData,
-              onSubmit: submitForm,
-              onReset: resetForm,
-            }),
-            formSlots
-          )
+        () => [
+          slots['dialog-top'] && slots['dialog-top']({ type: type.value }),
+          type.value === 'detail' ? createDescriptions() : createForm(),
+          slots['dialog-bottom'] &&
+            slots['dialog-bottom']({ type: type.value }),
+        ]
       )
     }
 
@@ -273,7 +327,7 @@ export default defineComponent({
         createSearch(),
         createMenu(),
         createTable(),
-        createForm(),
+        createDialog(),
       ])
   },
 })
