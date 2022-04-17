@@ -9,6 +9,7 @@
 
 <script>
 import { defineComponent, markRaw, ref } from 'vue'
+import { ElMessage } from 'element-plus'
 import { Search } from '@element-plus/icons-vue'
 import { defineFormColumns, defineFormSubmit } from 'element-pro-components'
 
@@ -70,6 +71,7 @@ export default defineComponent({
       },
     ])
     const submit = defineFormSubmit((done, isValid, invalidFields) => {
+      ElMessage(`submit: ${isValid}`)
       console.log(form.value, isValid, invalidFields)
       setTimeout(() => {
         done()

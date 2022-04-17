@@ -27,6 +27,7 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { ElMessage } from 'element-plus'
 import {
   defineFormColumns,
   defineFormMenuColumns,
@@ -51,6 +52,7 @@ export default defineComponent({
       ])
     )
     const submit = defineFormSubmit((done, isValid, invalidFields) => {
+      ElMessage(`submit: ${isValid}`)
       console.log(form.value, isValid, invalidFields)
       setTimeout(() => {
         done()
