@@ -21,11 +21,15 @@ export function createRouter(): Router {
     routes: import.meta.env.MODE === 'production' ? routes : routes.concat(dev),
     scrollBehavior(to, from, savedPosition) {
       if (to.hash) {
-        return {
-          el: to.hash,
-          top: 90,
-          behavior: 'smooth',
-        }
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve({
+              el: to.hash,
+              top: 94,
+              behavior: 'smooth',
+            })
+          }, 600) // Wait for the animation to finish
+        })
       } else if (savedPosition) {
         return savedPosition
       } else {
