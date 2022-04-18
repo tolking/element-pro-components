@@ -13,7 +13,7 @@ import {
   useBreakpoints,
   useWindowSize,
 } from '@vueuse/core'
-import { getScreenSize } from '../utils/index'
+import { getScreenSize, throwWarn } from '../utils/index'
 import type { MaybeRef, IScreenSize } from '../types/index'
 
 /**
@@ -45,6 +45,9 @@ export function useShow(
  * Gets the responsive breakpoint of the current screen
  */
 export const useSharedBreakpoint = createSharedComposable(() => {
+  throwWarn(
+    'the function useSharedBreakpoint will to remove, replace it with useCurrentBreakpoint'
+  )
   const { width } = useWindowSize()
 
   return computed(() => {

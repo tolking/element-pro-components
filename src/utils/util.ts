@@ -10,6 +10,7 @@ import type { IScreenSize, UnknownObject, IDefinePlugin } from '../types/index'
  * @param width current screen width
  */
 export function getScreenSize(width: number): IScreenSize {
+  throwWarn('the function getScreenSize will to remove')
   if (width >= 1920) {
     return 'xl'
   } else if (width >= 1200) {
