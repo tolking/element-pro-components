@@ -28,6 +28,6 @@ function initialize() {
   --docsearch-text-color: var(--el-text-color-primary);
   --docsearch-muted-color: var(--el-text-color-primary);
   --docsearch-searchbox-background: var(--el-fill-color-light);
-  --docsearch-modal-shadow: var(--el-box-shadow-base);
+  --docsearch-modal-shadow: var(--el-box-shadow);
 }
 </style>
