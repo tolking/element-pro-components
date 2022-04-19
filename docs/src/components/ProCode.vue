@@ -139,7 +139,7 @@ function handleScroll() {
   transition: var(--el-transition-all);
 }
 .pro-code:hover {
-  box-shadow: var(--el-box-shadow-base);
+  box-shadow: var(--el-box-shadow-lighter);
 }
 .pro-code .source {
   padding: 24px;

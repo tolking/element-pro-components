@@ -23,16 +23,14 @@
 .el-menu--vertical,
 .el-menu--horizontal {
   & .pro-link {
-    display: block;
     width: 100%;
     box-sizing: border-box;
     color: var(--el-text-color-primary);
-    transition: var(--el-color-transition-base);
+    transition: var(--el-transition-color);
     & .pro-menu-icon {
       margin-right: 8px;
       width: 20px;
       height: 20px;
-      vertical-align: sub;
     }
     &:hover {
       color: var(--el-color-primary);
