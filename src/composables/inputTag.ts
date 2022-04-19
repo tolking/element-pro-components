@@ -1,6 +1,6 @@
 import { computed, Ref, ref } from 'vue'
 import { reactiveOmit, reactivePick } from '@vueuse/core'
-import { useAttrs } from 'element-plus'
+import { useAttrs, useDisabled } from 'element-plus'
 import { useFormSize } from './index'
 import { commonProps } from '../InputTag/props'
 import type { ComponentSize } from 'element-plus'
@@ -56,7 +56,8 @@ export function useInputTag(
     return props.disabled
   })
   const closable = computed(() => {
-    return !(props.readonly || props.disabled) ?? true
+    const disabled = useDisabled()
+    return !(props.readonly || disabled.value) ?? true
   })
 
   function add() {
