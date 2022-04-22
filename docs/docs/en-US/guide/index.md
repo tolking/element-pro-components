@@ -130,7 +130,7 @@ example:
 
 ```js
 import { ProLayout } from 'element-pro-components'
-import 'element-pro-components/lib/styles/layout.css'
+import 'element-pro-components/lib/styles/layout'
 ```
 
 ::: tip Tip
@@ -152,7 +152,7 @@ Document example based on [Composition API](https://v3.vuejs.org/guide/compositi
 
 If you use VS Code to develop, cooperate with [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) to provide complete components, prop, and event completion. example: input `<pro-` will list all components
 
-If you use VS Code with typescript to develop, It is recommended to use plug-in [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar). Just add to the `include` field in the `tsconfig.json` file
+If you use VS Code with typescript to develop, It is recommended to use plug-in [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar). Just add the global component type definition to the `tsconfig.json` file
 
 ```diff
 {
@@ -160,6 +160,22 @@ If you use VS Code with typescript to develop, It is recommended to use plug-in 
 +    "types": ["element-pro-components/types/components"]
   }
 }
+```
+
+or
+
+```diff
+{
+  "include": [
++   "node_modules/element-pro-components/types/components.d.ts"
+  ]
+}
+```
+
+You can also add to the global type definition file, eg: env.d.ts
+
+```diff
++ /// <reference types="element-pro-components/types/components" />
 ```
 
 If you use webstorm to develop, complete components, prop, and event completions
