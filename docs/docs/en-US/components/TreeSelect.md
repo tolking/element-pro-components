@@ -9,6 +9,10 @@ meta:
 
 > When there are deep of options, use tree selectors is more suitable than ordinary select
 
+::: tip Tip
+You can choose ElTreeSelect instead of this component
+:::
+
 ## Use
 
 ### Basic Use

@@ -36,7 +36,7 @@ pnpm add element-pro-components
 import { createApp } from 'vue'
 import App from './App.vue'
 import ElementPro from 'element-pro-components'
-import 'element-pro-components/lib/styles/index.css'
+import 'element-pro-components/lib/styles/index'
 
 const app = createApp(App)
 
@@ -153,7 +153,7 @@ import 'element-pro-components/lib/styles/layout'
 
 如果使用 VS Code 开发，配合 [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) 使用提供完整的组件、属性、事件补全。例如：输入 `<pro-` 将罗列出所有组件库组件
 
-对于使用 VS Code 配合 typescript 开发，推荐使用插件 [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)。只需要中向 `tsconfig.json` 文件中的 `include` 字段增加
+对于使用 VS Code 配合 typescript 开发，推荐使用插件 [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)。只需要中向 `tsconfig.json` 文件中增加全局组件类型
 
 ```diff
 {
@@ -161,6 +161,22 @@ import 'element-pro-components/lib/styles/layout'
 +    "types": ["element-pro-components/types/components"]
   }
 }
+```
+
+或者
+
+```diff
+{
+  "include": [
++   "node_modules/element-pro-components/types/components.d.ts"
+  ]
+}
+```
+
+也可以向全局类型定义文件中中增加，例如：env.d.ts
+
+```diff
++ /// <reference types="element-pro-components/types/components" />
 ```
 
 对于 webstorm 也提供了完整的组件、属性、事件补全
