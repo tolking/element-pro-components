@@ -10,6 +10,7 @@ export default defineConfig({
     lib: {
       entry: toAbsolute('../src/index.ts'),
       name: camelize(name),
+      fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
       output: {
