@@ -5,6 +5,8 @@
     :columns="columns"
     :menu="{ label: 'Operations' }"
     :data="data"
+    :detail="detail"
+    :before-open="beforeOpen"
     label-width="100px"
     @search="search"
     @submit="submit"
@@ -18,11 +20,13 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
   setup() {
     const form = ref({})
     const serachForm = ref({})
+    const detail = ref({})
     const columns = ref([
       {
         label: 'Date',
@@ -31,6 +35,7 @@ export default defineComponent({
         add: true,
         edit: true,
         search: true,
+        detail: true,
       },
       {
         label: 'Name',
@@ -38,6 +43,7 @@ export default defineComponent({
         component: 'el-input',
         add: true,
         search: true,
+        detail: true,
       },
       {
         label: 'Address',
@@ -45,19 +51,10 @@ export default defineComponent({
         component: 'el-input',
         add: true,
         edit: true,
+        detail: true,
       },
     ])
     const data = ref([
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
       {
         date: '2016-05-04',
         name: 'Tom',
@@ -70,29 +67,43 @@ export default defineComponent({
       },
     ])
 
+    const beforeOpen = (done, type, row) => {
+      if (type === 'edit') {
+        form.value = row || {}
+      } else if (type === 'detail') {
+        detail.value = row || {}
+      }
+      done()
+    }
+
     const search = (done, isValid, invalidFields) => {
+      ElMessage(`search: ${isValid}`)
       console.log('search', serachForm.value, isValid, invalidFields)
       setTimeout(() => {
         done()
       }, 1000)
     }
 
-    const submit = (close, done, formType, isValid, invalidFields) => {
-      console.log('submit', form.value, formType, isValid, invalidFields)
+    const submit = (close, done, type, isValid, invalidFields) => {
+      ElMessage(`submit: ${type}, ${isValid}`)
+      console.log('submit', form.value, type, isValid, invalidFields)
       setTimeout(() => {
         isValid ? close() : done()
       }, 1000)
     }
 
     const deleteRow = (row) => {
+      ElMessage('deleteRow')
       console.log('deleteRow', row)
     }
 
     return {
       form,
       serachForm,
-      data,
       columns,
+      data,
+      detail,
+      beforeOpen,
       search,
       submit,
       deleteRow,

@@ -49,6 +49,7 @@ export default defineConfig({
           .use(preWrapper)
           .use(container, 'demo', demo)
           .use(anchor, {
+            slugify: (str) => str.replaceAll(/[ ]/g, '-').toLowerCase(),
             permalink: anchor.permalink.ariaHidden({}),
           })
           .use(...createContainer('tip', 'TIP'))
@@ -72,7 +73,8 @@ export default defineConfig({
     }),
     VitePWA({
       manifest: {
-        name: 'pro-components',
+        id: '/',
+        name: 'element-pro-components',
         short_name: 'pro-components',
         description: 'a component library for Vue 3 base on element-plus',
         icons: [

@@ -5,6 +5,8 @@
     :columns="columns"
     :menu="{ label: 'Operations' }"
     :data="data"
+    :detail="detail"
+    :before-open="beforeOpen"
     selection
     label-width="100px"
     @search="search"
@@ -24,19 +26,8 @@
         :size="size"
         type="text"
       >
-        Detail
+        More
       </el-button>
-    </template>
-    <template #form-name>
-      <span>form slot</span>
-    </template>
-    <template #table-name="{ row, size }">
-      <el-tag :size="size">
-        {{ row?.name }}
-      </el-tag>
-    </template>
-    <template #name-header="{ column }">
-      <s>{{ column.label }}</s>
     </template>
     <template #action>
       <el-button
@@ -46,22 +37,54 @@
       />
       <pro-column-setting v-model="columns" />
     </template>
+    <template #dialog-top="{ type }">
+      <p style="text-align: center">
+        dialog-top {{ type }}
+      </p>
+    </template>
+    <template #dialog-bottom="{ type }">
+      <p
+        v-if="type === 'detail'"
+        style="text-align: center"
+      >
+        only appears in the detail
+      </p>
+    </template>
+    <template #form-name>
+      <span>form slot</span>
+    </template>
+    <template #detail-name="{ item, size }">
+      <el-tag :size="size">
+        {{ item?.name }}
+      </el-tag>
+    </template>
+    <template #table-name="{ row, size }">
+      <el-tag :size="size">
+        {{ row?.name }}
+      </el-tag>
+    </template>
+    <template #table-name-header="{ column }">
+      <s>{{ column.label }}</s>
+    </template>
   </pro-crud>
 </template>
 
 <script>
 import { defineComponent, h, ref } from 'vue'
+import { ElMessage } from 'element-plus'
 import { Clock, Refresh } from '@element-plus/icons-vue'
 import {
   defineCrudColumns,
   defineCrudSubmit,
   defineCrudSearch,
+  defineCrudBeforeOpen,
 } from 'element-pro-components'
 
 export default defineComponent({
   setup() {
     const form = ref({})
     const serachForm = ref({})
+    const detail = ref({})
     const columns = ref(
       defineCrudColumns([
         {
@@ -71,6 +94,7 @@ export default defineComponent({
           add: true,
           edit: true,
           search: true,
+          detail: true,
           render: '--',
           props: {
             slots: {
@@ -85,7 +109,7 @@ export default defineComponent({
           component: 'el-input',
           add: true,
           search: true,
-          slot: true,
+          detail: true,
         },
         {
           label: 'Address',
@@ -108,19 +132,19 @@ export default defineComponent({
         name: 'Tom',
         address: 'No. 189, Grove St, Los Angeles',
       },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
     ])
 
+    const beforeOpen = defineCrudBeforeOpen((done, type, row) => {
+      if (type === 'edit') {
+        form.value = row || {}
+      } else if (type === 'detail') {
+        detail.value = row || {}
+      }
+      done()
+    })
+
     const search = defineCrudSearch((done, isValid, invalidFields) => {
+      ElMessage(`search: ${isValid}`)
       console.log('search', serachForm.value, isValid, invalidFields)
       setTimeout(() => {
         done()
@@ -128,8 +152,9 @@ export default defineComponent({
     })
 
     const submit = defineCrudSubmit(
-      (close, done, formType, isValid, invalidFields) => {
-        console.log('submit', form.value, formType, isValid, invalidFields)
+      (close, done, type, isValid, invalidFields) => {
+        ElMessage(`submit: ${type}, ${isValid}`)
+        console.log('submit', form.value, type, isValid, invalidFields)
         setTimeout(() => {
           isValid ? close() : done()
         }, 1000)
@@ -137,15 +162,18 @@ export default defineComponent({
     )
 
     const deleteRow = (row) => {
+      ElMessage('deleteRow')
       console.log('deleteRow', row)
     }
 
     return {
       Refresh,
       form,
+      columns,
       serachForm,
       data,
-      columns,
+      detail,
+      beforeOpen,
       search,
       submit,
       deleteRow,

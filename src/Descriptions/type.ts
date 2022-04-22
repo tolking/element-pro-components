@@ -7,7 +7,7 @@ import type {
   MaybeArray,
 } from '../types/index'
 
-interface DescriptionsColumn<T = ExternalParam> extends UnknownObject {
+export interface DescriptionsColumn<T = ExternalParam> extends UnknownObject {
   prop: IsAny<T> extends true ? string : DeepKeyof<T>
   label?: string
   span?: number

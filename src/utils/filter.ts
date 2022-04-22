@@ -6,11 +6,13 @@ import type { ExternalParam } from '../types/index'
  * @param list list to be filter
  * @param key check key
  * @param value check the value is true or false
+ * @param reItem rewrite value of list item
  */
 export function filterDeep<T extends Array<ExternalParam>>(
   list: T,
   key: string,
-  value = true
+  value = true,
+  reItem?: (item: T[number]) => T[number]
 ): T {
   const _list = ([] as unknown) as T
   for (let i = 0; i < list.length; i++) {
@@ -20,7 +22,7 @@ export function filterDeep<T extends Array<ExternalParam>>(
       if (item.children && item.children.length) {
         item.children = filterDeep(item.children, key, value)
       }
-      _list.push(item)
+      _list.push(isFunction(reItem) ? reItem(item) : item)
     }
   }
   return _list

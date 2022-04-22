@@ -6,10 +6,11 @@ import type { Component, VNode } from 'vue'
 import type { IScreenSize, UnknownObject, IDefinePlugin } from '../types/index'
 
 /**
- * determine the current screen size
+ * @deprecated determine the current screen size
  * @param width current screen width
  */
 export function getScreenSize(width: number): IScreenSize {
+  throwWarn('the function getScreenSize will to remove')
   if (width >= 1920) {
     return 'xl'
   } else if (width >= 1200) {
@@ -79,4 +80,9 @@ export function withInstall<T extends { name: string }>(
   }
 
   return _plugin
+}
+
+export function throwWarn(err: string) {
+  process.env.NODE_ENV === 'development' &&
+    console.warn(`[ElementProComponents warn]: ${err}`)
 }
