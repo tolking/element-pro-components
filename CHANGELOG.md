@@ -5,8 +5,8 @@
 breaking changes
 
 - adjust the implementation of breakpoints
-- Crud: adjust slots name
 - build: modify the built name element-pro-components to index
+- Crud: adjust slots name
 
 ```
 [prop]-header -> table-[prop]-header
