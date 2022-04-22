@@ -1,5 +1,34 @@
 # Changelog
 
+## 1.1.0
+
+breaking changes
+
+- adjust the implementation of breakpoints
+- Crud: adjust slots name
+- build: modify the built name element-pro-components to default
+
+```
+[prop]-header -> table-[prop]-header
+append -> table-append
+expand -> table-expand
+[prop]-error -> form-[prop]-error
+[prop]-label -> form-[prop]-label
+```
+
+feat
+
+- Crud: add view detail through Descriptions
+- Crud: add slots `detail` `detail-title` `detail-extra` `detail-[prop]` `detail-[prop]-label` `dialog-top` `dialog-bottom`
+- Crud: add emits `add` `edit` `detail`
+- Descriptions: add the default slot
+
+fix
+
+- docs: route jump error when with hash
+- InputTag ｜ AutocompleteTag: tag can close when form is disabled
+- sync the CSS var change
+
 ## 1.0.1
 
 feat
