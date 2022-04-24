@@ -93,7 +93,7 @@ export type ICrudSearch = IFormSubmit
 export type ICrudSubmit = (
   close: () => void,
   done: () => void,
-  type: Exclude<ICrudDialogType, 'detail'>,
+  type: ICrudDialogType,
   isValid: boolean,
   invalidFields?: InvalidFields
 ) => void
