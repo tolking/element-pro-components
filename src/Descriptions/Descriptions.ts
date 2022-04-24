@@ -8,7 +8,7 @@ export default defineComponent({
   name: 'ProDescriptions',
   props,
   setup(props, { slots }) {
-    const confog = reactiveOmit(
+    const config = reactiveOmit(
       props,
       'columns',
       'detail',
@@ -64,7 +64,7 @@ export default defineComponent({
     }
 
     return () =>
-      h(ElDescriptions, mergeProps(confog, { class: 'pro-descriptions' }), {
+      h(ElDescriptions, mergeProps(config, { class: 'pro-descriptions' }), {
         default: () => [createDefault(), slots.default && slots.default()],
         title: () =>
           slots['title'] ? slots['title']({ size: props.size }) : null,
