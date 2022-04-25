@@ -1,5 +1,5 @@
 import FormEmits from '../Form/emits'
-import TableEmits from '..//Table/emits'
+import TableEmits from '../Table/emits'
 import type { ExternalParam } from '../types/index'
 import type { InvalidFields } from '../Form/index'
 import type { ICrudDialogType } from './type'
@@ -10,7 +10,7 @@ export default {
   submit: (
     close: () => void,
     done: () => void,
-    form: ICrudDialogType,
+    type: ICrudDialogType,
     isValid: boolean,
     invalidFields?: InvalidFields
   ) => true,
