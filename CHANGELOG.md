@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.1
+
+fix
+
+- Crud: lost the styles of descriptions
+- Crud: type error
+
 ## 1.1.0
 
 breaking changes
