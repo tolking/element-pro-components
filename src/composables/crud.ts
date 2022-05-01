@@ -18,6 +18,15 @@ import type {
 } from '../Crud/index'
 import type { IDescriptionsColumns } from '../Descriptions/index'
 
+type CrudColumns =
+  | 'columns'
+  | 'searchColumns'
+  | 'tableColumns'
+  | 'addColumns'
+  | 'editColumns'
+  | 'formColumns'
+  | 'detailColumns'
+
 export function useCrudMenu(
   props: Readonly<{ menu?: ICrudMenuColumns | boolean }>
 ): Ref<ICrudMenuColumns> {
@@ -73,7 +82,7 @@ export function useCrudMenu(
 }
 
 export function useCrudColumns(
-  props: Readonly<ICrudProps>
+  props: Readonly<Pick<ICrudProps, CrudColumns>>
 ): {
   searchColumns: Ref<IFormColumns | undefined>
   tableColumns: Ref<ITableColumns | undefined>
@@ -137,7 +146,7 @@ export function useCrudColumns(
 }
 
 export function useCrudForm(
-  props: Readonly<ICrudProps>,
+  props: Readonly<Pick<ICrudProps, CrudColumns | 'beforeOpen'>>,
   emit: ICrudEmits,
   resetForm: (reset?: boolean) => void
 ): {
