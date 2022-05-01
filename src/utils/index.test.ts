@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import {
   isURL,
   objectDeepMerge,
@@ -5,23 +6,23 @@ import {
   objectOmit,
   filterDeep,
   filterFlat,
-} from '../src/utils/index'
-import { slotList, SlotItem } from './mock'
+} from './index'
+import { slotList, SlotItem } from '../__mocks__/index'
 
 describe('all utils', () => {
   describe('isURL', () => {
-    test('isURL https://ououe.com', () => {
+    test.concurrent('isURL https://ououe.com', () => {
       expect(isURL('https://ououe.com')).toBeTruthy()
     })
-    test('isURL http://ououe.com', () => {
+    test.concurrent('isURL http://ououe.com', () => {
       expect(isURL('https://ououe.com')).toBeTruthy()
     })
-    test('isURL /children', () => {
+    test.concurrent('isURL /children', () => {
       expect(isURL('/children')).toBeFalsy()
     })
   })
 
-  describe('objectDeepMerge', () => {
+  test('objectDeepMerge', () => {
     expect(objectDeepMerge({}, {})).toEqual({})
     expect(objectDeepMerge({ a: 'a' }, {})).toEqual({ a: 'a' })
     expect(objectDeepMerge({}, { b: 'b' })).toEqual({ b: 'b' })
@@ -37,7 +38,7 @@ describe('all utils', () => {
     ).toEqual({ a: { b: 'b1', c: 'c' } })
   })
 
-  describe('objectPick', () => {
+  test('objectPick', () => {
     const obj = { a: 'a', b: 'b', c: 'c', d: 'd' }
     expect(objectPick(obj, ['a'])).toEqual({ a: 'a' })
     expect(objectPick(obj, ['a', 'b'])).toEqual({ a: 'a', b: 'b' })
@@ -46,7 +47,7 @@ describe('all utils', () => {
     expect(obj).toEqual({ a: 'a', b: 'b', c: 'c', d: 'd' })
   })
 
-  describe('objectOmit', () => {
+  test('objectOmit', () => {
     const obj = { a: 'a', b: 'b', c: 'c', d: 'd' }
     expect(objectOmit(obj, ['a'])).toEqual({ b: 'b', c: 'c', d: 'd' })
     expect(objectOmit(obj, ['a', 'b'])).toEqual({ c: 'c', d: 'd' })
@@ -56,7 +57,7 @@ describe('all utils', () => {
   })
 
   describe('filterDeep', () => {
-    test('true', () => {
+    test.concurrent('true', () => {
       const _slotList = filterDeep(slotList, 'slot')
       expect(_slotList).toHaveLength(2)
       expect(_slotList[0]).toEqual({ slot: true, label: 'label1' })
@@ -72,7 +73,7 @@ describe('all utils', () => {
         children: [{ slot: true, label: 'label4' }, { label: 'label5' }],
       })
     })
-    test('false', () => {
+    test.concurrent('false', () => {
       const list = filterDeep(slotList, 'slot', false)
       expect(list).toHaveLength(2)
       expect(list[0]).toEqual({ label: 'label2' })
@@ -88,7 +89,7 @@ describe('all utils', () => {
     })
   })
 
-  describe('filterFlat', () => {
+  test('filterFlat', () => {
     const list = filterFlat(slotList, 'slot')
     expect(list).toHaveLength(4)
     expect(list[0]).toEqual({ slot: true, label: 'label1' })

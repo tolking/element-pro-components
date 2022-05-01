@@ -1,7 +1,8 @@
+import { describe, test, expect, afterEach } from 'vitest'
 import { ref } from 'vue'
 import { mount } from '@vue/test-utils'
-import ProColumnSetting from '../src/ColumnSetting/ColumnSetting'
-import type { ITableColumns } from '../src/Table/index'
+import ProColumnSetting from './ColumnSetting'
+import type { ITableColumns } from '../Table/index'
 
 const columns: ITableColumns = [
   {
@@ -37,7 +38,11 @@ const getList = () => {
 }
 
 describe('ColumnSetting.vue', () => {
-  test('test modelValue', async () => {
+  afterEach(() => {
+    document.body.innerHTML = ''
+  })
+
+  test.concurrent('test modelValue', async () => {
     const wrapper = _mount({
       template: '<pro-column-setting v-model="columns" />',
       setup() {

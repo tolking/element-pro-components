@@ -125,7 +125,7 @@ export default defineComponent({
           modelValue: modelValue?.value,
           multiple: multiple?.value,
           filterable: filterable?.value,
-          filterMethod: tree.value.filter,
+          filterMethod: tree.value?.filter,
           popperClass: 'pro-tree-select-popper',
           class: 'pro-tree-select',
           onVisibleChange: togglePopper,

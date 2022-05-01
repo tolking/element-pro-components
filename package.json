@@ -21,7 +21,7 @@
     "lib/styles/*"
   ],
   "engines": {
-    "node": ">=12.2.0"
+    "node": ">=14.0.0"
   },
   "scripts": {
     "dev": "vite",
@@ -32,7 +32,7 @@
     "build:styles": "rimraf lib/styles && esno build/build-styles.ts",
     "build:docs": "npm run check && rimraf dist && vite build --ssrManifest --outDir ../dist/static && vite build --ssr src/entry-server.ts --outDir ../dist/server && esno build/prerender.ts",
     "check": "vue-tsc --noEmit",
-    "test": "npm run check && jest",
+    "test": "npm run check && vitest",
     "lint": "eslint . --fix --ext .ts,.vue,.js --ignore-pattern \"/lib/\" --ignore-pattern \"/dist/\" --ignore-pattern \"/types/\"",
     "prettier": "prettier --check --write --ignore-unknown \"{build,demo,src,docs,test}/**\"",
     "prepare": "husky install"
@@ -72,13 +72,9 @@
     "vue-router": "^4.0.14"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.10",
-    "@babel/preset-env": "^7.17.10",
-    "@babel/preset-typescript": "^7.16.7",
     "@docsearch/css": "^3.0.0",
     "@docsearch/js": "^3.0.0",
     "@stackblitz/sdk": "^1.6.0",
-    "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.182",
     "@types/markdown-it": "^12.2.3",
     "@types/markdown-it-container": "^2.0.5",
@@ -90,7 +86,6 @@
     "@vue/test-utils": "^2.0.0-rc.21",
     "@vueuse/head": "^0.7.6",
     "autoprefixer": "^10.4.5",
-    "babel-jest": "^26.6.3",
     "components-helper": "^2.0.0",
     "cssnano": "^5.1.7",
     "escape-html": "^1.0.3",
@@ -101,7 +96,7 @@
     "execa": "^5.1.1",
     "fast-glob": "^3.2.11",
     "husky": "^7.0.4",
-    "jest": "^26.6.3",
+    "jsdom": "^19.0.0",
     "lint-staged": "^11.2.6",
     "markdown-it-anchor": "^8.6.2",
     "markdown-it-container": "^3.0.0",
@@ -114,14 +109,12 @@
     "resize-observer-polyfill": "^1.5.1",
     "rimraf": "^3.0.2",
     "sitemap": "^7.1.1",
-    "ts-jest": "^26.5.6",
     "typescript": "^4.6.4",
     "vite": "^2.9.6",
     "vite-plugin-md": "^0.12.4",
     "vite-plugin-pwa": "^0.12.0",
-    "vue-jest": "^5.0.0-alpha.10",
+    "vitest": "^0.10.0",
     "vue-tsc": "^0.30.6",
-    "workbox-build": "^6.5.3",
     "workbox-window": "^6.5.3"
   },
   "browserslist": [

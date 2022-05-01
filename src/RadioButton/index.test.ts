@@ -1,7 +1,8 @@
+import { describe, test, expect, afterEach } from 'vitest'
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import ProRadioButton from '../src/RadioButton/RadioButton'
-import { dicList, DicItem } from './mock'
+import ProRadioButton from './RadioButton'
+import { dicList, DicItem } from '../__mocks__/index'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
@@ -16,7 +17,11 @@ const getList = (wrapper: VueWrapper<ComponentPublicInstance>, calss = '') => {
 }
 
 describe('RadioButton', () => {
-  test('test modelValue', async () => {
+  afterEach(() => {
+    document.body.innerHTML = ''
+  })
+
+  test.concurrent('test modelValue', async () => {
     const wrapper = _mount({
       template: '<pro-radio-button v-model="value" :data="data" />',
       setup() {
@@ -40,7 +45,7 @@ describe('RadioButton', () => {
     expect(getList(wrapper, '.is-active')).toContain('dart')
   })
 
-  test('change data', async () => {
+  test.concurrent('change data', async () => {
     const wrapper = _mount({
       template: '<pro-radio-button v-model="value" :data="data" />',
       setup() {

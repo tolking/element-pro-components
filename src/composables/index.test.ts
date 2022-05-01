@@ -1,3 +1,4 @@
+import { describe, test, expect, afterEach } from 'vitest'
 import { ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import {
@@ -7,7 +8,7 @@ import {
   useBreakpointWidth,
   useRow,
   useCol,
-} from '../src/composables/index'
+} from './index'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
@@ -16,8 +17,12 @@ const _mount = (options: Record<string, unknown>) =>
   })
 
 describe('some composables', () => {
+  afterEach(() => {
+    document.body.innerHTML = ''
+  })
+
   describe('useShow', () => {
-    test('false', async () => {
+    test.concurrent('false', async () => {
       const { show, toggleShow } = useShow()
 
       expect(show.value).toBeFalsy()
@@ -26,7 +31,7 @@ describe('some composables', () => {
 
       expect(show.value).toBeTruthy()
     })
-    test('true', async () => {
+    test.concurrent('true', async () => {
       const { show, toggleShow } = useShow(true)
 
       expect(show.value).toBeTruthy()
@@ -35,7 +40,7 @@ describe('some composables', () => {
 
       expect(show.value).toBeFalsy()
     })
-    test('ref(false)', async () => {
+    test.concurrent('ref(false)', async () => {
       const { show, toggleShow } = useShow(ref(false))
 
       expect(show.value).toBeFalsy()
@@ -47,7 +52,7 @@ describe('some composables', () => {
   })
 
   describe('useSharedBreakpoints', () => {
-    test('size', () => {
+    test.concurrent('size', () => {
       const breakpoints = useSharedBreakpoints()
 
       expect(breakpoints.sm.value).toBeFalsy()
@@ -55,7 +60,7 @@ describe('some composables', () => {
   })
 
   describe('useCurrentBreakpoint', () => {
-    test('size', () => {
+    test.concurrent('size', () => {
       const size = useCurrentBreakpoint()
 
       expect(['xl', 'lg', 'md', 'sm', 'xs']).toContain(size.value)
@@ -63,13 +68,13 @@ describe('some composables', () => {
   })
 
   describe('useBreakpointWidth', () => {
-    test('default', () => {
+    test.concurrent('default', () => {
       const width = useBreakpointWidth()
 
       expect(['90%', '80%', '70%', '60%', '50%']).toContain(width.value)
     })
 
-    test('default', () => {
+    test.concurrent('default', () => {
       const config = {
         xs: '100px',
         sm: '200px',
@@ -84,7 +89,7 @@ describe('some composables', () => {
   })
 
   describe('useRow', () => {
-    test('gutter', async () => {
+    test.concurrent('gutter', async () => {
       const wrapper = await _mount({
         setup() {
           const { rowClass, rowStyle } = useRow({ gutter: 40 })
@@ -100,7 +105,7 @@ describe('some composables', () => {
       expect(vm.rowStyle).toEqual({ marginLeft: '-20px', marginRight: '-20px' })
     })
 
-    test('type', async () => {
+    test.concurrent('type', async () => {
       const wrapper = await _mount({
         setup() {
           const { rowClass, rowStyle } = useRow({
@@ -123,7 +128,7 @@ describe('some composables', () => {
   })
 
   describe('useCol', () => {
-    test('span', async () => {
+    test.concurrent('span', async () => {
       const wrapper = await _mount({
         setup() {
           const { colClass, colStyle } = useCol({ span: 4 })
@@ -140,7 +145,7 @@ describe('some composables', () => {
       expect(vm.colStyle).toEqual({})
     })
 
-    test('offset', async () => {
+    test.concurrent('offset', async () => {
       const wrapper = await _mount({
         setup() {
           const { colClass } = useCol({ offset: 4 })
@@ -153,7 +158,7 @@ describe('some composables', () => {
       expect(vm.colClass).toContain('el-col-offset-4')
     })
 
-    test('xs', async () => {
+    test.concurrent('xs', async () => {
       const wrapper = await _mount({
         setup() {
           const { colClass } = useCol({ xs: 4 })
@@ -166,7 +171,7 @@ describe('some composables', () => {
       expect(vm.colClass).toContain('el-col-xs-4')
     })
 
-    test('sm', async () => {
+    test.concurrent('sm', async () => {
       const wrapper = await _mount({
         setup() {
           const { colClass } = useCol({ sm: { span: 4, pull: 2 } })
