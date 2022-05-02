@@ -10,11 +10,14 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v2
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          persist-credentials: false
+          version: latest
 
       - name: Install and Test
         run: |
-          npm install
-          npm run test
+          pnpm install
+          pnpm run test
