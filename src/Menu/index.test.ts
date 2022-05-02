@@ -1,7 +1,8 @@
+import { describe, test, expect, afterEach } from 'vitest'
 import { ComponentPublicInstance } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import { initRouter } from './mock'
-import ProMenu from '../src/Menu/Menu'
+import ProMenu from './Menu'
+import { initRouter } from '../__mocks__/index'
 import type { RouteRecordRaw } from 'vue-router'
 
 initRouter()
@@ -25,7 +26,7 @@ describe('Menu', () => {
     document.body.innerHTML = ''
   })
 
-  test('empt', async () => {
+  test.concurrent('empt', async () => {
     const wrapper = _mount({
       template: '<pro-menu/>',
     })
@@ -47,7 +48,7 @@ describe('Menu', () => {
     })
   })
 
-  test('routes', async () => {
+  test.concurrent('routes', async () => {
     const wrapper = _mount({
       template: '<pro-menu :routes="routes"/>',
       setup() {
@@ -121,7 +122,7 @@ describe('Menu', () => {
     })
   })
 
-  test('slots', () => {
+  test.concurrent('slots', () => {
     const wrapper = _mount({
       template: `
         <pro-menu>

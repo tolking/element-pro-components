@@ -1,6 +1,7 @@
+import { describe, test, expect, afterEach } from 'vitest'
 import { ref } from 'vue'
 import { mount } from '@vue/test-utils'
-import ProCard from '../src/Card/Card'
+import ProCard from './Card'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
@@ -13,7 +14,7 @@ describe('Card', () => {
     document.body.innerHTML = ''
   })
 
-  test('empt', async () => {
+  test.concurrent('empt', async () => {
     const wrapper = await _mount({
       template: '<pro-card />',
     })
@@ -21,7 +22,7 @@ describe('Card', () => {
     expect(wrapper.find('.pro-card').exists()).toBe(true)
   })
 
-  test('default slot', async () => {
+  test.concurrent('default slot', async () => {
     const wrapper = await _mount({
       template: '<pro-card direction="row">default</pro-card>',
     })
@@ -35,7 +36,7 @@ describe('Card', () => {
     )
   })
 
-  test('header', async () => {
+  test.concurrent('header', async () => {
     const wrapper = await _mount({
       template: '<pro-card header="header" />',
     })
@@ -43,7 +44,7 @@ describe('Card', () => {
     expect(wrapper.find('.pro-card .pro-card__header').text()).toBe('header')
   })
 
-  test('header slot', async () => {
+  test.concurrent('header slot', async () => {
     const wrapper = await _mount({
       template: `
         <pro-card>
@@ -55,7 +56,7 @@ describe('Card', () => {
     expect(wrapper.find('.pro-card .pro-card__header').text()).toBe('slot')
   })
 
-  test('body-style', async () => {
+  test.concurrent('body-style', async () => {
     const wrapper = await _mount({
       template: '<pro-card body-style="width: 100px;" />',
     })
@@ -65,7 +66,7 @@ describe('Card', () => {
     )
   })
 
-  test('shadow', async () => {
+  test.concurrent('shadow', async () => {
     const wrapper = await _mount({
       template: '<pro-card :shadow="shadow" />',
       setup() {
@@ -84,7 +85,7 @@ describe('Card', () => {
     expect(wrapper.find('.pro-card').classes()).toContain('is-never-shadow')
   })
 
-  test('ghost', async () => {
+  test.concurrent('ghost', async () => {
     const wrapper = await _mount({
       template: '<pro-card ghost />',
     })
@@ -92,7 +93,7 @@ describe('Card', () => {
     expect(wrapper.find('.pro-card').classes()).toContain('is-ghost')
   })
 
-  test('nested card', async () => {
+  test.concurrent('nested card', async () => {
     const wrapper = await _mount({
       template: `
         <pro-card class="nested">
@@ -107,7 +108,7 @@ describe('Card', () => {
     ).toContain('el-row')
   })
 
-  test('row and col', async () => {
+  test.concurrent('row and col', async () => {
     const wrapper = await _mount({
       template: `
         <pro-card :gutter="40" class="nested">
@@ -130,7 +131,7 @@ describe('Card', () => {
     ).toBe('margin-left: 20px; margin-right: 20px;')
   })
 
-  test('direction', async () => {
+  test.concurrent('direction', async () => {
     const wrapper = await _mount({
       template: `
         <pro-card :direction="direction" class="nested">
@@ -158,7 +159,7 @@ describe('Card', () => {
     )
   })
 
-  test('split', async () => {
+  test.concurrent('split', async () => {
     const wrapper = await _mount({
       template: `
         <pro-card :split="split" class="nested">

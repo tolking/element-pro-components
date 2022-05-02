@@ -1,6 +1,7 @@
+import { describe, test, expect, afterEach } from 'vitest'
 import { ref } from 'vue'
 import { mount } from '@vue/test-utils'
-import ProLink from '../src/Link/Link'
+import ProLink from './Link'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
@@ -13,7 +14,7 @@ describe('Link', () => {
     document.body.innerHTML = ''
   })
 
-  test('test prop to', async () => {
+  test.concurrent('test prop to', async () => {
     const wrapper = _mount({
       template: '<pro-link :to="to">link</pro-link>',
       setup() {

@@ -1,30 +1,35 @@
+import { describe, test, expect, afterEach } from 'vitest'
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import ProRadio from '../src/Radio/Radio'
-import { dicList, DicItem } from './mock'
+import ProCheckboxButton from './CheckboxButton'
+import { dicList, DicItem } from '../__mocks__/index'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
-    components: { ProRadio },
+    components: { ProCheckboxButton },
     ...options,
   })
 const getList = (wrapper: VueWrapper<ComponentPublicInstance>, calss = '') => {
-  const className = '.pro-radio .el-radio' + calss
+  const className = '.pro-checkbox-button .el-checkbox-button' + calss
   return wrapper
     .findAll(className)
-    .map((item) => item.find('.el-radio__label').text())
+    .map((item) => item.find('.el-checkbox-button__inner').text())
 }
 
-describe('Radio', () => {
-  test('test modelValue', async () => {
+describe('CheckboxButton', () => {
+  afterEach(() => {
+    document.body.innerHTML = ''
+  })
+
+  test.concurrent('test modelValue', async () => {
     const wrapper = _mount({
-      template: '<pro-radio v-model="value" :data="data" />',
+      template: '<pro-checkbox-button v-model="value" :data="data" />',
       setup() {
-        const value = ref('JavaScript')
+        const value = ref(['JavaScript'])
         return { value, data: dicList }
       },
     })
-    const vm = (wrapper.vm as unknown) as { value: string }
+    const vm = (wrapper.vm as unknown) as { value: string[] }
 
     /** init */
     expect(getList(wrapper)).toContain('javascript')
@@ -36,15 +41,15 @@ describe('Radio', () => {
     expect(getList(wrapper, '.is-checked')).not.toContain('dart')
 
     /** change model-value */
-    await (vm.value = 'Dart')
+    await vm.value.push('Dart')
     expect(getList(wrapper, '.is-checked')).toContain('dart')
   })
 
-  test('change data', async () => {
+  test.concurrent('change data', async () => {
     const wrapper = _mount({
-      template: '<pro-radio v-model="value" :data="data" />',
+      template: '<pro-checkbox-button v-model="value" :data="data" />',
       setup() {
-        const value = ref('JavaScript')
+        const value = ref(['JavaScript'])
         const data = ref(dicList)
         return { value, data }
       },

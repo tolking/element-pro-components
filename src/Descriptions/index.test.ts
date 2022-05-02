@@ -1,8 +1,9 @@
+import { describe, test, expect, afterEach } from 'vitest'
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { ElDescriptionsItem } from 'element-plus'
-import ProDescriptions from '../src/Descriptions/Descriptions'
-import type { IDescriptionsColumns } from '../src/Descriptions/index'
+import ProDescriptions from './Descriptions'
+import type { IDescriptionsColumns } from './index'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
@@ -24,7 +25,7 @@ describe('Descriptions', () => {
     document.body.innerHTML = ''
   })
 
-  test('empt', () => {
+  test.concurrent('empt', () => {
     const wrapper = _mount({
       template: '<pro-descriptions />',
     })
@@ -32,7 +33,7 @@ describe('Descriptions', () => {
     expect(wrapper.find('.pro-descriptions').exists()).toBe(true)
   })
 
-  test('columns', async () => {
+  test.concurrent('columns', async () => {
     const wrapper = _mount({
       template: '<pro-descriptions :columns="columns" :detail="detail" />',
       setup() {
@@ -67,7 +68,7 @@ describe('Descriptions', () => {
     expect(getLabelList(wrapper)).toContain('Test')
   })
 
-  test('detail', async () => {
+  test.concurrent('detail', async () => {
     const wrapper = _mount({
       template: '<pro-descriptions :columns="columns" :detail="detail" />',
       setup() {
@@ -87,7 +88,7 @@ describe('Descriptions', () => {
     expect(getPropList(wrapper)).toContain('2016-05-03')
   })
 
-  test('slots', () => {
+  test.concurrent('slots', () => {
     const wrapper = _mount({
       template: `
         <pro-descriptions
@@ -135,7 +136,7 @@ describe('Descriptions', () => {
     )
   })
 
-  test('columns', async () => {
+  test.concurrent('columns', async () => {
     const wrapper = _mount({
       template: '<pro-descriptions :columns="columns" :detail="detail" />',
       setup() {
