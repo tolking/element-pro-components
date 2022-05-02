@@ -1,5 +1,6 @@
 import { describe, test, expect, afterEach } from 'vitest'
 import { ComponentPublicInstance, ref } from 'vue'
+import { NOOP } from '@vue/shared'
 import { mount, VueWrapper } from '@vue/test-utils'
 import ProAutocompleteTag from './AutocompleteTag'
 import { dicList } from '../__mocks__/index'
@@ -20,7 +21,10 @@ describe('AutocompleteTag', () => {
 
   test.concurrent('empty', () => {
     const wrapper = _mount({
-      template: '<pro-autocomplete-tag />',
+      template: '<pro-autocomplete-tag :fetch-suggestions="NOOP" />',
+      setup() {
+        return { NOOP }
+      },
     })
 
     expect(wrapper.find('input').element.value).toBe('')
@@ -59,7 +63,7 @@ describe('AutocompleteTag', () => {
         }
       },
     })
-    const vm = (wrapper.vm as unknown) as { value: string[] }
+    const vm = wrapper.vm as unknown as { value: string[] }
 
     expect(wrapper.find('.pro-input-tag .el-autocomplete')).not.toBeNull()
     expect(wrapper.find('.el-autocomplete-suggestion__list')).not.toBeNull()
@@ -100,6 +104,7 @@ describe('AutocompleteTag', () => {
           :hit="hit"
           :color="color"
           :effect="effect"
+          :fetch-suggestions="NOOP"
         />
       `,
       setup() {
@@ -119,10 +124,11 @@ describe('AutocompleteTag', () => {
           hit,
           color,
           effect,
+          NOOP,
         }
       },
     })
-    const vm = (wrapper.vm as unknown) as {
+    const vm = wrapper.vm as unknown as {
       value: string[]
       trigger: 'space' | 'enter'
       size: 'large' | 'default' | 'small'
@@ -172,10 +178,16 @@ describe('AutocompleteTag', () => {
 
   test.concurrent('max', async () => {
     const wrapper = _mount({
-      template: '<pro-autocomplete-tag v-model="value" :max="2" />',
+      template: `
+        <pro-autocomplete-tag
+          v-model="value"
+          :max="2"
+          :fetch-suggestions="NOOP"
+        />
+      `,
       setup() {
         const value = ref(['test'])
-        return { value }
+        return { value, NOOP }
       },
     })
 
