@@ -1,4 +1,4 @@
-/* copy from [vitepress](https://github.com/vuejs/vitepress) */
+/* NOTE modify from [vitepress](https://github.com/vuejs/vitepress) */
 .custom-block.tip,
 .custom-block.warning,
 .custom-block.danger {
@@ -9,36 +9,32 @@
 }
 
 .custom-block.tip {
-  background-color: #f3f5f7;
-  border-color: #42b983;
+  border-color: var(--el-color-success);
+  background-color: var(--docs-bg-tip);
+}
+
+.custom-block.tip .custom-block-title {
+  color: var(--el-color-success);
 }
 
 .custom-block.warning {
-  border-color: #e7c000;
-  color: #6b5900;
-  background-color: rgba(255, 229, 100, 0.3);
+  border-color: var(--el-color-warning);
+  color: var(--docs-color-warning);
+  background-color: var(--docs-bg-warining);
 }
 
 .custom-block.warning .custom-block-title {
-  color: #b29400;
-}
-
-.custom-block.warning a {
-  color: var(--c-text);
+  color: var(--el-color-warning);
 }
 
 .custom-block.danger {
-  border-color: #c00;
-  color: #4d0000;
-  background-color: #ffe6e6;
+  border-color: var(--el-color-danger);
+  color: var(--docs-color-danger);
+  background-color: var(--docs-bg-danger);
 }
 
 .custom-block.danger .custom-block-title {
-  color: #900;
-}
-
-.custom-block.danger a {
-  color: var(--c-text);
+  color: var(--el-color-danger);
 }
 
 .custom-block.details {
@@ -47,7 +43,7 @@
   border-radius: 2px;
   margin: 1.6em 0;
   padding: 1.6em;
-  background-color: #eee;
+  background-color: var(--docs-bg-tip);
 }
 
 .custom-block.details h4 {

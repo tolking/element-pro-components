@@ -1,41 +1,21 @@
-/* TODO: rebuild... copy from [vitepress](https://github.com/vuejs/vitepress) */
 .markdown-body {
-  --c-white: #ffffff;
-  --c-black: #000000;
-
-  --c-divider-light: rgba(60, 60, 67, 0.12);
-  --c-divider-dark: rgba(84, 84, 88, 0.48);
-
-  --c-text-light-1: #2c3e50;
-  --c-text-light-2: #476582;
-  --c-text-light-3: #90a4b7;
-
-  --c-brand: #409eff;
-  --c-brand-light: #4abf8a;
-
-  --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  --font-family-mono: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  --docs-code-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 
-  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-2: 0 3px 12px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.07);
-  --shadow-3: 0 12px 32px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.08);
-  --shadow-4: 0 14px 44px rgba(0, 0, 0, 0.12), 0 3px 9px rgba(0, 0, 0, 0.12);
-  --shadow-5: 0 18px 56px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.16);
+  --docs-color-warning: #e7c000;
+  --docs-color-danger: #4d0000;
 
-  --c-divider: var(--c-divider-light);
+  --docs-bg-code: #282c34;
+  --docs-bg-code-inline: rgba(27, 31, 35, 0.05);
+  --docs-bg-tip: #f3f5f7;
+  --docs-bg-warining: rgba(255, 229, 100, 0.3);
+  --docs-bg-danger: #ffe6e6;
+  --docs-bg-table-stripe: #f6f8fa;
+}
 
-  --c-text: var(--c-text-light-1);
-  --c-text-light: var(--c-text-light-2);
-  --c-text-lighter: var(--c-text-light-3);
-
-  --c-bg: var(--c-white);
-
-  --code-line-height: 24px;
-  --code-font-family: var(--font-family-mono);
-  --code-font-size: 14px;
-  --code-inline-bg-color: rgba(27, 31, 35, 0.05);
-  --code-bg-color: #282c34;
+html.dark .markdown-body {
+  --docs-bg-tip: #3e3b3b;
+  --docs-bg-warining: rgba(185, 174, 119, 0.3);
+  --docs-bg-danger: rgba(72, 56, 57, 30%);
+  --docs-bg-table-stripe: #444;
 }
