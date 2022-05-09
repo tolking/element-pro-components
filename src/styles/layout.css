@@ -7,14 +7,14 @@ body {
     display: flex;
   }
   &.layout-topmenu {
-    background-color: var(--el-fill-color-light);
+    background-color: var(--el-bg-color-page);
   }
   & .pro-container {
     flex: 1;
     display: flex;
     flex-direction: column;
     width: calc(100% - var(--pro-layout-width-aside));
-    background-color: var(--el-fill-color-light);
+    background-color: var(--el-bg-color-page);
   }
   & .aside-collapse + .pro-container {
     width: calc(100% - var(--pro-layout-width-aside-collapse));
