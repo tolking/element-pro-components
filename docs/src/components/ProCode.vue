@@ -135,7 +135,7 @@ function handleScroll() {
   margin: 1rem 0;
   border: var(--el-border);
   border-radius: var(--el-border-radius-base);
-  background: var(--el-color-white);
+  background: var(--el-bg-color);
   transition: var(--el-transition-all);
 }
 .pro-code:hover {
@@ -147,7 +147,7 @@ function handleScroll() {
 .pro-code .meta {
   padding: 0 10px;
   height: 0;
-  background-color: var(--el-fill-color-light);
+  background-color: var(--el-bg-color-page);
   overflow: hidden;
   transition: var(--el-transition-all);
 }
@@ -156,7 +156,7 @@ function handleScroll() {
   margin: 10px 0;
   border: var(--el-border);
   box-sizing: border-box;
-  background: var(--el-color-white);
+  background: var(--el-bg-color);
   font-size: 14px;
   line-height: 22px;
   color: var(--el-text-color-regular);
@@ -172,10 +172,9 @@ function handleScroll() {
   margin: 0 4px;
   height: 18px;
   border-radius: var(--el-border-radius-base);
-  background-color: var(--code-inline-bg-color);
+  background-color: var(--docs-bg-code-inline);
   font-size: 12px;
   line-height: 18px;
-  color: var(--c-text-light);
 }
 .pro-code .control {
   position: relative;
@@ -187,7 +186,7 @@ function handleScroll() {
   border-top: var(--el-border);
   border-bottom-left-radius: var(--el-border-radius-base);
   border-bottom-right-radius: var(--el-border-radius-base);
-  background: var(--el-color-white);
+  background: var(--el-bg-color);
   text-align: center;
   color: var(--el-text-color-primary);
   cursor: pointer;
@@ -200,7 +199,7 @@ function handleScroll() {
   bottom: 0;
 }
 .pro-code .control:hover {
-  background-color: var(--el-fill-color-light);
+  background-color: var(--el-bg-color-page);
   color: var(--el-color-primary);
 }
 .pro-code .control .control-icon {

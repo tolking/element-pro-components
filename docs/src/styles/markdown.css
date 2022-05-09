@@ -4,7 +4,7 @@
   padding: 20px;
   border: var(--el-border);
   border-radius: var(--el-border-radius-base);
-  background-color: var(--el-color-white);
+  background-color: var(--el-bg-color);
   color: var(--el-text-color-regular);
   @media (max-width: 767px) {
     margin: 4px;
@@ -156,7 +156,7 @@ table:not(table[class]) tr {
 }
 
 table:not(table[class]) tr:nth-child(2n) {
-  background-color: var(--docs-bg-table-stripe);
+  background-color: var(--el-fill-color-light);
 }
 
 table:not(table[class]) th,

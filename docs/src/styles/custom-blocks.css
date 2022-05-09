@@ -6,11 +6,11 @@
   border-left: 0.5rem solid;
   padding: 0.1rem 1.5rem;
   overflow-x: auto;
+  background-color: var(--docs-bg-block);
 }
 
 .custom-block.tip {
   border-color: var(--el-color-success);
-  background-color: var(--docs-bg-tip);
 }
 
 .custom-block.tip .custom-block-title {
@@ -19,8 +19,6 @@
 
 .custom-block.warning {
   border-color: var(--el-color-warning);
-  color: var(--docs-color-warning);
-  background-color: var(--docs-bg-warining);
 }
 
 .custom-block.warning .custom-block-title {
@@ -29,8 +27,6 @@
 
 .custom-block.danger {
   border-color: var(--el-color-danger);
-  color: var(--docs-color-danger);
-  background-color: var(--docs-bg-danger);
 }
 
 .custom-block.danger .custom-block-title {
@@ -43,7 +39,7 @@
   border-radius: 2px;
   margin: 1.6em 0;
   padding: 1.6em;
-  background-color: var(--docs-bg-tip);
+  background-color: var(--docs-bg-block);
 }
 
 .custom-block.details h4 {
