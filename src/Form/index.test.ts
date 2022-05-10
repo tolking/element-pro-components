@@ -1,8 +1,10 @@
+import { describe, test, expect, afterEach } from 'vitest'
 import { ComponentPublicInstance, ref, shallowRef, markRaw } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { ElInput, ElSwitch } from 'element-plus'
-import ProForm from '../src/Form/Form'
-import type { IFormColumns, IFormMenuColumns } from '../src/Form/index'
+import ProForm from './Form'
+import type { IFormColumns, IFormMenuColumns, FormColumn } from './index'
+import type { Mutable } from '../types/index'
 
 const columns: IFormColumns = [
   {
@@ -48,7 +50,7 @@ describe('Form', () => {
     document.body.innerHTML = ''
   })
 
-  test('columns', async () => {
+  test.concurrent('columns', async () => {
     const wrapper = await _mount({
       template: '<pro-form v-model="form" :columns="columns" />',
       setup() {
@@ -56,7 +58,7 @@ describe('Form', () => {
         return { form, columns: ref([...columns]) }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: IFormColumns }
+    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getLabelList(wrapper)).toContain('input')
@@ -80,7 +82,7 @@ describe('Form', () => {
     expect(getComponentList(wrapper)[0]).not.toContain('el-input')
     expect(getComponentList(wrapper)[0]).toContain('el-textarea')
 
-    await (vm.columns[0].props = { type: 'text' })
+    await (vm.columns[0].props = { text: true })
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getComponentList(wrapper)[0]).not.toContain('el-textarea')
     expect(getComponentList(wrapper)[0]).toContain('el-input')
@@ -91,7 +93,7 @@ describe('Form', () => {
     expect(getComponentList(wrapper)[0]).toContain('el-switch')
   })
 
-  test('sub-form', async () => {
+  test.concurrent('sub-form', async () => {
     const wrapper = await _mount({
       template: '<pro-form v-model="form" :columns="columns" />',
       setup() {
@@ -123,7 +125,7 @@ describe('Form', () => {
         return { form, columns: _columns }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: IFormColumns }
+    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     expect(getFormContent(wrapper, '.children-form').exists()).toBe(false)
     expect(getFormContent(wrapper, '.el-button.is-circle').exists()).toBe(true)
@@ -136,7 +138,7 @@ describe('Form', () => {
     expect(getFormContent(wrapper, '.el-button.is-circle').exists()).toBe(false)
   })
 
-  test('slots', async () => {
+  test.concurrent('slots', async () => {
     const wrapper = await _mount({
       template: `
         <pro-form
@@ -180,13 +182,13 @@ describe('Form', () => {
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getComponentList(wrapper)[0]).not.toContain('el-switch')
     expect(getComponentList(wrapper)[0]).toContain('el-input')
-    expect(wrapper.find('label[for="slot"]').text()).toBe('slot-label')
+    expect(wrapper.find('label[for]').text()).toBe('slot-label')
     expect(getFormBtnList(wrapper)).toContain('menu-left-false')
     expect(getFormBtnList(wrapper)).toContain('menu-right-false')
     expect(wrapper.find('.pro-form .default').text()).toBe('default slot')
   })
 
-  test('modelValue', async () => {
+  test.concurrent('modelValue', async () => {
     interface Form {
       input: string
       switch: boolean
@@ -214,7 +216,7 @@ describe('Form', () => {
         return { form, columns }
       },
     })
-    const vm = (wrapper.vm as unknown) as {
+    const vm = wrapper.vm as unknown as {
       form: Form
       columns: IFormColumns
     }
@@ -235,7 +237,7 @@ describe('Form', () => {
     expect(wrapper.find('.el-switch').classes()).not.toContain('is-checked')
   })
 
-  test('menu', async () => {
+  test.concurrent('menu', async () => {
     const wrapper = await _mount({
       template: '<pro-form v-model="form" :columns="columns" :menu="menu" />',
       setup() {
@@ -244,7 +246,7 @@ describe('Form', () => {
         return { form, columns, menu }
       },
     })
-    const vm = (wrapper.vm as unknown) as { menu: IFormMenuColumns }
+    const vm = wrapper.vm as unknown as { menu: IFormMenuColumns }
 
     expect(getFormBtnList(wrapper)).toContain('Submit')
     expect(getFormBtnList(wrapper)).toContain('Reset')
@@ -265,7 +267,7 @@ describe('Form', () => {
     expect(getFormBtnList(wrapper)).not.toContain('Reset')
   })
 
-  test('grid layout', async () => {
+  test.concurrent('grid layout', async () => {
     const wrapper = await _mount({
       template: '<pro-form v-model="form" :columns="columns" />',
       setup() {
@@ -315,7 +317,7 @@ describe('Form', () => {
         return { form, columns }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: IFormColumns }
+    const vm = wrapper.vm as unknown as { columns: Mutable<IFormColumns> }
 
     expect(getFormList(wrapper)).toHaveLength(4)
     expect(getFormClassList(wrapper)[0]).toContain('el-col')
@@ -337,12 +339,13 @@ describe('Form', () => {
     expect(getFormClassList(wrapper)[3]).toContain('el-col-lg-pull-0')
     expect(getFormClassList(wrapper)[3]).toContain('el-col-lg-offset-2')
 
-    await ((vm.columns[0].span = 8), (vm.columns[0].pull = 2))
+    await (((vm.columns[0] as Mutable<FormColumn>).span = 8),
+    ((vm.columns[0] as Mutable<FormColumn>).pull = 2))
     expect(getFormClassList(wrapper)[0]).toContain('el-col-8')
     expect(getFormClassList(wrapper)[0]).toContain('el-col-pull-2')
   })
 
-  test('local component', async () => {
+  test.concurrent('local component', async () => {
     const wrapper = await _mount({
       template: '<pro-form v-model="form" :columns="columns" />',
       setup() {
@@ -363,7 +366,7 @@ describe('Form', () => {
     expect(getComponentList(wrapper)[0]).toContain('el-switch')
   })
 
-  test('Nested value', async () => {
+  test.concurrent('Nested value', async () => {
     const wrapper = await _mount({
       template: '<pro-form v-model="form" :columns="columns" />',
       setup() {
@@ -383,7 +386,7 @@ describe('Form', () => {
         return { form, columns }
       },
     })
-    const vm = (wrapper.vm as unknown) as {
+    const vm = wrapper.vm as unknown as {
       form: { a: { b: { c: string } }; b: [string] }
     }
 
@@ -402,7 +405,7 @@ describe('Form', () => {
     expect(vm.form.b[0]).toBe('array value')
   })
 
-  // test('event', async () => {
+  // test.concurrent('event', async () => {
   //   const wrapper = await _mount({
   //     template: '<pro-form v-model="form" :columns="columns" />',
   //     setup() {

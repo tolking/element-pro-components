@@ -1,7 +1,8 @@
+import { describe, test, expect, afterEach } from 'vitest'
 import { ComponentPublicInstance, ref, nextTick } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import ProSelect from '../src/Select/Select'
-import { dicList, DicItem } from './mock'
+import ProSelect from './Select'
+import { dicList, DicItem } from '../__mocks__/index'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
@@ -10,7 +11,7 @@ const _mount = (options: Record<string, unknown>) =>
   })
 
 const getInputValue = (wrapper: VueWrapper<ComponentPublicInstance>) =>
-  wrapper.find('.el-input__inner').element.value
+  wrapper.find<HTMLInputElement>('.el-input__inner').element.value
 const getOptions = () =>
   Array.from(
     document.querySelectorAll<HTMLElement>(
@@ -23,7 +24,7 @@ describe('Select', () => {
     document.body.innerHTML = ''
   })
 
-  test('test modelValue', async () => {
+  test.concurrent('test modelValue', async () => {
     const wrapper = _mount({
       template: `
         <pro-select
@@ -60,7 +61,7 @@ describe('Select', () => {
     expect(getInputValue(wrapper)).toBe('dart')
   })
 
-  test('change data', async () => {
+  test.concurrent('change data', async () => {
     const wrapper = _mount({
       template: `
         <pro-select

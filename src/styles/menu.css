@@ -32,6 +32,10 @@
       width: 20px;
       height: 20px;
     }
+    & .pro-menu-icon,
+    & span {
+      vertical-align: middle;
+    }
     &:hover {
       color: var(--el-color-primary);
       text-decoration: none;

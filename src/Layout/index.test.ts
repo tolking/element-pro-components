@@ -1,7 +1,8 @@
+import { describe, test, expect, afterEach } from 'vitest'
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import { initRouter } from './mock'
-import ProLayout from '../src/Layout/Layout'
+import ProLayout from './Layout'
+import { initRouter } from '../__mocks__/index'
 import type { RouteRecordRaw } from 'vue-router'
 
 initRouter()
@@ -25,7 +26,7 @@ describe('Layout', () => {
     document.body.innerHTML = ''
   })
 
-  test('empt', async () => {
+  test.concurrent('empt', async () => {
     const wrapper = _mount({
       template: '<pro-layout><p>router-view</p></pro-layout>',
     })
@@ -51,7 +52,7 @@ describe('Layout', () => {
     })
   })
 
-  test('routes', async () => {
+  test.concurrent('routes', async () => {
     const wrapper = _mount({
       template: '<pro-layout :routes="routes"><p>router-view</p></pro-layout>',
       setup() {
@@ -107,7 +108,7 @@ describe('Layout', () => {
     })
   })
 
-  test('mode', async () => {
+  test.concurrent('mode', async () => {
     const wrapper = _mount({
       template: '<pro-layout :mode="mode"><p>router-view</p></pro-layout>',
       setup() {
@@ -126,7 +127,7 @@ describe('Layout', () => {
     )
   })
 
-  test('fixed-header', async () => {
+  test.concurrent('fixed-header', async () => {
     const wrapper = _mount({
       template:
         '<pro-layout :fixed-header="fixed"><p>router-view</p></pro-layout>',
@@ -144,7 +145,7 @@ describe('Layout', () => {
     expect(wrapper.find('.pro-header').classes()).not.toContain('fixed-header')
   })
 
-  test('slots', () => {
+  test.concurrent('slots', () => {
     const wrapper = _mount({
       template: `
         <pro-layout>

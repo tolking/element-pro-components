@@ -8,10 +8,12 @@ meta:
 # 自定义主题
 
 ::: tip 提示
-[实验性质] 自 `0.12.0` 起，内部 css-variables 将优先使用来自 `Element Plus` 的 css-variables，方便你同时控制两个组件库的样式
+ElementPlus `v2.2.0` 已经支持深色模式，你仅需要遵循 [Dark Mode](https://element-plus.org/zh-CN/guide/dark-mode.html) 使用即可控制两个组件库颜色
 :::
 
 ## 简单配置
+
+推荐通过 css-variables 控制颜色
 
 ```css
 :root {
@@ -20,22 +22,16 @@ meta:
 }
 ```
 
-## 浅色/深色模式
+## 深色模式
 
-```css
-@media (prefers-color-scheme: light) {
-  :root {
-    --el-color-primary: #42b983;
-    --pro-layout-aside-background-color: #f0f2f5;
-  }
-}
-/* 也可以只增加以下内容增加深色模式 */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --el-color-primary: #25272a;
-    --pro-layout-aside-background-color: #2b2b2b;
-  }
-}
+只需要配置 ElementPlus 的深色模式
+
+```js
+import 'element-plus/theme-chalk/dark/css-vars.css'
+```
+
+```html
+<html class="dark"></html>
 ```
 
 ## 多主题
@@ -45,21 +41,21 @@ meta:
   --el-color-primary: #42b983;
   --pro-layout-aside-background-color: #f0f2f5;
 }
-html[theme='dark'] {
+html.my {
   --el-color-primary: #25272a;
   --pro-layout-aside-background-color: #2b2b2b;
 }
-html[theme='other'] {
+html.other {
   /* ... */
 }
 ```
 
 ```html
-<html theme="other"></html>
+<html class="other"></html>
 ```
 
 ::: tip 提示
-然后可以通过 js 动态改变 theme 的值实现
+然后可以通过 js 动态改变 class 的值实现
 
 可以使用 postcss 插件 [postcss-custom-properties](https://github.com/postcss/postcss-custom-properties) 或者同类的插件转换 `css-variables` 获得更好的兼容性，以便在不支持 `css-variables` 时能够显示默认值样式
 :::
@@ -70,6 +66,10 @@ html[theme='other'] {
 
 <<< @/src/styles/vars.css
 
-- Element Plus 的公共 css-variables
+- Element Plus 的浅色模式 css-variables
 
 <<< @/node_modules/element-plus/theme-chalk/el-var.css
+
+- Element Plus 的深色模式 css-variables
+
+<<< @/node_modules/element-plus/theme-chalk/dark/css-vars.css

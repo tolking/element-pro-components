@@ -1,9 +1,10 @@
+import { describe, test, expect, afterEach } from 'vitest'
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { ElInput, ElSwitch, ElTableColumn } from 'element-plus'
-import ProCrud from '../src/Crud/Crud'
-import { doubleWait, tableData } from './mock'
-import type { ICrudColumns, ICrudMenuColumns } from '../src/Crud/index'
+import ProCrud from './Crud'
+import { doubleWait, tableData } from '../__mocks__/index'
+import type { ICrudColumns, ICrudMenuColumns } from './index'
 
 interface Form {
   date?: string
@@ -110,7 +111,7 @@ describe('Crud', () => {
     document.body.innerHTML = ''
   })
 
-  test('columns', async () => {
+  test.concurrent('columns', async () => {
     const wrapper = await _mount({
       template: `
         <pro-crud
@@ -207,7 +208,7 @@ describe('Crud', () => {
     expect(getSearchComponentList(wrapper)[0]).toContain('el-switch')
   })
 
-  test('menu', async () => {
+  test.concurrent('menu', async () => {
     const wrapper = await _mount({
       template: `
         <pro-crud
@@ -275,7 +276,7 @@ describe('Crud', () => {
     await wrapper.find(dialogClose).trigger('click')
   })
 
-  test('modelValue', async () => {
+  test.concurrent('modelValue', async () => {
     const wrapper = await _mount({
       template: `
         <pro-crud
@@ -299,14 +300,14 @@ describe('Crud', () => {
       dialogBody + ' .pro-crud-form .pro-form-item .el-form-item__content input'
 
     await wrapper.find(addClass).trigger('click')
-    expect(wrapper.find(formInput).element.value).toBe('date')
+    expect(wrapper.find<HTMLInputElement>(formInput).element.value).toBe('date')
 
     await wrapper.find(formInput).setValue('value')
     expect(vm.form.date).toBe('value')
     await wrapper.find(dialogClose).trigger('click')
   })
 
-  test('search', async () => {
+  test.concurrent('search', async () => {
     const wrapper = await _mount({
       template: `
         <pro-crud
@@ -329,13 +330,15 @@ describe('Crud', () => {
     const searchInput =
       '.pro-crud .pro-crud-search .pro-form-item .el-form-item__content input'
 
-    expect(wrapper.find(searchInput).element.value).toBe('date')
+    expect(wrapper.find<HTMLInputElement>(searchInput).element.value).toBe(
+      'date'
+    )
 
     await wrapper.find(searchInput).setValue('value')
     expect(vm.searchForm.date).toBe('value')
   })
 
-  test('detail', async () => {
+  test.concurrent('detail', async () => {
     const wrapper = await _mount({
       template: `
         <pro-crud
@@ -367,7 +370,7 @@ describe('Crud', () => {
     await wrapper.find(dialogClose).trigger('click')
   })
 
-  test('slots', async () => {
+  test.concurrent('slots', async () => {
     const wrapper = await _mount({
       template: `
         <pro-crud

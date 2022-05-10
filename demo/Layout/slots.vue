@@ -2,6 +2,7 @@
   <pro-radio-button
     v-model="mode"
     :data="data"
+    style="margin-bottom: 16px"
   />
   <pro-layout
     :mode="mode"

@@ -1,21 +1,9 @@
+import { vi } from 'vitest'
 import { nextTick } from 'vue'
 import { useRouter, useRoute, RouteRecordRaw } from 'vue-router'
 
-jest.mock('vue-router', () => ({
-  useRoute: jest.fn(),
-  useRouter: jest.fn(() => ({
-    push: () => ({}),
-    options: { routes: [] },
-  })),
-  RouterView: 'router-view',
-}))
-
-export function initRouter(
-  list = routes
-): {
-  push: jest.Mock<unknown, unknown[]>
-} {
-  const push = jest.fn()
+export function initRouter(list = routes) {
+  const push = vi.fn()
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore

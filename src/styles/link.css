@@ -1,6 +1,4 @@
 .pro-link {
-  display: inline-flex;
-  align-items: center;
   color: var(--el-color-primary);
   text-decoration: none;
   &:hover {

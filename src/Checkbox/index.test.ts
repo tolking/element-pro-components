@@ -1,24 +1,29 @@
+import { describe, test, expect, afterEach } from 'vitest'
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import ProCheckboxButton from '../src/CheckboxButton/CheckboxButton'
-import { dicList, DicItem } from './mock'
+import ProCheckbox from './Checkbox'
+import { dicList, DicItem } from '../__mocks__/index'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
-    components: { ProCheckboxButton },
+    components: { ProCheckbox },
     ...options,
   })
 const getList = (wrapper: VueWrapper<ComponentPublicInstance>, calss = '') => {
-  const className = '.pro-checkbox-button .el-checkbox-button' + calss
+  const className = '.pro-checkbox .el-checkbox' + calss
   return wrapper
     .findAll(className)
-    .map((item) => item.find('.el-checkbox-button__inner').text())
+    .map((item) => (item ? item.find('.el-checkbox__label').text() : ''))
 }
 
-describe('CheckboxButton', () => {
-  test('test modelValue', async () => {
+describe('Checkbox', () => {
+  afterEach(() => {
+    document.body.innerHTML = ''
+  })
+
+  test.concurrent('test modelValue', async () => {
     const wrapper = _mount({
-      template: '<pro-checkbox-button v-model="value" :data="data" />',
+      template: '<pro-checkbox v-model="value" :data="data" />',
       setup() {
         const value = ref(['JavaScript'])
         return { value, data: dicList }
@@ -40,9 +45,9 @@ describe('CheckboxButton', () => {
     expect(getList(wrapper, '.is-checked')).toContain('dart')
   })
 
-  test('change data', async () => {
+  test.concurrent('change data', async () => {
     const wrapper = _mount({
-      template: '<pro-checkbox-button v-model="value" :data="data" />',
+      template: '<pro-checkbox v-model="value" :data="data" />',
       setup() {
         const value = ref(['JavaScript'])
         const data = ref(dicList)

@@ -1,7 +1,8 @@
+import { describe, test, expect, afterEach } from 'vitest'
 import { ComponentPublicInstance } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import { initRouter } from './mock'
-import ProTabs from '../src/Tabs/Tabs'
+import ProTabs from './Tabs'
+import { initRouter } from '../__mocks__/index'
 
 initRouter()
 
@@ -18,7 +19,7 @@ describe('Tabs', () => {
     document.body.innerHTML = ''
   })
 
-  test('empt', async () => {
+  test.concurrent('empt', async () => {
     const wrapper = await _mount({
       template: '<pro-tabs />',
     })

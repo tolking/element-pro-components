@@ -18,6 +18,15 @@ import type {
 } from '../Crud/index'
 import type { IDescriptionsColumns } from '../Descriptions/index'
 
+type CrudColumns =
+  | 'columns'
+  | 'searchColumns'
+  | 'tableColumns'
+  | 'addColumns'
+  | 'editColumns'
+  | 'formColumns'
+  | 'detailColumns'
+
 export function useCrudMenu(
   props: Readonly<{ menu?: ICrudMenuColumns | boolean }>
 ): Ref<ICrudMenuColumns> {
@@ -29,13 +38,13 @@ export function useCrudMenu(
       addProps: { type: 'primary' },
       edit: true,
       editText: 'Edit',
-      editProps: { type: 'text' },
+      editProps: { text: true },
       detail: true,
       detailText: 'View',
-      detailProps: { type: 'text' },
+      detailProps: { text: true },
       del: true,
       delText: 'Delete',
-      delProps: { type: 'text' },
+      delProps: { text: true },
       submit: true,
       submitText: 'Submit',
       submitProps: { type: 'primary' },
@@ -73,7 +82,7 @@ export function useCrudMenu(
 }
 
 export function useCrudColumns(
-  props: Readonly<ICrudProps>
+  props: Readonly<Pick<ICrudProps, CrudColumns>>
 ): {
   searchColumns: Ref<IFormColumns | undefined>
   tableColumns: Ref<ITableColumns | undefined>
@@ -137,7 +146,7 @@ export function useCrudColumns(
 }
 
 export function useCrudForm(
-  props: Readonly<ICrudProps>,
+  props: Readonly<Pick<ICrudProps, CrudColumns | 'beforeOpen'>>,
   emit: ICrudEmits,
   resetForm: (reset?: boolean) => void
 ): {
@@ -203,9 +212,7 @@ export function useCrudSearchMenu(
   }))
 }
 
-export function useCrudSearchForm(
-  emit: ICrudEmits
-): {
+export function useCrudSearchForm(emit: ICrudEmits): {
   searchForm: IFormSubmit
   searchReset: () => void
   upSearchData: (value: unknown) => void

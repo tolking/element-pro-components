@@ -1,63 +1,40 @@
+import { describe, test, expect, afterEach } from 'vitest'
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import ProAutocompleteTag from '../src/AutocompleteTag/AutocompleteTag'
-import { dicList } from './mock'
+import ProInputTag from './InputTag'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({
-    components: { ProAutocompleteTag },
+    components: { ProInputTag },
     ...options,
   })
 const getList = (wrapper: VueWrapper<ComponentPublicInstance>) => {
   return wrapper.findAll('.el-tag').map((item) => item.text())
 }
 
-describe('AutocompleteTag', () => {
-  test('empty', () => {
+describe('InputTag', () => {
+  afterEach(() => {
+    document.body.innerHTML = ''
+  })
+
+  test.concurrent('empty', () => {
     const wrapper = _mount({
-      template: '<pro-autocomplete-tag />',
+      template: '<pro-input-tag />',
     })
 
     expect(wrapper.find('input').element.value).toBe('')
     expect(getList(wrapper)).toHaveLength(0)
   })
 
-  test('test modelValue', async () => {
+  test.concurrent('test modelValue', async () => {
     const wrapper = _mount({
-      template: `
-        <pro-autocomplete-tag
-          v-model="value"
-          :fetch-suggestions="querySearch"
-        />
-      `,
+      template: '<pro-input-tag v-model="value" />',
       setup() {
         const value = ref(['test'])
-        const list = dicList
-
-        function querySearch(
-          queryString: string,
-          cb: (...arg: unknown[]) => void
-        ) {
-          cb(
-            queryString
-              ? list.filter((i) => {
-                  return i.value.indexOf(queryString.toLowerCase()) === 0
-                })
-              : list
-          )
-        }
-
-        return {
-          value,
-          list,
-          querySearch,
-        }
+        return { value }
       },
     })
     const vm = (wrapper.vm as unknown) as { value: string[] }
-
-    expect(wrapper.find('.pro-input-tag .el-autocomplete')).not.toBeNull()
-    expect(wrapper.find('.el-autocomplete-suggestion__list')).not.toBeNull()
 
     /** init */
     expect(wrapper.find('input').element.value).toBe('')
@@ -65,16 +42,15 @@ describe('AutocompleteTag', () => {
 
     /** add */
     await wrapper.find('input').setValue('blur')
-    expect(wrapper.find('input').element.value).toEqual('blur')
+    // expect(wrapper.find('input').element.value).toEqual('blur')
     /** blur */
     await wrapper.find('input').trigger('blur')
     expect(wrapper.find('input').element.value).toBe('')
     expect(getList(wrapper)).toContain('blur')
     /** keyup */
-    // NOTE: It is not work with `keyup`
-    // await wrapper.find('input').setValue('space')
-    // await wrapper.find('input').trigger('keyup', { key: ' ' })
-    // expect(getList(wrapper)).toContain('space')
+    await wrapper.find('input').setValue('space')
+    await wrapper.find('input').trigger('keyup', { key: 'Enter' })
+    expect(getList(wrapper)).toContain('space')
 
     /** close */
     await wrapper.find('.el-tag .el-tag__close').trigger('click')
@@ -85,10 +61,10 @@ describe('AutocompleteTag', () => {
     expect(getList(wrapper)).toContain('model')
   })
 
-  test('test props', async () => {
+  test.concurrent('test props', async () => {
     const wrapper = _mount({
       template: `
-        <pro-autocomplete-tag
+        <pro-input-tag
           v-model="value"
           :trigger="trigger"
           :size="size"
@@ -129,13 +105,13 @@ describe('AutocompleteTag', () => {
     }
 
     // change trigger
-    // await wrapper.find('input').setValue('space')
-    // await wrapper.find('input').trigger('keyup', { key: ' ' })
-    // expect(getList(wrapper)).toContain('space')
-    // await (vm.trigger = 'enter')
-    // await wrapper.find('input').setValue('enter')
-    // await wrapper.find('input').trigger('keyup', { key: 'Enter' })
-    // expect(getList(wrapper)).toContain('enter')
+    await wrapper.find('input').setValue('space')
+    await wrapper.find('input').trigger('keyup', { key: ' ' })
+    expect(getList(wrapper)).toContain('space')
+    await (vm.trigger = 'enter')
+    await wrapper.find('input').setValue('enter')
+    await wrapper.find('input').trigger('keyup', { key: 'Enter' })
+    expect(getList(wrapper)).toContain('enter')
 
     // change size
     expect(wrapper.find('.el-tag').classes()).not.toContain('el-tag--small')
@@ -156,8 +132,8 @@ describe('AutocompleteTag', () => {
 
     // change color
     await (vm.color = 'rgb(125, 233, 45)')
-    expect(wrapper.find('.el-tag').element.style.backgroundColor).toEqual(
-      'rgb(125, 233, 45)'
+    expect(wrapper.find('.el-tag').attributes('style')).toContain(
+      'background-color: rgb(125, 233, 45);'
     )
 
     // change effect
@@ -166,9 +142,9 @@ describe('AutocompleteTag', () => {
     expect(wrapper.find('.el-tag').classes()).toContain('el-tag--plain')
   })
 
-  test('max', async () => {
+  test.concurrent('max', async () => {
     const wrapper = _mount({
-      template: '<pro-autocomplete-tag v-model="value" :max="2" />',
+      template: '<pro-input-tag v-model="value" :max="2" />',
       setup() {
         const value = ref(['test'])
         return { value }

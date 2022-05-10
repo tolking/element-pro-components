@@ -28,7 +28,7 @@
       <template #menu="{ size, row }">
         <el-button
           :size="size"
-          type="text"
+          text
           @click="test(row)"
         >
           test{{ size }}

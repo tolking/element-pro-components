@@ -1,14 +1,15 @@
+import { describe, test, expect, afterEach } from 'vitest'
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import { ElTableColumn, PaginationProps } from 'element-plus'
-import ProTable from '../src/Table/Table'
-import { doubleWait, tableData, TableItem } from './mock'
+import { ElTableColumn } from 'element-plus'
+import ProTable from './Table'
+import { doubleWait, tableData, TableItem } from '../__mocks__/index'
 import type {
   ITableColumns,
   ITableIndexColumns,
   ITableExpandColumns,
   ITableMenuColumns,
-} from '../src/Table/index'
+} from './index'
 
 const columns: ITableColumns = [
   {
@@ -69,7 +70,7 @@ describe('Table', () => {
     document.body.innerHTML = ''
   })
 
-  test('columns', async () => {
+  test.concurrent('columns', async () => {
     const wrapper = await _mount({
       template: '<pro-table :columns="columns" />',
       setup() {
@@ -96,7 +97,7 @@ describe('Table', () => {
     expect(getHeaderList(wrapper)).toContain('-Date')
   })
 
-  test('data', async () => {
+  test.concurrent('data', async () => {
     const wrapper = await _mount({
       template: '<pro-table :columns="columns" :data="data" />',
       setup() {
@@ -112,7 +113,7 @@ describe('Table', () => {
     expect(getBodyItem(wrapper, 5)).toContain('0000')
   })
 
-  test('idnex', async () => {
+  test.concurrent('idnex', async () => {
     const wrapper = await _mount({
       template: '<pro-table :columns="columns" :index="index" />',
       setup() {
@@ -137,7 +138,7 @@ describe('Table', () => {
     expect(getHeaderList(wrapper)).not.toContain('-')
   })
 
-  test('expand', async () => {
+  test.concurrent('expand', async () => {
     const wrapper = await _mount({
       template: `
         <pro-table :columns="columns" :expand="expand">
@@ -168,7 +169,7 @@ describe('Table', () => {
     expect(getHeaderList(wrapper)).not.toContain('-')
   })
 
-  test('selection', async () => {
+  test.concurrent('selection', async () => {
     const wrapper = await _mount({
       template: '<pro-table :columns="columns" :selection="selection" />',
       setup() {
@@ -186,7 +187,7 @@ describe('Table', () => {
     expect(getHeaderList(wrapper)).not.toContain('')
   })
 
-  test('menu', async () => {
+  test.concurrent('menu', async () => {
     const wrapper = await _mount({
       template: `
         <pro-table :columns="columns" :menu="menu">
@@ -218,7 +219,7 @@ describe('Table', () => {
     expect(getHeaderList(wrapper)).not.toContain('-Menu')
   })
 
-  test('pagination', async () => {
+  test.concurrent('pagination', async () => {
     const wrapper = await _mount({
       template: `
         <pro-table
@@ -273,7 +274,7 @@ describe('Table', () => {
     expect(wrapper.find('.el-pagination').exists()).toBe(false)
   })
 
-  test('align', async () => {
+  test.concurrent('align', async () => {
     const wrapper = await _mount({
       template: '<pro-table :columns="columns" :data="data" :align="align" />',
       setup() {
@@ -291,7 +292,7 @@ describe('Table', () => {
     expect(getBodyClass(wrapper)).toContain('is-right')
   })
 
-  test('headerAlign', async () => {
+  test.concurrent('headerAlign', async () => {
     const wrapper = await _mount({
       template:
         '<pro-table :columns="columns" :data="data" :headerAlign="align" />',
@@ -310,7 +311,7 @@ describe('Table', () => {
     expect(getBodyClass(wrapper)).not.toContain('is-right')
   })
 
-  test('slots', async () => {
+  test.concurrent('slots', async () => {
     const wrapper = await _mount({
       template: `
         <pro-table
@@ -352,7 +353,7 @@ describe('Table', () => {
     expect(wrapper.find(appendClass).text()).toBe('append slot')
   })
 
-  test('multi header', async () => {
+  test.concurrent('multi header', async () => {
     const wrapper = await _mount({
       template: '<pro-table :columns="columns" />',
       setup() {
@@ -387,7 +388,7 @@ describe('Table', () => {
     expect(getMultiHeader(wrapper)).toHaveLength(1)
   })
 
-  test('Nested value', async () => {
+  test.concurrent('Nested value', async () => {
     const wrapper = await _mount({
       template: '<pro-table :columns="columns" :data="data" />',
       setup() {
