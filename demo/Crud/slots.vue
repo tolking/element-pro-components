@@ -24,7 +24,7 @@
     <template #menu="{ size }">
       <el-button
         :size="size"
-        type="text"
+        text
       >
         More
       </el-button>

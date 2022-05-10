@@ -58,7 +58,7 @@ describe('Form', () => {
         return { form, columns: ref([...columns]) }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: IFormColumns }
+    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getLabelList(wrapper)).toContain('input')
@@ -82,7 +82,7 @@ describe('Form', () => {
     expect(getComponentList(wrapper)[0]).not.toContain('el-input')
     expect(getComponentList(wrapper)[0]).toContain('el-textarea')
 
-    await (vm.columns[0].props = { type: 'text' })
+    await (vm.columns[0].props = { text: true })
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getComponentList(wrapper)[0]).not.toContain('el-textarea')
     expect(getComponentList(wrapper)[0]).toContain('el-input')
@@ -125,7 +125,7 @@ describe('Form', () => {
         return { form, columns: _columns }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: IFormColumns }
+    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     expect(getFormContent(wrapper, '.children-form').exists()).toBe(false)
     expect(getFormContent(wrapper, '.el-button.is-circle').exists()).toBe(true)
@@ -216,7 +216,7 @@ describe('Form', () => {
         return { form, columns }
       },
     })
-    const vm = (wrapper.vm as unknown) as {
+    const vm = wrapper.vm as unknown as {
       form: Form
       columns: IFormColumns
     }
@@ -246,7 +246,7 @@ describe('Form', () => {
         return { form, columns, menu }
       },
     })
-    const vm = (wrapper.vm as unknown) as { menu: IFormMenuColumns }
+    const vm = wrapper.vm as unknown as { menu: IFormMenuColumns }
 
     expect(getFormBtnList(wrapper)).toContain('Submit')
     expect(getFormBtnList(wrapper)).toContain('Reset')
@@ -317,7 +317,7 @@ describe('Form', () => {
         return { form, columns }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: Mutable<IFormColumns> }
+    const vm = wrapper.vm as unknown as { columns: Mutable<IFormColumns> }
 
     expect(getFormList(wrapper)).toHaveLength(4)
     expect(getFormClassList(wrapper)[0]).toContain('el-col')
@@ -386,7 +386,7 @@ describe('Form', () => {
         return { form, columns }
       },
     })
-    const vm = (wrapper.vm as unknown) as {
+    const vm = wrapper.vm as unknown as {
       form: { a: { b: { c: string } }; b: [string] }
     }
 

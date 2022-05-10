@@ -38,13 +38,13 @@ export function useCrudMenu(
       addProps: { type: 'primary' },
       edit: true,
       editText: 'Edit',
-      editProps: { type: 'text' },
+      editProps: { text: true },
       detail: true,
       detailText: 'View',
-      detailProps: { type: 'text' },
+      detailProps: { text: true },
       del: true,
       delText: 'Delete',
-      delProps: { type: 'text' },
+      delProps: { text: true },
       submit: true,
       submitText: 'Submit',
       submitProps: { type: 'primary' },
@@ -212,9 +212,7 @@ export function useCrudSearchMenu(
   }))
 }
 
-export function useCrudSearchForm(
-  emit: ICrudEmits
-): {
+export function useCrudSearchForm(emit: ICrudEmits): {
   searchForm: IFormSubmit
   searchReset: () => void
   upSearchData: (value: unknown) => void
