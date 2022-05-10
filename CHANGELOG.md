@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.1.2
+
+feat
+
+- support Dark Mode
+- sync the ElButton change from ElementPlus v2.2.0
+- docs: support toggle Light or Dark mode
+
+fix
+
+- Menu: styles error when collapse
+- utils: the warn information disappears after build
+
+other
+
+- Crud: optimization type
+- test: jest -> vitest
+- workflows: npm -> pnpm
+
 ## 1.1.1
 
 fix
