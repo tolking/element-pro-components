@@ -8,10 +8,12 @@ meta:
 # Custom theme
 
 ::: tip Tip
-[test] Since `0.12.0`, The internal css-variables will give priority to the css-variables from `Element Plus`, which is convenient for you to control the styles of the two component libraries at the same time
+ElementPlus `v2.2.0` already supports dark mode, You only need to follow the [Dark Mode](https://element-plus.org/en-US/guide/dark-mode.html) to control the two component library colors.
 :::
 
 ## Simple configuration
+
+css-variables is recommended
 
 ```css
 :root {
@@ -20,22 +22,16 @@ meta:
 }
 ```
 
-## light/dark mode
+## Dark Mode
 
-```css
-@media (prefers-color-scheme: light) {
-  :root {
-    --el-color-primary: #42b983;
-    --pro-layout-aside-background-color: #f0f2f5;
-  }
-}
-/* You can also add only the following to increase the dark mode */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --el-color-primary: #25272a;
-    --pro-layout-aside-background-color: #2b2b2b;
-  }
-}
+Only need to configure the dark mode of ElementPlus
+
+```js
+import 'element-plus/theme-chalk/dark/css-vars.css'
+```
+
+```html
+<html class="dark"></html>
 ```
 
 ## Multi-theme
@@ -45,21 +41,21 @@ meta:
   --el-color-primary: #42b983;
   --pro-layout-aside-background-color: #f0f2f5;
 }
-html[theme='dark'] {
+html.my {
   --el-color-primary: #25272a;
   --pro-layout-aside-background-color: #2b2b2b;
 }
-html[theme='other'] {
+html.other {
   /* ... */
 }
 ```
 
 ```html
-<html theme="other"></html>
+<html class="other"></html>
 ```
 
 ::: tip Tip
-Then you can dynamically change the value of theme through js
+Then you can dynamically change the value of class through js
 
 Use [postcss-custom-properties](https://github.com/postcss/postcss-custom-properties) or similar plugin of postcss to convert `css-variables` for better compatibility, so that the default value style can be displayed when `css-variables` is not supported.
 :::
@@ -70,6 +66,10 @@ Use [postcss-custom-properties](https://github.com/postcss/postcss-custom-proper
 
 <<< @/src/styles/vars.css
 
-- public css-variables of Element Plus
+- Light Mode css-variables of Element Plus
 
 <<< @/node_modules/element-plus/theme-chalk/el-var.css
+
+- Dark Mode css-variables of Element Plus
+
+<<< @/node_modules/element-plus/theme-chalk/dark/css-vars.css
