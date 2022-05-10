@@ -74,6 +74,7 @@ li > div[class*='language-'] {
   font-size: 14px;
   color: #eee;
   line-height: 24px;
+  background-color: transparent;
 }
 
 [class*='language-']:before {

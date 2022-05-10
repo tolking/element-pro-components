@@ -1,7 +1,7 @@
 :root {
-  --pro-layout-header-background-color: var(--el-color-white);
-  --pro-layout-aside-background-color: var(--el-color-white);
-  --pro-tabs-background-color: var(--el-color-white);
+  --pro-layout-header-background-color: var(--el-bg-color);
+  --pro-layout-aside-background-color: var(--el-bg-color);
+  --pro-tabs-background-color: var(--el-bg-color);
   --pro-layout-width-aside: 240px;
   --pro-layout-width-aside-collapse: 60px;
   --pro-layout-height: 100vh;

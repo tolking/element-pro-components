@@ -317,13 +317,13 @@ Crud columns 支持 <pro-link to="/zh-CN/components/table#columns">Table columns
 | addProps         | add 按钮的配置，参考 el-button    | object                  | -      | { type: 'primary' } |
 | edit             | 是否显示 edit 按钮                | boolean / Function(row) | -      | true                |
 | editText         | edit 按钮显示的文字               | string                  | -      | Edit                |
-| editProps        | edit 按钮的配置，参考 el-button   | object                  | -      | { type: 'text' }    |
+| editProps        | edit 按钮的配置，参考 el-button   | object                  | -      | { text: true }      |
 | detail           | 是否显示 detail 按钮              | boolean / Function(row) | -      | true                |
 | detailText       | detail 按钮显示的文字             | string                  | -      | View                |
-| detailProps      | detail 按钮的配置，参考 el-button | object                  | -      | { type: 'text' }    |
+| detailProps      | detail 按钮的配置，参考 el-button | object                  | -      | { text: true }      |
 | del              | 是否显示 del 按钮                 | boolean / Function(row) | -      | true                |
 | delText          | del 按钮显示的文字                | string                  | -      | Delete              |
-| delProps         | del 按钮的配置，参考 el-button    | object                  | -      | { type: 'text' }    |
+| delProps         | del 按钮的配置，参考 el-button    | object                  | -      | { text: true }      |
 | submit           | 是否显示 submit 按钮              | boolean                 | -      | true                |
 | submitText       | submit 按钮显示的文字             | string                  | -      | Submit              |
 | submitProps      | submit 按钮的配置，参考 el-button | object                  | -      | { type: 'primary' } |

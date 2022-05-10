@@ -48,7 +48,7 @@
       <template #menu="{ size, row }">
         <el-button
           :size="size"
-          type="text"
+          text
           @click="deleteRow(row)"
         >
           More

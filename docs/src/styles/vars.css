@@ -7,15 +7,12 @@
 
   --docs-bg-code: #282c34;
   --docs-bg-code-inline: rgba(27, 31, 35, 0.05);
-  --docs-bg-tip: #f3f5f7;
-  --docs-bg-warining: rgba(255, 229, 100, 0.3);
-  --docs-bg-danger: #ffe6e6;
-  --docs-bg-table-stripe: #f6f8fa;
+  --docs-bg-block: #f3f5f7;
 }
 
 html.dark .markdown-body {
-  --docs-bg-tip: #3e3b3b;
-  --docs-bg-warining: rgba(185, 174, 119, 0.3);
-  --docs-bg-danger: rgba(72, 56, 57, 30%);
+  --docs-bg-code: #1d1f22;
+  --docs-bg-code-inline: rgba(29, 31, 34, 0.7);
+  --docs-bg-block: #242222;
   --docs-bg-table-stripe: #444;
 }

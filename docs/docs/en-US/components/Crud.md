@@ -318,13 +318,13 @@ In addition, some props have the same name, and the configuration will be passed
 | addProps         | the props of add button, reference `el-button`          | object                  | -       | { type: 'primary' } |
 | edit             | whether to display a edit button                        | boolean / Function(row) | -       | true                |
 | editText         | the text of edit button                                 | string                  | -       | Edit                |
-| editProps        | the props of edit button, reference `el-button`         | object                  | -       | { type: 'text' }    |
+| editProps        | the props of edit button, reference `el-button`         | object                  | -       | { text: true }      |
 | detail           | whether to display a detail button                      | boolean / Function(row) | -       | true                |
 | detailText       | the text of detail button                               | string                  | -       | View                |
-| detailProps      | the props of detail button, reference `el-button`       | object                  | -       | { type: 'text' }    |
+| detailProps      | the props of detail button, reference `el-button`       | object                  | -       | { text: true }      |
 | del              | whether to display a del button                         | boolean / Function(row) | -       | true                |
 | delText          | the text of del button                                  | string                  | -       | Delete              |
-| delProps         | the props of del button, reference `el-button`          | object                  | -       | { type: 'text' }    |
+| delProps         | the props of del button, reference `el-button`          | object                  | -       | { text: true }      |
 | submit           | whether to display a submit button                      | boolean                 | -       | true                |
 | submitText       | the text of submit button                               | string                  | -       | Submit              |
 | submitProps      | the props of submit buttonbutton, reference `el-button` | object                  | -       | { type: 'primary' } |
