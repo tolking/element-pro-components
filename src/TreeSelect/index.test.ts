@@ -29,13 +29,13 @@ describe('TreeSelect', () => {
     document.body.innerHTML = ''
   })
 
-  test('test build', async () => {
+  test.concurrent('test build', async () => {
     const wrapper = await _mount({
       template: `
         <pro-tree-select
           v-model="value"
           :data="data"
-          :popper-append-to-body="false"
+          :teleported="false"
           :render-after-expand="false"
           default-expand-all
         />
@@ -60,13 +60,13 @@ describe('TreeSelect', () => {
     expect(getDisableList(wrapper)).toContain('1-1')
   })
 
-  test('test multiple', async () => {
+  test.concurrent('test multiple', async () => {
     const wrapper = await _mount({
       template: `
         <pro-tree-select
           v-model="value"
           :data="data"
-          :popper-append-to-body="false"
+          :teleported="false"
           :render-after-expand="false"
           multiple
           default-expand-all

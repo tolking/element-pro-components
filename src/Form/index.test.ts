@@ -182,7 +182,7 @@ describe('Form', () => {
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getComponentList(wrapper)[0]).not.toContain('el-switch')
     expect(getComponentList(wrapper)[0]).toContain('el-input')
-    expect(wrapper.find('label[for="slot"]').text()).toBe('slot-label')
+    expect(wrapper.find('label[for]').text()).toBe('slot-label')
     expect(getFormBtnList(wrapper)).toContain('menu-left-false')
     expect(getFormBtnList(wrapper)).toContain('menu-right-false')
     expect(wrapper.find('.pro-form .default').text()).toBe('default slot')
