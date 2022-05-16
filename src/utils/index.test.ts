@@ -22,7 +22,7 @@ describe('all utils', () => {
     })
   })
 
-  test('objectDeepMerge', () => {
+  test.concurrent('objectDeepMerge', () => {
     expect(objectDeepMerge({}, {})).toEqual({})
     expect(objectDeepMerge({ a: 'a' }, {})).toEqual({ a: 'a' })
     expect(objectDeepMerge({}, { b: 'b' })).toEqual({ b: 'b' })
@@ -38,20 +38,20 @@ describe('all utils', () => {
     ).toEqual({ a: { b: 'b1', c: 'c' } })
   })
 
-  test('objectPick', () => {
+  test.concurrent('objectPick', () => {
     const obj = { a: 'a', b: 'b', c: 'c', d: 'd' }
     expect(objectPick(obj, ['a'])).toEqual({ a: 'a' })
-    expect(objectPick(obj, ['a', 'b'])).toEqual({ a: 'a', b: 'b' })
-    expect(objectPick(obj, ['a', 'b', 'd'])).toEqual({ a: 'a', b: 'b', d: 'd' })
+    expect(objectPick(obj, 'a', 'b')).toEqual({ a: 'a', b: 'b' })
+    expect(objectPick(obj, 'a', 'b', 'd')).toEqual({ a: 'a', b: 'b', d: 'd' })
     expect(objectPick(obj, ['a', 'b', 'c', 'd'])).toEqual(obj)
     expect(obj).toEqual({ a: 'a', b: 'b', c: 'c', d: 'd' })
   })
 
-  test('objectOmit', () => {
+  test.concurrent('objectOmit', () => {
     const obj = { a: 'a', b: 'b', c: 'c', d: 'd' }
     expect(objectOmit(obj, ['a'])).toEqual({ b: 'b', c: 'c', d: 'd' })
-    expect(objectOmit(obj, ['a', 'b'])).toEqual({ c: 'c', d: 'd' })
-    expect(objectOmit(obj, ['a', 'b', 'd'])).toEqual({ c: 'c' })
+    expect(objectOmit(obj, 'a', 'b')).toEqual({ c: 'c', d: 'd' })
+    expect(objectOmit(obj, 'a', 'b', 'd')).toEqual({ c: 'c' })
     expect(objectOmit(obj, ['a', 'b', 'c', 'd'])).toEqual({})
     expect(obj).toEqual({ a: 'a', b: 'b', c: 'c', d: 'd' })
   })
@@ -89,7 +89,7 @@ describe('all utils', () => {
     })
   })
 
-  test('filterFlat', () => {
+  test.concurrent('filterFlat', () => {
     const list = filterFlat(slotList, 'slot')
     expect(list).toHaveLength(4)
     expect(list[0]).toEqual({ slot: true, label: 'label1' })
