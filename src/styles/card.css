@@ -2,7 +2,7 @@
   --pro-card-border-color: var(--el-border-color-light);
   --pro-card-border-radius: 4px;
   --pro-card-padding: 20px;
-  --pro-card-bg-color: var(--el-fill-color-blank);
+  --pro-card-bg-color: var(--el-bg-color);
   --pro-card-margin: 12px;
 }
 
