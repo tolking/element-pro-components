@@ -25,6 +25,7 @@ export function getScreenSize(width: number): IScreenSize {
 }
 
 /**
+ * @deprecated NOTE: This function may be removed in the future
  * deep merge two objects
  * @param obj1 object 1
  * @param obj2 object 2
