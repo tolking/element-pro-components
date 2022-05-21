@@ -310,32 +310,32 @@ Crud columns 支持 <pro-link to="/zh-CN/components/table#columns">Table columns
 
 #### menu
 
-| 参数             | 说明                              | 类型                    | 可选值 | 默认值              |
-| :--------------- | :-------------------------------- | :---------------------- | :----- | :------------------ |
-| add              | 是否显示 add 按钮                 | boolean                 | -      | true                |
-| addText          | add 按钮显示的文字                | string                  | -      | Add                 |
-| addProps         | add 按钮的配置，参考 el-button    | object                  | -      | { type: 'primary' } |
-| edit             | 是否显示 edit 按钮                | boolean / Function(row) | -      | true                |
-| editText         | edit 按钮显示的文字               | string                  | -      | Edit                |
-| editProps        | edit 按钮的配置，参考 el-button   | object                  | -      | { text: true }      |
-| detail           | 是否显示 detail 按钮              | boolean / Function(row) | -      | true                |
-| detailText       | detail 按钮显示的文字             | string                  | -      | View                |
-| detailProps      | detail 按钮的配置，参考 el-button | object                  | -      | { text: true }      |
-| del              | 是否显示 del 按钮                 | boolean / Function(row) | -      | true                |
-| delText          | del 按钮显示的文字                | string                  | -      | Delete              |
-| delProps         | del 按钮的配置，参考 el-button    | object                  | -      | { text: true }      |
-| submit           | 是否显示 submit 按钮              | boolean                 | -      | true                |
-| submitText       | submit 按钮显示的文字             | string                  | -      | Submit              |
-| submitProps      | submit 按钮的配置，参考 el-button | object                  | -      | { type: 'primary' } |
-| reset            | 是否显示 reset 按钮               | boolean                 | -      | true                |
-| resetText        | 是否显示 reset 按钮显示的文字     | string                  | -      | Reset               |
-| resetProps       | reset 按钮的配置，参考 el-button  | object                  | -      | -                   |
-| search           | 是否显示 search 按钮              | boolean                 | -      | true                |
-| searchText       | search 按钮显示的文字             | string                  | -      | Search              |
-| searchProps      | search 按钮的配置，参考 el-button | object                  | -      | { type: 'primary' } |
-| searchReset      | 是否显示 reset 按钮               | boolean                 | -      | true                |
-| searchResetText  | 是否显示 reset 按钮显示的文字     | string                  | -      | Reset               |
-| searchResetProps | reset 按钮的配置，参考 el-button  | object                  | -      | -                   |
+| 参数             | 说明                              | 类型                    | 可选值 | 默认值                          |
+| :--------------- | :-------------------------------- | :---------------------- | :----- | :------------------------------ |
+| add              | 是否显示 add 按钮                 | boolean                 | -      | true                            |
+| addText          | add 按钮显示的文字                | string                  | -      | Add                             |
+| addProps         | add 按钮的配置，参考 el-button    | object                  | -      | { type: 'primary' }             |
+| edit             | 是否显示 edit 按钮                | boolean / Function(row) | -      | true                            |
+| editText         | edit 按钮显示的文字               | string                  | -      | Edit                            |
+| editProps        | edit 按钮的配置，参考 el-button   | object                  | -      | { link: true, type: 'primary' } |
+| detail           | 是否显示 detail 按钮              | boolean / Function(row) | -      | true                            |
+| detailText       | detail 按钮显示的文字             | string                  | -      | View                            |
+| detailProps      | detail 按钮的配置，参考 el-button | object                  | -      | { link: true, type: 'info' }    |
+| del              | 是否显示 del 按钮                 | boolean / Function(row) | -      | true                            |
+| delText          | del 按钮显示的文字                | string                  | -      | Delete                          |
+| delProps         | del 按钮的配置，参考 el-button    | object                  | -      | { link: true, type: 'danger' }  |
+| submit           | 是否显示 submit 按钮              | boolean                 | -      | true                            |
+| submitText       | submit 按钮显示的文字             | string                  | -      | Submit                          |
+| submitProps      | submit 按钮的配置，参考 el-button | object                  | -      | { type: 'primary' }             |
+| reset            | 是否显示 reset 按钮               | boolean                 | -      | true                            |
+| resetText        | 是否显示 reset 按钮显示的文字     | string                  | -      | Reset                           |
+| resetProps       | reset 按钮的配置，参考 el-button  | object                  | -      | -                               |
+| search           | 是否显示 search 按钮              | boolean                 | -      | true                            |
+| searchText       | search 按钮显示的文字             | string                  | -      | Search                          |
+| searchProps      | search 按钮的配置，参考 el-button | object                  | -      | { type: 'primary' }             |
+| searchReset      | 是否显示 reset 按钮               | boolean                 | -      | true                            |
+| searchResetText  | 是否显示 reset 按钮显示的文字     | string                  | -      | Reset                           |
+| searchResetProps | reset 按钮的配置，参考 el-button  | object                  | -      | -                               |
 
 ::: tip 提示
 其它属性同 <pro-link to="/zh-CN/components/table#columns">Table columns</pro-link>
