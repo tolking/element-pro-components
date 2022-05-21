@@ -1,12 +1,7 @@
 import { ComputedRef, computed, Ref, unref, inject, shallowRef } from 'vue'
 import { useLocale } from 'element-plus'
 import { useShow } from './index'
-import {
-  isObject,
-  objectDeepMerge,
-  objectOmit,
-  isBoolean,
-} from '../utils/index'
+import { isObject, objectOmit, isBoolean } from '../utils/index'
 import type { ComponentSize } from 'element-plus'
 import type { UnknownObject, MaybeArray, MaybeRef } from '../types/index'
 import type {
@@ -89,13 +84,11 @@ export function useFormMenu(
       menu.resetText = resetText
     }
 
-    return props.menu ? objectDeepMerge(menu, props.menu) : menu
+    return props.menu ? Object.assign({}, menu, props.menu) : menu
   })
 }
 
-export function useFormMethods(
-  emit: IFormEmits
-): {
+export function useFormMethods(emit: IFormEmits): {
   form: Ref<IFormExpose>
   loading: Ref<boolean>
   upFormData: (value: unknown) => void
