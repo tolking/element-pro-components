@@ -55,7 +55,7 @@ import type {
   ITableColumns,
   ITableIndexColumns,
   ITableMenuColumns,
-} from '/@src/index'
+} from 'element-pro-components'
 
 interface ListItem {
   date: string

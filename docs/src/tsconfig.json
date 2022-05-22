@@ -1,4 +1,10 @@
 {
   "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "paths": {
+      "element-pro-components": ["./src/index"]
+    }
+  },
   "include": [".", "../../env.d.ts"]
 }

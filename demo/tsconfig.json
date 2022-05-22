@@ -2,10 +2,10 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "allowJs": true,
+    "jsx": "preserve",
     "paths": {
-      "/@src/*": ["./src/*"],
       "element-pro-components": ["./src/index"]
     }
   },
-  "include": [".", "../shims-vue.d.ts"]
+  "include": [".", "../env.d.ts"]
 }

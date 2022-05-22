@@ -28,7 +28,7 @@
       <template #address="{ value, setValue }">
         <pro-input-tag
           :model-value="value"
-          @update:modelValue="setValue"
+          @update:model-value="setValue"
         />
       </template>
     </pro-form>
@@ -44,7 +44,7 @@ import type {
   IFormExpose,
   StringObject,
   IFormSubmit,
-} from '/@src/index'
+} from 'element-pro-components'
 
 interface RuleForm {
   date: string

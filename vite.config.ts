@@ -17,7 +17,6 @@ export default defineConfig({
   base: '/element-pro-components/',
   resolve: {
     alias: {
-      '/@src': resolve(__dirname, 'src'),
       'element-pro-components': resolve(__dirname, 'src'),
     },
   },
