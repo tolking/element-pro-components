@@ -4,7 +4,7 @@
     :columns="columns"
     :search-columns="searchColumns"
     @search="search"
-    @searchReset="reset"
+    @search-reset="reset"
   />
 </template>
 

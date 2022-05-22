@@ -21,7 +21,7 @@
       append-to-body
       class="ffff"
       @search="search"
-      @searchReset="reset"
+      @search-reset="reset"
       @submit="submit"
       @reset="reset"
       @delete="deleteRow"
@@ -98,7 +98,7 @@ import type {
   ICrudExpose,
   ICrudSubmit,
   ICrudSearch,
-} from '/@src/index'
+} from 'element-pro-components'
 
 interface DataItem {
   date: string

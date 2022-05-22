@@ -10,10 +10,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "declarationDir": "types",
-    "lib": ["ESNext", "DOM"],
-    "paths": {
-      "/@src/*": ["./src/*"]
-    }
+    "lib": ["ESNext", "DOM"]
   },
   "include": ["src/**/*", "env.d.ts"],
   "exclude": ["node_modules"]

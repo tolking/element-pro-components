@@ -13,12 +13,12 @@ import {
   ElSwitch,
   ElTooltip,
 } from 'element-plus'
-import ElementPro from '/@src/index'
+import ElementPro from 'element-pro-components'
 import ProCode from './components/ProCode.vue'
 import Layout from './App.vue'
 import 'element-plus/theme-chalk/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
-import '/@src/styles/index.css'
+import 'element-pro-components/styles/index.css'
 import './styles/index.css'
 import type { Router } from 'vue-router'
 
