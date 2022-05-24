@@ -9,7 +9,7 @@
     :before-open="beforeOpen"
     label-width="100px"
     @search="search"
-    @searchReset="reset"
+    @search-reset="reset"
     @submit="submit"
     @reset="reset"
     @delete="deleteRow"

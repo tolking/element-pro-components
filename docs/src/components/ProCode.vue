@@ -77,7 +77,7 @@ import {
   DocumentCopy,
   VideoPlay,
 } from '@element-plus/icons-vue'
-import { useShow } from '/@src/index'
+import { useShow } from 'element-pro-components'
 import { github } from '../utils/index'
 import { useStackBlitz } from '../composables/index'
 

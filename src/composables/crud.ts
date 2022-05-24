@@ -1,12 +1,6 @@
 import { computed, ref, useSlots, Ref, Slot } from 'vue'
 import { useLocale } from 'element-plus'
-import {
-  isFunction,
-  isObject,
-  filterDeep,
-  objectDeepMerge,
-  throwWarn,
-} from '../utils/index'
+import { isFunction, isObject, filterDeep, throwWarn } from '../utils/index'
 import type { UnknownObject, ExternalParam } from '../types/index'
 import type { IFormColumns, IFormMenuColumns, IFormSubmit } from '../Form/index'
 import type { ITableColumns } from '../Table/index'
@@ -38,13 +32,13 @@ export function useCrudMenu(
       addProps: { type: 'primary' },
       edit: true,
       editText: 'Edit',
-      editProps: { text: true },
+      editProps: { link: true, type: 'primary' },
       detail: true,
       detailText: 'View',
-      detailProps: { text: true },
+      detailProps: { link: true, type: 'info' },
       del: true,
       delText: 'Delete',
-      delProps: { text: true },
+      delProps: { link: true, type: 'danger' },
       submit: true,
       submitText: 'Submit',
       submitProps: { type: 'primary' },
@@ -77,7 +71,7 @@ export function useCrudMenu(
       }
     })
 
-    return isObject(props.menu) ? objectDeepMerge(menu, props.menu) : menu
+    return isObject(props.menu) ? Object.assign({}, menu, props.menu) : menu
   })
 }
 

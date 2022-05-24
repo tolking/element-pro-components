@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.1.3
+
+feat
+
+- Crud: change text button to link button
+- Crud | Form: cancel deep merging of menus
+
+fix
+
+- Card: styles error in Dark Mode
+- AutocompleteTag: styles error
+
+other
+
+- use objectPick from lodash
+
 ## 1.1.2
 
 feat

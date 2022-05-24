@@ -7,7 +7,8 @@
     <template #menu="{ size }">
       <el-button
         :size="size"
-        type="text"
+        type="primary"
+        link
       >
         Detail
       </el-button>
