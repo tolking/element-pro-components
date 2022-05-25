@@ -17,6 +17,13 @@ export type MaybeArray<T> = T | Array<T>
 
 export type MaybeRef<T> = T | Ref<T>
 
+/** A | B -> A & B */
+export type UnionToIntersection<T> = (
+  T extends unknown ? (arg: T) => void : never
+) extends (arg: infer U) => void
+  ? U
+  : never
+
 export type ObjectValueType<T> = T[keyof T]
 
 export type FilterObject<T> = T extends object[]
@@ -27,13 +34,10 @@ export type FilterObject<T> = T extends object[]
   ? T
   : never
 
-// NOTE: chang to `type ArrayPath<T, Q = ''> = `${T & strng}[${number}]${Q & strng}`` when the typescript version is v4.7.0
-type ArrayPath<
-  T extends string,
-  Q extends string = ''
-> = `${T}[${number}]${Q extends '' ? '' : `.${Q}`}`
-
-type ObjectPath<T extends string, Q extends string> = `${T}.${Q}`
+type NestedPath<T extends 'array' | 'object', P, C = undefined> = `${P &
+  string}${T extends 'array' ? `[${number}]` : ''}${C extends string
+  ? `.${C}`
+  : ''}`
 
 type ExtractTemplatePath<T, U> = T extends
   | `${infer P}[${string}`
@@ -44,26 +48,15 @@ type ExtractTemplatePath<T, U> = T extends
   : never
 
 type ExtractPath<T extends object> =
-  | ExtractTemplatePath<DeepKeyof<T>, keyof T>
+  | ExtractTemplatePath<DeepPath<T>, keyof T>
   | keyof T
 
 type DeepNested<K extends string, V> = V extends object[]
-  ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore FIXME: Type instantiation is excessively deep and possibly infinite.
-    | ArrayPath<
-          K,
-          | (ExtractPath<V[number]> extends string
-              ? ExtractPath<V[number]>
-              : never)
-          | ''
-        >
-      | DeepKeyof<V[number]>
+  ? NestedPath<'array', K, ExtractPath<V[number]> | undefined>
   : V extends unknown[]
-  ? ArrayPath<K>
+  ? NestedPath<'array', K>
   : V extends object
-  ?
-      | ObjectPath<K, ExtractPath<V> extends string ? ExtractPath<V> : never>
-      | DeepKeyof<V>
+  ? NestedPath<'object', K, ExtractPath<V>>
   : never
 
 /**
@@ -72,31 +65,31 @@ type DeepNested<K extends string, V> = V extends object[]
  * for example:
  *
  * ```
- *  DeepKeyof<{
+ *  DeepPath<{
  *    name: string
  *    address: string
  *  }> // -> 'name' | 'address'
  *
- *  DeepKeyof<{
+ *  DeepPath<{
  *    date: string
  *    user: {
  *      name: string
  *      address: string
  *    }[]
- *  }> // -> "date" | "user" | "name" | "address" | `user[${number}]` | `user[${number}].name` | `user[${number}].address`
+ *  }> // -> "date" | "user" | `user[${number}]` | `user[${number}].name` | `user[${number}].address`
  * ```
  */
-export type DeepKeyof<T extends object> = {
-  [Q in keyof T]-?: Q | DeepNested<Q & string, Exclude<T[Q], undefined>>
+export type DeepPath<T extends object> = {
+  [Q in keyof T]-?: Q | DeepNested<Q & string, NonNullable<T[Q]>>
 }[keyof T]
-// TODO: 继续优化，当类型复杂是类型推到缺失
+
 export type ColumnProp<T> = IsAny<T> extends true
   ? string
-  : DeepKeyof<FilterObject<T>>
+  : DeepPath<FilterObject<T>>
 
 export type FormColumnChildren<T> = IsAny<T> extends true
   ? T
-  : FilterObject<ObjectValueType<FilterObject<T>>>
+  : UnionToIntersection<FilterObject<ObjectValueType<FilterObject<T>>>>
 
 export type IScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 

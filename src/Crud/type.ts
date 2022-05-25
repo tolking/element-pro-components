@@ -26,7 +26,7 @@ export interface CrudColumn<T = ExternalParam>
   /** keys of model that passed to form */
   prop: ColumnProp<T>
   /** sub-form and multi-level header */
-  children?: ICrudColumns<T | FormColumnChildren<T>>
+  children?: ICrudColumns<T & FormColumnChildren<T>>
   /** whether to display in the add form */
   add?: boolean
   /** whether to display in the edit form */
