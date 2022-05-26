@@ -6,12 +6,12 @@ import type {
   ColumnProp,
 } from '../types/index'
 
-export interface DescriptionsColumn<T = ExternalParam> extends UnknownObject {
+export interface DescriptionsColumn<T = ExternalParam> {
   prop: ColumnProp<T>
   label?: string
   span?: number
-  width?: string | number
-  minWidth?: string | number
+  width?: string
+  minWidth?: string
   align?: 'left' | 'center' | 'right'
   labelAlign?: 'left' | 'center' | 'right'
   className?: string
@@ -20,7 +20,9 @@ export interface DescriptionsColumn<T = ExternalParam> extends UnknownObject {
   renderLabel?: (column: DescriptionsColumn<T>) => string | MaybeArray<VNode>
 }
 
-export type IDescriptionsColumns<T = ExternalParam> = DescriptionsColumn<T>[]
+export type IDescriptionsColumns<T = ExternalParam> = Array<
+  DescriptionsColumn<T> & UnknownObject
+>
 
 /**
  * Type helper to make it easier to define columns

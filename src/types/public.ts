@@ -48,8 +48,9 @@ type ExtractTemplatePath<T, U> = T extends
   : never
 
 type ExtractPath<T extends object> =
-  | ExtractTemplatePath<DeepPath<T>, keyof T>
-  | keyof T
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore FIXME: Maybe this is a `vue-tsc` error, only tip at type check.
+  ExtractTemplatePath<DeepPath<T>, keyof T> | keyof T
 
 type DeepNested<K extends string, V> = V extends object[]
   ? NestedPath<'array', K, ExtractPath<V[number]> | undefined>

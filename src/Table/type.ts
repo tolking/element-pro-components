@@ -19,8 +19,7 @@ export interface TableColumnsProps {
 }
 
 export interface TableCommonColumn<T = ExternalParam>
-  extends UnknownObject,
-    TableColumnsProps {
+  extends TableColumnsProps {
   /** column label */
   label?: string
   /** column width */
@@ -68,11 +67,13 @@ export interface TableColumn<T = ExternalParam> extends TableCommonColumn<T> {
   /** whether to hide in the table */
   hide?: boolean
   /** Use simple slot */
-  render?: (row: T) => string | VNode | VNode[]
+  render?: (row: T) => string | MaybeArray<VNode>
 }
 
 /** Table Columns Options */
-export type ITableColumns<T = ExternalParam> = TableColumn<T>[]
+export type ITableColumns<T = ExternalParam> = Array<
+  TableColumn<T> & UnknownObject
+>
 
 /** Table Expand Options */
 export type ITableExpandColumns<T = ExternalParam> = TableCommonColumn<T>

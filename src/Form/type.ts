@@ -14,8 +14,7 @@ export interface InvalidFields {
 }
 
 export interface FormColumn<T = ExternalParam>
-  extends UnknownObject,
-    Mutable<Partial<Omit<FormItemProps, 'prop'>>>,
+  extends Mutable<Partial<Omit<FormItemProps, 'prop'>>>,
     Partial<Omit<ColProps, 'tag'>> {
   /** component name */
   component?: string | Component
@@ -30,7 +29,9 @@ export interface FormColumn<T = ExternalParam>
 }
 
 /** Form Columns Option */
-export type IFormColumns<T = ExternalParam> = FormColumn<T>[]
+export type IFormColumns<T = ExternalParam> = Array<
+  FormColumn<T> & UnknownObject
+>
 
 /** Form Menu Option */
 export interface FormMenu {

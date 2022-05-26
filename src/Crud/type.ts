@@ -40,7 +40,9 @@ export interface CrudColumn<T = ExternalParam>
 }
 
 /** Crud Columns Options */
-export type ICrudColumns<T = ExternalParam> = CrudColumn<T>[]
+export type ICrudColumns<T = ExternalParam> = Array<
+  CrudColumn<T> & UnknownObject
+>
 
 export interface CrudMenu<T = ExternalParam> {
   /** show add button */
