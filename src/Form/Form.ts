@@ -124,6 +124,9 @@ export default defineComponent({
           labelPosition: labelPosition.value,
           style: !inline.value ? rowStyle.value : undefined,
           class: ['pro-form', !inline.value ? rowClass.value : ''],
+          onSubmit: (e: Event) => {
+            e.preventDefault()
+          },
         }),
         () => [createColumn(), slots.default && slots.default(), createMenu()]
       )
