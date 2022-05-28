@@ -82,15 +82,25 @@ export default defineComponent({
         { class: ['pro-aside', show.value && 'aside-collapse'] },
         [
           h('div', { class: 'mask', onClick: toggleShow }),
-          h('div', { class: 'pro-aside-wrapper' }, [
-            slots.logo &&
-              h(
-                'div',
-                { class: 'pro-aside-logo' },
-                slots.logo({ collapse: collapse.value })
-              ),
-            h(ElScrollbar, null, () => createMenu()),
-          ]),
+          h(
+            'div',
+            {
+              class: [
+                'pro-aside-wrapper',
+                slots.logo && 'with-logo',
+                props.collapseTransition && 'with-transition',
+              ],
+            },
+            [
+              slots.logo &&
+                h(
+                  'div',
+                  { class: 'pro-aside-logo' },
+                  slots.logo({ collapse: collapse.value })
+                ),
+              h(ElScrollbar, null, () => createMenu()),
+            ]
+          ),
         ]
       )
     }

@@ -17,7 +17,7 @@
         <span
           v-else
           class="logo-title"
-        >element-pro-components</span>
+        > element-pro-components </span>
       </transition>
     </template>
     <template #header-left>
@@ -54,7 +54,7 @@ provide('tabs', tabs)
 
 <style scoped>
 .logo-img {
-  padding: 10px;
+  padding: 7px 10px;
   width: calc(var(--pro-layout-width-aside-collapse) - 20px);
 }
 .logo-title {

@@ -9,3 +9,6 @@
   max-height: 400px;
   overflow: auto;
 }
+.docs-menu:not(.el-menu--collapse):not(.el-menu--horizontal) {
+  width: var(--pro-layout-width-aside);
+}
