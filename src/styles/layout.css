@@ -35,10 +35,10 @@ body {
       background-color: var(--pro-layout-aside-background-color);
       &.with-logo {
         width: var(--pro-layout-width-aside);
-        &.with-transition {
-          transition: all var(--el-transition-duration)
-            cubic-bezier(0.55, 0, 0.1, 1);
-        }
+      }
+      &.with-transition {
+        transition: all var(--el-transition-duration)
+          cubic-bezier(0.55, 0, 0.1, 1);
       }
       & .pro-aside-logo {
         padding-left: 20px;
@@ -100,9 +100,9 @@ body {
       }
       & .pro-aside-wrapper {
         transform: translateX(-100%);
-        transition: var(--el-transition-md-fade);
       }
-      &.aside-collapse .pro-aside-wrapper {
+      &.aside-collapse .pro-aside-wrapper,
+      &.aside-collapse .pro-aside-wrapper.with-logo {
         width: var(--pro-layout-width-aside);
         transform: translateX(0);
         & .pro-aside-logo {

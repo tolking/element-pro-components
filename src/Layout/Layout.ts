@@ -88,7 +88,7 @@ export default defineComponent({
               class: [
                 'pro-aside-wrapper',
                 slots.logo && 'with-logo',
-                slots.logo && props.collapseTransition && 'with-transition',
+                props.collapseTransition && 'with-transition',
               ],
             },
             [
