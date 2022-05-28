@@ -1,9 +1,5 @@
 .pro-menu {
-  &.el-menu {
-    border-right: 0;
-  }
   &.el-menu--collapse {
-    width: var(--pro-layout-width-aside-collapse);
     & .pro-link {
       height: auto !important;
       width: auto !important;
