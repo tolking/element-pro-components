@@ -1,6 +1,6 @@
 import { defineComponent, h } from 'vue'
 import { ElAutocomplete } from 'element-plus'
-import { useInputTag } from '../composables/index'
+import { useInputTag } from '../InputTag/useInputTag'
 import { createDefault } from '../InputTag/InputTag'
 import props from './props'
 import emits from '../InputTag/emits'

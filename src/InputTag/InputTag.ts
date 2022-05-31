@@ -1,6 +1,6 @@
 import { defineComponent, h, mergeProps, VNode } from 'vue'
 import { ElInput, ElTag } from 'element-plus'
-import { useInputTag, InputTagCore } from '../composables/index'
+import { useInputTag, InputTagCore } from './useInputTag'
 import props from './props'
 import emits from './emits'
 

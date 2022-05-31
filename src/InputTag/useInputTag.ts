@@ -1,7 +1,6 @@
 import { computed, Ref, ref } from 'vue'
 import { reactiveOmit, reactivePick } from '@vueuse/core'
-import { useAttrs, useDisabled } from 'element-plus'
-import { useFormSize } from './index'
+import { useAttrs, useDisabled, useSize } from 'element-plus'
 import { commonProps } from '../InputTag/props'
 import type { ComponentSize } from 'element-plus'
 import type { IInputTagProps, IInputTagEmits } from '../InputTag/index'
@@ -32,7 +31,7 @@ export function useInputTag(
   emit: IInputTagEmits | IAutocompleteTagEmits
 ): InputTagCore {
   const attrs = useAttrs()
-  const size = useFormSize(props)
+  const size = useSize()
   const tagProps = reactivePick(
     props,
     'type',
