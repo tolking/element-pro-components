@@ -1,6 +1,6 @@
 import { defineComponent, h, mergeProps } from 'vue'
 import { ElTabs, ElTabPane } from 'element-plus'
-import { useTabs } from '../composables/index'
+import { useTabs } from './useTabs'
 import props from './props'
 
 export default defineComponent({
