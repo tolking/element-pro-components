@@ -8,6 +8,7 @@ import {
   toRefs,
   watch,
 } from 'vue'
+import { useDataConfig } from '../composables/index'
 import { isArray } from '../utils/index'
 import type { ITreeSelectProps, ITreeSelectEmits } from '../TreeSelect/index'
 import type TreeStore from 'element-plus/es/components/tree/src/model/tree-store'
@@ -17,23 +18,6 @@ import type { SelectConfig, SelectDataItem } from '../Select/index'
 
 interface ITreeStore extends TreeStore {
   setCurrentKey: (value: string | number | null) => void
-}
-
-export function useSelectConfig(
-  props: Readonly<{ config: SelectConfig }>
-): Ref<Required<SelectConfig>> {
-  return computed(() =>
-    Object.assign(
-      {
-        value: 'value',
-        label: 'label',
-        disabled: 'disabled',
-        name: 'name',
-        children: 'children',
-      } as Required<SelectConfig>,
-      props.config
-    )
-  )
 }
 
 export function useTreeSelect(
@@ -60,14 +44,9 @@ export function useTreeSelect(
   upData: (e: SelectDataItem, node: unknown, self: unknown) => void
   clear: () => void
 } {
-  const {
-    modelValue,
-    multiple,
-    checkStrictly,
-    filterable,
-    onlySelectLeaf,
-  } = toRefs(props)
-  const configKeys = useSelectConfig(props)
+  const { modelValue, multiple, checkStrictly, filterable, onlySelectLeaf } =
+    toRefs(props)
+  const configKeys = useDataConfig()
   const tree = ref<ITreeStore>({} as ITreeStore)
   const label = ref<string | number | undefined>('')
   const list = shallowRef<SelectDataItem[]>([])
