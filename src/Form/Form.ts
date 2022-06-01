@@ -1,12 +1,8 @@
 import { computed, defineComponent, h, mergeProps, toRefs, VNode } from 'vue'
 import { reactivePick } from '@vueuse/core'
 import { ElForm, ElFormItem, ElButton } from 'element-plus'
-import {
-  useFormMethods,
-  useCurrentBreakpoint,
-  useFormMenu,
-  useRow,
-} from '../composables/index'
+import { useCurrentBreakpoint, useRow } from '../composables/index'
+import { useFormMethods, useFormMenu } from './useForm'
 import props, { formKeys } from './props'
 import emits from './emits'
 import ProFormItem from './FormItem'
