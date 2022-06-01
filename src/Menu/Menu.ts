@@ -16,7 +16,7 @@ export default defineComponent({
   props,
   setup(props, { slots }) {
     const route = useRoute()
-    const routes = useCurrentRoutes(props)
+    const routes = useCurrentRoutes()
 
     function createDefault(item: RouteRecordRaw) {
       if (slots.default) {
