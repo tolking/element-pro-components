@@ -1,7 +1,7 @@
 import { defineComponent, h, mergeProps } from 'vue'
 import { reactiveOmit, reactivePick } from '@vueuse/core'
 import { ElSelect, ElOption, ElTree, useAttrs } from 'element-plus'
-import { useTreeSelect } from '../composables/index'
+import { useTreeSelect } from './useTreeSelect'
 import { treeProps } from '../ColumnSetting/props'
 import props from './props'
 import emits from './emits'

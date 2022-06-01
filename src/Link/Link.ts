@@ -5,7 +5,7 @@ import {
   mergeProps,
   resolveDynamicComponent,
 } from 'vue'
-import { useLink } from '../composables/index'
+import { useLink } from './useLink'
 import props from './props'
 
 export default defineComponent({

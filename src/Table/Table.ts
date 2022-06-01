@@ -7,7 +7,7 @@ import {
   useTableDefaultBind,
   useTableMethods,
   usePagination,
-} from '../composables/index'
+} from './useTable'
 import props, { paginationKeys } from './props'
 import emits from './emits'
 import ProTableItem from './TableItem'

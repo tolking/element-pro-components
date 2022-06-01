@@ -1,10 +1,8 @@
 import { computed, ComputedRef } from 'vue'
 import { isURL } from '../utils/index'
-import type { ILinkProps } from '../Link'
+import type { ILinkProps } from './index'
 
-export function useLink(
-  props: ILinkProps
-): {
+export function useLink(props: ILinkProps): {
   type: ComputedRef<'a' | 'router-link' | 'span'>
   attr: ComputedRef<
     | {

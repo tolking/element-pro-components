@@ -1,16 +1,17 @@
 import { computed, ref, useSlots, Ref, Slot } from 'vue'
 import { useLocale } from 'element-plus'
+import { formMenu } from '../Form/useForm'
 import { isFunction, isObject, filterDeep, throwWarn } from '../utils/index'
 import type { UnknownObject, ExternalParam } from '../types/index'
 import type { IFormColumns, IFormMenuColumns, IFormSubmit } from '../Form/index'
 import type { ITableColumns } from '../Table/index'
+import type { IDescriptionsColumns } from '../Descriptions/index'
 import type {
   ICrudProps,
   ICrudEmits,
   ICrudDialogType,
   ICrudMenuColumns,
-} from '../Crud/index'
-import type { IDescriptionsColumns } from '../Descriptions/index'
+} from './index'
 
 type CrudColumns =
   | 'columns'
@@ -27,6 +28,7 @@ export function useCrudMenu(
   return computed(() => {
     const { t } = useLocale()
     const menu: ICrudMenuColumns = {
+      ...formMenu,
       add: true,
       addText: 'Add',
       addProps: { type: 'primary' },
@@ -39,11 +41,6 @@ export function useCrudMenu(
       del: true,
       delText: 'Delete',
       delProps: { link: true, type: 'danger' },
-      submit: true,
-      submitText: 'Submit',
-      submitProps: { type: 'primary' },
-      reset: true,
-      resetText: 'Reset',
       search: true,
       searchText: 'Search',
       searchProps: { type: 'primary' },

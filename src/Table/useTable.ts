@@ -12,7 +12,7 @@ import type {
   ITableColumns,
   TableColumnsProps,
   ITableExpose,
-} from '../Table/index'
+} from './index'
 
 export function useTableColumns(
   props: Readonly<{ columns?: ITableColumns }>
@@ -105,9 +105,7 @@ export function useTableMethods<T = UnknownObject>(): {
   }
 }
 
-export function usePagination(
-  emit: ITableEmits
-): {
+export function usePagination(emit: ITableEmits): {
   sizeChange: (size: number) => void
   currentChange: (current: number) => void
 } {
