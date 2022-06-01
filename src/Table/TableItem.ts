@@ -1,6 +1,6 @@
 import { defineComponent, h, inject, toRefs, PropType, Slot, VNode } from 'vue'
 import { ElTableColumn } from 'element-plus'
-import { useTableBind } from '../composables'
+import { useTableBind } from './useTable'
 import { get, isFunction } from '../utils/index'
 import ProTableItem from './TableItem'
 import type { ComponentSize } from 'element-plus'
