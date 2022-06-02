@@ -36,6 +36,10 @@ export function initRouter(list = routes) {
   }
 }
 
+export function NOOP() {
+  return null
+}
+
 export interface DicItem {
   value: string
   label: string
