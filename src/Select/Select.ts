@@ -3,12 +3,12 @@ import { reactiveOmit } from '@vueuse/core'
 import { ElSelect, ElOptionGroup, ElOption } from 'element-plus'
 import { useDataConfig, useEmitValue } from '../composables/index'
 import { modelValueEmit } from '../utils/index'
-import props from './props'
+import { selectProps } from './props'
 import type { SelectDataItem } from './index'
 
 export default defineComponent({
   name: 'ProSelect',
-  props,
+  props: selectProps,
   emits: modelValueEmit,
   setup(props, { slots }) {
     const configKeys = useDataConfig()
