@@ -1,7 +1,7 @@
 import { radioGroupProps } from 'element-plus'
-import { commonProps } from '../Select/props'
+import { selectDataProps } from '../Select/props'
 
-export default {
+export const radioProps = {
   ...radioGroupProps,
-  ...commonProps,
+  ...selectDataProps,
 }
