@@ -18,7 +18,7 @@ export const treeProps = {
   iconClass: String,
 }
 
-export default {
+export const columnSettingProps = {
   ...treeProps,
   modelValue: {
     type: Array as PropType<ICrudColumns | ITableColumns>,
@@ -35,11 +35,7 @@ export default {
     >,
     default: 'bottom',
   },
-  size: {
-    type: String as PropType<ComponentSize>,
-  },
+  size: String as PropType<ComponentSize>,
   highlightCurrent: Boolean,
-  filterNodeMethod: {
-    type: Function as ExternalParam,
-  },
+  filterNodeMethod: Function as ExternalParam,
 }
