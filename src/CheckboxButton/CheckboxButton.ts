@@ -2,11 +2,11 @@ import { defineComponent } from 'vue'
 import { ElCheckboxButton } from 'element-plus'
 import { modelValueEmit } from '../utils/index'
 import { createDefault } from '../Checkbox/Checkbox'
-import props from '../Checkbox/props'
+import { checkboxProps } from '../Checkbox/props'
 
 export default defineComponent({
   name: 'ProCheckboxButton',
-  props,
+  props: checkboxProps,
   emits: modelValueEmit,
   setup(props) {
     return createDefault<typeof ElCheckboxButton>(
