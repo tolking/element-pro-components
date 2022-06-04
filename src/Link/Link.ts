@@ -1,23 +1,39 @@
 import {
+  computed,
   DefineComponent,
   defineComponent,
   h,
   mergeProps,
   resolveDynamicComponent,
 } from 'vue'
-import { useLink } from './useLink'
-import props from './props'
+import { isURL } from '../utils/index'
+import { linkProps } from './props'
+import type { UnknownObject } from '../types/index'
 
 export default defineComponent({
   name: 'ProLink',
-  props,
+  props: linkProps,
   setup(props, { slots }) {
-    const { type, attr } = useLink(props)
+    const type = computed(() => {
+      return props.to ? (isURL(props.to) ? 'a' : 'router-link') : 'span'
+    })
+
+    const attr = computed<UnknownObject>(() => {
+      return props.to
+        ? isURL(props.to)
+          ? {
+              href: props.to,
+              target: '_blank',
+              rel: 'noopener noreferrer',
+            }
+          : { to: props.to }
+        : {}
+    })
 
     return () =>
       h(
         resolveDynamicComponent(type.value) as DefineComponent,
-        mergeProps(attr.value || {}, { class: 'pro-link' }),
+        mergeProps(attr.value, { class: 'pro-link' }),
         slots
       )
   },

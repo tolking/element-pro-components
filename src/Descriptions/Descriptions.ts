@@ -2,11 +2,11 @@ import { defineComponent, h, mergeProps, Slot } from 'vue'
 import { reactiveOmit } from '@vueuse/core'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
 import { get, isFunction } from '../utils/index'
-import props from './props'
+import { descriptionsProps } from './props'
 
 export default defineComponent({
   name: 'ProDescriptions',
-  props,
+  props: descriptionsProps,
   setup(props, { slots }) {
     const config = reactiveOmit(
       props,

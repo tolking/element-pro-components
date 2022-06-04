@@ -8,7 +8,7 @@ import {
   useTableMethods,
   usePagination,
 } from './useTable'
-import props, { paginationKeys } from './props'
+import { tableProps, paginationKeys } from './props'
 import emits from './emits'
 import ProTableItem from './TableItem'
 import type { StringObject } from '../types/index'
@@ -21,7 +21,7 @@ import type {
 
 export default defineComponent({
   name: 'ProTable',
-  props,
+  props: tableProps,
   emits,
   setup(props, { slots, emit, expose }) {
     const { selection, expand, index, menu } = toRefs(props)

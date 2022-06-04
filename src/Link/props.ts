@@ -1,6 +1,3 @@
-export default {
-  to: {
-    type: String,
-    default: undefined,
-  },
+export const linkProps = {
+  to: String,
 }

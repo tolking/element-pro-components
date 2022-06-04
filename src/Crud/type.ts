@@ -1,5 +1,9 @@
+import { crudProps } from './props'
+import emits from './emits'
 import type { ButtonProps } from 'element-plus'
 import type {
+  IDefineProps,
+  IDefineEmits,
   UnknownObject,
   ExternalParam,
   FormColumnChildren,
@@ -104,6 +108,8 @@ export type ICrudSubmit = (
   invalidFields?: InvalidFields
 ) => void
 
+export type ICrudProps = IDefineProps<typeof crudProps>
+export type ICrudEmits = IDefineEmits<typeof emits>
 export type ICrudExpose<T = UnknownObject> = IFormExpose & ITableExpose<T>
 
 /**

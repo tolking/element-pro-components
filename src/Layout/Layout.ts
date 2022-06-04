@@ -13,7 +13,7 @@ import { RouterView, RouteLocationNormalizedLoaded } from 'vue-router'
 import { reactivePick } from '@vueuse/core'
 import { ElScrollbar, useAttrs } from 'element-plus'
 import { useCurrentBreakpoint, useShow } from '../composables/index'
-import props, { menuKeys } from './props'
+import { layoutProps, menuKeys } from './props'
 import { ProMenu } from '../Menu/index'
 
 interface RouterViewSlot {
@@ -23,7 +23,7 @@ interface RouterViewSlot {
 
 export default defineComponent({
   name: 'ProLayout',
-  props,
+  props: layoutProps,
   setup(props, { slots }) {
     const { mode, fixedHeader } = toRefs(props)
     const menuConfig = reactivePick(props, ...menuKeys)

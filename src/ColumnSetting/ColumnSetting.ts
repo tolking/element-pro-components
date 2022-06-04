@@ -3,7 +3,7 @@ import { reactiveOmit } from '@vueuse/core'
 import { ElDropdown, ElDropdownMenu, ElButton, ElTree } from 'element-plus'
 import { Setting } from '@element-plus/icons-vue'
 import { filterFlat, modelValueEmit } from '../utils/index'
-import props from './props'
+import { columnSettingProps } from './props'
 import type { ICrudColumns, CrudColumn } from '../Crud/index'
 import type { ITableColumns, TableColumn } from '../Table/index'
 
@@ -12,7 +12,7 @@ type Column = CrudColumn | TableColumn
 
 export default defineComponent({
   name: 'ProColumnSetting',
-  props,
+  props: columnSettingProps,
   emits: modelValueEmit,
   setup(props, { emit }) {
     const { modelValue } = toRefs(props)

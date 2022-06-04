@@ -12,21 +12,17 @@ const _inputProps = objectOmit(
   'showPassword'
 )
 
-export const commonProps = {
+export const inputTagCommonProps = {
   ..._tagProps,
-  modelValue: {
-    type: Array as PropType<string[]>,
-  },
-  max: {
-    type: Number,
-  },
+  modelValue: Array as PropType<string[]>,
+  max: Number,
   trigger: {
     type: String as PropType<'space' | 'enter'>,
     default: 'enter',
   },
 }
 
-export default {
-  ...commonProps,
+export const inputTagProps = {
+  ...inputTagCommonProps,
   ..._inputProps,
 }

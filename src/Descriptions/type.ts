@@ -1,5 +1,7 @@
+import { descriptionsProps } from './props'
 import type { VNode } from 'vue'
 import type {
+  IDefineProps,
   ExternalParam,
   UnknownObject,
   MaybeArray,
@@ -23,6 +25,8 @@ export interface DescriptionsColumn<T = ExternalParam> {
 export type IDescriptionsColumns<T = ExternalParam> = Array<
   DescriptionsColumn<T> & UnknownObject
 >
+
+export type IDescriptionsProps = IDefineProps<typeof descriptionsProps>
 
 /**
  * Type helper to make it easier to define columns

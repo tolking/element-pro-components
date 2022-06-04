@@ -3,7 +3,7 @@ import { reactiveOmit } from '@vueuse/core'
 import { ElRadioGroup, ElRadio } from 'element-plus'
 import { useDataConfig, useEmitValue } from '../composables/index'
 import { modelValueEmit } from '../utils/index'
-import props from './props'
+import { radioProps } from './props'
 import type { IRadioProps } from './index'
 
 export function createDefault<T>(
@@ -39,7 +39,7 @@ export function createDefault<T>(
 
 export default defineComponent({
   name: 'ProRadio',
-  props,
+  props: radioProps,
   emits: modelValueEmit,
   setup(props) {
     return createDefault<typeof ElRadio>(props, ElRadio, 'pro-radio')
