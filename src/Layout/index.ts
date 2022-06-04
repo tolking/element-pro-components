@@ -1,7 +1,8 @@
 import { withInstall } from '../utils/index'
 import Layout from './Layout'
-import props from './props'
+import { layoutProps } from './props'
 import type { IDefineProps } from '../types/index'
 
+export { layoutProps } from './props'
 export const ProLayout = withInstall(Layout)
-export type ILayoutProps = IDefineProps<typeof props>
+export type ILayoutProps = IDefineProps<typeof layoutProps>
