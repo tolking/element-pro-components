@@ -1,9 +1,9 @@
-import { defineComponent, h, inject, toRefs, PropType, Slot, VNode } from 'vue'
+import { defineComponent, h, inject, Slot, VNode } from 'vue'
 import { ElTableColumn } from 'element-plus'
 import { useTableBind } from './useTable'
 import { get, isFunction } from '../utils/index'
+import { tableItemProps } from './props'
 import ProTableItem from './TableItem'
-import type { ComponentSize } from 'element-plus'
 import type { TableColumn, ITableColumns, TableColumnsProps } from './type'
 
 interface ColumnScope {
@@ -12,52 +12,42 @@ interface ColumnScope {
 
 export default defineComponent({
   name: 'ProTableItem',
-  props: {
-    item: {
-      type: Object as PropType<TableColumn>,
-      required: true,
-    },
-    size: {
-      type: String as PropType<ComponentSize>,
-      default: undefined,
-    },
-  },
+  props: tableItemProps,
   setup(props, { slots }) {
-    const { item } = toRefs(props)
     const defaultBind = inject<TableColumnsProps>('defaultBind')
-    const bindColumn = useTableBind<TableColumn>(item, defaultBind)
+    const bindColumn = useTableBind<TableColumn>(props.item, defaultBind)
 
     function createHeader(scope: ColumnScope) {
-      if (slots[item.value.prop + '-header']) {
-        return (slots[item.value.prop + '-header'] as Slot)({
+      if (slots[props.item.prop + '-header']) {
+        return (slots[props.item.prop + '-header'] as Slot)({
           ...scope,
           size: props.size,
         })
       } else {
-        return item.value.label
+        return props.item.label
       }
     }
 
     function createDefault(scope: ColumnScope) {
       const list: Array<VNode | VNode[] | string> = []
 
-      if (item.value.children && item.value.children.length) {
-        const child = (item.value.children as ITableColumns).map((item) => {
+      if (props.item.children && props.item.children.length) {
+        const child = (props.item.children as ITableColumns).map((item) => {
           return h(ProTableItem, { item, size: props.size }, slots)
         })
         list.push(child)
-      } else if (slots[item.value.prop]) {
+      } else if (slots[props.item.prop]) {
         list.push(
-          (slots[item.value.prop] as Slot)({ ...scope, size: props.size })
+          (slots[props.item.prop] as Slot)({ ...scope, size: props.size })
         )
-      } else if (item.value.render) {
+      } else if (props.item.render) {
         list.push(
-          isFunction(item.value.render)
-            ? item.value.render(scope.row)
-            : String(item.value.render)
+          isFunction(props.item.render)
+            ? props.item.render(scope.row)
+            : String(props.item.render)
         )
       } else {
-        list.push(get(scope.row, item.value.prop, '') as string)
+        list.push(get(scope.row, props.item.prop, '') as string)
       }
 
       return list

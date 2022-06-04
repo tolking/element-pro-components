@@ -1,6 +1,10 @@
+import { tableProps } from './props'
+import emits from './emits'
 import type { VNode } from 'vue'
 import type { Placement } from 'element-plus'
 import type {
+  IDefineProps,
+  IDefineEmits,
   UnknownFunction,
   UnknownObject,
   MaybeArray,
@@ -117,6 +121,9 @@ export interface ITableExpose<T = ExternalParam> {
   /** sort Table manually. Property prop is used to set sort column, property order is used to set sort order */
   sort: (prop: string, order: string) => void
 }
+
+export type ITableProps = IDefineProps<typeof tableProps>
+export type ITableEmits = IDefineEmits<typeof emits>
 
 /**
  * Type helper to make it easier to define columns
