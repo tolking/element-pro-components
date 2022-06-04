@@ -1,12 +1,10 @@
-import { tabsProps } from 'element-plus'
+import { tabsProps as elTabsProps } from 'element-plus'
 import { objectPick } from '../utils/index'
 
-const props = objectPick(
-  tabsProps,
+export const tabsProps = objectPick(
+  elTabsProps,
   'type',
   'tabPosition',
   'beforeLeave',
   'stretch'
 )
-
-export default props
