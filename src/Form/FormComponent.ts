@@ -1,14 +1,13 @@
 import {
-  Component,
   computed,
   DefineComponent,
   defineComponent,
   h,
-  PropType,
   resolveDynamicComponent,
   Slot,
 } from 'vue'
 import { isFunction, isObject } from '../utils/index'
+import { formComponentProps } from './props'
 import type { StringObject } from '../types/index'
 
 interface TargetEvent {
@@ -20,20 +19,7 @@ interface TargetEvent {
 
 export default defineComponent({
   name: 'ProFormComponent',
-  props: {
-    modelValue: {
-      type: null,
-      default: undefined,
-    },
-    is: {
-      type: [String, Object] as PropType<string | Component>,
-      default: 'span',
-    },
-    slots: {
-      type: [Function, Object, String],
-      default: '',
-    },
-  },
+  props: formComponentProps,
   emits: ['update:modelValue'],
   setup(props, { attrs, emit }) {
     const type = computed(() => {
