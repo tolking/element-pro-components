@@ -13,7 +13,8 @@ import {
 import { useTableMethods, usePagination } from '../Table/useTable'
 import { useFormMethods } from '../Form/useForm'
 import { isFunction } from '../utils/index'
-import props, {
+import {
+  crudProps,
   formKeys,
   tableKeys,
   dialogKeys,
@@ -34,7 +35,7 @@ interface TableMenuScope {
 
 export default defineComponent({
   name: 'ProCrud',
-  props,
+  props: crudProps,
   emits,
   setup(props, { slots, emit, expose }) {
     const formProps = reactivePick(props, ...formKeys) as unknown as IFormProps
