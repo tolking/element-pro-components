@@ -2,28 +2,15 @@ import type { PropType } from 'vue'
 import type { ComponentSize } from 'element-plus'
 import type { IDescriptionsColumns } from './type'
 
-export default {
-  columns: {
-    type: Array as PropType<IDescriptionsColumns>,
-    default: undefined,
-  },
-  detail: {
-    type: Object,
-  },
+export const descriptionsProps = {
+  columns: Array as PropType<IDescriptionsColumns>,
+  detail: Object,
   border: Boolean,
   column: Number,
-  direction: {
-    type: String as PropType<'vertical' | 'horizontal'>,
-  },
-  size: {
-    type: String as PropType<ComponentSize>,
-  },
+  direction: String as PropType<'vertical' | 'horizontal'>,
+  size: String as PropType<ComponentSize>,
   title: String,
   extra: String,
-  align: {
-    type: String as PropType<'left' | 'center' | 'right'>,
-  },
-  labelAlign: {
-    type: String as PropType<'left' | 'center' | 'right'>,
-  },
+  align: String as PropType<'left' | 'center' | 'right'>,
+  labelAlign: String as PropType<'left' | 'center' | 'right'>,
 }
