@@ -1,13 +1,11 @@
-import { menuProps } from 'element-plus'
+import { menuProps as elMenuProps } from 'element-plus'
 import { objectOmit } from '../utils/index'
 import type { PropType } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 
-const props = objectOmit(menuProps, ['defaultActive', 'router'])
+const props = objectOmit(elMenuProps, ['defaultActive', 'router'])
 
-export default {
+export const menuProps = {
   ...props,
-  routes: {
-    type: Array as PropType<RouteRecordRaw[]>,
-  },
+  routes: Array as PropType<RouteRecordRaw[]>,
 }
