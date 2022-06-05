@@ -1,5 +1,4 @@
-import { tableProps } from './props'
-import emits from './emits'
+import { tableProps, tableEmits } from './props'
 import type { VNode } from 'vue'
 import type { Placement } from 'element-plus'
 import type {
@@ -123,7 +122,7 @@ export interface ITableExpose<T = ExternalParam> {
 }
 
 export type ITableProps = IDefineProps<typeof tableProps>
-export type ITableEmits = IDefineEmits<typeof emits>
+export type ITableEmits = IDefineEmits<typeof tableEmits>
 
 /**
  * Type helper to make it easier to define columns
