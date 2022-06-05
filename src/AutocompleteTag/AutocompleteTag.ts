@@ -1,14 +1,13 @@
 import { defineComponent, h } from 'vue'
 import { ElAutocomplete } from 'element-plus'
-import { useInputTag } from '../InputTag/useInputTag'
+import { useInputTag, inputTagEmits } from '../InputTag/index'
 import { createDefault } from '../InputTag/InputTag'
 import { autocompleteTagProps } from './props'
-import emits from '../InputTag/emits'
 
 export default defineComponent({
   name: 'ProAutocompleteTag',
   props: autocompleteTagProps,
-  emits,
+  emits: inputTagEmits,
   setup(props, { emit }) {
     const core = useInputTag(props, emit)
 
