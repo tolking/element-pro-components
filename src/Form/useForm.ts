@@ -5,6 +5,7 @@ import { isObject, objectOmit, isBoolean } from '../utils/index'
 import type { UnknownObject, MaybeArray, MaybeRef } from '../types/index'
 import type {
   IFormEmits,
+  IFormItemEmits,
   FormColumn,
   IFormExpose,
   IFormValidateCallback,
@@ -92,7 +93,7 @@ export function useFormMenu(
 export function useFormMethods(emit: IFormEmits): {
   form: Ref<IFormExpose>
   loading: Ref<boolean>
-  upFormData: (value: unknown) => void
+  upFormData: (value: UnknownObject) => void
   submitForm: () => void
   resetForm: (reset?: boolean) => void
 } & IFormExpose {
@@ -122,7 +123,7 @@ export function useFormMethods(emit: IFormEmits): {
     form.value.validateField(props, cb)
   }
 
-  function upFormData(value: unknown) {
+  function upFormData(value: UnknownObject) {
     emit('update:modelValue', value)
   }
 
@@ -171,7 +172,7 @@ export function useFormChild(
     item: FormColumn
     modelValue: UnknownObject
   }>,
-  emit: (event: 'update:modelValue', ...args: unknown[]) => void
+  emit: IFormItemEmits
 ): {
   hasChild: ComputedRef<boolean>
   showAddBtn: ComputedRef<boolean>

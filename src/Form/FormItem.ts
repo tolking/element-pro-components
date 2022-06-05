@@ -14,14 +14,14 @@ import { useFormItemBind, useFormChild } from './useForm'
 import { get, set, has, isArray } from '../utils/index'
 import ProFormItem from './FormItem'
 import ProFormComponent from './FormComponent'
-import { formItemProps } from './props'
+import { formItemProps, formItemEmits } from './props'
 import type { UnknownObject } from '../types/index'
 import type { IFormColumns } from './type'
 
 export default defineComponent({
   name: 'ProFormItem',
   props: formItemProps,
-  emits: ['update:modelValue'],
+  emits: formItemEmits,
   setup(props, { slots, emit }) {
     const { item, prop, modelValue, inline } = toRefs(props)
     const bindItem = useFormItemBind(item)
