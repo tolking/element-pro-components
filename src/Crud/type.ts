@@ -1,5 +1,4 @@
-import { crudProps } from './props'
-import emits from './emits'
+import { crudProps, crudEmits } from './props'
 import type { ButtonProps } from 'element-plus'
 import type {
   IDefineProps,
@@ -109,7 +108,7 @@ export type ICrudSubmit = (
 ) => void
 
 export type ICrudProps = IDefineProps<typeof crudProps>
-export type ICrudEmits = IDefineEmits<typeof emits>
+export type ICrudEmits = IDefineEmits<typeof crudEmits>
 export type ICrudExpose<T = UnknownObject> = IFormExpose & ITableExpose<T>
 
 /**
