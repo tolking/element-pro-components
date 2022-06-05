@@ -1,5 +1,4 @@
-import { modelValueEmit } from '../utils/index'
-import { selectProps } from './props'
+import { selectProps, selectEmits } from './props'
 import type { ExternalParam, IDefineProps, IDefineEmits } from '../types/index'
 
 export interface SelectConfig {
@@ -13,4 +12,4 @@ export interface SelectConfig {
 export type SelectDataItem = Record<string, ExternalParam>
 
 export type ISelectProps = IDefineProps<typeof selectProps>
-export type ISelectEmits = IDefineEmits<typeof modelValueEmit>
+export type ISelectEmits = IDefineEmits<typeof selectEmits>
