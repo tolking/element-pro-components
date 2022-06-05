@@ -11,6 +11,5 @@ export {
   isNumber,
 } from '@vueuse/core'
 export * from './filter'
-export * from './emits'
 export * from './util'
 export { get, set, has, objectPick, objectOmit }
