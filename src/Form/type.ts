@@ -1,5 +1,4 @@
-import { formProps } from './props'
-import emits from './emits'
+import { formProps, formEmits, formItemEmits } from './props'
 import type { Component } from 'vue'
 import type { ButtonProps, ColProps, FormItemProps } from 'element-plus'
 import type {
@@ -88,7 +87,8 @@ export interface IFormExpose {
 }
 
 export type IFormProps = IDefineProps<typeof formProps>
-export type IFormEmits = IDefineEmits<typeof emits>
+export type IFormEmits = IDefineEmits<typeof formEmits>
+export type IFormItemEmits = IDefineEmits<typeof formItemEmits>
 
 /**
  * Type helper to make it easier to define columns

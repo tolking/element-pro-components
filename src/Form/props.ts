@@ -1,7 +1,19 @@
 import { formProps as elFormProps, rowProps } from 'element-plus'
-import { objectOmit } from '../utils/index'
+import {
+  objectOmit,
+  isObject,
+  isFunction,
+  isBoolean,
+  isUndefined,
+} from '../utils/index'
 import type { Component, PropType } from 'vue'
-import type { IFormColumns, IFormMenuColumns, FormColumn } from './type'
+import type { UnknownObject } from '../types/index'
+import type {
+  IFormColumns,
+  IFormMenuColumns,
+  FormColumn,
+  InvalidFields,
+} from './type'
 
 type FormKeys = Array<keyof typeof _formProps>
 
@@ -44,4 +56,17 @@ export const formComponentProps = {
     default: 'span',
   },
   slots: [Function, Object, String],
+}
+
+export const formItemEmits = {
+  'update:modelValue': (value: UnknownObject) => isObject(value),
+}
+
+export const formEmits = {
+  ...formItemEmits,
+  submit: (done: () => void, isValid: boolean, invalidFields?: InvalidFields) =>
+    isFunction(done) &&
+    isBoolean(isValid) &&
+    (isObject(invalidFields) || isUndefined(invalidFields)),
+  reset: () => true,
 }

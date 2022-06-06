@@ -1,3 +1,10 @@
+import {
+  isArray,
+  isBoolean,
+  isString,
+  isNumber,
+  isObject,
+} from '../utils/index'
 import type { Component, PropType } from 'vue'
 import type { ComponentSize } from 'element-plus'
 import type { SelectConfig, SelectDataItem } from './type'
@@ -67,4 +74,15 @@ export const selectProps = {
   modelValue: [Array, String, Number, Boolean, Object],
   filterMethod: Function,
   popperClass: String,
+}
+
+export const selectEmits = {
+  'update:modelValue': (
+    value?: Array<unknown> | string | number | boolean | object
+  ) =>
+    isArray(value) ||
+    isString(value) ||
+    isNumber(value) ||
+    isBoolean(value) ||
+    isObject(value),
 }

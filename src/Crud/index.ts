@@ -3,5 +3,5 @@ import Crud from './Crud'
 
 export * from './useCrud'
 export * from './type'
-export { crudProps } from './props'
+export { crudProps, crudEmits } from './props'
 export const ProCrud = withInstall(Crud)

@@ -1,4 +1,5 @@
 import { paginationProps } from 'element-plus'
+import { isNumber } from '../utils/index'
 import type { PropType, CSSProperties } from 'vue'
 import type { ComponentSize } from 'element-plus'
 import type {
@@ -130,4 +131,10 @@ export const tableItemProps = {
     default: () => ({}),
   },
   size: String as PropType<ComponentSize>,
+}
+
+export const tableEmits = {
+  'update:currentPage': (current: number) => isNumber(current),
+  'update:pageSize': (size: number) => isNumber(size),
+  load: () => true,
 }

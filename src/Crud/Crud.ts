@@ -15,12 +15,12 @@ import { useFormMethods } from '../Form/useForm'
 import { isFunction } from '../utils/index'
 import {
   crudProps,
+  crudEmits,
   formKeys,
   tableKeys,
   dialogKeys,
   descriptionsKeys,
 } from './props'
-import emits from './emits'
 import { ProForm } from '../Form/index'
 import { ProTable } from '../Table/index'
 import { ProDescriptions } from '../Descriptions/index'
@@ -36,7 +36,7 @@ interface TableMenuScope {
 export default defineComponent({
   name: 'ProCrud',
   props: crudProps,
-  emits,
+  emits: crudEmits,
   setup(props, { slots, emit, expose }) {
     const formProps = reactivePick(props, ...formKeys) as unknown as IFormProps
     const tableProps = reactivePick(props, ...tableKeys)

@@ -60,6 +60,14 @@ export function isArray(value: unknown): value is ExternalParam[] {
 }
 
 /**
+ * whether is undefined
+ * @param value value
+ */
+export function isUndefined(value: unknown): value is undefined {
+  return value === undefined
+}
+
+/**
  * Find the first matching Node by name from a VNode list
  * @param list VNode list
  * @param name matching name
