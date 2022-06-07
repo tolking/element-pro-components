@@ -1,29 +1,72 @@
-import { formProps, rowProps } from 'element-plus'
-import { objectOmit } from '../utils/index'
-import type { PropType } from 'vue'
-import type { IFormColumns, IFormMenuColumns } from './type'
+import { formProps as elFormProps, rowProps } from 'element-plus'
+import {
+  objectOmit,
+  isObject,
+  isFunction,
+  isBoolean,
+  isUndefined,
+} from '../utils/index'
+import type { Component, PropType } from 'vue'
+import type { UnknownObject } from '../types/index'
+import type {
+  IFormColumns,
+  IFormMenuColumns,
+  FormColumn,
+  InvalidFields,
+} from './type'
 
 type FormKeys = Array<keyof typeof _formProps>
 
-const _formProps = objectOmit(formProps, 'model')
+const _formProps = objectOmit(elFormProps, 'model')
 const _rowProps = objectOmit(rowProps, 'tag')
 
 export const formKeys = Object.keys(_formProps) as FormKeys
 
-export default {
+export const formProps = {
   ..._formProps,
   ..._rowProps,
   modelValue: {
     type: Object,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     default: () => ({}),
   },
-  columns: {
-    type: Array as PropType<IFormColumns>,
-    default: undefined,
+  columns: Array as PropType<IFormColumns>,
+  menu: Object as PropType<IFormMenuColumns>,
+}
+
+export const formItemProps = {
+  modelValue: {
+    type: Object,
+    default: () => ({}),
   },
-  menu: {
-    type: Object as PropType<IFormMenuColumns>,
-    default: undefined,
+  item: {
+    type: Object as PropType<FormColumn>,
+    default: () => ({}),
   },
+  prop: {
+    type: String,
+    default: '',
+  },
+  inline: Boolean,
+}
+
+export const formComponentProps = {
+  modelValue: null,
+  is: {
+    type: [String, Object] as PropType<string | Component>,
+    default: 'span',
+  },
+  slots: [Function, Object, String],
+}
+
+export const formItemEmits = {
+  'update:modelValue': (value: UnknownObject) => isObject(value),
+}
+
+export const formEmits = {
+  ...formItemEmits,
+  submit: (done: () => void, isValid: boolean, invalidFields?: InvalidFields) =>
+    isFunction(done) &&
+    isBoolean(isValid) &&
+    (isObject(invalidFields) || isUndefined(invalidFields)),
+  reset: () => true,
 }

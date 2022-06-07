@@ -1,29 +1,17 @@
 import { autocompleteProps } from 'element-plus'
 import { objectOmit } from '../utils/index'
-import { commonProps } from '../InputTag/props'
+import { inputTagCommonProps } from '../InputTag/props'
 
 const props = objectOmit(autocompleteProps, 'modelValue')
 
-export default {
-  ...commonProps,
+export const autocompleteTagProps = {
+  ...inputTagCommonProps,
   ...props,
-  // TODO: miss some in autocompleteProps
-  placeholder: {
-    type: String,
-  },
-  disabled: {
-    type: Boolean,
-    default: undefined,
-  },
+  placeholder: String,
+  disabled: Boolean,
   readonly: Boolean,
   name: String,
-  label: {
-    type: String,
-  },
-  suffixIcon: {
-    type: String,
-  },
-  prefixIcon: {
-    type: String,
-  },
+  label: String,
+  suffixIcon: String,
+  prefixIcon: String,
 }

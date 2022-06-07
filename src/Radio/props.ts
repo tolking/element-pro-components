@@ -1,7 +1,13 @@
 import { radioGroupProps } from 'element-plus'
-import { commonProps } from '../Select/props'
+import { isBoolean, isString, isNumber } from '../utils/index'
+import { selectDataProps } from '../Select/props'
 
-export default {
+export const radioProps = {
   ...radioGroupProps,
-  ...commonProps,
+  ...selectDataProps,
+}
+
+export const radioEmits = {
+  'update:modelValue': (value?: string | number | boolean) =>
+    isString(value) || isNumber(value) || isBoolean(value),
 }

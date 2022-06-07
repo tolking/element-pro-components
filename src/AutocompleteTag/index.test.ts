@@ -1,9 +1,8 @@
 import { describe, test, expect, afterEach } from 'vitest'
 import { ComponentPublicInstance, ref } from 'vue'
-import { NOOP } from '@vue/shared'
 import { mount, VueWrapper } from '@vue/test-utils'
 import ProAutocompleteTag from './AutocompleteTag'
-import { dicList } from '../__mocks__/index'
+import { dicList, NOOP } from '../__mocks__/index'
 
 const _mount = (options: Record<string, unknown>) =>
   mount({

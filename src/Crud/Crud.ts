@@ -1,26 +1,26 @@
 import { computed, defineComponent, h, VNode, Slot, mergeProps } from 'vue'
 import { reactivePick } from '@vueuse/core'
 import { ElDialog, ElButton, useAttrs, DialogProps } from 'element-plus'
+import { useBreakpointWidth } from '../composables/index'
 import {
   useCrudColumns,
   useCrudMenu,
   useCrudForm,
   useCrudSearchMenu,
   useCrudSearchForm,
-  useTableMethods,
-  useFormMethods,
-  usePagination,
-  useBreakpointWidth,
   useCrudSlots,
-} from '../composables/index'
+} from './useCrud'
+import { useTableMethods, usePagination } from '../Table/useTable'
+import { useFormMethods } from '../Form/useForm'
 import { isFunction } from '../utils/index'
-import props, {
+import {
+  crudProps,
+  crudEmits,
   formKeys,
   tableKeys,
   dialogKeys,
   descriptionsKeys,
 } from './props'
-import emits from './emits'
 import { ProForm } from '../Form/index'
 import { ProTable } from '../Table/index'
 import { ProDescriptions } from '../Descriptions/index'
@@ -35,13 +35,10 @@ interface TableMenuScope {
 
 export default defineComponent({
   name: 'ProCrud',
-  props,
-  emits,
+  props: crudProps,
+  emits: crudEmits,
   setup(props, { slots, emit, expose }) {
-    const formProps = (reactivePick(
-      props,
-      ...formKeys
-    ) as unknown) as IFormProps
+    const formProps = reactivePick(props, ...formKeys) as unknown as IFormProps
     const tableProps = reactivePick(props, ...tableKeys)
     const descriptionsProps = reactivePick(props, ...descriptionsKeys)
     const dialogProps = reactivePick(props, ...dialogKeys)
@@ -70,14 +67,9 @@ export default defineComponent({
       validateField,
       upFormData,
       resetForm,
-    } = useFormMethods((emit as unknown) as IFormEmits)
-    const {
-      showDialog,
-      type,
-      formColumns,
-      openDialog,
-      submitForm,
-    } = useCrudForm(props, emit, resetForm)
+    } = useFormMethods(emit as unknown as IFormEmits)
+    const { showDialog, type, formColumns, openDialog, submitForm } =
+      useCrudForm(props, emit, resetForm)
     const searchMenu = useCrudSearchMenu(menuColumns)
     const { searchForm, searchReset, upSearchData } = useCrudSearchForm(emit)
     const { searchSlots, tableSlots, formSlots, detailSlots } = useCrudSlots()

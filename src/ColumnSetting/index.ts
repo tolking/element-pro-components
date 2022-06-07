@@ -1,8 +1,9 @@
-import { withInstall, modelValueEmit } from '../utils/index'
+import { withInstall } from '../utils/index'
 import ColumnSetting from './ColumnSetting'
-import props from './props'
+import { columnSettingProps, columnSettingEmits } from './props'
 import type { IDefineProps, IDefineEmits } from '../types/index'
 
+export { columnSettingProps, columnSettingEmits } from './props'
 export const ProColumnSetting = withInstall(ColumnSetting)
-export type IColumnSettingProps = IDefineProps<typeof props>
-export type IColumnSettingEmits = IDefineEmits<typeof modelValueEmit>
+export type IColumnSettingProps = IDefineProps<typeof columnSettingProps>
+export type IColumnSettingEmits = IDefineEmits<typeof columnSettingEmits>

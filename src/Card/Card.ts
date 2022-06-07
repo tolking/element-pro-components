@@ -1,11 +1,11 @@
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import { useCol, useRow } from '../composables/index'
 import { findNodeByName } from '../utils/index'
-import props from './props'
+import { cardProps } from './props'
 
 export default defineComponent({
   name: 'ProCard',
-  props,
+  props: cardProps,
   setup(props, { slots }) {
     const { rowStyle, rowClass } = useRow(props)
     const { colStyle, colClass, gutter } = useCol(props)

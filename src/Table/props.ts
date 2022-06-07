@@ -1,4 +1,5 @@
 import { paginationProps } from 'element-plus'
+import { isNumber } from '../utils/index'
 import type { PropType, CSSProperties } from 'vue'
 import type { ComponentSize } from 'element-plus'
 import type {
@@ -11,13 +12,14 @@ import type {
   ITableIndexColumns,
   ITableMenuColumns,
   ITableColumns,
+  TableColumn,
 } from './type'
 
 type PaginationKeys = Array<keyof typeof paginationProps>
 
 export const paginationKeys = Object.keys(paginationProps) as PaginationKeys
 
-export default {
+export const tableProps = {
   ...paginationProps,
   selection: {
     type: [Boolean, Object] as PropType<boolean | ITableSelectionColumns>,
@@ -41,7 +43,6 @@ export default {
   },
   data: {
     type: Array as PropType<DefaultRow[]>,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     default: () => [],
   },
   height: [String, Number],
@@ -100,7 +101,6 @@ export default {
   },
   treeProps: {
     type: Object as PropType<TableProps<DefaultRow>['treeProps']>,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     default: () => {
       return {
         hasChildren: 'hasChildren',
@@ -112,27 +112,29 @@ export default {
   load: Function as PropType<TableProps<DefaultRow>['load']>,
   style: {
     type: Object as PropType<CSSProperties>,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     default: () => ({}),
   },
   className: {
     type: String,
     default: '',
   },
-  showOverflowTooltip: {
-    type: Boolean,
-    default: false,
+  showOverflowTooltip: Boolean,
+  align: String as PropType<'left' | 'center' | 'right'>,
+  headerAlign: String as PropType<'left' | 'center' | 'right'>,
+  size: String as PropType<ComponentSize>,
+}
+
+export const tableItemProps = {
+  item: {
+    type: Object as PropType<TableColumn>,
+    required: true,
+    default: () => ({}),
   },
-  align: {
-    type: String as PropType<'left' | 'center' | 'right'>,
-    default: undefined,
-  },
-  headerAlign: {
-    type: String as PropType<'left' | 'center' | 'right'>,
-    default: undefined,
-  },
-  size: {
-    type: String as PropType<ComponentSize>,
-    default: undefined,
-  },
+  size: String as PropType<ComponentSize>,
+}
+
+export const tableEmits = {
+  'update:currentPage': (current: number) => isNumber(current),
+  'update:pageSize': (size: number) => isNumber(size),
+  load: () => true,
 }

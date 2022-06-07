@@ -1,8 +1,15 @@
+import {
+  isArray,
+  isBoolean,
+  isString,
+  isNumber,
+  isObject,
+} from '../utils/index'
 import type { Component, PropType } from 'vue'
 import type { ComponentSize } from 'element-plus'
 import type { SelectConfig, SelectDataItem } from './type'
 
-export const commonProps = {
+export const selectDataProps = {
   data: {
     type: Array as PropType<SelectDataItem[]>,
     default: () => [],
@@ -13,16 +20,12 @@ export const commonProps = {
   },
 }
 
-export const selectProps = {
+export const selectCommonProps = {
   name: String,
   id: String,
-  autocomplete: {
-    type: String,
-  },
+  autocomplete: String,
   automaticDropdown: Boolean,
-  size: {
-    type: String as PropType<ComponentSize>,
-  },
+  size: String as PropType<ComponentSize>,
   disabled: Boolean,
   clearable: Boolean,
   filterable: Boolean,
@@ -38,29 +41,18 @@ export const selectProps = {
     type: Number,
     default: 0,
   },
-  placeholder: {
-    type: String,
-  },
+  placeholder: String,
   defaultFirstOption: Boolean,
   reserveKeyword: Boolean,
-  valueKey: {
-    type: String,
-  },
+  valueKey: String,
   collapseTags: Boolean,
   teleported: {
     type: Boolean,
     default: true,
   },
-  clearIcon: {
-    type: [String, Object] as PropType<string | Component>,
-  },
-  fitInputWidth: {
-    type: Boolean,
-    default: false,
-  },
-  suffixIcon: {
-    type: [String, Object] as PropType<string | Component>,
-  },
+  clearIcon: [String, Object] as PropType<string | Component>,
+  fitInputWidth: Boolean,
+  suffixIcon: [String, Object] as PropType<string | Component>,
   tagType: {
     type: String as PropType<'success' | 'info' | 'warning' | 'danger'>,
     default: 'info',
@@ -69,24 +61,28 @@ export const selectProps = {
     type: String as PropType<'light' | 'dark' | string>,
     default: 'light',
   },
-  collapseTagsTooltip: {
-    type: Boolean,
-    default: false,
-  },
+  collapseTagsTooltip: Boolean,
   persistent: {
     type: Boolean,
     default: true,
   },
 }
 
-export default {
-  ...commonProps,
-  ...selectProps,
-  modelValue: {
-    type: [Array, String, Number, Boolean, Object],
-  },
+export const selectProps = {
+  ...selectDataProps,
+  ...selectCommonProps,
+  modelValue: [Array, String, Number, Boolean, Object],
   filterMethod: Function,
-  popperClass: {
-    type: String,
-  },
+  popperClass: String,
+}
+
+export const selectEmits = {
+  'update:modelValue': (
+    value?: Array<unknown> | string | number | boolean | object
+  ) =>
+    isArray(value) ||
+    isString(value) ||
+    isNumber(value) ||
+    isBoolean(value) ||
+    isObject(value),
 }

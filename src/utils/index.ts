@@ -3,9 +3,13 @@ import set from 'lodash/set'
 import has from 'lodash/has'
 import objectPick from 'lodash/pick'
 import objectOmit from 'lodash/omit'
-export { isArray, isObject, isFunction } from '@vue/shared'
-export { isBoolean } from '@vueuse/core'
+export {
+  isBoolean,
+  isObject,
+  isFunction,
+  isString,
+  isNumber,
+} from '@vueuse/core'
 export * from './filter'
-export * from './emits'
 export * from './util'
 export { get, set, has, objectPick, objectOmit }

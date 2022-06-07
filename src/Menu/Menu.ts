@@ -8,15 +8,15 @@ import {
 import { useRoute, RouteRecordRaw } from 'vue-router'
 import { ElMenu, ElMenuItem, ElSubMenu } from 'element-plus'
 import { useCurrentRoutes } from '../composables/index'
-import props from './props'
+import { menuProps } from './props'
 import { ProLink } from '../Link/index'
 
 export default defineComponent({
   name: 'ProMenu',
-  props,
+  props: menuProps,
   setup(props, { slots }) {
     const route = useRoute()
-    const routes = useCurrentRoutes(props)
+    const routes = useCurrentRoutes()
 
     function createDefault(item: RouteRecordRaw) {
       if (slots.default) {

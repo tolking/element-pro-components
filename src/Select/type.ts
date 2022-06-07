@@ -1,4 +1,5 @@
-import type { ExternalParam } from '../types/index'
+import { selectProps, selectEmits } from './props'
+import type { ExternalParam, IDefineProps, IDefineEmits } from '../types/index'
 
 export interface SelectConfig {
   value?: string
@@ -9,3 +10,6 @@ export interface SelectConfig {
 }
 
 export type SelectDataItem = Record<string, ExternalParam>
+
+export type ISelectProps = IDefineProps<typeof selectProps>
+export type ISelectEmits = IDefineEmits<typeof selectEmits>

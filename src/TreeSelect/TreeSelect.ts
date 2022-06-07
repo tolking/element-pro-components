@@ -1,13 +1,9 @@
 import { defineComponent, h, mergeProps } from 'vue'
 import { reactiveOmit, reactivePick } from '@vueuse/core'
 import { ElSelect, ElOption, ElTree, useAttrs } from 'element-plus'
-import { useTreeSelect } from '../composables/index'
-import { treeProps } from '../ColumnSetting/props'
-import props from './props'
-import emits from './emits'
+import { useTreeSelect } from './useTreeSelect'
+import { treeSelectProps, treeKeys, treeSelectEmits } from './props'
 import type { SelectDataItem } from '../Select/type'
-
-type TreeKeys = Array<keyof typeof props>
 
 interface TreeScope {
   data: SelectDataItem
@@ -16,18 +12,11 @@ interface TreeScope {
     label: string
   }
 }
-const treeKeys = Object.keys(treeProps).concat([
-  'currentNodeKey',
-  'renderContent',
-  'draggable',
-  'lazy',
-  'load',
-]) as TreeKeys
 
 export default defineComponent({
   name: 'ProTreeSelect',
-  props,
-  emits,
+  props: treeSelectProps,
+  emits: treeSelectEmits,
   setup(props, { emit, slots }) {
     const attrs = useAttrs()
     const {

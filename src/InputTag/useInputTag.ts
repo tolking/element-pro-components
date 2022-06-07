@@ -1,8 +1,7 @@
 import { computed, Ref, ref } from 'vue'
 import { reactiveOmit, reactivePick } from '@vueuse/core'
-import { useAttrs, useDisabled } from 'element-plus'
-import { useFormSize } from './index'
-import { commonProps } from '../InputTag/props'
+import { useAttrs, useDisabled, useSize } from 'element-plus'
+import { inputTagCommonProps } from '../InputTag/props'
 import type { ComponentSize } from 'element-plus'
 import type { IInputTagProps, IInputTagEmits } from '../InputTag/index'
 import type {
@@ -10,7 +9,7 @@ import type {
   IAutocompleteTagEmits,
 } from '../AutocompleteTag/index'
 
-type CommonKeys = Array<keyof typeof commonProps>
+type CommonKeys = Array<keyof typeof inputTagCommonProps>
 
 export interface InputTagCore {
   attrs: Ref<Record<string, unknown>>
@@ -32,7 +31,7 @@ export function useInputTag(
   emit: IInputTagEmits | IAutocompleteTagEmits
 ): InputTagCore {
   const attrs = useAttrs()
-  const size = useFormSize(props)
+  const size = useSize()
   const tagProps = reactivePick(
     props,
     'type',
@@ -41,7 +40,7 @@ export function useInputTag(
     'effect',
     'disableTransitions'
   )
-  const commonKeys = Object.keys(commonProps) as CommonKeys
+  const commonKeys = Object.keys(inputTagCommonProps) as CommonKeys
   const inputProps = reactiveOmit(props, ...commonKeys, 'size')
   const input = ref('')
   const list = computed(() => props.modelValue || [])

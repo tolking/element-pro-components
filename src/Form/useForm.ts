@@ -1,18 +1,18 @@
-import { ComputedRef, computed, Ref, unref, inject, shallowRef } from 'vue'
-import { useLocale } from 'element-plus'
-import { useShow } from './index'
+import { ComputedRef, computed, Ref, unref, shallowRef } from 'vue'
+import { useLocale, useSize } from 'element-plus'
+import { useShow } from '../composables/index'
 import { isObject, objectOmit, isBoolean } from '../utils/index'
-import type { ComponentSize } from 'element-plus'
 import type { UnknownObject, MaybeArray, MaybeRef } from '../types/index'
 import type {
   IFormEmits,
+  IFormItemEmits,
   FormColumn,
   IFormExpose,
   IFormValidateCallback,
   IFormValidateFieldCallback,
   IFormMenuColumns,
   InvalidFields,
-} from '../Form/index'
+} from './index'
 
 type FormItemBind = Omit<
   FormColumn,
@@ -52,14 +52,23 @@ export function useFormItemBind(
       'lg',
       'xl',
     ]
+    const size = useSize()
     const _currentBind = unref(currentBind)
     const _option = isObject(_currentBind)
       ? objectOmit<FormColumn>(_currentBind, omitKeys)
       : ({} as FormColumn)
 
-    _option.size = _option.size || useFormSize().value
+    _option.size = _option.size || size.value
     return _option
   })
+}
+
+export const formMenu: IFormMenuColumns = {
+  submit: true,
+  submitText: 'Submit',
+  submitProps: { type: 'primary' },
+  reset: true,
+  resetText: 'Reset',
 }
 
 export function useFormMenu(
@@ -69,29 +78,22 @@ export function useFormMenu(
     const { t } = useLocale()
     const submitText = t('pro.form.submit')
     const resetText = t('pro.form.reset')
-    const menu: IFormMenuColumns = {
-      submit: true,
-      submitText: 'Submit',
-      submitProps: { type: 'primary' },
-      reset: true,
-      resetText: 'Reset',
-    }
 
     if (submitText && submitText !== 'pro.form.submit') {
-      menu.submitText = submitText
+      formMenu.submitText = submitText
     }
     if (resetText && resetText !== 'pro.form.reset') {
-      menu.resetText = resetText
+      formMenu.resetText = resetText
     }
 
-    return props.menu ? Object.assign({}, menu, props.menu) : menu
+    return props.menu ? Object.assign({}, formMenu, props.menu) : formMenu
   })
 }
 
 export function useFormMethods(emit: IFormEmits): {
   form: Ref<IFormExpose>
   loading: Ref<boolean>
-  upFormData: (value: unknown) => void
+  upFormData: (value: UnknownObject) => void
   submitForm: () => void
   resetForm: (reset?: boolean) => void
 } & IFormExpose {
@@ -121,7 +123,7 @@ export function useFormMethods(emit: IFormEmits): {
     form.value.validateField(props, cb)
   }
 
-  function upFormData(value: unknown) {
+  function upFormData(value: UnknownObject) {
     emit('update:modelValue', value)
   }
 
@@ -163,17 +165,6 @@ export function useFormMethods(emit: IFormEmits): {
   }
 }
 
-export function useFormSize(
-  props?: Readonly<{ size?: ComponentSize }>
-): ComputedRef<ComponentSize | undefined> {
-  const elForm = inject<{ size?: ComponentSize }>('elForm', {})
-  const elFormItem = inject<{ size?: ComponentSize }>('elFormItem', {})
-
-  return computed(() => {
-    return props?.size || elFormItem.size || elForm.size
-  })
-}
-
 type ModelChildValue = Record<string, UnknownObject[]>
 
 export function useFormChild(
@@ -181,7 +172,7 @@ export function useFormChild(
     item: FormColumn
     modelValue: UnknownObject
   }>,
-  emit: (event: 'update:modelValue', ...args: unknown[]) => void
+  emit: IFormItemEmits
 ): {
   hasChild: ComputedRef<boolean>
   showAddBtn: ComputedRef<boolean>

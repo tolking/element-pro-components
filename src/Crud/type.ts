@@ -1,5 +1,12 @@
+import { crudProps, crudEmits } from './props'
 import type { ButtonProps } from 'element-plus'
-import type { UnknownObject, ExternalParam } from '../types/index'
+import type {
+  IDefineProps,
+  IDefineEmits,
+  UnknownObject,
+  ExternalParam,
+  FormColumnChildren,
+} from '../types/index'
 import type {
   FormColumn,
   IFormMenuColumns,
@@ -15,11 +22,11 @@ import type {
 import type { DescriptionsColumn } from '../Descriptions/type'
 
 export interface CrudColumn<T = ExternalParam>
-  extends FormColumn<T>,
-    TableColumn<T>,
+  extends Omit<FormColumn<T>, 'children'>,
+    Omit<TableColumn<T>, 'children'>,
     Omit<DescriptionsColumn<T>, 'span'> {
   /** sub-form and multi-level header */
-  children?: ICrudColumns<T>
+  children?: ICrudColumns<T & FormColumnChildren<T>>
   /** whether to display in the add form */
   add?: boolean
   /** whether to display in the edit form */
@@ -33,7 +40,9 @@ export interface CrudColumn<T = ExternalParam>
 }
 
 /** Crud Columns Options */
-export type ICrudColumns<T = ExternalParam> = CrudColumn<T>[]
+export type ICrudColumns<T = ExternalParam> = Array<
+  CrudColumn<T> & UnknownObject
+>
 
 export interface CrudMenu<T = ExternalParam> {
   /** show add button */
@@ -98,6 +107,8 @@ export type ICrudSubmit = (
   invalidFields?: InvalidFields
 ) => void
 
+export type ICrudProps = IDefineProps<typeof crudProps>
+export type ICrudEmits = IDefineEmits<typeof crudEmits>
 export type ICrudExpose<T = UnknownObject> = IFormExpose & ITableExpose<T>
 
 /**

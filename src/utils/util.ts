@@ -3,7 +3,12 @@ import cloneDeep from 'lodash/cloneDeep'
 import merge from 'lodash/merge'
 import { isObject } from './index'
 import type { Component, VNode } from 'vue'
-import type { IScreenSize, UnknownObject, IDefinePlugin } from '../types/index'
+import type {
+  IScreenSize,
+  UnknownObject,
+  IDefinePlugin,
+  ExternalParam,
+} from '../types/index'
 
 /**
  * @deprecated determine the current screen size
@@ -44,6 +49,22 @@ export function objectDeepMerge<T = UnknownObject, Q = T>(
  */
 export function isURL(url: string): boolean {
   return /^((ht|f)tps?):\/\/?/.test(url)
+}
+
+/**
+ * whether is array
+ * @param value value
+ */
+export function isArray(value: unknown): value is ExternalParam[] {
+  return Array.isArray(value)
+}
+
+/**
+ * whether is undefined
+ * @param value value
+ */
+export function isUndefined(value: unknown): value is undefined {
+  return value === undefined
 }
 
 /**

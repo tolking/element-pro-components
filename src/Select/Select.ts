@@ -1,17 +1,16 @@
 import { defineComponent, h, mergeProps, VNode } from 'vue'
 import { reactiveOmit } from '@vueuse/core'
 import { ElSelect, ElOptionGroup, ElOption } from 'element-plus'
-import { useSelectConfig, useEmitValue } from '../composables/index'
-import { modelValueEmit } from '../utils/index'
-import props from './props'
+import { useDataConfig, useEmitValue } from '../composables/index'
+import { selectProps, selectEmits } from './props'
 import type { SelectDataItem } from './index'
 
 export default defineComponent({
   name: 'ProSelect',
-  props,
-  emits: modelValueEmit,
+  props: selectProps,
+  emits: selectEmits,
   setup(props, { slots }) {
-    const configKeys = useSelectConfig(props)
+    const configKeys = useDataConfig()
     const emitValue = useEmitValue()
     const config = reactiveOmit(props, 'data', 'config')
 

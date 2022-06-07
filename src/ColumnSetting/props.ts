@@ -1,3 +1,4 @@
+import { isArray } from '../utils/index'
 import type { PropType } from 'vue'
 import type { ComponentSize } from 'element-plus'
 import type { ExternalParam } from '../types/index'
@@ -18,11 +19,10 @@ export const treeProps = {
   iconClass: String,
 }
 
-export default {
+export const columnSettingProps = {
   ...treeProps,
   modelValue: {
     type: Array as PropType<ICrudColumns | ITableColumns>,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     default: () => [],
   },
   trigger: {
@@ -35,11 +35,11 @@ export default {
     >,
     default: 'bottom',
   },
-  size: {
-    type: String as PropType<ComponentSize>,
-  },
+  size: String as PropType<ComponentSize>,
   highlightCurrent: Boolean,
-  filterNodeMethod: {
-    type: Function as ExternalParam,
-  },
+  filterNodeMethod: Function as ExternalParam,
+}
+
+export const columnSettingEmits = {
+  'update:modelValue': (value: ICrudColumns | ITableColumns) => isArray(value),
 }

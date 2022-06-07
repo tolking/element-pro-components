@@ -1,12 +1,15 @@
+import { formProps, formEmits, formItemEmits } from './props'
 import type { Component } from 'vue'
 import type { ButtonProps, ColProps, FormItemProps } from 'element-plus'
 import type {
+  IDefineProps,
+  IDefineEmits,
   UnknownObject,
-  DeepKeyof,
   MaybeArray,
   ExternalParam,
-  IsAny,
   Mutable,
+  ColumnProp,
+  FormColumnChildren,
 } from '../types/index'
 
 export interface InvalidFields {
@@ -14,23 +17,24 @@ export interface InvalidFields {
 }
 
 export interface FormColumn<T = ExternalParam>
-  extends UnknownObject,
-    Mutable<Partial<Omit<FormItemProps, 'prop'>>>,
+  extends Mutable<Partial<Omit<FormItemProps, 'prop'>>>,
     Partial<Omit<ColProps, 'tag'>> {
   /** component name */
   component?: string | Component
   /** props for component */
   props?: UnknownObject
   /** sub-form */
-  children?: IFormColumns<T>
+  children?: IFormColumns<FormColumnChildren<T>>
   /** max number of sub-form */
   max?: number
   /** keys of model that passed to form */
-  prop: IsAny<T> extends true ? string : DeepKeyof<T>
+  prop: ColumnProp<T>
 }
 
 /** Form Columns Option */
-export type IFormColumns<T = ExternalParam> = FormColumn<T>[]
+export type IFormColumns<T = ExternalParam> = Array<
+  FormColumn<T> & UnknownObject
+>
 
 /** Form Menu Option */
 export interface FormMenu {
@@ -81,6 +85,10 @@ export interface IFormExpose {
     cb: IFormValidateFieldCallback
   ) => void
 }
+
+export type IFormProps = IDefineProps<typeof formProps>
+export type IFormEmits = IDefineEmits<typeof formEmits>
+export type IFormItemEmits = IDefineEmits<typeof formItemEmits>
 
 /**
  * Type helper to make it easier to define columns

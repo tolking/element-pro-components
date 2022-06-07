@@ -1,8 +1,9 @@
-import { withInstall, modelValueEmit } from '../utils/index'
+import { withInstall } from '../utils/index'
 import Checkbox from './Checkbox'
-import props from './props'
+import { checkboxProps, checkboxEmits } from './props'
 import type { IDefineProps, IDefineEmits } from '../types/index'
 
+export { checkboxProps, checkboxEmits } from './props'
 export const ProCheckbox = withInstall(Checkbox)
-export type ICheckboxProps = IDefineProps<typeof props>
-export type ICheckboxEmits = IDefineEmits<typeof modelValueEmit>
+export type ICheckboxProps = IDefineProps<typeof checkboxProps>
+export type ICheckboxEmits = IDefineEmits<typeof checkboxEmits>

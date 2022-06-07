@@ -3,41 +3,25 @@ import {
   h,
   toRefs,
   markRaw,
-  PropType,
   Slot,
   VNode,
   mergeProps,
 } from 'vue'
 import { ElFormItem, ElButton } from 'element-plus'
 import { Plus, Minus } from '@element-plus/icons-vue'
-import { useFormItemBind, useFormChild, useCol } from '../composables/index'
+import { useCol } from '../composables/index'
+import { useFormItemBind, useFormChild } from './useForm'
 import { get, set, has, isArray } from '../utils/index'
 import ProFormItem from './FormItem'
 import ProFormComponent from './FormComponent'
+import { formItemProps, formItemEmits } from './props'
 import type { UnknownObject } from '../types/index'
-import type { FormColumn, IFormColumns } from './type'
+import type { IFormColumns } from './type'
 
 export default defineComponent({
   name: 'ProFormItem',
-  props: {
-    modelValue: {
-      type: Object,
-      default: () => ({}),
-    },
-    item: {
-      type: Object as PropType<FormColumn>,
-      default: () => ({}),
-    },
-    prop: {
-      type: String,
-      default: '',
-    },
-    inline: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ['update:modelValue'],
+  props: formItemProps,
+  emits: formItemEmits,
   setup(props, { slots, emit }) {
     const { item, prop, modelValue, inline } = toRefs(props)
     const bindItem = useFormItemBind(item)

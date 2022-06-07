@@ -1,9 +1,8 @@
 import { defineComponent, h, mergeProps, VNode } from 'vue'
 import { reactiveOmit } from '@vueuse/core'
 import { ElCheckboxGroup, ElCheckbox } from 'element-plus'
-import { useSelectConfig, useEmitValue } from '../composables/index'
-import { modelValueEmit } from '../utils/index'
-import props from './props'
+import { useDataConfig, useEmitValue } from '../composables/index'
+import { checkboxProps, checkboxEmits } from './props'
 import type { ICheckboxProps } from './index'
 
 export function createDefault<T>(
@@ -11,7 +10,7 @@ export function createDefault<T>(
   component: T,
   className: string
 ): () => VNode {
-  const configKeys = useSelectConfig(props)
+  const configKeys = useDataConfig()
   const emitValue = useEmitValue()
   const config = reactiveOmit(props, 'data', 'config')
 
@@ -39,8 +38,8 @@ export function createDefault<T>(
 
 export default defineComponent({
   name: 'ProCheckbox',
-  props,
-  emits: modelValueEmit,
+  props: checkboxProps,
+  emits: checkboxEmits,
   setup(props) {
     return createDefault<typeof ElCheckbox>(props, ElCheckbox, 'pro-checkbox')
   },

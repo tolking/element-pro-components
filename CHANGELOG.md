@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.1.4
+
+feat
+
+- Form: prevent default submit (#308)
+- type: more elegant type deduction for prop in Columns (#307)
+
+refacto
+
+- Layout: optimize the collapse of the menu (#309)
+- composables: move the composables function (#310)
+- props: export all props (#312)
+- emits: export all emits (#313)
+
 ## 1.1.3
 
 feat

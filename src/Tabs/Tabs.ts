@@ -1,11 +1,11 @@
 import { defineComponent, h, mergeProps } from 'vue'
 import { ElTabs, ElTabPane } from 'element-plus'
-import { useTabs } from '../composables/index'
-import props from './props'
+import { useTabs } from './useTabs'
+import { tabsProps } from './props'
 
 export default defineComponent({
   name: 'ProTabs',
-  props,
+  props: tabsProps,
   setup(props, { expose }) {
     const { active, list, to, close, closeOther } = useTabs()
 

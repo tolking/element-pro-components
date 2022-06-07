@@ -2,8 +2,8 @@ import { defineComponent, computed, h, toRefs, mergeProps } from 'vue'
 import { reactiveOmit } from '@vueuse/core'
 import { ElDropdown, ElDropdownMenu, ElButton, ElTree } from 'element-plus'
 import { Setting } from '@element-plus/icons-vue'
-import { filterFlat, modelValueEmit } from '../utils/index'
-import props from './props'
+import { filterFlat } from '../utils/index'
+import { columnSettingProps, columnSettingEmits } from './props'
 import type { ICrudColumns, CrudColumn } from '../Crud/index'
 import type { ITableColumns, TableColumn } from '../Table/index'
 
@@ -12,8 +12,8 @@ type Column = CrudColumn | TableColumn
 
 export default defineComponent({
   name: 'ProColumnSetting',
-  props,
-  emits: modelValueEmit,
+  props: columnSettingProps,
+  emits: columnSettingEmits,
   setup(props, { emit }) {
     const { modelValue } = toRefs(props)
     const config = reactiveOmit(

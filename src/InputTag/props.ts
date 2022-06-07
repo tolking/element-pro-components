@@ -1,5 +1,5 @@
 import { tagProps, inputProps } from 'element-plus'
-import { objectOmit } from '../utils/index'
+import { isArray, isString, objectOmit } from '../utils/index'
 import type { PropType } from 'vue'
 
 const _tagProps = objectOmit(tagProps, 'closable')
@@ -12,21 +12,24 @@ const _inputProps = objectOmit(
   'showPassword'
 )
 
-export const commonProps = {
+export const inputTagCommonProps = {
   ..._tagProps,
-  modelValue: {
-    type: Array as PropType<string[]>,
-  },
-  max: {
-    type: Number,
-  },
+  modelValue: Array as PropType<string[]>,
+  max: Number,
   trigger: {
     type: String as PropType<'space' | 'enter'>,
     default: 'enter',
   },
 }
 
-export default {
-  ...commonProps,
+export const inputTagProps = {
+  ...inputTagCommonProps,
   ..._inputProps,
+}
+
+export const inputTagEmits = {
+  'update:modelValue': (value: string[]) => isArray(value),
+  input: (value: string) => isString(value),
+  'tag-add': (value: string) => isString(value),
+  'tag-remove': (value: string) => isString(value),
 }

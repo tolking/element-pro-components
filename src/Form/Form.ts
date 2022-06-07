@@ -1,20 +1,15 @@
 import { computed, defineComponent, h, mergeProps, toRefs, VNode } from 'vue'
 import { reactivePick } from '@vueuse/core'
 import { ElForm, ElFormItem, ElButton } from 'element-plus'
-import {
-  useFormMethods,
-  useCurrentBreakpoint,
-  useFormMenu,
-  useRow,
-} from '../composables/index'
-import props, { formKeys } from './props'
-import emits from './emits'
+import { useCurrentBreakpoint, useRow } from '../composables/index'
+import { useFormMethods, useFormMenu } from './useForm'
+import { formProps, formEmits, formKeys } from './props'
 import ProFormItem from './FormItem'
 
 export default defineComponent({
   name: 'ProForm',
-  props,
-  emits,
+  props: formProps,
+  emits: formEmits,
   setup(props, { slots, emit, expose }) {
     const { columns, modelValue, inline } = toRefs(props)
     const config = reactivePick(props, ...formKeys)
@@ -124,6 +119,9 @@ export default defineComponent({
           labelPosition: labelPosition.value,
           style: !inline.value ? rowStyle.value : undefined,
           class: ['pro-form', !inline.value ? rowClass.value : ''],
+          onSubmit: (e: Event) => {
+            e.preventDefault()
+          },
         }),
         () => [createColumn(), slots.default && slots.default(), createMenu()]
       )

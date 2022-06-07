@@ -1,17 +1,13 @@
-import { commonProps } from '../Select/props'
-import props from '../Radio/props'
-import type { PropType } from 'vue'
+import { useCheckboxGroupProps } from 'element-plus'
+import { isArray } from '../utils/index'
+import { selectDataProps } from '../Select/props'
 
-export default {
-  ...commonProps,
-  ...props,
-  modelValue: {
-    type: Array as PropType<Array<string | number | boolean>>,
-  },
-  min: {
-    type: Number,
-  },
-  max: {
-    type: Number,
-  },
+export const checkboxProps = {
+  ...useCheckboxGroupProps,
+  ...selectDataProps,
+}
+
+export const checkboxEmits = {
+  'update:modelValue': (value?: Array<string | number | boolean>) =>
+    isArray(value),
 }

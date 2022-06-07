@@ -1,16 +1,17 @@
 import { computed, ref, useSlots, Ref, Slot } from 'vue'
 import { useLocale } from 'element-plus'
+import { formMenu } from '../Form/useForm'
 import { isFunction, isObject, filterDeep, throwWarn } from '../utils/index'
 import type { UnknownObject, ExternalParam } from '../types/index'
 import type { IFormColumns, IFormMenuColumns, IFormSubmit } from '../Form/index'
 import type { ITableColumns } from '../Table/index'
+import type { IDescriptionsColumns } from '../Descriptions/index'
 import type {
   ICrudProps,
   ICrudEmits,
   ICrudDialogType,
   ICrudMenuColumns,
-} from '../Crud/index'
-import type { IDescriptionsColumns } from '../Descriptions/index'
+} from './index'
 
 type CrudColumns =
   | 'columns'
@@ -27,6 +28,7 @@ export function useCrudMenu(
   return computed(() => {
     const { t } = useLocale()
     const menu: ICrudMenuColumns = {
+      ...formMenu,
       add: true,
       addText: 'Add',
       addProps: { type: 'primary' },
@@ -39,11 +41,6 @@ export function useCrudMenu(
       del: true,
       delText: 'Delete',
       delProps: { link: true, type: 'danger' },
-      submit: true,
-      submitText: 'Submit',
-      submitProps: { type: 'primary' },
-      reset: true,
-      resetText: 'Reset',
       search: true,
       searchText: 'Search',
       searchProps: { type: 'primary' },
@@ -89,7 +86,7 @@ export function useCrudColumns(
     return props.searchColumns
       ? props.searchColumns
       : props.columns
-      ? filterDeep<IFormColumns>(props.columns, 'search')
+      ? filterDeep<IFormColumns>(props.columns as IFormColumns, 'search')
       : undefined
   })
   const tableColumns = computed(() => {
@@ -99,21 +96,21 @@ export function useCrudColumns(
     return props.addColumns
       ? props.addColumns
       : props.columns
-      ? filterDeep<IFormColumns>(props.columns, 'add')
+      ? filterDeep<IFormColumns>(props.columns as IFormColumns, 'add')
       : undefined
   })
   const editColumns = computed(() => {
     return props.editColumns
       ? props.editColumns
       : props.columns
-      ? filterDeep<IFormColumns>(props.columns, 'edit')
+      ? filterDeep<IFormColumns>(props.columns as IFormColumns, 'edit')
       : undefined
   })
   const formColumns = computed(() => {
     return props.formColumns
       ? props.formColumns
       : props.columns
-      ? filterDeep<IFormColumns>(props.columns, 'form')
+      ? filterDeep<IFormColumns>(props.columns as IFormColumns, 'form')
       : undefined
   })
   const detailColumns = computed(() => {
@@ -209,7 +206,7 @@ export function useCrudSearchMenu(
 export function useCrudSearchForm(emit: ICrudEmits): {
   searchForm: IFormSubmit
   searchReset: () => void
-  upSearchData: (value: unknown) => void
+  upSearchData: (value: UnknownObject) => void
 } {
   const searchForm: IFormSubmit = (done, isValid, invalidFields) => {
     emit('search', done, isValid, invalidFields)
@@ -219,7 +216,7 @@ export function useCrudSearchForm(emit: ICrudEmits): {
     emit('searchReset')
   }
 
-  function upSearchData(value: unknown) {
+  function upSearchData(value: UnknownObject) {
     emit('update:search', value)
   }
 
