@@ -10,10 +10,6 @@
       "require": "./lib/index.umd.js",
       "type": "./types/index.d.ts"
     },
-    "./lib/styles/*": {
-      "import": "./lib/styles/*.js",
-      "require": "./lib/styles/*.cjs"
-    },
     "./lib/": "./lib/"
   },
   "types": "types/index.d.ts",
@@ -66,7 +62,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.5",
     "@vueuse/core": "^8.6.0",
-    "element-plus": "2.2.2",
+    "element-plus": "^2.2.5",
     "lodash": "^4.17.21",
     "vue": "^3.2.37",
     "vue-router": "^4.0.15"
@@ -78,8 +74,8 @@
     "@types/lodash": "^4.14.182",
     "@types/markdown-it": "^12.2.3",
     "@types/markdown-it-container": "^2.0.5",
-    "@typescript-eslint/eslint-plugin": "^5.27.0",
-    "@typescript-eslint/parser": "^5.27.0",
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
     "@vitejs/plugin-vue": "^2.3.3",
     "@vue/compiler-sfc": "^3.2.37",
     "@vue/server-renderer": "^3.2.37",
@@ -97,7 +93,7 @@
     "fast-glob": "^3.2.11",
     "husky": "^8.0.1",
     "jsdom": "^19.0.0",
-    "lint-staged": "^13.0.0",
+    "lint-staged": "^13.0.1",
     "markdown-it-anchor": "^8.6.4",
     "markdown-it-container": "^3.0.0",
     "postcss": "^8.4.14",
@@ -110,11 +106,11 @@
     "rimraf": "^3.0.2",
     "sitemap": "^7.1.1",
     "typescript": "^4.7.3",
-    "vite": "^2.9.9",
+    "vite": "^2.9.10",
     "vite-plugin-md": "0.13.1",
     "vite-plugin-pwa": "^0.12.0",
     "vitest": "^0.14.1",
-    "vue-tsc": "^0.36.1",
+    "vue-tsc": "^0.37.3",
     "workbox-window": "^6.5.3"
   },
   "pnpm": {
