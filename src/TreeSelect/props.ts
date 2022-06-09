@@ -7,8 +7,7 @@ import {
 import { treeProps } from '../ColumnSetting/props'
 import type { PropType } from 'vue'
 import type { LoadFunction } from 'element-plus/es/components/tree/src/tree.type'
-import type { MaybeArray, UnknownObject } from '../types/index'
-import type { SelectDataItem } from '../Select/type'
+import type { ExternalParam, MaybeArray, UnknownObject } from '../types/index'
 
 export const treeSelectProps = {
   ...selectDataProps,
@@ -43,8 +42,8 @@ export const treeSelectEmits = {
   'remove-tag': (value: string) => isString(value),
   'visible-change': (state: boolean) => isBoolean(state),
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  'node-click': (item?: SelectDataItem, node?: unknown, self?: unknown) => true,
+  'node-click': (item?: ExternalParam, node?: unknown, self?: unknown) => true,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  'check-change': (item?: SelectDataItem, node?: unknown, self?: unknown) =>
+  'check-change': (item?: ExternalParam, node?: unknown, self?: unknown) =>
     true,
 }
