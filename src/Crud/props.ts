@@ -22,7 +22,6 @@ import type {
   ICrudBeforeClose,
   ICrudDialogType,
 } from './type'
-import { isString } from 'lodash'
 
 type FormKeys = Array<keyof typeof formProps>
 type TableKeys = Array<keyof typeof tableProps>
