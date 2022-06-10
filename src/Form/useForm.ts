@@ -75,18 +75,19 @@ export function useFormMenu(
   props: Readonly<{ menu?: IFormMenuColumns }>
 ): ComputedRef<IFormMenuColumns> {
   return computed(() => {
+    const menu = { ...formMenu }
     const { t } = useLocale()
     const submitText = t('pro.form.submit')
     const resetText = t('pro.form.reset')
 
     if (submitText && submitText !== 'pro.form.submit') {
-      formMenu.submitText = submitText
+      menu.submitText = submitText
     }
     if (resetText && resetText !== 'pro.form.reset') {
-      formMenu.resetText = resetText
+      menu.resetText = resetText
     }
 
-    return props.menu ? Object.assign({}, formMenu, props.menu) : formMenu
+    return props.menu ? Object.assign({}, menu, props.menu) : menu
   })
 }
 
