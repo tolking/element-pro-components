@@ -5,12 +5,13 @@ import {
   isFunction,
   isBoolean,
   isUndefined,
+  isString,
 } from '../utils/index'
 import { formProps, formEmits } from '../Form/props'
 import { tableProps, tableEmits } from '../Table/props'
 import { descriptionsProps } from '../Descriptions/props'
 import type { PropType } from 'vue'
-import type { UnknownObject } from '../types/index'
+import type { ExternalParam } from '../types/index'
 import type { IFormProps, IFormColumns, InvalidFields } from '../Form/index'
 import type { ITableColumns } from '../Table/index'
 import type { IDescriptionsColumns } from '../Descriptions/index'
@@ -80,8 +81,8 @@ export const crudEmits = {
     (isObject(invalidFields) || isUndefined(invalidFields)),
   searchReset: () => true,
   add: () => true,
-  edit: (row: UnknownObject) => isObject(row),
-  detail: (row: UnknownObject) => isObject(row),
-  delete: (row: UnknownObject) => isObject(row),
-  'update:search': (value: UnknownObject) => isObject(value),
+  edit: (row: ExternalParam) => isObject(row),
+  detail: (row: ExternalParam) => isObject(row),
+  delete: (row: ExternalParam) => isObject(row),
+  'update:search': (value: ExternalParam) => isObject(value),
 }
