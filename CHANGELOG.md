@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.5
+
+fix
+
+- fix sideEffects error (#316)
+
+other
+
+- optimization the emits type (#317)
+- optimization the form menu (#318)
+
 ## 1.1.4
 
 feat
