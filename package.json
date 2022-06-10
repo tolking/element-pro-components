@@ -1,14 +1,13 @@
 {
   "name": "element-pro-components",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "a component library for Vue 3 base on element-plus",
   "main": "lib/index.umd.js",
   "module": "lib/index.es.js",
   "exports": {
     ".": {
       "import": "./lib/index.es.js",
-      "require": "./lib/index.umd.js",
-      "type": "./types/index.d.ts"
+      "require": "./lib/index.umd.js"
     },
     "./lib/": "./lib/"
   },
