@@ -37,6 +37,8 @@ export interface CrudColumn<T = ExternalParam>
   detail?: boolean
   /** whether to display in the search form */
   search?: boolean
+  /** rename the descriptions column prop `span` to `detailSpan` */
+  detailSpan?: DescriptionsColumn<T>['span']
 }
 
 /** Crud Columns Options */

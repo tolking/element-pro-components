@@ -86,7 +86,7 @@ export function useCrudColumns(
     return props.searchColumns
       ? props.searchColumns
       : props.columns
-      ? filterDeep<IFormColumns>(props.columns as IFormColumns, 'search')
+      ? filterDeep(props.columns, 'search')
       : undefined
   })
   const tableColumns = computed(() => {
@@ -96,33 +96,31 @@ export function useCrudColumns(
     return props.addColumns
       ? props.addColumns
       : props.columns
-      ? filterDeep<IFormColumns>(props.columns as IFormColumns, 'add')
+      ? filterDeep(props.columns, 'add')
       : undefined
   })
   const editColumns = computed(() => {
     return props.editColumns
       ? props.editColumns
       : props.columns
-      ? filterDeep<IFormColumns>(props.columns as IFormColumns, 'edit')
+      ? filterDeep(props.columns, 'edit')
       : undefined
   })
   const formColumns = computed(() => {
     return props.formColumns
       ? props.formColumns
       : props.columns
-      ? filterDeep<IFormColumns>(props.columns as IFormColumns, 'form')
+      ? filterDeep(props.columns, 'form')
       : undefined
   })
   const detailColumns = computed(() => {
     return props.detailColumns
       ? props.detailColumns
       : props.columns
-      ? filterDeep<IDescriptionsColumns>(
-          props.columns,
-          'detail',
-          true,
-          (item) => ({ ...item, span: undefined })
-        )
+      ? filterDeep(props.columns, 'detail', true, (item) => ({
+          ...item,
+          span: item.detailSpan,
+        }))
       : undefined
   })
 
