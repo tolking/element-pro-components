@@ -22,6 +22,7 @@ const commonColumns: ICrudColumns<Form> = [
     search: true,
     detail: true,
     hide: true,
+    detailSpan: 2,
   },
   {
     label: 'Name',
@@ -65,6 +66,9 @@ const formClass =
 const headerClass =
   '.pro-crud .pro-crud-table .el-table__header-wrapper .el-table__header thead tr'
 const detailClass = dialogBody + ' .pro-crud-detail'
+const detailCellClass =
+  detailClass +
+  ' .el-descriptions__body .el-descriptions__table tbody tr .el-descriptions__cell'
 const getHeader = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   wrapper.findAll(headerClass + ' th')
 const bodyClass =
@@ -94,9 +98,7 @@ const getComponentList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
     item.find('.el-form-item__content div').classes()
   )
 const getDetailList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
-  wrapper.findAll(
-    detailClass + ' .el-descriptions__body .el-descriptions__table tbody tr td'
-  )
+  wrapper.findAll(detailCellClass)
 const getDetailLabelList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   getDetailList(wrapper).map((item) =>
     item.find('.el-descriptions__label').text()
@@ -131,7 +133,7 @@ describe('Crud', () => {
         return { form, searchForm, columns, data: tableData }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: ICrudColumns<Form> }
+    const vm = wrapper.vm as unknown as { columns: ICrudColumns<Form> }
 
     expect(getHeaderList(wrapper)).toHaveLength(3)
     expect(getHeaderList(wrapper)).not.toContain('Date')
@@ -247,7 +249,7 @@ describe('Crud', () => {
         }
       },
     })
-    const vm = (wrapper.vm as unknown) as { menu: ICrudMenuColumns }
+    const vm = wrapper.vm as unknown as { menu: ICrudMenuColumns }
 
     expect(getHeaderList(wrapper)).toContain('Label')
     expect(wrapper.find(addClass).text()).toBe('add-text')
@@ -295,7 +297,7 @@ describe('Crud', () => {
         return { form, searchForm, columns: commonColumns, data: tableData }
       },
     })
-    const vm = (wrapper.vm as unknown) as { form: Form; searchForm: Form }
+    const vm = wrapper.vm as unknown as { form: Form; searchForm: Form }
     const formInput =
       dialogBody + ' .pro-crud-form .pro-form-item .el-form-item__content input'
 
@@ -326,7 +328,7 @@ describe('Crud', () => {
         return { form, searchForm, columns: commonColumns, data: tableData }
       },
     })
-    const vm = (wrapper.vm as unknown) as { form: Form; searchForm: Form }
+    const vm = wrapper.vm as unknown as { form: Form; searchForm: Form }
     const searchInput =
       '.pro-crud .pro-crud-search .pro-form-item .el-form-item__content input'
 
@@ -355,7 +357,7 @@ describe('Crud', () => {
         return { detail, columns: commonColumns, data: tableData }
       },
     })
-    const vm = (wrapper.vm as unknown) as { detail: Form }
+    const vm = wrapper.vm as unknown as { detail: Form }
 
     await wrapper.find(menuClass + ':nth-child(2)').trigger('click')
     expect(getDetailList(wrapper)).toHaveLength(2)
@@ -363,6 +365,10 @@ describe('Crud', () => {
     expect(getDetailLabelList(wrapper)).toContain('Name')
     expect(getDetailValueList(wrapper)).not.toContain('2016-05-03')
     expect(getDetailValueList(wrapper)).not.toContain('Tom')
+    expect(wrapper.find(detailCellClass).attributes('colspan')).toBe('2')
+    expect(
+      wrapper.find(detailCellClass + ':nth-child(2)').attributes('colspan')
+    ).toBe('1')
 
     await (vm.detail = tableData[0])
     expect(getDetailValueList(wrapper)).toContain('2016-05-03')
