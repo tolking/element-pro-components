@@ -86,6 +86,8 @@ export type DeepPath<T extends object> = {
 
 export type ColumnProp<T> = IsAny<T> extends true
   ? string
+  : FilterObject<T> extends never
+  ? string
   : DeepPath<FilterObject<T>>
 
 export type FormColumnChildren<T> = IsAny<T> extends true
