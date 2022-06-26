@@ -19,12 +19,14 @@ export function createDefault<T>(component: T, core: InputTagCore): VNode[] {
     h(
       component,
       mergeProps(core.inputProps, core.attrs.value, {
+        ref: core.inputRef,
         modelValue: core.input.value,
         size: core.size.value,
         disabled: core.disabled.value,
         type: 'text',
         onSelect: core.add,
-        onBlur: core.add,
+        onFocus: core.focus,
+        onBlur: () => core.add(true),
         onKeyup: core.keyup,
         'onUpdate:modelValue': core.change,
       })
@@ -43,7 +45,10 @@ export default defineComponent({
     return () =>
       h(
         'div',
-        { class: 'pro-input-tag' },
+        {
+          class: ['pro-input-tag', core.focused.value && 'is-focus'],
+          onClick: core.inputRef.value?.focus,
+        },
         createDefault<typeof ElInput>(ElInput, core)
       )
   },

@@ -2,7 +2,11 @@ import { computed, Ref, ref } from 'vue'
 import { reactiveOmit, reactivePick } from '@vueuse/core'
 import { useAttrs, useDisabled, useSize } from 'element-plus'
 import { inputTagCommonProps } from '../InputTag/props'
-import type { ComponentSize } from 'element-plus'
+import type {
+  ComponentSize,
+  InputInstance,
+  AutocompleteInstance,
+} from 'element-plus'
 import type { IInputTagProps, IInputTagEmits } from '../InputTag/index'
 import type {
   IAutocompleteTagProps,
@@ -16,14 +20,17 @@ export interface InputTagCore {
   size: Ref<ComponentSize | undefined>
   tagProps: Partial<IInputTagProps>
   inputProps: Partial<IInputTagProps>
+  inputRef: Ref<InputInstance | AutocompleteInstance | undefined>
   input: Ref<string>
+  focused: Ref<boolean>
   list: Ref<string[]>
   disabled: Ref<boolean | undefined>
   closable: Ref<boolean>
-  add: () => void
+  add: (isBlur?: boolean) => void
   change: (value: string) => void
   close: (index: number) => void
   keyup: (event: KeyboardEvent) => void
+  focus: () => void
 }
 
 export function useInputTag(
@@ -42,7 +49,9 @@ export function useInputTag(
   )
   const commonKeys = Object.keys(inputTagCommonProps) as CommonKeys
   const inputProps = reactiveOmit(props, ...commonKeys, 'size')
+  const inputRef = ref<InputInstance | AutocompleteInstance | undefined>()
   const input = ref('')
+  const focused = ref(false)
   const list = computed(() => props.modelValue || [])
   const triggerKey = computed(() => {
     const key = props.trigger
@@ -59,7 +68,10 @@ export function useInputTag(
     return !(props.readonly || disabled.value) ?? true
   })
 
-  function add() {
+  function add(isBlur = false) {
+    if (isBlur) {
+      focused.value = false
+    }
     if (input.value.trim()) {
       const _list = [...list.value, input.value]
       emit('tag-add', input.value)
@@ -84,12 +96,18 @@ export function useInputTag(
     event.key === triggerKey.value && add()
   }
 
+  function focus() {
+    focused.value = true
+  }
+
   return {
     attrs,
     size,
     tagProps,
     inputProps,
+    inputRef,
     input,
+    focused,
     list,
     disabled,
     closable,
@@ -97,5 +115,6 @@ export function useInputTag(
     change,
     close,
     keyup,
+    focus,
   }
 }
