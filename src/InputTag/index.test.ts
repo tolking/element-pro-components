@@ -34,7 +34,7 @@ describe('InputTag', () => {
         return { value }
       },
     })
-    const vm = (wrapper.vm as unknown) as { value: string[] }
+    const vm = wrapper.vm as unknown as { value: string[] }
 
     /** init */
     expect(wrapper.find('input').element.value).toBe('')
@@ -94,7 +94,7 @@ describe('InputTag', () => {
         }
       },
     })
-    const vm = (wrapper.vm as unknown) as {
+    const vm = wrapper.vm as unknown as {
       value: string[]
       trigger: 'space' | 'enter'
       size: 'large' | 'default' | 'small'
@@ -157,5 +157,42 @@ describe('InputTag', () => {
     await wrapper.find('input').trigger('blur')
     expect(getList(wrapper)).toContain('blur')
     expect(wrapper.find('.el-input').classes()).toContain('is-disabled')
+  })
+
+  test.concurrent('Backspace keys', async () => {
+    const wrapper = _mount({
+      template: '<pro-input-tag v-model="value" />',
+      setup() {
+        const value = ref(['test', 'test1', 'test2'])
+        return { value }
+      },
+    })
+
+    expect(getList(wrapper)).toHaveLength(3)
+    expect(wrapper.find('.el-tag:last-child').classes()).not.toContain(
+      'is-selecte'
+    )
+
+    const input = wrapper.find('input')
+    await input.trigger('keyup', { key: 'Backspace' })
+    await input.trigger('keyup', { key: 'Backspace' })
+    expect(getList(wrapper)).toHaveLength(2)
+    expect(getList(wrapper)).not.toContain('test2')
+
+    await input.setValue('enter')
+    await input.trigger('keyup', { key: 'Enter' })
+    expect(getList(wrapper)).toContain('enter')
+    expect(getList(wrapper)).toHaveLength(3)
+
+    await input.trigger('keyup', { key: 'Backspace' })
+    await input.trigger('keyup', { key: 'Backspace' })
+    expect(getList(wrapper)).toHaveLength(2)
+    expect(getList(wrapper)).not.toContain('enter')
+
+    await input.trigger('keyup', { key: 'Backspace' })
+    await input.trigger('keyup', { key: 'Backspace' })
+    expect(getList(wrapper)).toHaveLength(1)
+    expect(getList(wrapper)).not.toContain('test1')
+    expect(getList(wrapper)).toContain('test')
   })
 })

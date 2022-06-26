@@ -10,6 +10,7 @@ export function createDefault<T>(component: T, core: InputTagCore): VNode[] {
       mergeProps(core.tagProps, {
         size: core.size.value,
         closable: core.closable.value,
+        class: core.selectedTag.value === index && 'is-selecte',
         onClose: () => core.close(index),
       }),
       () => item
