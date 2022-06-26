@@ -5,10 +5,20 @@
   width: 100%;
   border-radius: var(--el-border-radius-base);
   box-shadow: 0 0 0 1px var(--el-border-color) inset;
+  transition: var(--el-transition-box-shadow);
+  &:hover {
+    box-shadow: 0 0 0 1px var(--el-border-color-hover) inset;
+  }
+  &.is-focus {
+    box-shadow: 0 0 0 1px var(--el-color-primary) inset;
+  }
   & .el-tag {
     margin: 3px;
   }
   & .el-input {
+    --el-input-border-color: transparent;
+    --el-input-hover-border-color: transparent;
+    --el-input-focus-border-color: transparent;
     flex: 1;
     min-width: 80px;
   }
