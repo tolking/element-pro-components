@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.1.6
+
+feat
+
+- Crud: rename span to detailSpan for Descriptions (#322)
+- InputTag: A11y enhancements (#328)
+
+fix
+
+- type: override the possibly derived never value (#323)
+- InputTag: styles error when focused (#325)
+- AutocompleteTag: styles error when focused (#326)
+
 ## 1.1.5
 
 fix
