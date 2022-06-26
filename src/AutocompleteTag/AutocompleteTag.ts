@@ -14,7 +14,14 @@ export default defineComponent({
     return () =>
       h(
         'div',
-        { class: 'pro-autocomplete-tag' },
+        {
+          class: [
+            'pro-input-tag',
+            'pro-autocomplete-tag',
+            core.focused.value && 'is-focus',
+          ],
+          onClick: core.inputRef.value?.focus,
+        },
         createDefault<typeof ElAutocomplete>(ElAutocomplete, core)
       )
   },

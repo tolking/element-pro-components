@@ -1,15 +1,4 @@
-.pro-autocomplete-tag {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  width: 100%;
-  border-radius: var(--el-border-radius-base);
-  box-shadow: 0 0 0 1px var(--el-border-color) inset;
-  & .el-tag {
-    margin: 3px;
-  }
-  & .el-autocomplete {
-    flex: 1;
-    min-width: 80px;
-  }
+.pro-autocomplete-tag .el-autocomplete {
+  flex: 1;
+  min-width: 80px;
 }
