@@ -2,7 +2,7 @@ name: test
 
 on:
   pull_request:
-    branches: [ main, releases ]
+    branches: [ main ]
 
 jobs:
   test:
@@ -17,7 +17,11 @@ jobs:
         with:
           version: latest
 
-      - name: Install and Test
-        run: |
-          pnpm install
-          pnpm run test
+      - name: Install
+        run: pnpm install
+
+      - name: Lint and Type Check
+        run: pnpm check
+
+      - name: Test
+        run: pnpm run test
