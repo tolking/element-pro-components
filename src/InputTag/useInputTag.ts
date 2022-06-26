@@ -27,7 +27,7 @@ export interface InputTagCore {
   list: Ref<string[]>
   disabled: Ref<boolean | undefined>
   closable: Ref<boolean>
-  add: (isBlur?: boolean) => void
+  add: (isBlur?: unknown) => void
   change: (value: string) => void
   close: (index: number) => void
   keyup: (event: KeyboardEvent) => void
@@ -70,9 +70,10 @@ export function useInputTag(
     return !(props.readonly || disabled.value) ?? true
   })
 
-  function add(isBlur = false) {
-    if (isBlur) {
+  function add(isBlur?: unknown) {
+    if (isBlur === true) {
       focused.value = false
+      selectedTag.value = undefined
     }
     if (input.value.trim()) {
       const _list = [...list.value, input.value]
@@ -89,16 +90,17 @@ export function useInputTag(
   }
 
   function close(index: number) {
+    inputRef.value?.focus()
     emit('tag-remove', list.value[index])
     const _list = [...list.value]
     _list.splice(index, 1)
     emit('update:modelValue', _list)
+    selectedTag.value = undefined
   }
 
   function keyup(event: KeyboardEvent) {
     if (event.key === 'Enter' && selectedTag.value !== undefined) {
       close(selectedTag.value)
-      selectedTag.value = undefined
     } else if (
       event.key === 'Backspace' &&
       !input.value &&
@@ -108,7 +110,6 @@ export function useInputTag(
         selectedTag.value = list.value.length - 1
       } else {
         close(selectedTag.value)
-        selectedTag.value = undefined
       }
     } else if (event.key === triggerKey.value) {
       add()
