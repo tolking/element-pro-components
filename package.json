@@ -27,9 +27,10 @@
     "build:helper": "esno build/build-helper.ts",
     "build:styles": "rimraf lib/styles && esno build/build-styles.ts",
     "build:docs": "npm run check && rimraf dist && vite build --ssrManifest --outDir ../dist/static && vite build --ssr src/entry-server.ts --outDir ../dist/server && esno build/prerender.ts",
-    "check": "vue-tsc --noEmit",
-    "test": "npm run check && vitest",
-    "lint": "eslint . --fix --ext .ts,.vue,.js --ignore-pattern \"/lib/\" --ignore-pattern \"/dist/\" --ignore-pattern \"/types/\"",
+    "check": "npm run lint:test && vue-tsc --noEmit",
+    "test": "vitest",
+    "lint": "eslint . --fix --ext .ts,.vue,.js",
+    "lint:test": "eslint . --ext .ts,.vue,.js --max-warnings 0",
     "prettier": "prettier --check --write --ignore-unknown \"{build,demo,src,docs,test}/**\"",
     "prepare": "husky install"
   },

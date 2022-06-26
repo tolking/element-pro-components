@@ -1,8 +1,9 @@
 name: build docs
 
 on:
-  push:
-    branches: [ releases ]
+  workflow_dispatch:
+  release:
+    types: [ created ]
 
 jobs:
   build-and-deploy:
