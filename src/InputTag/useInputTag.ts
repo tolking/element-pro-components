@@ -23,6 +23,7 @@ export interface InputTagCore {
   inputRef: Ref<InputInstance | AutocompleteInstance | undefined>
   input: Ref<string>
   focused: Ref<boolean>
+  selectedTag: Ref<number | undefined>
   list: Ref<string[]>
   disabled: Ref<boolean | undefined>
   closable: Ref<boolean>
@@ -52,6 +53,7 @@ export function useInputTag(
   const inputRef = ref<InputInstance | AutocompleteInstance | undefined>()
   const input = ref('')
   const focused = ref(false)
+  const selectedTag = ref<number | undefined>()
   const list = computed(() => props.modelValue || [])
   const triggerKey = computed(() => {
     const key = props.trigger
@@ -82,6 +84,7 @@ export function useInputTag(
 
   function change(value: string) {
     input.value = value
+    selectedTag.value = undefined
     emit('input', value)
   }
 
@@ -93,7 +96,23 @@ export function useInputTag(
   }
 
   function keyup(event: KeyboardEvent) {
-    event.key === triggerKey.value && add()
+    if (event.key === 'Enter' && selectedTag.value !== undefined) {
+      close(selectedTag.value)
+      selectedTag.value = undefined
+    } else if (
+      event.key === 'Backspace' &&
+      !input.value &&
+      list.value?.length
+    ) {
+      if (selectedTag.value === undefined) {
+        selectedTag.value = list.value.length - 1
+      } else {
+        close(selectedTag.value)
+        selectedTag.value = undefined
+      }
+    } else if (event.key === triggerKey.value) {
+      add()
+    }
   }
 
   function focus() {
@@ -108,6 +127,7 @@ export function useInputTag(
     inputRef,
     input,
     focused,
+    selectedTag,
     list,
     disabled,
     closable,

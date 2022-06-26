@@ -5,6 +5,7 @@
   width: 100%;
   border-radius: var(--el-border-radius-base);
   box-shadow: 0 0 0 1px var(--el-border-color) inset;
+  background-color: var(--el-fill-color-blank);
   transition: var(--el-transition-box-shadow);
   &:hover {
     box-shadow: 0 0 0 1px var(--el-border-color-hover) inset;
@@ -14,8 +15,13 @@
   }
   & .el-tag {
     margin: 3px;
+    &.is-selecte {
+      outline: 2px solid var(--el-tag-text-color);
+      outline-offset: 1px;
+    }
   }
   & .el-input {
+    --el-input-bg-color: transparent;
     --el-input-border-color: transparent;
     --el-input-hover-border-color: transparent;
     --el-input-focus-border-color: transparent;
