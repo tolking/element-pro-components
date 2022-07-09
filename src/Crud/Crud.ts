@@ -126,7 +126,8 @@ export default defineComponent({
         : menuColumns.value.del
     }
 
-    function delRow(row: UnknownObject) {
+    function delRow(event: Event, row: UnknownObject) {
+      event.stopPropagation()
       emit('delete', row)
     }
 
@@ -233,7 +234,10 @@ export default defineComponent({
             ElButton,
             mergeProps(menuColumns.value.editProps || {}, {
               size: props.size,
-              onClick: () => openDialog('edit', scope.row),
+              onClick: (event: Event) => {
+                event.stopPropagation()
+                openDialog('edit', scope.row)
+              },
             }),
             () => menuColumns.value?.editText || ''
           )
@@ -245,7 +249,10 @@ export default defineComponent({
             ElButton,
             mergeProps(menuColumns.value.detailProps || {}, {
               size: props.size,
-              onClick: () => openDialog('detail', scope.row),
+              onClick: (event: Event) => {
+                event.stopPropagation()
+                openDialog('detail', scope.row)
+              },
             }),
             () => menuColumns.value?.detailText || ''
           )
@@ -257,7 +264,7 @@ export default defineComponent({
             ElButton,
             mergeProps(menuColumns.value.delProps || {}, {
               size: props.size,
-              onClick: () => delRow(scope.row),
+              onClick: (event: Event) => delRow(event, scope.row),
             }),
             () => menuColumns.value?.delText || ''
           )
