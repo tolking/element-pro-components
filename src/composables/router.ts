@@ -11,7 +11,7 @@ export const useSharedRoutes = createSharedComposable(() => {
   router.options.routes = reactive(router.options.routes)
 
   watchEffect(() => {
-    routes.value = router.options.routes
+    routes.value = router.options.routes as RouteRecordRaw[]
   })
 
   return routes
