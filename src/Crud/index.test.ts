@@ -1,4 +1,4 @@
-import { describe, test, expect, afterEach } from 'vitest'
+import { describe, test, expect, afterEach, vi } from 'vitest'
 import { ComponentPublicInstance, ref } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { ElInput, ElSwitch, ElTableColumn } from 'element-plus'
@@ -276,6 +276,61 @@ describe('Crud', () => {
     expect(wrapper.find(formClass).text()).toBe('submit-text')
     expect(wrapper.find(formClass + ':nth-child(2)').text()).toBe('reset-text')
     await wrapper.find(dialogClose).trigger('click')
+  })
+
+  test.concurrent('menu click', async () => {
+    const add = vi.fn()
+    const edit = vi.fn()
+    const detail = vi.fn()
+    const del = vi.fn()
+    const change = vi.fn()
+    const wrapper = await _mount({
+      template: `
+        <pro-crud
+          :columns="columns"
+          :data="data"
+          :menu="menu"
+          highlight-current-row
+          @add="add"
+          @edit="edit"
+          @detail="detail"
+          @delete="del"
+          @current-change="change"
+        />
+      `,
+      setup() {
+        const menu = { label: 'Label' }
+
+        return {
+          columns: commonColumns,
+          menu,
+          data: tableData,
+          add,
+          edit,
+          detail,
+          del,
+          change,
+        }
+      },
+    })
+
+    await wrapper.find(addClass).trigger('click')
+    expect(add).toHaveBeenCalledTimes(1)
+    await wrapper.find(dialogClose).trigger('clcik')
+
+    await wrapper.find(menuClass).trigger('click')
+    expect(edit).toHaveBeenCalledTimes(1)
+    expect(change).toHaveBeenCalledTimes(0)
+    await wrapper.find(dialogClose).trigger('clcik')
+
+    await wrapper.find(menuClass + ':nth-child(2)').trigger('click')
+    expect(detail).toHaveBeenCalledTimes(1)
+    expect(change).toHaveBeenCalledTimes(0)
+    await wrapper.find(dialogClose).trigger('clcik')
+
+    await wrapper.find(menuClass + ':nth-child(3)').trigger('click')
+    expect(del).toHaveBeenCalledTimes(1)
+    expect(change).toHaveBeenCalledTimes(0)
   })
 
   test.concurrent('modelValue', async () => {
