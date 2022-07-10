@@ -17,7 +17,7 @@
         <slot name="code" />
       </div>
     </div>
-    <div
+    <button
       :class="{ 'is-fixed': isFixContorl }"
       class="control"
       @click="toggleShow"
@@ -33,14 +33,27 @@
       <span class="control-text">
         {{ show ? t('docs.code.hide') : t('docs.code.show') }}
       </span>
-      <div class="control-btn">
-        <el-tooltip :content="t('docs.code.edit')">
+      <div
+        class="control-btn"
+        @click.stop
+      >
+        <el-tooltip
+          :content="t('docs.code.edit')"
+          :trigger="['hover', 'focus']"
+          :trigger-keys="['Enter']"
+        >
           <video-play
+            role="button"
             class="btn-icon"
-            @click.stop="open"
+            @click="open"
+            @keydown.enter="open"
           />
         </el-tooltip>
-        <el-tooltip :content="t('docs.code.view')">
+        <el-tooltip
+          :content="t('docs.code.view')"
+          :trigger="['hover', 'focus']"
+          :trigger-keys="[]"
+        >
           <pro-link
             :to="link"
             class="btn-icon"
@@ -56,14 +69,18 @@
         <el-tooltip
           v-if="isSupported"
           :content="copied ? t('docs.code.copied') : t('docs.code.copy')"
+          :trigger="['hover', 'focus']"
+          :trigger-keys="['Enter']"
         >
           <document-copy
+            role="button"
             class="btn-icon"
-            @click.stop="copy()"
+            @click="copy()"
+            @keydown.enter="copy()"
           />
         </el-tooltip>
       </div>
-    </div>
+    </button>
   </div>
 </template>
 
@@ -183,6 +200,7 @@ function handleScroll() {
   justify-content: center;
   height: 44px;
   box-sizing: border-box;
+  border: 0;
   border-top: var(--el-border);
   border-bottom-left-radius: var(--el-border-radius-base);
   border-bottom-right-radius: var(--el-border-radius-base);
@@ -214,10 +232,12 @@ function handleScroll() {
   transform: translateX(35px);
   transition: var(--el-transition-all);
 }
-.pro-code:hover .control .control-icon {
+.pro-code:hover .control .control-icon,
+.pro-code .control:focus-visible .control-icon {
   transform: translateX(0);
 }
-.pro-code:hover .control .control-text {
+.pro-code:hover .control .control-text,
+.pro-code .control:focus-visible .control-text {
   opacity: 1;
   transform: translateX(0);
 }

@@ -15,10 +15,3 @@
     github
   </pro-link>
 </template>
-
-<style>
-.docs-link {
-  display: block;
-  margin-bottom: 10px;
-}
-</style>
