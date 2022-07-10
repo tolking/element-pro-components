@@ -123,6 +123,7 @@ a.header-anchor {
 
 a.header-anchor:hover,
 a.header-anchor:focus {
+  opacity: 1;
   text-decoration: none;
 }
 
