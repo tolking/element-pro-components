@@ -42,14 +42,14 @@ describe('ColumnSetting.vue', () => {
     document.body.innerHTML = ''
   })
 
-  test.concurrent('test modelValue', async () => {
+  test.concurrent('modelValue', async () => {
     const wrapper = _mount({
       template: '<pro-column-setting v-model="columns" />',
       setup() {
         return { columns: ref(columns) }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: ITableColumns }
+    const vm = wrapper.vm as unknown as { columns: ITableColumns }
 
     await wrapper.find('.pro-column-setting').trigger('hover')
     expect(getList()).toHaveLength(3)
@@ -60,5 +60,15 @@ describe('ColumnSetting.vue', () => {
     await vm.columns.push({ label: 'Vue', prop: 'vue' })
     expect(getList()).toHaveLength(4)
     expect(getList()).toContain('Vue')
+  })
+
+  test.concurrent('slots', async () => {
+    const wrapper = _mount({
+      template: `<pro-column-setting>
+        <button class="button">button</button>
+      </pro-column-setting>`,
+    })
+
+    expect(wrapper.find('.button').text()).toBe('button')
   })
 })

@@ -109,7 +109,7 @@
     "vite": "^2.9.14",
     "vite-plugin-pwa": "^0.12.2",
     "vite-plugin-vue-markdown": "^0.20.1",
-    "vitest": "^0.16.0",
+    "vitest": "^0.18.0",
     "vue-tsc": "^0.38.3",
     "workbox-window": "^6.5.3"
   },
