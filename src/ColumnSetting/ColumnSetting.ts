@@ -14,7 +14,7 @@ export default defineComponent({
   name: 'ProColumnSetting',
   props: columnSettingProps,
   emits: columnSettingEmits,
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
     const { modelValue } = toRefs(props)
     const config = reactiveOmit(
       props,
@@ -39,6 +39,16 @@ export default defineComponent({
     function handleCheckChange(data: Column) {
       data.hide = !data.hide
       emit('update:modelValue', modelValue.value)
+    }
+
+    function createButton() {
+      return slots.default
+        ? slots.default({ size: props.size })
+        : h(ElButton, {
+            size: props.size,
+            circle: true,
+            icon: Setting,
+          })
     }
 
     function createMenu() {
@@ -69,12 +79,7 @@ export default defineComponent({
           class: 'pro-column-setting',
         },
         {
-          default: () =>
-            h(ElButton, {
-              size: props.size,
-              circle: true,
-              icon: Setting,
-            }),
+          default: () => createButton(),
           dropdown: () => createMenu(),
         }
       )
