@@ -1,5 +1,5 @@
 import { isArray } from '../utils/index'
-import type { PropType } from 'vue'
+import type { Component, PropType } from 'vue'
 import type { ComponentSize } from 'element-plus'
 import type { ExternalParam } from '../types/index'
 import type { ICrudColumns } from '../Crud/index'
@@ -16,7 +16,7 @@ export const treeProps = {
   allowDrop: Function,
   accordion: Boolean,
   indent: Number,
-  iconClass: String,
+  icon: [String, Object] as PropType<string | Component>,
 }
 
 export const columnSettingProps = {
