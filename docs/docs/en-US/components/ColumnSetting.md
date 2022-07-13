@@ -11,9 +11,25 @@ meta:
 
 ## Use
 
-### Use with Table
+### Basic Use
 
 Bind data through `v-model`, click the multi-select box to togglen display and hide, and drag it directly to togglen sort
+
+::: demo
+@/demo/ColumnSetting/base.vue
+:::
+
+### Slots
+
+Configurable trigger button by default slots
+
+::: demo
+@/demo/ColumnSetting/slots.vue
+:::
+
+### Use with Table
+
+Use with Table or Crud to play its role
 
 ::: demo
 @/demo/ColumnSetting/table.vue
@@ -68,3 +84,9 @@ Supports operations on grouping table head, and columns can be dragged into or o
 | icon                 | custome tree node icon component                                                                                                                                                                                                                                                                                                                                            | string / Component                     | -                                                              | -          |
 | allow-drag           | this function will be executed before dragging a node. If `false` is returned, the node can not be dragged                                                                                                                                                                                                                                                                  | Function(node)                         | -                                                              | -          |
 | allow-drop           | this function will be executed before the dragging node is dropped. If `false` is returned, the dragging node can not be dropped at the target node. `type` has three possible values: 'prev' (inserting the dragging node before the target node), 'inner' (inserting the dragging node to the target node) and 'next' (inserting the dragging node after the target node) | Function(draggingNode, dropNode, type) | -                                                              | -          |
+
+### Slots
+
+| Name    | Description                                    |
+| :------ | :--------------------------------------------- |
+| default | custom the trigger button, parameters { size } |

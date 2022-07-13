@@ -11,9 +11,25 @@ meta:
 
 ## 使用
 
-### 配合 Table
+### 基础用法
 
 通过 `v-model` 绑定数据，默认点击多选框切换列的显隐，直接拖动实现切换排序
+
+::: demo
+@/demo/ColumnSetting/base.vue
+:::
+
+### 插槽
+
+通过默认插槽可以配置触发按钮
+
+::: demo
+@/demo/ColumnSetting/slots.vue
+:::
+
+### 配合 Table
+
+配合 Table 或 Crud 使用才能够发挥其作用
 
 ::: demo
 @/demo/ColumnSetting/table.vue
@@ -68,3 +84,9 @@ meta:
 | icon                 | 自定义 tree 节点图标组件                                                                                                                   | string /Component                      | -                                                              | -          |
 | allow-drag           | 判断节点能否被拖拽                                                                                                                         | Function(node)                         | -                                                              | -          |
 | allow-drop           | 拖拽时判定目标节点能否被放置。`type` 参数有三种情况：`prev`、`inner` 和 `next`，分别表示放置在目标节点前、插入至目标节点和放置在目标节点后 | Function(draggingNode, dropNode, type) | -                                                              | -          |
+
+### 插槽
+
+| 插槽名  | 说明                            |
+| :------ | :------------------------------ |
+| default | 自定义触发按钮，参数为 { size } |
