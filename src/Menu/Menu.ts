@@ -9,7 +9,6 @@ import { useRoute, RouteRecordRaw } from 'vue-router'
 import { ElMenu, ElMenuItem, ElSubMenu } from 'element-plus'
 import { useCurrentRoutes } from '../composables/index'
 import { menuProps } from './props'
-import { ProLink } from '../Link/index'
 
 export default defineComponent({
   name: 'ProMenu',
@@ -22,13 +21,13 @@ export default defineComponent({
       if (slots.default) {
         return slots.default(item)
       } else {
-        return h(ProLink, { to: item.path }, () => [
+        return [
           item.meta?.icon &&
             h(resolveDynamicComponent(item.meta.icon) as DefineComponent, {
-              class: [item.meta?.icon, 'pro-menu-icon'],
+              class: 'el-icon',
             }),
           item.meta?.title && h('span', item.meta.title),
-        ])
+        ]
       }
     }
 

@@ -15,11 +15,9 @@ const _mount = (options: Record<string, unknown>) =>
 const getSubMenuList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   wrapper
     .findAll('.pro-menu .el-sub-menu')
-    .map((item) => item.find('.el-sub-menu__title .pro-link'))
+    .map((item) => item.find('.el-sub-menu__title'))
 const getMenuList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
-  wrapper
-    .findAll('.pro-menu .el-menu-item')
-    .map((item) => item.find('.pro-link'))
+  wrapper.findAll('.pro-menu .el-menu-item')
 
 describe('Layout', () => {
   afterEach(() => {
@@ -37,19 +35,11 @@ describe('Layout', () => {
     expect(wrapper.find('.pro-layout').classes()).not.toContain('fixed-main')
     expect(wrapper.find('.pro-header').classes()).toContain('fixed-header')
     expect(getMenuList(wrapper)).toHaveLength(2)
-    expect(getMenuList(wrapper)[0].find('.pro-menu-icon').classes()).toContain(
+    expect(getMenuList(wrapper)[0].find('.el-icon').html()).toContain(
       'icon-house'
     )
     expect(getMenuList(wrapper)[0].find('span').text()).toBe('home')
-    expect(getMenuList(wrapper)[0].attributes()).toEqual({
-      class: 'pro-link',
-      to: '/',
-    })
     expect(getMenuList(wrapper)[1].find('span').text()).toBe('two')
-    expect(getMenuList(wrapper)[1].attributes()).toEqual({
-      class: 'pro-link',
-      to: '/two',
-    })
   })
 
   test.concurrent('routes', async () => {
@@ -79,21 +69,13 @@ describe('Layout', () => {
         return { routes }
       },
     })
-    const vm = (wrapper.vm as unknown) as { routes: RouteRecordRaw[] }
+    const vm = wrapper.vm as unknown as { routes: RouteRecordRaw[] }
 
     expect(getSubMenuList(wrapper)).toHaveLength(1)
     expect(getSubMenuList(wrapper)[0].find('span').text()).toBe('one')
     expect(getMenuList(wrapper)).toHaveLength(2)
     expect(getMenuList(wrapper)[0].find('span').text()).toBe('oneIndex')
-    expect(getMenuList(wrapper)[0].attributes()).toEqual({
-      class: 'pro-link',
-      to: '/one/index',
-    })
     expect(getMenuList(wrapper)[1].find('span').text()).toBe('oneInfo')
-    expect(getMenuList(wrapper)[1].attributes()).toEqual({
-      class: 'pro-link',
-      to: '/one/info',
-    })
 
     await vm.routes[0].children?.push({
       path: '/one/dynamic',
@@ -102,10 +84,6 @@ describe('Layout', () => {
     })
     expect(getMenuList(wrapper)).toHaveLength(3)
     expect(getMenuList(wrapper)[2].find('span').text()).toBe('oneDynamic')
-    expect(getMenuList(wrapper)[2].attributes()).toEqual({
-      class: 'pro-link',
-      to: '/one/dynamic',
-    })
   })
 
   test.concurrent('mode', async () => {
@@ -117,7 +95,7 @@ describe('Layout', () => {
         return { mode }
       },
     })
-    const vm = (wrapper.vm as unknown) as { mode: string }
+    const vm = wrapper.vm as unknown as { mode: string }
 
     expect(wrapper.find('.pro-menu').classes()).toContain('el-menu--horizontal')
 
@@ -137,7 +115,7 @@ describe('Layout', () => {
         return { fixed }
       },
     })
-    const vm = (wrapper.vm as unknown) as { fixed: boolean }
+    const vm = wrapper.vm as unknown as { fixed: boolean }
 
     expect(wrapper.find('.pro-header').classes()).toContain('fixed-header')
 
