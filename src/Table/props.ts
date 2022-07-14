@@ -118,6 +118,12 @@ export const tableProps = {
     type: String,
     default: '',
   },
+  tableLayout: {
+    type: String as PropType<'fixed' | 'auto'>,
+    default: 'fixed',
+  },
+  scrollbarAlwaysOn: Boolean,
+  flexible: Boolean,
   showOverflowTooltip: Boolean,
   align: String as PropType<'left' | 'center' | 'right'>,
   headerAlign: String as PropType<'left' | 'center' | 'right'>,
