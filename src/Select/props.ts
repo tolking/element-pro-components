@@ -66,6 +66,10 @@ export const selectCommonProps = {
     type: Boolean,
     default: true,
   },
+  validateEvent: {
+    type: Boolean,
+    default: true,
+  },
 }
 
 export const selectProps = {

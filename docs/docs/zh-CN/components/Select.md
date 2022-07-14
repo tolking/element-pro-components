@@ -108,6 +108,7 @@ meta:
 | fit-input-width       | 下拉框的宽度是否与输入框相同                                                         | boolean            | —                                 | false                                                                          |
 | suffix-icon           | 自定义后缀图标组件                                                                   | string / Component | —                                 | ArrowUp                                                                        |
 | tag-type              | 标签类型                                                                             | string             | success / info / warning / danger | info                                                                           |
+| validate-event        | 输入时是否触发表单的校验                                                             | boolean            | -                                 | true                                                                           |
 
 ### 事件
 
