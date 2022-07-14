@@ -144,6 +144,7 @@ meta:
 | draggable             | 是否开启拖拽节点功能                                                                                                                       | boolean                                | -                                 | false                                                                          |
 | allow-drag            | 判断节点能否被拖拽                                                                                                                         | Function(node)                         | -                                 | -                                                                              |
 | allow-drop            | 拖拽时判定目标节点能否被放置。`type` 参数有三种情况：'prev'、'inner' 和 'next'，分别表示放置在目标节点前、插入至目标节点和放置在目标节点后 | Function(draggingNode, dropNode, type) | -                                 | -                                                                              |
+| validate-event        | 输入时是否触发表单的校验                                                                                                                   | boolean                                | -                                 | true                                                                           |
 
 ### 事件
 

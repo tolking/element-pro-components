@@ -108,6 +108,7 @@ Set `children` in `data` will automatic generate the children options (If there 
 | fit-input-width       | whether the width of the dropdown is the same as the input                                                       | boolean            | —                                 | false                                                                          |
 | suffix-icon           | Custom suffix icon component                                                                                     | string / Component | —                                 | ArrowUp                                                                        |
 | tag-type              | tag type                                                                                                         | string             | success / info / warning / danger | info                                                                           |
+| validate-event        | whether to trigger form validation                                                                               | boolean            | -                                 | true                                                                           |
 
 ### Events
 
