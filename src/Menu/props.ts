@@ -8,4 +8,8 @@ const props = objectOmit(elMenuProps, ['defaultActive', 'router'])
 export const menuProps = {
   ...props,
   routes: Array as PropType<RouteRecordRaw[]>,
+  router: {
+    type: Boolean,
+    default: true,
+  },
 }
