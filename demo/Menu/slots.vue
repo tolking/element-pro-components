@@ -4,15 +4,13 @@
     class="docs-menu"
   >
     <template #default="item">
-      <pro-link :to="item.path">
-        <i
-          v-if="item.meta?.icon"
-          :class="item.meta.icon"
-        />
-        <span v-if="item.meta?.title">
-          {{ item.meta.title }}
-        </span>
-      </pro-link>
+      <i
+        v-if="item.meta?.icon"
+        :class="item.meta.icon"
+      />
+      <span v-if="item.meta?.title">
+        {{ item.meta.title }}
+      </span>
     </template>
   </pro-menu>
 </template>
