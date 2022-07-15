@@ -35,6 +35,18 @@ Set `routes` attribute to enable custom routes
 @/demo/Menu/routes.vue
 :::
 
+### Custom router
+
+::: tip Tip
+Starting from `1.2.0`, the Menu will not be compatible with the complete URL address jump, which needs to be realized by custom router
+:::
+
+First you should configure `:router="false"`, then handle the click through the select event
+
+::: demo
+@/demo/Menu/router.vue
+:::
+
 ### Custom color
 
 Configure menu colors by CSS variables
