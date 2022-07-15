@@ -63,6 +63,18 @@ meta:
 @/demo/Layout/keep-alive.vue
 :::
 
+### 自定义路由跳转
+
+::: tip 提示
+从 `1.2.0` 起，菜单将不兼容完整的 URL 地址跳转，需要通过自定义路由跳转实现
+:::
+
+首先应该配置 `:router="false"`, 然后通过 select 事件处理点击
+
+::: demo
+@/demo/Layout/router.vue
+:::
+
 ### 自定义颜色
 
 通过 CSS 变量配置菜单颜色
