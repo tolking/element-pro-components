@@ -21,7 +21,7 @@ meta:
 
 ### 模式
 
-通过传入 `mode` 实现自定义菜单模式
+通过传入 `mode` 自定义菜单模式
 
 ::: demo
 @/demo/Menu/mode.vue
@@ -29,10 +29,18 @@ meta:
 
 ### 自定义路由
 
-通过传入 `routes` 实现自定义路由显示
+通过传入 `routes` 自定义路由显示
 
 ::: demo
 @/demo/Menu/routes.vue
+:::
+
+### 配置颜色
+
+通过 CSS 变量配置菜单颜色
+
+::: demo
+@/demo/Menu/color.vue
 :::
 
 ### 使用插槽
@@ -53,12 +61,10 @@ meta:
 | mode                | 模式                                                 | string  | horizontal / vertical | vertical               |
 | collapse            | 是否水平折叠收起菜单（仅在 mode 为 vertical 时可用） | boolean | -                     | false                  |
 | ellipsis            | 是否省略多余的子项（仅在横向模式生效）               | boolean | —                     | true                   |
-| background-color    | 菜单的背景色（仅支持 hex 格式）                      | string  | -                     | #ffffff                |
-| text-color          | 菜单的文字颜色（仅支持 hex 格式）                    | string  | -                     | #303133                |
-| active-text-color   | 当前激活菜单的文字颜色（仅支持 hex 格式）            | string  | -                     | #409EFF                |
 | default-openeds     | 当前打开的 sub-menu 的 index 的数组                  | Array   | -                     | -                      |
 | unique-opened       | 是否只保持一个子菜单的展开                           | boolean | -                     | false                  |
 | menu-trigger        | 子菜单打开的触发方式(只在 mode 为 horizontal 时有效) | string  | hover / click         | hover                  |
+| router              | 是否自动跳转路由                                     | boolean | —                     | true                   |
 | collapse-transition | 是否开启折叠动画                                     | boolean | -                     | true                   |
 
 ### 事件
