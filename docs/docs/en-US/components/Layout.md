@@ -63,6 +63,14 @@ It is recommended to name the pages that need to be cached starting with `Keep`,
 @/demo/Layout/keep-alive.vue
 :::
 
+### Custom color
+
+Configure menu colors by CSS variables
+
+::: demo
+@/demo/Layout/color.vue
+:::
+
 ### Slots
 
 More complex interface through slots

@@ -3,11 +3,16 @@ body {
   padding: 0;
 }
 .pro-layout {
+  --el-menu-bg-color: var(--el-bg-color);
   &.layout-aside {
     display: flex;
   }
   &.layout-topmenu {
     background-color: var(--el-bg-color-page);
+    & .pro-header .header-content {
+      border-bottom: 1px solid var(--el-menu-border-color);
+      background-color: var(--el-menu-bg-color);
+    }
   }
   & .pro-container {
     flex: 1;
@@ -17,7 +22,7 @@ body {
     background-color: var(--el-bg-color-page);
   }
   & .aside-collapse + .pro-container {
-    width: calc(100% - var(--pro-layout-width-aside-collapse));
+    width: calc(100% - var(--pro-layout-width-aside-collapse) - 1px);
   }
   & .pro-aside {
     position: sticky;
@@ -31,8 +36,8 @@ body {
       display: flex;
       flex-direction: column;
       height: 100%;
-      border-right: var(--el-border);
-      background-color: var(--pro-layout-aside-background-color);
+      border-right: 1px solid var(--el-menu-border-color);
+      background-color: var(--el-menu-bg-color);
       &.with-logo {
         width: var(--pro-layout-width-aside);
       }
@@ -44,21 +49,17 @@ body {
         padding-left: 20px;
         height: var(--pro-layout-height-header);
         min-height: var(--pro-layout-height-header);
-        border-bottom: var(--el-border);
-        background-color: var(--pro-layout-aside-background-color);
+        border-bottom: 1px solid var(--el-menu-border-color);
         overflow: hidden;
       }
       & .el-scrollbar {
         flex: 1;
+        height: auto;
         & .el-scrollbar__wrap {
           overflow-x: hidden;
-          & .el-scrollbar__view {
-            height: 100%;
-          }
         }
       }
       & .pro-menu {
-        height: 100%;
         border-right: 0;
         &:not(.el-menu--collapse) {
           width: var(--pro-layout-width-aside);
