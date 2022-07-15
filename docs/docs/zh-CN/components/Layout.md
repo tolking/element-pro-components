@@ -63,6 +63,14 @@ meta:
 @/demo/Layout/keep-alive.vue
 :::
 
+### 自定义颜色
+
+通过 CSS 变量配置菜单颜色
+
+::: demo
+@/demo/Layout/color.vue
+:::
+
 ### 插槽
 
 通过插槽实现更复杂的界面
