@@ -3,10 +3,10 @@
     :data="data"
     :columns="columns"
   >
-    <template #name-header="{ column }">
+    <template #table-name-header="{ column }">
       <s>{{ column.label }}</s>
     </template>
-    <template #name="{ row, size }">
+    <template #table-name="{ row, size }">
       <el-tag :size="size">
         {{ row?.name }}
       </el-tag>

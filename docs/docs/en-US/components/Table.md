@@ -245,14 +245,14 @@ The function `defineTableColumns` supports passing in a Generics type to infer t
 
 ### Slots
 
-| Name          | Description                                                                                                                                                                                   |
-| :------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| -             | anything inserted before the menu                                                                                                                                                             |
-| menu          | control the menu display content, parameters { size, row, column, $index }                                                                                                                    |
-| expand        | control the expand display content, parameters { row, column, $index }                                                                                                                        |
-| append        | Contents to be inserted after the last row. You may need this slot if you want to implement infinite scroll for the table. This slot will be displayed above the summary row if there is one. |
-| [prop]        | control the `Item` display content, parameters { size, row, column, $index }                                                                                                                  |
-| [prop]-header | control the `Item` header display content, parameters { size, column, $index }                                                                                                                |
+| Name                | Description                                                                                                                                                                                   |
+| :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| -                   | anything inserted before the menu                                                                                                                                                             |
+| menu                | control the menu display content, parameters { size, row, column, $index }                                                                                                                    |
+| expand              | control the expand display content, parameters { row, column, $index }                                                                                                                        |
+| append              | Contents to be inserted after the last row. You may need this slot if you want to implement infinite scroll for the table. This slot will be displayed above the summary row if there is one. |
+| table-[prop]        | control the `Item` display content, parameters { size, row, column, $index }                                                                                                                  |
+| table-[prop]-header | control the `Item` header display content, parameters { size, column, $index }                                                                                                                |
 
 ::: tip Tip
 [prop] the prop of columns
