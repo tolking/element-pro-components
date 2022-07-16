@@ -160,6 +160,7 @@ The function `defineFormColumns` supports passing in a Generics type to infer th
 | validate-on-rule-change | whether to trigger validation when the `rules` prop is changed                                                                    | boolean | -                                                                    | true    |
 | size                    | control the size of components in this form                                                                                       | string  | large / default /small                                               | -       |
 | disabled                | whether to disabled all components in this form. If set to true, it cannot be overridden by its inner components' `disabled` prop | boolean | -                                                                    | false   |
+| scroll-to-error         | When validation fails, scroll to the first error form entry                                                                       | boolean | -                                                                    | false   |
 | gutter                  | grid spacing                                                                                                                      | number  | -                                                                    | 0       |
 | justify                 | horizontal alignment of flex layout                                                                                               | string  | start / end / center / space-around / space-between / spacing-evenly | start   |
 | align                   | vertical alignment of flex layout                                                                                                 | string  | top / middle / bottom                                                | top     |
@@ -236,14 +237,14 @@ props: {
 
 ### Slots
 
-| Name         | Description                                                              |
-| :----------- | :----------------------------------------------------------------------- |
-| -            | anything inserted before the menu                                        |
-| menu-left    | control the menu left display content, parameters { loading }            |
-| menu-right   | control the menu right display content, parameters { loading }           |
-| [prop]       | control the `Item` display content, parameters { item, value, setValue } |
-| [prop]-label | control the `Item` label display content, parameters { item }            |
-| [prop]-error | control the `Item` error display content, parameters { error, item }     |
+| Name              | Description                                                              |
+| :---------------- | :----------------------------------------------------------------------- |
+| -                 | anything inserted before the menu                                        |
+| menu-left         | control the menu left display content, parameters { loading }            |
+| menu-right        | control the menu right display content, parameters { loading }           |
+| form-[prop]       | control the `Item` display content, parameters { item, value, setValue } |
+| form-[prop]-label | control the `Item` label display content, parameters { item }            |
+| form-[prop]-error | control the `Item` error display content, parameters { error, item }     |
 
 ::: tip Tip
 [prop] the prop of columns

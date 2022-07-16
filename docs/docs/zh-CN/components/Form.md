@@ -160,6 +160,7 @@ meta:
 | validate-on-rule-change | 是否在 `rules` 属性改变后立即触发一次验证                               | boolean | -                                                                    | true   |
 | size                    | 用于控制该表单内组件的尺寸                                              | string  | large / default /small                                               | -      |
 | disabled                | 是否禁用该表单内的所有组件                                              | boolean | -                                                                    | false  |
+| scroll-to-error         | 当校验失败时，滚动到第一个错误表单项                                    | boolean | -                                                                    | false  |
 | gutter                  | 栅格间隔                                                                | number  | -                                                                    | 0      |
 | justify                 | flex 布局下的水平排列方式                                               | string  | start / end / center / space-around / space-between / spacing-evenly | start  |
 | align                   | flex 布局下的垂直排列方式                                               | string  | top / middle / bottom                                                | top    |
@@ -244,14 +245,14 @@ props: {
 
 ### 插槽
 
-| 名称         | 说明                                                           |
-| :----------- | :------------------------------------------------------------- |
-| -            | 在底部菜单前插入的任意内容                                     |
-| menu-left    | 表单底部按钮左侧，参数为 { loading }                           |
-| menu-right   | 表单底部按钮右侧，参数为 { loading }                           |
-| [prop]       | 当前这项的 Form Item 的内容，参数为 { item, value, setValue }  |
-| [prop]-label | 当前这项的标签文本的内容，参数为 { item }                      |
-| [prop]-error | 当前这项的自定义表单校验信息的显示方式，参数为 { error, item } |
+| 名称              | 说明                                                           |
+| :---------------- | :------------------------------------------------------------- |
+| -                 | 在底部菜单前插入的任意内容                                     |
+| menu-left         | 表单底部按钮左侧，参数为 { loading }                           |
+| menu-right        | 表单底部按钮右侧，参数为 { loading }                           |
+| form-[prop]       | 当前这项的 Form Item 的内容，参数为 { item, value, setValue }  |
+| form-[prop]-label | 当前这项的标签文本的内容，参数为 { item }                      |
+| form-[prop]-error | 当前这项的自定义表单校验信息的显示方式，参数为 { error, item } |
 
 ::: tip 提示
 [prop] 为 columns 中定义的 prop
