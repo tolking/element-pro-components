@@ -43,7 +43,11 @@ Support for get the objects or arrays with nested structures value, only need to
 
 ### Slots
 
-Directly add some slot with `[prop]` in the template
+::: tip Tip
+Starting from `1.2.0`, the `[prop]` related slots need to be prefixed with `detail-` to use
+:::
+
+Directly add some slot with `detail-[prop]` in the template
 
 ::: demo
 @/demo/Descriptions/slots.vue
@@ -90,13 +94,13 @@ The function `defineDescriptionsColumns` supports passing in a Generics type to 
 
 ## Slots
 
-| Name         | Description                                                         |
-| ------------ | ------------------------------------------------------------------- |
-| -            | insert more descriptions information at the end                     |
-| title        | custom title, display on the top left, parameters { size }          |
-| extra        | custom extra area, display on the top right, parameters { size }    |
-| [prop]       | control the `Item` display content, parameters { size, item }       |
-| [prop]-label | control the `Item` label display content, parameters { size, item } |
+| Name                | Description                                                         |
+| ------------------- | ------------------------------------------------------------------- |
+| -                   | insert more descriptions information at the end                     |
+| title               | custom title, display on the top left, parameters { size }          |
+| extra               | custom extra area, display on the top right, parameters { size }    |
+| detail-[prop]       | control the `Item` display content, parameters { size, item }       |
+| detail-[prop]-label | control the `Item` label display content, parameters { size, item } |
 
 ::: tip Tip
 [prop] the prop of columns
