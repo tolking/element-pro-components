@@ -245,14 +245,14 @@ meta:
 
 ### 插槽
 
-| 名称          | 说明                                                     |
-| :------------ | :------------------------------------------------------- |
-| -             | 在右侧菜单前插入的任意内容                               |
-| menu          | 表格右侧自定义按钮，参数为 { size, row, column, $index } |
-| expand        | 当前这列展开显示的内容，参数为 { row, column, $index }   |
-| append        | 插入至表格最后一行之后的内容                             |
-| [prop]        | 当前这列的内容，参数为 { size, row, column, $index }     |
-| [prop]-header | 当前这列表头的内容，参数为 { size, column, $index }      |
+| 名称                | 说明                                                     |
+| :------------------ | :------------------------------------------------------- |
+| -                   | 在右侧菜单前插入的任意内容                               |
+| menu                | 表格右侧自定义按钮，参数为 { size, row, column, $index } |
+| expand              | 当前这列展开显示的内容，参数为 { row, column, $index }   |
+| append              | 插入至表格最后一行之后的内容                             |
+| table-[prop]        | 当前这列的内容，参数为 { size, row, column, $index }     |
+| table-[prop]-header | 当前这列表头的内容，参数为 { size, column, $index }      |
 
 ::: tip 提示
 [prop] 为 columns 中定义的 prop

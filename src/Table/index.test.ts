@@ -77,7 +77,7 @@ describe('Table', () => {
         return { columns: ref([...columns]) }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: ITableColumns }
+    const vm = wrapper.vm as unknown as { columns: ITableColumns }
 
     expect(getHeaderList(wrapper)).toContain('Date')
     expect(getHeaderList(wrapper)).toContain('Name')
@@ -104,7 +104,7 @@ describe('Table', () => {
         return { columns, data: ref(tableData) }
       },
     })
-    const vm = (wrapper.vm as unknown) as { data: TableItem[] }
+    const vm = wrapper.vm as unknown as { data: TableItem[] }
 
     expect(getBody(wrapper)).toHaveLength(4)
 
@@ -121,7 +121,7 @@ describe('Table', () => {
         return { columns, index }
       },
     })
-    const vm = (wrapper.vm as unknown) as {
+    const vm = wrapper.vm as unknown as {
       index: boolean | ITableIndexColumns
     }
 
@@ -152,7 +152,7 @@ describe('Table', () => {
         return { columns, expand }
       },
     })
-    const vm = (wrapper.vm as unknown) as {
+    const vm = wrapper.vm as unknown as {
       expand: boolean | ITableExpandColumns
     }
 
@@ -176,7 +176,7 @@ describe('Table', () => {
         return { columns, selection: ref(true) }
       },
     })
-    const vm = (wrapper.vm as unknown) as { selection: boolean }
+    const vm = wrapper.vm as unknown as { selection: boolean }
 
     expect(getHeaderList(wrapper)).toHaveLength(4)
     expect(getHeaderList(wrapper)).toContain('')
@@ -201,7 +201,7 @@ describe('Table', () => {
         return { columns, menu }
       },
     })
-    const vm = (wrapper.vm as unknown) as {
+    const vm = wrapper.vm as unknown as {
       menu: boolean | ITableMenuColumns
     }
 
@@ -238,7 +238,7 @@ describe('Table', () => {
         return { columns, total, currentPage, pageSize, layout }
       },
     })
-    const vm = (wrapper.vm as unknown) as {
+    const vm = wrapper.vm as unknown as {
       total: number
       currentPage: number
       pageSize: number
@@ -282,7 +282,7 @@ describe('Table', () => {
         return { columns, data: tableData, align }
       },
     })
-    const vm = (wrapper.vm as unknown) as { align: string }
+    const vm = wrapper.vm as unknown as { align: string }
 
     expect(getHeaderClass(wrapper)).toContain('is-center')
     expect(getBodyClass(wrapper)).toContain('is-center')
@@ -301,7 +301,7 @@ describe('Table', () => {
         return { columns, data: tableData, align }
       },
     })
-    const vm = (wrapper.vm as unknown) as { align: string }
+    const vm = wrapper.vm as unknown as { align: string }
 
     expect(getHeaderClass(wrapper)).toContain('is-center')
     expect(getBodyClass(wrapper)).not.toContain('is-center')
@@ -319,10 +319,10 @@ describe('Table', () => {
           :data="data"
           :menu="menu"
         >
-          <template #date-header>
+          <template #table-date-header>
             date-header
           </template>
-          <template #date="{ row }">
+          <template #table-date="{ row }">
             @date-{{ row.date }}
           </template>
           <template #menu="{ size }">
@@ -380,7 +380,7 @@ describe('Table', () => {
         return { columns: _columns }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: ITableColumns }
+    const vm = wrapper.vm as unknown as { columns: ITableColumns }
 
     expect(getMultiHeader(wrapper)).toHaveLength(2)
 
