@@ -61,7 +61,11 @@ Local component can be passed directly through `component` in `columns` attribut
 
 ### Slots
 
-Directly add some slot with `[prop]` in the template
+::: tip Tip
+Starting from `1.2.0`, the `[prop]` related slots need to be prefixed with `form-` to use
+:::
+
+Directly add some slot with `form-[prop]` in the template
 
 ::: demo
 @/demo/Form/slots.vue

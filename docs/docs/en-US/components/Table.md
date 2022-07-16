@@ -69,7 +69,11 @@ Use menu slot to define display content, and Set `menu` attribute to control men
 
 ### Slots
 
-Use simple [render-function](https://v3.cn.vuejs.org/guide/render-function.html) by `render` in `columns`. or directly add some slot with `[prop]` in the template.
+::: tip Tip
+Starting from `1.2.0`, the `[prop]` related slots need to be prefixed with `table-` to use
+:::
+
+Use simple [render-function](https://v3.cn.vuejs.org/guide/render-function.html) by `render` in `columns`. or directly add some slot with `table-[prop]` in the template.
 
 ::: demo
 @/demo/Table/slots.vue

@@ -61,7 +61,11 @@ meta:
 
 ### 使用插槽
 
-直接在模版中增加带 `[prop]` 相关的插槽即可使用插槽。虽然在启用插槽后可以通过 `v-model="form.slot"` 这种方式绑定值，但更推荐使用 `value` 与 `setValue`
+::: tip 提示
+从 `1.2.0` 起，`[prop]` 相关插槽需要增加前缀 `form-` 使用
+:::
+
+直接在模版中增加带 `form-[prop]` 相关的插槽即可使用。虽然在启用插槽后可以通过 `v-model="form.slot"` 这种方式绑定值，但更推荐使用 `value` 与 `setValue`
 
 ::: demo
 @/demo/Form/slots.vue
