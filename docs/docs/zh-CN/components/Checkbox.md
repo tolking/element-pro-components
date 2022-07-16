@@ -45,17 +45,18 @@ meta:
 
 ### Checkbox 配置
 
-| 参数       | 说明                           | 类型    | 可选值                 | 默认值                                                                 |
-| :--------- | :----------------------------- | :------ | :--------------------- | :--------------------------------------------------------------------- |
-| v-model    | 绑定值                         | array   | -                      | -                                                                      |
-| data       | 绑定数据                       | array   | -                      | -                                                                      |
-| config     | 配置绑定数据键值               | object  | -                      | { value: 'value', label: 'label', disabled: 'disabled', name: 'name' } |
-| size       | 尺寸                           | string  | large / default /small | -                                                                      |
-| disabled   | 是否禁用                       | boolean | -                      | false                                                                  |
-| min        | 可被勾选的的最小数量           | number  | -                      | -                                                                      |
-| max        | 可被勾选的的最大数量           | number  | -                      | -                                                                      |
-| text-color | 按钮形式激活时的文本颜色       | string  | -                      | #ffffff                                                                |
-| fill       | 按钮形式激活时的填充色和边框色 | string  | -                      | #409EFF                                                                |
+| 参数           | 说明                           | 类型    | 可选值                 | 默认值                                                                 |
+| :------------- | :----------------------------- | :------ | :--------------------- | :--------------------------------------------------------------------- |
+| v-model        | 绑定值                         | array   | -                      | -                                                                      |
+| data           | 绑定数据                       | array   | -                      | -                                                                      |
+| config         | 配置绑定数据键值               | object  | -                      | { value: 'value', label: 'label', disabled: 'disabled', name: 'name' } |
+| size           | 尺寸                           | string  | large / default /small | -                                                                      |
+| disabled       | 是否禁用                       | boolean | -                      | false                                                                  |
+| min            | 可被勾选的的最小数量           | number  | -                      | -                                                                      |
+| max            | 可被勾选的的最大数量           | number  | -                      | -                                                                      |
+| text-color     | 按钮形式激活时的文本颜色       | string  | -                      | #ffffff                                                                |
+| fill           | 按钮形式激活时的填充色和边框色 | string  | -                      | #409EFF                                                                |
+| validate-event | 输入时是否触发表单的校验       | boolean | -                      | true                                                                   |
 
 ### Checkbox 事件
 

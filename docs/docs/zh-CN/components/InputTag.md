@@ -125,6 +125,7 @@ meta:
 | hide-loading          | 是否隐藏远程加载时的加载图标           | boolean                         | -                                                              | false        |
 | teleported            | 是否将下拉列表插入至 body 元素         | boolean                         | -                                                              | true         |
 | highlight-first-item  | 是否默认突出显示远程搜索建议中的第一项 | boolean                         | -                                                              | false        |
+| fit-input-width       | 下拉框的宽度是否与输入框相同           | boolean                         | —                                                              | false        |
 
 ### AutocompleteTag 事件
 
