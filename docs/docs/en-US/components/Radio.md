@@ -45,15 +45,16 @@ use `pro-radio-button` then checkbox with button styles
 
 ### Radio Props
 
-| Name       | Description                                       | Type    | Options                | Default                                                                |
-| :--------- | :------------------------------------------------ | :------ | :--------------------- | :--------------------------------------------------------------------- |
-| v-model    | binding value                                     | array   | -                      | -                                                                      |
-| data       | binding data                                      | array   | -                      | -                                                                      |
-| config     | config the key of data                            | object  | -                      | { value: 'value', label: 'label', disabled: 'disabled', name: 'name' } |
-| size       | component size                                    | string  | large / default /small | -                                                                      |
-| disabled   | whether disabled                                  | boolean | -                      | false                                                                  |
-| text-color | font color when button is active                  | string  | -                      | #ffffff                                                                |
-| fill       | border and background color when button is active | string  | -                      | #409EFF                                                                |
+| Name           | Description                                       | Type    | Options                | Default                                                                |
+| :------------- | :------------------------------------------------ | :------ | :--------------------- | :--------------------------------------------------------------------- |
+| v-model        | binding value                                     | array   | -                      | -                                                                      |
+| data           | binding data                                      | array   | -                      | -                                                                      |
+| config         | config the key of data                            | object  | -                      | { value: 'value', label: 'label', disabled: 'disabled', name: 'name' } |
+| size           | component size                                    | string  | large / default /small | -                                                                      |
+| disabled       | whether disabled                                  | boolean | -                      | false                                                                  |
+| text-color     | font color when button is active                  | string  | -                      | #ffffff                                                                |
+| fill           | border and background color when button is active | string  | -                      | #409EFF                                                                |
+| validate-event | whether to trigger form validation                | boolean | -                      | true                                                                   |
 
 ### Radio Events
 

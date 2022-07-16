@@ -125,6 +125,7 @@ When using `pro-autocomplete-tag`, most attribute of `ElAutocomplete` are suppor
 | hide-loading          | whether to hide the loading icon in remote search                                                                        | boolean                         | -                                                              | false        |
 | teleported            | whether select dropdown is teleported to the body                                                                        | boolean                         | -                                                              | true         |
 | highlight-first-item  | whether to highlight first item in remote search suggestions by default                                                  | boolean                         | -                                                              | false        |
+| fit-input-width       | whether the width of the dropdown is the same as the input                                                               | boolean                         | —                                                              | false        |
 
 ## AutocompleteTag Events
 
