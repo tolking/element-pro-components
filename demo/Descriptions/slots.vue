@@ -13,12 +13,12 @@
         extra
       </el-button>
     </template>
-    <template #name="{ item, size }">
+    <template #detail-name="{ item, size }">
       <el-tag :size="size">
         {{ item.name }}
       </el-tag>
     </template>
-    <template #name-label="{ item }">
+    <template #detail-name-label="{ item }">
       <span>{{ item.label }}:</span>
     </template>
   </pro-descriptions>
