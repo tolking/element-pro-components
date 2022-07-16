@@ -236,31 +236,35 @@ export function useCrudSlots(): {
   const tableSlots: Record<string, Slot | undefined> = {}
   const formSlots: Record<string, Slot | undefined> = {}
   const detailSlots: Record<string, Slot | undefined> = {}
+  const searchKey = ['search', 'search-menu-left', 'search-menu-right']
+  const tableKey = ['table', 'table-expand', 'table-append']
+  const formKey = ['form', 'form-menu-left', 'form-menu-right']
+  const detailKey = ['detail', 'detail-title', 'detail-extra']
 
   for (const key in slots) {
     const item = slots[key]
 
     // NOTE: Remove `/\w+-header$/` `/^append$/` `/^expand$/` `/\w+-error$/` `/\w+-label$/` on next major release
-    if (/^search-/.test(key)) {
-      const _key = key.replace(/^search-/, '')
+    if (/^search/.test(key)) {
+      const _key =
+        key.replace(/^search-?/, searchKey.includes(key) ? '' : 'form-') ||
+        'default'
       searchSlots[_key] = item
-    } else if (/^search$/.test(key)) {
-      searchSlots.default = item
-    } else if (/^table-/.test(key)) {
-      const _key = key.replace(/^table-/, '')
+    } else if (/^table/.test(key)) {
+      const _key = tableKey.includes(key)
+        ? key.replace(/^table-?/, '') || 'default'
+        : key
       tableSlots[_key] = item
-    } else if (/^table$/.test(key)) {
-      tableSlots.default = item
-    } else if (/^form-/.test(key)) {
-      const _key = key.replace(/^form-/, '')
+    } else if (/^form/.test(key)) {
+      const _key = formKey.includes(key)
+        ? key.replace(/^form-?/, '') || 'default'
+        : key
       formSlots[_key] = item
-    } else if (/^form$/.test(key)) {
-      formSlots.default = item
-    } else if (/^detail-/.test(key)) {
-      const _key = key.replace(/^detail-/, '')
+    } else if (/^detail/.test(key)) {
+      const _key = detailKey.includes(key)
+        ? key.replace(/^detail-?/, '') || 'default'
+        : key
       detailSlots[_key] = item
-    } else if (/^detail$/.test(key)) {
-      detailSlots.default = item
     } else if (/\w+-header$/.test(key)) {
       throwWarn(
         `[ProCrud] the [prop]-header slot will to remove, use 'table-[prop]-header' replace ${key}`

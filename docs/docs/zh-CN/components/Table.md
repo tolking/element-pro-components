@@ -69,7 +69,11 @@ meta:
 
 ### 插槽
 
-在 `columns` 中配置 `render` 可以使用简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)。或者直接在模版中增加带 `[prop]` 相关的插槽
+::: tip 提示
+从 `1.2.0` 起，`[prop]` 相关插槽需要增加前缀 `table-` 使用
+:::
+
+在 `columns` 中配置 `render` 可以使用简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)。或者直接在模版中增加带 `table-[prop]` 相关的插槽
 
 ::: demo
 @/demo/Table/slots.vue
