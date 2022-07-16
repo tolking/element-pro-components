@@ -50,7 +50,7 @@ describe('Descriptions', () => {
         return { columns, detail }
       },
     })
-    const vm = (wrapper.vm as unknown) as { columns: IDescriptionsColumns }
+    const vm = wrapper.vm as unknown as { columns: IDescriptionsColumns }
 
     expect(getLabelList(wrapper)).toContain('Date')
     expect(getPropList(wrapper)).toContain('2016-05-03')
@@ -78,7 +78,7 @@ describe('Descriptions', () => {
         return { columns, detail }
       },
     })
-    const vm = (wrapper.vm as unknown) as { detail: { date: string } }
+    const vm = wrapper.vm as unknown as { detail: { date: string } }
 
     expect(getLabelList(wrapper)).toContain('Date')
     expect(getPropList(wrapper)).toContain('')
@@ -101,10 +101,10 @@ describe('Descriptions', () => {
           <template #extra>
             <span>slot-extra</span>
           </template>
-          <template #date="{ detail }">
-            <span>slot-{{ detail.date }}</span>
+          <template #detail-date="{ item }">
+            <span>slot-{{ item.date }}</span>
           </template>
-          <template #date-label="{ item }">
+          <template #detail-date-label="{ item }">
             <span>slot-{{ item.label }}</span>
           </template>
           <template #default>
