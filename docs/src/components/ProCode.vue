@@ -160,7 +160,7 @@ function handleScroll() {
 }
 .pro-code .source {
   padding: 24px;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 .pro-code .meta {
   padding: 0 10px;

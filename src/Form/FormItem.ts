@@ -11,7 +11,7 @@ import { ElFormItem, ElButton } from 'element-plus'
 import { Plus, Minus } from '@element-plus/icons-vue'
 import { useCol } from '../composables/index'
 import { useFormItemBind, useFormChild } from './useForm'
-import { get, set, has, isArray } from '../utils/index'
+import { get, set, has, isArray, throwWarn } from '../utils/index'
 import ProFormItem from './FormItem'
 import ProFormComponent from './FormComponent'
 import { formItemProps, formItemEmits } from './props'
@@ -36,14 +36,31 @@ export default defineComponent({
     }
 
     function createLabel() {
-      if (slots[item.value.prop + '-label']) {
-        return (slots[item.value.prop + '-label'] as Slot)({ item: item.value })
+      if (slots[`form-${item.value.prop}-label`]) {
+        return (slots[`form-${item.value.prop}-label`] as Slot)({
+          item: item.value,
+        })
+      } else if (slots[`${item.value.prop}-label`]) {
+        // NOTE: Remove this on next major release
+        throwWarn(
+          `[ProForm] the [prop]-label slot will to remove, use 'form-[prop]-label' replace ${item.value.prop}-label`
+        )
+        return (slots[`${item.value.prop}-label`] as Slot)({ item: item.value })
       }
     }
 
     function createError(scope: UnknownObject) {
-      if (slots[item.value.prop + '-error']) {
-        return (slots[item.value.prop + '-error'] as Slot)({
+      if (slots[`form-${item.value.prop}-error`]) {
+        return (slots[`form-${item.value.prop}-error`] as Slot)({
+          ...scope,
+          item: item.value,
+        })
+      } else if (slots[`${item.value.prop}-error`]) {
+        // NOTE: Remove this on next major release
+        throwWarn(
+          `[ProForm] the [prop]-error slot will to remove, use 'form-[prop]-error' replace ${item.value.prop}-error`
+        )
+        return (slots[`${item.value.prop}-error`] as Slot)({
           ...scope,
           item: item.value,
         })
@@ -103,7 +120,19 @@ export default defineComponent({
               onClick: add,
             })
           )
+      } else if (slots[`form-${item.value.prop}`]) {
+        list = list.concat(
+          (slots[`form-${item.value.prop}`] as Slot)({
+            item,
+            value: currentValue,
+            setValue: upData,
+          })
+        )
       } else if (slots[item.value.prop]) {
+        // NOTE: Remove this on next major release
+        throwWarn(
+          `[ProForm] the [prop] slot will to remove, use 'form-[prop]' replace ${item.value.prop}`
+        )
         list = list.concat(
           (slots[item.value.prop] as Slot)({
             item,
@@ -131,7 +160,7 @@ export default defineComponent({
       h(
         ElFormItem,
         mergeProps(bindItem.value, {
-          prop: hasChild.value ? undefined : prop.value,
+          prop: prop.value,
           style: !inline.value ? colStyle.value : undefined,
           class: ['pro-form-item', !inline.value ? colClass.value : ''],
         }),

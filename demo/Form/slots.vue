@@ -5,11 +5,11 @@
     label-width="100px"
     @submit="submit"
   >
-    <template #slot-label>
+    <template #form-slot-label>
       <picture-rounded class="icon-picture" />
       <span>picture</span>
     </template>
-    <template #slot="{ value, setValue }">
+    <template #form-slot="{ value, setValue }">
       <el-upload
         :show-file-list="false"
         :before-upload="(file) => beforeUpload(file, setValue)"
