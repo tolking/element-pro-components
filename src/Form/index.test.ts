@@ -145,10 +145,10 @@ describe('Form', () => {
           v-model="form"
           :columns="columns"
         >
-          <template #slot-label>
+          <template #form-slot-label>
             slot-label
           </template>
-          <template #slot="{ value, setValue }">
+          <template #form-slot="{ value, setValue }">
             <el-input
               :model-value="value"
               calss="slot"
