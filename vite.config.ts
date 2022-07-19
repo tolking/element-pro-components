@@ -14,7 +14,6 @@ import type Token from 'markdown-it/lib/token'
 
 export default defineConfig({
   root: resolve(__dirname, 'docs'),
-  base: '/element-pro-components/',
   resolve: {
     alias: {
       'element-pro-components': resolve(__dirname, 'src'),

@@ -26,7 +26,9 @@
     "build:types": "rimraf types && vue-tsc --declaration --emitDeclarationOnly",
     "build:helper": "esno build/build-helper.ts",
     "build:styles": "rimraf lib/styles && esno build/build-styles.ts",
-    "build:docs": "npm run check && rimraf dist && vite build --ssrManifest --outDir ../dist/static && vite build --ssr src/entry-server.ts --outDir ../dist/server && esno build/prerender.ts",
+    "build:docs": "rimraf dist && npm run build:manifest && npm run build:ssr && esno build/prerender.ts",
+    "build:manifest": "vite build --ssrManifest --base=/element-pro-components/ --outDir ../dist/static",
+    "build:ssr": "vite build --ssr src/entry-server.ts --base=/element-pro-components/ --outDir ../dist/server",
     "check": "npm run lint:test && vue-tsc --noEmit",
     "test": "vitest",
     "lint": "eslint . --fix --ext .ts,.vue,.js",
@@ -61,11 +63,11 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.6",
-    "@vueuse/core": "^8.9.1",
+    "@vueuse/core": "^8.9.4",
     "element-plus": "^2.2.9",
     "lodash": "^4.17.21",
     "vue": "^3.2.37",
-    "vue-router": "^4.1.1"
+    "vue-router": "^4.1.2"
   },
   "devDependencies": {
     "@docsearch/css": "^3.1.1",
@@ -74,8 +76,8 @@
     "@types/lodash": "^4.14.182",
     "@types/markdown-it": "^12.2.3",
     "@types/markdown-it-container": "^2.0.5",
-    "@typescript-eslint/eslint-plugin": "^5.30.5",
-    "@typescript-eslint/parser": "^5.30.5",
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/parser": "^5.30.7",
     "@vitejs/plugin-vue": "^2.3.3",
     "@vue/compiler-sfc": "^3.2.37",
     "@vue/server-renderer": "^3.2.37",
@@ -85,7 +87,7 @@
     "components-helper": "^2.0.0",
     "cssnano": "^5.1.12",
     "escape-html": "^1.0.3",
-    "eslint": "^8.19.0",
+    "eslint": "^8.20.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.2.0",
     "esno": "^0.16.3",
@@ -107,10 +109,10 @@
     "sitemap": "^7.1.1",
     "typescript": "^4.7.4",
     "vite": "^2.9.14",
-    "vite-plugin-pwa": "^0.12.2",
+    "vite-plugin-pwa": "^0.12.3",
     "vite-plugin-vue-markdown": "^0.20.1",
-    "vitest": "^0.18.0",
-    "vue-tsc": "^0.38.3",
+    "vitest": "^0.18.1",
+    "vue-tsc": "^0.38.8",
     "workbox-window": "^6.5.3"
   },
   "pnpm": {
