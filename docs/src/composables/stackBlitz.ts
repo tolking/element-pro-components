@@ -147,7 +147,7 @@ export function useStackBlitz(
     return {
       title: `${name.componentName} Demo`,
       description: `The ${name.demoName} demo about ${name.componentName}`,
-      template: 'node',
+      template: 'node' as const,
       files,
     }
   }
