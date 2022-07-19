@@ -8,23 +8,23 @@ import type {
   ReAttribute,
 } from 'components-helper'
 
-const reComponentName: ReComponentName = (title: string) => {
+const reComponentName: ReComponentName = (title) => {
   return 'pro-' + hyphenate(title)
 }
 
-const reWebTypesSource: ReWebTypesSource = (title: string) => {
+const reWebTypesSource: ReWebTypesSource = (title) => {
   const symbol = 'Pro' + title
   return { symbol }
 }
 
-const reDocUrl: ReDocUrl = (fileName: string, header: string) => {
+const reDocUrl: ReDocUrl = (fileName, header) => {
   const docs =
     'https://tolking.github.io/element-pro-components/en-US/components/'
   const _header = header ? header.replace(/[ ]+/g, '-') : undefined
   return docs + fileName + (_header ? '#' + header : '')
 }
 
-const reAttribute: ReAttribute = (value: string, key: string) => {
+const reAttribute: ReAttribute = (value, key) => {
   if (key === 'Name' && /^(-|—)$/.test(value)) {
     return 'default'
   } else if (key === 'Name' && /v-model:(.+)/.test(value)) {
@@ -61,5 +61,6 @@ helper({
   reAttribute,
   reWebTypesSource,
   titleRegExp: /#+\s+(.*)\n+>\s*([^(#|\n)]*)/g,
-  tableRegExp: /#+\s+(.*\s*Props|.*\s*Events|.*\s*Slots|.*\s*Directives)\s*\n+(\|?.+\|.+)\n\|?\s*:?-+:?\s*\|.+((\n\|?.+\|.+)+)/g,
+  tableRegExp:
+    /#+\s+(.*\s*Props|.*\s*Events|.*\s*Slots|.*\s*Directives)\s*\n+(\|?.+\|.+)\n\|?\s*:?-+:?\s*\|.+((\n\|?.+\|.+)+)/g,
 })
