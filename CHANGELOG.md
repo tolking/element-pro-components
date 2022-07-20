@@ -1,5 +1,41 @@
 # Changelog
 
+## 1.2.0
+
+breaking changes
+
+- Menu: remove Link components (#344)
+- Layout: styles (#347)
+- Form: modify the name of the slot (#349)
+- Table: modify the name of the slot (#351)
+- Descriptions: modify the name of the slot (#352)
+- Crud: sync the name change of the slot (#353)
+
+feat
+
+- ColumnSetting: add the default slot (#341)
+
+fix
+
+- Layout: container width error (#336)
+- Crud: prevent click event (#337)
+
+other
+
+- ColumnSetting: sync the props change of ElTree (#340)
+- Select: sync the props change of ElSelect (#342)
+- Table: sync the props change of ElTable (#343)
+- build: remove base attribute of Vite (#354)
+- docs: optimized Code component A11y support (#338)
+
+### migration guide
+
+Compare [1.1.6...v1.2.0](https://github.com/tolking/element-pro-components/compare/v1.1.6...v1.2.0)
+
+In order to customize the Menu and Layout components style, the Link component inside the Menu has been removed in the new version. Therefore, it does not support the jump of complete link routing. If you need this, you need to refer to [Menu demo](https://tolking.github.io/element-pro-components/en-US/components/menu#custom-router) or [Layout demo](https://tolking.github.io/element-pro-components/en-US/components/layout#custom-router) implementation.
+
+In order to avoid errors caused by the same name of [prop] slots and other slots, the new version add the prefix to the [prop] slots of the Form, Table and Descriptions components (same as the Crud component [prop] slots).
+
 ## 1.1.6
 
 feat

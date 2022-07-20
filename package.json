@@ -1,6 +1,6 @@
 {
   "name": "element-pro-components",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "description": "a component library for Vue 3 base on element-plus",
   "main": "lib/index.umd.js",
   "module": "lib/index.es.js",
@@ -26,7 +26,7 @@
     "build:types": "rimraf types && vue-tsc --declaration --emitDeclarationOnly",
     "build:helper": "esno build/build-helper.ts",
     "build:styles": "rimraf lib/styles && esno build/build-styles.ts",
-    "build:docs": "rimraf dist && npm run build:manifest && npm run build:ssr && esno build/prerender.ts",
+    "build:docs": "npm run check && rimraf dist && npm run build:manifest && npm run build:ssr && esno build/prerender.ts",
     "build:manifest": "vite build --ssrManifest --base=/element-pro-components/ --outDir ../dist/static",
     "build:ssr": "vite build --ssr src/entry-server.ts --base=/element-pro-components/ --outDir ../dist/server",
     "check": "npm run lint:test && vue-tsc --noEmit",
