@@ -9,6 +9,7 @@ import highlight from './build/plugin/highlight'
 import snippet from './build/plugin/snippet'
 import demo from './build/plugin/demo'
 import createContainer from './build/plugin/create-container'
+import externalLinkIcon from './build/plugin/external-link-icon'
 import preWrapper from './build/plugin/pre-wrapper'
 import type Token from 'markdown-it/lib/token'
 
@@ -46,6 +47,7 @@ export default defineConfig({
         md.use(snippet)
           .use(preWrapper)
           .use(container, 'demo', demo)
+          .use(externalLinkIcon)
           .use(anchor, {
             slugify: (str) => str.replaceAll(/[ ]/g, '-').toLowerCase(),
             permalink: anchor.permalink.ariaHidden({}),
