@@ -14,6 +14,7 @@ import {
   ElTooltip,
 } from 'element-plus'
 import ElementPro from 'element-pro-components'
+import IconExternalLink from './components/IconExternalLink.vue'
 import ProCode from './components/ProCode.vue'
 import Layout from './App.vue'
 import 'element-plus/theme-chalk/index.css'
@@ -47,6 +48,7 @@ export function createApp(): {
     .use(ElCard)
     .use(ElSwitch)
     .use(ElTooltip)
+    .component('IconExternalLink', IconExternalLink)
     .component('ProCode', ProCode)
     .use(ElementPro)
 

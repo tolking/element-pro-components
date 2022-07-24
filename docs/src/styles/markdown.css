@@ -127,6 +127,17 @@ a.header-anchor:focus {
   text-decoration: none;
 }
 
+.md-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.md-link .link-icon {
+  margin-left: 2px;
+  width: 1em;
+  height: 1em;
+}
+
 figure {
   margin: 0;
 }
