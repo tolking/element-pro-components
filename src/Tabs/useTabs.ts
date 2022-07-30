@@ -1,5 +1,6 @@
 import { Ref, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { isFunction, throwWarn } from '../utils/index'
 import type { ITabsProps, ITabsExpose, ITab } from './type'
 
 interface UseTabs extends ITabsExpose {
@@ -15,7 +16,7 @@ export function useTabs(props: ITabsProps): UseTabs {
 
   watch(
     () => route.path,
-    (path, oldPath) => {
+    async (path, oldPath) => {
       const title = route.meta?.title || ''
       const hidden = route.meta?.hidden
 
@@ -23,7 +24,25 @@ export function useTabs(props: ITabsProps): UseTabs {
         const item = list.value.find((item) => item.path === oldPath)
         item?.hidden && close(oldPath)
       }
-      addTab({ title, path, hidden })
+
+      if (isFunction(props.beforeAdd)) {
+        try {
+          const canAdd = await props.beforeAdd({
+            route,
+            oldPath,
+            list,
+            close,
+            closeOther,
+          })
+          if (canAdd !== false) {
+            addTab({ title, path, hidden })
+          }
+        } catch {
+          throwWarn('[ProTabs] Failed to execute beforeAdd function')
+        }
+      } else {
+        addTab({ title, path, hidden })
+      }
     },
     { immediate: true }
   )
