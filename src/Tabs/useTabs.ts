@@ -1,13 +1,13 @@
 import { Ref, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import type { ITabsExpose, ITab } from './index'
+import type { ITabsProps, ITabsExpose, ITab } from './type'
 
 interface UseTabs extends ITabsExpose {
   active: Ref<string>
   to: (item: { paneName: string }) => void
 }
 
-export function useTabs(): UseTabs {
+export function useTabs(props: ITabsProps): UseTabs {
   const route = useRoute()
   const router = useRouter()
   const active = ref('')
@@ -19,7 +19,7 @@ export function useTabs(): UseTabs {
       const title = route.meta?.title || ''
       const hidden = route.meta?.hidden
 
-      if (oldPath) {
+      if (oldPath && !props.keepHiddenRoute) {
         const item = list.value.find((item) => item.path === oldPath)
         item?.hidden && close(oldPath)
       }

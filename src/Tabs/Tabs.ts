@@ -7,7 +7,7 @@ export default defineComponent({
   name: 'ProTabs',
   props: tabsProps,
   setup(props, { expose }) {
-    const { active, list, to, close, closeOther } = useTabs()
+    const { active, list, to, close, closeOther } = useTabs(props)
 
     expose({
       list,
