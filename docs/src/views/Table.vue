@@ -18,11 +18,11 @@
       <template #expand="{ row }">
         {{ row }}
       </template>
-      <template #date-header="{ column }">
+      <template #table-date-header="{ column }">
         <i class="el-icon-time" />
         <span>{{ column.label }}</span>
       </template>
-      <template #date="{ row }">
+      <template #table-date="{ row }">
         - {{ row.date }} -
       </template>
       <template #menu="{ size, row }">
@@ -42,7 +42,7 @@
       :columns="columns1"
       :total="total"
     >
-      <template #name="{ row }">
+      <template #table-name="{ row }">
         - {{ row.name }} -
       </template>
     </pro-table>

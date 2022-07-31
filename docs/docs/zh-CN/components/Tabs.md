@@ -19,6 +19,14 @@ meta:
 @/demo/Tabs/base.vue
 :::
 
+### 保持隐藏路由
+
+默认自动关闭具有 `hidden` 标识的路由，可以通过 `keep-hidden-route` 阻止这种行为
+
+::: demo
+@/demo/Tabs/keep-hidden-route.vue
+:::
+
 ### 外部调用关闭
 
 通过 `ref` 绑定 `Tabs` 进而通过外部调用关闭 tab 页
@@ -27,14 +35,32 @@ meta:
 @/demo/Tabs/ref.vue
 :::
 
+### 增加标签之前
+
+通过 `before-add` 钩子在标签增加前执行一些操作，若返回 false 或者返回 Promise 且被 reject，则阻止增加标签
+
+::: demo
+@/demo/Tabs/before-add.vue
+:::
+
+### 切换标签之前
+
+通过 `before-leave` 钩子在标签切换前执行一些操作，若返回 false 或者返回 Promise 且被 reject，则阻止切换标签
+
+::: demo
+@/demo/Tabs/before-leave.vue
+:::
+
 ### 配置
 
-| 参数         | 说明                                                                        | 类型                                | 可选值                      | 默认值 |
-| ------------ | --------------------------------------------------------------------------- | ----------------------------------- | --------------------------- | ------ |
-| type         | 风格类型                                                                    | string                              | card / border-card          | -      |
-| tab-position | 标签位置                                                                    | string                              | top / right / bottom / left | top    |
-| stretch      | 标签的宽度是否自撑开                                                        | boolean                             | -                           | false  |
-| before-leave | 切换标签之前的钩子，若返回 false 或者返回 Promise 且被 reject，则阻止切换。 | Function(activeName, oldActiveName) | -                           | -      |
+| 参数              | 说明                                                                        | 类型                                                  | 可选值                      | 默认值 |
+| ----------------- | --------------------------------------------------------------------------- | ----------------------------------------------------- | --------------------------- | ------ |
+| type              | 风格类型                                                                    | string                                                | card / border-card          | -      |
+| tab-position      | 标签位置                                                                    | string                                                | top / right / bottom / left | top    |
+| stretch           | 标签的宽度是否自撑开                                                        | boolean                                               | -                           | false  |
+| keep-hidden-route | 是否保持具有 hidden 标识的路由存在，默认自动关闭                            | boolean                                               | -                           | false  |
+| before-add        | 增加标签之前的钩子，若返回 false 或者返回 Promise 且被 reject，则阻止增加。 | Function({ route, oldPath, list, close, closeOther }) | -                           | -      |
+| before-leave      | 切换标签之前的钩子，若返回 false 或者返回 Promise 且被 reject，则阻止切换。 | Function(activeName, oldActiveName)                   | -                           | -      |
 
 ### 事件
 
