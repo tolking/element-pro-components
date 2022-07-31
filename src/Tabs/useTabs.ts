@@ -5,7 +5,7 @@ import type { ITabsProps, ITabsExpose, ITab } from './type'
 
 interface UseTabs extends ITabsExpose {
   active: Ref<string>
-  to: (item: { paneName: string }) => void
+  to: (path: string) => void
 }
 
 export function useTabs(props: ITabsProps): UseTabs {
@@ -52,9 +52,9 @@ export function useTabs(props: ITabsProps): UseTabs {
     active.value = tab.path
   }
 
-  function to(item: { paneName: string }) {
-    if (item.paneName !== route.path) {
-      router.push(item.paneName)
+  function to(path: string) {
+    if (path !== route.path) {
+      router.push(path)
     }
   }
 
@@ -64,9 +64,9 @@ export function useTabs(props: ITabsProps): UseTabs {
 
     if (route.path === path && list.value.length) {
       if (index >= 1) {
-        to({ paneName: list.value[index - 1].path })
+        to(list.value[index - 1].path)
       } else {
-        to({ paneName: list.value[index].path })
+        to(list.value[index].path)
       }
     }
   }
