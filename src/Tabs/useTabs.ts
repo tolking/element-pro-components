@@ -1,10 +1,11 @@
 import { Ref, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { isFunction, throwWarn } from '../utils/index'
 import type { ITabsProps, ITabsExpose, ITab } from './type'
 
 interface UseTabs extends ITabsExpose {
   active: Ref<string>
-  to: (item: { paneName: string }) => void
+  to: (path: string) => void
 }
 
 export function useTabs(props: ITabsProps): UseTabs {
@@ -15,7 +16,7 @@ export function useTabs(props: ITabsProps): UseTabs {
 
   watch(
     () => route.path,
-    (path, oldPath) => {
+    async (path, oldPath) => {
       const title = route.meta?.title || ''
       const hidden = route.meta?.hidden
 
@@ -23,7 +24,25 @@ export function useTabs(props: ITabsProps): UseTabs {
         const item = list.value.find((item) => item.path === oldPath)
         item?.hidden && close(oldPath)
       }
-      addTab({ title, path, hidden })
+
+      if (isFunction(props.beforeAdd)) {
+        try {
+          const canAdd = await props.beforeAdd({
+            route,
+            oldPath,
+            list,
+            close,
+            closeOther,
+          })
+          if (canAdd !== false) {
+            addTab({ title, path, hidden })
+          }
+        } catch {
+          throwWarn('[ProTabs] Failed to execute beforeAdd function')
+        }
+      } else {
+        addTab({ title, path, hidden })
+      }
     },
     { immediate: true }
   )
@@ -33,9 +52,9 @@ export function useTabs(props: ITabsProps): UseTabs {
     active.value = tab.path
   }
 
-  function to(item: { paneName: string }) {
-    if (item.paneName !== route.path) {
-      router.push(item.paneName)
+  function to(path: string) {
+    if (path !== route.path) {
+      router.push(path)
     }
   }
 
@@ -45,9 +64,9 @@ export function useTabs(props: ITabsProps): UseTabs {
 
     if (route.path === path && list.value.length) {
       if (index >= 1) {
-        to({ paneName: list.value[index - 1].path })
+        to(list.value[index - 1].path)
       } else {
-        to({ paneName: list.value[index].path })
+        to(list.value[index].path)
       }
     }
   }

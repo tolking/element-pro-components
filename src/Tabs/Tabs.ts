@@ -22,7 +22,7 @@ export default defineComponent({
           modelValue: active.value,
           closable: list.value.length > 1,
           class: 'pro-tabs',
-          onTabClick: to,
+          onTabChange: to,
           onTabRemove: close,
         }),
         () =>
