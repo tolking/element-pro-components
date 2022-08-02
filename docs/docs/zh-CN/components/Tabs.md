@@ -19,6 +19,12 @@ meta:
 @/demo/Tabs/base.vue
 :::
 
+### 风格类型
+
+::: demo
+@/demo/Tabs/type.vue
+:::
+
 ### 保持隐藏路由
 
 默认自动关闭具有 `hidden` 标识的路由，可以通过 `keep-hidden-route` 阻止这种行为

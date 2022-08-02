@@ -19,6 +19,12 @@ Automatic record routes
 @/demo/Tabs/base.vue
 :::
 
+### Custom Type
+
+::: demo
+@/demo/Tabs/type.vue
+:::
+
 ### Keep hidden route
 
 Routes with the `hidden` flag are automatically closed by default, this behavior can be prevented with `keep-hidden-route`
