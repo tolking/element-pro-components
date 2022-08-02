@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.1
+
+feat
+
+- Tabs: add keepHiddenRoute attribute (#360)
+- Tabs: add beforeAdd attribute (#361)
+- Tabs: optimized style
+
 ## 1.2.0
 
 breaking changes
