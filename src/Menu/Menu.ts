@@ -32,9 +32,19 @@ export default defineComponent({
     }
 
     function hasMultiChild(item: RouteRecordRaw) {
-      return item.children
-        ? item.children.filter((item) => !item.meta?.hidden).length > 1
-        : false
+      if (!item.children) return false
+
+      let count = 0
+      let index = 0
+
+      while (count < 2 && index < item.children.length) {
+        if (!item.children[index].meta?.hidden) {
+          count++
+        }
+        index++
+      }
+
+      return count >= 2
     }
 
     function createList(list?: RouteRecordRaw[]) {
