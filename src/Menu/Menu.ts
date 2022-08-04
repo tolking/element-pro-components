@@ -43,10 +43,8 @@ export default defineComponent({
         const showItem = item && !item.meta?.hidden
 
         if (showItem && !hasMultiChild(item)) {
-          return h(
-            ElMenuItem,
-            { index: (item.redirect || item.path) as string },
-            () => createDefault(item)
+          return h(ElMenuItem, { index: item.children?.[0].path }, () =>
+            createDefault(item)
           )
         } else if (showItem) {
           return h(
