@@ -45,7 +45,7 @@ export default defineComponent({
         if (showItem && !hasMultiChild(item)) {
           return h(
             ElMenuItem,
-            { index: (item.redirect || item.path) as string },
+            { index: item.children?.[0].path || item.path },
             () => createDefault(item)
           )
         } else if (showItem) {
