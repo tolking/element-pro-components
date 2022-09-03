@@ -35,11 +35,7 @@ const reAttribute: ReAttribute = (value, key) => {
   } else if (key === 'Name') {
     return value.replace(/\B([A-Z])/g, '-$1').toLowerCase()
   } else if (key === 'Type') {
-    return value
-      .replace(/\s*\/\s*/g, '|')
-      .replace(/\s*,\s*/g, '|')
-      .replace(/\(.*\)/g, '')
-      .toLowerCase()
+    return value.replace(/\(.*\)/g, '')
   } else if (value === '' || /^(-|—)$/.test(value)) {
     return undefined
   } else if (key === 'Options') {
@@ -60,6 +56,7 @@ helper({
   reDocUrl,
   reAttribute,
   reWebTypesSource,
+  space: 2,
   titleRegExp: /#+\s+(.*)\n+>\s*([^(#|\n)]*)/g,
   tableRegExp:
     /#+\s+(.*\s*Props|.*\s*Events|.*\s*Slots|.*\s*Directives)\s*\n+(\|?.+\|.+)\n\|?\s*:?-+:?\s*\|.+((\n\|?.+\|.+)+)/g,
