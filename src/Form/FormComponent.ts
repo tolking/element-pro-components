@@ -61,7 +61,7 @@ export default defineComponent({
         const obj: StringObject = {}
 
         for (const key in props.slots) {
-          const value = props.slots[key]
+          const value = (props.slots as StringObject)[key]
           obj[key] = isFunction(value) ? value : () => value
         }
 

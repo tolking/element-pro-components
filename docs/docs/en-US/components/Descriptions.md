@@ -89,8 +89,8 @@ The function `defineDescriptionsColumns` supports passing in a Generics type to 
 | labelAlign     | column label alignment, if omitted, the value of the above `align` attribute will be applied (If no `border`, please use `align` attribute)                                                  | string           | left / center / right | -       |
 | className      | column content custom class name                                                                                                                                                             | string           | -                     | -       |
 | labelClassName | column label custom class name                                                                                                                                                               | string           | -                     | -       |
-| render         | render function for descriptions columns                                                                                                                                                     | function(detail) | -                     | -       |
-| renderLabel    | render function for Label                                                                                                                                                                    | function(column) | -                     | -       |
+| render         | render function for descriptions columns                                                                                                                                                     | Function(detail) | -                     | -       |
+| renderLabel    | render function for Label                                                                                                                                                                    | Function(column) | -                     | -       |
 
 ## Slots
 

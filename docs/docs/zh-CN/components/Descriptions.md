@@ -89,8 +89,8 @@ meta:
 | labelAlign     | 列的标签对齐方式，若不设置该项，则使用内容的对齐方式（如无 border，请使用 align 参数）                                                     | string           | left / center / right | -      |
 | className      | 列的内容自定义类名                                                                                                                         | string           | -                     | -      |
 | labelClassName | 列的标签自定义类名                                                                                                                         | string           | -                     | -      |
-| render         | 通过渲染函数实现简单的插槽功能                                                                                                             | function(detail) | -                     | -      |
-| renderLabel    | 通过渲染函数实现简单的 Label 插槽功能                                                                                                      | function(column) | -                     | -      |
+| render         | 通过渲染函数实现简单的插槽功能                                                                                                             | Function(detail) | -                     | -      |
+| renderLabel    | 通过渲染函数实现简单的 Label 插槽功能                                                                                                      | Function(column) | -                     | -      |
 
 ## 插槽
 

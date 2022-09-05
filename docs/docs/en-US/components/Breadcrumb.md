@@ -31,5 +31,5 @@ Modify the separator by `separator`
 
 | Name           | Description                 | Type               | Options | Default |
 | :------------- | :-------------------------- | :----------------- | :------ | :------ |
-| separator      | separator character         | string             | -       | `/`     |
+| separator      | separator character         | string             | -       | /       |
 | separator-icon | icon name of icon separator | string / Component | -       | -       |
