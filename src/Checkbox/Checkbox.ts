@@ -1,8 +1,9 @@
-import { defineComponent, h, mergeProps, VNode } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import { reactiveOmit } from '@vueuse/core'
 import { ElCheckboxGroup, ElCheckbox } from 'element-plus'
 import { useDataConfig, useEmitValue } from '../composables/index'
 import { checkboxProps, checkboxEmits } from './props'
+import type { DefineComponent, VNode } from 'vue'
 import type { ICheckboxProps } from './index'
 
 export function createDefault<T>(
@@ -24,7 +25,7 @@ export function createDefault<T>(
       () =>
         props.data.map((item) => {
           return h(
-            component,
+            component as DefineComponent,
             {
               name: item[configKeys.value.name],
               label: item[configKeys.value.value],
