@@ -1,4 +1,11 @@
-import helper from 'components-helper'
+import {
+  main,
+  isCommonType,
+  isEnumType,
+  isUnionType,
+  getTypeSymbol,
+  arrayToRegExp,
+} from 'components-helper'
 import { name, version } from '../package.json'
 import { hyphenate, toAbsolute } from './utils'
 import type {
@@ -6,7 +13,12 @@ import type {
   ReWebTypesSource,
   ReDocUrl,
   ReAttribute,
+  ReWebTypesType,
 } from 'components-helper'
+
+const typeMap = {
+  vue: ['Component', 'VNode'],
+}
 
 const reComponentName: ReComponentName = (title) => {
   return 'pro-' + hyphenate(title)
@@ -47,7 +59,35 @@ const reAttribute: ReAttribute = (value, key) => {
   }
 }
 
-helper({
+const reWebTypesType: ReWebTypesType = (type) => {
+  const isEnum = isEnumType(type)
+  const isPublicType = isCommonType(type)
+  const symbol = getTypeSymbol(type)
+  const isUnion = isUnionType(symbol)
+  const module = findModule(type)
+
+  return isEnum || isPublicType || !symbol || isUnion
+    ? type
+    : { name: type, source: { symbol, module } }
+}
+
+const findModule = (type: string): string | undefined => {
+  let result: string | undefined = undefined
+
+  for (const key in typeMap) {
+    const regExp = arrayToRegExp(typeMap[key])
+    const inModule = regExp.test(getTypeSymbol(type))
+
+    if (inModule) {
+      result = key
+      break
+    }
+  }
+
+  return result
+}
+
+main({
   name,
   version,
   entry: toAbsolute('../docs/docs/en-US/components/*.md'),
@@ -56,7 +96,7 @@ helper({
   reDocUrl,
   reAttribute,
   reWebTypesSource,
-  space: 2,
+  reWebTypesType,
   titleRegExp: /#+\s+(.*)\n+>\s*([^(#|\n)]*)/g,
   tableRegExp:
     /#+\s+(.*\s*Props|.*\s*Events|.*\s*Slots|.*\s*Directives)\s*\n+(\|?.+\|.+)\n\|?\s*:?-+:?\s*\|.+((\n\|?.+\|.+)+)/g,

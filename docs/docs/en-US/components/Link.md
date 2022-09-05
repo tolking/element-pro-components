@@ -19,6 +19,6 @@ meta:
 
 ### Props
 
-| Name | Description  | Type              | Options | Default |
-| ---- | ------------ | ----------------- | ------- | ------- |
-| to   | link address | string / undefind | -       | -       |
+| Name | Description  | Type               | Options | Default |
+| ---- | ------------ | ------------------ | ------- | ------- |
+| to   | link address | string / undefined | -       | -       |
