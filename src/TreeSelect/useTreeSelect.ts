@@ -5,7 +5,6 @@ import {
   Ref,
   ref,
   shallowRef,
-  toRefs,
   watch,
 } from 'vue'
 import { useDataConfig } from '../composables/index'
@@ -25,13 +24,7 @@ export function useTreeSelect(
   emit: ITreeSelectEmits
 ): {
   tree: Ref<ITreeStore>
-  modelValue?: Ref<
-    MaybeArray<string | number | boolean | UnknownObject> | undefined
-  >
-  multiple?: Ref<boolean | undefined>
-  checkStrictly?: Ref<boolean | undefined>
   expandedKeys?: ComputedRef<(string | number)[] | undefined>
-  filterable?: Ref<boolean | undefined>
   configKeys: Ref<Required<SelectConfig>>
   value: ComputedRef<
     MaybeArray<string | number | boolean | UnknownObject> | undefined
@@ -44,17 +37,15 @@ export function useTreeSelect(
   upData: (e: SelectDataItem, node: unknown, self: unknown) => void
   clear: () => void
 } {
-  const { modelValue, multiple, checkStrictly, filterable, onlySelectLeaf } =
-    toRefs(props)
   const configKeys = useDataConfig()
   const tree = ref<ITreeStore>({} as ITreeStore)
   const label = ref<string | number | undefined>('')
   const list = shallowRef<SelectDataItem[]>([])
-  const value = computed(() => (multiple?.value ? '' : modelValue?.value || ''))
+  const value = computed(() => (props.multiple ? '' : props.modelValue || ''))
   const expandedKeys = computed(() => {
-    return isArray(modelValue?.value)
-      ? (modelValue?.value as Array<string | number>)
-      : ([modelValue || ''] as Array<string | number>)
+    return isArray(props.modelValue)
+      ? (props.modelValue as Array<string | number>)
+      : ([props.modelValue || ''] as Array<string | number>)
   })
   const filter: FilterNodeMethodFunction = (value, item) => {
     if (!value) return true
@@ -62,18 +53,18 @@ export function useTreeSelect(
   }
 
   onMounted(() => {
-    (multiple?.value
-      ? (modelValue?.value as Array<string | number>)?.length
-      : modelValue?.value) && setDefaultValue()
+    (props.multiple
+      ? (props.modelValue as Array<string | number>)?.length
+      : props.modelValue) && setDefaultValue()
   })
 
-  watch(() => modelValue?.value, setDefaultValue)
+  watch(() => props.modelValue, setDefaultValue)
 
   function setDefaultValue() {
-    if (multiple?.value && isArray(modelValue?.value)) {
-      tree.value.setCheckedKeys(modelValue?.value as Array<string | number>)
+    if (props.multiple && isArray(props.modelValue)) {
+      tree.value.setCheckedKeys(props.modelValue as Array<string | number>)
       list.value = tree.value.getCheckedNodes() as SelectDataItem[]
-    } else if (!multiple?.value) {
+    } else if (!props.multiple) {
       tree.value.setCurrentKey((value.value || null) as string | number | null)
       const item = tree.value.getCurrentNode() as SelectDataItem
       label.value = item[configKeys.value.label]
@@ -81,27 +72,27 @@ export function useTreeSelect(
   }
 
   function togglePopper(state: boolean) {
-    !state && filterable?.value && tree.value.filter('')
+    !state && props.filterable && tree.value.filter('')
     emit('visible-change', state)
   }
 
   function remove(value: string) {
-    tree.value.setChecked(value, false, !checkStrictly?.value)
+    tree.value.setChecked(value, false, !props.checkStrictly)
     emit('remove-tag', value)
     upData()
   }
 
   function upData(item?: SelectDataItem, node?: unknown, self?: unknown) {
-    if (multiple?.value) {
+    if (props.multiple) {
       const nodes = tree.value.getCheckedNodes() as SelectDataItem[]
-      list.value = onlySelectLeaf?.value
+      list.value = props.onlySelectLeaf
         ? nodes.filter((item) => !item[configKeys.value.children]?.length)
         : nodes
       const keys = list.value.map((item) => item[configKeys.value.value])
       emit('update:modelValue', keys)
       emit('check-change', item, node, self)
     } else if (item && !item.disabled) {
-      if (onlySelectLeaf?.value && item[configKeys.value.children]?.length)
+      if (props.onlySelectLeaf && item[configKeys.value.children]?.length)
         return
       label.value = item[configKeys.value.label]
       emit('update:modelValue', item[configKeys.value.value])
@@ -110,18 +101,14 @@ export function useTreeSelect(
   }
 
   function clear() {
-    multiple?.value
+    props.multiple
       ? emit('update:modelValue', [])
       : emit('update:modelValue', '')
     emit('clear')
   }
 
   return {
-    modelValue,
-    multiple,
-    checkStrictly,
     expandedKeys,
-    filterable,
     configKeys,
     tree,
     value,
