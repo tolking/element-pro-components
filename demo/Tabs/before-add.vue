@@ -3,17 +3,19 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, nextTick } from 'vue'
 import { ElNotification } from 'element-plus'
 
 export default defineComponent({
   setup() {
     function beforeAdd(e) {
       console.log('Tabs-before-add', e)
-      ElNotification({
-        type: 'success',
-        title: 'Success',
-        message: 'Come from before-add',
+      nextTick(() => {
+        ElNotification({
+          type: 'success',
+          title: 'Success',
+          message: 'Come from before-add',
+        })
       })
     }
 
