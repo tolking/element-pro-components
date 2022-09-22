@@ -15,7 +15,6 @@
   }
   & .el-tag {
     margin: 3px;
-    outline-offset: 1px;
     transition: 0.1s;
     &.is-selecte {
       outline: 2px solid var(--el-tag-text-color);
