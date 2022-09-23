@@ -1,13 +1,14 @@
 import { Ref, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import type { ITabsExpose, ITab } from './index'
+import { isFunction, throwWarn } from '../utils/index'
+import type { ITabsProps, ITabsExpose, ITab } from './type'
 
 interface UseTabs extends ITabsExpose {
   active: Ref<string>
-  to: (item: { paneName: string }) => void
+  to: (path: string) => void
 }
 
-export function useTabs(): UseTabs {
+export function useTabs(props: ITabsProps): UseTabs {
   const route = useRoute()
   const router = useRouter()
   const active = ref('')
@@ -15,15 +16,33 @@ export function useTabs(): UseTabs {
 
   watch(
     () => route.path,
-    (path, oldPath) => {
+    async (path, oldPath) => {
       const title = route.meta?.title || ''
       const hidden = route.meta?.hidden
 
-      if (oldPath) {
+      if (oldPath && !props.keepHiddenRoute) {
         const item = list.value.find((item) => item.path === oldPath)
         item?.hidden && close(oldPath)
       }
-      addTab({ title, path, hidden })
+
+      if (isFunction(props.beforeAdd)) {
+        try {
+          const canAdd = await props.beforeAdd({
+            route,
+            oldPath,
+            list,
+            close,
+            closeOther,
+          })
+          if (canAdd !== false) {
+            addTab({ title, path, hidden })
+          }
+        } catch {
+          throwWarn('[ProTabs] Failed to execute beforeAdd function')
+        }
+      } else {
+        addTab({ title, path, hidden, name: route.name })
+      }
     },
     { immediate: true }
   )
@@ -33,9 +52,9 @@ export function useTabs(): UseTabs {
     active.value = tab.path
   }
 
-  function to(item: { paneName: string }) {
-    if (item.paneName !== route.path) {
-      router.push(item.paneName)
+  function to(path: string) {
+    if (path !== route.path) {
+      router.push(path)
     }
   }
 
@@ -45,9 +64,9 @@ export function useTabs(): UseTabs {
 
     if (route.path === path && list.value.length) {
       if (index >= 1) {
-        to({ paneName: list.value[index - 1].path })
+        to(list.value[index - 1].path)
       } else {
-        to({ paneName: list.value[index].path })
+        to(list.value[index].path)
       }
     }
   }

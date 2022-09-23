@@ -1,7 +1,23 @@
 .pro-tabs {
   padding: 0 20px;
   background-color: var(--pro-tabs-background-color);
+  &.el-tabs--card,
+  &.el-tabs--border-card {
+    padding: 0;
+  }
+  &.el-tabs--card .el-tabs__header {
+    padding: 0 20px;
+  }
+  &.el-tabs--border-card {
+    border: 0;
+    & > .el-tabs__header .el-tabs__item.is-active {
+      background-color: var(--el-bg-color);
+    }
+  }
   & .el-tabs__header {
     margin: 0;
+  }
+  & .el-tabs__content {
+    padding: 0;
   }
 }

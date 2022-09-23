@@ -20,11 +20,7 @@ export default defineComponent({
   setup(props, { emit, slots }) {
     const attrs = useAttrs()
     const {
-      modelValue,
-      multiple,
-      checkStrictly,
       expandedKeys,
-      filterable,
       configKeys,
       tree,
       value,
@@ -60,8 +56,8 @@ export default defineComponent({
             mergeProps(treeProps, attrs.value, {
               ref: tree,
               props: configKeys.value,
-              showCheckbox: multiple?.value,
-              checkStrictly: checkStrictly?.value,
+              showCheckbox: props.multiple,
+              checkStrictly: props.checkStrictly,
               defaultExpandedKeys: expandedKeys?.value,
               filterNodeMethod: filter,
               highlightCurrent: true,
@@ -78,14 +74,13 @@ export default defineComponent({
                     node,
                     data,
                     item: data,
-                    multiple: multiple?.value,
+                    multiple: props.multiple,
                   })
                 } else {
                   return h(
                     'span',
                     {
-                      class:
-                        node.disabled && !multiple?.value ? 'is-disabled' : '',
+                      class: node.disabled ? 'is-disabled' : '',
                     },
                     node.label
                   )
@@ -111,9 +106,9 @@ export default defineComponent({
       h(
         ElSelect,
         mergeProps(selectProps, {
-          modelValue: modelValue?.value,
-          multiple: multiple?.value,
-          filterable: filterable?.value,
+          modelValue: props.modelValue,
+          multiple: props.multiple,
+          filterable: props.filterable,
           filterMethod: tree.value?.filter,
           popperClass: 'pro-tree-select-popper',
           class: 'pro-tree-select',

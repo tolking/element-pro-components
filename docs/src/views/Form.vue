@@ -9,11 +9,11 @@
       size="small"
       @submit="submitForm"
     >
-      <template #slot-label>
+      <template #form-slot-label>
         <i class="el-icon-time" />
         <span>Slot</span>
       </template>
-      <template #slot="{ item, value, setValue }">
+      <template #form-slot="{ item, value, setValue }">
         <span>{{ item }} - {{ value }} - {{ setValue }}</span>
       </template>
     </pro-form>
@@ -25,7 +25,7 @@
       label-width="180px"
       @submit="submitForm"
     >
-      <template #address="{ value, setValue }">
+      <template #form-address="{ value, setValue }">
         <pro-input-tag
           :model-value="value"
           @update:model-value="setValue"
