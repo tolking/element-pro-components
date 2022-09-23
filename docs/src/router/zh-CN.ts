@@ -109,6 +109,12 @@ const zhCN: RouteRecordRaw[] = [
         meta: { title: 'InputTag' },
       },
       {
+        path: '/zh-CN/components/autocomplete-tag',
+        component: () =>
+          import('../../docs/zh-CN/components/AutocompleteTag.md'),
+        meta: { title: 'AutocompleteTag' },
+      },
+      {
         path: '/zh-CN/components/table',
         component: () => import('../../docs/zh-CN/components/Table.md'),
         meta: { title: 'Table' },
