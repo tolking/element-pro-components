@@ -109,6 +109,12 @@ const enUS: RouteRecordRaw[] = [
         meta: { title: 'InputTag' },
       },
       {
+        path: '/en-US/components/autocomplete-tag',
+        component: () =>
+          import('../../docs/en-US/components/AutocompleteTag.md'),
+        meta: { title: 'AutocompleteTag' },
+      },
+      {
         path: '/en-US/components/table',
         component: () => import('../../docs/en-US/components/Table.md'),
         meta: { title: 'Table' },
