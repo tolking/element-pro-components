@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.2.2
+
+feat
+
+- Tabs: record the route name (#369)
+- InputTag: optimization tag styles (#378)
+- Menu: optimize performance of hasMultiChild function (#368)
+
+fix
+
+- Menu: path error when only one route in children (#367)
+- TreeSelect: lint error (#377)
+
+other
+
+- add attribute enum autosuggestion for web-types (#373)
+- docs: split AutocompleteTag component (#381)
+
 ## 1.2.1
 
 feat
