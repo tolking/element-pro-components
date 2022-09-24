@@ -12,11 +12,13 @@ export default (md: MarkdownIt): void => {
     const token = tokens[idx]
     const href = token.attrGet('href')
 
-    token.attrJoin('class', 'md-link')
-    if (href && /^((ht|f)tps?):\/\/?/.test(href)) {
-      isExternalLink = true
-      token.attrJoin('target', '_blank')
-      token.attrJoin('rel', 'noopener noreferrer')
+    if (href) {
+      token.attrJoin('class', 'md-link')
+      if (/^((ht|f)tps?):\/\/?/.test(href)) {
+        isExternalLink = true
+        token.attrJoin('target', '_blank')
+        token.attrJoin('rel', 'noopener noreferrer')
+      }
     }
 
     return defaultLinkOpenRenderer(tokens, idx, options, env, self)
