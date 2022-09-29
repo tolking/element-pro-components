@@ -49,9 +49,7 @@ export default defineConfig({
           .use(container, 'demo', demo)
           .use(externalLinkIcon)
           .use(anchor, {
-            slugify: (str) => {
-              str.replace(/\[ \]/g, '-').toLowerCase()
-            },
+            slugify: (str) => str.replace(/[ ]/g, '-').toLowerCase(),
             permalink: anchor.permalink.ariaHidden({}),
           })
           .use(...createContainer('tip', 'TIP'))
