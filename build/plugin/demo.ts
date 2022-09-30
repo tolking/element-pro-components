@@ -26,7 +26,7 @@ export default {
       const descTemplate = markdown().render(description || '')
       const link = tokens[idx + 2].content.trim()
       const componentName = link.replace(/^@\/demo\/(.*).vue/, (_, $1) => {
-        return $1.replaceAll('/', '-').toLocaleLowerCase()
+        return $1.replace(/\//g, '-').toLocaleLowerCase()
       })
       const rawPath = link.replace(/^@/, process.cwd())
       const content = existsSync(rawPath)
