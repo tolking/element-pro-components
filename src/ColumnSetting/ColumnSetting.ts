@@ -1,4 +1,12 @@
-import { defineComponent, computed, h, toRefs, mergeProps } from 'vue'
+import {
+  defineComponent,
+  computed,
+  h,
+  toRefs,
+  mergeProps,
+  ref,
+  watch,
+} from 'vue'
 import { reactiveOmit } from '@vueuse/core'
 import { ElDropdown, ElDropdownMenu, ElButton, ElTree } from 'element-plus'
 import { Setting } from '@element-plus/icons-vue'
@@ -9,6 +17,7 @@ import type { ITableColumns, TableColumn } from '../Table/index'
 
 type Columns = ICrudColumns | ITableColumns
 type Column = CrudColumn | TableColumn
+type TreeInstance = InstanceType<typeof ElTree>
 
 export default defineComponent({
   name: 'ProColumnSetting',
@@ -23,6 +32,8 @@ export default defineComponent({
       'placement',
       'size'
     )
+
+    const treeRef = ref<TreeInstance>()
     const checkedKeys = computed(() => {
       return filterFlat<Columns, string[]>(
         props.modelValue,
@@ -31,6 +42,14 @@ export default defineComponent({
         (item) => item.prop as string
       )
     })
+
+    watch(
+      checkedKeys,
+      (value) => {
+        treeRef.value?.setCheckedKeys(value)
+      },
+      { deep: true }
+    )
 
     function handleDropEnd() {
       emit('update:modelValue', modelValue.value)
@@ -56,6 +75,7 @@ export default defineComponent({
         h(
           ElTree,
           mergeProps(config, {
+            ref: treeRef,
             data: modelValue.value,
             defaultCheckedKeys: checkedKeys.value,
             showCheckbox: true,
