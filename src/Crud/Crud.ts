@@ -104,7 +104,7 @@ export default defineComponent({
         beforeClose,
         destroyOnClose: true,
         width: props.width ?? dialogWidth.value,
-        customClass: props.customClass || 'pro-crud-dialog',
+        class: 'pro-crud-dialog',
       }
     })
 
