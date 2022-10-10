@@ -1,6 +1,10 @@
 .pro-filter-routes-popper {
   & .el-select-dropdown__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: auto;
+    min-height: 34px;
     line-height: normal;
     & .filter-routes-title,
     & .filter-routes-info {
