@@ -64,6 +64,11 @@ const enUS: RouteRecordRaw[] = [
         meta: { title: 'Menu' },
       },
       {
+        path: '/en-US/components/filter-routes',
+        component: () => import('../../docs/en-US/components/FilterRoutes.md'),
+        meta: { title: 'FilterRoutes' },
+      },
+      {
         path: '/en-US/components/breadcrumb',
         component: () => import('../../docs/en-US/components/Breadcrumb.md'),
         meta: { title: 'Breadcrumb' },
