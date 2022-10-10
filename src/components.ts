@@ -6,6 +6,7 @@ export * from './CheckboxButton/index'
 export * from './ColumnSetting/index'
 export * from './Crud/index'
 export * from './Descriptions/index'
+export * from './FilterRoutes/index'
 export * from './Form/index'
 export * from './InputTag/index'
 export * from './Layout/index'
@@ -26,6 +27,7 @@ import { ProCheckboxButton } from './CheckboxButton/index'
 import { ProColumnSetting } from './ColumnSetting/index'
 import { ProCrud } from './Crud/index'
 import { ProDescriptions } from './Descriptions/index'
+import { ProFilterRoutes } from './FilterRoutes'
 import { ProForm } from './Form/index'
 import { ProInputTag } from './InputTag/index'
 import { ProLayout } from './Layout/index'
@@ -48,6 +50,7 @@ export default {
   ProColumnSetting,
   ProCrud,
   ProDescriptions,
+  ProFilterRoutes,
   ProForm,
   ProInputTag,
   ProLayout,
@@ -73,6 +76,7 @@ declare module '@vue/runtime-core' {
     ProColumnSetting: typeof ProColumnSetting
     ProCrud: typeof ProCrud
     ProDescriptions: typeof ProDescriptions
+    ProFilterRoutes: typeof ProFilterRoutes
     ProForm: typeof ProForm
     ProInputTag: typeof ProInputTag
     ProLayout: typeof ProLayout
