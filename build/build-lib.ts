@@ -21,7 +21,9 @@ export default defineConfig({
         },
       },
       external: (id: string) =>
-        /^(vue|@vue|@vueuse|element-plus|@element-plus|lodash)/.test(id),
+        /^(vue|@vue|@vueuse|element-plus|@element-plus|lodash-unified)/.test(
+          id
+        ),
     },
   },
   plugins: [vue()],
