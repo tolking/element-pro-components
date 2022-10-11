@@ -1,8 +1,10 @@
-import get from 'lodash/get'
-import set from 'lodash/set'
-import has from 'lodash/has'
-import objectPick from 'lodash/pick'
-import objectOmit from 'lodash/omit'
+export {
+  get,
+  set,
+  has,
+  pick as objectPick,
+  omit as objectOmit,
+} from 'lodash-unified'
 export {
   isBoolean,
   isObject,
@@ -12,4 +14,3 @@ export {
 } from '@vueuse/core'
 export * from './filter'
 export * from './util'
-export { get, set, has, objectPick, objectOmit }

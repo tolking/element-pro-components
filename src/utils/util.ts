@@ -1,6 +1,5 @@
 import { Fragment } from 'vue'
-import cloneDeep from 'lodash/cloneDeep'
-import merge from 'lodash/merge'
+import { cloneDeep, merge } from 'lodash-unified'
 import { isObject } from './index'
 import type { Component, VNode } from 'vue'
 import type {
