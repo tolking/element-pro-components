@@ -39,25 +39,12 @@ type NestedPath<T extends 'array' | 'object', P, C = undefined> = `${P &
   ? `.${C}`
   : ''}`
 
-type ExtractTemplatePath<T, U> = T extends
-  | `${infer P}[${string}`
-  | `${infer P}.${string}`
-  ? P extends U
-    ? T
-    : never
-  : never
-
-type ExtractPath<T extends object> =
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore FIXME: Maybe this is a `vue-tsc` error, only tip at type check.
-  ExtractTemplatePath<DeepPath<T>, keyof T> | keyof T
-
 type DeepNested<K extends string, V> = V extends object[]
-  ? NestedPath<'array', K, ExtractPath<V[number]> | undefined>
+  ? NestedPath<'array', K, DeepPath<V[number]> | undefined>
   : V extends unknown[]
   ? NestedPath<'array', K>
   : V extends object
-  ? NestedPath<'object', K, ExtractPath<V>>
+  ? NestedPath<'object', K, DeepPath<V>>
   : never
 
 /**
