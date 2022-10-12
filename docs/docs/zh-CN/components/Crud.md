@@ -397,36 +397,36 @@ Crud columns 支持 <pro-link to="/zh-CN/components/table#columns">Table columns
 
 ### 插槽
 
-| 名称                | 说明                                                                     |
-| :------------------ | :----------------------------------------------------------------------- |
-| menu-left           | 新增按钮左侧，参数为 { size }                                            |
-| menu-right          | 新增按钮右侧，参数为 { size }                                            |
-| action              | 头部右侧操作栏，参数为 { size }                                          |
-| menu                | 表格右侧自定义按钮，参数为 { size, row, column, $index }                 |
-| dialog-top          | 弹窗顶部内容，参数为 { type }                                            |
-| dialog-bottom       | 弹窗底部内容，参数为 { type }                                            |
-| table               | 在表格右侧菜单前插入的任意内容                                           |
-| table-expand        | 当 expand 为 true 时，配置展开显示的内容，参数为 { row, column, $index } |
-| table-append        | 插入至表格最后一行之后的内容                                             |
-| table-[prop]        | 当前这列的内容，参数为 { row, column, $index }                           |
-| table-[prop]-header | 当前这列表头的内容，参数为 { column, $index }                            |
-| form                | 在表单底部按钮前插入的任意内容                                           |
-| form-menu-left      | 表单底部按钮左侧                                                         |
-| form-menu-right     | 表单底部按钮右侧                                                         |
-| form-[prop]         | 当前这项的 Form Item 的内容，参数为 { item, value, setValue }            |
-| form-[prop]-label   | 当前这项的标签文本的内容，参数为 { item }                                |
-| form-[prop]-error   | 当前这项的自定义表单校验信息的显示方式，参数为 { error, item }           |
-| search              | 在搜索按钮菜单前插入的任意内容                                           |
-| search-menu-left    | 搜索表单按钮左侧，参数为 { loading }                                     |
-| search-menu-right   | 搜索表单按钮右侧，参数为 { loading }                                     |
-| search-[prop]       | 当前这项的 Form Item 的内容，参数为 { item, value, setValue }            |
-| search-[prop]-label | 当前这项的标签文本的内容，参数为 { item }                                |
-| search-[prop]-error | 当前这项的自定义表单校验信息的显示方式，参数为 { error, item }           |
-| detail              | 在查看描述尾部插入更多的描述信息                                         |
-| detail-title        | 自定义描述标题文本，显示在左上方, 参数 { size }                          |
-| detail-extra        | 自定义描述操作区文本，显示在右上方, 参数 { size }                        |
-| detail-[prop]       | 当前描述这项的内容, 参数 { size, item }                                  |
-| detail-[prop]-label | 当前描述这项的标签文本内容, 参数 { size, item }                          |
+| 名称                | 说明                                     | 类型                                                                             |
+| :------------------ | :--------------------------------------- | :------------------------------------------------------------------------------- |
+| menu-left           | 新增按钮左侧                             | { size }                                                                         |
+| menu-right          | 新增按钮右侧                             | { size }                                                                         |
+| action              | 头部右侧操作栏                           | { size }                                                                         |
+| menu                | 表格右侧自定义按钮                       | { size, row, column, $index }                                                    |
+| dialog-top          | 弹窗顶部内容                             | { type }                                                                         |
+| dialog-bottom       | 弹窗底部内容                             | { type }                                                                         |
+| table               | 在表格右侧菜单前插入的任意内容           | -                                                                                |
+| table-expand        | 当 expand 为 true 时，配置展开显示的内容 | { row, column, $index }                                                          |
+| table-append        | 插入至表格最后一行之后的内容             | -                                                                                |
+| table-[prop]        | 当前这列的内容                           | { row, column, $index }                                                          |
+| table-[prop]-header | 当前这列表头的内容                       | { column, $index }                                                               |
+| form                | 在表单底部按钮前插入的任意内容           | -                                                                                |
+| form-menu-left      | 表单底部按钮左侧                         | { loading: boolean }                                                             |
+| form-menu-right     | 表单底部按钮右侧                         | { loading: boolean }                                                             |
+| form-[prop]         | 当前这项的 Form Item 的内容              | { item: object, indexes?: number[], value: any, setValue: (value: any) => void } |
+| form-[prop]-label   | 当前这项的标签文本的内容                 | { item: object }                                                                 |
+| form-[prop]-error   | 当前这项的自定义表单校验信息的显示方式   | { error, item: object }                                                          |
+| search              | 在搜索按钮菜单前插入的任意内容           | -                                                                                |
+| search-menu-left    | 搜索表单按钮左侧                         | { loading: boolean }                                                             |
+| search-menu-right   | 搜索表单按钮右侧                         | { loading: boolean }                                                             |
+| search-[prop]       | 当前这项的 Form Item 的内容              | { item: object, indexes?: number[], value: any, setValue: (value: any) => void } |
+| search-[prop]-label | 当前这项的标签文本的内容                 | { item: object }                                                                 |
+| search-[prop]-error | 当前这项的自定义表单校验信息的显示方式   | { error, item: object }                                                          |
+| detail              | 在查看描述尾部插入更多的描述信息         | -                                                                                |
+| detail-title        | 自定义描述标题文本，显示在左上方         | { size }                                                                         |
+| detail-extra        | 自定义描述操作区文本，显示在右上方       | { size }                                                                         |
+| detail-[prop]       | 当前描述这项的内容                       | { size, item }                                                                   |
+| detail-[prop]-label | 当前描述这项的标签文本内容               | { size, item }                                                                   |
 
 ::: tip 提示
 [prop] 为 columns 中定义的 prop

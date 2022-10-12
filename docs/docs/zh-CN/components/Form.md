@@ -249,14 +249,14 @@ props: {
 
 ### 插槽
 
-| 名称              | 说明                                                           |
-| :---------------- | :------------------------------------------------------------- |
-| -                 | 在底部菜单前插入的任意内容                                     |
-| menu-left         | 表单底部按钮左侧，参数为 { loading }                           |
-| menu-right        | 表单底部按钮右侧，参数为 { loading }                           |
-| form-[prop]       | 当前这项的 Form Item 的内容，参数为 { item, value, setValue }  |
-| form-[prop]-label | 当前这项的标签文本的内容，参数为 { item }                      |
-| form-[prop]-error | 当前这项的自定义表单校验信息的显示方式，参数为 { error, item } |
+| 名称              | 说明                                   | 类型                                                                             |
+| :---------------- | :------------------------------------- | :------------------------------------------------------------------------------- |
+| -                 | 在底部菜单前插入的任意内容             | -                                                                                |
+| menu-left         | 表单底部按钮左侧                       | { loading: boolean }                                                             |
+| menu-right        | 表单底部按钮右侧                       | { loading: boolean }                                                             |
+| form-[prop]       | 当前这项的 Form Item 的内容            | { item: object, indexes?: number[], value: any, setValue: (value: any) => void } |
+| form-[prop]-label | 当前这项的标签文本的内容               | { item: object }                                                                 |
+| form-[prop]-error | 当前这项的自定义表单校验信息的显示方式 | { error, item: object }                                                          |
 
 ::: tip 提示
 [prop] 为 columns 中定义的 prop

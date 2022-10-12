@@ -148,7 +148,8 @@ describe('Form', () => {
           <template #form-slot-label>
             slot-label
           </template>
-          <template #form-slot="{ value, setValue }">
+          <template #form-slot="{ value, setValue, indexes }">
+            <span class="indexes">{{ !indexes && 'undefined' }}</span>
             <el-input
               :model-value="value"
               calss="slot"
@@ -182,10 +183,53 @@ describe('Form', () => {
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getComponentList(wrapper)[0]).not.toContain('el-switch')
     expect(getComponentList(wrapper)[0]).toContain('el-input')
+    expect(wrapper.find('.pro-form .indexes').text()).toBe('undefined')
     expect(wrapper.find('label[for]').text()).toBe('slot-label')
     expect(getFormBtnList(wrapper)).toContain('menu-left-false')
     expect(getFormBtnList(wrapper)).toContain('menu-right-false')
     expect(wrapper.find('.pro-form .default').text()).toBe('default slot')
+  })
+
+  test.concurrent('indexes in slots', async () => {
+    const wrapper = await _mount({
+      template: `
+        <pro-form
+          v-model="form"
+          :columns="columns"
+        >
+          <template #form-c="{ indexes }">
+            <span class="indexes">{{ indexes?.join('-') }}</span>
+          </template>
+        </pro-form>
+      `,
+      setup() {
+        const form = ref({ a: [{ b: [{}, {}] }] })
+        const _colums = ref<IFormColumns>([
+          {
+            label: 'a',
+            prop: 'a',
+            children: [
+              {
+                label: 'b',
+                prop: 'b',
+                children: [
+                  {
+                    label: 'c',
+                    prop: 'c',
+                  },
+                ],
+              },
+            ],
+          },
+        ])
+        return { form, columns: _colums }
+      },
+    })
+
+    const indexes = wrapper.findAll('.pro-form .indexes')
+    indexes.forEach((item, index) => {
+      expect(item.text()).toContain(`0-${index}`)
+    })
   })
 
   test.concurrent('modelValue', async () => {
