@@ -397,36 +397,36 @@ Other attributes are the same as <pro-link to="/en-US/components/table#columns">
 
 ### Slots
 
-| Name                | Description                                                                                                                                                                                   |
-| :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| menu-left           | control the menu left display content, parameters { size }                                                                                                                                    |
-| menu-right          | control the menu right display content, parameters { size }                                                                                                                                   |
-| action              | control the menu right of the menu display content, parameters { size }                                                                                                                       |
-| menu                | control the menu display content of table, parameters { size, row, column, $index }                                                                                                           |
-| dialog-top          | control the top display content of dialog, parameters { type }                                                                                                                                |
-| dialog-bottom       | control the bottom display content of dialog, parameters { type }                                                                                                                             |
-| table               | anything inserted before the menu of table                                                                                                                                                    |
-| table-expand        | control the expand display content, parameters { row, column, $index }                                                                                                                        |
-| table-append        | Contents to be inserted after the last row. You may need this slot if you want to implement infinite scroll for the table. This slot will be displayed above the summary row if there is one. |
-| table-[prop]        | control the `Item` display content of table, parameters { row, column, $index }                                                                                                               |
-| table-[prop]-header | control the `Item` header display content of table, parameters { column, $index }                                                                                                             |
-| form                | anything inserted before the menu of form                                                                                                                                                     |
-| form-menu-left      | control the menu left display content of form                                                                                                                                                 |
-| form-menu-right     | control the menu right display content of form                                                                                                                                                |
-| form-[prop]         | control the `Item` display content of form, parameters { item, value, setValue }                                                                                                              |
-| form-[prop]-label   | control the `Item` label display content of form, parameters { item }                                                                                                                         |
-| form-[prop]-error   | control the `Item` error display content of form, parameters { error, item }                                                                                                                  |
-| search              | anything inserted before the menu of search                                                                                                                                                   |
-| search-menu-left    | control the menu left display content of search, parameters { loading }                                                                                                                       |
-| search-menu-right   | control the menu right display content of search, parameters { loading }                                                                                                                      |
-| search-[prop]       | control the `Item` display content of search, parameters { item, value, setValue }                                                                                                            |
-| search-[prop]-label | control the `Item` label display content of search, parameters { item }                                                                                                                       |
-| search-[prop]-error | control the `Item` error display content of search, parameters { error, item }                                                                                                                |
-| detail              | anything inserted after the menu of descriptions                                                                                                                                              |
-| detail-title        | custom title, display on the top left, parameters { size }                                                                                                                                    |
-| detail-extra        | custom extra area, display on the top right, parameters { size }                                                                                                                              |
-| detail-[prop]       | control the `Item` display content, parameters { size, item }                                                                                                                                 |
-| detail-[prop]-label | control the `Item` label display content, parameters { size, item }                                                                                                                           |
+| Name                | Description                                        | Type                                                                             |
+| :------------------ | :------------------------------------------------- | :------------------------------------------------------------------------------- |
+| menu-left           | control the menu left display content              | { size }                                                                         |
+| menu-right          | control the menu right display content             | { size }                                                                         |
+| action              | control the menu right of the menu display content | { size }                                                                         |
+| menu                | control the menu display content of table          | { size, row, column, $index }                                                    |
+| dialog-top          | control the top display content of dialog          | { type }                                                                         |
+| dialog-bottom       | control the bottom display content of dialog       | { type }                                                                         |
+| table               | anything inserted before the menu of table         | -                                                                                |
+| table-expand        | control the expand display content, parameters     | { row, column, $index }                                                          |
+| table-append        | Contents to be inserted after the last row         | -                                                                                |
+| table-[prop]        | control the `Item` display content of table        | { row, column, $index }                                                          |
+| table-[prop]-header | control the `Item` header display content of table | { column, $index }                                                               |
+| form                | anything inserted before the menu of form          | -                                                                                |
+| form-menu-left      | control the menu left display content of form      | { loading: boolean }                                                             |
+| form-menu-right     | control the menu right display content of form     | { loading: boolean }                                                             |
+| form-[prop]         | control the `Item` display content of form         | { item: object, indexes?: number[], value: any, setValue: (value: any) => void } |
+| form-[prop]-label   | control the `Item` label display content of form   | { item: object }                                                                 |
+| form-[prop]-error   | control the `Item` error display content of form   | { error, item: object }                                                          |
+| search              | anything inserted before the menu of search        | -                                                                                |
+| search-menu-left    | control the menu left display content of search    | { loading: boolean }                                                             |
+| search-menu-right   | control the menu right display content of search   | { loading: boolean }                                                             |
+| search-[prop]       | control the `Item` display content of search       | { item: object, indexes?: number[], value: any, setValue: (value: any) => void } |
+| search-[prop]-label | control the `Item` label display content of search | { item: object }                                                                 |
+| search-[prop]-error | control the `Item` error display content of search | { error, item: object }                                                          |
+| detail              | anything inserted after the menu of descriptions   | -                                                                                |
+| detail-title        | custom title, display on the top left              | { size }                                                                         |
+| detail-extra        | custom extra area, display on the top right        | { size }                                                                         |
+| detail-[prop]       | control the `Item` display content                 | { size, item }                                                                   |
+| detail-[prop]-label | control the `Item` label display content           | { size, item }                                                                   |
 
 ::: tip Tip
 [prop] the prop of columns
