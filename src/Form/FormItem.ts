@@ -91,6 +91,7 @@ export default defineComponent({
                       {
                         modelValue: value,
                         item: child,
+                        indexes: [...(props.indexes || []), index],
                         prop: `${prop.value}.${index}.${child.prop}`,
                         'onUpdate:modelValue': (childValue: UnknownObject) =>
                           upChildData(childValue, index),
@@ -124,6 +125,7 @@ export default defineComponent({
         list = list.concat(
           (slots[`form-${item.value.prop}`] as Slot)({
             item,
+            indexes: props.indexes,
             value: currentValue,
             setValue: upData,
           })

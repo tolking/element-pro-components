@@ -46,6 +46,10 @@ export const formItemProps = {
     type: String,
     default: '',
   },
+  indexes: {
+    type: Array as PropType<number[]>,
+    default: undefined,
+  },
   inline: Boolean,
 }
 
