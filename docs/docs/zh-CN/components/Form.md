@@ -255,8 +255,8 @@ props: {
 | menu-left         | 表单底部按钮左侧                       | { loading: boolean }                                                             |
 | menu-right        | 表单底部按钮右侧                       | { loading: boolean }                                                             |
 | form-[prop]       | 当前这项的 Form Item 的内容            | { item: object, indexes?: number[], value: any, setValue: (value: any) => void } |
-| form-[prop]-label | 当前这项的标签文本的内容               | { item: object }                                                                 |
-| form-[prop]-error | 当前这项的自定义表单校验信息的显示方式 | { error, item: object }                                                          |
+| form-[prop]-label | 当前这项的标签文本的内容               | { item: object, indexes?: number[] }                                             |
+| form-[prop]-error | 当前这项的自定义表单校验信息的显示方式 | { error, item: object, indexes?: number[] }                                      |
 
 ::: tip 提示
 [prop] 为 columns 中定义的 prop

@@ -414,14 +414,14 @@ Other attributes are the same as <pro-link to="/en-US/components/table#columns">
 | form-menu-left      | control the menu left display content of form      | { loading: boolean }                                                             |
 | form-menu-right     | control the menu right display content of form     | { loading: boolean }                                                             |
 | form-[prop]         | control the `Item` display content of form         | { item: object, indexes?: number[], value: any, setValue: (value: any) => void } |
-| form-[prop]-label   | control the `Item` label display content of form   | { item: object }                                                                 |
-| form-[prop]-error   | control the `Item` error display content of form   | { error, item: object }                                                          |
+| form-[prop]-label   | control the `Item` label display content of form   | { item: object, indexes?: number[] }                                             |
+| form-[prop]-error   | control the `Item` error display content of form   | { error, item: object, indexes?: number[] }                                      |
 | search              | anything inserted before the menu of search        | -                                                                                |
 | search-menu-left    | control the menu left display content of search    | { loading: boolean }                                                             |
 | search-menu-right   | control the menu right display content of search   | { loading: boolean }                                                             |
 | search-[prop]       | control the `Item` display content of search       | { item: object, indexes?: number[], value: any, setValue: (value: any) => void } |
-| search-[prop]-label | control the `Item` label display content of search | { item: object }                                                                 |
-| search-[prop]-error | control the `Item` error display content of search | { error, item: object }                                                          |
+| search-[prop]-label | control the `Item` label display content of search | { item: object, indexes?: number[] }                                             |
+| search-[prop]-error | control the `Item` error display content of search | { error, item: object, indexes?: number[] }                                      |
 | detail              | anything inserted after the menu of descriptions   | -                                                                                |
 | detail-title        | custom title, display on the top left              | { size }                                                                         |
 | detail-extra        | custom extra area, display on the top right        | { size }                                                                         |

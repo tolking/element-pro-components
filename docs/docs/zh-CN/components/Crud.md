@@ -414,14 +414,14 @@ Crud columns 支持 <pro-link to="/zh-CN/components/table#columns">Table columns
 | form-menu-left      | 表单底部按钮左侧                         | { loading: boolean }                                                             |
 | form-menu-right     | 表单底部按钮右侧                         | { loading: boolean }                                                             |
 | form-[prop]         | 当前这项的 Form Item 的内容              | { item: object, indexes?: number[], value: any, setValue: (value: any) => void } |
-| form-[prop]-label   | 当前这项的标签文本的内容                 | { item: object }                                                                 |
-| form-[prop]-error   | 当前这项的自定义表单校验信息的显示方式   | { error, item: object }                                                          |
+| form-[prop]-label   | 当前这项的标签文本的内容                 | { item: object, indexes?: number[] }                                             |
+| form-[prop]-error   | 当前这项的自定义表单校验信息的显示方式   | { error, item: object, indexes?: number[] }                                      |
 | search              | 在搜索按钮菜单前插入的任意内容           | -                                                                                |
 | search-menu-left    | 搜索表单按钮左侧                         | { loading: boolean }                                                             |
 | search-menu-right   | 搜索表单按钮右侧                         | { loading: boolean }                                                             |
 | search-[prop]       | 当前这项的 Form Item 的内容              | { item: object, indexes?: number[], value: any, setValue: (value: any) => void } |
-| search-[prop]-label | 当前这项的标签文本的内容                 | { item: object }                                                                 |
-| search-[prop]-error | 当前这项的自定义表单校验信息的显示方式   | { error, item: object }                                                          |
+| search-[prop]-label | 当前这项的标签文本的内容                 | { item: object, indexes?: number[] }                                             |
+| search-[prop]-error | 当前这项的自定义表单校验信息的显示方式   | { error, item: object, indexes?: number[] }                                      |
 | detail              | 在查看描述尾部插入更多的描述信息         | -                                                                                |
 | detail-title        | 自定义描述标题文本，显示在左上方         | { size }                                                                         |
 | detail-extra        | 自定义描述操作区文本，显示在右上方       | { size }                                                                         |
