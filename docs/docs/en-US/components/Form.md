@@ -247,8 +247,8 @@ props: {
 | menu-left         | control the menu left display content    | { loading: boolean }                                                             |
 | menu-right        | control the menu right display content   | { loading: boolean }                                                             |
 | form-[prop]       | control the `Item` display content       | { item: object, indexes?: number[], value: any, setValue: (value: any) => void } |
-| form-[prop]-label | control the `Item` label display content | { item: object }                                                                 |
-| form-[prop]-error | control the `Item` error display content | { error, item: object }                                                          |
+| form-[prop]-label | control the `Item` label display content | { item: object, indexes?: number[] }                                             |
+| form-[prop]-error | control the `Item` error display content | { error, item: object, indexes?: number[] }                                      |
 
 ::: tip Tip
 [prop] the prop of columns
