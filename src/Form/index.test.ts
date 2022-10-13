@@ -200,6 +200,9 @@ describe('Form', () => {
           <template #form-c="{ indexes }">
             <span class="indexes">{{ indexes?.join('-') }}</span>
           </template>
+          <template #form-c-label="{ indexes }">
+            <span class="label">{{ indexes?.join('-') }}</span>
+          </template>
         </pro-form>
       `,
       setup() {
@@ -228,6 +231,11 @@ describe('Form', () => {
 
     const indexes = wrapper.findAll('.pro-form .indexes')
     indexes.forEach((item, index) => {
+      expect(item.text()).toContain(`0-${index}`)
+    })
+
+    const label = wrapper.findAll('.pro-form .label')
+    label.forEach((item, index) => {
       expect(item.text()).toContain(`0-${index}`)
     })
   })

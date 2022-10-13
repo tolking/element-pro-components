@@ -39,6 +39,7 @@ export default defineComponent({
       if (slots[`form-${item.value.prop}-label`]) {
         return (slots[`form-${item.value.prop}-label`] as Slot)({
           item: item.value,
+          indexes: props.indexes,
         })
       } else if (slots[`${item.value.prop}-label`]) {
         // NOTE: Remove this on next major release
@@ -54,6 +55,7 @@ export default defineComponent({
         return (slots[`form-${item.value.prop}-error`] as Slot)({
           ...scope,
           item: item.value,
+          indexes: props.indexes,
         })
       } else if (slots[`${item.value.prop}-error`]) {
         // NOTE: Remove this on next major release
@@ -124,7 +126,7 @@ export default defineComponent({
       } else if (slots[`form-${item.value.prop}`]) {
         list = list.concat(
           (slots[`form-${item.value.prop}`] as Slot)({
-            item,
+            item: item.value,
             indexes: props.indexes,
             value: currentValue,
             setValue: upData,
