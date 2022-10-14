@@ -1,5 +1,26 @@
 # Changelog
 
+### 1.2.3
+
+feat
+
+- FilterRoutes: add new components ProFilterRoutes (#387)
+- Form: add indexes for form-[prop] slots (#390)
+- Form: add indexes for form-[prop]-label slots (#391)
+
+fix
+
+- ColumnSetting: the CheckedKeys loses reactive (#386)
+
+other
+
+- build: nodejs 14 is not supported replaceAll (#384)
+- chore: updata dependencies (#385)
+- chore: use lodash-unified replace lodash (#388)
+- type: simplified the DeepPath type (#389)
+- Checkbox: sync the props name change (#392)
+- docs: optimize the build of docs (#393)
+
 ## 1.2.2
 
 feat
