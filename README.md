@@ -2,7 +2,7 @@
 [![Latest tag via npm](https://img.shields.io/npm/v/element-pro-components.svg?style=flat-square&logo=npm)](https://npmjs.com/package/element-pro-components)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/element-pro-components?label=minzip&logo=npm&style=flat-square)](https://npmjs.com/package/element-pro-components)
 [![Npm Last Updated](https://img.shields.io/badge/dynamic/json.svg?style=flat-square&logo=npm&label=last%20release&url=http%3A%2F%2Fregistry.npmjs.org%2Felement-pro-components&query=$.time.modified)](https://www.npmjs.com/package/element-pro-components)
-[![Github last commit](https://img.shields.io/github/last-commit/tolking/element-pro-components.svg?&style=flat-square&logo=github)](https://github.com/tolking/element-pro-components/commits)
+[![GitHub last commit](https://img.shields.io/github/last-commit/tolking/element-pro-components.svg?&style=flat-square&logo=github)](https://github.com/tolking/element-pro-components/commits)
 [![Latest tag via GitHub](https://img.shields.io/github/v/tag/tolking/element-pro-components.svg?sort=semver&style=flat-square&logo=github)](https://github.com/tolking/element-pro-components/tags)
 
 # element-pro-components
@@ -40,7 +40,7 @@ createApp(App).use(ElementPro).mount('#app')
 
 ## Development project
 
-nodejs ^14
+Nodejs ^15
 
 start
 
@@ -50,7 +50,7 @@ pnpm install
 pnpm dev
 ```
 
-then, preview on `http://localhost:3000/`
+then, preview on `http://localhost:5173/`
 
 test build
 
@@ -61,6 +61,8 @@ pnpm build
 before push
 
 ```bash
+pnpm check
+
 pnpm test
 ```
 

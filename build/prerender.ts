@@ -1,13 +1,18 @@
 import { readFileSync, unlinkSync } from 'fs'
 import fg from 'fast-glob'
 import { SitemapStream, streamToPromise } from 'sitemap'
-import { toAbsolute, getFileUpdatedTime, writeFileRecursive } from './utils'
+import {
+  toAbsolute,
+  getFileUpdatedTime,
+  writeFileRecursive,
+  rmdirRecursive,
+} from './utils'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const manifest = require(toAbsolute('../dist/static/ssr-manifest.json'))
+const manifest = require(toAbsolute('../dist/ssr-manifest.json'))
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { render } = require(toAbsolute('../dist/server/entry-server.js'))
-const template = readFileSync(toAbsolute('../dist/static/index.html'), 'utf-8')
+const { render } = require(toAbsolute('../dist/.cache/entry-server.js'))
+const template = readFileSync(toAbsolute('../dist/index.html'), 'utf-8')
 const files = fg.sync('docs/docs/**/*.md')
 
 ;(async () => {
@@ -21,9 +26,7 @@ const files = fg.sync('docs/docs/**/*.md')
       .replace(/\/([^/]*)$/, (item) =>
         item.replace(/\B([A-Z])/g, '-$1').toLowerCase()
       )
-    const filePath = toAbsolute(
-      `../dist/static${url.replace(/\/$/, '/index')}.html`
-    )
+    const filePath = toAbsolute(`../dist${url.replace(/\/$/, '/index')}.html`)
     const lang = url.match(/^\/([\w|-]*)\//)
     const locale = lang ? lang[1] : 'en'
     const [appHtml, preloadLinks] = await render(url, manifest)
@@ -45,9 +48,10 @@ const files = fg.sync('docs/docs/**/*.md')
 
   stream.end()
   streamToPromise(stream).then((data) => {
-    const filePath = toAbsolute('../dist/static/sitemap.xml')
+    const filePath = toAbsolute('../dist/sitemap.xml')
     writeFileRecursive(filePath, data.toString())
     console.log('build-sitemap:', filePath)
   })
-  unlinkSync(toAbsolute('../dist/static/ssr-manifest.json'))
+  unlinkSync(toAbsolute('../dist/ssr-manifest.json'))
+  rmdirRecursive(toAbsolute('../dist/.cache'))
 })()
