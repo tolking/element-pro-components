@@ -1,3 +1,4 @@
+import { basename } from 'path'
 import { createApp } from './main'
 import { renderToString } from '@vue/server-renderer'
 import { renderHeadToString } from '@vueuse/head'
@@ -15,7 +16,7 @@ export async function render(
   })
 
   // set the router to the desired URL before rendering
-  router.push(url)
+  await router.push(url)
   await router.isReady()
 
   // passing SSR context object which will be available via useSSRContext()
@@ -44,9 +45,16 @@ function renderPreloadLinks(
   modules.forEach((id) => {
     const files = manifest[id]
     if (files) {
-      files.forEach((file: string) => {
+      files.forEach((file) => {
         if (!seen.has(file)) {
           seen.add(file)
+          const filename = basename(file)
+          if (manifest[filename]) {
+            for (const depFile of manifest[filename]) {
+              links += renderPreloadLink(depFile)
+              seen.add(depFile)
+            }
+          }
           links += renderPreloadLink(file)
         }
       })
@@ -65,13 +73,11 @@ function renderPreloadLink(file: string) {
   } else if (file.endsWith('.woff2')) {
     return ` <link rel="preload" href="${file}" as="font" type="font/woff2" crossorigin>`
   } else if (file.endsWith('.gif')) {
-    return ` <link rel="preload" href="${file}" as="image" type="image/gif" crossorigin>`
-  } else if (file.endsWith('.jpg')) {
-    return ` <link rel="preload" href="${file}" as="image" type="image/jpeg" crossorigin>`
-  } else if (file.endsWith('.jpeg')) {
-    return ` <link rel="preload" href="${file}" as="image" type="image/jpeg" crossorigin>`
+    return ` <link rel="preload" href="${file}" as="image" type="image/gif">`
+  } else if (file.endsWith('.jpg') || file.endsWith('.jpeg')) {
+    return ` <link rel="preload" href="${file}" as="image" type="image/jpeg">`
   } else if (file.endsWith('.png')) {
-    return ` <link rel="preload" href="${file}" as="image" type="image/png" crossorigin>`
+    return ` <link rel="preload" href="${file}" as="image" type="image/png">`
   } else {
     // TODO
     return ''
