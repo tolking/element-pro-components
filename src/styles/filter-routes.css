@@ -3,6 +3,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
     height: auto;
     min-height: 34px;
     line-height: normal;
