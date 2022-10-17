@@ -2,7 +2,7 @@ import { computed, defineComponent, h, mergeProps, ref } from 'vue'
 import { useRouter, RouteRecordRaw } from 'vue-router'
 import { reactiveOmit } from '@vueuse/core'
 import { useCurrentRoutes } from '../composables/index'
-import { filterFlat } from '../utils/index'
+import { filterDeep, filterFlat } from '../utils/index'
 import { ProSelect, SelectDataItem } from '../Select/index'
 import { filterRoutesProps } from './props'
 
@@ -17,8 +17,13 @@ export default defineComponent({
     const value = ref('')
 
     const data = computed(() => {
-      return filterFlat<RouteRecordRaw[], SelectDataItem[]>(
+      const list = filterDeep<RouteRecordRaw[]>(
         routes.value,
+        'meta.hidden',
+        false
+      )
+      return filterFlat<RouteRecordRaw[], SelectDataItem[]>(
+        list,
         'redirect',
         false,
         (item) => ({
