@@ -1,17 +1,17 @@
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import { reactivePick } from '@vueuse/core'
-import { useCurrentBreakpoint, useRow } from '../composables/index'
-import { useFormMethods } from './useForm'
-import { formProps, formEmits, formKeys } from './props'
-import ProFormMenu from './FormMenu'
-import ProFormItem from './FormItem'
 import { ElForm } from 'element-plus'
+import { useCurrentBreakpoint, useRow } from '../composables/index'
+import { ProFormMenu, useFormMethods } from '../Form/index'
+import { formEmits, formKeys } from '../Form/props'
+import { arrayFormProps } from './props'
+import ProArrayFormContent from './ArrayFormContent'
 
 export default defineComponent({
-  name: 'ProForm',
-  props: formProps,
+  name: 'ProArrayForm',
+  props: arrayFormProps,
   emits: formEmits,
-  setup(props, { slots, emit, expose }) {
+  setup(props, { emit, slots, expose }) {
     const config = reactivePick(props, ...formKeys)
     const {
       formRef,
@@ -40,24 +40,6 @@ export default defineComponent({
       validateField,
     })
 
-    function createColumn() {
-      return (
-        props.columns?.map((item) => {
-          return h(
-            ProFormItem,
-            {
-              modelValue: props.modelValue,
-              item,
-              prop: item.prop,
-              inline: props.inline,
-              'onUpdate:modelValue': update,
-            },
-            slots
-          )
-        }) || null
-      )
-    }
-
     return () =>
       h(
         ElForm,
@@ -67,13 +49,27 @@ export default defineComponent({
           inline: props.inline,
           labelPosition: labelPosition.value,
           style: !props.inline ? rowStyle.value : undefined,
-          class: ['pro-form', !props.inline ? rowClass.value : ''],
+          class: [
+            'pro-array-form',
+            'pro-form',
+            !props.inline ? rowClass.value : '',
+          ],
           onSubmit: (e: Event) => {
             e.preventDefault()
           },
         }),
         () => [
-          createColumn(),
+          h(
+            ProArrayFormContent,
+            {
+              modelValue: props.modelValue,
+              columns: props.columns,
+              inline: props.inline,
+              max: props.max,
+              'onUpdate:modelValue': update,
+            },
+            slots
+          ),
           slots.default && slots.default(),
           h(
             ProFormMenu,

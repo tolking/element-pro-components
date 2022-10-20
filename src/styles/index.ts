@@ -1,3 +1,4 @@
+import './array-form'
 import './autocomplete-tag'
 import './breadcrumb'
 import './card'
