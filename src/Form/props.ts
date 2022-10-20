@@ -5,6 +5,7 @@ import {
   isFunction,
   isBoolean,
   isUndefined,
+  isArray,
 } from '../utils/index'
 import type { Component, PropType } from 'vue'
 import type { UnknownObject } from '../types/index'
@@ -31,6 +32,20 @@ export const formProps = {
   },
   columns: Array as PropType<IFormColumns>,
   menu: Object as PropType<IFormMenuColumns>,
+}
+
+export const formMenuProps = {
+  menu: Object as PropType<IFormMenuColumns>,
+  gutter: _rowProps['gutter'],
+  loading: Boolean,
+  submitForm: {
+    type: Function as PropType<() => void>,
+    required: true,
+  },
+  resetForm: {
+    type: Function as PropType<(reset?: boolean) => void>,
+    required: true,
+  },
 }
 
 export const formItemProps = {
@@ -63,7 +78,8 @@ export const formComponentProps = {
 }
 
 export const formItemEmits = {
-  'update:modelValue': (value: UnknownObject) => isObject(value),
+  'update:modelValue': (value: UnknownObject | UnknownObject[]) =>
+    isObject(value) || isArray(value),
 }
 
 export const formEmits = {

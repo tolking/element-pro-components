@@ -1,45 +1,35 @@
-import { computed, defineComponent, h, mergeProps, toRefs, VNode } from 'vue'
+import { computed, defineComponent, h, mergeProps } from 'vue'
 import { reactivePick } from '@vueuse/core'
-import { ElForm, ElFormItem, ElButton } from 'element-plus'
 import { useCurrentBreakpoint, useRow } from '../composables/index'
-import { useFormMethods, useFormMenu } from './useForm'
+import { useFormMethods } from './useForm'
 import { formProps, formEmits, formKeys } from './props'
+import ProFormMenu from './FormMenu'
 import ProFormItem from './FormItem'
+import { ElForm } from 'element-plus'
 
 export default defineComponent({
   name: 'ProForm',
   props: formProps,
   emits: formEmits,
   setup(props, { slots, emit, expose }) {
-    const { columns, modelValue, inline } = toRefs(props)
     const config = reactivePick(props, ...formKeys)
     const {
-      form,
+      formRef,
       loading,
       validate,
       resetFields,
       scrollToField,
       clearValidate,
       validateField,
-      upFormData,
+      update,
       submitForm,
       resetForm,
     } = useFormMethods(emit)
-    const menu = useFormMenu(props)
     const { rowStyle, rowClass } = useRow(props)
     const breakpoint = useCurrentBreakpoint()
     const labelPosition = computed(() => {
-      const xs = breakpoint.value === 'xs' && !inline?.value
+      const xs = breakpoint.value === 'xs' && !props.inline
       return props.labelPosition || (xs ? 'top' : undefined)
-    })
-    const menuStyle = computed(() => {
-      if (props.gutter) {
-        return {
-          paddingLeft: `${props.gutter / 2}px`,
-          paddingRight: `${props.gutter / 2}px`,
-        }
-      }
-      return {}
     })
 
     expose({
@@ -52,15 +42,15 @@ export default defineComponent({
 
     function createColumn() {
       return (
-        columns.value?.map((item) => {
+        props.columns?.map((item) => {
           return h(
             ProFormItem,
             {
-              modelValue: modelValue.value,
+              modelValue: props.modelValue,
               item,
               prop: item.prop,
-              inline: inline.value,
-              'onUpdate:modelValue': upFormData,
+              inline: props.inline,
+              'onUpdate:modelValue': update,
             },
             slots
           )
@@ -68,62 +58,35 @@ export default defineComponent({
       )
     }
 
-    function createMenu() {
-      let list: VNode[] = []
-
-      if (slots['menu-left']) {
-        list = list.concat(slots['menu-left']({ loading: loading.value }))
-      }
-      if (menu.value.submit) {
-        list.push(
-          h(
-            ElButton,
-            mergeProps(menu.value.submitProps || {}, {
-              loading: loading.value,
-              onClick: submitForm,
-            }),
-            () => menu.value.submitText
-          )
-        )
-      }
-      if (menu.value.reset) {
-        list.push(
-          h(
-            ElButton,
-            mergeProps(menu.value.resetProps || {}, {
-              loading: loading.value,
-              onClick: () => resetForm(),
-            }),
-            () => menu.value.resetText
-          )
-        )
-      }
-      if (slots['menu-right']) {
-        list = list.concat(slots['menu-right']({ loading: loading.value }))
-      }
-
-      return h(
-        ElFormItem,
-        { class: 'pro-form-menu', style: menuStyle.value },
-        () => list
-      )
-    }
-
     return () =>
       h(
         ElForm,
         mergeProps(config, {
-          ref: form,
-          model: modelValue.value,
-          inline: inline.value,
+          ref: formRef,
+          model: props.modelValue,
+          inline: props.inline,
           labelPosition: labelPosition.value,
-          style: !inline.value ? rowStyle.value : undefined,
-          class: ['pro-form', !inline.value ? rowClass.value : ''],
+          style: !props.inline ? rowStyle.value : undefined,
+          class: ['pro-form', !props.inline ? rowClass.value : ''],
           onSubmit: (e: Event) => {
             e.preventDefault()
           },
         }),
-        () => [createColumn(), slots.default && slots.default(), createMenu()]
+        () => [
+          createColumn(),
+          slots.default && slots.default(),
+          h(
+            ProFormMenu,
+            {
+              menu: props.menu,
+              gutter: props.gutter,
+              loading: loading.value,
+              submitForm,
+              resetForm,
+            },
+            slots
+          ),
+        ]
       )
   },
 })
