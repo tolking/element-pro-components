@@ -2,7 +2,7 @@ import { describe, test, expect, afterEach } from 'vitest'
 import { ComponentPublicInstance, ref, shallowRef, markRaw } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { ElInput, ElSwitch } from 'element-plus'
-import ProForm from './Form'
+import { ProForm } from './index'
 import type { IFormColumns, IFormMenuColumns, FormColumn } from './index'
 import type { Mutable } from '../types/index'
 
