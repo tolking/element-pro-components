@@ -1,11 +1,12 @@
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import { reactivePick } from '@vueuse/core'
+import { ElForm } from 'element-plus'
 import { useCurrentBreakpoint, useRow } from '../composables/index'
+import { useArrayFormProvide } from '../ArrayForm/index'
 import { useFormMethods } from './useForm'
 import { formProps, formEmits, formKeys } from './props'
 import ProFormMenu from './FormMenu'
 import ProFormItem from './FormItem'
-import { ElForm } from 'element-plus'
 
 export default defineComponent({
   name: 'ProForm',
@@ -31,6 +32,8 @@ export default defineComponent({
       const xs = breakpoint.value === 'xs' && !props.inline
       return props.labelPosition || (xs ? 'top' : undefined)
     })
+
+    useArrayFormProvide(emit)
 
     expose({
       validate,
