@@ -8,7 +8,7 @@ import {
   isArray,
 } from '../utils/index'
 import type { Component, PropType } from 'vue'
-import type { UnknownObject } from '../types/index'
+import type { ExternalParam, UnknownObject } from '../types/index'
 import type {
   IFormColumns,
   IFormMenuColumns,
@@ -78,12 +78,18 @@ export const formComponentProps = {
 }
 
 export const formItemEmits = {
-  'update:modelValue': (value: UnknownObject | UnknownObject[]) =>
-    isObject(value) || isArray(value),
+  'update:modelValue': (value: UnknownObject) => isObject(value),
+}
+
+export const arrayFormContentEmits = {
+  add: (indexes: number[]) => isArray(indexes),
+  remove: (indexes: number[]) => isArray(indexes),
 }
 
 export const formEmits = {
-  ...formItemEmits,
+  ...arrayFormContentEmits,
+  'update:modelValue': (value: ExternalParam) =>
+    isObject(value) || isArray(value),
   submit: (done: () => void, isValid: boolean, invalidFields?: InvalidFields) =>
     isFunction(done) &&
     isBoolean(isValid) &&

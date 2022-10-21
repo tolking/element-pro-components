@@ -5,6 +5,7 @@
     :columns="columns"
     label-width="100px"
     @submit="submit"
+    @add="changeValue"
   />
 </template>
 
@@ -40,11 +41,15 @@ export default defineComponent({
         done()
       }, 1000)
     })
+    const changeValue = () => {
+      form.value[form.value.length - 1] = { 'a.b': undefined }
+    }
 
     return {
       form,
       columns,
       submit,
+      changeValue,
     }
   },
 })
