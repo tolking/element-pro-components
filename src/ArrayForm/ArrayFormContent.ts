@@ -2,7 +2,7 @@ import { defineComponent, h, markRaw, VNode } from 'vue'
 import { ElButton } from 'element-plus'
 import { Plus, Minus } from '@element-plus/icons-vue'
 import { isArray } from '../utils/index'
-import ProFormItem from '../Form/FormItem'
+import { ProFormItem } from '../Form/index'
 import { useArrayForm } from './useArrayForm'
 import { arrayFormContentProps, arrayFormEmits } from './props'
 import type { UnknownObject } from '../types/index'
@@ -12,9 +12,12 @@ export default defineComponent({
   props: arrayFormContentProps,
   emits: arrayFormEmits,
   setup(props, { slots, emit }) {
-    const { showAdd, add, del, update } = useArrayForm(props, emit)
+    const { showAdd, add, remove, update } = useArrayForm(props, emit)
 
     function createDefault(value: UnknownObject, index: number) {
+      const indexes = [...(props.indexes || []), index]
+      const prefix = `${props.prop}${props.prop ? '.' : ''}${index}`
+
       return h('div', { class: 'pro-array-form-content' }, [
         h(
           'div',
@@ -25,23 +28,14 @@ export default defineComponent({
             ],
           },
           props.columns?.map((child) => {
-            const indexes = [...(props.indexes || []), index]
-            const prop = `${props.prop}${props.prop ? '.' : ''}${index}.${
-              child.prop
-            }`
-
-            function _update(value: UnknownObject | UnknownObject[]) {
-              update(value as UnknownObject, index)
-            }
-
             return h(
               ProFormItem,
               {
                 modelValue: value,
                 item: child,
                 indexes,
-                prop,
-                'onUpdate:modelValue': _update,
+                prop: `${prefix}.${child.prop}`,
+                'onUpdate:modelValue': (value) => update(value, index),
               },
               slots
             )
@@ -52,7 +46,7 @@ export default defineComponent({
           type: 'danger',
           circle: true,
           class: 'pro-array-form-btn-delete',
-          onClick: () => del(index),
+          onClick: () => remove(index, indexes),
         }),
       ])
     }
@@ -70,7 +64,7 @@ export default defineComponent({
             type: 'primary',
             circle: true,
             class: 'pro-array-form-btn-add',
-            onClick: add,
+            onClick: () => add(props.indexes || []),
           })
         )
 

@@ -1,22 +1,48 @@
-import { computed } from 'vue'
-import type { ComputedRef } from 'vue'
+import { computed, inject, provide } from 'vue'
+import type { ComputedRef, InjectionKey } from 'vue'
 import type { UnknownObject } from '../types/index'
-import type { IArrayFormContentProps, IArrayFormEmits } from './index'
+import type {
+  IArrayFormContentProps,
+  IArrayFormContext,
+  IArrayFormEmits,
+  IArrayFormContentEmits,
+} from './index'
+
+export const arrayFormContentKey: InjectionKey<IArrayFormContext> =
+  Symbol('arrayFormKey')
+
+export function useArrayFormProvide(emit: IArrayFormContentEmits) {
+  provide(arrayFormContentKey, { add, remove })
+
+  function add(indexes: number[]) {
+    emit('add', indexes)
+  }
+
+  function remove(indexes: number[]) {
+    emit('remove', indexes)
+  }
+}
+
+export function useArrayFormInject() {
+  return inject(arrayFormContentKey)
+}
 
 export function useArrayForm(
   props: Pick<IArrayFormContentProps, 'modelValue' | 'columns' | 'max'>,
   emit: IArrayFormEmits
 ): {
   showAdd: ComputedRef<boolean>
-  add: () => void
-  del: (index: number) => void
+  add: (indexes: number[]) => void
+  remove: (index: number, indexes: number[]) => void
   update: (value: UnknownObject, index: number) => void
 } {
+  const arrayForm = useArrayFormInject()
+
   const showAdd = computed<boolean>(() => {
     return props.max ? props.max > props.modelValue.length : true
   })
 
-  function add() {
+  function add(indexes: number[]) {
     let _model = [...props.modelValue]
 
     if (props.modelValue) {
@@ -25,13 +51,15 @@ export function useArrayForm(
       _model = [{}]
     }
     emit('update:modelValue', _model)
+    arrayForm?.add(indexes)
   }
 
-  function del(index: number) {
+  function remove(index: number, indexes: number[]) {
     const _model = [...props.modelValue]
 
     _model.splice(index, 1)
     emit('update:modelValue', _model)
+    arrayForm?.remove(indexes)
   }
 
   function update(value: UnknownObject, index: number) {
@@ -44,7 +72,7 @@ export function useArrayForm(
   return {
     showAdd,
     add,
-    del,
+    remove,
     update,
   }
 }

@@ -1,14 +1,13 @@
-import { isArray, objectOmit, objectPick } from '../utils/index'
-import { formProps, formItemProps } from '../Form/props'
+import { objectPick, isArray } from '../utils/index'
+import { formProps, formItemProps, formEmits } from '../Form/props'
 import type { PropType } from 'vue'
 import type { UnknownObject } from '../types/index'
 import type { IFormColumns } from '../Form/type'
 
-const _formProps = objectOmit(formProps, 'modelValue')
 const _formItemProps = objectPick(formItemProps, 'prop', 'indexes', 'inline')
 
 export const arrayFormProps = {
-  ..._formProps,
+  ...formProps,
   modelValue: {
     type: Array as PropType<UnknownObject[]>,
     default: () => [],
@@ -27,5 +26,6 @@ export const arrayFormContentProps = {
 }
 
 export const arrayFormEmits = {
+  ...formEmits,
   'update:modelValue': (value: UnknownObject[]) => isArray(value),
 }

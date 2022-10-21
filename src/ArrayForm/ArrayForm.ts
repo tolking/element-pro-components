@@ -3,14 +3,15 @@ import { reactivePick } from '@vueuse/core'
 import { ElForm } from 'element-plus'
 import { useCurrentBreakpoint, useRow } from '../composables/index'
 import { ProFormMenu, useFormMethods } from '../Form/index'
-import { formEmits, formKeys } from '../Form/props'
-import { arrayFormProps } from './props'
+import { formKeys } from '../Form/props'
+import { useArrayFormProvide } from './useArrayForm'
+import { arrayFormProps, arrayFormEmits } from './props'
 import ProArrayFormContent from './ArrayFormContent'
 
 export default defineComponent({
   name: 'ProArrayForm',
   props: arrayFormProps,
-  emits: formEmits,
+  emits: arrayFormEmits,
   setup(props, { emit, slots, expose }) {
     const config = reactivePick(props, ...formKeys)
     const {
@@ -31,6 +32,8 @@ export default defineComponent({
       const xs = breakpoint.value === 'xs' && !props.inline
       return props.labelPosition || (xs ? 'top' : undefined)
     })
+
+    useArrayFormProvide(emit)
 
     expose({
       validate,
