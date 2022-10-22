@@ -1,17 +1,20 @@
-import { ComputedRef, computed, Ref, unref, shallowRef } from 'vue'
+import { computed, Ref, unref, shallowRef, provide, inject } from 'vue'
 import { useLocale, useSize } from 'element-plus'
 import { useShow } from '../composables/index'
 import { isObject, objectOmit, isBoolean } from '../utils/index'
+import type { ComputedRef, InjectionKey } from 'vue'
 import type { UnknownObject, MaybeArray, MaybeRef } from '../types/index'
 import type {
   IFormEmits,
-  IFormItemEmits,
   FormColumn,
   IFormExpose,
   IFormValidateCallback,
   IFormValidateFieldCallback,
   IFormMenuColumns,
   InvalidFields,
+  IFormContext,
+  IArrayFormEmits,
+  IArrayFormProps,
 } from './index'
 
 type FormItemBind = Omit<
@@ -166,59 +169,70 @@ export function useFormMethods(emit: IFormEmits): {
   }
 }
 
-type ModelChildValue = Record<string, UnknownObject[]>
+export const formContentKey: InjectionKey<IFormContext> = Symbol('arrayFormKey')
 
-export function useFormChild(
-  props: Readonly<{
-    item: FormColumn
-    modelValue: UnknownObject
-  }>,
-  emit: IFormItemEmits
+export function useFormProvide(emit: IArrayFormEmits) {
+  provide(formContentKey, { add, remove })
+
+  function add(indexes: number[]) {
+    emit('add', indexes)
+  }
+
+  function remove(indexes: number[]) {
+    emit('remove', indexes)
+  }
+}
+
+export function useFormInject() {
+  return inject(formContentKey)
+}
+
+export function useArrayForm(
+  props: Pick<IArrayFormProps, 'modelValue' | 'columns' | 'max'>,
+  emit: IArrayFormEmits
 ): {
-  hasChild: ComputedRef<boolean>
-  showAddBtn: ComputedRef<boolean>
-  add: () => void
-  del: (index: number) => void
-  upChildData: (value: UnknownObject, index: number) => void
+  showAdd: ComputedRef<boolean>
+  add: (indexes: number[]) => void
+  remove: (index: number, indexes: number[]) => void
+  update: (value: UnknownObject, index: number) => void
 } {
-  const hasChild = computed<boolean>(() => {
-    return props.item.children ? !!props.item.children.length : false
+  const arrayForm = useFormInject()
+
+  const showAdd = computed<boolean>(() => {
+    return props.max ? props.max > props.modelValue.length : true
   })
 
-  const showAddBtn = computed<boolean>(() => {
-    return props.item.max
-      ? props.item.max >
-          ((props.modelValue[props.item.prop] as unknown[])?.length || 0)
-      : true
-  })
+  function add(indexes: number[]) {
+    let _model = [...props.modelValue]
 
-  function add() {
-    const _model = { ...props.modelValue } as ModelChildValue
-    if (props.modelValue[props.item.prop]) {
-      _model[props.item.prop].push({})
+    if (props.modelValue) {
+      _model.push({})
     } else {
-      _model[props.item.prop] = [{}]
+      _model = [{}]
     }
     emit('update:modelValue', _model)
+    arrayForm?.add(indexes)
   }
 
-  function del(index: number) {
-    const _model = { ...props.modelValue } as ModelChildValue
-    _model[props.item.prop].splice(index, 1)
+  function remove(index: number, indexes: number[]) {
+    const _model = [...props.modelValue]
+
+    _model.splice(index, 1)
     emit('update:modelValue', _model)
+    arrayForm?.remove(indexes)
   }
 
-  function upChildData(value: UnknownObject, index: number) {
-    const _model = { ...props.modelValue } as ModelChildValue
-    _model[props.item.prop][index] = value
+  function update(value: UnknownObject, index: number) {
+    const _model = [...props.modelValue]
+
+    _model[index] = value
     emit('update:modelValue', _model)
   }
 
   return {
-    hasChild,
-    showAddBtn,
+    showAdd,
     add,
-    del,
-    upChildData,
+    remove,
+    update,
   }
 }

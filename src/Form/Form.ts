@@ -2,7 +2,7 @@ import { computed, defineComponent, h, mergeProps, toRefs, VNode } from 'vue'
 import { reactivePick } from '@vueuse/core'
 import { ElForm, ElFormItem, ElButton } from 'element-plus'
 import { useCurrentBreakpoint, useRow } from '../composables/index'
-import { useFormMethods, useFormMenu } from './useForm'
+import { useFormProvide, useFormMethods, useFormMenu } from './useForm'
 import { formProps, formEmits, formKeys } from './props'
 import ProFormItem from './FormItem'
 
@@ -41,6 +41,8 @@ export default defineComponent({
       }
       return {}
     })
+
+    useFormProvide(emit)
 
     expose({
       validate,

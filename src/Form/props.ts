@@ -1,13 +1,15 @@
 import { formProps as elFormProps, rowProps } from 'element-plus'
 import {
   objectOmit,
+  objectPick,
+  isArray,
   isObject,
   isFunction,
   isBoolean,
   isUndefined,
 } from '../utils/index'
 import type { Component, PropType } from 'vue'
-import type { UnknownObject } from '../types/index'
+import type { ExternalParam, UnknownObject } from '../types/index'
 import type {
   IFormColumns,
   IFormMenuColumns,
@@ -21,17 +23,6 @@ const _formProps = objectOmit(elFormProps, 'model')
 const _rowProps = objectOmit(rowProps, 'tag')
 
 export const formKeys = Object.keys(_formProps) as FormKeys
-
-export const formProps = {
-  ..._formProps,
-  ..._rowProps,
-  modelValue: {
-    type: Object,
-    default: () => ({}),
-  },
-  columns: Array as PropType<IFormColumns>,
-  menu: Object as PropType<IFormMenuColumns>,
-}
 
 export const formItemProps = {
   modelValue: {
@@ -62,12 +53,42 @@ export const formComponentProps = {
   slots: [Function, Object, String],
 }
 
+const _formItemProps = objectPick(formItemProps, 'prop', 'indexes', 'inline')
+export const arrayFormProps = {
+  ..._formItemProps,
+  modelValue: {
+    type: Array as PropType<UnknownObject[]>,
+    default: () => [],
+  },
+  columns: Array as PropType<IFormColumns>,
+  max: Number,
+}
+
+export const formProps = {
+  ..._formProps,
+  ..._rowProps,
+  ..._formItemProps,
+  modelValue: [Object, Array],
+  columns: Array as PropType<IFormColumns>,
+  menu: Object as PropType<IFormMenuColumns>,
+  type: String as PropType<'default' | 'array'>,
+  max: Number, // type: 'array'
+}
+
 export const formItemEmits = {
   'update:modelValue': (value: UnknownObject) => isObject(value),
 }
 
+export const arrayFormEmits = {
+  'update:modelValue': (value: UnknownObject[]) => isArray(value),
+  add: (indexes: number[]) => isArray(indexes),
+  remove: (indexes: number[]) => isArray(indexes),
+}
+
 export const formEmits = {
-  ...formItemEmits,
+  ...arrayFormEmits,
+  'update:modelValue': (value: ExternalParam) =>
+    isObject(value) || isArray(value),
   submit: (done: () => void, isValid: boolean, invalidFields?: InvalidFields) =>
     isFunction(done) &&
     isBoolean(isValid) &&
