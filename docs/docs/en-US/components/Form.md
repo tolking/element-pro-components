@@ -129,6 +129,14 @@ The `label-position` attribute decides how labels align
 @/demo/Form/label-position.vue
 :::
 
+### Array Form
+
+The array form is the same as the subform. It is used to handle the situation where an array needs to be entered. Just configure the 'type' as' array 'to enable
+
+::: demo Control the maximum number of forms through max
+@/demo/Form/array.vue
+:::
+
 ### Async Form
 
 To implement Async Form, columns must be bound to a reactive array
@@ -147,27 +155,29 @@ The function `defineFormColumns` supports passing in a Generics type to infer th
 
 ### Props
 
-| Name                    | Description                                                                                                                       | Type    | Options                                                              | Default |
-| :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------- | :------ | :------------------------------------------------------------------- | :------ |
-| v-model                 | binding value                                                                                                                     | object  | -                                                                    | -       |
-| columns                 | to generate form components, reference `columns`                                                                                  | array   | -                                                                    | -       |
-| menu                    | config the menu content, reference `menu`                                                                                         | object  | -                                                                    | -       |
-| rules                   | validation rules of form                                                                                                          | object  | -                                                                    | -       |
-| inline                  | whether the form is inline                                                                                                        | boolean | -                                                                    | false   |
-| label-position          | position of label. If set to 'left' or 'right', `label-width` prop is also required                                               | string  | right / left / top                                                   | right   |
-| label-width             | width of label, e.g. '50px'. All its direct child form items will inherit this value. Width `auto` is supported.                  | string  | -                                                                    | -       |
-| label-suffix            | suffix of the label                                                                                                               | string  | -                                                                    | -       |
-| hide-required-asterisk  | whether required fields should have a red asterisk (star) beside their labels                                                     | boolean | -                                                                    | false   |
-| show-message            | whether to show the error message                                                                                                 | boolean | -                                                                    | true    |
-| inline-message          | whether to display the error message inline with the form item                                                                    | boolean | -                                                                    | false   |
-| status-icon             | whether to display an icon indicating the validation result                                                                       | boolean | -                                                                    | false   |
-| validate-on-rule-change | whether to trigger validation when the `rules` prop is changed                                                                    | boolean | -                                                                    | true    |
-| size                    | control the size of components in this form                                                                                       | string  | large / default /small                                               | -       |
-| disabled                | whether to disabled all components in this form. If set to true, it cannot be overridden by its inner components' `disabled` prop | boolean | -                                                                    | false   |
-| scroll-to-error         | When validation fails, scroll to the first error form entry                                                                       | boolean | -                                                                    | false   |
-| gutter                  | grid spacing                                                                                                                      | number  | -                                                                    | 0       |
-| justify                 | horizontal alignment of flex layout                                                                                               | string  | start / end / center / space-around / space-between / spacing-evenly | start   |
-| align                   | vertical alignment of flex layout                                                                                                 | string  | top / middle / bottom                                                | top     |
+| Name                    | Description                                                                                                                       | Type           | Options                                                              | Default |
+| :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------- | :------------- | :------------------------------------------------------------------- | :------ |
+| v-model                 | binding value                                                                                                                     | object / array | -                                                                    | -       |
+| columns                 | to generate form components, reference `columns`                                                                                  | array          | -                                                                    | -       |
+| menu                    | config the menu content, reference `menu`                                                                                         | object         | -                                                                    | -       |
+| type                    | The type of Form. When it is `array`, the `v-model` will be bound as an array                                                     | string         | array                                                                | -       |
+| max                     | limit the maximum number of ArrayForm component                                                                                   | number         | -                                                                    | -       |
+| rules                   | validation rules of form                                                                                                          | object         | -                                                                    | -       |
+| inline                  | whether the form is inline                                                                                                        | boolean        | -                                                                    | false   |
+| label-position          | position of label. If set to 'left' or 'right', `label-width` prop is also required                                               | string         | right / left / top                                                   | right   |
+| label-width             | width of label, e.g. '50px'. All its direct child form items will inherit this value. Width `auto` is supported.                  | string         | -                                                                    | -       |
+| label-suffix            | suffix of the label                                                                                                               | string         | -                                                                    | -       |
+| hide-required-asterisk  | whether required fields should have a red asterisk (star) beside their labels                                                     | boolean        | -                                                                    | false   |
+| show-message            | whether to show the error message                                                                                                 | boolean        | -                                                                    | true    |
+| inline-message          | whether to display the error message inline with the form item                                                                    | boolean        | -                                                                    | false   |
+| status-icon             | whether to display an icon indicating the validation result                                                                       | boolean        | -                                                                    | false   |
+| validate-on-rule-change | whether to trigger validation when the `rules` prop is changed                                                                    | boolean        | -                                                                    | true    |
+| size                    | control the size of components in this form                                                                                       | string         | large / default /small                                               | -       |
+| disabled                | whether to disabled all components in this form. If set to true, it cannot be overridden by its inner components' `disabled` prop | boolean        | -                                                                    | false   |
+| scroll-to-error         | When validation fails, scroll to the first error form entry                                                                       | boolean        | -                                                                    | false   |
+| gutter                  | grid spacing                                                                                                                      | number         | -                                                                    | 0       |
+| justify                 | horizontal alignment of flex layout                                                                                               | string         | start / end / center / space-around / space-between / spacing-evenly | start   |
+| align                   | vertical alignment of flex layout                                                                                                 | string         | top / middle / bottom                                                | top     |
 
 #### columns
 
@@ -228,6 +238,8 @@ props: {
 | submit   | triggers when the submit click          | done, isValid, invalidFields                                                                          |
 | reset    | triggers when the reset click           | -                                                                                                     |
 | validate | triggers after a form item is validated | prop name of the form item being validated, whether validation is passed and the error message if not |
+| add      | triggers when the add click             | indexes: number[]                                                                                     |
+| remove   | triggers when the remove click          | indexes: number[]                                                                                     |
 
 ### Methods
 

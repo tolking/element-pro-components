@@ -1,4 +1,10 @@
-import { formProps, formEmits, formItemEmits } from './props'
+import {
+  formProps,
+  arrayFormProps,
+  formEmits,
+  formItemEmits,
+  arrayFormEmits,
+} from './props'
 import type { Component } from 'vue'
 import type { ButtonProps, ColProps, FormItemProps } from 'element-plus'
 import type {
@@ -23,6 +29,8 @@ export interface FormColumn<T = ExternalParam>
   component?: string | Component
   /** props for component */
   props?: UnknownObject
+  /** the type of sub-form */
+  type?: 'array'
   /** sub-form */
   children?: IFormColumns<FormColumnChildren<T>>
   /** max number of sub-form */
@@ -86,9 +94,16 @@ export interface IFormExpose {
   ) => void
 }
 
+export interface IFormContext {
+  add: (indexes: number[]) => void
+  remove: (indexes: number[]) => void
+}
+
 export type IFormProps = IDefineProps<typeof formProps>
+export type IArrayFormProps = IDefineProps<typeof arrayFormProps>
 export type IFormEmits = IDefineEmits<typeof formEmits>
 export type IFormItemEmits = IDefineEmits<typeof formItemEmits>
+export type IArrayFormEmits = IDefineEmits<typeof arrayFormEmits>
 
 /**
  * Type helper to make it easier to define columns
