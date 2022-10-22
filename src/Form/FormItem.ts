@@ -1,10 +1,10 @@
-import { defineComponent, h, toRefs, Slot, VNode, mergeProps } from 'vue'
+import { defineComponent, h, Slot, VNode, mergeProps, toRef } from 'vue'
 import { ElFormItem } from 'element-plus'
 import { useCol } from '../composables/index'
 import { get, set, has, throwWarn } from '../utils/index'
 import { useFormItemBind } from './useForm'
 import { formItemProps, formItemEmits } from './props'
-import ProArrayForm from './ArrayForm'
+import ProFormList from './FormList'
 import ProFormComponent from './FormComponent'
 import type { UnknownObject } from '../types/index'
 
@@ -13,12 +13,12 @@ export default defineComponent({
   props: formItemProps,
   emits: formItemEmits,
   setup(props, { slots, emit }) {
-    const { item, prop, modelValue, inline } = toRefs(props)
+    const item = toRef(props, 'item')
     const bindItem = useFormItemBind(item)
     const { colStyle, colClass } = useCol(item)
 
     function update(value: unknown) {
-      emit('update:modelValue', set(modelValue.value, item.value.prop, value))
+      emit('update:modelValue', set(props.modelValue, item.value.prop, value))
     }
 
     function createLabel() {
@@ -56,21 +56,22 @@ export default defineComponent({
     }
 
     function createDefault() {
-      !has(modelValue.value, item.value.prop) && update(undefined)
-      const currentValue = get(modelValue.value, item.value.prop, undefined)
+      !has(props.modelValue, item.value.prop) && update(undefined)
+      const currentValue = get(props.modelValue, item.value.prop, undefined)
       let list: VNode[] = []
 
       if (props.item.children?.length) {
         list = list.concat(
           h(
-            ProArrayForm,
+            ProFormList,
             {
               modelValue: currentValue,
               columns: props.item.children,
-              prop: props.prop,
+              prefix: props.prefix,
               indexes: props.indexes,
               inline: props.inline,
               max: props.item.max,
+              type: props.item.type || 'array',
               'onUpdate:modelValue': update,
             },
             slots
@@ -117,9 +118,9 @@ export default defineComponent({
       h(
         ElFormItem,
         mergeProps(bindItem.value, {
-          prop: prop.value,
-          style: !inline.value ? colStyle.value : undefined,
-          class: ['pro-form-item', !inline.value ? colClass.value : ''],
+          prop: props.prefix,
+          style: !props.inline ? colStyle.value : undefined,
+          class: ['pro-form-item', !props.inline && colClass.value],
         }),
         {
           label: () => createLabel(),

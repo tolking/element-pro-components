@@ -29,6 +29,8 @@ export interface FormColumn<T = ExternalParam>
   component?: string | Component
   /** props for component */
   props?: UnknownObject
+  /** the type of sub-form */
+  type?: 'array'
   /** sub-form */
   children?: IFormColumns<FormColumnChildren<T>>
   /** max number of sub-form */

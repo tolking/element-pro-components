@@ -33,7 +33,7 @@ export const formItemProps = {
     type: Object as PropType<FormColumn>,
     default: () => ({}),
   },
-  prop: {
+  prefix: {
     type: String,
     default: '',
   },
@@ -53,7 +53,7 @@ export const formComponentProps = {
   slots: [Function, Object, String],
 }
 
-const _formItemProps = objectPick(formItemProps, 'prop', 'indexes', 'inline')
+const _formItemProps = objectPick(formItemProps, 'prefix', 'indexes', 'inline')
 export const arrayFormProps = {
   ..._formItemProps,
   modelValue: {
@@ -68,7 +68,9 @@ export const formProps = {
   ..._formProps,
   ..._rowProps,
   ..._formItemProps,
-  modelValue: [Object, Array],
+  modelValue: [Object, Array] as PropType<
+    UnknownObject | UnknownObject[] | undefined
+  >,
   columns: Array as PropType<IFormColumns>,
   menu: Object as PropType<IFormMenuColumns>,
   type: String as PropType<'default' | 'array'>,
@@ -88,7 +90,7 @@ export const arrayFormEmits = {
 export const formEmits = {
   ...arrayFormEmits,
   'update:modelValue': (value: ExternalParam) =>
-    isObject(value) || isArray(value),
+    isObject(value) || isArray(value) || isUndefined(value),
   submit: (done: () => void, isValid: boolean, invalidFields?: InvalidFields) =>
     isFunction(done) &&
     isBoolean(isValid) &&

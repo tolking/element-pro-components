@@ -1,10 +1,10 @@
-import { defineComponent, h, markRaw, VNode } from 'vue'
+import { defineComponent, h, markRaw, mergeProps, VNode } from 'vue'
 import { ElButton } from 'element-plus'
 import { Plus, Minus } from '@element-plus/icons-vue'
 import { isArray } from '../utils/index'
 import { useArrayForm } from './useForm'
-import ProFormItem from './FormItem'
 import { arrayFormProps, arrayFormEmits } from './props'
+import ProFormList from './FormList'
 import type { UnknownObject } from '../types/index'
 
 export default defineComponent({
@@ -16,7 +16,7 @@ export default defineComponent({
 
     function createDefault(value: UnknownObject, index: number) {
       const indexes = [...(props.indexes || []), index]
-      const prefix = `${props.prop}${props.prop ? '.' : ''}${index}`
+      const prefix = `${props.prefix}${props.prefix ? '.' : ''}${index}`
 
       return h('div', { class: 'pro-array-form' }, [
         h(
@@ -24,19 +24,17 @@ export default defineComponent({
           {
             class: [!props.inline ? 'el-row' : '', 'form-content'],
           },
-          props.columns?.map((child) => {
-            return h(
-              ProFormItem,
-              {
-                modelValue: value,
-                item: child,
-                indexes,
-                prop: `${prefix}.${child.prop}`,
-                'onUpdate:modelValue': (value) => update(value, index),
-              },
-              slots
-            )
-          })
+          h(
+            ProFormList,
+            mergeProps(props, {
+              modelValue: value,
+              indexes,
+              prefix,
+              'onUpdate:modelValue': (value: UnknownObject) =>
+                update(value, index),
+            }),
+            slots
+          )
         ),
         h(ElButton, {
           icon: markRaw(Minus),
