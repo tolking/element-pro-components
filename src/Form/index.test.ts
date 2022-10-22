@@ -2,7 +2,7 @@ import { describe, test, expect, afterEach } from 'vitest'
 import { ComponentPublicInstance, ref, shallowRef, markRaw } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { ElInput, ElSwitch } from 'element-plus'
-import { ProForm } from './index'
+import ProForm from './Form'
 import type { IFormColumns, IFormMenuColumns, FormColumn } from './index'
 import type { Mutable } from '../types/index'
 
@@ -127,25 +127,15 @@ describe('Form', () => {
     })
     const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
-    expect(getFormContent(wrapper, '.pro-array-form-content').exists()).toBe(
-      false
-    )
-    expect(getFormContent(wrapper, '.pro-array-form-btn-add').exists()).toBe(
-      true
-    )
+    expect(getFormContent(wrapper, '.children-form').exists()).toBe(false)
+    expect(getFormContent(wrapper, '.el-button.is-circle').exists()).toBe(true)
 
-    await getFormContent(wrapper, '.pro-array-form-btn-add').trigger('click')
-    expect(getFormContent(wrapper, '.pro-array-form-content').exists()).toBe(
-      true
-    )
+    await getFormContent(wrapper, '.el-button.is-circle').trigger('click')
+    expect(getFormContent(wrapper, '.children-form').exists()).toBe(true)
 
     await (vm.columns = columns)
-    expect(getFormContent(wrapper, '.pro-array-form-content').exists()).toBe(
-      false
-    )
-    expect(getFormContent(wrapper, '.pro-array-form-btn-add').exists()).toBe(
-      false
-    )
+    expect(getFormContent(wrapper, '.children-form').exists()).toBe(false)
+    expect(getFormContent(wrapper, '.el-button.is-circle').exists()).toBe(false)
   })
 
   test.concurrent('slots', async () => {

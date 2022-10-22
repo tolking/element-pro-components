@@ -89,11 +89,6 @@ const zhCN: RouteRecordRaw[] = [
         meta: { title: 'Form' },
       },
       {
-        path: '/zh-CN/components/array-form',
-        component: () => import('../../docs/zh-CN/components/ArrayForm.md'),
-        meta: { title: 'ArrayForm' },
-      },
-      {
         path: '/zh-CN/components/radio',
         component: () => import('../../docs/zh-CN/components/Radio.md'),
         meta: { title: 'Radio' },

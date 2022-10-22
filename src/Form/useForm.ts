@@ -5,6 +5,7 @@ import { isObject, objectOmit, isBoolean } from '../utils/index'
 import type { UnknownObject, MaybeArray, MaybeRef } from '../types/index'
 import type {
   IFormEmits,
+  IFormItemEmits,
   FormColumn,
   IFormExpose,
   IFormValidateCallback,
@@ -91,45 +92,45 @@ export function useFormMenu(
 }
 
 export function useFormMethods(emit: IFormEmits): {
-  formRef: Ref<IFormExpose>
+  form: Ref<IFormExpose>
   loading: Ref<boolean>
-  update: (value: UnknownObject | UnknownObject[]) => void
+  upFormData: (value: UnknownObject) => void
   submitForm: () => void
   resetForm: (reset?: boolean) => void
 } & IFormExpose {
-  const formRef = shallowRef<IFormExpose>({} as IFormExpose)
+  const form = shallowRef<IFormExpose>({} as IFormExpose)
   const { show, toggleShow } = useShow()
 
   function validate(callback?: IFormValidateCallback) {
-    return formRef.value.validate(callback)
+    return form.value.validate(callback)
   }
 
   function resetFields() {
-    formRef.value.resetFields()
+    form.value.resetFields()
   }
 
   function scrollToField(prop: string) {
-    formRef.value.scrollToField(prop)
+    form.value.scrollToField(prop)
   }
 
   function clearValidate(props?: MaybeArray<string>) {
-    formRef.value.clearValidate(props)
+    form.value.clearValidate(props)
   }
 
   function validateField(
     props: MaybeArray<string>,
     cb: IFormValidateFieldCallback
   ) {
-    formRef.value.validateField(props, cb)
+    form.value.validateField(props, cb)
   }
 
-  function update(value: UnknownObject | UnknownObject[]) {
+  function upFormData(value: UnknownObject) {
     emit('update:modelValue', value)
   }
 
   function submitForm() {
     show.value = true
-    formRef.value
+    form.value
       .validate()
       .then((isValid) => {
         emit('submit', toggleShow, isValid)
@@ -141,26 +142,83 @@ export function useFormMethods(emit: IFormEmits): {
 
   /**
    * reset Form Fields and reset Form data
-   * @param reset Whether to clear the formRef data
+   * @param reset Whether to clear the form data
    */
   function resetForm(reset = false) {
     if (isBoolean(reset) && reset) {
-      update({})
+      upFormData({})
     }
     resetFields()
     emit('reset')
   }
 
   return {
-    formRef,
+    form,
     loading: show,
     validate,
     resetFields,
     scrollToField,
     clearValidate,
     validateField,
-    update,
+    upFormData,
     submitForm,
     resetForm,
+  }
+}
+
+type ModelChildValue = Record<string, UnknownObject[]>
+
+export function useFormChild(
+  props: Readonly<{
+    item: FormColumn
+    modelValue: UnknownObject
+  }>,
+  emit: IFormItemEmits
+): {
+  hasChild: ComputedRef<boolean>
+  showAddBtn: ComputedRef<boolean>
+  add: () => void
+  del: (index: number) => void
+  upChildData: (value: UnknownObject, index: number) => void
+} {
+  const hasChild = computed<boolean>(() => {
+    return props.item.children ? !!props.item.children.length : false
+  })
+
+  const showAddBtn = computed<boolean>(() => {
+    return props.item.max
+      ? props.item.max >
+          ((props.modelValue[props.item.prop] as unknown[])?.length || 0)
+      : true
+  })
+
+  function add() {
+    const _model = { ...props.modelValue } as ModelChildValue
+    if (props.modelValue[props.item.prop]) {
+      _model[props.item.prop].push({})
+    } else {
+      _model[props.item.prop] = [{}]
+    }
+    emit('update:modelValue', _model)
+  }
+
+  function del(index: number) {
+    const _model = { ...props.modelValue } as ModelChildValue
+    _model[props.item.prop].splice(index, 1)
+    emit('update:modelValue', _model)
+  }
+
+  function upChildData(value: UnknownObject, index: number) {
+    const _model = { ...props.modelValue } as ModelChildValue
+    _model[props.item.prop][index] = value
+    emit('update:modelValue', _model)
+  }
+
+  return {
+    hasChild,
+    showAddBtn,
+    add,
+    del,
+    upChildData,
   }
 }
