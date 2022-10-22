@@ -105,7 +105,7 @@ export default defineComponent({
         ElForm,
         mergeProps(config, {
           ref: form,
-          model: props.modelValue,
+          model: props.modelValue || {},
           inline: props.inline,
           labelPosition: labelPosition.value,
           style: !props.inline ? rowStyle.value : null,
