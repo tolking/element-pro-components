@@ -1,10 +1,28 @@
-import { describe, test, expect, afterEach } from 'vitest'
+import { describe, test, expect, afterEach, beforeEach, afterAll } from 'vitest'
 import { ComponentPublicInstance, ref, shallowRef, markRaw } from 'vue'
-import { mount, VueWrapper } from '@vue/test-utils'
+import { config, mount, VueWrapper } from '@vue/test-utils'
 import { ElInput, ElSwitch } from 'element-plus'
-import ProForm from './Form'
+import {
+  formContentKey,
+  ProArrayForm,
+  ProFormComponent,
+  ProFormItem,
+  ProFormList,
+  ProForm,
+  defineFormColumns,
+} from './index'
 import type { IFormColumns, IFormMenuColumns, FormColumn } from './index'
 import type { Mutable } from '../types/index'
+
+config.global.components = {
+  ProArrayForm,
+  ProFormComponent,
+  ProFormItem,
+  ProFormList,
+  ProForm,
+  ElInput,
+  ElSwitch,
+}
 
 const columns: IFormColumns = [
   {
@@ -13,22 +31,15 @@ const columns: IFormColumns = [
     component: 'el-input',
   },
 ]
-const _mount = (options: Record<string, unknown>) =>
-  mount(
-    {
-      components: { ProForm },
-      ...options,
-    },
-    {
-      global: {
-        components: { ElInput, ElSwitch },
-      },
-    }
-  )
+
+const addClass = '.form-btn-add'
+const deleteClass = '.form-btn-delete'
+const arrayClass = '.pro-array-form'
+const arrayContentClass = `${arrayClass} .form-content`
 const buttonClass =
   '.pro-form .el-form-item:last-child .el-form-item__content button'
 const getFormList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
-  wrapper.findAll('.pro-form .pro-form-item')
+  wrapper.findAll('.pro-form-item')
 const getFormClassList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   getFormList(wrapper).map((item) => item.classes())
 const getLabelList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
@@ -45,26 +56,378 @@ const getFormContent = (
 ) =>
   wrapper.find('.pro-form .pro-form-item .el-form-item__content ' + className)
 
+describe('ProFormComponent', () => {
+  afterEach(() => {
+    document.body.innerHTML = ''
+  })
+
+  test.concurrent('input', async () => {
+    const wrapper = await mount({
+      template: '<pro-form-component v-model="form" is="input" />',
+      setup() {
+        const form = ref()
+        return { form }
+      },
+    })
+
+    expect(wrapper.find('input').exists()).toBe(true)
+
+    await wrapper.find('input').setValue('value')
+    expect(wrapper.find('input').element.value).toBe('value')
+    expect(wrapper.vm.form).toBe('value')
+  })
+
+  test.concurrent('textarea', async () => {
+    const wrapper = await mount({
+      template: '<pro-form-component v-model="form" is="textarea" />',
+      setup() {
+        const form = ref()
+        return { form }
+      },
+    })
+
+    expect(wrapper.find('textarea').exists()).toBe(true)
+
+    await wrapper.find('textarea').setValue('value')
+    expect(wrapper.find('textarea').element.value).toBe('value')
+    expect(wrapper.vm.form).toBe('value')
+  })
+
+  test.concurrent('radio', async () => {
+    const wrapper = await mount({
+      template: '<pro-form-component v-model="form" is="input" type="radio" />',
+      setup() {
+        const form = ref()
+        return { form }
+      },
+    })
+
+    expect(wrapper.find('input').exists()).toBe(true)
+
+    await wrapper.find('input').setValue(true)
+    expect(wrapper.vm.form).toBe(true)
+  })
+
+  test.concurrent('el-input', async () => {
+    const wrapper = await mount({
+      template: '<pro-form-component v-model="form" is="el-input" />',
+      setup() {
+        const form = ref()
+        return { form }
+      },
+    })
+
+    expect(wrapper.find('.el-input').exists()).toBe(true)
+
+    await wrapper.find('input').setValue('value')
+    expect(wrapper.find('input').element.value).toBe('value')
+    expect(wrapper.vm.form).toBe('value')
+  })
+
+  test.concurrent('slots', async () => {
+    const wrapper = await mount({
+      template: '<pro-form-component is="div" :slots="slots" />',
+      setup() {
+        const slots = ref({
+          default: 'slots',
+        })
+        return { slots }
+      },
+    })
+
+    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.find('div').text()).toBe('slots')
+  })
+})
+
+describe('ProFormItem', () => {
+  afterEach(() => {
+    document.body.innerHTML = ''
+  })
+
+  test.concurrent('column', async () => {
+    const wrapper = await mount({
+      template: '<pro-form-item v-model="form" :item="columns[0]" />',
+      setup() {
+        const form = ref()
+        return { form, columns }
+      },
+    })
+
+    expect(wrapper.find('.el-input').exists()).toBe(true)
+    expect(wrapper.find('.el-form-item__label').text()).toBe('input')
+
+    await wrapper.find('input').setValue('value')
+    expect(wrapper.find('input').element.value).toBe('value')
+    expect(wrapper.vm.form).toEqual({ input: 'value' })
+  })
+
+  test.concurrent('slots', async () => {
+    const wrapper = await mount({
+      template: `
+      <pro-form-item
+        v-model="form"
+        :item="columns[0]"
+      >
+        <template #form-input-label>
+          slot-label
+        </template>
+        <template #form-input="{ value, setValue, indexes }">
+          slot-default
+        </template>
+      </pro-form-item>
+      `,
+      setup() {
+        const form = ref()
+        return { form, columns }
+      },
+    })
+
+    expect(wrapper.find('.el-form-item__content').text()).toBe('slot-default')
+    expect(wrapper.find('.el-form-item__label').text()).toBe('slot-label')
+  })
+})
+
+describe('ProFormList', () => {
+  afterEach(() => {
+    document.body.innerHTML = ''
+  })
+
+  test.concurrent('columns', async () => {
+    const wrapper = await mount({
+      template: '<pro-form-list v-model="form" :columns="columns" />',
+      setup() {
+        const form = ref()
+        const columns = ref(
+          defineFormColumns<string>([
+            {
+              label: '0',
+              prop: 'key0',
+              component: 'el-input',
+            },
+            {
+              label: '1',
+              prop: 'key1',
+              component: 'el-input',
+            },
+            {
+              label: '2',
+              prop: 'key2',
+              component: 'el-input',
+            },
+            {
+              label: '3',
+              prop: 'key3',
+              component: 'el-input',
+            },
+            {
+              label: '4',
+              prop: 'key4',
+              component: 'el-input',
+            },
+            {
+              label: '5',
+              prop: 'key5',
+              component: 'el-input',
+            },
+          ])
+        )
+        return { form, columns }
+      },
+    })
+
+    const labels = getLabelList(wrapper)
+    expect(labels.length).toBe(6)
+    labels.forEach((item, index) => {
+      expect(item).toBe(String(index))
+    })
+
+    await wrapper.vm.columns.push({
+      label: 'new one',
+      prop: 'now',
+      component: 'el-input',
+    })
+    const newlabels = getLabelList(wrapper)
+    expect(newlabels.length).toBe(7)
+    expect(newlabels[6]).toBe('new one')
+  })
+
+  test.concurrent('type=array', async () => {
+    config.global.provide = {
+      [formContentKey as symbol]: undefined,
+    }
+
+    const wrapper = await mount({
+      template:
+        '<pro-form-list v-model="form" :columns="columns" type="array" />',
+      setup() {
+        const form = ref()
+        return { form, columns }
+      },
+    })
+
+    expect(wrapper.find(arrayClass).exists()).toBe(false)
+    expect(wrapper.find(addClass).exists()).toBe(true)
+
+    await wrapper.find(addClass).trigger('click')
+    expect(wrapper.vm.form).toHaveLength(1)
+    expect(wrapper.find(arrayClass).exists()).toBe(true)
+    expect(wrapper.findAll(`${arrayContentClass} .pro-form-item`)).toHaveLength(
+      1
+    )
+    expect(
+      wrapper
+        .find(`${arrayContentClass} .pro-form-item .el-form-item__content div`)
+        .classes()
+    ).toContain('el-input')
+
+    await wrapper.find('input').setValue('value')
+    expect(wrapper.vm.form[0].input).toBe('value')
+
+    config.global.provide = {}
+  })
+})
+
+describe('ArrayForm', () => {
+  beforeEach(() => {
+    config.global.provide = {
+      [formContentKey as symbol]: undefined,
+    }
+  })
+
+  afterEach(() => {
+    document.body.innerHTML = ''
+    config.global.provide = {}
+  })
+
+  test.concurrent('empt', async () => {
+    const wrapper = mount({
+      template: '<pro-array-form />',
+    })
+
+    expect(wrapper.find(addClass).exists()).toBe(true)
+    expect(wrapper.find(arrayClass).exists()).toBe(false)
+
+    await wrapper.find(addClass).trigger('click')
+    expect(wrapper.find(arrayClass).exists()).toBe(false)
+  })
+
+  test.concurrent('columns', async () => {
+    const wrapper = mount({
+      template: `
+        <pro-array-form
+          v-model="form"
+          :columns="columns"
+        />
+      `,
+      setup() {
+        const form = ref()
+        return { form, columns: ref([...columns]) }
+      },
+    })
+
+    expect(wrapper.find(arrayClass).exists()).toBe(false)
+    expect(wrapper.find(addClass).exists()).toBe(true)
+
+    await wrapper.find(addClass).trigger('click')
+    expect(wrapper.vm.form).toHaveLength(1)
+    expect(wrapper.find(arrayClass).exists()).toBe(true)
+    expect(wrapper.findAll(`${arrayContentClass} .pro-form-item`)).toHaveLength(
+      1
+    )
+    expect(
+      wrapper
+        .find(`${arrayContentClass} .pro-form-item .el-form-item__content div`)
+        .classes()
+    ).toContain('el-input')
+
+    await wrapper.vm.columns.push({
+      label: 'textarea',
+      prop: 'textarea',
+      component: 'el-input',
+      props: { type: 'textarea' },
+    })
+    expect(wrapper.findAll(`${arrayContentClass} .pro-form-item`)).toHaveLength(
+      2
+    )
+    expect(
+      wrapper
+        .find(
+          `${arrayContentClass} .pro-form-item:nth-child(2) .el-form-item__content div`
+        )
+        .classes()
+    ).toContain('el-textarea')
+
+    await wrapper.find(deleteClass).trigger('click')
+    expect(wrapper.vm.form).toHaveLength(0)
+    expect(wrapper.find(arrayClass).exists()).toBe(false)
+  })
+
+  test.concurrent('modelValue', async () => {
+    const wrapper = mount({
+      template: `
+        <pro-array-form
+          v-model="form"
+          :columns="columns"
+        />
+      `,
+      setup() {
+        const form = ref([{ input: 'test' }])
+        return { form, columns: ref([...columns]) }
+      },
+    })
+
+    expect(wrapper.find('input').element.value).toBe('test')
+
+    await wrapper.find('input').setValue('value')
+    expect(wrapper.vm.form[0].input).toBe('value')
+  })
+
+  test.concurrent('max', async () => {
+    const wrapper = mount({
+      template: `
+        <pro-array-form
+          v-model="form"
+          :columns="columns"
+          :max="1"
+        />
+      `,
+      setup() {
+        const form = ref([{ input: 'test' }])
+        return { form, columns: ref([...columns]) }
+      },
+    })
+
+    expect(wrapper.find(addClass).exists()).toBe(false)
+    expect(wrapper.find(arrayClass).exists()).toBe(true)
+    expect(wrapper.find('input').element.value).toBe('test')
+
+    await wrapper.find(deleteClass).trigger('click')
+    expect(wrapper.find(addClass).exists()).toBe(true)
+    expect(wrapper.find(arrayClass).exists()).toBe(false)
+    expect(wrapper.vm.form).toHaveLength(0)
+  })
+})
+
 describe('Form', () => {
   afterEach(() => {
     document.body.innerHTML = ''
   })
 
   test.concurrent('columns', async () => {
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: '<pro-form v-model="form" :columns="columns" />',
       setup() {
         const form = ref({})
         return { form, columns: ref([...columns]) }
       },
     })
-    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getLabelList(wrapper)).toContain('input')
     expect(getComponentList(wrapper)[0]).toContain('el-input')
 
-    await vm.columns.push({
+    await wrapper.vm.columns.push({
       label: 'textarea',
       prop: 'textarea',
       component: 'el-input',
@@ -75,26 +438,26 @@ describe('Form', () => {
     expect(getLabelList(wrapper)).toContain('textarea')
     expect(getComponentList(wrapper)[1]).toContain('el-textarea')
 
-    await vm.columns.splice(0, 1)
+    await wrapper.vm.columns.splice(0, 1)
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getLabelList(wrapper)).not.toContain('input')
     expect(getLabelList(wrapper)).toContain('textarea')
     expect(getComponentList(wrapper)[0]).not.toContain('el-input')
     expect(getComponentList(wrapper)[0]).toContain('el-textarea')
 
-    await (vm.columns[0].props = { text: true })
+    await (wrapper.vm.columns[0].props = { text: true })
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getComponentList(wrapper)[0]).not.toContain('el-textarea')
     expect(getComponentList(wrapper)[0]).toContain('el-input')
 
-    await ((vm.columns[0].component = 'el-switch'),
-    (vm.columns[0].props = undefined))
+    await ((wrapper.vm.columns[0].component = 'el-switch'),
+    (wrapper.vm.columns[0].props = undefined))
     expect(getComponentList(wrapper)[0]).not.toContain('el-input')
     expect(getComponentList(wrapper)[0]).toContain('el-switch')
   })
 
   test.concurrent('sub-form', async () => {
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: '<pro-form v-model="form" :columns="columns" />',
       setup() {
         const form = ref({})
@@ -125,21 +488,20 @@ describe('Form', () => {
         return { form, columns: _columns }
       },
     })
-    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
-    expect(getFormContent(wrapper, '.children-form').exists()).toBe(false)
-    expect(getFormContent(wrapper, '.el-button.is-circle').exists()).toBe(true)
+    expect(getFormContent(wrapper, arrayClass).exists()).toBe(false)
+    expect(getFormContent(wrapper, addClass).exists()).toBe(true)
 
-    await getFormContent(wrapper, '.el-button.is-circle').trigger('click')
-    expect(getFormContent(wrapper, '.children-form').exists()).toBe(true)
+    await getFormContent(wrapper, addClass).trigger('click')
+    expect(getFormContent(wrapper, arrayClass).exists()).toBe(true)
 
-    await (vm.columns = columns)
-    expect(getFormContent(wrapper, '.children-form').exists()).toBe(false)
-    expect(getFormContent(wrapper, '.el-button.is-circle').exists()).toBe(false)
+    await (wrapper.vm.columns = columns)
+    expect(getFormContent(wrapper, arrayClass).exists()).toBe(false)
+    expect(getFormContent(wrapper, addClass).exists()).toBe(false)
   })
 
   test.concurrent('slots', async () => {
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: `
         <pro-form
           v-model="form"
@@ -191,7 +553,7 @@ describe('Form', () => {
   })
 
   test.concurrent('indexes in slots', async () => {
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: `
         <pro-form
           v-model="form"
@@ -246,7 +608,7 @@ describe('Form', () => {
       switch: boolean
     }
 
-    const wrapper = _mount({
+    const wrapper = mount({
       template: '<pro-form v-model="form" :columns="columns" />',
       setup() {
         const form = ref<Form>({
@@ -268,29 +630,25 @@ describe('Form', () => {
         return { form, columns }
       },
     })
-    const vm = wrapper.vm as unknown as {
-      form: Form
-      columns: IFormColumns
-    }
 
     expect(getFormList(wrapper)).toHaveLength(2)
     expect(wrapper.find('input').element.value).toBe('123')
     expect(wrapper.find('.el-switch').classes()).not.toContain('is-checked')
 
     await wrapper.find('.el-switch').trigger('click')
-    expect(vm.form.switch).toBeTruthy()
+    expect(wrapper.vm.form.switch).toBeTruthy()
     expect(wrapper.find('.el-switch').classes()).toContain('is-checked')
 
     await wrapper.find('input').setValue('value')
-    expect(vm.form.input).toBe('value')
+    expect(wrapper.vm.form.input).toBe('value')
 
-    await (vm.form = { input: 'input', switch: false })
+    await (wrapper.vm.form = { input: 'input', switch: false })
     expect(wrapper.find('input').element.value).toBe('input')
     expect(wrapper.find('.el-switch').classes()).not.toContain('is-checked')
   })
 
   test.concurrent('menu', async () => {
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: '<pro-form v-model="form" :columns="columns" :menu="menu" />',
       setup() {
         const form = ref({})
@@ -298,15 +656,14 @@ describe('Form', () => {
         return { form, columns, menu }
       },
     })
-    const vm = wrapper.vm as unknown as { menu: IFormMenuColumns }
 
     expect(getFormBtnList(wrapper)).toContain('Submit')
     expect(getFormBtnList(wrapper)).toContain('Reset')
 
-    await (vm.menu.submitText = 'submit')
+    await (wrapper.vm.menu.submitText = 'submit')
     expect(getFormBtnList(wrapper)).toContain('submit')
 
-    await (vm.menu.submitProps = { type: 'danger' })
+    await (wrapper.vm.menu.submitProps = { type: 'danger' })
     expect(
       wrapper
         .find(
@@ -315,12 +672,12 @@ describe('Form', () => {
         .exists()
     ).toBeTruthy()
 
-    await (vm.menu.reset = false)
+    await (wrapper.vm.menu.reset = false)
     expect(getFormBtnList(wrapper)).not.toContain('Reset')
   })
 
   test.concurrent('grid layout', async () => {
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: '<pro-form v-model="form" :columns="columns" />',
       setup() {
         const form = ref({})
@@ -369,7 +726,6 @@ describe('Form', () => {
         return { form, columns }
       },
     })
-    const vm = wrapper.vm as unknown as { columns: Mutable<IFormColumns> }
 
     expect(getFormList(wrapper)).toHaveLength(4)
     expect(getFormClassList(wrapper)[0]).toContain('el-col')
@@ -391,14 +747,14 @@ describe('Form', () => {
     expect(getFormClassList(wrapper)[3]).toContain('el-col-lg-pull-0')
     expect(getFormClassList(wrapper)[3]).toContain('el-col-lg-offset-2')
 
-    await (((vm.columns[0] as Mutable<FormColumn>).span = 8),
-    ((vm.columns[0] as Mutable<FormColumn>).pull = 2))
+    await (((wrapper.vm.columns[0] as Mutable<FormColumn>).span = 8),
+    ((wrapper.vm.columns[0] as Mutable<FormColumn>).pull = 2))
     expect(getFormClassList(wrapper)[0]).toContain('el-col-8')
     expect(getFormClassList(wrapper)[0]).toContain('el-col-pull-2')
   })
 
   test.concurrent('local component', async () => {
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: '<pro-form v-model="form" :columns="columns" />',
       setup() {
         const form = ref({})
@@ -419,7 +775,7 @@ describe('Form', () => {
   })
 
   test.concurrent('Nested value', async () => {
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: '<pro-form v-model="form" :columns="columns" />',
       setup() {
         const form = ref({})
@@ -457,6 +813,57 @@ describe('Form', () => {
     expect(vm.form.b[0]).toBe('array value')
   })
 
+  test.concurrent('type=array', async () => {
+    const wrapper = await mount({
+      template: '<pro-form v-model="form" :columns="columns" type="array" />',
+      setup() {
+        const form = ref()
+        return { form, columns }
+      },
+    })
+
+    expect(wrapper.find(arrayClass).exists()).toBe(false)
+    expect(wrapper.find(addClass).exists()).toBe(true)
+
+    await wrapper.find(addClass).trigger('click')
+    expect(wrapper.vm.form).toHaveLength(1)
+    expect(wrapper.find(arrayClass).exists()).toBe(true)
+    expect(wrapper.findAll(`${arrayContentClass} .pro-form-item`)).toHaveLength(
+      1
+    )
+    expect(
+      wrapper
+        .find(`${arrayContentClass} .pro-form-item .el-form-item__content div`)
+        .classes()
+    ).toContain('el-input')
+
+    await wrapper.find('input').setValue('value')
+    expect(wrapper.vm.form[0].input).toBe('value')
+  })
+
+  test.concurrent('type=array & max', async () => {
+    const wrapper = await mount({
+      template: `
+      <pro-form
+        v-model="form"
+        :columns="columns"
+        :max="2"
+        type="array"
+      />`,
+      setup() {
+        const form = ref([{}])
+        return { form, columns }
+      },
+    })
+
+    expect(wrapper.find(arrayClass).exists()).toBe(true)
+    expect(wrapper.vm.form).toHaveLength(1)
+
+    await wrapper.find(addClass).trigger('click')
+    expect(wrapper.vm.form).toHaveLength(2)
+    expect(wrapper.find(addClass).exists()).toBe(false)
+  })
+
   // test.concurrent('event', async () => {
   //   const wrapper = await _mount({
   //     template: '<pro-form v-model="form" :columns="columns" />',
@@ -471,4 +878,8 @@ describe('Form', () => {
   //   expect(wrapper.emitted()).toHaveProperty('reset')
   //   expect(wrapper.emitted()).toHaveProperty('submit')
   // })
+})
+
+afterAll(() => {
+  config.global.components = {}
 })
