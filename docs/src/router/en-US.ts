@@ -89,11 +89,6 @@ const enUS: RouteRecordRaw[] = [
         meta: { title: 'Form' },
       },
       {
-        path: '/en-US/components/array-form',
-        component: () => import('../../docs/en-US/components/ArrayForm.md'),
-        meta: { title: 'ArrayForm' },
-      },
-      {
         path: '/en-US/components/radio',
         component: () => import('../../docs/en-US/components/Radio.md'),
         meta: { title: 'Radio' },

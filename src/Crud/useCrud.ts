@@ -204,7 +204,7 @@ export function useCrudSearchMenu(
 export function useCrudSearchForm(emit: ICrudEmits): {
   searchForm: IFormSubmit
   searchReset: () => void
-  upSearchData: (value: UnknownObject | UnknownObject[]) => void
+  upSearchData: (value: UnknownObject) => void
 } {
   const searchForm: IFormSubmit = (done, isValid, invalidFields) => {
     emit('search', done, isValid, invalidFields)
@@ -214,7 +214,7 @@ export function useCrudSearchForm(emit: ICrudEmits): {
     emit('searchReset')
   }
 
-  function upSearchData(value: UnknownObject | UnknownObject[]) {
+  function upSearchData(value: UnknownObject) {
     emit('update:search', value)
   }
 

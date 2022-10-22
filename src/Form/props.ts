@@ -5,10 +5,9 @@ import {
   isFunction,
   isBoolean,
   isUndefined,
-  isArray,
 } from '../utils/index'
 import type { Component, PropType } from 'vue'
-import type { ExternalParam, UnknownObject } from '../types/index'
+import type { UnknownObject } from '../types/index'
 import type {
   IFormColumns,
   IFormMenuColumns,
@@ -32,20 +31,6 @@ export const formProps = {
   },
   columns: Array as PropType<IFormColumns>,
   menu: Object as PropType<IFormMenuColumns>,
-}
-
-export const formMenuProps = {
-  menu: Object as PropType<IFormMenuColumns>,
-  gutter: _rowProps['gutter'],
-  loading: Boolean,
-  submitForm: {
-    type: Function as PropType<() => void>,
-    required: true,
-  },
-  resetForm: {
-    type: Function as PropType<(reset?: boolean) => void>,
-    required: true,
-  },
 }
 
 export const formItemProps = {
@@ -81,15 +66,8 @@ export const formItemEmits = {
   'update:modelValue': (value: UnknownObject) => isObject(value),
 }
 
-export const arrayFormContentEmits = {
-  add: (indexes: number[]) => isArray(indexes),
-  remove: (indexes: number[]) => isArray(indexes),
-}
-
 export const formEmits = {
-  ...arrayFormContentEmits,
-  'update:modelValue': (value: ExternalParam) =>
-    isObject(value) || isArray(value),
+  ...formItemEmits,
   submit: (done: () => void, isValid: boolean, invalidFields?: InvalidFields) =>
     isFunction(done) &&
     isBoolean(isValid) &&

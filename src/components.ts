@@ -1,4 +1,3 @@
-export * from './ArrayForm/index'
 export * from './AutocompleteTag/index'
 export * from './Breadcrumb/index'
 export * from './Card/index'
@@ -20,7 +19,6 @@ export * from './Table/index'
 export * from './Tabs/index'
 export * from './TreeSelect/index'
 
-import { ProArrayForm } from './ArrayForm/index'
 import { ProAutocompleteTag } from './AutocompleteTag/index'
 import { ProBreadcrumb } from './Breadcrumb/index'
 import { ProCard } from './Card/index'
@@ -44,7 +42,6 @@ import { ProTreeSelect } from './TreeSelect/index'
 import type { Plugin } from 'vue'
 
 export default {
-  ProArrayForm,
   ProAutocompleteTag,
   ProBreadcrumb,
   ProCard,
@@ -71,7 +68,6 @@ export default {
 // @ts-ignore
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    ProArrayForm: typeof ProArrayForm
     ProAutocompleteTag: typeof ProAutocompleteTag
     ProBreadcrumb: typeof ProBreadcrumb
     ProCard: typeof ProCard

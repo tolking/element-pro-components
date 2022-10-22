@@ -1,12 +1,22 @@
-import { defineComponent, h, toRefs, Slot, VNode, mergeProps } from 'vue'
-import { ElFormItem } from 'element-plus'
+import {
+  defineComponent,
+  h,
+  toRefs,
+  markRaw,
+  Slot,
+  VNode,
+  mergeProps,
+} from 'vue'
+import { ElFormItem, ElButton } from 'element-plus'
+import { Plus, Minus } from '@element-plus/icons-vue'
 import { useCol } from '../composables/index'
-import { get, set, has, throwWarn } from '../utils/index'
-import { useFormItemBind } from './useForm'
-import { formItemProps, formItemEmits } from './props'
-import ProArrayFormContent from '../ArrayForm/ArrayFormContent'
+import { useFormItemBind, useFormChild } from './useForm'
+import { get, set, has, isArray, throwWarn } from '../utils/index'
+import ProFormItem from './FormItem'
 import ProFormComponent from './FormComponent'
+import { formItemProps, formItemEmits } from './props'
 import type { UnknownObject } from '../types/index'
+import type { IFormColumns } from './type'
 
 export default defineComponent({
   name: 'ProFormItem',
@@ -16,8 +26,12 @@ export default defineComponent({
     const { item, prop, modelValue, inline } = toRefs(props)
     const bindItem = useFormItemBind(item)
     const { colStyle, colClass } = useCol(item)
+    const { hasChild, showAddBtn, add, del, upChildData } = useFormChild(
+      props,
+      emit
+    )
 
-    function update(value: unknown) {
+    function upData(value: unknown) {
       emit('update:modelValue', set(modelValue.value, item.value.prop, value))
     }
 
@@ -56,33 +70,66 @@ export default defineComponent({
     }
 
     function createDefault() {
-      !has(modelValue.value, item.value.prop) && update(undefined)
+      !has(modelValue.value, item.value.prop) && upData(undefined)
       const currentValue = get(modelValue.value, item.value.prop, undefined)
       let list: VNode[] = []
 
-      if (props.item.children?.length) {
-        list = list.concat(
-          h(
-            ProArrayFormContent,
-            {
-              modelValue: currentValue,
-              columns: props.item.children,
-              prop: props.prop,
-              indexes: props.indexes,
-              inline: props.inline,
-              max: props.item.max,
-              'onUpdate:modelValue': update,
-            },
-            slots
+      if (hasChild.value) {
+        if (isArray(currentValue)) {
+          const child = (currentValue as UnknownObject[]).map(
+            (value, index) => {
+              return h('div', { class: 'children-form' }, [
+                h(
+                  'div',
+                  {
+                    class: [
+                      !inline.value ? 'el-row' : '',
+                      'children-form-item',
+                    ],
+                  },
+                  (item.value.children as IFormColumns).map((child) => {
+                    return h(
+                      ProFormItem,
+                      {
+                        modelValue: value,
+                        item: child,
+                        indexes: [...(props.indexes || []), index],
+                        prop: `${prop.value}.${index}.${child.prop}`,
+                        'onUpdate:modelValue': (childValue: UnknownObject) =>
+                          upChildData(childValue, index),
+                      },
+                      slots
+                    )
+                  })
+                ),
+                h(ElButton, {
+                  icon: markRaw(Minus),
+                  type: 'danger',
+                  circle: true,
+                  class: 'delete-bth',
+                  onClick: () => del(index),
+                }),
+              ])
+            }
           )
-        )
+          list = list.concat(child)
+        }
+        showAddBtn.value &&
+          list.push(
+            h(ElButton, {
+              icon: markRaw(Plus),
+              type: 'primary',
+              circle: true,
+              onClick: add,
+            })
+          )
       } else if (slots[`form-${item.value.prop}`]) {
         list = list.concat(
           (slots[`form-${item.value.prop}`] as Slot)({
             item: item.value,
             indexes: props.indexes,
             value: currentValue,
-            setValue: update,
+            setValue: upData,
           })
         )
       } else if (slots[item.value.prop]) {
@@ -94,7 +141,7 @@ export default defineComponent({
           (slots[item.value.prop] as Slot)({
             item,
             value: currentValue,
-            setValue: update,
+            setValue: upData,
           })
         )
       } else {
@@ -104,7 +151,7 @@ export default defineComponent({
             mergeProps(item.value.props || {}, {
               is: item.value.component,
               modelValue: currentValue,
-              'onUpdate:modelValue': update,
+              'onUpdate:modelValue': upData,
             })
           )
         )

@@ -59,13 +59,13 @@ export default defineComponent({
     } = useTableMethods()
     const { sizeChange, currentChange } = usePagination(emit)
     const {
-      formRef,
+      form,
       validate,
       resetFields,
       clearValidate,
       scrollToField,
       validateField,
-      update,
+      upFormData,
       resetForm,
     } = useFormMethods(emit as unknown as IFormEmits)
     const { showDialog, type, formColumns, openDialog, submitForm } =
@@ -282,11 +282,11 @@ export default defineComponent({
       return h(
         ProForm,
         mergeProps(formProps, attrs.value, {
-          ref: formRef,
+          ref: form,
           columns: formColumns.value,
           menu: menuColumns.value,
           class: 'pro-crud-form',
-          'onUpdate:modelValue': update,
+          'onUpdate:modelValue': upFormData,
           onSubmit: submitForm,
           onReset: resetForm,
         }),
