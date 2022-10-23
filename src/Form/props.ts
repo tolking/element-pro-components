@@ -82,8 +82,8 @@ export const formItemEmits = {
 
 export const arrayFormEmits = {
   'update:modelValue': (value: UnknownObject[]) => isArray(value),
-  add: (indexes: number[]) => isArray(indexes),
-  remove: (indexes: number[]) => isArray(indexes),
+  'add-item': (indexes: number[]) => isArray(indexes),
+  'remove-item': (indexes: number[]) => isArray(indexes),
 }
 
 export const formEmits = {

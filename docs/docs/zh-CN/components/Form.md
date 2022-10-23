@@ -241,13 +241,13 @@ props: {
 
 ### 事件
 
-| 事件名   | 说明                   | 参数                                           |
-| -------- | ---------------------- | ---------------------------------------------- |
-| submit   | submit 被点击后触发    | done, isValid, invalidFields                   |
-| reset    | reset 按钮被点击后触发 | -                                              |
-| validate | 任一表单项被校验后触发 | 被校验的表单项 prop 值, isValid, invalidFields |
-| add      | add 被点击后触发       | indexes: number[]                              |
-| remove   | remove 被点击后触发    | indexes: number[]                              |
+| 事件名      | 说明                   | 参数                         |
+| ----------- | ---------------------- | ---------------------------- |
+| submit      | submit 被点击后触发    | done, isValid, invalidFields |
+| reset       | reset 按钮被点击后触发 | -                            |
+| validate    | 任一表单项被校验后触发 | prop, isValid, invalidFields |
+| add-item    | add 被点击后触发       | indexes: number[]            |
+| remove-item | remove 被点击后触发    | indexes: number[]            |
 
 ### 方法
 

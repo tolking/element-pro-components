@@ -233,13 +233,13 @@ props: {
 
 ### Events
 
-| Name     | Description                             | Parameters                                                                                            |
-| -------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| submit   | triggers when the submit click          | done, isValid, invalidFields                                                                          |
-| reset    | triggers when the reset click           | -                                                                                                     |
-| validate | triggers after a form item is validated | prop name of the form item being validated, whether validation is passed and the error message if not |
-| add      | triggers when the add click             | indexes: number[]                                                                                     |
-| remove   | triggers when the remove click          | indexes: number[]                                                                                     |
+| Name        | Description                             | Parameters                   |
+| ----------- | --------------------------------------- | ---------------------------- |
+| submit      | triggers when the submit click          | done, isValid, invalidFields |
+| reset       | triggers when the reset click           | -                            |
+| validate    | triggers after a form item is validated | prop, isValid, invalidFields |
+| add-item    | triggers when the add click             | indexes: number[]            |
+| remove-item | triggers when the remove click          | indexes: number[]            |
 
 ### Methods
 
