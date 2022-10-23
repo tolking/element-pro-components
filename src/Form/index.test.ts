@@ -141,8 +141,21 @@ describe('ProFormComponent', () => {
 })
 
 describe('ProFormItem', () => {
+  beforeEach(() => {
+    config.global.provide = {
+      [formContentKey as symbol]: {
+        inline: ref(false),
+        slots: {
+          'form-slot-label': () => 'slot-label',
+          'form-slot': () => 'slot-default',
+        },
+      },
+    }
+  })
+
   afterEach(() => {
     document.body.innerHTML = ''
+    config.global.provide = {}
   })
 
   test.concurrent('column', async () => {
@@ -163,22 +176,21 @@ describe('ProFormItem', () => {
   })
 
   test.concurrent('slots', async () => {
+    // The slot of the FormItem is injected through the top Form
     const wrapper = await mount({
       template: `
       <pro-form-item
         v-model="form"
         :item="columns[0]"
-      >
-        <template #form-input-label>
-          slot-label
-        </template>
-        <template #form-input="{ value, setValue, indexes }">
-          slot-default
-        </template>
-      </pro-form-item>
+      />
       `,
       setup() {
         const form = ref()
+        const columns = [
+          {
+            prop: 'slot',
+          },
+        ]
         return { form, columns }
       },
     })
@@ -189,8 +201,15 @@ describe('ProFormItem', () => {
 })
 
 describe('ProFormList', () => {
+  beforeEach(() => {
+    config.global.provide = {
+      [formContentKey as symbol]: undefined,
+    }
+  })
+
   afterEach(() => {
     document.body.innerHTML = ''
+    config.global.provide = {}
   })
 
   test.concurrent('columns', async () => {

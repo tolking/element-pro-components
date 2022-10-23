@@ -13,14 +13,14 @@ export default defineComponent({
   setup(props, { slots, emit, expose }) {
     const config = reactivePick(props, ...formKeys)
     const {
-      form,
+      formRef,
       loading,
       validate,
       resetFields,
       scrollToField,
       clearValidate,
       validateField,
-      upFormData,
+      update,
       submitForm,
       resetForm,
     } = useFormMethods(emit)
@@ -41,7 +41,7 @@ export default defineComponent({
       return {}
     })
 
-    useFormProvide(emit)
+    useFormProvide(props, emit, slots)
 
     expose({
       validate,
@@ -54,8 +54,7 @@ export default defineComponent({
     function createColumns() {
       return h(
         ProFormList,
-        mergeProps(props, { 'onUpdate:modelValue': upFormData }),
-        slots
+        mergeProps(props, { 'onUpdate:modelValue': update })
       )
     }
 
@@ -104,7 +103,7 @@ export default defineComponent({
       h(
         ElForm,
         mergeProps(config, {
-          ref: form,
+          ref: formRef,
           model: props.modelValue || {},
           inline: props.inline,
           labelPosition: labelPosition.value,

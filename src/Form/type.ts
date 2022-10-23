@@ -5,7 +5,7 @@ import {
   formItemEmits,
   arrayFormEmits,
 } from './props'
-import type { Component } from 'vue'
+import type { Component, Ref, Slots } from 'vue'
 import type { ButtonProps, ColProps, FormItemProps } from 'element-plus'
 import type {
   IDefineProps,
@@ -95,6 +95,8 @@ export interface IFormExpose {
 }
 
 export interface IFormContext {
+  inline: Ref<boolean>
+  slots: Readonly<Slots>
   add: (indexes: number[]) => void
   remove: (indexes: number[]) => void
 }
