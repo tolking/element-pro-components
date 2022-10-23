@@ -1,8 +1,8 @@
-import { computed, Ref, unref, shallowRef, provide, inject } from 'vue'
+import { computed, Ref, unref, shallowRef, provide, inject, toRef } from 'vue'
 import { useLocale, useSize } from 'element-plus'
 import { useShow } from '../composables/index'
 import { isObject, objectOmit, isBoolean } from '../utils/index'
-import type { ComputedRef, InjectionKey } from 'vue'
+import type { ComputedRef, InjectionKey, Slots } from 'vue'
 import type { UnknownObject, MaybeArray, MaybeRef } from '../types/index'
 import type {
   IFormEmits,
@@ -15,6 +15,7 @@ import type {
   IFormContext,
   IArrayFormEmits,
   IArrayFormProps,
+  IFormProps,
 } from './index'
 
 type FormItemBind = Omit<
@@ -75,7 +76,7 @@ export const formMenu: IFormMenuColumns = {
 }
 
 export function useFormMenu(
-  props: Readonly<{ menu?: IFormMenuColumns }>
+  props: Pick<IFormProps, 'menu'>
 ): ComputedRef<IFormMenuColumns> {
   return computed(() => {
     const menu = { ...formMenu }
@@ -95,45 +96,45 @@ export function useFormMenu(
 }
 
 export function useFormMethods(emit: IFormEmits): {
-  form: Ref<IFormExpose>
+  formRef: Ref<IFormExpose>
   loading: Ref<boolean>
-  upFormData: (value: UnknownObject) => void
+  update: (value: UnknownObject) => void
   submitForm: () => void
   resetForm: (reset?: boolean) => void
 } & IFormExpose {
-  const form = shallowRef<IFormExpose>({} as IFormExpose)
+  const formRef = shallowRef<IFormExpose>({} as IFormExpose)
   const { show, toggleShow } = useShow()
 
   function validate(callback?: IFormValidateCallback) {
-    return form.value.validate(callback)
+    return formRef.value.validate(callback)
   }
 
   function resetFields() {
-    form.value.resetFields()
+    formRef.value.resetFields()
   }
 
   function scrollToField(prop: string) {
-    form.value.scrollToField(prop)
+    formRef.value.scrollToField(prop)
   }
 
   function clearValidate(props?: MaybeArray<string>) {
-    form.value.clearValidate(props)
+    formRef.value.clearValidate(props)
   }
 
   function validateField(
     props: MaybeArray<string>,
     cb: IFormValidateFieldCallback
   ) {
-    form.value.validateField(props, cb)
+    formRef.value.validateField(props, cb)
   }
 
-  function upFormData(value: UnknownObject) {
+  function update(value?: UnknownObject | UnknownObject[]) {
     emit('update:modelValue', value)
   }
 
   function submitForm() {
     show.value = true
-    form.value
+    formRef.value
       .validate()
       .then((isValid) => {
         emit('submit', toggleShow, isValid)
@@ -149,30 +150,39 @@ export function useFormMethods(emit: IFormEmits): {
    */
   function resetForm(reset = false) {
     if (isBoolean(reset) && reset) {
-      upFormData({})
+      update(undefined)
     }
     resetFields()
     emit('reset')
   }
 
   return {
-    form,
+    formRef,
     loading: show,
     validate,
     resetFields,
     scrollToField,
     clearValidate,
     validateField,
-    upFormData,
+    update,
     submitForm,
     resetForm,
   }
 }
 
-export const formContentKey: InjectionKey<IFormContext> = Symbol('arrayFormKey')
+export const formContentKey: InjectionKey<IFormContext> = Symbol('formKey')
 
-export function useFormProvide(emit: IArrayFormEmits) {
-  provide(formContentKey, { add, remove })
+export function useFormProvide(
+  props: Pick<IFormProps, 'inline'>,
+  emit: IArrayFormEmits,
+  slots: Readonly<Slots>
+) {
+  provide(formContentKey, {
+    inline: toRef(props, 'inline'),
+    slots,
+    add,
+    remove,
+  })
 
   function add(indexes: number[]) {
     emit('add', indexes)
@@ -196,7 +206,7 @@ export function useArrayForm(
   remove: (index: number, indexes: number[]) => void
   update: (value: UnknownObject, index: number) => void
 } {
-  const arrayForm = useFormInject()
+  const form = useFormInject()
 
   const showAdd = computed<boolean>(() => {
     return props.max ? props.max > props.modelValue.length : true
@@ -211,7 +221,7 @@ export function useArrayForm(
       _model = [{}]
     }
     emit('update:modelValue', _model)
-    arrayForm?.add(indexes)
+    form?.add(indexes)
   }
 
   function remove(index: number, indexes: number[]) {
@@ -219,7 +229,7 @@ export function useArrayForm(
 
     _model.splice(index, 1)
     emit('update:modelValue', _model)
-    arrayForm?.remove(indexes)
+    form?.remove(indexes)
   }
 
   function update(value: UnknownObject, index: number) {

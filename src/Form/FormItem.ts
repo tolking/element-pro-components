@@ -2,7 +2,7 @@ import { defineComponent, h, Slot, VNode, mergeProps, toRef } from 'vue'
 import { ElFormItem } from 'element-plus'
 import { useCol } from '../composables/index'
 import { get, set, has, throwWarn } from '../utils/index'
-import { useFormItemBind } from './useForm'
+import { useFormItemBind, useFormInject } from './useForm'
 import { formItemProps, formItemEmits } from './props'
 import ProFormList from './FormList'
 import ProFormComponent from './FormComponent'
@@ -12,8 +12,9 @@ export default defineComponent({
   name: 'ProFormItem',
   props: formItemProps,
   emits: formItemEmits,
-  setup(props, { slots, emit }) {
+  setup(props, { emit }) {
     const item = toRef(props, 'item')
+    const form = useFormInject()
     const bindItem = useFormItemBind(item)
     const { colStyle, colClass } = useCol(item)
 
@@ -22,33 +23,35 @@ export default defineComponent({
     }
 
     function createLabel() {
-      if (slots[`form-${item.value.prop}-label`]) {
-        return (slots[`form-${item.value.prop}-label`] as Slot)({
+      if (form?.slots[`form-${item.value.prop}-label`]) {
+        return (form?.slots[`form-${item.value.prop}-label`] as Slot)({
           item: item.value,
           indexes: props.indexes,
         })
-      } else if (slots[`${item.value.prop}-label`]) {
+      } else if (form?.slots[`${item.value.prop}-label`]) {
         // NOTE: Remove this on next major release
         throwWarn(
           `[ProForm] the [prop]-label slot will to remove, use 'form-[prop]-label' replace ${item.value.prop}-label`
         )
-        return (slots[`${item.value.prop}-label`] as Slot)({ item: item.value })
+        return (form?.slots[`${item.value.prop}-label`] as Slot)({
+          item: item.value,
+        })
       }
     }
 
     function createError(scope: UnknownObject) {
-      if (slots[`form-${item.value.prop}-error`]) {
-        return (slots[`form-${item.value.prop}-error`] as Slot)({
+      if (form?.slots[`form-${item.value.prop}-error`]) {
+        return (form?.slots[`form-${item.value.prop}-error`] as Slot)({
           ...scope,
           item: item.value,
           indexes: props.indexes,
         })
-      } else if (slots[`${item.value.prop}-error`]) {
+      } else if (form?.slots[`${item.value.prop}-error`]) {
         // NOTE: Remove this on next major release
         throwWarn(
           `[ProForm] the [prop]-error slot will to remove, use 'form-[prop]-error' replace ${item.value.prop}-error`
         )
-        return (slots[`${item.value.prop}-error`] as Slot)({
+        return (form?.slots[`${item.value.prop}-error`] as Slot)({
           ...scope,
           item: item.value,
         })
@@ -62,37 +65,32 @@ export default defineComponent({
 
       if (props.item.children?.length) {
         list = list.concat(
-          h(
-            ProFormList,
-            {
-              modelValue: currentValue,
-              columns: props.item.children,
-              prefix: props.prefix,
-              indexes: props.indexes,
-              inline: props.inline,
-              max: props.item.max,
-              type: props.item.type || 'array',
-              'onUpdate:modelValue': update,
-            },
-            slots
-          )
+          h(ProFormList, {
+            modelValue: currentValue,
+            columns: props.item.children,
+            prefix: props.prefix,
+            indexes: props.indexes,
+            max: props.item.max,
+            type: props.item.type || 'array',
+            'onUpdate:modelValue': update,
+          })
         )
-      } else if (slots[`form-${item.value.prop}`]) {
+      } else if (form?.slots[`form-${item.value.prop}`]) {
         list = list.concat(
-          (slots[`form-${item.value.prop}`] as Slot)({
+          (form?.slots[`form-${item.value.prop}`] as Slot)({
             item: item.value,
             indexes: props.indexes,
             value: currentValue,
             setValue: update,
           })
         )
-      } else if (slots[item.value.prop]) {
+      } else if (form?.slots[item.value.prop]) {
         // NOTE: Remove this on next major release
         throwWarn(
           `[ProForm] the [prop] slot will to remove, use 'form-[prop]' replace ${item.value.prop}`
         )
         list = list.concat(
-          (slots[item.value.prop] as Slot)({
+          (form?.slots[item.value.prop] as Slot)({
             item,
             value: currentValue,
             setValue: update,
@@ -119,8 +117,8 @@ export default defineComponent({
         ElFormItem,
         mergeProps(bindItem.value, {
           prop: props.prefix,
-          style: !props.inline ? colStyle.value : undefined,
-          class: ['pro-form-item', !props.inline && colClass.value],
+          style: !form?.inline.value ? colStyle.value : undefined,
+          class: ['pro-form-item', !form?.inline.value && colClass.value],
         }),
         {
           label: () => createLabel(),

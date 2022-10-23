@@ -41,7 +41,6 @@ export const formItemProps = {
     type: Array as PropType<number[]>,
     default: undefined,
   },
-  inline: Boolean,
 }
 
 export const formComponentProps = {
@@ -53,7 +52,7 @@ export const formComponentProps = {
   slots: [Function, Object, String],
 }
 
-const _formItemProps = objectPick(formItemProps, 'prefix', 'indexes', 'inline')
+const _formItemProps = objectPick(formItemProps, 'prefix', 'indexes')
 export const arrayFormProps = {
   ..._formItemProps,
   modelValue: {

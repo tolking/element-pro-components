@@ -9,25 +9,22 @@ export default defineComponent({
   name: 'ProFormList',
   props: formProps,
   emits: formEmits,
-  setup(props, { slots, emit }) {
+  setup(props, { emit }) {
     function update(value: unknown) {
       emit('update:modelValue', value)
     }
 
     function createColumn() {
       return props.columns?.map((item) => {
-        return h(
-          ProFormItem,
-          {
-            modelValue: props.modelValue,
-            item,
-            indexes: props.indexes,
-            prefix: `${props.prefix}${props.prefix ? '.' : ''}${item.prop}`,
-            inline: props.inline,
-            'onUpdate:modelValue': update,
-          },
-          slots
-        )
+        const prefix = `${props.prefix}${props.prefix ? '.' : ''}${item.prop}`
+
+        return h(ProFormItem, {
+          modelValue: props.modelValue,
+          item,
+          indexes: props.indexes,
+          prefix,
+          'onUpdate:modelValue': update,
+        })
       })
     }
 
@@ -36,19 +33,14 @@ export default defineComponent({
         if (!isArray(props.modelValue) && !isUndefined(props.modelValue)) {
           update(undefined)
         }
-        return h(
-          ProArrayForm,
-          {
-            modelValue: props.modelValue as UnknownObject[] | undefined,
-            columns: props.columns,
-            prefix: props.prefix,
-            indexes: props.indexes,
-            inline: props.inline,
-            max: props.max,
-            'onUpdate:modelValue': update,
-          },
-          slots
-        )
+        return h(ProArrayForm, {
+          modelValue: props.modelValue as UnknownObject[] | undefined,
+          columns: props.columns,
+          prefix: props.prefix,
+          indexes: props.indexes,
+          max: props.max,
+          'onUpdate:modelValue': update,
+        })
       } else {
         return createColumn()
       }

@@ -2,7 +2,7 @@ import { defineComponent, h, markRaw, mergeProps, VNode } from 'vue'
 import { ElButton } from 'element-plus'
 import { Plus, Minus } from '@element-plus/icons-vue'
 import { isArray } from '../utils/index'
-import { useArrayForm } from './useForm'
+import { useArrayForm, useFormInject } from './useForm'
 import { arrayFormProps, arrayFormEmits } from './props'
 import ProFormList from './FormList'
 import type { UnknownObject } from '../types/index'
@@ -11,7 +11,8 @@ export default defineComponent({
   name: 'ProArrayForm',
   props: arrayFormProps,
   emits: arrayFormEmits,
-  setup(props, { slots, emit }) {
+  setup(props, { emit }) {
+    const form = useFormInject()
     const { showAdd, add, remove, update } = useArrayForm(props, emit)
 
     function createDefault(value: UnknownObject, index: number) {
@@ -22,7 +23,7 @@ export default defineComponent({
         h(
           'div',
           {
-            class: [!props.inline ? 'el-row' : '', 'form-content'],
+            class: [!form?.inline.value && 'el-row', 'form-content'],
           },
           h(
             ProFormList,
@@ -32,8 +33,7 @@ export default defineComponent({
               prefix,
               'onUpdate:modelValue': (value: UnknownObject) =>
                 update(value, index),
-            }),
-            slots
+            })
           )
         ),
         h(ElButton, {
