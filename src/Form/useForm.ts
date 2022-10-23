@@ -185,11 +185,11 @@ export function useFormProvide(
   })
 
   function add(indexes: number[]) {
-    emit('add', indexes)
+    emit('add-item', indexes)
   }
 
   function remove(indexes: number[]) {
-    emit('remove', indexes)
+    emit('remove-item', indexes)
   }
 }
 
