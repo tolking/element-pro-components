@@ -54,7 +54,10 @@ export default defineComponent({
     function createColumns() {
       return h(
         ProFormList,
-        mergeProps(props, { 'onUpdate:modelValue': update })
+        mergeProps(props, {
+          type: props.array ? 'array' : undefined,
+          'onUpdate:modelValue': update,
+        })
       )
     }
 
@@ -110,7 +113,7 @@ export default defineComponent({
           class: [
             'pro-form',
             !props.inline && rowClass.value,
-            props.type === 'array' && 'is-array',
+            props.array && 'is-array',
           ],
           onSubmit: (e: Event) => {
             e.preventDefault()

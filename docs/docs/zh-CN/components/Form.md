@@ -131,7 +131,7 @@ meta:
 
 ### 数组表单
 
-数组表单与子表单相同，用于处理需要输入一个数组的情况。仅需配置 `type` 为 `array` 即可启用
+数组表单与子表单相同，用于处理需要输入一个数组的情况。仅需配置 `array` 即可启用
 
 ::: demo 通过 max 控制表单的最大数量
 @/demo/Form/array.vue
@@ -168,10 +168,10 @@ meta:
 | v-model                 | 绑定值                                                                  | object / array | -                                                                    | -      |
 | columns                 | 表单配置参考下面 `columns`                                              | array          | -                                                                    | -      |
 | menu                    | 按钮配置参考下面 `menu`                                                 | object         | -                                                                    | -      |
-| type                    | 当前表单的类型，当为 `array` 时 `v-model` 将绑定为数组                  | string         | array                                                                | -      |
-| max                     | 限制数组表单的最大数量                                                  | number         | -                                                                    | -      |
 | rules                   | 表单验证规则                                                            | object         | -                                                                    | -      |
 | inline                  | 行内表单模式                                                            | boolean        | -                                                                    | false  |
+| array                   | 是否启用数组表单                                                        | boolean        |                                                                      | -      |
+| max                     | 限制数组表单的最大数量                                                  | number         | -                                                                    | -      |
 | label-position          | 表单域标签的位置，如果值为 left 或者 right 时，则需要设置 `label-width` | string         | right / left / top                                                   | right  |
 | label-width             | 表单域标签的宽度，例如 '50px' 或 'auto'                                 | string         | -                                                                    | -      |
 | label-suffix            | 表单域标签的后缀                                                        | string         | -                                                                    | -      |
