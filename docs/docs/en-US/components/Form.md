@@ -131,7 +131,7 @@ The `label-position` attribute decides how labels align
 
 ### Array Form
 
-The array form is the same as the subform. It is used to handle the situation where an array needs to be entered. Just configure the 'type' as' array 'to enable
+The array form is the same as the sub-form. It is used to handle the situation where an array needs to be entered. Just configure the `array` to enable
 
 ::: demo Control the maximum number of forms through max
 @/demo/Form/array.vue
@@ -168,10 +168,10 @@ The function `defineFormColumns` supports passing in a Generics type to infer th
 | v-model                 | binding value                                                                                                                     | object / array | -                                                                    | -       |
 | columns                 | to generate form components, reference `columns`                                                                                  | array          | -                                                                    | -       |
 | menu                    | config the menu content, reference `menu`                                                                                         | object         | -                                                                    | -       |
-| type                    | The type of Form. When it is `array`, the `v-model` will be bound as an array                                                     | string         | array                                                                | -       |
-| max                     | limit the maximum number of ArrayForm component                                                                                   | number         | -                                                                    | -       |
 | rules                   | validation rules of form                                                                                                          | object         | -                                                                    | -       |
 | inline                  | whether the form is inline                                                                                                        | boolean        | -                                                                    | false   |
+| array                   | whether the form is ArrayForm                                                                                                     | boolean        |                                                                      | -       |
+| max                     | limit the maximum number of ArrayForm component                                                                                   | number         | -                                                                    | -       |
 | label-position          | position of label. If set to 'left' or 'right', `label-width` prop is also required                                               | string         | right / left / top                                                   | right   |
 | label-width             | width of label, e.g. '50px'. All its direct child form items will inherit this value. Width `auto` is supported.                  | string         | -                                                                    | -       |
 | label-suffix            | suffix of the label                                                                                                               | string         | -                                                                    | -       |

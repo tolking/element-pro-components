@@ -3,7 +3,7 @@
     v-model="form"
     :columns="columns"
     :max="3"
-    type="array"
+    array
     label-width="100px"
     @submit="submit"
   />

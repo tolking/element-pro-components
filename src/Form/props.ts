@@ -74,8 +74,8 @@ export const formProps = {
   >,
   columns: Array as PropType<IFormColumns>,
   menu: Object as PropType<IFormMenuColumns>,
-  type: String as PropType<'array'>, // TODO: change to array
-  max: Number, // type: 'array'
+  array: Boolean,
+  max: Number,
 }
 
 export const formListProps = {

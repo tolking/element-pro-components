@@ -982,9 +982,9 @@ describe('Form', () => {
     expect(vm.form.b[0]).toBe('array value')
   })
 
-  test.concurrent('type=array', async () => {
+  test.concurrent('array', async () => {
     const wrapper = await mount({
-      template: '<pro-form v-model="form" :columns="columns" type="array" />',
+      template: '<pro-form v-model="form" :columns="columns" array />',
       setup() {
         const form = ref()
         return { form, columns }
@@ -1010,14 +1010,14 @@ describe('Form', () => {
     expect(wrapper.vm.form[0].input).toBe('value')
   })
 
-  test.concurrent('type=array & max', async () => {
+  test.concurrent('array & max', async () => {
     const wrapper = await mount({
       template: `
       <pro-form
         v-model="form"
         :columns="columns"
         :max="2"
-        type="array"
+        array
       />`,
       setup() {
         const form = ref([{}])
