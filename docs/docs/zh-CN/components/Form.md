@@ -137,6 +137,14 @@ meta:
 @/demo/Form/array.vue
 :::
 
+### 分组表单
+
+分组表单用于将普通表单进行分组展示
+
+::: demo
+@/demo/Form/group.vue
+:::
+
 ### 异步表单
 
 想要实现异步表单 columns 必须绑定一个动态数组
@@ -187,7 +195,8 @@ meta:
 | label         | 标签文本                                                                  | string             | -                      | -      |
 | component     | 当前项对应的组件，可以直接传入局部组件                                    | string / Component | -                      | -      |
 | props         | 传递的对应的组件的参数                                                    | object             | -                      | -      |
-| children      | 实现子表单                                                                | array              | -                      | -      |
+| children      | 分组表单或子表单内容                                                      | array              | -                      | -      |
+| type          | children 内部表单的类型                                                   | string             | array / group          | array  |
 | max           | 与 children 一起使用，限制子表单的最大数量                                | number             | -                      | -      |
 | labelWidth    | 表单域标签的宽度，例如 '50px' 或 'auto'                                   | string             | -                      | -      |
 | required      | 是否必填，如不设置，则会根据校验规则自动生成                              | boolean            | -                      | false  |
