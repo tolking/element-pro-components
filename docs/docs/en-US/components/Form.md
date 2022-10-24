@@ -137,6 +137,14 @@ The array form is the same as the subform. It is used to handle the situation wh
 @/demo/Form/array.vue
 :::
 
+### Group Form
+
+The Group Form used to display ordinary forms in groups
+
+::: demo
+@/demo/Form/group.vue
+:::
+
 ### Async Form
 
 To implement Async Form, columns must be bound to a reactive array
@@ -187,7 +195,8 @@ The function `defineFormColumns` supports passing in a Generics type to infer th
 | label         | label text                                                                                             | string                                      | -                      | -       |
 | component     | binding component                                                                                      | string                                      | -                      | -       |
 | props         | transfer `props` to the current component                                                              | object                                      | -                      | -       |
-| children      | sub-columns                                                                                            | array                                       | -                      | -       |
+| children      | group form or sub-form content                                                                         | array                                       | -                      | -       |
+| type          | type of children internal forms                                                                        | string                                      | array / group          | array   |
 | max           | limit the maximum number of sub-columns                                                                | number                                      | -                      | -       |
 | labelWidth    | width of label, e.g. '50px'. Width `auto` is supported.                                                | string                                      | -                      | -       |
 | required      | whether the field is required or not, will be determined by validation rules if omitted                | boolean                                     | -                      | false   |

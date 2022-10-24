@@ -1,6 +1,8 @@
 import {
   formProps,
   arrayFormProps,
+  formListProps,
+  groupFormProps,
   formEmits,
   formItemEmits,
   arrayFormEmits,
@@ -39,9 +41,22 @@ export interface FormColumn<T = ExternalParam>
   prop: ColumnProp<T>
 }
 
+export type GroupFormType = 'group'
+
+export interface GroupFormColumn<T = ExternalParam> {
+  /** the type of group-form */
+  type: GroupFormType
+  /** keys of model that passed to form */
+  prop?: ColumnProp<T>
+  /** the title of group-form */
+  label?: string
+  /** group-form */
+  children?: IFormColumns<T>
+}
+
 /** Form Columns Option */
 export type IFormColumns<T = ExternalParam> = Array<
-  FormColumn<T> & UnknownObject
+  (FormColumn<T> | GroupFormColumn<T>) & UnknownObject
 >
 
 /** Form Menu Option */
@@ -103,6 +118,8 @@ export interface IFormContext {
 
 export type IFormProps = IDefineProps<typeof formProps>
 export type IArrayFormProps = IDefineProps<typeof arrayFormProps>
+export type IFormListProps = IDefineProps<typeof formListProps>
+export type IGroupFormProps = IDefineProps<typeof groupFormProps>
 export type IFormEmits = IDefineEmits<typeof formEmits>
 export type IFormItemEmits = IDefineEmits<typeof formItemEmits>
 export type IArrayFormEmits = IDefineEmits<typeof arrayFormEmits>

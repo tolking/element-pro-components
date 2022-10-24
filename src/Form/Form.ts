@@ -105,7 +105,6 @@ export default defineComponent({
         mergeProps(config, {
           ref: formRef,
           model: props.modelValue || {},
-          inline: props.inline,
           labelPosition: labelPosition.value,
           style: !props.inline ? rowStyle.value : null,
           class: [
