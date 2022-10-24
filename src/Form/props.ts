@@ -15,6 +15,8 @@ import type {
   IFormMenuColumns,
   FormColumn,
   InvalidFields,
+  GroupFormType,
+  GroupFormColumn,
 } from './type'
 
 type FormKeys = Array<keyof typeof _formProps>
@@ -72,8 +74,18 @@ export const formProps = {
   >,
   columns: Array as PropType<IFormColumns>,
   menu: Object as PropType<IFormMenuColumns>,
-  type: String as PropType<'default' | 'array'>,
+  type: String as PropType<'array'>, // TODO: change to array
   max: Number, // type: 'array'
+}
+
+export const formListProps = {
+  ...formProps,
+  type: String as PropType<'array' | GroupFormType>,
+}
+
+export const groupFormProps = {
+  ...formProps,
+  columns: Array as PropType<Array<GroupFormColumn & UnknownObject>>,
 }
 
 export const formItemEmits = {

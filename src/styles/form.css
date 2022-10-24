@@ -1,4 +1,15 @@
 .pro-form {
+  --pro-array-form-size: 18px;
+  &.el-form--large {
+    --pro-array-form-size: 22px;
+  }
+  & .el-form-item {
+    --pro-array-form-size: 18px;
+    &.el-form-item--large {
+      --pro-array-form-size: 22px;
+    }
+  }
+
   &:not(.el-form--inline) .pro-form-menu {
     margin-bottom: 0;
     width: 100%;
@@ -8,19 +19,6 @@
   }
   &.is-array > .form-btn-add {
     margin-bottom: var(--pro-array-form-size);
-  }
-
-  &.is-array {
-    --pro-array-form-size: 18px;
-    &.el-form--large {
-      --pro-array-form-size: 22px;
-    }
-  }
-  & .el-form-item {
-    --pro-array-form-size: 18px;
-    &.el-form-item--large {
-      --pro-array-form-size: 22px;
-    }
   }
 
   & .pro-array-form {
@@ -44,5 +42,15 @@
     & .form-btn-delete {
       margin: 0 0 var(--pro-array-form-size) 10px;
     }
+  }
+
+  &.el-form--inline .pro-group-form-title {
+    display: inline-flex;
+  }
+  & .pro-group-form-title {
+    margin: calc(var(--pro-array-form-size) / 2) auto var(--pro-array-form-size);
+    font-size: 24px;
+    color: var(--el-text-color-primary);
+    font-weight: 500;
   }
 }
