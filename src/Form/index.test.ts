@@ -5,6 +5,7 @@ import { ElInput, ElSwitch } from 'element-plus'
 import {
   formContentKey,
   ProArrayForm,
+  ProGroupForm,
   ProFormComponent,
   ProFormItem,
   ProFormList,
@@ -16,6 +17,7 @@ import type { Mutable } from '../types/index'
 
 config.global.components = {
   ProArrayForm,
+  ProGroupForm,
   ProFormComponent,
   ProFormItem,
   ProFormList,
@@ -31,11 +33,19 @@ const columns: IFormColumns = [
     component: 'el-input',
   },
 ]
+const groupColumns: IFormColumns = [
+  {
+    label: 'Group',
+    type: 'group',
+    children: columns,
+  },
+]
 
 const addClass = '.form-btn-add'
 const deleteClass = '.form-btn-delete'
 const arrayClass = '.pro-array-form'
 const arrayContentClass = `${arrayClass} .form-content`
+const groupTitle = '.pro-group-form-title'
 const buttonClass =
   '.pro-form .el-form-item:last-child .el-form-item__content button'
 const getFormList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
@@ -305,6 +315,67 @@ describe('ProFormList', () => {
 
     config.global.provide = {}
   })
+
+  test.concurrent('type=group', async () => {
+    const wrapper = await mount({
+      template: '<pro-form-list :columns="columns" />',
+      setup() {
+        const _columns = ref(
+          defineFormColumns<string>([
+            {
+              label: 'group-1',
+              type: 'group',
+              children: columns,
+            },
+            {
+              label: 'input-1',
+              prop: 'key1',
+              component: 'el-input',
+              class: 'input-1',
+            },
+            {
+              label: 'input-2',
+              prop: 'key2',
+              component: 'el-input',
+              class: 'input-2',
+            },
+            {
+              label: 'group-2',
+              type: 'group',
+              children: columns,
+            },
+            {
+              label: 'group-3',
+              type: 'group',
+              children: columns,
+            },
+          ])
+        )
+        return { columns: _columns }
+      },
+    })
+
+    const getItem = (n: number) => wrapper.find(`.el-col-24:nth-child(n${n})`)
+    const list = wrapper.findAll('.el-col-24').map((item) => item.classes())
+
+    expect(list).toHaveLength(8)
+    expect(list[0]).toContain('pro-group-form-title')
+    expect(getItem(1).text()).toBe('group-1')
+    expect(list[2]).toContain('input-1')
+    expect(list[3]).toContain('input-2')
+    expect(list[4]).toContain('pro-group-form-title')
+    expect(getItem(5).text()).toBe('group-2')
+    expect(list[6]).toContain('pro-group-form-title')
+    expect(getItem(7).text()).toBe('group-3')
+
+    await wrapper.vm.columns.push({
+      label: 'new one',
+      type: 'group',
+      children: columns,
+    })
+    expect(getItem(9).classes()).toContain('pro-group-form-title')
+    expect(getItem(9).text()).toBe('new one')
+  })
 })
 
 describe('ArrayForm', () => {
@@ -425,6 +496,85 @@ describe('ArrayForm', () => {
     expect(wrapper.find(addClass).exists()).toBe(true)
     expect(wrapper.find(arrayClass).exists()).toBe(false)
     expect(wrapper.vm.form).toHaveLength(0)
+  })
+})
+
+describe('ProGroupForm', () => {
+  beforeEach(() => {
+    config.global.provide = {
+      [formContentKey as symbol]: {
+        inline: ref(false),
+        slots: {
+          'form-slot-label': () => 'slot-label',
+        },
+      },
+    }
+  })
+
+  afterEach(() => {
+    document.body.innerHTML = ''
+    config.global.provide = {}
+  })
+
+  test.concurrent('empt', async () => {
+    const wrapper = mount({
+      template: '<pro-group-form />',
+    })
+
+    expect(wrapper.find(groupTitle).exists()).toBe(false)
+  })
+
+  test.concurrent('columns', async () => {
+    const wrapper = mount({
+      template: '<pro-group-form :columns="columns" />',
+      setup() {
+        return { columns: groupColumns }
+      },
+    })
+
+    expect(wrapper.find(groupTitle).exists()).toBe(true)
+    expect(wrapper.find(groupTitle).text()).toBe('Group')
+    const labels = getLabelList(wrapper)
+    expect(labels).toHaveLength(1)
+    expect(labels[0]).toBe('input')
+    const components = getComponentList(wrapper)
+    expect(components).toHaveLength(1)
+    expect(components[0]).toContain('el-input')
+  })
+
+  test.concurrent('modelValue', async () => {
+    const wrapper = mount({
+      template: '<pro-group-form v-model="form" :columns="columns" />',
+      setup() {
+        const form = ref({ input: 'test' })
+        return { form, columns: groupColumns }
+      },
+    })
+
+    expect(wrapper.find('input').element.value).toBe('test')
+
+    await wrapper.find('input').setValue('value')
+    expect(wrapper.vm.form.input).toBe('value')
+  })
+
+  test.concurrent('slots', async () => {
+    // The slot of the GroupForm is injected through the top Form
+    const wrapper = await mount({
+      template: '<pro-group-form v-model="form" :columns="columns" />',
+      setup() {
+        const form = ref()
+        const _columns: IFormColumns = [
+          {
+            prop: 'slot',
+            type: 'group',
+            children: columns,
+          },
+        ]
+        return { form, columns: _columns }
+      },
+    })
+
+    expect(wrapper.find(groupTitle).text()).toBe('slot-label')
   })
 })
 
