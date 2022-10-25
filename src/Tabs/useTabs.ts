@@ -35,7 +35,7 @@ export function useTabs(props: ITabsProps): UseTabs {
             closeOther,
           })
           if (canAdd !== false) {
-            addTab({ title, path, hidden })
+            addTab({ title, path, hidden, name: route.name })
           }
         } catch {
           throwWarn('[ProTabs] Failed to execute beforeAdd function')
