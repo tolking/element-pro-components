@@ -1,5 +1,19 @@
 # Changelog
 
+### 1.2.4
+
+feat
+
+- FilterRoutes: Ignore hidden routes (#396)
+- Form: add array attribute for using Array Form (#402) (#404) (#406)
+- Form: add inject attributes (#403)
+- Form: support the generation of GroupForm through config (#405)
+
+fix
+
+- FilterRoutes: optimization styles (#397)
+- Tabs: name attribute is not added when using beforeAdd (#407)
+
 ### 1.2.3
 
 feat
