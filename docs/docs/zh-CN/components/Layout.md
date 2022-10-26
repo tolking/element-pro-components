@@ -75,6 +75,14 @@ meta:
 @/demo/Layout/router.vue
 :::
 
+### 自定义分组路由
+
+为路由中 `meta` 配置 `group: true`，即可启用分组菜单
+
+::: demo
+@/demo/Layout/group.vue
+:::
+
 ### 自定义颜色
 
 通过 CSS 变量配置菜单颜色

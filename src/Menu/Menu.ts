@@ -6,7 +6,7 @@ import {
   resolveDynamicComponent,
 } from 'vue'
 import { useRoute, RouteRecordRaw } from 'vue-router'
-import { ElMenu, ElMenuItem, ElSubMenu } from 'element-plus'
+import { ElMenu, ElMenuItem, ElMenuItemGroup, ElSubMenu } from 'element-plus'
 import { useCurrentRoutes } from '../composables/index'
 import { menuProps } from './props'
 
@@ -60,7 +60,7 @@ export default defineComponent({
           )
         } else if (showItem) {
           return h(
-            ElSubMenu,
+            item.meta?.group ? ElMenuItemGroup : ElSubMenu,
             { index: item.path },
             {
               title: () =>
