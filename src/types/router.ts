@@ -9,6 +9,8 @@ declare module 'vue-router' {
     icon?: string | Component
     /** whether to show in the Menu */
     hidden?: boolean
+    /** whether to use ElMenuItemGroup instead of ElSubMenu */
+    group?: boolean
     /** the animation name of transition pages */
     transition?: string
   }
