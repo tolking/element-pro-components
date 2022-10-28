@@ -54,6 +54,14 @@ export const dicList: DicItem[] = [
   { value: 'V', label: 'v' },
 ]
 
+export const dictConfigList = [
+  { id: 0, value: { key: 'a' } },
+  { id: 1, value: { key: 'b' } },
+  { id: 2, value: { key: 'c' } },
+  { id: 3, value: { key: 'd' } },
+  { id: 4, value: { key: 'e' } },
+]
+
 export interface TableItem {
   date: string
   name: string

@@ -1,14 +1,10 @@
-import { describe, test, expect, afterEach } from 'vitest'
+import { describe, test, expect, afterEach, afterAll } from 'vitest'
 import { ComponentPublicInstance, ref, nextTick } from 'vue'
-import { mount, VueWrapper } from '@vue/test-utils'
+import { config, mount, VueWrapper } from '@vue/test-utils'
 import ProSelect from './Select'
-import { dicList, DicItem } from '../__mocks__/index'
+import { dicList, dictConfigList } from '../__mocks__/index'
 
-const _mount = (options: Record<string, unknown>) =>
-  mount({
-    components: { ProSelect },
-    ...options,
-  })
+config.global.components = { ProSelect }
 
 const getInputValue = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   wrapper.find<HTMLInputElement>('.el-input__inner').element.value
@@ -25,7 +21,7 @@ describe('Select', () => {
   })
 
   test.concurrent('test modelValue', async () => {
-    const wrapper = _mount({
+    const wrapper = mount({
       template: `
         <pro-select
           v-model="value"
@@ -37,32 +33,31 @@ describe('Select', () => {
         return { value, data: dicList }
       },
     })
-    const vm = (wrapper.vm as unknown) as { value: string }
 
     // init
     await wrapper.find('.select-trigger').trigger('click')
     const options = getOptions()
-    expect(vm.value).toBe('')
+    expect(wrapper.vm.value).toBe('')
     expect(getInputValue(wrapper)).toBe('')
 
     options[2].click()
     await nextTick()
-    expect(vm.value).toBe('Python')
+    expect(wrapper.vm.value).toBe('Python')
     expect(getInputValue(wrapper)).toBe('python')
 
     options[4].click()
     await nextTick()
-    expect(vm.value).toBe('V')
+    expect(wrapper.vm.value).toBe('V')
     expect(getInputValue(wrapper)).toBe('v')
 
     // change model-value
-    await (vm.value = 'Dart')
-    expect(vm.value).toBe('Dart')
+    await (wrapper.vm.value = 'Dart')
+    expect(wrapper.vm.value).toBe('Dart')
     expect(getInputValue(wrapper)).toBe('dart')
   })
 
   test.concurrent('change data', async () => {
-    const wrapper = _mount({
+    const wrapper = mount({
       template: `
         <pro-select
           v-model="value"
@@ -75,13 +70,38 @@ describe('Select', () => {
         return { value, data }
       },
     })
-    const vm = (wrapper.vm as unknown) as { value: string; data: DicItem[] }
 
-    await vm.data.push({ value: 'Vue', label: 'vue' })
+    await wrapper.vm.data.push({ value: 'Vue', label: 'vue' })
     await wrapper.find('.select-trigger').trigger('click')
     const options = getOptions()
 
     options[5].click()
-    expect(vm.value).toBe('Vue')
+    expect(wrapper.vm.value).toBe('Vue')
   })
+
+  test.concurrent('config', async () => {
+    const wrapper = mount({
+      template: '<pro-select v-model="value" :data="data" :config="config" />',
+      setup() {
+        const value = ref(0)
+        const config = { label: 'value.key', value: 'id' }
+        return { value, data: dictConfigList, config }
+      },
+    })
+
+    await wrapper.find('.select-trigger').trigger('click')
+    const options = getOptions()
+    const list = options.map((item) => item.querySelector('span')?.innerHTML)
+    ;['a', 'b', 'c', 'd', 'e'].forEach((item) => {
+      expect(list).toContain(item)
+    })
+
+    await options[3].click()
+    expect(wrapper.vm.value).toBe(3)
+    expect(getInputValue(wrapper)).toBe('d')
+  })
+})
+
+afterAll(() => {
+  config.global.components = {}
 })
