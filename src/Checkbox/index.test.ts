@@ -1,14 +1,11 @@
-import { describe, test, expect, afterEach } from 'vitest'
+import { describe, test, expect, afterEach, afterAll } from 'vitest'
 import { ComponentPublicInstance, ref } from 'vue'
-import { mount, VueWrapper } from '@vue/test-utils'
+import { config, mount, VueWrapper } from '@vue/test-utils'
 import ProCheckbox from './Checkbox'
-import { dicList, DicItem } from '../__mocks__/index'
+import { dicList, dictConfigList } from '../__mocks__/index'
 
-const _mount = (options: Record<string, unknown>) =>
-  mount({
-    components: { ProCheckbox },
-    ...options,
-  })
+config.global.components = { ProCheckbox }
+
 const getList = (wrapper: VueWrapper<ComponentPublicInstance>, calss = '') => {
   const className = '.pro-checkbox .el-checkbox' + calss
   return wrapper
@@ -22,14 +19,13 @@ describe('Checkbox', () => {
   })
 
   test.concurrent('test modelValue', async () => {
-    const wrapper = _mount({
+    const wrapper = mount({
       template: '<pro-checkbox v-model="value" :data="data" />',
       setup() {
         const value = ref(['JavaScript'])
         return { value, data: dicList }
       },
     })
-    const vm = (wrapper.vm as unknown) as { value: string[] }
 
     /** init */
     expect(getList(wrapper)).toContain('javascript')
@@ -41,12 +37,12 @@ describe('Checkbox', () => {
     expect(getList(wrapper, '.is-checked')).not.toContain('dart')
 
     /** change model-value */
-    await vm.value.push('Dart')
+    await wrapper.vm.value.push('Dart')
     expect(getList(wrapper, '.is-checked')).toContain('dart')
   })
 
   test.concurrent('change data', async () => {
-    const wrapper = _mount({
+    const wrapper = mount({
       template: '<pro-checkbox v-model="value" :data="data" />',
       setup() {
         const value = ref(['JavaScript'])
@@ -54,10 +50,34 @@ describe('Checkbox', () => {
         return { value, data }
       },
     })
-    const vm = (wrapper.vm as unknown) as { data: DicItem[] }
 
     expect(getList(wrapper)).not.toContain('vue')
-    await vm.data.push({ value: 'Vue', label: 'vue' })
+    await wrapper.vm.data.push({ value: 'Vue', label: 'vue' })
     expect(getList(wrapper)).toContain('vue')
   })
+
+  test.concurrent('config', async () => {
+    const wrapper = mount({
+      template:
+        '<pro-checkbox v-model="value" :data="data" :config="config" />',
+      setup() {
+        const value = ref([0])
+        const config = { label: 'value.key', value: 'id' }
+        return { value, data: dictConfigList, config }
+      },
+    })
+
+    const list = getList(wrapper)
+    ;['a', 'b', 'c', 'd', 'e'].forEach((item) => {
+      expect(list).toContain(item)
+    })
+
+    await wrapper.vm.value.push(3)
+    expect(getList(wrapper, '.is-checked')).toContain('a')
+    expect(getList(wrapper, '.is-checked')).toContain('d')
+  })
+})
+
+afterAll(() => {
+  config.global.components = {}
 })

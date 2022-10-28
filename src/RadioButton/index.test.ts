@@ -1,14 +1,11 @@
-import { describe, test, expect, afterEach } from 'vitest'
+import { describe, test, expect, afterEach, afterAll } from 'vitest'
 import { ComponentPublicInstance, ref } from 'vue'
-import { mount, VueWrapper } from '@vue/test-utils'
+import { config, mount, VueWrapper } from '@vue/test-utils'
 import ProRadioButton from './RadioButton'
-import { dicList, DicItem } from '../__mocks__/index'
+import { dicList, dictConfigList } from '../__mocks__/index'
 
-const _mount = (options: Record<string, unknown>) =>
-  mount({
-    components: { ProRadioButton },
-    ...options,
-  })
+config.global.components = { ProRadioButton }
+
 const getList = (wrapper: VueWrapper<ComponentPublicInstance>, calss = '') => {
   const className = '.pro-radio-button .el-radio-button' + calss
   return wrapper
@@ -22,14 +19,13 @@ describe('RadioButton', () => {
   })
 
   test.concurrent('test modelValue', async () => {
-    const wrapper = _mount({
+    const wrapper = mount({
       template: '<pro-radio-button v-model="value" :data="data" />',
       setup() {
         const value = ref('JavaScript')
         return { value, data: dicList }
       },
     })
-    const vm = (wrapper.vm as unknown) as { value: string }
 
     /** init */
     expect(getList(wrapper)).toContain('javascript')
@@ -41,12 +37,12 @@ describe('RadioButton', () => {
     expect(getList(wrapper, '.is-active')).not.toContain('dart')
 
     /** change model-value */
-    await (vm.value = 'Dart')
+    await (wrapper.vm.value = 'Dart')
     expect(getList(wrapper, '.is-active')).toContain('dart')
   })
 
   test.concurrent('change data', async () => {
-    const wrapper = _mount({
+    const wrapper = mount({
       template: '<pro-radio-button v-model="value" :data="data" />',
       setup() {
         const value = ref('JavaScript')
@@ -54,10 +50,34 @@ describe('RadioButton', () => {
         return { value, data }
       },
     })
-    const vm = (wrapper.vm as unknown) as { data: DicItem[] }
 
     expect(getList(wrapper)).not.toContain('vue')
-    await vm.data.push({ value: 'Vue', label: 'vue' })
+    await wrapper.vm.data.push({ value: 'Vue', label: 'vue' })
     expect(getList(wrapper)).toContain('vue')
   })
+
+  test.concurrent('config', async () => {
+    const wrapper = mount({
+      template:
+        '<pro-radio-button v-model="value" :data="data" :config="config" />',
+      setup() {
+        const value = ref(0)
+        const config = { label: 'value.key', value: 'id' }
+        return { value, data: dictConfigList, config }
+      },
+    })
+
+    const list = getList(wrapper)
+    ;['a', 'b', 'c', 'd', 'e'].forEach((item) => {
+      expect(list).toContain(item)
+    })
+    expect(getList(wrapper, '.is-active')).toContain('a')
+
+    await (wrapper.vm.value = 3)
+    expect(getList(wrapper, '.is-active')).toContain('d')
+  })
+})
+
+afterAll(() => {
+  config.global.components = {}
 })

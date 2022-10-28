@@ -13,7 +13,7 @@ import type { ITreeSelectProps, ITreeSelectEmits } from '../TreeSelect/index'
 import type TreeStore from 'element-plus/es/components/tree/src/model/tree-store'
 import type { FilterNodeMethodFunction } from 'element-plus/es/components/tree/src/tree.type'
 import type { MaybeArray, UnknownObject } from '../types/index'
-import type { SelectConfig, SelectDataItem } from '../Select/index'
+import type { SelectDataItem } from '../Select/index'
 
 interface ITreeStore extends TreeStore {
   setCurrentKey: (value: string | number | null) => void
@@ -25,7 +25,6 @@ export function useTreeSelect(
 ): {
   tree: Ref<ITreeStore>
   expandedKeys?: ComputedRef<(string | number)[] | undefined>
-  configKeys: Ref<Required<SelectConfig>>
   value: ComputedRef<
     MaybeArray<string | number | boolean | UnknownObject> | undefined
   >
@@ -37,7 +36,7 @@ export function useTreeSelect(
   upData: (e: SelectDataItem, node: unknown, self: unknown) => void
   clear: () => void
 } {
-  const configKeys = useDataConfig()
+  const { getLabel, getValue, getChildren } = useDataConfig()
   const tree = ref<ITreeStore>({} as ITreeStore)
   const label = ref<string | number | undefined>('')
   const list = shallowRef<SelectDataItem[]>([])
@@ -49,7 +48,7 @@ export function useTreeSelect(
   })
   const filter: FilterNodeMethodFunction = (value, item) => {
     if (!value) return true
-    return item[configKeys.value.label].indexOf(value) !== -1
+    return getLabel(item).indexOf(value) !== -1
   }
 
   onMounted(() => {
@@ -67,7 +66,7 @@ export function useTreeSelect(
     } else if (!props.multiple) {
       tree.value.setCurrentKey((value.value || null) as string | number | null)
       const item = tree.value.getCurrentNode() as SelectDataItem
-      label.value = item[configKeys.value.label]
+      label.value = getLabel(item)
     }
   }
 
@@ -86,16 +85,15 @@ export function useTreeSelect(
     if (props.multiple) {
       const nodes = tree.value.getCheckedNodes() as SelectDataItem[]
       list.value = props.onlySelectLeaf
-        ? nodes.filter((item) => !item[configKeys.value.children]?.length)
+        ? nodes.filter((item) => !getChildren(item)?.length)
         : nodes
-      const keys = list.value.map((item) => item[configKeys.value.value])
+      const keys = list.value.map((item) => getValue(item))
       emit('update:modelValue', keys)
       emit('check-change', item, node, self)
     } else if (item && !item.disabled) {
-      if (props.onlySelectLeaf && item[configKeys.value.children]?.length)
-        return
-      label.value = item[configKeys.value.label]
-      emit('update:modelValue', item[configKeys.value.value])
+      if (props.onlySelectLeaf && getChildren(item)?.length) return
+      label.value = getLabel(item)
+      emit('update:modelValue', getValue(item))
       emit('node-click', item, node, self)
     }
   }
@@ -109,7 +107,6 @@ export function useTreeSelect(
 
   return {
     expandedKeys,
-    configKeys,
     tree,
     value,
     label,

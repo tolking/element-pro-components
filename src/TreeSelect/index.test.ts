@@ -1,14 +1,11 @@
-import { describe, test, expect, afterEach } from 'vitest'
+import { describe, test, expect, afterEach, afterAll } from 'vitest'
 import { ComponentPublicInstance, ref } from 'vue'
-import { mount, VueWrapper } from '@vue/test-utils'
+import { config, mount, VueWrapper } from '@vue/test-utils'
 import ProTreeSelect from './TreeSelect'
 import { treeList } from '../__mocks__/index'
 
-const _mount = (options: Record<string, unknown>) =>
-  mount({
-    components: { ProTreeSelect },
-    ...options,
-  })
+config.global.components = { ProTreeSelect }
+
 const selectItemClass =
   '.pro-tree-select-popper .pro-tree-select-options .pro-tree-select-tree .el-tree-node'
 const getList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
@@ -30,7 +27,7 @@ describe('TreeSelect', () => {
   })
 
   test.concurrent('test build', async () => {
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: `
         <pro-tree-select
           v-model="value"
@@ -47,21 +44,24 @@ describe('TreeSelect', () => {
       },
     })
 
+    const list = getList(wrapper)
+    const disableList = getDisableList(wrapper)
+
     expect(
       wrapper.find('.pro-tree-select-tree .el-tree-node').exists()
     ).toBeTruthy()
-    expect(getList(wrapper)).toContain('1')
-    expect(getList(wrapper)).toContain('1-1')
-    expect(getList(wrapper)).toContain('2')
-    expect(getList(wrapper)).toContain('2-1')
-    expect(getList(wrapper)).toContain('2-2')
-    expect(getList(wrapper)).toContain('2-2-1')
-    expect(getDisableList(wrapper)).toContain('1')
-    expect(getDisableList(wrapper)).toContain('1-1')
+    expect(list).toContain('1')
+    expect(list).toContain('1-1')
+    expect(list).toContain('2')
+    expect(list).toContain('2-1')
+    expect(list).toContain('2-2')
+    expect(list).toContain('2-2-1')
+    expect(disableList).toContain('1')
+    expect(disableList).toContain('1-1')
   })
 
   test.concurrent('test multiple', async () => {
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: `
         <pro-tree-select
           v-model="value"
@@ -79,15 +79,45 @@ describe('TreeSelect', () => {
       },
     })
 
+    const list = getMultipleDisableList(wrapper)
     expect(
       wrapper.find('.pro-tree-select-tree .el-tree-node').exists()
     ).toBeTruthy()
     expect(
       wrapper.find('.pro-tree-select-tree .el-tree-node .el-checkbox').exists()
     ).toBeTruthy()
-    expect(getMultipleDisableList(wrapper)).toContain('1')
-    expect(getMultipleDisableList(wrapper)).toContain('1-1')
+    expect(list).toContain('1')
+    expect(list).toContain('1-1')
+  })
+
+  test.concurrent('config', async () => {
+    const wrapper = await mount({
+      template: `
+        <pro-tree-select
+          v-model="value"
+          :data="data"
+          :config="config"
+          :teleported="false"
+          :render-after-expand="false"
+          default-expand-all
+        />
+      `,
+      setup() {
+        const value = ref()
+        const config = { value: 'label', label: 'value' }
+        return { value, data: treeList, config }
+      },
+    })
+
+    const list = getList(wrapper)
+    ;['1', '11', '2', '21', '22', '221'].forEach((item) => {
+      expect(list).toContain(item)
+    })
   })
 
   //TODO: add more test, error when trigger component `ElTree`
+})
+
+afterAll(() => {
+  config.global.components = {}
 })

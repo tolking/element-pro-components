@@ -11,7 +11,7 @@ export function createDefault<T>(
   component: T,
   className: string
 ): () => VNode {
-  const configKeys = useDataConfig()
+  const { getLabel, getValue, getName, getDisabled } = useDataConfig()
   const emitValue = useEmitValue()
   const config = reactiveOmit(props, 'data', 'config')
 
@@ -27,11 +27,11 @@ export function createDefault<T>(
           return h(
             component as DefineComponent,
             {
-              name: item[configKeys.value.name],
-              label: item[configKeys.value.value],
-              disabled: item[configKeys.value.disabled],
+              name: getName(item),
+              label: getValue(item),
+              disabled: getDisabled(item),
             },
-            () => item[configKeys.value.label]
+            () => getLabel(item)
           )
         })
     )
