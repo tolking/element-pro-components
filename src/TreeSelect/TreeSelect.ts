@@ -1,6 +1,7 @@
 import { defineComponent, h, mergeProps } from 'vue'
 import { reactiveOmit, reactivePick } from '@vueuse/core'
 import { ElSelect, ElOption, ElTree, useAttrs } from 'element-plus'
+import { useDataConfig } from '../composables/index'
 import { useTreeSelect } from './useTreeSelect'
 import { treeSelectProps, treeKeys, treeSelectEmits } from './props'
 import type { SelectDataItem } from '../Select/type'
@@ -21,7 +22,6 @@ export default defineComponent({
     const attrs = useAttrs()
     const {
       expandedKeys,
-      configKeys,
       tree,
       value,
       label,
@@ -32,6 +32,7 @@ export default defineComponent({
       upData,
       clear,
     } = useTreeSelect(props, emit)
+    const { config, getLabel, getValue, getDisabled } = useDataConfig()
     const treeProps = reactivePick(props, ...treeKeys, 'data')
     const selectProps = reactiveOmit(
       props,
@@ -55,7 +56,7 @@ export default defineComponent({
             ElTree,
             mergeProps(treeProps, attrs.value, {
               ref: tree,
-              props: configKeys.value,
+              props: config.value,
               showCheckbox: props.multiple,
               checkStrictly: props.checkStrictly,
               defaultExpandedKeys: expandedKeys?.value,
@@ -94,9 +95,9 @@ export default defineComponent({
     function createList() {
       return list.value.map((item) => {
         return h(ElOption, {
-          value: item[configKeys.value.value],
-          label: item[configKeys.value.label],
-          disabled: item[configKeys.value.disabled],
+          value: getValue(item),
+          label: getLabel(item),
+          disabled: getDisabled(item),
           class: 'is-hidden',
         })
       })
