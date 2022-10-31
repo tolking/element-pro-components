@@ -1,4 +1,4 @@
-import { resolve, join } from 'path'
+import { resolve } from 'path'
 import {
   copyFileSync,
   mkdir,
@@ -55,7 +55,7 @@ export function copyFileRecursive(src: string, dest: string): void {
 export function rmdirRecursive(path: string) {
   if (existsSync(path)) {
     readdirSync(path).forEach((item) => {
-      const current = join(path, item)
+      const current = resolve(path, item)
 
       statSync(current).isDirectory()
         ? rmdirRecursive(current)
