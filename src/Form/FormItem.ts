@@ -117,8 +117,8 @@ export default defineComponent({
         ElFormItem,
         mergeProps(bindItem.value, {
           prop: props.prefix,
-          style: !form?.inline.value ? colStyle.value : undefined,
-          class: ['pro-form-item', !form?.inline.value && colClass.value],
+          style: !form?.props.inline ? colStyle.value : undefined,
+          class: ['pro-form-item', !form?.props.inline && colClass.value],
         }),
         {
           label: () => createLabel(),

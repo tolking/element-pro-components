@@ -3,6 +3,7 @@ import { isArray, isUndefined } from '../utils/index'
 import { formEmits, formListProps } from './props'
 import ProArrayForm from './ArrayForm'
 import ProGroupForm from './GroupForm'
+import ProTabsForm from './TabsForm'
 import ProFormItem from './FormItem'
 import type { UnknownObject } from '../types/index'
 import type { GroupFormColumn, GroupFormType } from './type'
@@ -22,6 +23,14 @@ export default defineComponent({
       switch (type) {
         case 'group':
           return h(ProGroupForm, {
+            modelValue: props.modelValue,
+            columns,
+            prefix: props.prefix,
+            indexes: props.indexes,
+            'onUpdate:modelValue': update,
+          })
+        case 'tabs':
+          return h(ProTabsForm, {
             modelValue: props.modelValue,
             columns,
             prefix: props.prefix,

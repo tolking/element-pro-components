@@ -1,8 +1,9 @@
-import { computed, Ref, unref, shallowRef, provide, inject, toRef } from 'vue'
+import { computed, Ref, unref, shallowRef, provide, inject, Slot } from 'vue'
 import { useLocale, useSize } from 'element-plus'
 import { useShow } from '../composables/index'
 import { isObject, objectOmit, isBoolean } from '../utils/index'
 import type { ComputedRef, InjectionKey, Slots } from 'vue'
+import type { TabPaneName } from 'element-plus'
 import type { UnknownObject, MaybeArray, MaybeRef } from '../types/index'
 import type {
   IFormEmits,
@@ -16,6 +17,8 @@ import type {
   IArrayFormEmits,
   IArrayFormProps,
   IFormProps,
+  GroupFormColumn,
+  IFormItemProps,
 } from './index'
 
 type FormItemBind = Omit<
@@ -173,15 +176,16 @@ export function useFormMethods(emit: IFormEmits): {
 export const formContentKey: InjectionKey<IFormContext> = Symbol('formKey')
 
 export function useFormProvide(
-  props: Pick<IFormProps, 'inline'>,
-  emit: IArrayFormEmits,
+  props: IFormProps,
+  emit: IFormEmits,
   slots: Readonly<Slots>
 ) {
   provide(formContentKey, {
-    inline: toRef(props, 'inline'),
+    props,
     slots,
     add,
     remove,
+    tabsChange,
   })
 
   function add(indexes: number[]) {
@@ -190,6 +194,10 @@ export function useFormProvide(
 
   function remove(indexes: number[]) {
     emit('remove-item', indexes)
+  }
+
+  function tabsChange(name: TabPaneName) {
+    emit('tab-change', name)
   }
 }
 
@@ -245,4 +253,21 @@ export function useArrayForm(
     remove,
     update,
   }
+}
+
+export function useCreateLabel(props: Pick<IFormItemProps, 'indexes'>) {
+  const form = useFormInject()
+
+  function createLabel(item: GroupFormColumn) {
+    if (form?.slots[`form-${item.prop}-label`]) {
+      return (form?.slots[`form-${item.prop}-label`] as Slot)({
+        item: item,
+        indexes: props.indexes,
+      })
+    } else {
+      return item.label
+    }
+  }
+
+  return createLabel
 }

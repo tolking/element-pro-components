@@ -1,5 +1,5 @@
-import { defineComponent, h, mergeProps, Slot } from 'vue'
-import { useFormInject } from './useForm'
+import { defineComponent, h, mergeProps } from 'vue'
+import { useFormInject, useCreateLabel } from './useForm'
 import { groupFormProps, formItemEmits } from './props'
 import ProFormList from './FormList'
 import type { UnknownObject } from '../types/index'
@@ -11,20 +11,10 @@ export default defineComponent({
   emits: formItemEmits,
   setup(props, { emit }) {
     const form = useFormInject()
+    const createLabel = useCreateLabel(props)
 
     function update(value: UnknownObject) {
       emit('update:modelValue', value)
-    }
-
-    function createTitle(item: GroupFormColumn) {
-      if (form?.slots[`form-${item.prop}-label`]) {
-        return (form?.slots[`form-${item.prop}-label`] as Slot)({
-          item: item,
-          indexes: props.indexes,
-        })
-      } else {
-        return item.label
-      }
     }
 
     function createDefault(item: GroupFormColumn) {
@@ -32,9 +22,9 @@ export default defineComponent({
         h(
           'div',
           {
-            class: ['pro-group-form-title', !form?.inline.value && 'el-col-24'],
+            class: ['pro-group-form-title', !form?.props.inline && 'el-col-24'],
           },
-          createTitle(item)
+          createLabel(item)
         ),
         h(
           ProFormList,

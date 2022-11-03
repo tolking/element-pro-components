@@ -3,12 +3,19 @@ import {
   arrayFormProps,
   formListProps,
   groupFormProps,
+  formItemProps,
   formEmits,
   formItemEmits,
   arrayFormEmits,
+  tabsFormEmits,
 } from './props'
-import type { Component, Ref, Slots } from 'vue'
-import type { ButtonProps, ColProps, FormItemProps } from 'element-plus'
+import type { Component, Slots } from 'vue'
+import type {
+  ButtonProps,
+  ColProps,
+  FormItemProps,
+  TabPaneName,
+} from 'element-plus'
 import type {
   IDefineProps,
   IDefineEmits,
@@ -41,7 +48,7 @@ export interface FormColumn<T = ExternalParam>
   prop: ColumnProp<T>
 }
 
-export type GroupFormType = 'group'
+export type GroupFormType = 'group' | 'tabs'
 
 export interface GroupFormColumn<T = ExternalParam> {
   /** the type of group-form */
@@ -110,19 +117,22 @@ export interface IFormExpose {
 }
 
 export interface IFormContext {
-  inline: Ref<boolean>
+  props: IFormProps
   slots: Readonly<Slots>
   add: (indexes: number[]) => void
   remove: (indexes: number[]) => void
+  tabsChange: (name: TabPaneName) => void
 }
 
 export type IFormProps = IDefineProps<typeof formProps>
 export type IArrayFormProps = IDefineProps<typeof arrayFormProps>
 export type IFormListProps = IDefineProps<typeof formListProps>
 export type IGroupFormProps = IDefineProps<typeof groupFormProps>
+export type IFormItemProps = IDefineProps<typeof formItemProps>
 export type IFormEmits = IDefineEmits<typeof formEmits>
 export type IFormItemEmits = IDefineEmits<typeof formItemEmits>
 export type IArrayFormEmits = IDefineEmits<typeof arrayFormEmits>
+export type ITabsFormEmits = IDefineEmits<typeof tabsFormEmits>
 
 /**
  * Type helper to make it easier to define columns
