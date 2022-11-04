@@ -11,7 +11,7 @@ import {
   isNumber,
 } from '../utils/index'
 import type { Component, PropType } from 'vue'
-import type { TabPaneName } from 'element-plus'
+import type { CollapseModelValue, TabPaneName } from 'element-plus'
 import type { ExternalParam, UnknownObject } from '../types/index'
 import type {
   IFormColumns,
@@ -102,13 +102,19 @@ export const arrayFormEmits = {
 }
 
 export const tabsFormEmits = {
-  'update:modelValue': (value: UnknownObject) => isObject(value),
+  ...formItemEmits,
   'tab-change': (name: TabPaneName) => isString(name) || isNumber(name),
+}
+
+export const collapseFormEmits = {
+  ...formItemEmits,
+  'collapse-change': (active: CollapseModelValue) => isArray(active),
 }
 
 export const formEmits = {
   ...arrayFormEmits,
   ...tabsFormEmits,
+  ...collapseFormEmits,
   'update:modelValue': (value: ExternalParam) =>
     isObject(value) || isArray(value) || isUndefined(value),
   submit: (done: () => void, isValid: boolean, invalidFields?: InvalidFields) =>

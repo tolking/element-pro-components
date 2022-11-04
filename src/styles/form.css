@@ -53,4 +53,14 @@
     color: var(--el-text-color-primary);
     font-weight: 500;
   }
+
+  & .pro-collapse-form {
+    margin-bottom: var(--pro-array-form-size);
+    & .el-collapse-item .el-collapse-item__content {
+      display: flex;
+      flex-wrap: wrap;
+      position: relative;
+      box-sizing: border-box;
+    }
+  }
 }

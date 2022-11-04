@@ -13,6 +13,7 @@ import type { Component, Slots } from 'vue'
 import type {
   ButtonProps,
   ColProps,
+  CollapseModelValue,
   FormItemProps,
   TabPaneName,
 } from 'element-plus'
@@ -48,7 +49,7 @@ export interface FormColumn<T = ExternalParam>
   prop: ColumnProp<T>
 }
 
-export type GroupFormType = 'group' | 'tabs'
+export type GroupFormType = 'group' | 'tabs' | 'collapse'
 
 export interface GroupFormColumn<T = ExternalParam> {
   /** the type of group-form */
@@ -122,6 +123,7 @@ export interface IFormContext {
   add: (indexes: number[]) => void
   remove: (indexes: number[]) => void
   tabsChange: (name: TabPaneName) => void
+  collapseChange: (active: CollapseModelValue) => void
 }
 
 export type IFormProps = IDefineProps<typeof formProps>

@@ -4,6 +4,7 @@ import { formEmits, formListProps } from './props'
 import ProArrayForm from './ArrayForm'
 import ProGroupForm from './GroupForm'
 import ProTabsForm from './TabsForm'
+import ProCollapseForm from './CollapseForm'
 import ProFormItem from './FormItem'
 import type { UnknownObject } from '../types/index'
 import type { GroupFormColumn, GroupFormType } from './type'
@@ -37,6 +38,14 @@ export default defineComponent({
             indexes: props.indexes,
             'onUpdate:modelValue': update,
           })
+        case 'collapse':
+          return h(ProCollapseForm, {
+            modelValue: props.modelValue,
+            columns,
+            prefix: props.prefix,
+            indexes: props.indexes,
+            'onUpdate:modelValue': update,
+          })
       }
     }
 
@@ -49,6 +58,15 @@ export default defineComponent({
       let left = 0
       let right = left
 
+      const sliceGroup = () => {
+        if (!props.columns || !cacheType) return
+        const columns = props.columns.slice(left, right) as GroupFormColumns
+
+        list.push(createGroup(cacheType, columns))
+        cacheType = undefined
+        left = right
+      }
+
       while (left < len && right < len) {
         const item = props.columns[right]
         const prefix = `${props.prefix}${props.prefix ? '.' : ''}${item.prop}`
@@ -60,23 +78,15 @@ export default defineComponent({
           } else if (cacheType === item.type && right + 1 !== len) {
             right++
           } else {
-            right = left + 1 === len || right + 1 === len ? len : right
-            const columns = props.columns.slice(left, right) as GroupFormColumns
-
-            list.push(createGroup(cacheType || item.type, columns))
-            cacheType = item.type
-            left = right
+            if (cacheType !== item.type) {
+              sliceGroup()
+              cacheType = item.type
+            }
             right++
+            right === len && sliceGroup()
           }
         } else {
-          if (cacheType) {
-            const columns = props.columns.slice(left, right) as GroupFormColumns
-
-            list.push(createGroup(cacheType, columns))
-            cacheType = undefined
-            left = right
-          }
-
+          cacheType && sliceGroup()
           list.push(
             h(ProFormItem, {
               modelValue: props.modelValue,
