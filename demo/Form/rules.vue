@@ -17,10 +17,10 @@ import { defineFormColumns, defineFormSubmit } from 'element-pro-components'
 export default defineComponent({
   setup() {
     const form = ref({})
-    const rules = ref({
+    const rules = {
       date: { required: true, message: 'Please input date', trigger: 'blur' },
       user: { required: true, message: 'Please input user', trigger: 'blur' },
-    })
+    }
     const columns = defineFormColumns([
       {
         label: 'Date',

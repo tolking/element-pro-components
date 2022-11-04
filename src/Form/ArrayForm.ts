@@ -23,7 +23,7 @@ export default defineComponent({
         h(
           'div',
           {
-            class: [!form?.inline.value && 'el-row', 'form-content'],
+            class: [!form?.props.inline && 'el-row', 'form-content'],
           },
           h(
             ProFormList,

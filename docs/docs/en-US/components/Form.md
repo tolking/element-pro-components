@@ -145,6 +145,14 @@ The Group Form used to display ordinary forms in groups
 @/demo/Form/group.vue
 :::
 
+### Tabs Form
+
+Switch different forms through tabs
+
+::: demo
+@/demo/Form/tabs.vue
+:::
+
 ### Async Form
 
 To implement Async Form, columns must be bound to a reactive array
@@ -249,6 +257,7 @@ props: {
 | validate    | triggers after a form item is validated | prop, isValid, invalidFields |
 | add-item    | triggers when the add click             | indexes: number[]            |
 | remove-item | triggers when the remove click          | indexes: number[]            |
+| tab-change  | triggers when the tab change            | name: string \| number       |
 
 ### Methods
 

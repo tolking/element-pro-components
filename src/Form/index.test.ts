@@ -6,6 +6,7 @@ import {
   formContentKey,
   ProArrayForm,
   ProGroupForm,
+  ProTabsForm,
   ProFormComponent,
   ProFormItem,
   ProFormList,
@@ -18,6 +19,7 @@ import type { Mutable } from '../types/index'
 config.global.components = {
   ProArrayForm,
   ProGroupForm,
+  ProTabsForm,
   ProFormComponent,
   ProFormItem,
   ProFormList,
@@ -40,12 +42,31 @@ const groupColumns: IFormColumns = [
     children: columns,
   },
 ]
+const tabsColumns: IFormColumns = [
+  {
+    label: 'Tab1',
+    type: 'tabs',
+    children: columns,
+  },
+  {
+    label: 'Tab2',
+    type: 'tabs',
+    children: [
+      {
+        label: 'Other',
+        prop: 'other',
+        component: 'el-input',
+      },
+    ],
+  },
+]
 
 const addClass = '.form-btn-add'
 const deleteClass = '.form-btn-delete'
 const arrayClass = '.pro-array-form'
 const arrayContentClass = `${arrayClass} .form-content`
 const groupTitle = '.pro-group-form-title'
+const tabLabel = '.pro-tabs-form .el-tabs__item'
 const buttonClass =
   '.pro-form .el-form-item:last-child .el-form-item__content button'
 const getFormList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
@@ -154,7 +175,9 @@ describe('ProFormItem', () => {
   beforeEach(() => {
     config.global.provide = {
       [formContentKey as symbol]: {
-        inline: ref(false),
+        props: {
+          inline: false,
+        },
         slots: {
           'form-slot-label': () => 'slot-label',
           'form-slot': () => 'slot-default',
@@ -503,7 +526,9 @@ describe('ProGroupForm', () => {
   beforeEach(() => {
     config.global.provide = {
       [formContentKey as symbol]: {
-        inline: ref(false),
+        props: {
+          inline: false,
+        },
         slots: {
           'form-slot-label': () => 'slot-label',
         },
@@ -575,6 +600,92 @@ describe('ProGroupForm', () => {
     })
 
     expect(wrapper.find(groupTitle).text()).toBe('slot-label')
+  })
+})
+
+describe('ProTabsForm', () => {
+  beforeEach(() => {
+    config.global.provide = {
+      [formContentKey as symbol]: {
+        props: {
+          inline: false,
+        },
+        slots: {
+          'form-slot-label': () => 'slot-label',
+        },
+      },
+    }
+  })
+
+  afterEach(() => {
+    document.body.innerHTML = ''
+    config.global.provide = {}
+  })
+
+  test.concurrent('empt', async () => {
+    const wrapper = mount({
+      template: '<pro-tabs-form />',
+    })
+
+    expect(wrapper.find('.pro-tabs-form').exists()).toBe(true)
+    expect(wrapper.find(tabLabel).exists()).toBe(false)
+  })
+
+  test.concurrent('columns', async () => {
+    const wrapper = await mount({
+      template: '<pro-tabs-form :columns="columns" />',
+      setup() {
+        return { columns: tabsColumns }
+      },
+    })
+
+    expect(wrapper.find('.pro-tabs-form').exists()).toBe(true)
+    expect(wrapper.find(tabLabel).exists()).toBe(true)
+    expect(wrapper.find(tabLabel).text()).toBe('Tab1')
+    expect(wrapper.find(tabLabel + ':last-child').text()).toBe('Tab2')
+    const labels = getLabelList(wrapper)
+    expect(labels).toHaveLength(2)
+    expect(labels[0]).toBe('input')
+    expect(labels[1]).toBe('Other')
+    const components = getComponentList(wrapper)
+    expect(components).toHaveLength(2)
+    expect(components[0]).toContain('el-input')
+    expect(components[1]).toContain('el-input')
+  })
+
+  test.concurrent('modelValue', async () => {
+    const wrapper = mount({
+      template: '<pro-tabs-form v-model="form" :columns="columns" />',
+      setup() {
+        const form = ref({ input: 'test' })
+        return { form, columns: tabsColumns }
+      },
+    })
+
+    expect(wrapper.find('input').element.value).toBe('test')
+
+    await wrapper.find('input').setValue('value')
+    expect(wrapper.vm.form.input).toBe('value')
+  })
+
+  test.concurrent('slots', async () => {
+    // The slot of the GroupForm is injected through the top Form
+    const wrapper = await mount({
+      template: '<pro-tabs-form v-model="form" :columns="columns" />',
+      setup() {
+        const form = ref()
+        const _columns: IFormColumns = [
+          {
+            prop: 'slot',
+            type: 'tabs',
+            children: columns,
+          },
+        ]
+        return { form, columns: _columns }
+      },
+    })
+
+    expect(wrapper.find(tabLabel).text()).toBe('slot-label')
   })
 })
 

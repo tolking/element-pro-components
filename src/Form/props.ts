@@ -7,8 +7,11 @@ import {
   isFunction,
   isBoolean,
   isUndefined,
+  isString,
+  isNumber,
 } from '../utils/index'
 import type { Component, PropType } from 'vue'
+import type { TabPaneName } from 'element-plus'
 import type { ExternalParam, UnknownObject } from '../types/index'
 import type {
   IFormColumns,
@@ -98,8 +101,14 @@ export const arrayFormEmits = {
   'remove-item': (indexes: number[]) => isArray(indexes),
 }
 
+export const tabsFormEmits = {
+  'update:modelValue': (value: UnknownObject) => isObject(value),
+  'tab-change': (name: TabPaneName) => isString(name) || isNumber(name),
+}
+
 export const formEmits = {
   ...arrayFormEmits,
+  ...tabsFormEmits,
   'update:modelValue': (value: ExternalParam) =>
     isObject(value) || isArray(value) || isUndefined(value),
   submit: (done: () => void, isValid: boolean, invalidFields?: InvalidFields) =>
