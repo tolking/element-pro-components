@@ -145,6 +145,14 @@ meta:
 @/demo/Form/group.vue
 :::
 
+### 带有标签的表单
+
+通过标签页切换不同的表单
+
+::: demo
+@/demo/Form/tabs.vue
+:::
+
 ### 异步表单
 
 想要实现异步表单 columns 必须绑定一个动态数组
@@ -257,6 +265,7 @@ props: {
 | validate    | 任一表单项被校验后触发 | prop, isValid, invalidFields |
 | add-item    | add 被点击后触发       | indexes: number[]            |
 | remove-item | remove 被点击后触发    | indexes: number[]            |
+| tab-change  | tab 改变时触发         | name: string \| number       |
 
 ### 方法
 
