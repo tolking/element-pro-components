@@ -145,6 +145,14 @@ meta:
 @/demo/Form/group.vue
 :::
 
+### 可折叠的分组表单
+
+可折叠显示的分组表单
+
+::: demo
+@/demo/Form/collapse.vue
+:::
+
 ### 带有标签的表单
 
 通过标签页切换不同的表单
@@ -258,14 +266,15 @@ props: {
 
 ### 事件
 
-| 事件名      | 说明                   | 参数                         |
-| ----------- | ---------------------- | ---------------------------- |
-| submit      | submit 被点击后触发    | done, isValid, invalidFields |
-| reset       | reset 按钮被点击后触发 | -                            |
-| validate    | 任一表单项被校验后触发 | prop, isValid, invalidFields |
-| add-item    | add 被点击后触发       | indexes: number[]            |
-| remove-item | remove 被点击后触发    | indexes: number[]            |
-| tab-change  | tab 改变时触发         | name: string \| number       |
+| 事件名          | 说明                   | 参数                         |
+| --------------- | ---------------------- | ---------------------------- |
+| submit          | submit 被点击后触发    | done, isValid, invalidFields |
+| reset           | reset 按钮被点击后触发 | -                            |
+| validate        | 任一表单项被校验后触发 | prop, isValid, invalidFields |
+| add-item        | add 被点击后触发       | indexes: number[]            |
+| remove-item     | remove 被点击后触发    | indexes: number[]            |
+| collapse-change | collapse 改变时触发    | active: CollapseModelValue   |
+| tab-change      | tab 改变时触发         | name: TabPaneName            |
 
 ### 方法
 

@@ -3,7 +3,7 @@ import { useLocale, useSize } from 'element-plus'
 import { useShow } from '../composables/index'
 import { isObject, objectOmit, isBoolean } from '../utils/index'
 import type { ComputedRef, InjectionKey, Slots } from 'vue'
-import type { TabPaneName } from 'element-plus'
+import type { CollapseModelValue, TabPaneName } from 'element-plus'
 import type { UnknownObject, MaybeArray, MaybeRef } from '../types/index'
 import type {
   IFormEmits,
@@ -186,6 +186,7 @@ export function useFormProvide(
     add,
     remove,
     tabsChange,
+    collapseChange,
   })
 
   function add(indexes: number[]) {
@@ -198,6 +199,10 @@ export function useFormProvide(
 
   function tabsChange(name: TabPaneName) {
     emit('tab-change', name)
+  }
+
+  function collapseChange(active: CollapseModelValue) {
+    emit('collapse-change', active)
   }
 }
 

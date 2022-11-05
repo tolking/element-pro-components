@@ -7,6 +7,7 @@ import {
   ProArrayForm,
   ProGroupForm,
   ProTabsForm,
+  ProCollapseForm,
   ProFormComponent,
   ProFormItem,
   ProFormList,
@@ -20,6 +21,7 @@ config.global.components = {
   ProArrayForm,
   ProGroupForm,
   ProTabsForm,
+  ProCollapseForm,
   ProFormComponent,
   ProFormItem,
   ProFormList,
@@ -60,6 +62,13 @@ const tabsColumns: IFormColumns = [
     ],
   },
 ]
+const collapseColumns: IFormColumns = [
+  {
+    label: 'Collapse',
+    type: 'collapse',
+    children: columns,
+  },
+]
 
 const addClass = '.form-btn-add'
 const deleteClass = '.form-btn-delete'
@@ -67,6 +76,8 @@ const arrayClass = '.pro-array-form'
 const arrayContentClass = `${arrayClass} .form-content`
 const groupTitle = '.pro-group-form-title'
 const tabLabel = '.pro-tabs-form .el-tabs__item'
+const collapseLabel =
+  '.pro-collapse-form .el-collapse-item .el-collapse-item__header'
 const buttonClass =
   '.pro-form .el-form-item:last-child .el-form-item__content button'
 const getFormList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
@@ -399,6 +410,76 @@ describe('ProFormList', () => {
     expect(getItem(9).classes()).toContain('pro-group-form-title')
     expect(getItem(9).text()).toBe('new one')
   })
+
+  test.concurrent('type=tabs', async () => {
+    const wrapper = await mount({
+      template: '<pro-form-list :columns="columns" />',
+      setup() {
+        const _columns = ref(
+          defineFormColumns<string>([
+            {
+              label: 'input-1',
+              prop: 'key1',
+              component: 'el-input',
+              class: 'input-1',
+            },
+            {
+              label: 'tabs-1',
+              type: 'tabs',
+              children: columns,
+            },
+            {
+              label: 'tabs-2',
+              type: 'tabs',
+              children: columns,
+            },
+          ])
+        )
+        return { columns: _columns }
+      },
+    })
+
+    const list = wrapper.findAll('.el-col-24').map((item) => item.classes())
+    expect(list).toHaveLength(4)
+    expect(list[0]).toContain('input-1')
+    expect(list[1]).toContain('pro-tabs-form')
+    expect(list[2]).not.toContain('pro-tabs-form')
+  })
+
+  test.concurrent('type=collapse', async () => {
+    const wrapper = await mount({
+      template: '<pro-form-list :columns="columns" />',
+      setup() {
+        const _columns = ref(
+          defineFormColumns<string>([
+            {
+              label: 'collapse-1',
+              type: 'collapse',
+              children: columns,
+            },
+            {
+              label: 'collapse-2',
+              type: 'collapse',
+              children: columns,
+            },
+            {
+              label: 'input-1',
+              prop: 'key1',
+              component: 'el-input',
+              class: 'input-1',
+            },
+          ])
+        )
+        return { columns: _columns }
+      },
+    })
+
+    const list = wrapper.findAll('.el-col-24').map((item) => item.classes())
+    expect(list).toHaveLength(4)
+    expect(list[0]).toContain('pro-collapse-form')
+    expect(list[1]).not.toContain('pro-collapse-form')
+    expect(list[1]).toContain('input-1')
+  })
 })
 
 describe('ArrayForm', () => {
@@ -686,6 +767,89 @@ describe('ProTabsForm', () => {
     })
 
     expect(wrapper.find(tabLabel).text()).toBe('slot-label')
+  })
+})
+
+describe('ProCollapseForm', () => {
+  beforeEach(() => {
+    config.global.provide = {
+      [formContentKey as symbol]: {
+        props: {
+          inline: false,
+        },
+        slots: {
+          'form-slot-label': () => 'slot-label',
+        },
+      },
+    }
+  })
+
+  afterEach(() => {
+    document.body.innerHTML = ''
+    config.global.provide = {}
+  })
+
+  test.concurrent('empt', async () => {
+    const wrapper = mount({
+      template: '<pro-collapse-form />',
+    })
+
+    expect(wrapper.find('.pro-collapse-form').exists()).toBe(true)
+    expect(wrapper.find(collapseLabel).exists()).toBe(false)
+  })
+
+  test.concurrent('columns', async () => {
+    const wrapper = await mount({
+      template: '<pro-collapse-form :columns="columns" />',
+      setup() {
+        return { columns: collapseColumns }
+      },
+    })
+
+    expect(wrapper.find('.pro-collapse-form').exists()).toBe(true)
+    expect(wrapper.find(collapseLabel).exists()).toBe(true)
+    expect(wrapper.find(collapseLabel).text()).toBe('Collapse')
+    const labels = getLabelList(wrapper)
+    expect(labels).toHaveLength(1)
+    expect(labels[0]).toBe('input')
+    const components = getComponentList(wrapper)
+    expect(components).toHaveLength(1)
+    expect(components[0]).toContain('el-input')
+  })
+
+  test.concurrent('modelValue', async () => {
+    const wrapper = mount({
+      template: '<pro-collapse-form v-model="form" :columns="columns" />',
+      setup() {
+        const form = ref({ input: 'test' })
+        return { form, columns: collapseColumns }
+      },
+    })
+
+    expect(wrapper.find('input').element.value).toBe('test')
+
+    await wrapper.find('input').setValue('value')
+    expect(wrapper.vm.form.input).toBe('value')
+  })
+
+  test.concurrent('slots', async () => {
+    // The slot of the GroupForm is injected through the top Form
+    const wrapper = await mount({
+      template: '<pro-collapse-form v-model="form" :columns="columns" />',
+      setup() {
+        const form = ref()
+        const _columns: IFormColumns = [
+          {
+            prop: 'slot',
+            type: 'collapse',
+            children: columns,
+          },
+        ]
+        return { form, columns: _columns }
+      },
+    })
+
+    expect(wrapper.find(collapseLabel).text()).toBe('slot-label')
   })
 })
 

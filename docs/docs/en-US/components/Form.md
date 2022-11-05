@@ -145,6 +145,14 @@ The Group Form used to display ordinary forms in groups
 @/demo/Form/group.vue
 :::
 
+### Collapse Form
+
+Collapsible group form
+
+::: demo
+@/demo/Form/collapse.vue
+:::
+
 ### Tabs Form
 
 Switch different forms through tabs
@@ -250,14 +258,15 @@ props: {
 
 ### Events
 
-| Name        | Description                             | Parameters                   |
-| ----------- | --------------------------------------- | ---------------------------- |
-| submit      | triggers when the submit click          | done, isValid, invalidFields |
-| reset       | triggers when the reset click           | -                            |
-| validate    | triggers after a form item is validated | prop, isValid, invalidFields |
-| add-item    | triggers when the add click             | indexes: number[]            |
-| remove-item | triggers when the remove click          | indexes: number[]            |
-| tab-change  | triggers when the tab change            | name: string \| number       |
+| Name            | Description                             | Parameters                   |
+| --------------- | --------------------------------------- | ---------------------------- |
+| submit          | triggers when the submit click          | done, isValid, invalidFields |
+| reset           | triggers when the reset click           | -                            |
+| validate        | triggers after a form item is validated | prop, isValid, invalidFields |
+| add-item        | triggers when the add click             | indexes: number[]            |
+| remove-item     | triggers when the remove click          | indexes: number[]            |
+| collapse-change | triggers when the collapse change       | active: CollapseModelValue   |
+| tab-change      | triggers when the tab change            | name: TabPaneName            |
 
 ### Methods
 
