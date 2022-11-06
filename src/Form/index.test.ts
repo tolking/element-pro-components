@@ -8,6 +8,7 @@ import {
   ProGroupForm,
   ProTabsForm,
   ProCollapseForm,
+  ProStepsForm,
   ProFormComponent,
   ProFormItem,
   ProFormList,
@@ -22,6 +23,7 @@ config.global.components = {
   ProGroupForm,
   ProTabsForm,
   ProCollapseForm,
+  ProStepsForm,
   ProFormComponent,
   ProFormItem,
   ProFormList,
@@ -69,6 +71,24 @@ const collapseColumns: IFormColumns = [
     children: columns,
   },
 ]
+const stepsColumns: IFormColumns = [
+  {
+    label: 'Steps1',
+    type: 'steps',
+    children: columns,
+  },
+  {
+    label: 'Steps2',
+    type: 'steps',
+    children: [
+      {
+        label: 'Other',
+        prop: 'other',
+        component: 'el-input',
+      },
+    ],
+  },
+]
 
 const addClass = '.form-btn-add'
 const deleteClass = '.form-btn-delete'
@@ -76,6 +96,10 @@ const arrayClass = '.pro-array-form'
 const arrayContentClass = `${arrayClass} .form-content`
 const groupTitle = '.pro-group-form-title'
 const tabLabel = '.pro-tabs-form .el-tabs__item'
+const stepsTitle = '.pro-steps-form'
+const stepsMenu = '.pro-steps-form-menu'
+const stepItem = '.pro-steps-form .el-step'
+const stepHead = `${stepItem} .el-step__head`
 const collapseLabel =
   '.pro-collapse-form .el-collapse-item .el-collapse-item__header'
 const buttonClass =
@@ -389,7 +413,7 @@ describe('ProFormList', () => {
       },
     })
 
-    const getItem = (n: number) => wrapper.find(`.el-col-24:nth-child(n${n})`)
+    const getItem = (n: number) => wrapper.find(`.el-col-24:nth-child(${n})`)
     const list = wrapper.findAll('.el-col-24').map((item) => item.classes())
 
     expect(list).toHaveLength(8)
@@ -479,6 +503,92 @@ describe('ProFormList', () => {
     expect(list[0]).toContain('pro-collapse-form')
     expect(list[1]).not.toContain('pro-collapse-form')
     expect(list[1]).toContain('input-1')
+  })
+
+  test.concurrent('type=steps', async () => {
+    const wrapper = await mount({
+      template: '<pro-form-list :columns="columns" />',
+      setup() {
+        const _columns = ref(
+          defineFormColumns<string>([
+            {
+              label: 'steps-1',
+              type: 'steps',
+              children: columns,
+            },
+            {
+              label: 'steps-2',
+              type: 'steps',
+              children: columns,
+            },
+          ])
+        )
+        return { columns: _columns }
+      },
+    })
+
+    const list = wrapper.findAll('.el-col-24').map((item) => item.classes())
+    expect(list).toHaveLength(2)
+    expect(list[0]).toContain('pro-steps-form')
+    expect(list[1]).not.toContain('pro-steps-form')
+    expect(list[1]).toContain('el-form-item')
+  })
+
+  test.concurrent('multiple types', async () => {
+    const wrapper = await mount({
+      template: '<pro-form-list :columns="columns" />',
+      setup() {
+        const _columns = ref(
+          defineFormColumns<string>([
+            {
+              label: 'group',
+              type: 'group',
+              children: columns,
+            },
+            {
+              label: 'steps-1',
+              type: 'steps',
+              children: columns,
+            },
+            {
+              label: 'steps-2',
+              type: 'steps',
+              children: columns,
+            },
+            {
+              label: 'collapse',
+              type: 'collapse',
+              children: columns,
+            },
+            {
+              label: 'tabs-1',
+              type: 'tabs',
+              children: columns,
+            },
+            {
+              label: 'tabs-2',
+              type: 'tabs',
+              children: columns,
+            },
+          ])
+        )
+        return { columns: _columns }
+      },
+    })
+
+    const list = wrapper.findAll('.el-col-24').map((item) => item.classes())
+
+    expect(list).toHaveLength(9)
+    expect(wrapper.findAll(stepItem).length).toBe(2)
+    expect(list[0]).toContain('pro-group-form-title')
+    expect(list[1]).toContain('el-form-item')
+    expect(list[2]).toContain('pro-steps-form')
+    expect(list[3]).toContain('el-form-item')
+    expect(list[4]).toContain('pro-collapse-form')
+    expect(list[5]).toContain('pro-tabs-form')
+    expect(list[6]).toContain('el-form-item')
+    expect(list[7]).toContain('el-form-item')
+    expect(list[8]).toContain('el-form-item')
   })
 })
 
@@ -850,6 +960,121 @@ describe('ProCollapseForm', () => {
     })
 
     expect(wrapper.find(collapseLabel).text()).toBe('slot-label')
+  })
+})
+
+describe('ProStepsForm', () => {
+  beforeEach(() => {
+    config.global.provide = {
+      [formContentKey as symbol]: {
+        props: {
+          inline: false,
+        },
+        disabled: { value: false },
+        formRef: {
+          value: {
+            validateField(_: unknown, cb: (isValid: boolean) => void) {
+              cb(true)
+            },
+          },
+        },
+        stepChange() {
+          return null
+        },
+        slots: {
+          'form-slot-label': () => 'slot-label',
+        },
+      },
+    }
+  })
+
+  afterEach(() => {
+    document.body.innerHTML = ''
+    config.global.provide = {}
+  })
+
+  test.concurrent('empt', async () => {
+    const wrapper = mount({
+      template: '<pro-steps-form />',
+    })
+
+    expect(wrapper.find(stepsTitle).exists()).toBe(false)
+    expect(wrapper.find(stepsMenu).exists()).toBe(false)
+  })
+
+  test.concurrent('columns', async () => {
+    const wrapper = mount({
+      template: '<pro-steps-form v-model="form" :columns="columns" />',
+      setup() {
+        const form = ref()
+        return { form, columns: stepsColumns }
+      },
+    })
+
+    expect(wrapper.find(stepsTitle).exists()).toBe(true)
+    expect(wrapper.find(stepsMenu).exists()).toBe(true)
+    expect(wrapper.findAll(stepItem).length).toBe(2)
+    expect(wrapper.find(`${stepItem} .el-step__title`).text()).toBe('Steps1')
+    expect(wrapper.find(`${stepItem}:last-child .el-step__title`).text()).toBe(
+      'Steps2'
+    )
+    const labels = getLabelList(wrapper)
+    expect(labels).toHaveLength(1)
+    expect(labels[0]).toBe('input')
+    const components = getComponentList(wrapper)
+    expect(components).toHaveLength(1)
+    expect(components[0]).toContain('el-input')
+    expect(wrapper.find(`${stepsMenu} .el-button`).classes()).toContain(
+      'is-disabled'
+    )
+    expect(
+      wrapper.find(`${stepsMenu} .el-button:nth-child(2)`).classes()
+    ).not.toContain('is-disabled')
+    expect(wrapper.find(stepHead).classes()).not.toContain('is-finish')
+
+    await wrapper.find(`${stepsMenu} .el-button:nth-child(2)`).trigger('click')
+    const newLabels = getLabelList(wrapper)
+    expect(newLabels).toHaveLength(1)
+    expect(newLabels[0]).toBe('Other')
+    expect(wrapper.find(stepHead).classes()).not.toContain('is-process')
+    expect(wrapper.find(stepHead).classes()).toContain('is-finish')
+  })
+
+  test.concurrent('modelValue', async () => {
+    const wrapper = mount({
+      template: '<pro-steps-form v-model="form" :columns="columns" />',
+      setup() {
+        const form = ref({ input: 'test' })
+        return { form, columns: stepsColumns }
+      },
+    })
+
+    expect(wrapper.find('input').element.value).toBe('test')
+
+    await wrapper.find('input').setValue('value')
+    expect(wrapper.vm.form.input).toBe('value')
+  })
+
+  test.concurrent('slots', async () => {
+    // The slot of the GroupForm is injected through the top Form
+    const wrapper = await mount({
+      template: '<pro-steps-form v-model="form" :columns="columns" />',
+      setup() {
+        const form = ref()
+        const _columns: IFormColumns = [
+          {
+            prop: 'slot',
+            type: 'steps',
+            children: columns,
+          },
+        ]
+        return { form, columns: _columns }
+      },
+    })
+
+    expect(wrapper.find(`${stepItem} .el-step__title`).text()).toBe(
+      'slot-label'
+    )
   })
 })
 

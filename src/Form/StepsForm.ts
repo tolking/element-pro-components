@@ -23,7 +23,7 @@ export default defineComponent({
       }, [] as string[])
     })
 
-    if (form) {
+    if (form && (props.columns?.length || 0) > 1) {
       form.disabled.value = true
     }
 
@@ -55,6 +55,7 @@ export default defineComponent({
     }
 
     function createSteps() {
+      if (!isArray(props.columns)) return
       return h(
         ElSteps,
         {
