@@ -63,4 +63,15 @@
       box-sizing: border-box;
     }
   }
+
+  & .pro-steps-form {
+    margin-bottom: var(--pro-array-form-size);
+  }
+  & .pro-steps-form-menu + .pro-form-menu {
+    align-items: flex-start;
+    width: auto;
+    & .el-form-item__content {
+      margin-left: 12px !important;
+    }
+  }
 }

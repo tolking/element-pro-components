@@ -161,6 +161,14 @@ Switch different forms through tabs
 @/demo/Form/tabs.vue
 :::
 
+### Steps Form
+
+Split a form into several steps for input
+
+::: demo
+@/demo/Form/steps.vue
+:::
+
 ### Async Form
 
 To implement Async Form, columns must be bound to a reactive array
@@ -205,31 +213,31 @@ The function `defineFormColumns` supports passing in a Generics type to infer th
 
 #### columns
 
-| Name          | Description                                                                                            | Type                                        | Options                | Default |
-| :------------ | :----------------------------------------------------------------------------------------------------- | :------------------------------------------ | :--------------------- | :------ |
-| prop          | a key of `v-model`                                                                                     | string                                      | -                      | -       |
-| label         | label text                                                                                             | string                                      | -                      | -       |
-| component     | binding component                                                                                      | string                                      | -                      | -       |
-| props         | transfer `props` to the current component                                                              | object                                      | -                      | -       |
-| children      | group form or sub-form content                                                                         | array                                       | -                      | -       |
-| type          | type of children internal forms                                                                        | string                                      | array / group          | array   |
-| max           | limit the maximum number of sub-columns                                                                | number                                      | -                      | -       |
-| labelWidth    | width of label, e.g. '50px'. Width `auto` is supported.                                                | string                                      | -                      | -       |
-| required      | whether the field is required or not, will be determined by validation rules if omitted                | boolean                                     | -                      | false   |
-| rules         | validation rules of form                                                                               | object                                      | -                      | -       |
-| error         | field error message, set its value and the field will validate error and show this message immediately | string                                      | -                      | -       |
-| showMessage   | whether to show the error message                                                                      | boolean                                     | -                      | true    |
-| inlineMessage | inline style validate message                                                                          | boolean                                     | -                      | false   |
-| size          | control the size of components in this form-item                                                       | string                                      | large / default /small | -       |
-| span          | number of column the grid spans                                                                        | number                                      | -                      | 24      |
-| offset        | number of spacing on the left side of the grid                                                         | number                                      | -                      | 0       |
-| push          | number of columns that grid moves to the right                                                         | number                                      | -                      | 0       |
-| pull          | number of columns that grid moves to the left                                                          | number                                      | -                      | 0       |
-| xs            | `<768px` Responsive columns or column props object                                                     | number / object (e.g. {span: 4, offset: 4}) | -                      | -       |
-| sm            | `≥768px` Responsive columns or column props object                                                     | number / object (e.g. {span: 4, offset: 4}) | -                      | -       |
-| md            | `≥992px` Responsive columns or column props object                                                     | number / object (e.g. {span: 4, offset: 4}) | -                      | -       |
-| lg            | `≥1200px` Responsive columns or column props object                                                    | number / object (e.g. {span: 4, offset: 4}) | -                      | -       |
-| xl            | `≥1920px` Responsive columns or column props object                                                    | number / object (e.g. {span: 4, offset: 4}) | -                      | -       |
+| Name          | Description                                                                                            | Type                                        | Options                                 | Default |
+| :------------ | :----------------------------------------------------------------------------------------------------- | :------------------------------------------ | :-------------------------------------- | :------ |
+| prop          | a key of `v-model` (**unique value**)                                                                  | string                                      | -                                       | -       |
+| label         | label text                                                                                             | string                                      | -                                       | -       |
+| component     | binding component                                                                                      | string                                      | -                                       | -       |
+| props         | transfer `props` to the current component                                                              | object                                      | -                                       | -       |
+| children      | group form or sub-form content                                                                         | array                                       | -                                       | -       |
+| type          | type of children internal forms                                                                        | string                                      | array / group / tabs / collapse / steps | array   |
+| max           | limit the maximum number of `type=array`                                                               | number                                      | -                                       | -       |
+| labelWidth    | width of label, e.g. '50px'. Width `auto` is supported.                                                | string                                      | -                                       | -       |
+| required      | whether the field is required or not, will be determined by validation rules if omitted                | boolean                                     | -                                       | false   |
+| rules         | validation rules of form                                                                               | object                                      | -                                       | -       |
+| error         | field error message, set its value and the field will validate error and show this message immediately | string                                      | -                                       | -       |
+| showMessage   | whether to show the error message                                                                      | boolean                                     | -                                       | true    |
+| inlineMessage | inline style validate message                                                                          | boolean                                     | -                                       | false   |
+| size          | control the size of components in this form-item                                                       | string                                      | large / default /small                  | -       |
+| span          | number of column the grid spans                                                                        | number                                      | -                                       | 24      |
+| offset        | number of spacing on the left side of the grid                                                         | number                                      | -                                       | 0       |
+| push          | number of columns that grid moves to the right                                                         | number                                      | -                                       | 0       |
+| pull          | number of columns that grid moves to the left                                                          | number                                      | -                                       | 0       |
+| xs            | `<768px` Responsive columns or column props object                                                     | number / object (e.g. {span: 4, offset: 4}) | -                                       | -       |
+| sm            | `≥768px` Responsive columns or column props object                                                     | number / object (e.g. {span: 4, offset: 4}) | -                                       | -       |
+| md            | `≥992px` Responsive columns or column props object                                                     | number / object (e.g. {span: 4, offset: 4}) | -                                       | -       |
+| lg            | `≥1200px` Responsive columns or column props object                                                    | number / object (e.g. {span: 4, offset: 4}) | -                                       | -       |
+| xl            | `≥1920px` Responsive columns or column props object                                                    | number / object (e.g. {span: 4, offset: 4}) | -                                       | -       |
 
 ::: tip about props
 The props attribute will all be passed to the component. **For events need to be bound by `on[Event]`. example: `change` -> `onChange`, `input` -> `onInput`**
@@ -247,14 +255,18 @@ props: {
 
 #### menu
 
-| Name        | Description                                       | Type    | Options | Default             |
-| :---------- | :------------------------------------------------ | :------ | :------ | :------------------ |
-| submit      | whether to display a submit button                | boolean | -       | true                |
-| submitText  | the text of submit button                         | string  | -       | Submit              |
-| submitProps | the props of submit button, reference `el-button` | object  | -       | { type: 'primary' } |
-| reset       | Whether to display a reset button                 | boolean | -       | true                |
-| resetText   | the text of reset button                          | string  | -       | Reset               |
-| resetProps  | the props of reset button, reference `el-button`  | object  | -       | -                   |
+| Name        | Description                                       | Type    | Default             |
+| :---------- | :------------------------------------------------ | :------ | :------------------ |
+| submit      | whether to display a submit button                | boolean | true                |
+| submitText  | the text of submit button                         | string  | Submit              |
+| submitProps | the props of submit button, reference `el-button` | object  | { type: 'primary' } |
+| reset       | Whether to display a reset button                 | boolean | true                |
+| resetText   | the text of reset button                          | string  | Reset               |
+| resetProps  | the props of reset button, reference `el-button`  | object  | -                   |
+| prevText    | the text of prev button                           | string  | Prev                |
+| prevProps   | the props of prev button, reference `el-button`   | object  | -                   |
+| nextText    | the text of next button                           | string  | Next                |
+| nextProps   | the props of next button, reference `el-button`   | object  | -                   |
 
 ### Events
 
@@ -267,6 +279,7 @@ props: {
 | remove-item     | triggers when the remove click          | indexes: number[]            |
 | collapse-change | triggers when the collapse change       | active: CollapseModelValue   |
 | tab-change      | triggers when the tab change            | name: TabPaneName            |
+| step-change     | triggers when the step change           | active: string \| number     |
 
 ### Methods
 

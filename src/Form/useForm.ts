@@ -76,6 +76,8 @@ export const formMenu: IFormMenuColumns = {
   submitProps: { type: 'primary' },
   reset: true,
   resetText: 'Reset',
+  prevText: 'Prev',
+  nextText: 'Next',
 }
 
 export function useFormMenu(
@@ -86,12 +88,20 @@ export function useFormMenu(
     const { t } = useLocale()
     const submitText = t('pro.form.submit')
     const resetText = t('pro.form.reset')
+    const prevText = t('pro.form.prev')
+    const nextText = t('pro.form.next')
 
     if (submitText && submitText !== 'pro.form.submit') {
       menu.submitText = submitText
     }
     if (resetText && resetText !== 'pro.form.reset') {
       menu.resetText = resetText
+    }
+    if (prevText && prevText !== 'pro.form.prev') {
+      menu.prevText = prevText
+    }
+    if (nextText && nextText !== 'pro.form.next') {
+      menu.nextText = nextText
     }
 
     return props.menu ? Object.assign({}, menu, props.menu) : menu
@@ -175,34 +185,40 @@ export function useFormMethods(emit: IFormEmits): {
 
 export const formContentKey: InjectionKey<IFormContext> = Symbol('formKey')
 
-export function useFormProvide(
-  props: IFormProps,
-  emit: IFormEmits,
+export function useFormProvide(content: {
+  props: IFormProps
+  emit: IFormEmits
   slots: Readonly<Slots>
-) {
+  formRef: Ref<IFormExpose>
+  disabled: Ref<boolean>
+}) {
   provide(formContentKey, {
-    props,
-    slots,
+    ...content,
     add,
     remove,
     tabsChange,
     collapseChange,
+    stepChange,
   })
 
   function add(indexes: number[]) {
-    emit('add-item', indexes)
+    content.emit('add-item', indexes)
   }
 
   function remove(indexes: number[]) {
-    emit('remove-item', indexes)
+    content.emit('remove-item', indexes)
   }
 
   function tabsChange(name: TabPaneName) {
-    emit('tab-change', name)
+    content.emit('tab-change', name)
   }
 
   function collapseChange(active: CollapseModelValue) {
-    emit('collapse-change', active)
+    content.emit('collapse-change', active)
+  }
+
+  function stepChange(active: TabPaneName) {
+    content.emit('step-change', active)
   }
 }
 
