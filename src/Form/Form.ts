@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, mergeProps, VNode } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, VNode } from 'vue'
 import { reactivePick } from '@vueuse/core'
 import { ElForm, ElFormItem, ElButton } from 'element-plus'
 import { useCurrentBreakpoint, useRow } from '../composables/index'
@@ -27,6 +27,8 @@ export default defineComponent({
     const menu = useFormMenu(props)
     const { rowStyle, rowClass } = useRow(props)
     const breakpoint = useCurrentBreakpoint()
+
+    const disabled = ref(false)
     const labelPosition = computed(() => {
       const xs = breakpoint.value === 'xs' && !props.inline
       return props.labelPosition || (xs ? 'top' : undefined)
@@ -41,7 +43,7 @@ export default defineComponent({
       return {}
     })
 
-    useFormProvide(props, emit, slots)
+    useFormProvide({ props, emit, slots, formRef, disabled })
 
     expose({
       validate,
@@ -73,6 +75,7 @@ export default defineComponent({
             ElButton,
             mergeProps(menu.value.submitProps || {}, {
               loading: loading.value,
+              disabled: disabled.value,
               onClick: submitForm,
             }),
             () => menu.value.submitText

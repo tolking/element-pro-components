@@ -5,6 +5,7 @@ import ProArrayForm from './ArrayForm'
 import ProGroupForm from './GroupForm'
 import ProTabsForm from './TabsForm'
 import ProCollapseForm from './CollapseForm'
+import ProStepsForm from './StepsForm'
 import ProFormItem from './FormItem'
 import type { UnknownObject } from '../types/index'
 import type { GroupFormColumn, GroupFormType } from './type'
@@ -40,6 +41,14 @@ export default defineComponent({
           })
         case 'collapse':
           return h(ProCollapseForm, {
+            modelValue: props.modelValue,
+            columns,
+            prefix: props.prefix,
+            indexes: props.indexes,
+            'onUpdate:modelValue': update,
+          })
+        case 'steps':
+          return h(ProStepsForm, {
             modelValue: props.modelValue,
             columns,
             prefix: props.prefix,

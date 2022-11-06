@@ -111,10 +111,16 @@ export const collapseFormEmits = {
   'collapse-change': (active: CollapseModelValue) => isArray(active),
 }
 
+export const stepsFormEmits = {
+  ...formItemEmits,
+  'step-change': (active: TabPaneName) => isString(active) || isNumber(active),
+}
+
 export const formEmits = {
   ...arrayFormEmits,
   ...tabsFormEmits,
   ...collapseFormEmits,
+  ...stepsFormEmits,
   'update:modelValue': (value: ExternalParam) =>
     isObject(value) || isArray(value) || isUndefined(value),
   submit: (done: () => void, isValid: boolean, invalidFields?: InvalidFields) =>
