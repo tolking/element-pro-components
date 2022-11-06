@@ -161,6 +161,14 @@ meta:
 @/demo/Form/tabs.vue
 :::
 
+### 分步表单
+
+将一个普通的表单分割成几步输入
+
+::: demo
+@/demo/Form/steps.vue
+:::
+
 ### 异步表单
 
 想要实现异步表单 columns 必须绑定一个动态数组
@@ -205,31 +213,31 @@ meta:
 
 #### columns
 
-| 参数          | 说明                                                                      | 类型               | 可选值                 | 默认值 |
-| :------------ | :------------------------------------------------------------------------ | :----------------- | :--------------------- | :----- |
-| prop          | v-model 绑定的字段名 (**必填，需要是唯一值**)                             | string             | -                      | -      |
-| label         | 标签文本                                                                  | string             | -                      | -      |
-| component     | 当前项对应的组件，可以直接传入局部组件                                    | string / Component | -                      | -      |
-| props         | 传递的对应的组件的参数                                                    | object             | -                      | -      |
-| children      | 分组表单或子表单内容                                                      | array              | -                      | -      |
-| type          | children 内部表单的类型                                                   | string             | array / group          | array  |
-| max           | 与 children 一起使用，限制子表单的最大数量                                | number             | -                      | -      |
-| labelWidth    | 表单域标签的宽度，例如 '50px' 或 'auto'                                   | string             | -                      | -      |
-| required      | 是否必填，如不设置，则会根据校验规则自动生成                              | boolean            | -                      | false  |
-| rules         | 表单验证规则                                                              | object / array     | -                      | -      |
-| error         | 表单域验证错误信息, 设置该值会使表单验证状态变为`error`，并显示该错误信息 | string             | -                      | -      |
-| showMessage   | 是否显示校验错误信息                                                      | boolean            | -                      | true   |
-| inlineMessage | 以行内形式展示校验信息                                                    | boolean            | -                      | false  |
-| size          | 用于控制该表单域下组件的尺寸                                              | string             | large / default /small | -      |
-| span          | 栅格占据的列数                                                            | number             | -                      | 24     |
-| offset        | 栅格左侧的间隔格数                                                        | number             | -                      | 0      |
-| push          | 栅格向右移动格数                                                          | number             | -                      | 0      |
-| pull          | 栅格向左移动格数                                                          | number             | -                      | 0      |
-| xs            | `<768px` 响应式栅格数或者栅格属性对象                                     | number / object    | -                      | -      |
-| sm            | `≥768px` 响应式栅格数或者栅格属性对象                                     | number / object    | -                      | -      |
-| md            | `≥992px` 响应式栅格数或者栅格属性对象                                     | number / object    | -                      | -      |
-| lg            | `≥1200px` 响应式栅格数或者栅格属性对象                                    | number / object    | -                      | -      |
-| xl            | `≥1920px` 响应式栅格数或者栅格属性对象                                    | number / object    | -                      | -      |
+| 参数          | 说明                                                                      | 类型               | 可选值                                  | 默认值 |
+| :------------ | :------------------------------------------------------------------------ | :----------------- | :-------------------------------------- | :----- |
+| prop          | v-model 绑定的字段名 (**需要是唯一值**)                                   | string             | -                                       | -      |
+| label         | 标签文本                                                                  | string             | -                                       | -      |
+| component     | 当前项对应的组件，可以直接传入局部组件                                    | string / Component | -                                       | -      |
+| props         | 传递的对应的组件的参数                                                    | object             | -                                       | -      |
+| children      | 分组表单或子表单内容                                                      | array              | -                                       | -      |
+| type          | children 内部表单的类型                                                   | string             | array / group / tabs / collapse / steps | array  |
+| max           | 限制 `type=array` 时子表单的最大数量                                      | number             | -                                       | -      |
+| labelWidth    | 表单域标签的宽度，例如 '50px' 或 'auto'                                   | string             | -                                       | -      |
+| required      | 是否必填，如不设置，则会根据校验规则自动生成                              | boolean            | -                                       | false  |
+| rules         | 表单验证规则                                                              | object / array     | -                                       | -      |
+| error         | 表单域验证错误信息, 设置该值会使表单验证状态变为`error`，并显示该错误信息 | string             | -                                       | -      |
+| showMessage   | 是否显示校验错误信息                                                      | boolean            | -                                       | true   |
+| inlineMessage | 以行内形式展示校验信息                                                    | boolean            | -                                       | false  |
+| size          | 用于控制该表单域下组件的尺寸                                              | string             | large / default /small                  | -      |
+| span          | 栅格占据的列数                                                            | number             | -                                       | 24     |
+| offset        | 栅格左侧的间隔格数                                                        | number             | -                                       | 0      |
+| push          | 栅格向右移动格数                                                          | number             | -                                       | 0      |
+| pull          | 栅格向左移动格数                                                          | number             | -                                       | 0      |
+| xs            | `<768px` 响应式栅格数或者栅格属性对象                                     | number / object    | -                                       | -      |
+| sm            | `≥768px` 响应式栅格数或者栅格属性对象                                     | number / object    | -                                       | -      |
+| md            | `≥992px` 响应式栅格数或者栅格属性对象                                     | number / object    | -                                       | -      |
+| lg            | `≥1200px` 响应式栅格数或者栅格属性对象                                    | number / object    | -                                       | -      |
+| xl            | `≥1920px` 响应式栅格数或者栅格属性对象                                    | number / object    | -                                       | -      |
 
 ::: tip 关于 props
 props 的属性将全部传递给 component 指定的组件
@@ -255,14 +263,18 @@ props: {
 
 #### menu 的参数
 
-| 参数        | 说明                              | 类型    | 可选值 | 默认值              |
-| :---------- | :-------------------------------- | :------ | :----- | :------------------ |
-| submit      | 是否显示 submit 按钮              | boolean | -      | true                |
-| submitText  | submit 按钮显示的文字             | string  | -      | Submit              |
-| submitProps | submit 按钮的配置，参考 el-button | object  | -      | { type: 'primary' } |
-| reset       | 是否显示 reset 按钮               | boolean | -      | true                |
-| resetText   | 是否显示 reset 按钮显示的文字     | string  | -      | Reset               |
-| resetProps  | reset 按钮的配置，参考 el-button  | object  | -      | -                   |
+| 参数        | 说明                                | 类型    | 默认值              |
+| :---------- | :---------------------------------- | :------ | :------------------ |
+| submit      | 是否显示 submit 按钮                | boolean | true                |
+| submitText  | submit 按钮显示的文字               | string  | Submit              |
+| submitProps | submit 按钮的配置，参考 `el-button` | object  | { type: 'primary' } |
+| reset       | 是否显示 reset 按钮                 | boolean | true                |
+| resetText   | reset 按钮显示的文字                | string  | Reset               |
+| resetProps  | reset 按钮的配置，参考 `el-button`  | object  | -                   |
+| prevText    | prev 按钮显示的文字                 | string  | Prev                |
+| prevProps   | prev 按钮的配置，参考 `el-button`   | object  | -                   |
+| nextText    | next 按钮显示的文字                 | string  | Next                |
+| nextProps   | next 按钮的配置，参考 `el-button`   | object  | -                   |
 
 ### 事件
 
@@ -275,6 +287,7 @@ props: {
 | remove-item     | remove 被点击后触发    | indexes: number[]            |
 | collapse-change | collapse 改变时触发    | active: CollapseModelValue   |
 | tab-change      | tab 改变时触发         | name: TabPaneName            |
+| step-change     | step 改变时触发        | active: string \| number     |
 
 ### 方法
 
