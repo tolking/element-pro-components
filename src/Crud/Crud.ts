@@ -26,7 +26,7 @@ import { ProTable } from '../Table/index'
 import { ProDescriptions } from '../Descriptions/index'
 import type { ComponentSize } from 'element-plus'
 import type { StringObject, UnknownObject } from '../types/index'
-import type { IFormProps, IFormEmits } from '../Form/index'
+import type { IFormEmits } from '../Form/index'
 
 interface TableMenuScope {
   row: StringObject
@@ -38,7 +38,7 @@ export default defineComponent({
   props: crudProps,
   emits: crudEmits,
   setup(props, { slots, emit, expose }) {
-    const formProps = reactivePick(props, ...formKeys) as unknown as IFormProps
+    const formProps = reactivePick(props, ...formKeys)
     const tableProps = reactivePick(props, ...tableKeys)
     const descriptionsProps = reactivePick(props, ...descriptionsKeys)
     const dialogProps = reactivePick(props, ...dialogKeys)
@@ -68,8 +68,18 @@ export default defineComponent({
       update,
       resetForm,
     } = useFormMethods(emit as unknown as IFormEmits)
-    const { showDialog, type, formColumns, openDialog, submitForm } =
-      useCrudForm(props, emit, resetForm)
+    const {
+      showDialog,
+      type,
+      formColumns,
+      openDialog,
+      submitForm,
+      addItem,
+      removeItem,
+      tabsChange,
+      collapseChange,
+      stepChange,
+    } = useCrudForm(props, emit, resetForm)
     const searchMenu = useCrudSearchMenu(menuColumns)
     const { searchForm, searchReset, upSearchData } = useCrudSearchForm(emit)
     const { searchSlots, tableSlots, formSlots, detailSlots } = useCrudSlots()
@@ -161,6 +171,11 @@ export default defineComponent({
           inline: true,
           class: 'pro-crud-search',
           'onUpdate:modelValue': upSearchData,
+          'onAdd-item': addItem,
+          'onRemove-item': removeItem,
+          'onTab-change': tabsChange,
+          'onCollapse-change': collapseChange,
+          'onStep-change': stepChange,
           onSubmit: searchForm,
           onReset: searchReset,
         },
@@ -287,6 +302,11 @@ export default defineComponent({
           menu: menuColumns.value,
           class: 'pro-crud-form',
           'onUpdate:modelValue': update,
+          'onAdd-item': addItem,
+          'onRemove-item': removeItem,
+          'onTab-change': tabsChange,
+          'onCollapse-change': collapseChange,
+          'onStep-change': stepChange,
           onSubmit: submitForm,
           onReset: resetForm,
         }),
