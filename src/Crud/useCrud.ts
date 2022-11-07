@@ -1,9 +1,15 @@
 import { computed, ref, useSlots, Ref, Slot } from 'vue'
 import { useLocale } from 'element-plus'
-import { formMenu } from '../Form/useForm'
 import { isFunction, isObject, filterDeep, throwWarn } from '../utils/index'
+import { formMenu, useFormInjectEmits } from '../Form/index'
 import type { UnknownObject, ExternalParam } from '../types/index'
-import type { IFormColumns, IFormMenuColumns, IFormSubmit } from '../Form/index'
+import type {
+  IFormColumns,
+  IFormEmits,
+  IFormMenuColumns,
+  IFormSubmit,
+  UseFormInjectEmitsCallback,
+} from '../Form/index'
 import type { ITableColumns } from '../Table/index'
 import type { IDescriptionsColumns } from '../Descriptions/index'
 import type {
@@ -46,6 +52,8 @@ export function useCrudMenu(
       searchProps: { type: 'primary' },
       searchReset: true,
       searchResetText: 'Reset',
+      searchPrevText: 'Prev',
+      searchNextText: 'Next',
     }
     const menuList = [
       'add',
@@ -54,8 +62,12 @@ export function useCrudMenu(
       'del',
       'submit',
       'reset',
+      'prev',
+      'next',
       'search',
       'searchReset',
+      'searchPrev',
+      'searchNext',
     ]
 
     menuList.forEach((item) => {
@@ -144,8 +156,10 @@ export function useCrudForm(
   formColumns: Ref<IFormColumns | undefined>
   openDialog: (type: ICrudDialogType, row?: UnknownObject) => void
   submitForm: IFormSubmit
-} {
+} & UseFormInjectEmitsCallback {
   const { addColumns, editColumns, formColumns } = useCrudColumns(props)
+  const injectEmits = useFormInjectEmits(emit as unknown as IFormEmits)
+
   const showDialog = ref(false)
   const type = ref<ICrudDialogType>('add')
   const currentFormColumns = computed(() => {
@@ -180,6 +194,7 @@ export function useCrudForm(
   }
 
   return {
+    ...injectEmits,
     showDialog,
     type,
     formColumns: currentFormColumns,
@@ -198,6 +213,10 @@ export function useCrudSearchMenu(
     reset: menuColumns.value.searchReset,
     resetText: menuColumns.value.searchResetText,
     resetProps: menuColumns.value.searchResetProps,
+    prevText: menuColumns.value.searchPrevText,
+    prevProps: menuColumns.value.searchPrevProps,
+    nextText: menuColumns.value.searchNextText,
+    nextProps: menuColumns.value.searchNextProps,
   }))
 }
 
