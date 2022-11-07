@@ -21,43 +21,6 @@ export default defineComponent({
       emit('update:modelValue', value)
     }
 
-    function createGroup(type: GroupFormType, columns: GroupFormColumns) {
-      switch (type) {
-        case 'group':
-          return h(ProGroupForm, {
-            modelValue: props.modelValue,
-            columns,
-            prefix: props.prefix,
-            indexes: props.indexes,
-            'onUpdate:modelValue': update,
-          })
-        case 'tabs':
-          return h(ProTabsForm, {
-            modelValue: props.modelValue,
-            columns,
-            prefix: props.prefix,
-            indexes: props.indexes,
-            'onUpdate:modelValue': update,
-          })
-        case 'collapse':
-          return h(ProCollapseForm, {
-            modelValue: props.modelValue,
-            columns,
-            prefix: props.prefix,
-            indexes: props.indexes,
-            'onUpdate:modelValue': update,
-          })
-        case 'steps':
-          return h(ProStepsForm, {
-            modelValue: props.modelValue,
-            columns,
-            prefix: props.prefix,
-            indexes: props.indexes,
-            'onUpdate:modelValue': update,
-          })
-      }
-    }
-
     function createColumn() {
       if (!props.columns) return
 
@@ -70,8 +33,22 @@ export default defineComponent({
       const sliceGroup = () => {
         if (!props.columns || !cacheType) return
         const columns = props.columns.slice(left, right) as GroupFormColumns
+        const componentsMap = {
+          group: ProGroupForm,
+          tabs: ProTabsForm,
+          collapse: ProCollapseForm,
+          steps: ProStepsForm,
+        }
 
-        list.push(createGroup(cacheType, columns))
+        list.push(
+          h(componentsMap[cacheType], {
+            modelValue: props.modelValue,
+            columns,
+            prefix: props.prefix,
+            indexes: props.indexes,
+            'onUpdate:modelValue': update,
+          })
+        )
         cacheType = undefined
         left = right
       }

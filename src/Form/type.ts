@@ -126,19 +126,24 @@ export interface IFormExpose {
   ) => void
 }
 
-export interface IFormContext {
+export interface UseFormProvideConfig {
   props: IFormProps
+  emit: IFormEmits
   slots: Readonly<Slots>
   formRef: Ref<IFormExpose>
   /** disabled submit */
   disabled: Ref<boolean>
-  add: (indexes: number[]) => void
-  remove: (indexes: number[]) => void
+}
+
+export interface UseFormInjectEmitsCallback {
+  addItem: (indexes: number[]) => void
+  removeItem: (indexes: number[]) => void
   tabsChange: (name: TabPaneName) => void
   collapseChange: (active: CollapseModelValue) => void
   stepChange: (active: TabPaneName) => void
 }
 
+export type IFormContext = UseFormProvideConfig & UseFormInjectEmitsCallback
 export type IFormProps = IDefineProps<typeof formProps>
 export type IArrayFormProps = IDefineProps<typeof arrayFormProps>
 export type IFormListProps = IDefineProps<typeof formListProps>
