@@ -1,5 +1,6 @@
 import { defineComponent, h, mergeProps } from 'vue'
 import { useFormInject, useCreateLabel } from './useForm'
+import { getGroupFormItemBind } from './utils'
 import { groupFormProps, formItemEmits } from './props'
 import ProFormList from './FormList'
 import type { UnknownObject } from '../types/index'
@@ -21,9 +22,9 @@ export default defineComponent({
       return [
         h(
           'div',
-          {
+          mergeProps(getGroupFormItemBind(item), {
             class: ['pro-group-form-title', !form?.props.inline && 'el-col-24'],
-          },
+          }),
           createLabel(item)
         ),
         h(

@@ -1,6 +1,7 @@
 import { defineComponent, h, mergeProps, ref } from 'vue'
 import { ElCollapse, ElCollapseItem } from 'element-plus'
 import { useCreateLabel, useFormInject } from './useForm'
+import { getGroupFormItemBind } from './utils'
 import { collapseFormEmits, groupFormProps } from './props'
 import ProFormList from './FormList'
 import type { CollapseModelValue } from 'element-plus'
@@ -23,10 +24,10 @@ export default defineComponent({
       return props.columns?.map((item, index) => {
         return h(
           ElCollapseItem,
-          {
+          mergeProps(getGroupFormItemBind(item), {
             title: item.label,
             name: item.prop ?? index,
-          },
+          }),
           {
             title: () => createLabel(item),
             default: () =>

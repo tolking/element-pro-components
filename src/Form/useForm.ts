@@ -1,13 +1,12 @@
-import { computed, unref, shallowRef, provide, inject } from 'vue'
-import { useLocale, useSize } from 'element-plus'
+import { computed, shallowRef, provide, inject } from 'vue'
+import { useLocale } from 'element-plus'
 import { useShow } from '../composables/index'
-import { isObject, objectOmit, isBoolean } from '../utils/index'
+import { isBoolean } from '../utils/index'
 import type { ComputedRef, Ref, InjectionKey, Slot } from 'vue'
 import type { CollapseModelValue, TabPaneName } from 'element-plus'
-import type { UnknownObject, MaybeArray, MaybeRef } from '../types/index'
+import type { UnknownObject, MaybeArray } from '../types/index'
 import type {
   IFormEmits,
-  FormColumn,
   IFormExpose,
   IFormValidateCallback,
   IFormValidateFieldCallback,
@@ -22,55 +21,6 @@ import type {
   UseFormProvideConfig,
   UseFormInjectEmitsCallback,
 } from './index'
-
-type FormItemBind = Omit<
-  FormColumn,
-  | 'component'
-  | 'max'
-  | 'props'
-  | 'prop'
-  | 'span'
-  | 'offset'
-  | 'pull'
-  | 'push'
-  | 'xs'
-  | 'sm'
-  | 'md'
-  | 'lg'
-  | 'xl'
-  | 'children'
->
-
-export function useFormItemBind(
-  currentBind: MaybeRef<FormColumn>
-): ComputedRef<FormItemBind> {
-  return computed(() => {
-    const omitKeys: Array<keyof FormColumn> = [
-      'component',
-      'max',
-      'props',
-      'prop',
-      'children',
-      'span',
-      'offset',
-      'pull',
-      'push',
-      'xs',
-      'sm',
-      'md',
-      'lg',
-      'xl',
-    ]
-    const size = useSize()
-    const _currentBind = unref(currentBind)
-    const _option = isObject(_currentBind)
-      ? objectOmit<FormColumn>(_currentBind, omitKeys)
-      : ({} as FormColumn)
-
-    _option.size = _option.size || size.value
-    return _option
-  })
-}
 
 export const formMenu: IFormMenuColumns = {
   submit: true,
