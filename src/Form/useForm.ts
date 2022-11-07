@@ -1,8 +1,8 @@
-import { computed, Ref, unref, shallowRef, provide, inject, Slot } from 'vue'
+import { computed, unref, shallowRef, provide, inject } from 'vue'
 import { useLocale, useSize } from 'element-plus'
 import { useShow } from '../composables/index'
 import { isObject, objectOmit, isBoolean } from '../utils/index'
-import type { ComputedRef, InjectionKey, Slots } from 'vue'
+import type { ComputedRef, Ref, InjectionKey, Slot } from 'vue'
 import type { CollapseModelValue, TabPaneName } from 'element-plus'
 import type { UnknownObject, MaybeArray, MaybeRef } from '../types/index'
 import type {
@@ -19,6 +19,8 @@ import type {
   IFormProps,
   GroupFormColumn,
   IFormItemProps,
+  UseFormProvideConfig,
+  UseFormInjectEmitsCallback,
 } from './index'
 
 type FormItemBind = Omit<
@@ -185,40 +187,42 @@ export function useFormMethods(emit: IFormEmits): {
 
 export const formContentKey: InjectionKey<IFormContext> = Symbol('formKey')
 
-export function useFormProvide(content: {
-  props: IFormProps
-  emit: IFormEmits
-  slots: Readonly<Slots>
-  formRef: Ref<IFormExpose>
-  disabled: Ref<boolean>
-}) {
+export function useFormProvide(content: UseFormProvideConfig) {
   provide(formContentKey, {
     ...content,
-    add,
-    remove,
-    tabsChange,
-    collapseChange,
-    stepChange,
+    ...useFormInjectEmits(content.emit),
   })
+}
 
-  function add(indexes: number[]) {
-    content.emit('add-item', indexes)
+export function useFormInjectEmits(
+  emit: IFormEmits
+): UseFormInjectEmitsCallback {
+  function addItem(indexes: number[]) {
+    emit('add-item', indexes)
   }
 
-  function remove(indexes: number[]) {
-    content.emit('remove-item', indexes)
+  function removeItem(indexes: number[]) {
+    emit('remove-item', indexes)
   }
 
   function tabsChange(name: TabPaneName) {
-    content.emit('tab-change', name)
+    emit('tab-change', name)
   }
 
   function collapseChange(active: CollapseModelValue) {
-    content.emit('collapse-change', active)
+    emit('collapse-change', active)
   }
 
   function stepChange(active: TabPaneName) {
-    content.emit('step-change', active)
+    emit('step-change', active)
+  }
+
+  return {
+    addItem,
+    removeItem,
+    tabsChange,
+    collapseChange,
+    stepChange,
   }
 }
 
@@ -250,7 +254,7 @@ export function useArrayForm(
       _model = [{}]
     }
     emit('update:modelValue', _model)
-    form?.add(indexes)
+    form?.addItem(indexes)
   }
 
   function remove(index: number, indexes: number[]) {
@@ -258,7 +262,7 @@ export function useArrayForm(
 
     _model.splice(index, 1)
     emit('update:modelValue', _model)
-    form?.remove(indexes)
+    form?.removeItem(indexes)
   }
 
   function update(value: UnknownObject, index: number) {

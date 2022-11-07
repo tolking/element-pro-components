@@ -1,5 +1,5 @@
 import { defineComponent, h, VNode } from 'vue'
-import { isArray, isUndefined } from '../utils/index'
+import { isArray, isUndefined, withPoint } from '../utils/index'
 import { formEmits, formListProps } from './props'
 import ProArrayForm from './ArrayForm'
 import ProGroupForm from './GroupForm'
@@ -21,43 +21,6 @@ export default defineComponent({
       emit('update:modelValue', value)
     }
 
-    function createGroup(type: GroupFormType, columns: GroupFormColumns) {
-      switch (type) {
-        case 'group':
-          return h(ProGroupForm, {
-            modelValue: props.modelValue,
-            columns,
-            prefix: props.prefix,
-            indexes: props.indexes,
-            'onUpdate:modelValue': update,
-          })
-        case 'tabs':
-          return h(ProTabsForm, {
-            modelValue: props.modelValue,
-            columns,
-            prefix: props.prefix,
-            indexes: props.indexes,
-            'onUpdate:modelValue': update,
-          })
-        case 'collapse':
-          return h(ProCollapseForm, {
-            modelValue: props.modelValue,
-            columns,
-            prefix: props.prefix,
-            indexes: props.indexes,
-            'onUpdate:modelValue': update,
-          })
-        case 'steps':
-          return h(ProStepsForm, {
-            modelValue: props.modelValue,
-            columns,
-            prefix: props.prefix,
-            indexes: props.indexes,
-            'onUpdate:modelValue': update,
-          })
-      }
-    }
-
     function createColumn() {
       if (!props.columns) return
 
@@ -70,15 +33,29 @@ export default defineComponent({
       const sliceGroup = () => {
         if (!props.columns || !cacheType) return
         const columns = props.columns.slice(left, right) as GroupFormColumns
+        const componentsMap = {
+          group: ProGroupForm,
+          tabs: ProTabsForm,
+          collapse: ProCollapseForm,
+          steps: ProStepsForm,
+        }
 
-        list.push(createGroup(cacheType, columns))
+        list.push(
+          h(componentsMap[cacheType], {
+            modelValue: props.modelValue,
+            columns,
+            prefix: props.prefix,
+            indexes: props.indexes,
+            'onUpdate:modelValue': update,
+          })
+        )
         cacheType = undefined
         left = right
       }
 
       while (left < len && right < len) {
         const item = props.columns[right]
-        const prefix = `${props.prefix}${props.prefix ? '.' : ''}${item.prop}`
+        const prefix = withPoint(props.prefix, item.prop)
 
         if (item?.type && item.type !== 'array') {
           if (!cacheType && left + 1 !== len) {
