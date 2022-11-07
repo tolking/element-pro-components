@@ -1,8 +1,9 @@
 import { defineComponent, h, Slot, VNode, mergeProps, toRef } from 'vue'
-import { ElFormItem } from 'element-plus'
+import { ElFormItem, useSize } from 'element-plus'
 import { useCol } from '../composables/index'
 import { get, set, has, throwWarn } from '../utils/index'
-import { useFormItemBind, useFormInject } from './useForm'
+import { useFormInject } from './useForm'
+import { getFormItemBind } from './utils'
 import { formItemProps, formItemEmits } from './props'
 import ProFormList from './FormList'
 import ProFormComponent from './FormComponent'
@@ -15,7 +16,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const item = toRef(props, 'item')
     const form = useFormInject()
-    const bindItem = useFormItemBind(item)
+    const size = useSize()
     const { colStyle, colClass } = useCol(item)
 
     function update(value: unknown) {
@@ -115,7 +116,7 @@ export default defineComponent({
     return () =>
       h(
         ElFormItem,
-        mergeProps(bindItem.value, {
+        mergeProps({ size: size.value }, getFormItemBind(item.value), {
           prop: props.prefix,
           style: !form?.props.inline ? colStyle.value : undefined,
           class: ['pro-form-item', !form?.props.inline && colClass.value],

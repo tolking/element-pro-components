@@ -2,6 +2,7 @@ import { defineComponent, h, mergeProps, ref } from 'vue'
 import { ElTabPane, ElTabs } from 'element-plus'
 import { useRow } from '../composables/index'
 import { useFormInject, useCreateLabel } from './useForm'
+import { getGroupFormItemBind } from './utils'
 import { groupFormProps, tabsFormEmits } from './props'
 import ProFormList from './FormList'
 import type { UnknownObject } from '../types/index'
@@ -24,12 +25,12 @@ export default defineComponent({
       return props.columns?.map((item, index) => {
         return h(
           ElTabPane,
-          {
+          mergeProps(getGroupFormItemBind(item), {
             label: item.label,
             name: item.prop ?? index,
             class: !form?.props.inline && rowClass.value,
             style: !props.inline ? rowStyle.value : null,
-          },
+          }),
           {
             label: () => createLabel(item),
             default: () =>

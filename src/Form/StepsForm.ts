@@ -2,6 +2,7 @@ import { computed, defineComponent, h, mergeProps, nextTick, ref } from 'vue'
 import { ElButton, ElFormItem, ElStep, ElSteps } from 'element-plus'
 import { isArray } from '../utils/index'
 import { useCreateLabel, useFormInject, useFormMenu } from './useForm'
+import { getGroupFormItemBind } from './utils'
 import { groupFormProps, stepsFormEmits } from './props'
 import ProFormList from './FormList'
 import type { UnknownObject } from '../types/index'
@@ -67,7 +68,7 @@ export default defineComponent({
           props.columns?.map((item) => {
             return h(
               ElStep,
-              { title: item.label },
+              mergeProps(getGroupFormItemBind(item), { title: item.label }),
               { title: () => createLabel(item) }
             )
           })

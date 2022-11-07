@@ -17,6 +17,9 @@ import type {
   CollapseModelValue,
   FormItemProps,
   TabPaneName,
+  TabPaneProps,
+  CollapseItemProps,
+  StepProps,
 } from 'element-plus'
 import type {
   IDefineProps,
@@ -52,7 +55,10 @@ export interface FormColumn<T = ExternalParam>
 
 export type GroupFormType = 'group' | 'tabs' | 'collapse' | 'steps'
 
-export interface GroupFormColumn<T = ExternalParam> {
+export interface GroupFormColumn<T = ExternalParam>
+  extends Partial<Omit<TabPaneProps, 'label' | 'name'>>,
+    Partial<Omit<CollapseItemProps, 'title' | 'name'>>,
+    Partial<Omit<StepProps, 'title'>> {
   /** the type of group-form */
   type: GroupFormType
   /** keys of model that passed to form */
