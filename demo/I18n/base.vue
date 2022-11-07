@@ -60,6 +60,8 @@ export default defineComponent({
           next: 'Next',
           search: 'Search',
           searchReset: 'Reset',
+          searchPrev: 'Prev',
+          searchNext: 'Next',
         },
       },
     }
@@ -83,6 +85,8 @@ export default defineComponent({
           next: '下一步',
           search: '搜索',
           searchReset: '重置',
+          searchPrev: '上一步',
+          searchNext: '下一步',
         },
       },
     }
