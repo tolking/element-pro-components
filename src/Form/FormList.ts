@@ -1,5 +1,5 @@
 import { defineComponent, h, VNode } from 'vue'
-import { isArray, isUndefined } from '../utils/index'
+import { isArray, isUndefined, withPoint } from '../utils/index'
 import { formEmits, formListProps } from './props'
 import ProArrayForm from './ArrayForm'
 import ProGroupForm from './GroupForm'
@@ -55,7 +55,7 @@ export default defineComponent({
 
       while (left < len && right < len) {
         const item = props.columns[right]
-        const prefix = `${props.prefix}${props.prefix ? '.' : ''}${item.prop}`
+        const prefix = withPoint(props.prefix, item.prop)
 
         if (item?.type && item.type !== 'array') {
           if (!cacheType && left + 1 !== len) {
