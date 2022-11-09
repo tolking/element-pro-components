@@ -29,12 +29,13 @@ const files = fg.sync('docs/docs/**/*.md')
     const filePath = toAbsolute(`../dist${url.replace(/\/$/, '/index')}.html`)
     const lang = url.match(/^\/([\w|-]*)\//)
     const locale = lang ? lang[1] : 'en'
-    const [appHtml, preloadLinks] = await render(url, manifest)
+    const [appHtml, preloadLinks, teleports] = await render(url, manifest)
     const html = template
       .replace('en', locale)
       .replace('<title></title>\n', '')
       .replace('<!--preload-links-->', preloadLinks)
       .replace('<!--app-html-->', appHtml)
+      .replace('<!--app-teleports-->', teleports)
 
     writeFileRecursive(filePath, html)
     console.log('pre-rendered:', filePath)

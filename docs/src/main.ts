@@ -12,6 +12,7 @@ import {
   ElCard,
   ElSwitch,
   ElTooltip,
+  ID_INJECTION_KEY,
 } from 'element-plus'
 import ElementPro from 'element-pro-components'
 import IconExternalLink from './components/IconExternalLink.vue'
@@ -51,6 +52,10 @@ export function createApp(): {
     .component('IconExternalLink', IconExternalLink)
     .component('ProCode', ProCode)
     .use(ElementPro)
+    .provide(ID_INJECTION_KEY, {
+      prefix: 1024,
+      current: 0,
+    })
 
   return { app, router, head }
 }

@@ -2,18 +2,12 @@ import { basename } from 'path'
 import { createApp } from './main'
 import { renderToString } from '@vue/server-renderer'
 import { renderHeadToString } from '@vueuse/head'
-import { ID_INJECTION_KEY } from 'element-plus'
 
 export async function render(
   url: string,
   manifest: Record<string, string[]>
 ): Promise<string[]> {
   const { app, router, head } = createApp()
-
-  app.provide(ID_INJECTION_KEY, {
-    prefix: Math.floor(Math.random() * 10000),
-    current: 0,
-  })
 
   // set the router to the desired URL before rendering
   await router.push(url)
@@ -23,7 +17,7 @@ export async function render(
   // @vitejs/plugin-vue injects code into a component's setup() that registers
   // itself on ctx.modules. After the render, ctx.modules would contain all the
   // components that have been instantiated during this render call.
-  const ctx = { modules: new Set<string>() }
+  const ctx = { modules: new Set<string>(), teleports: {} }
   const html = await renderToString(app, ctx)
 
   // get the page title of SSG
@@ -33,7 +27,10 @@ export async function render(
   // which we can then use to determine what files need to be preloaded for this
   // request.
   const preloadLinks = headTags + renderPreloadLinks(ctx.modules, manifest)
-  return [html, preloadLinks]
+
+  // the SSR needs to process the teleports content separately when rendering
+  const teleports = renderTeleports(ctx.teleports)
+  return [html, preloadLinks, teleports]
 }
 
 function renderPreloadLinks(
@@ -82,4 +79,22 @@ function renderPreloadLink(file: string) {
     // TODO
     return ''
   }
+}
+
+function renderTeleports(teleports: Record<string, string>) {
+  let result = ''
+
+  for (const key in teleports) {
+    const item = teleports[key]
+
+    if (key === 'body') {
+      result += item
+    } else if (key.startsWith('#el-popper-container-')) {
+      result += `<div id="${key.slice(1)}">${item}</div>`
+    } else {
+      console.log(`There are unprocessed teleports: ${key}`)
+    }
+  }
+
+  return result
 }
