@@ -4,7 +4,7 @@
 
 fix
 
-- build: missing the code prompt file
+- build: missing the code prompt file (#422)
 
 ### 1.2.5
 
