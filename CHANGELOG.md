@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.2.6
+
+fix
+
+- build: missing the code prompt file (#422)
+
 ### 1.2.5
 
 feat
