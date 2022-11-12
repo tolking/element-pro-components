@@ -13,14 +13,14 @@ const manifest = require(toAbsolute('../dist/ssr-manifest.json'))
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { render } = require(toAbsolute('../dist/.cache/entry-server.js'))
 const template = readFileSync(toAbsolute('../dist/index.html'), 'utf-8')
-const files = fg.sync('docs/docs/**/*.md')
+const files = fg.sync('docs/**/*.md')
 
 ;(async () => {
   const stream = new SitemapStream({ hostname: 'https://tolking.github.io' })
 
   for (const path of files) {
     const url = path
-      .replace(/^docs\/docs/, '')
+      .replace(/^docs/, '')
       .replace(/\.(vue|md)$/, '')
       .replace(/index$/, '')
       .replace(/\/([^/]*)$/, (item) =>

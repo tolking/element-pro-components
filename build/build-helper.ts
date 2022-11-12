@@ -90,7 +90,7 @@ const findModule = (type: string): string | undefined => {
 main({
   name,
   version,
-  entry: toAbsolute('../docs/docs/en-US/components/*.md'),
+  entry: toAbsolute('../docs/en-US/components/*.md'),
   outDir: toAbsolute('../lib'),
   reComponentName,
   reDocUrl,
