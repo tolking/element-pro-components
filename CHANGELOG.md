@@ -1,5 +1,24 @@
 # Changelog
 
+### 1.2.5
+
+feat
+
+- Menu: support defining the group of menu (#409)
+- Checkbox|Radio|Select: support nested value for config (#410)
+- Form: generation the TabsForm based on columns (#413)
+- Form: generation the CollapseForm based on columns (#414)
+- Form: generation the StepsForm based on columns (#415)
+- Form: optimize code (#416)
+- Form: support bind attributes to group forms (#417)
+- Crud: sync the group form changes (#418)
+
+other
+
+- build: change join to resolve (#412)
+- docs: optimize SSG about teleports (#419)
+- docs: optimize document directory (#420)
+
 ### 1.2.4
 
 feat
