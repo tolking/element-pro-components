@@ -11,7 +11,7 @@ export default defineComponent({
   name: 'ProStepsForm',
   props: groupFormProps,
   emits: stepsFormEmits,
-  setup(props, { emit }) {
+  setup(props, { emit, attrs }) {
     const form = useFormInject()
     const createLabel = useCreateLabel(props)
     const menu = useFormMenu(form?.props || {})
@@ -59,11 +59,11 @@ export default defineComponent({
       if (!isArray(props.columns)) return
       return h(
         ElSteps,
-        {
+        mergeProps(attrs, {
           active: active.value,
           alignCenter: true,
           class: ['pro-steps-form', !form?.props.inline && 'el-col-24'],
-        },
+        }),
         () =>
           props.columns?.map((item) => {
             return h(

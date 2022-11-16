@@ -10,7 +10,7 @@ export default defineComponent({
   name: 'ProGroupForm',
   props: groupFormProps,
   emits: formItemEmits,
-  setup(props, { emit }) {
+  setup(props, { emit, attrs }) {
     const form = useFormInject()
     const createLabel = useCreateLabel(props)
 
@@ -22,7 +22,7 @@ export default defineComponent({
       return [
         h(
           'div',
-          mergeProps(getGroupFormItemBind(item), {
+          mergeProps(getGroupFormItemBind(item), attrs, {
             class: ['pro-group-form-title', !form?.props.inline && 'el-col-24'],
           }),
           createLabel(item)
