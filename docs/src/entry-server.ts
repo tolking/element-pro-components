@@ -81,18 +81,17 @@ function renderPreloadLink(file: string) {
   }
 }
 
-function renderTeleports(teleports: Record<string, string>) {
-  let result = ''
+function renderTeleports(teleports?: Record<string, string>) {
+  if (!teleports) return ''
+  const keys = Object.keys(teleports)
+  let result = teleports.body || ''
 
-  for (const key in teleports) {
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i]
     const item = teleports[key]
 
-    if (key === 'body') {
-      result += item
-    } else if (key.startsWith('#el-popper-container-')) {
+    if (key.startsWith('#el-popper-container-')) {
       result += `<div id="${key.slice(1)}">${item}</div>`
-    } else {
-      console.log(`There are unprocessed teleports: ${key}`)
     }
   }
 
