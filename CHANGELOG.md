@@ -1,5 +1,16 @@
 # Changelog
 
+### 1.2.7
+
+feat
+
+- Form: solving the attrs (#424)
+
+fix
+
+- Form: the style link error (#426)
+- optimize SSG about teleports (#428)
+
 ### 1.2.6
 
 fix
