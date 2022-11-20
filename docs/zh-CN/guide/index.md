@@ -103,28 +103,6 @@ export default {
 }
 ```
 
-### 在 vue-cli 中使用 babel-plugin-import
-
-安装及使用查看 [babel-plugin-import](https://www.npmjs.com/package/babel-plugin-import)
-
-- 修改配置 babel.config
-
-```js
-module.exports = {
-  plugins: [
-    [
-      'import',
-      {
-        libraryName: 'element-pro-components',
-        customStyleName: (name) => {
-          return `element-pro-components/lib/styles/${name.slice(4)}`
-        },
-      },
-    ],
-  ],
-}
-```
-
 ### 手动引入样式
 
 例如：

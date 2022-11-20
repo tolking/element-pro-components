@@ -102,28 +102,6 @@ export default {
 }
 ```
 
-### Use babel-plugin-import in vue-cli
-
-Installation and use view [babel-plugin-import](https://github.com/ant-design/babel-plugin-import)
-
-- change babel.config
-
-```js
-module.exports = {
-  plugins: [
-    [
-      'import',
-      {
-        libraryName: 'element-pro-components',
-        customStyleName: (name) => {
-          return `element-pro-components/lib/styles/${name.slice(4)}.css`
-        },
-      },
-    ],
-  ],
-}
-```
-
 ### By hand
 
 example:
