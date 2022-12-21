@@ -75,6 +75,14 @@ First you should configure `:router="false"`, then handle the click through the 
 @/demo/Layout/router.vue
 :::
 
+### Custom Group
+
+Configure `group: true` for the `meta` in the routes to enable the group menu
+
+::: demo
+@/demo/Layout/group.vue
+:::
+
 ### Custom color
 
 Configure menu colors by CSS variables

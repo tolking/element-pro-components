@@ -1,6 +1,5 @@
 import { Fragment } from 'vue'
-import cloneDeep from 'lodash/cloneDeep'
-import merge from 'lodash/merge'
+import { cloneDeep, merge } from 'lodash-unified'
 import { isObject } from './index'
 import type { Component, VNode } from 'vue'
 import type {
@@ -110,4 +109,13 @@ export function withInstall<T extends { name: string }>(
  */
 export function throwWarn(err: string) {
   console.warn(`[ElementProComponents Warn]: ${err}`)
+}
+
+/**
+ * add a point between two parameters
+ * @param first
+ * @param last
+ */
+export function withPoint(first?: string, last?: string | number) {
+  return `${first}${first && last ? '.' : ''}${last}`
 }

@@ -10,7 +10,7 @@ export default defineComponent({
   props: selectProps,
   emits: selectEmits,
   setup(props, { slots }) {
-    const configKeys = useDataConfig()
+    const { getLabel, getValue, getDisabled, getChildren } = useDataConfig()
     const emitValue = useEmitValue()
     const config = reactiveOmit(props, 'data', 'config')
 
@@ -18,9 +18,9 @@ export default defineComponent({
       return h(
         ElOption,
         {
-          value: item[configKeys.value.value],
-          label: item[configKeys.value.label],
-          disabled: item[configKeys.value.disabled],
+          value: getValue(item),
+          label: getLabel(item),
+          disabled: getDisabled(item),
         },
         // NOTE: Remove `data: item` on next major release
         () => slots.default && slots.default({ item, data: item })
@@ -29,9 +29,11 @@ export default defineComponent({
 
     function createDefault() {
       return props.data.map((item) => {
-        if (item[configKeys.value.children]?.length) {
-          return h(ElOptionGroup, { label: item[configKeys.value.label] }, () =>
-            item[configKeys.value.children]?.map((child: SelectDataItem[]) => {
+        const children = getChildren(item)
+
+        if (children?.length) {
+          return h(ElOptionGroup, { label: getLabel(item) }, () =>
+            children?.map((child: SelectDataItem[]) => {
               return createOption(child)
             })
           )

@@ -124,7 +124,9 @@ export function useStackBlitz(
     }
   })
   const needRouter = computed(() => {
-    return ['Layout', 'Menu', 'Breadcrumb', 'Tabs'].includes(name.componentName)
+    return ['Layout', 'Menu', 'FilterRoutes', 'Breadcrumb', 'Tabs'].includes(
+      name.componentName
+    )
   })
 
   function createConfig() {

@@ -1,7 +1,7 @@
+import { basename } from 'path'
 import { createApp } from './main'
 import { renderToString } from '@vue/server-renderer'
 import { renderHeadToString } from '@vueuse/head'
-import { ID_INJECTION_KEY } from 'element-plus'
 
 export async function render(
   url: string,
@@ -9,20 +9,15 @@ export async function render(
 ): Promise<string[]> {
   const { app, router, head } = createApp()
 
-  app.provide(ID_INJECTION_KEY, {
-    prefix: Math.floor(Math.random() * 10000),
-    current: 0,
-  })
-
   // set the router to the desired URL before rendering
-  router.push(url)
+  await router.push(url)
   await router.isReady()
 
   // passing SSR context object which will be available via useSSRContext()
   // @vitejs/plugin-vue injects code into a component's setup() that registers
   // itself on ctx.modules. After the render, ctx.modules would contain all the
   // components that have been instantiated during this render call.
-  const ctx = { modules: new Set<string>() }
+  const ctx = { modules: new Set<string>(), teleports: {} }
   const html = await renderToString(app, ctx)
 
   // get the page title of SSG
@@ -32,7 +27,10 @@ export async function render(
   // which we can then use to determine what files need to be preloaded for this
   // request.
   const preloadLinks = headTags + renderPreloadLinks(ctx.modules, manifest)
-  return [html, preloadLinks]
+
+  // the SSR needs to process the teleports content separately when rendering
+  const teleports = renderTeleports(ctx.teleports)
+  return [html, preloadLinks, teleports]
 }
 
 function renderPreloadLinks(
@@ -44,9 +42,16 @@ function renderPreloadLinks(
   modules.forEach((id) => {
     const files = manifest[id]
     if (files) {
-      files.forEach((file: string) => {
+      files.forEach((file) => {
         if (!seen.has(file)) {
           seen.add(file)
+          const filename = basename(file)
+          if (manifest[filename]) {
+            for (const depFile of manifest[filename]) {
+              links += renderPreloadLink(depFile)
+              seen.add(depFile)
+            }
+          }
           links += renderPreloadLink(file)
         }
       })
@@ -65,15 +70,30 @@ function renderPreloadLink(file: string) {
   } else if (file.endsWith('.woff2')) {
     return ` <link rel="preload" href="${file}" as="font" type="font/woff2" crossorigin>`
   } else if (file.endsWith('.gif')) {
-    return ` <link rel="preload" href="${file}" as="image" type="image/gif" crossorigin>`
-  } else if (file.endsWith('.jpg')) {
-    return ` <link rel="preload" href="${file}" as="image" type="image/jpeg" crossorigin>`
-  } else if (file.endsWith('.jpeg')) {
-    return ` <link rel="preload" href="${file}" as="image" type="image/jpeg" crossorigin>`
+    return ` <link rel="preload" href="${file}" as="image" type="image/gif">`
+  } else if (file.endsWith('.jpg') || file.endsWith('.jpeg')) {
+    return ` <link rel="preload" href="${file}" as="image" type="image/jpeg">`
   } else if (file.endsWith('.png')) {
-    return ` <link rel="preload" href="${file}" as="image" type="image/png" crossorigin>`
+    return ` <link rel="preload" href="${file}" as="image" type="image/png">`
   } else {
     // TODO
     return ''
   }
+}
+
+function renderTeleports(teleports?: Record<string, string>) {
+  if (!teleports) return ''
+  const keys = Object.keys(teleports)
+  let result = teleports.body || ''
+
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i]
+    const item = teleports[key]
+
+    if (key.startsWith('#el-popper-container-')) {
+      result += `<div id="${key.slice(1)}">${item}</div>`
+    }
+  }
+
+  return result
 }

@@ -1,9 +1,9 @@
-import { useCheckboxGroupProps } from 'element-plus'
+import { checkboxGroupProps } from 'element-plus'
 import { isArray } from '../utils/index'
 import { selectDataProps } from '../Select/props'
 
 export const checkboxProps = {
-  ...useCheckboxGroupProps,
+  ...checkboxGroupProps,
   ...selectDataProps,
 }
 

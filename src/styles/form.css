@@ -1,31 +1,77 @@
-.pro-form:not(.el-form--inline) .pro-form-menu {
-  margin-bottom: 0;
-  width: 100%;
-}
-
-.pro-form:not(.el-form--label-top) .el-form-item.is-guttered {
-  display: flex;
-}
-
-.pro-form-item .children-form {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding-top: 15px;
-  width: 100%;
-  border-top: var(--el-border-width) dashed var(--el-border-color);
-  &:first-child {
-    padding-top: 0;
-    border-top-width: 0;
+.pro-form {
+  --pro-array-form-size: 18px;
+  &.el-form--large {
+    --pro-array-form-size: 22px;
   }
-  & .children-form-item {
-    flex: 1;
-    & .pro-form-item {
-      margin-bottom: 22px;
+  & .el-form-item {
+    --pro-array-form-size: 18px;
+    &.el-form-item--large {
+      --pro-array-form-size: 22px;
     }
   }
-  & .delete-bth {
-    margin: 0 0 20px 10px;
+
+  &:not(.el-form--inline) .pro-form-menu {
+    margin-bottom: 0;
+    width: 100%;
+  }
+  &:not(.el-form--label-top) .el-form-item.is-guttered {
+    display: flex;
+  }
+  &.is-array > .form-btn-add {
+    margin-bottom: var(--pro-array-form-size);
+  }
+
+  & .pro-array-form {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: var(--pro-array-form-size);
+    width: 100%;
+    border-top: var(--el-border-width) dashed var(--el-border-color);
+    &:first-child {
+      padding-top: 0 !important;
+      border-top-width: 0;
+    }
+    & .form-content {
+      flex: 1;
+      & .pro-form-item {
+        margin-bottom: var(--pro-array-form-size);
+      }
+    }
+    & .form-btn-delete {
+      margin: 0 0 var(--pro-array-form-size) 10px;
+    }
+  }
+
+  &.el-form--inline .pro-group-form-title {
+    display: inline-flex;
+  }
+  & .pro-group-form-title {
+    margin: calc(var(--pro-array-form-size) / 2) auto var(--pro-array-form-size);
+    font-size: 24px;
+    color: var(--el-text-color-primary);
+    font-weight: 500;
+  }
+
+  & .pro-collapse-form {
+    margin-bottom: var(--pro-array-form-size);
+    & .el-collapse-item .el-collapse-item__content {
+      display: flex;
+      flex-wrap: wrap;
+      position: relative;
+      box-sizing: border-box;
+    }
+  }
+
+  & .pro-steps-form {
+    margin-bottom: var(--pro-array-form-size);
+  }
+  & .pro-steps-form-menu + .pro-form-menu {
+    align-items: flex-start;
+    width: auto;
+    & .el-form-item__content {
+      margin-left: 12px !important;
+    }
   }
 }

@@ -197,6 +197,8 @@ Crud 组件是 <pro-link to="/zh-CN/components/table">Table</pro-link> <pro-link
 | hide-on-single-page     | 只有一页时是否隐藏                                                                                                           | boolean                                                 | -                                                                        | -                                                    |
 | rules                   | 表单验证规则                                                                                                                 | object                                                  | -                                                                        | -                                                    |
 | inline                  | 行内表单模式                                                                                                                 | boolean                                                 | -                                                                        | false                                                |
+| array                   | 是否启用数组表单                                                                                                             | boolean                                                 |                                                                          | -                                                    |
+| max                     | 限制数组表单的最大数量                                                                                                       | number                                                  | -                                                                        | -                                                    |
 | label-position          | 表单域标签的位置，如果值为 left 或者 right 时，则需要设置 `label-width`                                                      | string                                                  | right / left / top                                                       | right                                                |
 | label-width             | 表单域标签的宽度，例如 '50px' 或 'auto'                                                                                      | string                                                  | -                                                                        | -                                                    |
 | label-suffix            | 表单域标签的后缀                                                                                                             | string                                                  | -                                                                        | -                                                    |
@@ -278,6 +280,7 @@ Crud 支持 <pro-link to="/zh-CN/components/table#配置">Table</pro-link> 和 <
 | index               | 自定义索引，只能够在 index 中配置                                                                                                                    | Function(index) / number                | -                                                                                                                               | -                                 |
 | selectable          | 这一行的 CheckBox 是否可以勾选，只能够在 selection 中配置                                                                                            | Function(row, index)                    | -                                                                                                                               | -                                 |
 | reserveSelection    | 是否保留之前选中的数据（需指定 `row-key`），只能够在 selection 中配置                                                                                | boolean                                 | -                                                                                                                               | false                             |
+| type                | children 内部表单的类型                                                                                                                              | string                                  | array / group / tabs / collapse / steps                                                                                         | array                             |
 | max                 | 与 children 一起使用，限制子表单的最大数量                                                                                                           | number                                  | -                                                                                                                               | -                                 |
 | labelWidth          | 表单域标签的宽度，例如 '50px' 或 'auto'                                                                                                              | string                                  | -                                                                                                                               | -                                 |
 | required            | 是否必填，如不设置，则会根据校验规则自动生成                                                                                                         | boolean                                 | -                                                                                                                               | false                             |
@@ -295,6 +298,12 @@ Crud 支持 <pro-link to="/zh-CN/components/table#配置">Table</pro-link> 和 <
 | md                  | `≥992px` 响应式栅格数或者栅格属性对象                                                                                                                | number / object                         | -                                                                                                                               | -                                 |
 | lg                  | `≥1200px` 响应式栅格数或者栅格属性对象                                                                                                               | number / object                         | -                                                                                                                               | -                                 |
 | xl                  | `≥1920px` 响应式栅格数或者栅格属性对象                                                                                                               | number / object                         | -                                                                                                                               | -                                 |
+| disabled            | 是否禁用, 当 `type=tabs` 或者 `type=collapse` 时生效                                                                                                 | boolean                                 | —                                                                                                                               | false                             |
+| closable            | 标签是否可关闭, 当 `type=tabs` 时生效                                                                                                                | boolean                                 | —                                                                                                                               | false                             |
+| lazy                | 标签是否延迟渲染, 当 `type=tabs` 时生效                                                                                                              | boolean                                 | —                                                                                                                               | false                             |
+| description         | 分步描述文案, 当 `type=steps` 时生效                                                                                                                 | string                                  | —                                                                                                                               | —                                 |
+| icon                | 自定义分步图标, 当 `type=steps` 时生效                                                                                                               | string / Component                      | —                                                                                                                               | —                                 |
+| status              | 设置当前步骤的状态, 当 `type=steps` 时生效                                                                                                           | string                                  | wait / process / finish / error / success                                                                                       | —                                 |
 | detailSpan          | 描述详情中列的数量                                                                                                                                   | number                                  | -                                                                                                                               | 1                                 |
 | width               | 描述详情中列的宽度，不同行相同列的宽度按最大值设定（如无 border ，宽度包含标签与内容）                                                               | string / number                         | —                                                                                                                               | —                                 |
 | minWidth            | 描述详情中列的最小宽度，与 width 的区别是 width 是固定的，min-width 会把剩余宽度按比例分配给设置了 min-width 的列（如无 border，宽度包含标签与内容） | string / number                         | —                                                                                                                               | —                                 |
@@ -313,32 +322,40 @@ Crud columns 支持 <pro-link to="/zh-CN/components/table#columns">Table columns
 
 #### menu
 
-| 参数             | 说明                              | 类型                    | 可选值 | 默认值                          |
-| :--------------- | :-------------------------------- | :---------------------- | :----- | :------------------------------ |
-| add              | 是否显示 add 按钮                 | boolean                 | -      | true                            |
-| addText          | add 按钮显示的文字                | string                  | -      | Add                             |
-| addProps         | add 按钮的配置，参考 el-button    | object                  | -      | { type: 'primary' }             |
-| edit             | 是否显示 edit 按钮                | boolean / Function(row) | -      | true                            |
-| editText         | edit 按钮显示的文字               | string                  | -      | Edit                            |
-| editProps        | edit 按钮的配置，参考 el-button   | object                  | -      | { link: true, type: 'primary' } |
-| detail           | 是否显示 detail 按钮              | boolean / Function(row) | -      | true                            |
-| detailText       | detail 按钮显示的文字             | string                  | -      | View                            |
-| detailProps      | detail 按钮的配置，参考 el-button | object                  | -      | { link: true, type: 'info' }    |
-| del              | 是否显示 del 按钮                 | boolean / Function(row) | -      | true                            |
-| delText          | del 按钮显示的文字                | string                  | -      | Delete                          |
-| delProps         | del 按钮的配置，参考 el-button    | object                  | -      | { link: true, type: 'danger' }  |
-| submit           | 是否显示 submit 按钮              | boolean                 | -      | true                            |
-| submitText       | submit 按钮显示的文字             | string                  | -      | Submit                          |
-| submitProps      | submit 按钮的配置，参考 el-button | object                  | -      | { type: 'primary' }             |
-| reset            | 是否显示 reset 按钮               | boolean                 | -      | true                            |
-| resetText        | 是否显示 reset 按钮显示的文字     | string                  | -      | Reset                           |
-| resetProps       | reset 按钮的配置，参考 el-button  | object                  | -      | -                               |
-| search           | 是否显示 search 按钮              | boolean                 | -      | true                            |
-| searchText       | search 按钮显示的文字             | string                  | -      | Search                          |
-| searchProps      | search 按钮的配置，参考 el-button | object                  | -      | { type: 'primary' }             |
-| searchReset      | 是否显示 reset 按钮               | boolean                 | -      | true                            |
-| searchResetText  | 是否显示 reset 按钮显示的文字     | string                  | -      | Reset                           |
-| searchResetProps | reset 按钮的配置，参考 el-button  | object                  | -      | -                               |
+| 参数             | 说明                                | 类型                    | 默认值                          |
+| :--------------- | :---------------------------------- | :---------------------- | :------------------------------ |
+| add              | 是否显示 add 按钮                   | boolean                 | true                            |
+| addText          | add 按钮显示的文字                  | string                  | Add                             |
+| addProps         | add 按钮的配置，参考 `el-button`    | object                  | { type: 'primary' }             |
+| edit             | 是否显示 edit 按钮                  | boolean / Function(row) | true                            |
+| editText         | edit 按钮显示的文字                 | string                  | Edit                            |
+| editProps        | edit 按钮的配置，参考 `el-button`   | object                  | { link: true, type: 'primary' } |
+| detail           | 是否显示 detail 按钮                | boolean / Function(row) | true                            |
+| detailText       | detail 按钮显示的文字               | string                  | View                            |
+| detailProps      | detail 按钮的配置，参考 `el-button` | object                  | { link: true, type: 'info' }    |
+| del              | 是否显示 del 按钮                   | boolean / Function(row) | true                            |
+| delText          | del 按钮显示的文字                  | string                  | Delete                          |
+| delProps         | del 按钮的配置，参考 `el-button`    | object                  | { link: true, type: 'danger' }  |
+| submit           | 是否显示 submit 按钮                | boolean                 | true                            |
+| submitText       | submit 按钮显示的文字               | string                  | Submit                          |
+| submitProps      | submit 按钮的配置，参考 `el-button` | object                  | { type: 'primary' }             |
+| reset            | 是否显示 reset 按钮                 | boolean                 | true                            |
+| resetText        | 是否显示 reset 按钮显示的文字       | string                  | Reset                           |
+| resetProps       | reset 按钮的配置，参考 `el-button`  | object                  | -                               |
+| prevText         | prev 按钮显示的文字                 | string                  | Prev                            |
+| prevProps        | prev 按钮的配置，参考 `el-button`   | object                  | -                               |
+| nextText         | next 按钮显示的文字                 | string                  | Next                            |
+| nextProps        | next 按钮的配置，参考 `el-button`   | object                  | -                               |
+| search           | 是否显示 search 按钮                | boolean                 | true                            |
+| searchText       | search 按钮显示的文字               | string                  | Search                          |
+| searchProps      | search 按钮的配置，参考 `el-button` | object                  | { type: 'primary' }             |
+| searchReset      | 是否显示 reset 按钮                 | boolean                 | true                            |
+| searchResetText  | 是否显示 reset 按钮显示的文字       | string                  | Reset                           |
+| searchResetProps | reset 按钮的配置，参考 `el-button`  | object                  | -                               |
+| searchPrevText   | prev 按钮显示的文字                 | string                  | Prev                            |
+| searchPrevProps  | prev 按钮的配置，参考 `el-button`   | object                  | -                               |
+| searchNextText   | next 按钮显示的文字                 | string                  | Next                            |
+| searchNextProps  | next 按钮的配置，参考 `el-button`   | object                  | -                               |
 
 ::: tip 提示
 其它属性同 <pro-link to="/zh-CN/components/table#columns">Table columns</pro-link>
@@ -350,12 +367,22 @@ Crud columns 支持 <pro-link to="/zh-CN/components/table#columns">Table columns
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
 | submit             | submit 被点击后触发                                                                                                                          | close, done, 'add'/'edit', isValid, invalidFields |
 | reset              | reset 按钮被点击后触发                                                                                                                       | -                                                 |
+| add-item           | 表单中 add 被点击后触发                                                                                                                      | indexes: number[]                                 |
+| remove-item        | 表单中 remove 被点击后触发                                                                                                                   | indexes: number[]                                 |
+| collapse-change    | 表单中 collapse 改变时触发                                                                                                                   | active: CollapseModelValue                        |
+| tab-change         | 表单中 tab 改变时触发                                                                                                                        | name: TabPaneName                                 |
+| step-change        | 表单中 step 改变时触发                                                                                                                       | active: string \| number                          |
 | add                | add 按钮被点击后触发                                                                                                                         | -                                                 |
 | edit               | edit 按钮被点击后触发                                                                                                                        | row                                               |
 | detail             | detail 按钮被点击后触发                                                                                                                      | row                                               |
 | delete             | delete 按钮被点击后触发                                                                                                                      | row                                               |
 | search             | search 按钮被点击后触发                                                                                                                      | done, isValid, invalidFields                      |
 | searchReset        | search reset 按钮被点击后触发                                                                                                                | -                                                 |
+| add-item           | 搜索中 add 被点击后触发                                                                                                                      | indexes: number[]                                 |
+| remove-item        | 搜索中 remove 被点击后触发                                                                                                                   | indexes: number[]                                 |
+| collapse-change    | 搜索中 collapse 改变时触发                                                                                                                   | active: CollapseModelValue                        |
+| tab-change         | 搜索中 tab 改变时触发                                                                                                                        | name: TabPaneName                                 |
+| step-change        | 搜索中 step 改变时触发                                                                                                                       | active: string \| number                          |
 | load               | pageSize 和 currentPage 改变时会触发                                                                                                         | -                                                 |
 | select             | 当用户手动勾选数据行的 Checkbox 时触发的事件                                                                                                 | selection, row                                    |
 | select-all         | 当用户手动勾选全选 Checkbox 时触发的事件                                                                                                     | selection                                         |
@@ -397,36 +424,36 @@ Crud columns 支持 <pro-link to="/zh-CN/components/table#columns">Table columns
 
 ### 插槽
 
-| 名称                | 说明                                                                     |
-| :------------------ | :----------------------------------------------------------------------- |
-| menu-left           | 新增按钮左侧，参数为 { size }                                            |
-| menu-right          | 新增按钮右侧，参数为 { size }                                            |
-| action              | 头部右侧操作栏，参数为 { size }                                          |
-| menu                | 表格右侧自定义按钮，参数为 { size, row, column, $index }                 |
-| dialog-top          | 弹窗顶部内容，参数为 { type }                                            |
-| dialog-bottom       | 弹窗底部内容，参数为 { type }                                            |
-| table               | 在表格右侧菜单前插入的任意内容                                           |
-| table-expand        | 当 expand 为 true 时，配置展开显示的内容，参数为 { row, column, $index } |
-| table-append        | 插入至表格最后一行之后的内容                                             |
-| table-[prop]        | 当前这列的内容，参数为 { row, column, $index }                           |
-| table-[prop]-header | 当前这列表头的内容，参数为 { column, $index }                            |
-| form                | 在表单底部按钮前插入的任意内容                                           |
-| form-menu-left      | 表单底部按钮左侧                                                         |
-| form-menu-right     | 表单底部按钮右侧                                                         |
-| form-[prop]         | 当前这项的 Form Item 的内容，参数为 { item, value, setValue }            |
-| form-[prop]-label   | 当前这项的标签文本的内容，参数为 { item }                                |
-| form-[prop]-error   | 当前这项的自定义表单校验信息的显示方式，参数为 { error, item }           |
-| search              | 在搜索按钮菜单前插入的任意内容                                           |
-| search-menu-left    | 搜索表单按钮左侧，参数为 { loading }                                     |
-| search-menu-right   | 搜索表单按钮右侧，参数为 { loading }                                     |
-| search-[prop]       | 当前这项的 Form Item 的内容，参数为 { item, value, setValue }            |
-| search-[prop]-label | 当前这项的标签文本的内容，参数为 { item }                                |
-| search-[prop]-error | 当前这项的自定义表单校验信息的显示方式，参数为 { error, item }           |
-| detail              | 在查看描述尾部插入更多的描述信息                                         |
-| detail-title        | 自定义描述标题文本，显示在左上方, 参数 { size }                          |
-| detail-extra        | 自定义描述操作区文本，显示在右上方, 参数 { size }                        |
-| detail-[prop]       | 当前描述这项的内容, 参数 { size, item }                                  |
-| detail-[prop]-label | 当前描述这项的标签文本内容, 参数 { size, item }                          |
+| 名称                | 说明                                     | 类型                                                                             |
+| :------------------ | :--------------------------------------- | :------------------------------------------------------------------------------- |
+| menu-left           | 新增按钮左侧                             | { size }                                                                         |
+| menu-right          | 新增按钮右侧                             | { size }                                                                         |
+| action              | 头部右侧操作栏                           | { size }                                                                         |
+| menu                | 表格右侧自定义按钮                       | { size, row, column, $index }                                                    |
+| dialog-top          | 弹窗顶部内容                             | { type }                                                                         |
+| dialog-bottom       | 弹窗底部内容                             | { type }                                                                         |
+| table               | 在表格右侧菜单前插入的任意内容           | -                                                                                |
+| table-expand        | 当 expand 为 true 时，配置展开显示的内容 | { row, column, $index }                                                          |
+| table-append        | 插入至表格最后一行之后的内容             | -                                                                                |
+| table-[prop]        | 当前这列的内容                           | { row, column, $index }                                                          |
+| table-[prop]-header | 当前这列表头的内容                       | { column, $index }                                                               |
+| form                | 在表单底部按钮前插入的任意内容           | -                                                                                |
+| form-menu-left      | 表单底部按钮左侧                         | { loading: boolean }                                                             |
+| form-menu-right     | 表单底部按钮右侧                         | { loading: boolean }                                                             |
+| form-[prop]         | 当前这项的 Form Item 的内容              | { item: object, indexes?: number[], value: any, setValue: (value: any) => void } |
+| form-[prop]-label   | 当前这项的标签文本的内容                 | { item: object, indexes?: number[] }                                             |
+| form-[prop]-error   | 当前这项的自定义表单校验信息的显示方式   | { error, item: object, indexes?: number[] }                                      |
+| search              | 在搜索按钮菜单前插入的任意内容           | -                                                                                |
+| search-menu-left    | 搜索表单按钮左侧                         | { loading: boolean }                                                             |
+| search-menu-right   | 搜索表单按钮右侧                         | { loading: boolean }                                                             |
+| search-[prop]       | 当前这项的 Form Item 的内容              | { item: object, indexes?: number[], value: any, setValue: (value: any) => void } |
+| search-[prop]-label | 当前这项的标签文本的内容                 | { item: object, indexes?: number[] }                                             |
+| search-[prop]-error | 当前这项的自定义表单校验信息的显示方式   | { error, item: object, indexes?: number[] }                                      |
+| detail              | 在查看描述尾部插入更多的描述信息         | -                                                                                |
+| detail-title        | 自定义描述标题文本，显示在左上方         | { size }                                                                         |
+| detail-extra        | 自定义描述操作区文本，显示在右上方       | { size }                                                                         |
+| detail-[prop]       | 当前描述这项的内容                       | { size, item }                                                                   |
+| detail-[prop]-label | 当前描述这项的标签文本内容               | { size, item }                                                                   |
 
 ::: tip 提示
 [prop] 为 columns 中定义的 prop

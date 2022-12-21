@@ -1,0 +1,20 @@
+.pro-filter-routes-popper {
+  & .el-select-dropdown__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    height: auto;
+    min-height: 34px;
+    line-height: normal;
+    & .filter-routes-title,
+    & .filter-routes-info {
+      margin: 0;
+    }
+    & .filter-routes-info {
+      font-size: 12px;
+      color: var(--el-color-info);
+    }
+  }
+}

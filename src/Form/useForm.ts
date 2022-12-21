@@ -1,67 +1,26 @@
-import { ComputedRef, computed, Ref, unref, shallowRef } from 'vue'
-import { useLocale, useSize } from 'element-plus'
+import { computed, shallowRef, provide, inject } from 'vue'
+import { useLocale } from 'element-plus'
 import { useShow } from '../composables/index'
-import { isObject, objectOmit, isBoolean } from '../utils/index'
-import type { UnknownObject, MaybeArray, MaybeRef } from '../types/index'
+import { isBoolean } from '../utils/index'
+import type { ComputedRef, Ref, InjectionKey, Slot } from 'vue'
+import type { CollapseModelValue, TabPaneName } from 'element-plus'
+import type { UnknownObject, MaybeArray } from '../types/index'
 import type {
   IFormEmits,
-  IFormItemEmits,
-  FormColumn,
   IFormExpose,
   IFormValidateCallback,
   IFormValidateFieldCallback,
   IFormMenuColumns,
   InvalidFields,
+  IFormContext,
+  IArrayFormEmits,
+  IArrayFormProps,
+  IFormProps,
+  GroupFormColumn,
+  IFormItemProps,
+  UseFormProvideConfig,
+  UseFormInjectEmitsCallback,
 } from './index'
-
-type FormItemBind = Omit<
-  FormColumn,
-  | 'component'
-  | 'max'
-  | 'props'
-  | 'prop'
-  | 'span'
-  | 'offset'
-  | 'pull'
-  | 'push'
-  | 'xs'
-  | 'sm'
-  | 'md'
-  | 'lg'
-  | 'xl'
-  | 'children'
->
-
-export function useFormItemBind(
-  currentBind: MaybeRef<FormColumn>
-): ComputedRef<FormItemBind> {
-  return computed(() => {
-    const omitKeys: Array<keyof FormColumn> = [
-      'component',
-      'max',
-      'props',
-      'prop',
-      'children',
-      'span',
-      'offset',
-      'pull',
-      'push',
-      'xs',
-      'sm',
-      'md',
-      'lg',
-      'xl',
-    ]
-    const size = useSize()
-    const _currentBind = unref(currentBind)
-    const _option = isObject(_currentBind)
-      ? objectOmit<FormColumn>(_currentBind, omitKeys)
-      : ({} as FormColumn)
-
-    _option.size = _option.size || size.value
-    return _option
-  })
-}
 
 export const formMenu: IFormMenuColumns = {
   submit: true,
@@ -69,16 +28,20 @@ export const formMenu: IFormMenuColumns = {
   submitProps: { type: 'primary' },
   reset: true,
   resetText: 'Reset',
+  prevText: 'Prev',
+  nextText: 'Next',
 }
 
 export function useFormMenu(
-  props: Readonly<{ menu?: IFormMenuColumns }>
+  props: Pick<IFormProps, 'menu'>
 ): ComputedRef<IFormMenuColumns> {
   return computed(() => {
     const menu = { ...formMenu }
     const { t } = useLocale()
     const submitText = t('pro.form.submit')
     const resetText = t('pro.form.reset')
+    const prevText = t('pro.form.prev')
+    const nextText = t('pro.form.next')
 
     if (submitText && submitText !== 'pro.form.submit') {
       menu.submitText = submitText
@@ -86,51 +49,57 @@ export function useFormMenu(
     if (resetText && resetText !== 'pro.form.reset') {
       menu.resetText = resetText
     }
+    if (prevText && prevText !== 'pro.form.prev') {
+      menu.prevText = prevText
+    }
+    if (nextText && nextText !== 'pro.form.next') {
+      menu.nextText = nextText
+    }
 
     return props.menu ? Object.assign({}, menu, props.menu) : menu
   })
 }
 
 export function useFormMethods(emit: IFormEmits): {
-  form: Ref<IFormExpose>
+  formRef: Ref<IFormExpose>
   loading: Ref<boolean>
-  upFormData: (value: UnknownObject) => void
+  update: (value: UnknownObject) => void
   submitForm: () => void
   resetForm: (reset?: boolean) => void
 } & IFormExpose {
-  const form = shallowRef<IFormExpose>({} as IFormExpose)
+  const formRef = shallowRef<IFormExpose>({} as IFormExpose)
   const { show, toggleShow } = useShow()
 
   function validate(callback?: IFormValidateCallback) {
-    return form.value.validate(callback)
+    return formRef.value.validate(callback)
   }
 
   function resetFields() {
-    form.value.resetFields()
+    formRef.value.resetFields()
   }
 
   function scrollToField(prop: string) {
-    form.value.scrollToField(prop)
+    formRef.value.scrollToField(prop)
   }
 
   function clearValidate(props?: MaybeArray<string>) {
-    form.value.clearValidate(props)
+    formRef.value.clearValidate(props)
   }
 
   function validateField(
     props: MaybeArray<string>,
     cb: IFormValidateFieldCallback
   ) {
-    form.value.validateField(props, cb)
+    formRef.value.validateField(props, cb)
   }
 
-  function upFormData(value: UnknownObject) {
+  function update(value?: UnknownObject | UnknownObject[]) {
     emit('update:modelValue', value)
   }
 
   function submitForm() {
     show.value = true
-    form.value
+    formRef.value
       .validate()
       .then((isValid) => {
         emit('submit', toggleShow, isValid)
@@ -146,79 +115,134 @@ export function useFormMethods(emit: IFormEmits): {
    */
   function resetForm(reset = false) {
     if (isBoolean(reset) && reset) {
-      upFormData({})
+      update(undefined)
     }
     resetFields()
     emit('reset')
   }
 
   return {
-    form,
+    formRef,
     loading: show,
     validate,
     resetFields,
     scrollToField,
     clearValidate,
     validateField,
-    upFormData,
+    update,
     submitForm,
     resetForm,
   }
 }
 
-type ModelChildValue = Record<string, UnknownObject[]>
+export const formContentKey: InjectionKey<IFormContext> = Symbol('formKey')
 
-export function useFormChild(
-  props: Readonly<{
-    item: FormColumn
-    modelValue: UnknownObject
-  }>,
-  emit: IFormItemEmits
+export function useFormProvide(content: UseFormProvideConfig) {
+  provide(formContentKey, {
+    ...content,
+    ...useFormInjectEmits(content.emit),
+  })
+}
+
+export function useFormInjectEmits(
+  emit: IFormEmits
+): UseFormInjectEmitsCallback {
+  function addItem(indexes: number[]) {
+    emit('add-item', indexes)
+  }
+
+  function removeItem(indexes: number[]) {
+    emit('remove-item', indexes)
+  }
+
+  function tabsChange(name: TabPaneName) {
+    emit('tab-change', name)
+  }
+
+  function collapseChange(active: CollapseModelValue) {
+    emit('collapse-change', active)
+  }
+
+  function stepChange(active: TabPaneName) {
+    emit('step-change', active)
+  }
+
+  return {
+    addItem,
+    removeItem,
+    tabsChange,
+    collapseChange,
+    stepChange,
+  }
+}
+
+export function useFormInject() {
+  return inject(formContentKey)
+}
+
+export function useArrayForm(
+  props: Pick<IArrayFormProps, 'modelValue' | 'columns' | 'max'>,
+  emit: IArrayFormEmits
 ): {
-  hasChild: ComputedRef<boolean>
-  showAddBtn: ComputedRef<boolean>
-  add: () => void
-  del: (index: number) => void
-  upChildData: (value: UnknownObject, index: number) => void
+  showAdd: ComputedRef<boolean>
+  add: (indexes: number[]) => void
+  remove: (index: number, indexes: number[]) => void
+  update: (value: UnknownObject, index: number) => void
 } {
-  const hasChild = computed<boolean>(() => {
-    return props.item.children ? !!props.item.children.length : false
+  const form = useFormInject()
+
+  const showAdd = computed<boolean>(() => {
+    return props.max ? props.max > props.modelValue.length : true
   })
 
-  const showAddBtn = computed<boolean>(() => {
-    return props.item.max
-      ? props.item.max >
-          ((props.modelValue[props.item.prop] as unknown[])?.length || 0)
-      : true
-  })
+  function add(indexes: number[]) {
+    let _model = [...props.modelValue]
 
-  function add() {
-    const _model = { ...props.modelValue } as ModelChildValue
-    if (props.modelValue[props.item.prop]) {
-      _model[props.item.prop].push({})
+    if (props.modelValue) {
+      _model.push({})
     } else {
-      _model[props.item.prop] = [{}]
+      _model = [{}]
     }
     emit('update:modelValue', _model)
+    form?.addItem(indexes)
   }
 
-  function del(index: number) {
-    const _model = { ...props.modelValue } as ModelChildValue
-    _model[props.item.prop].splice(index, 1)
+  function remove(index: number, indexes: number[]) {
+    const _model = [...props.modelValue]
+
+    _model.splice(index, 1)
     emit('update:modelValue', _model)
+    form?.removeItem(indexes)
   }
 
-  function upChildData(value: UnknownObject, index: number) {
-    const _model = { ...props.modelValue } as ModelChildValue
-    _model[props.item.prop][index] = value
+  function update(value: UnknownObject, index: number) {
+    const _model = [...props.modelValue]
+
+    _model[index] = value
     emit('update:modelValue', _model)
   }
 
   return {
-    hasChild,
-    showAddBtn,
+    showAdd,
     add,
-    del,
-    upChildData,
+    remove,
+    update,
   }
+}
+
+export function useCreateLabel(props: Pick<IFormItemProps, 'indexes'>) {
+  const form = useFormInject()
+
+  function createLabel(item: GroupFormColumn) {
+    if (form?.slots[`form-${item.prop}-label`]) {
+      return (form?.slots[`form-${item.prop}-label`] as Slot)({
+        item: item,
+        indexes: props.indexes,
+      })
+    } else {
+      return item.label
+    }
+  }
+
+  return createLabel
 }

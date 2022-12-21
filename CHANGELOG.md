@@ -1,5 +1,76 @@
 # Changelog
 
+### 1.2.7
+
+feat
+
+- Form: solving the attrs (#424)
+
+fix
+
+- Form: the style link error (#426)
+- optimize SSG about teleports (#428)
+
+### 1.2.6
+
+fix
+
+- build: missing the code prompt file (#422)
+
+### 1.2.5
+
+feat
+
+- Menu: support defining the group of menu (#409)
+- Checkbox|Radio|Select: support nested value for config (#410)
+- Form: generation the TabsForm based on columns (#413)
+- Form: generation the CollapseForm based on columns (#414)
+- Form: generation the StepsForm based on columns (#415)
+- Form: optimize code (#416)
+- Form: support bind attributes to group forms (#417)
+- Crud: sync the group form changes (#418)
+
+other
+
+- build: change join to resolve (#412)
+- docs: optimize SSG about teleports (#419)
+- docs: optimize document directory (#420)
+
+### 1.2.4
+
+feat
+
+- FilterRoutes: Ignore hidden routes (#396)
+- Form: add array attribute for using Array Form (#402) (#404) (#406)
+- Form: add inject attributes (#403)
+- Form: support the generation of GroupForm through config (#405)
+
+fix
+
+- FilterRoutes: optimization styles (#397)
+- Tabs: name attribute is not added when using beforeAdd (#407)
+
+### 1.2.3
+
+feat
+
+- FilterRoutes: add new components ProFilterRoutes (#387)
+- Form: add indexes for form-[prop] slots (#390)
+- Form: add indexes for form-[prop]-label slots (#391)
+
+fix
+
+- ColumnSetting: the CheckedKeys loses reactive (#386)
+
+other
+
+- build: nodejs 14 is not supported replaceAll (#384)
+- chore: updata dependencies (#385)
+- chore: use lodash-unified replace lodash (#388)
+- type: simplified the DeepPath type (#389)
+- Checkbox: sync the props name change (#392)
+- docs: optimize the build of docs (#393)
+
 ## 1.2.2
 
 feat

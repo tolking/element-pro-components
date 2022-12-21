@@ -1,5 +1,14 @@
 import { resolve } from 'path'
-import { copyFileSync, mkdir, writeFileSync } from 'fs'
+import {
+  copyFileSync,
+  mkdir,
+  writeFileSync,
+  existsSync,
+  readdirSync,
+  statSync,
+  unlinkSync,
+  rmdirSync,
+} from 'fs'
 import execa from 'execa'
 
 export function toAbsolute(path: string): string {
@@ -41,4 +50,17 @@ export function copyFileRecursive(src: string, dest: string): void {
   mkdir(lastPath, { recursive: true }, () => {
     copyFileSync(src, dest)
   })
+}
+
+export function rmdirRecursive(path: string) {
+  if (existsSync(path)) {
+    readdirSync(path).forEach((item) => {
+      const current = resolve(path, item)
+
+      statSync(current).isDirectory()
+        ? rmdirRecursive(current)
+        : unlinkSync(current)
+    })
+    rmdirSync(path)
+  }
 }

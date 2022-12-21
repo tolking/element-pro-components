@@ -9,6 +9,7 @@ import type {
 } from '../types/index'
 import type {
   FormColumn,
+  GroupFormColumn,
   IFormMenuColumns,
   IFormExpose,
   IFormSubmit,
@@ -21,9 +22,8 @@ import type {
 } from '../Table/index'
 import type { DescriptionsColumn } from '../Descriptions/type'
 
-export interface CrudColumn<T = ExternalParam>
-  extends Omit<FormColumn<T>, 'children'>,
-    Omit<TableColumn<T>, 'children'>,
+interface CommonCrudColumn<T>
+  extends Omit<TableColumn<T>, 'children'>,
     Omit<DescriptionsColumn<T>, 'span'> {
   /** sub-form and multi-level header */
   children?: ICrudColumns<T & FormColumnChildren<T>>
@@ -41,9 +41,17 @@ export interface CrudColumn<T = ExternalParam>
   detailSpan?: DescriptionsColumn<T>['span']
 }
 
+export type CrudColumn<T = ExternalParam> = Omit<FormColumn<T>, 'children'> &
+  CommonCrudColumn<T>
+export type CrudGroupFormColumn<T = ExternalParam> = Omit<
+  GroupFormColumn<T>,
+  'children'
+> &
+  CommonCrudColumn<T>
+
 /** Crud Columns Options */
 export type ICrudColumns<T = ExternalParam> = Array<
-  CrudColumn<T> & UnknownObject
+  (CrudColumn<T> | CrudGroupFormColumn<T>) & UnknownObject
 >
 
 export interface CrudMenu<T = ExternalParam> {
@@ -83,6 +91,14 @@ export interface CrudMenu<T = ExternalParam> {
   searchResetText?: string
   /** props of search reset button */
   searchResetProps?: Partial<ButtonProps>
+  /** text of prev button in search form */
+  searchPrevText?: string
+  /** props of prev button in search form */
+  searchPrevProps?: Partial<ButtonProps>
+  /** text of next button in search form */
+  searchNextText?: string
+  /** props of next button in search form */
+  searchNextProps?: Partial<ButtonProps>
 }
 
 export type ICrudMenuColumns<T = ExternalParam> = CrudMenu<T> &

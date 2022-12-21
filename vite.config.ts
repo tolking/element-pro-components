@@ -20,6 +20,9 @@ export default defineConfig({
       'element-pro-components': resolve(__dirname, 'src'),
     },
   },
+  ssr: {
+    format: 'cjs',
+  },
   build: {
     rollupOptions: {
       output: {

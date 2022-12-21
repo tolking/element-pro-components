@@ -1,6 +1,26 @@
-import { formProps, formEmits, formItemEmits } from './props'
-import type { Component } from 'vue'
-import type { ButtonProps, ColProps, FormItemProps } from 'element-plus'
+import {
+  formProps,
+  arrayFormProps,
+  formListProps,
+  groupFormProps,
+  formItemProps,
+  formEmits,
+  formItemEmits,
+  arrayFormEmits,
+  tabsFormEmits,
+  stepsFormEmits,
+} from './props'
+import type { Component, Ref, Slots } from 'vue'
+import type {
+  ButtonProps,
+  ColProps,
+  CollapseModelValue,
+  FormItemProps,
+  TabPaneName,
+  TabPaneProps,
+  CollapseItemProps,
+  StepProps,
+} from 'element-plus'
 import type {
   IDefineProps,
   IDefineEmits,
@@ -23,6 +43,8 @@ export interface FormColumn<T = ExternalParam>
   component?: string | Component
   /** props for component */
   props?: UnknownObject
+  /** the type of sub-form */
+  type?: 'array'
   /** sub-form */
   children?: IFormColumns<FormColumnChildren<T>>
   /** max number of sub-form */
@@ -31,9 +53,25 @@ export interface FormColumn<T = ExternalParam>
   prop: ColumnProp<T>
 }
 
+export type GroupFormType = 'group' | 'tabs' | 'collapse' | 'steps'
+
+export interface GroupFormColumn<T = ExternalParam>
+  extends Partial<Omit<TabPaneProps, 'label' | 'name'>>,
+    Partial<Omit<CollapseItemProps, 'title' | 'name'>>,
+    Partial<Omit<StepProps, 'title'>> {
+  /** the type of group-form */
+  type: GroupFormType
+  /** keys of model that passed to form */
+  prop?: ColumnProp<T>
+  /** the title of group-form */
+  label?: string
+  /** group-form */
+  children?: IFormColumns<T>
+}
+
 /** Form Columns Option */
 export type IFormColumns<T = ExternalParam> = Array<
-  FormColumn<T> & UnknownObject
+  (FormColumn<T> | GroupFormColumn<T>) & UnknownObject
 >
 
 /** Form Menu Option */
@@ -50,6 +88,14 @@ export interface FormMenu {
   resetText?: string
   /** props of reset button */
   resetProps?: Partial<ButtonProps>
+  /** text of prev button */
+  prevText?: string
+  /** props of prev button */
+  prevProps?: Partial<ButtonProps>
+  /** text of next button */
+  nextText?: string
+  /** props of next button */
+  nextProps?: Partial<ButtonProps>
 }
 
 /** Form Menu Option */
@@ -86,9 +132,34 @@ export interface IFormExpose {
   ) => void
 }
 
+export interface UseFormProvideConfig {
+  props: IFormProps
+  emit: IFormEmits
+  slots: Readonly<Slots>
+  formRef: Ref<IFormExpose>
+  /** disabled submit */
+  disabled: Ref<boolean>
+}
+
+export interface UseFormInjectEmitsCallback {
+  addItem: (indexes: number[]) => void
+  removeItem: (indexes: number[]) => void
+  tabsChange: (name: TabPaneName) => void
+  collapseChange: (active: CollapseModelValue) => void
+  stepChange: (active: TabPaneName) => void
+}
+
+export type IFormContext = UseFormProvideConfig & UseFormInjectEmitsCallback
 export type IFormProps = IDefineProps<typeof formProps>
+export type IArrayFormProps = IDefineProps<typeof arrayFormProps>
+export type IFormListProps = IDefineProps<typeof formListProps>
+export type IGroupFormProps = IDefineProps<typeof groupFormProps>
+export type IFormItemProps = IDefineProps<typeof formItemProps>
 export type IFormEmits = IDefineEmits<typeof formEmits>
 export type IFormItemEmits = IDefineEmits<typeof formItemEmits>
+export type IArrayFormEmits = IDefineEmits<typeof arrayFormEmits>
+export type ITabsFormEmits = IDefineEmits<typeof tabsFormEmits>
+export type IStepsFormEmits = IDefineEmits<typeof stepsFormEmits>
 
 /**
  * Type helper to make it easier to define columns
