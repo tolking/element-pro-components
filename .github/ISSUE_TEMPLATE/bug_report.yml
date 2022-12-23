@@ -1,0 +1,60 @@
+name: 'Bug report'
+description: Create a report to help us improve
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This form is only for submitting bug reports. If you have a feature request, please go to the [discussion](https://github.com/tolking/element-pro-components/discussions).
+
+        Before you start, make sure to:
+
+        - this bug does not exist in the [Issues](https://github.com/tolking/element-pro-components/issues).
+        - this bug still exists in the latest version.
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: Provide a clear and concise description of the challenge you are running into.
+    validations:
+      required: true
+  - type: textarea
+    id: version
+    attributes:
+      label: Related version
+      description: Provide relevant versions with bug.
+      placeholder: |
+        vue 3.2.40
+        element-plus 2.2.27
+        element-pro-components 1.2.0
+        vite 4.0.2 ...
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link to minimal reproduction
+      placeholder: e.g. https://stackblitz.com/... OR Github Repo
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce the Bug
+      description: Describe the steps we have to take to reproduce the behavior.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: Provide a clear and concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.
