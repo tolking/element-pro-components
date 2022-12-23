@@ -41,7 +41,6 @@ createApp(App).use(ElementPro).mount('#app')
 ## Development project
 
 Nodejs 16+
-由于 Vite 需要 Node.js 版本 16+。有些模板需要依赖更高的 Node 版本才能正常运行
 
 start
 
