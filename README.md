@@ -40,7 +40,7 @@ createApp(App).use(ElementPro).mount('#app')
 
 ## Development project
 
-Nodejs ^15
+Nodejs 16+
 
 start
 
