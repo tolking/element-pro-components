@@ -27,12 +27,6 @@ The advantage of componentization is that you can build your own development env
 
 The development concept of the component library is to face the future, if you look at the source code, you will find that it is like [script setup](https://github.com/vuejs/rfcs/pull/227.) of vue3 or like [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) of CSSNext. Under the circumstance of ensuring the compatibility of most browsers, more new features and functions will be used for development
 
-## Contribute
-
-The component library is still in the early development stage, and need to be improved. If you want to contribute, welcome to [Pull Request](https://github.com/tolking/element-pro-components/pulls). If it's just a simple document error correction, you can directly PR, but if it's a bug or a new demand or a new component, it is best to create the [issues](https://github.com/tolking/element-pro-components/issues) first.
-
-git contribute information style reference [vue commit-convention](https://github.com/vuejs/vue-next/blob/master/.github/commit-convention.md)
-
 ## Browser support
 
 Same with element-plus

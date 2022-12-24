@@ -27,12 +27,6 @@ element-pro-components 是一个基于 [element-plus](https://element-plus.org/)
 
 该组件库的开发理念就是面向未来，如果查看源码你就会发现像是 vue 3 的 [script setup](https://github.com/vuejs/rfcs/pull/227.) 实验性功能、像是 CSSNext 的 [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*)。在保证大部分浏览器的兼容性的情况下，会更多的使用新特性、新功能来开发
 
-## 贡献
-
-组件库还处于早期开发阶段，功能还需要完善。如果你希望参与贡献，欢迎 [Pull Request](https://github.com/tolking/element-pro-components/pulls)。如果只是简单的文档相关的错误修正，你可以直接 PR。但如果是 BUG、新功能、新组件等，最好优先提 [issues](https://github.com/tolking/element-pro-components/issues)
-
-git 提交信息风格参考 [vue commit-convention](https://github.com/vuejs/vue-next/blob/master/.github/commit-convention.md)
-
 ## 浏览器支持
 
 理论上同 element-plus

@@ -36,6 +36,11 @@ const zhCN: RouteRecordRaw[] = [
         meta: { title: '路由和菜单' },
       },
       {
+        path: '/zh-CN/guide/contributing',
+        component: () => import('../../zh-CN/guide/contributing.md'),
+        meta: { title: '贡献指南' },
+      },
+      {
         path: '/zh-CN/guide/changelog',
         component: () => import('../../../CHANGELOG.md'),
         meta: { title: '更新日志' },
