@@ -61,7 +61,7 @@ const _formItemProps = objectPick(formItemProps, 'prefix', 'indexes')
 export const arrayFormProps = {
   ..._formItemProps,
   modelValue: {
-    type: Array as PropType<UnknownObject[]>,
+    type: Array,
     default: () => [],
   },
   columns: Array as PropType<IFormColumns>,
@@ -72,9 +72,7 @@ export const formProps = {
   ..._formProps,
   ..._rowProps,
   ..._formItemProps,
-  modelValue: [Object, Array] as PropType<
-    UnknownObject | UnknownObject[] | undefined
-  >,
+  modelValue: [Object, Array],
   columns: Array as PropType<IFormColumns>,
   menu: Object as PropType<IFormMenuColumns>,
   array: Boolean,
@@ -92,11 +90,11 @@ export const groupFormProps = {
 }
 
 export const formItemEmits = {
-  'update:modelValue': (value: UnknownObject) => isObject(value),
+  'update:modelValue': (value: ExternalParam) => isObject(value),
 }
 
 export const arrayFormEmits = {
-  'update:modelValue': (value: UnknownObject[]) => isArray(value),
+  'update:modelValue': (value: ExternalParam) => isArray(value),
   'add-item': (indexes: number[]) => isArray(indexes),
   'remove-item': (indexes: number[]) => isArray(indexes),
 }
