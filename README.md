@@ -1,11 +1,20 @@
-[![License](https://img.shields.io/github/license/tolking/element-pro-components.svg?style=flat-square&logo=opensourceinitiative)](https://github.com/tolking/element-pro-components/blob/master/LICENSE)
-[![Latest tag via npm](https://img.shields.io/npm/v/element-pro-components.svg?style=flat-square&logo=npm)](https://npmjs.com/package/element-pro-components)
-[![npm bundle size](https://img.shields.io/bundlephobia/minzip/element-pro-components?label=minzip&logo=npm&style=flat-square)](https://npmjs.com/package/element-pro-components)
-[![Npm Last Updated](https://img.shields.io/badge/dynamic/json.svg?style=flat-square&logo=npm&label=last%20release&url=http%3A%2F%2Fregistry.npmjs.org%2Felement-pro-components&query=$.time.modified)](https://www.npmjs.com/package/element-pro-components)
-[![GitHub last commit](https://img.shields.io/github/last-commit/tolking/element-pro-components.svg?&style=flat-square&logo=github)](https://github.com/tolking/element-pro-components/commits)
-[![Latest tag via GitHub](https://img.shields.io/github/v/tag/tolking/element-pro-components.svg?sort=semver&style=flat-square&logo=github)](https://github.com/tolking/element-pro-components/tags)
-
-# element-pro-components
+<p style="text-align: center">
+  <img src="./docs/public/logo.svg" width="120px" height="120px" />
+</p>
+<p style="text-align: center;font-size: 24px">
+  <b>element-pro-components</b>
+</p>
+<p style="text-align: center">
+  <a href="https://github.com/tolking/element-pro-components/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/tolking/element-pro-components.svg?style=flat-square&logo=opensourceinitiative" />
+  </a>
+  <a href="https://npmjs.com/package/element-pro-components">
+    <img src="https://img.shields.io/npm/v/element-pro-components.svg?style=flat-square&logo=npm">
+  </a>
+  <a href="https://npmjs.com/package/element-pro-components">
+    <img src="https://img.shields.io/bundlephobia/minzip/element-pro-components?label=minzip&logo=npm&style=flat-square">
+  </a>
+</p>
 
 > a component library for Vue 3 base on element-plus
 
@@ -38,35 +47,11 @@ createApp(App).use(ElementPro).mount('#app')
 </template>
 ```
 
-## Development project
+## Contributors
 
-Nodejs 16+
+Thank you to all the people who have already contributed to element-pro-components!
 
-start
-
-```bash
-pnpm install
-
-pnpm dev
-```
-
-then, preview on `http://localhost:5173/`
-
-test build
-
-```bash
-pnpm build
-```
-
-before push
-
-```bash
-pnpm check
-
-pnpm test
-```
-
-[commit-convention](https://github.com/vuejs/vue-next/blob/master/.github/commit-convention.md)
+[![contributors](https://contrib.rocks/image?repo=tolking/element-pro-components)](https://github.com/tolking/element-pro-components/graphs/contributors)
 
 ## License
 
