@@ -116,6 +116,6 @@ export function throwWarn(err: string) {
  * @param first
  * @param last
  */
-export function withPoint(first?: string, last?: string | number) {
+export function withPoint(first?: string, last?: string) {
   return `${first}${first && last ? '.' : ''}${last}`
 }

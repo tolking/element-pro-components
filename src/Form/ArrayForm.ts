@@ -17,7 +17,7 @@ export default defineComponent({
 
     function createDefault(value: UnknownObject, index: number) {
       const indexes = [...(props.indexes || []), index]
-      const prefix = withPoint(props.prefix, index)
+      const prefix = withPoint(props.prefix, String(index))
 
       return h('div', { class: 'pro-array-form' }, [
         h(
