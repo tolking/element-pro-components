@@ -87,7 +87,7 @@ export default defineComponent({
           h(
             ElButton,
             mergeProps(menu.value.resetProps || {}, {
-              loading: loading.value,
+              disabled: loading.value,
               onClick: () => resetForm(),
             }),
             () => menu.value.resetText
