@@ -20,8 +20,8 @@
 
 消息必须由以下正则表达式匹配
 
-```js
-;/^(revert: )?(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip)(\(.+\))?: .{1,50}/
+```
+/^(revert: )?(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip)(\(.+\))?: .{1,50}/
 ```
 
 例如:
@@ -43,7 +43,7 @@ fix(Form): the style link error
 
 ## 本地开发
 
-在进行本地开发前，你需要安装 [Node.js](https://nodejs.org) **>= 16**, 同时我们推荐你使用 [PNPM](https://pnpm.io)。
+在进行本地开发前，你需要安装 [Node.js 16+](https://nodejs.org), 同时我们推荐你使用 [PNPM](https://pnpm.io)。
 
 ```
 # 安装依赖
