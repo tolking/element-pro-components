@@ -1,10 +1,10 @@
-<p style="text-align: center">
+<p align="center">
   <img src="./docs/public/logo.svg" width="120px" height="120px" />
 </p>
-<p style="text-align: center;font-size: 24px">
-  <b>element-pro-components</b>
+<p align="center">
+  <b style="font-size: 24px">element-pro-components</b>
 </p>
-<p style="text-align: center">
+<p align="center">
   <a href="https://github.com/tolking/element-pro-components/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/tolking/element-pro-components.svg?style=flat-square&logo=opensourceinitiative" />
   </a>

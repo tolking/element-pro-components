@@ -20,8 +20,8 @@ Thank you for choosing element-pro-components, If you are willing to contribute 
 
 Messages must be matched by the following regex:
 
-```js
-;/^(revert: )?(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip)(\(.+\))?: .{1,50}/
+```
+/^(revert: )?(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip)(\(.+\))?: .{1,50}/
 ```
 
 Examples:
@@ -43,7 +43,7 @@ fix(Form): the style link error
 
 ## Getting started
 
-Before development, you need to install [Node.js](https://nodejs.org) **>= 16**, and we recommend you to use [PNPM](https://pnpm.io).
+Before development, you need to install [Node.js 16+](https://nodejs.org), and we recommend you to use [PNPM](https://pnpm.io).
 
 ```
 # install dependencies
