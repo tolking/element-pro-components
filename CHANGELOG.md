@@ -1,5 +1,22 @@
 # Changelog
 
+### 1.2.8
+
+fix
+
+- build Error Nodejs^15 Cannot find module 'node:path' (#431)
+- Form: validation error of ArrayForm (#440)
+- Form: disable reset button when submit (#442)
+
+other
+
+- add CODE_OF_CONDUCT.md (#432)
+- add issue template (#433)
+- docs: add contributing.md (#436)
+- add pull_request_template.md (#437)
+- Form: optimization type (#438)
+- update README (#439)
+
 ### 1.2.7
 
 feat

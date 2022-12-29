@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/public/logo.svg" width="120px" height="120px" />
+  <img src="https://tolking.github.io/element-pro-components/logo.svg" width="120px" height="120px" />
 </p>
 <p align="center">
   <b style="font-size: 24px">element-pro-components</b>
