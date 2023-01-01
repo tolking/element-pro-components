@@ -10,7 +10,7 @@ import {
   tabsFormEmits,
   stepsFormEmits,
 } from './props'
-import type { Component, Ref, Slots } from 'vue'
+import type { Ref, Slots } from 'vue'
 import type {
   ButtonProps,
   ColProps,
@@ -30,6 +30,7 @@ import type {
   Mutable,
   ColumnProp,
   FormColumnChildren,
+  ColumnComponent,
 } from '../types/index'
 
 export interface InvalidFields {
@@ -40,7 +41,7 @@ export interface FormColumn<T = ExternalParam>
   extends Mutable<Partial<Omit<FormItemProps, 'prop'>>>,
     Partial<Omit<ColProps, 'tag'>> {
   /** component name */
-  component?: string | Component
+  component?: string | ColumnComponent
   /** props for component */
   props?: UnknownObject
   /** the type of sub-form */
