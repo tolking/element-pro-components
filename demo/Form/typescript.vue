@@ -30,6 +30,9 @@ const columns = defineFormColumns<Form>([
     props: defineComponentProps<'ElInput'>({
       clearable: true,
       placeholder: 'Please input your name',
+      slots: {
+        append: () => 'Search',
+      },
     }),
   },
   {

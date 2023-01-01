@@ -4,6 +4,7 @@ import {
   formListProps,
   groupFormProps,
   formItemProps,
+  formComponentProps,
   formEmits,
   formItemEmits,
   arrayFormEmits,
@@ -31,6 +32,7 @@ import type {
   ColumnProp,
   FormColumnChildren,
   ColumnComponent,
+  ColumnPropsSlots,
 } from '../types/index'
 
 export interface InvalidFields {
@@ -43,7 +45,7 @@ export interface FormColumn<T = ExternalParam>
   /** component name */
   component?: string | ColumnComponent
   /** props for component */
-  props?: UnknownObject
+  props?: UnknownObject & { slots?: ColumnPropsSlots }
   /** the type of sub-form */
   type?: 'array'
   /** sub-form */
@@ -156,6 +158,7 @@ export type IArrayFormProps = IDefineProps<typeof arrayFormProps>
 export type IFormListProps = IDefineProps<typeof formListProps>
 export type IGroupFormProps = IDefineProps<typeof groupFormProps>
 export type IFormItemProps = IDefineProps<typeof formItemProps>
+export type IFormComponentProps = IDefineProps<typeof formComponentProps>
 export type IFormEmits = IDefineEmits<typeof formEmits>
 export type IFormItemEmits = IDefineEmits<typeof formItemEmits>
 export type IArrayFormEmits = IDefineEmits<typeof arrayFormEmits>
