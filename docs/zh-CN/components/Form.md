@@ -29,7 +29,7 @@ meta:
 
 ### 智能提示
 
-通过辅助函数 `defineFormColumns` `defineFormMenuColumns` `defineFormSubmit` 提供智能提示
+通过辅助函数 `defineFormColumns` `defineFormMenuColumns` `defineFormSubmit` `defineComponentProps` 提供智能提示
 
 ::: demo
 @/demo/Form/define.vue
@@ -179,7 +179,7 @@ meta:
 
 ### TypeScript
 
-`defineFormColumns` 支持传入一个泛型用来推断 `prop` 值
+`defineFormColumns` 支持传入一个泛型用来推断 `prop` 值；`defineComponentProps` 支持传入一个泛型用来辅助输入 `props` 值
 
 ::: demo
 @/demo/Form/typescript.vue

@@ -8,13 +8,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { ElMessage } from 'element-plus'
-import { defineFormColumns, defineFormSubmit } from 'element-pro-components'
+import { markRaw, ref } from 'vue'
+import { ElMessage, ElSwitch } from 'element-plus'
+import {
+  defineFormColumns,
+  defineFormSubmit,
+  defineComponentProps,
+} from 'element-pro-components'
 
 interface Form {
   name?: string
-  address?: string
+  status?: boolean
 }
 
 const form = ref<Form>({})
@@ -22,12 +26,21 @@ const columns = defineFormColumns<Form>([
   {
     label: 'Name',
     prop: 'name',
-    component: 'el-input',
+    component: 'ElInput',
+    props: defineComponentProps<'ElInput'>({
+      clearable: true,
+      placeholder: 'Please input your name',
+    }),
   },
   {
-    label: 'Address',
-    prop: 'address',
-    component: 'el-input',
+    label: 'Status',
+    prop: 'status',
+    component: markRaw(ElSwitch),
+    props: defineComponentProps<typeof ElSwitch>({
+      inlinePrompt: true,
+      activeText: 'Y',
+      inactiveText: 'N',
+    }),
   },
 ])
 const submit = defineFormSubmit((done, isValid, invalidFields) => {

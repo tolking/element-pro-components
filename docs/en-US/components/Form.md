@@ -29,7 +29,7 @@ When columns is bound to a reactive array, changes in the array will affect form
 
 ### Intellisense
 
-Use the `defineFormColumns` `defineFormMenuColumns` `defineFormSubmit` to make it easier to define columns
+Use the `defineFormColumns` `defineFormMenuColumns` `defineFormSubmit` `defineComponentProps` to make it easier to define columns
 
 ::: demo
 @/demo/Form/define.vue
@@ -179,7 +179,7 @@ To implement Async Form, columns must be bound to a reactive array
 
 ### TypeScript
 
-The function `defineFormColumns` supports passing in a Generics type to infer the value of `prop`
+The function `defineFormColumns` supports passing in a Generics type to infer the value of `prop`, The function `defineComponentProps` supports passing in a Generics type to help input the `props` value
 
 ::: demo
 @/demo/Form/typescript.vue
