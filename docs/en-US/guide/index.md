@@ -56,24 +56,25 @@ Since `1.0.0`, support CommonJS by import `.cjs`
 
 Installation and use view [unplugin-vue-components](https://www.npmjs.com/package/unplugin-vue-components)
 
-- Configuration information
+- Used
 
 ```js
-{
+import { ElementProResolver } from 'element-pro-components'
+
+Components({
   resolvers: [
-    (name) => {
-      if (name.startsWith('Pro')) {
-        const fileName = name.slice(3).replace(/\B([A-Z])/g, '-$1').toLocaleLowerCase()
-        return {
-          importName: name,
-          path: 'element-pro-components',
-          sideEffects: `element-pro-components/lib/styles/${fileName}`
-        }
-      }
-    }
+    ElementProResolver(/* options */),
   ],
-}
+}),
 ```
+
+- Options
+
+| Name               | Description                                             | Type                     | Default |
+| :----------------- | :------------------------------------------------------ | :----------------------- | :------ |
+| importStyle        | style file suffix for import component                  | `'js' \| 'cjs' \| 'css'` | js      |
+| exclude            | exclude components that do not require automatic import | `RegExp`                 | -       |
+| noStylesComponents | a list of component names that have no styles           | `string[]`               | -       |
 
 ### Use vite-plugin-style-import in vite
 
