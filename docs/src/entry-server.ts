@@ -83,17 +83,10 @@ function renderPreloadLink(file: string) {
 
 function renderTeleports(teleports?: Record<string, string>) {
   if (!teleports) return ''
-  const keys = Object.keys(teleports)
-  let result = teleports.body || ''
-
-  for (let i = 0; i < keys.length; i++) {
-    const key = keys[i]
-    const item = teleports[key]
-
+  return Object.entries(teleports).reduce((all, [key, value]) => {
     if (key.startsWith('#el-popper-container-')) {
-      result += `<div id="${key.slice(1)}">${item}</div>`
+      return `${all}<div id="${key.slice(1)}">${value}</div>`
     }
-  }
-
-  return result
+    return all
+  }, teleports.body || '')
 }
