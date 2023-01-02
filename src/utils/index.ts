@@ -13,4 +13,5 @@ export {
   isNumber,
 } from '@vueuse/core'
 export * from './filter'
+export * from './helper'
 export * from './util'
