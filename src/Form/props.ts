@@ -52,7 +52,7 @@ export const formComponentProps = {
   modelValue: null,
   is: {
     type: [String, Object] as PropType<string | Component>,
-    default: 'span',
+    require: true,
   },
   slots: [Function, Object, String],
 }

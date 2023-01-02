@@ -97,7 +97,7 @@ export default defineComponent({
             setValue: update,
           })
         )
-      } else {
+      } else if (item.value.component) {
         list.push(
           h(
             ProFormComponent,

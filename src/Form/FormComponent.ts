@@ -1,13 +1,7 @@
-import {
-  computed,
-  DefineComponent,
-  defineComponent,
-  h,
-  resolveDynamicComponent,
-  Slot,
-} from 'vue'
-import { isFunction, isObject } from '../utils/index'
+import { defineComponent, h, mergeProps, resolveComponent } from 'vue'
+import { isFunction, isObject, isString } from '../utils/index'
 import { formComponentProps } from './props'
+import type { DefineComponent, Slot } from 'vue'
 import type { StringObject } from '../types/index'
 
 interface TargetEvent {
@@ -22,21 +16,22 @@ export default defineComponent({
   props: formComponentProps,
   emits: ['update:modelValue'],
   setup(props, { attrs, emit }) {
-    const type = computed(() => {
-      return resolveDynamicComponent(props.is) as DefineComponent
-    })
-    const prop = computed(() => {
-      const _props: StringObject = {
-        ...attrs,
+    const nativeComponents = ['input', 'textarea', 'select']
+
+    function getComponent() {
+      return isString(props.is) && !nativeComponents.includes(props.is)
+        ? resolveComponent(props.is)
+        : props.is
+    }
+
+    function getProps() {
+      const _props: StringObject = mergeProps(attrs, {
         modelValue: props.modelValue,
         'onUpdate:modelValue': (value: unknown) =>
           emit('update:modelValue', value),
-      }
-      if (
-        props.is === 'input' ||
-        props.is === 'select' ||
-        props.is === 'textarea'
-      ) {
+      })
+
+      if (isString(props.is) && nativeComponents.includes(props.is)) {
         if (
           props.is === 'select' ||
           attrs.type === 'checkbox' ||
@@ -53,8 +48,9 @@ export default defineComponent({
         _props.modelValue = undefined
       }
       return _props
-    })
-    const children = computed(() => {
+    }
+
+    function getSlots() {
       if (isFunction(props.slots)) {
         return props.slots as Slot
       } else if (isObject(props.slots)) {
@@ -71,8 +67,8 @@ export default defineComponent({
       } else {
         return undefined
       }
-    })
+    }
 
-    return () => h(type.value, prop.value, children.value)
+    return () => h(getComponent() as DefineComponent, getProps(), getSlots())
   },
 })
