@@ -56,24 +56,25 @@ app.mount('#app')
 
 安装及使用查看 [unplugin-vue-components](https://www.npmjs.com/package/unplugin-vue-components)
 
-- 配置信息
+- 使用
 
 ```js
-{
+import { ElementProResolver } from 'element-pro-components'
+
+Components({
   resolvers: [
-    (name) => {
-      if (name.startsWith('Pro')) {
-        const fileName = name.slice(3).replace(/\B([A-Z])/g, '-$1').toLocaleLowerCase()
-        return {
-          importName: name,
-          path: 'element-pro-components',
-          sideEffects: `element-pro-components/lib/styles/${fileName}`
-        }
-      }
-    }
+    ElementProResolver(/* options */),
   ],
-}
+}),
 ```
+
+- 参数
+
+| 参数               | 说明                     | 类型                     | 默认值 |
+| :----------------- | :----------------------- | :----------------------- | :----- |
+| importStyle        | 导入组件的样式文件后缀   | `'js' \| 'cjs' \| 'css'` | js     |
+| exclude            | 排除不需要自动导入的组件 | `RegExp`                 | -      |
+| noStylesComponents | 没有样式的组件名称列表   | `string[]`               | -      |
 
 ### 在 vite 中使用 vite-plugin-style-import
 
