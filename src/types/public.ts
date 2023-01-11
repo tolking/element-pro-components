@@ -50,9 +50,8 @@ type DeepNested<K extends string, V> = V extends object[]
 /**
  * Get the deep key path of the object
  *
- * for example:
- *
- * ```
+ * @example
+ * ```ts
  *  DeepPath<{
  *    name: string
  *    address: string
