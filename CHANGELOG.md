@@ -1,5 +1,13 @@
 # Changelog
 
+### 1.2.9
+
+feat
+
+- Form: refactor FormComponent (#446)
+- add ElementProResolver from unplugin-vue-components (#447)
+- type: add type helper defineComponentProps (#445)
+
 ### 1.2.8
 
 fix
