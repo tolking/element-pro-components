@@ -27,7 +27,6 @@ const PackageJson = `
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "latest",
-    "@vue/compiler-sfc": "latest",
     "vite": "latest"
   },
   "stackblitz": {

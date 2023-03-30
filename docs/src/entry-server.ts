@@ -1,6 +1,6 @@
 import { basename } from 'path'
 import { createApp } from './main'
-import { renderToString } from '@vue/server-renderer'
+import { renderToString } from 'vue/server-renderer'
 import { renderHeadToString } from '@vueuse/head'
 
 export async function render(

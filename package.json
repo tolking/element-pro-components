@@ -56,14 +56,10 @@
     "url": "https://github.com/tolking/element-pro-components/issues"
   },
   "homepage": "https://github.com/tolking/element-pro-components#readme",
-  "peerDependencies": {
-    "@vueuse/core": "^9",
-    "element-plus": "^2",
-    "vue": "^3.2",
-    "vue-router": "^4"
-  },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.10",
+    "@types/lodash": "^4.14.186",
+    "@types/lodash-es": "^4.17.6",
     "@vueuse/core": "^9.3.0",
     "element-plus": "^2.2.18",
     "lodash": "^4.17.21",
@@ -76,14 +72,11 @@
     "@docsearch/css": "^3.2.1",
     "@docsearch/js": "^3.2.1",
     "@stackblitz/sdk": "^1.8.0",
-    "@types/lodash": "^4.14.186",
-    "@types/lodash-es": "^4.17.6",
     "@types/markdown-it": "^12.2.3",
     "@types/markdown-it-container": "^2.0.5",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
     "@vitejs/plugin-vue": "^3.1.2",
-    "@vue/server-renderer": "^3.2.40",
     "@vue/test-utils": "^2.1.0",
     "@vueuse/head": "^0.9.8",
     "autoprefixer": "^10.4.12",
