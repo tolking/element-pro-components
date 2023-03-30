@@ -35,7 +35,7 @@ const files = fg.sync('docs/**/*.md')
       .replace('<title></title>\n', '')
       .replace('<!--preload-links-->', preloadLinks)
       .replace('<!--app-html-->', appHtml)
-      .replace(/\n\s*<!--app-teleports-->/, teleports)
+      .replace(/(\n|\r\n)\s*<!--app-teleports-->/, teleports)
 
     writeFileRecursive(filePath, html)
     console.log('pre-rendered:', filePath)
