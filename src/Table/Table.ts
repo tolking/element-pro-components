@@ -2,7 +2,6 @@ import { defineComponent, h, toRefs, VNode, provide, mergeProps } from 'vue'
 import { reactiveOmit, reactivePick } from '@vueuse/core'
 import { ElTable, ElTableColumn, ElPagination, useAttrs } from 'element-plus'
 import {
-  useTableColumns,
   useTableBind,
   useTableDefaultBind,
   useTableMethods,
@@ -25,7 +24,7 @@ export default defineComponent({
   setup(props, { slots, emit, expose }) {
     const { selection, expand, index, menu } = toRefs(props)
     const attrs = useAttrs()
-    const columns = useTableColumns(props)
+
     const defaultBind = useTableDefaultBind(props)
     const bindSelection = useTableBind<ITableSelectionColumns>(
       selection,
@@ -71,7 +70,7 @@ export default defineComponent({
     })
 
     function createColumn() {
-      let list: VNode[] = []
+      let list: Array<VNode | null> = []
 
       if (selection.value) {
         list.push(
@@ -93,8 +92,9 @@ export default defineComponent({
           h(ElTableColumn, mergeProps(bindIndex.value, { type: 'index' }))
         )
       }
-      if (columns.value) {
-        const tableItem = columns.value.map((item) => {
+      if (props.columns) {
+        const tableItem = props.columns.map((item) => {
+          if (item.hide) return null
           return h(ProTableItem, { item, size: props.size }, slots)
         })
 

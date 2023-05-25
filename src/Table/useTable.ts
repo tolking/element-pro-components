@@ -1,5 +1,5 @@
 import { ComputedRef, computed, Ref, unref, shallowRef } from 'vue'
-import { filterDeep, isObject } from '../utils/index'
+import { isObject } from '../utils/index'
 import type {
   UnknownObject,
   StringObject,
@@ -7,20 +7,7 @@ import type {
   MaybeArray,
   ExternalParam,
 } from '../types/index'
-import type {
-  ITableEmits,
-  ITableColumns,
-  TableColumnsProps,
-  ITableExpose,
-} from './index'
-
-export function useTableColumns(
-  props: Readonly<{ columns?: ITableColumns }>
-): ComputedRef<ITableColumns> {
-  return computed<ITableColumns>(() => {
-    return filterDeep(props.columns || [], 'hide', false)
-  })
-}
+import type { ITableEmits, TableColumnsProps, ITableExpose } from './index'
 
 export function useTableDefaultBind(
   props: Readonly<TableColumnsProps>
