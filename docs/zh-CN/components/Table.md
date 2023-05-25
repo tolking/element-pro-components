@@ -87,6 +87,14 @@ meta:
 @/demo/Table/pagination.vue
 :::
 
+### 隐藏单列
+
+通过为列配置 `hide` 属性可以隐藏该列。一般配合 [ColumnSetting](./ColumnSetting.md#配合-table) 组件使用
+
+::: demo
+@/demo/Table/hide.vue
+:::
+
 ### 多级表头
 
 通过 columns 的 `children` 配置多级表头

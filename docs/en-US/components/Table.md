@@ -87,6 +87,14 @@ Set `total` attribute to display pagination, use `v-model:current-page` to bind 
 @/demo/Table/pagination.vue
 :::
 
+### Hide Column
+
+By config the `hide` attribute for column, it can be hidden. Generally used in conjunction with the [ColumnSetting](./ColumnSetting.md#use-with-table) component
+
+::: demo
+@/demo/Table/hide.vue
+:::
+
 ### Grouping table head
 
 Set `children` in `columns` will automatic generate the grouping table head
