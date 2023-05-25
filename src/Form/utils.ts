@@ -17,6 +17,7 @@ type FormItemBind = Omit<
   | 'lg'
   | 'xl'
   | 'children'
+  | 'show'
 >
 
 export function getFormItemBind(item: FormColumn): FormItemBind {
@@ -35,6 +36,7 @@ export function getFormItemBind(item: FormColumn): FormItemBind {
     'md',
     'lg',
     'xl',
+    'show',
   ]
 
   return isObject(item)

@@ -54,6 +54,8 @@ export interface FormColumn<T = ExternalParam>
   max?: number
   /** keys of model that passed to form */
   prop: ColumnProp<T>
+  /** whether to display the current column */
+  show?: boolean
 }
 
 export type GroupFormType = 'group' | 'tabs' | 'collapse' | 'steps'
@@ -70,6 +72,8 @@ export interface GroupFormColumn<T = ExternalParam>
   label?: string
   /** group-form */
   children?: IFormColumns<T>
+  /** whether to display the current column */
+  show?: boolean
 }
 
 /** Form Columns Option */

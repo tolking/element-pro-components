@@ -114,18 +114,20 @@ export default defineComponent({
     }
 
     return () =>
-      h(
-        ElFormItem,
-        mergeProps({ size: size.value }, getFormItemBind(item.value), {
-          prop: props.prefix,
-          style: !form?.props.inline ? colStyle.value : undefined,
-          class: ['pro-form-item', !form?.props.inline && colClass.value],
-        }),
-        {
-          label: () => createLabel(),
-          error: (scope: UnknownObject) => createError(scope),
-          default: () => createDefault(),
-        }
-      )
+      item.value.show === false
+        ? null
+        : h(
+            ElFormItem,
+            mergeProps({ size: size.value }, getFormItemBind(item.value), {
+              prop: props.prefix,
+              style: !form?.props.inline ? colStyle.value : undefined,
+              class: ['pro-form-item', !form?.props.inline && colClass.value],
+            }),
+            {
+              label: () => createLabel(),
+              error: (scope: UnknownObject) => createError(scope),
+              default: () => createDefault(),
+            }
+          )
   },
 })

@@ -22,6 +22,8 @@ export default defineComponent({
 
     function createDefault() {
       return props.columns?.map((item, index) => {
+        if (item.show === false) return null
+
         return h(
           ElCollapseItem,
           mergeProps(getGroupFormItemBind(item), {
