@@ -65,7 +65,7 @@ const _formItemProps = objectPick(formItemProps, 'prefix', 'indexes')
 export const arrayFormProps = {
   ..._formItemProps,
   modelValue: {
-    type: Array,
+    type: Array as PropType<UnknownObject[]>,
     default: () => [],
   },
   columns: Array as PropType<IFormColumns>,
