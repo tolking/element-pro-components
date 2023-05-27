@@ -193,8 +193,7 @@ export default defineComponent({
         list.push(
           h(
             ElButton,
-            mergeProps(menuColumns.value.addProps || {}, {
-              size: props.size,
+            mergeProps({ size: props.size }, menuColumns.value.addProps || {}, {
               onClick: () => openDialog('add'),
             }),
             () => menuColumns.value?.addText || ''
@@ -247,13 +246,16 @@ export default defineComponent({
         list.push(
           h(
             ElButton,
-            mergeProps(menuColumns.value.editProps || {}, {
-              size: props.size,
-              onClick: (event: Event) => {
-                event.stopPropagation()
-                openDialog('edit', scope.row)
-              },
-            }),
+            mergeProps(
+              { size: props.size },
+              menuColumns.value.editProps || {},
+              {
+                onClick: (event: Event) => {
+                  event.stopPropagation()
+                  openDialog('edit', scope.row)
+                },
+              }
+            ),
             () => menuColumns.value?.editText || ''
           )
         )
@@ -262,13 +264,16 @@ export default defineComponent({
         list.push(
           h(
             ElButton,
-            mergeProps(menuColumns.value.detailProps || {}, {
-              size: props.size,
-              onClick: (event: Event) => {
-                event.stopPropagation()
-                openDialog('detail', scope.row)
-              },
-            }),
+            mergeProps(
+              { size: props.size },
+              menuColumns.value.detailProps || {},
+              {
+                onClick: (event: Event) => {
+                  event.stopPropagation()
+                  openDialog('detail', scope.row)
+                },
+              }
+            ),
             () => menuColumns.value?.detailText || ''
           )
         )
@@ -277,8 +282,7 @@ export default defineComponent({
         list.push(
           h(
             ElButton,
-            mergeProps(menuColumns.value.delProps || {}, {
-              size: props.size,
+            mergeProps({ size: props.size }, menuColumns.value.delProps || {}, {
               onClick: (event: Event) => delRow(event, scope.row),
             }),
             () => menuColumns.value?.delText || ''

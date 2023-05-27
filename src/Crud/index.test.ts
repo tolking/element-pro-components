@@ -1,6 +1,6 @@
-import { describe, test, expect, afterEach, vi } from 'vitest'
+import { describe, test, expect, afterEach, vi, afterAll } from 'vitest'
 import { ComponentPublicInstance, ref } from 'vue'
-import { mount, VueWrapper } from '@vue/test-utils'
+import { config, mount, VueWrapper } from '@vue/test-utils'
 import { ElInput, ElSwitch, ElTableColumn } from 'element-plus'
 import ProCrud from './Crud'
 import { doubleWait, tableData } from '../__mocks__/index'
@@ -10,6 +10,13 @@ interface Form {
   date?: string
   name?: string
   address?: string
+}
+
+config.global.components = {
+  ProCrud,
+  ElTableColumn,
+  ElInput,
+  ElSwitch,
 }
 
 const commonColumns: ICrudColumns<Form> = [
@@ -39,21 +46,7 @@ const commonColumns: ICrudColumns<Form> = [
     add: true,
   },
 ]
-const _mount = async (options: Record<string, unknown>) => {
-  const _mount = mount(
-    {
-      components: { ProCrud, ElTableColumn },
-      ...options,
-    },
-    {
-      global: {
-        components: { ElInput, ElSwitch },
-      },
-    }
-  )
-  await doubleWait()
-  return _mount
-}
+
 const addClass = '.pro-crud .pro-crud-menu button'
 const searchClass =
   '.pro-crud .pro-crud-search .pro-form-menu .el-form-item__content button'
@@ -114,7 +107,7 @@ describe('Crud', () => {
   })
 
   test.concurrent('columns', async () => {
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: `
         <pro-crud
           v-model="form"
@@ -133,7 +126,7 @@ describe('Crud', () => {
         return { form, searchForm, columns, data: tableData }
       },
     })
-    const vm = wrapper.vm as unknown as { columns: ICrudColumns<Form> }
+    await doubleWait()
 
     expect(getHeaderList(wrapper)).toHaveLength(3)
     expect(getHeaderList(wrapper)).not.toContain('Date')
@@ -170,7 +163,7 @@ describe('Crud', () => {
     expect(getDetailLabelList(wrapper)).not.toContain('Address')
     await wrapper.find(dialogClose).trigger('click')
 
-    await (vm.columns[0] = {
+    await (wrapper.vm.columns[0] = {
       label: 'Date-label',
       prop: 'date',
       component: 'el-switch',
@@ -204,14 +197,14 @@ describe('Crud', () => {
     expect(getDetailLabelList(wrapper)).not.toContain('Address')
     await wrapper.find(dialogClose).trigger('click')
 
-    await (vm.columns[0].search = true)
+    await (wrapper.vm.columns[0].search = true)
     expect(getSearchList(wrapper)).toHaveLength(1)
     expect(getSearchLabelList(wrapper)).toContain('Date-label')
     expect(getSearchComponentList(wrapper)[0]).toContain('el-switch')
   })
 
   test.concurrent('menu', async () => {
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: `
         <pro-crud
           v-model="form"
@@ -249,7 +242,7 @@ describe('Crud', () => {
         }
       },
     })
-    const vm = wrapper.vm as unknown as { menu: ICrudMenuColumns }
+    await doubleWait()
 
     expect(getHeaderList(wrapper)).toContain('Label')
     expect(wrapper.find(addClass).text()).toBe('add-text')
@@ -269,7 +262,7 @@ describe('Crud', () => {
       'el-button--danger'
     )
 
-    await (vm.menu.addText = 'add')
+    await (wrapper.vm.menu.addText = 'add')
     expect(wrapper.find(addClass).text()).toBe('add')
 
     await wrapper.find(addClass).trigger('click')
@@ -284,7 +277,7 @@ describe('Crud', () => {
     const detail = vi.fn()
     const del = vi.fn()
     const change = vi.fn()
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: `
         <pro-crud
           :columns="columns"
@@ -313,6 +306,7 @@ describe('Crud', () => {
         }
       },
     })
+    await doubleWait()
 
     await wrapper.find(addClass).trigger('click')
     expect(add).toHaveBeenCalledTimes(1)
@@ -334,7 +328,7 @@ describe('Crud', () => {
   })
 
   test.concurrent('modelValue', async () => {
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: `
         <pro-crud
           v-model="form"
@@ -352,7 +346,8 @@ describe('Crud', () => {
         return { form, searchForm, columns: commonColumns, data: tableData }
       },
     })
-    const vm = wrapper.vm as unknown as { form: Form; searchForm: Form }
+    await doubleWait()
+
     const formInput =
       dialogBody + ' .pro-crud-form .pro-form-item .el-form-item__content input'
 
@@ -360,12 +355,12 @@ describe('Crud', () => {
     expect(wrapper.find<HTMLInputElement>(formInput).element.value).toBe('date')
 
     await wrapper.find(formInput).setValue('value')
-    expect(vm.form.date).toBe('value')
+    expect(wrapper.vm.form.date).toBe('value')
     await wrapper.find(dialogClose).trigger('click')
   })
 
   test.concurrent('search', async () => {
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: `
         <pro-crud
           v-model="form"
@@ -383,7 +378,8 @@ describe('Crud', () => {
         return { form, searchForm, columns: commonColumns, data: tableData }
       },
     })
-    const vm = wrapper.vm as unknown as { form: Form; searchForm: Form }
+    await doubleWait()
+
     const searchInput =
       '.pro-crud .pro-crud-search .pro-form-item .el-form-item__content input'
 
@@ -392,11 +388,11 @@ describe('Crud', () => {
     )
 
     await wrapper.find(searchInput).setValue('value')
-    expect(vm.searchForm.date).toBe('value')
+    expect(wrapper.vm.searchForm.date).toBe('value')
   })
 
   test.concurrent('detail', async () => {
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: `
         <pro-crud
           :columns="columns"
@@ -412,7 +408,7 @@ describe('Crud', () => {
         return { detail, columns: commonColumns, data: tableData }
       },
     })
-    const vm = wrapper.vm as unknown as { detail: Form }
+    await doubleWait()
 
     await wrapper.find(menuClass + ':nth-child(2)').trigger('click')
     expect(getDetailList(wrapper)).toHaveLength(2)
@@ -425,14 +421,14 @@ describe('Crud', () => {
       wrapper.find(detailCellClass + ':nth-child(2)').attributes('colspan')
     ).toBe('1')
 
-    await (vm.detail = tableData[0])
+    await (wrapper.vm.detail = tableData[0])
     expect(getDetailValueList(wrapper)).toContain('2016-05-03')
     expect(getDetailValueList(wrapper)).toContain('Tom')
     await wrapper.find(dialogClose).trigger('click')
   })
 
   test.concurrent('slots', async () => {
-    const wrapper = await _mount({
+    const wrapper = await mount({
       template: `
         <pro-crud
           v-model="form"
@@ -545,6 +541,7 @@ describe('Crud', () => {
         return { form, searchForm, columns, data: tableData }
       },
     })
+    await doubleWait()
 
     expect(wrapper.find(searchClass).text()).toBe('search-menu-left')
     expect(wrapper.find(searchClass + ':nth-child(2)').text()).toBe('Search')
@@ -617,4 +614,91 @@ describe('Crud', () => {
     )
     await wrapper.find(dialogClose).trigger('click')
   })
+
+  test.concurrent('size', async () => {
+    const wrapper = await mount({
+      template: `
+        <pro-crud
+          :columns="columns"
+          :data="data"
+          :menu="menu"
+          :size="size"
+        />
+      `,
+      setup() {
+        const size = ref('large')
+        const menu = ref<ICrudMenuColumns>({
+          label: 'Label',
+          addProps: { size: 'small' },
+          editProps: { size: 'small' },
+          detailProps: { size: 'small' },
+          delProps: { size: 'small' },
+          searchProps: { size: 'small' },
+        })
+
+        return {
+          size,
+          columns: commonColumns,
+          menu,
+          data: tableData,
+        }
+      },
+    })
+    await doubleWait()
+
+    expect(wrapper.find('.pro-crud .el-form').classes()).toContain(
+      'el-form--large'
+    )
+    expect(
+      wrapper.find('.pro-crud .pro-crud-table .el-table').classes()
+    ).toContain('el-table--large')
+    expect(wrapper.find(addClass).classes()).toContain('el-button--small')
+    expect(wrapper.find(searchClass).classes()).toContain('el-button--small')
+    expect(
+      wrapper
+        .find(
+          '.pro-crud .pro-crud-table .el-table__body-wrapper .el-table__body .el-table__row td:last-child .cell button'
+        )
+        .classes()
+    ).toContain('el-button--small')
+    expect(wrapper.find(menuClass + ':nth-child(2)').classes()).toContain(
+      'el-button--small'
+    )
+    expect(wrapper.find(menuClass + ':nth-child(3)').classes()).toContain(
+      'el-button--small'
+    )
+
+    await (wrapper.vm.size = 'small')
+    expect(wrapper.find('.pro-crud .el-form').classes()).not.toContain(
+      'el-form--large'
+    )
+    expect(wrapper.find('.pro-crud .el-form').classes()).toContain(
+      'el-form--small'
+    )
+    expect(
+      wrapper.find('.pro-crud .pro-crud-table .el-table').classes()
+    ).not.toContain('el-table--large')
+    expect(
+      wrapper.find('.pro-crud .pro-crud-table .el-table').classes()
+    ).toContain('el-table--small')
+    expect(wrapper.find(addClass).classes()).toContain('el-button--small')
+    expect(wrapper.find(searchClass).classes()).toContain('el-button--small')
+    expect(
+      wrapper
+        .find(
+          '.pro-crud .pro-crud-table .el-table__body-wrapper .el-table__body .el-table__row td:last-child .cell button'
+        )
+        .classes()
+    ).toContain('el-button--small')
+    expect(wrapper.find(menuClass + ':nth-child(2)').classes()).toContain(
+      'el-button--small'
+    )
+    expect(wrapper.find(menuClass + ':nth-child(3)').classes()).toContain(
+      'el-button--small'
+    )
+  })
+})
+
+afterAll(() => {
+  config.global.components = {}
 })
