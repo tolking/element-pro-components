@@ -105,6 +105,14 @@ If the columns with reactive, the dynamically modified columns form will also ch
 @/demo/Form/dynamically.vue
 :::
 
+### Linkage Form
+
+By controlling the `show` field of `columns`, the display of the form can be dynamically controlled, making it easy to achieve linked forms
+
+::: demo
+@/demo/Form/show.vue
+:::
+
 ### Layout
 
 Use the same way as `el-row` `el-col` (`el-row` corresponds to `pro-form`; `el-col` corresponds to `columns`) **Invalid when `inline` is `true`**
@@ -219,6 +227,7 @@ The function `defineFormColumns` supports passing in a Generics type to infer th
 | label         | label text                                                                                             | string                                      | -                                         | -       |
 | component     | binding component                                                                                      | string                                      | -                                         | -       |
 | props         | transfer `props` to the current component                                                              | object                                      | -                                         | -       |
+| show          | whether to show the current component                                                                  | boolean                                     | -                                         | true    |
 | children      | group form or sub-form content                                                                         | array                                       | -                                         | -       |
 | type          | type of children internal forms                                                                        | string                                      | array / group / tabs / collapse / steps   | array   |
 | max           | limit the maximum number of `type=array`                                                               | number                                      | -                                         | -       |

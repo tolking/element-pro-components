@@ -66,6 +66,7 @@ export default defineComponent({
         }),
         () =>
           props.columns?.map((item) => {
+            if (item.show === false) return null
             return h(
               ElStep,
               mergeProps(getGroupFormItemBind(item), { title: item.label }),
@@ -78,6 +79,8 @@ export default defineComponent({
     function createDefault() {
       if (!isArray(props.columns)) return
       const item = props.columns[active.value]
+
+      if (item.show === false) return null
 
       return h(
         ProFormList,

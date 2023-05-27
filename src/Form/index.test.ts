@@ -1,5 +1,11 @@
 import { describe, test, expect, afterEach, beforeEach, afterAll } from 'vitest'
-import { ComponentPublicInstance, ref, shallowRef, markRaw } from 'vue'
+import {
+  ComponentPublicInstance,
+  ref,
+  shallowRef,
+  markRaw,
+  computed,
+} from 'vue'
 import { config, mount, VueWrapper } from '@vue/test-utils'
 import { ElInput, ElSwitch } from 'element-plus'
 import {
@@ -266,6 +272,30 @@ describe('ProFormItem', () => {
     expect(wrapper.find('.el-form-item__content').text()).toBe('slot-default')
     expect(wrapper.find('.el-form-item__label').text()).toBe('slot-label')
   })
+
+  test.concurrent('show', async () => {
+    const wrapper = await mount({
+      template: '<pro-form-item v-model="form" :item="columns[0]" />',
+      setup() {
+        const form = ref()
+        const columns = ref([
+          {
+            label: 'input',
+            prop: 'input',
+            component: 'el-input',
+            show: true,
+          },
+        ])
+        return { form, columns }
+      },
+    })
+
+    expect(wrapper.find('.el-input').exists()).toBe(true)
+    expect(wrapper.find('.el-form-item__label').text()).toBe('input')
+
+    await (wrapper.vm.columns[0].show = false)
+    expect(wrapper.find('.el-input').exists()).toBe(false)
+  })
 })
 
 describe('ProFormList', () => {
@@ -337,6 +367,11 @@ describe('ProFormList', () => {
     const newlabels = getLabelList(wrapper)
     expect(newlabels.length).toBe(7)
     expect(newlabels[6]).toBe('new one')
+
+    await (wrapper.vm.columns[0].show = false)
+    const showlabels = getLabelList(wrapper)
+    expect(showlabels.length).toBe(6)
+    expect(showlabels[0]).toBe('1')
   })
 
   test.concurrent('type=array', async () => {
@@ -711,6 +746,40 @@ describe('ArrayForm', () => {
     expect(wrapper.find(arrayClass).exists()).toBe(false)
     expect(wrapper.vm.form).toHaveLength(0)
   })
+
+  test.concurrent('show', async () => {
+    const wrapper = mount({
+      template: `
+        <pro-array-form
+          v-model="form"
+          :columns="columns"
+          :max="1"
+        />
+      `,
+      setup() {
+        const form = ref([{ input: 'test' }])
+        const _columns = ref(
+          defineFormColumns([
+            {
+              label: 'input',
+              prop: 'input',
+              component: 'el-input',
+            },
+          ])
+        )
+        return { form, columns: _columns }
+      },
+    })
+
+    expect(wrapper.findAll(`${arrayContentClass} .pro-form-item`)).toHaveLength(
+      1
+    )
+
+    await (wrapper.vm.columns[0].show = false)
+    expect(wrapper.findAll(`${arrayContentClass} .pro-form-item`)).toHaveLength(
+      0
+    )
+  })
 })
 
 describe('ProGroupForm', () => {
@@ -791,6 +860,30 @@ describe('ProGroupForm', () => {
     })
 
     expect(wrapper.find(groupTitle).text()).toBe('slot-label')
+  })
+
+  test.concurrent('show', async () => {
+    const wrapper = mount({
+      template: '<pro-group-form :columns="columns" />',
+      setup() {
+        const columns = ref([...groupColumns])
+        return { columns }
+      },
+    })
+
+    expect(wrapper.find(groupTitle).exists()).toBe(true)
+    expect(wrapper.find(groupTitle).text()).toBe('Group')
+    const labels = getLabelList(wrapper)
+    expect(labels).toHaveLength(1)
+    expect(labels[0]).toBe('input')
+    const components = getComponentList(wrapper)
+    expect(components).toHaveLength(1)
+    expect(components[0]).toContain('el-input')
+
+    await (wrapper.vm.columns[0].show = false)
+    expect(wrapper.find(groupTitle).exists()).toBe(false)
+    const newlabels = getLabelList(wrapper)
+    expect(newlabels).toHaveLength(0)
   })
 })
 
@@ -878,6 +971,37 @@ describe('ProTabsForm', () => {
 
     expect(wrapper.find(tabLabel).text()).toBe('slot-label')
   })
+
+  test.concurrent('show', async () => {
+    const wrapper = await mount({
+      template: '<pro-tabs-form :columns="columns" />',
+      setup() {
+        const columns = ref([...tabsColumns])
+
+        return { columns }
+      },
+    })
+
+    expect(wrapper.find('.pro-tabs-form').exists()).toBe(true)
+    expect(wrapper.find(tabLabel).exists()).toBe(true)
+    expect(wrapper.find(tabLabel).text()).toBe('Tab1')
+    expect(wrapper.find(tabLabel + ':last-child').text()).toBe('Tab2')
+    const labels = getLabelList(wrapper)
+    expect(labels).toHaveLength(2)
+    expect(labels[0]).toBe('input')
+    expect(labels[1]).toBe('Other')
+    const components = getComponentList(wrapper)
+    expect(components).toHaveLength(2)
+    expect(components[0]).toContain('el-input')
+    expect(components[1]).toContain('el-input')
+
+    await (wrapper.vm.columns[0].show = false)
+    expect(wrapper.find(tabLabel).exists()).toBe(true)
+    expect(wrapper.find(tabLabel).text()).toBe('Tab2')
+    const newlabels = getLabelList(wrapper)
+    expect(newlabels).toHaveLength(1)
+    expect(newlabels[0]).toBe('Other')
+  })
 })
 
 describe('ProCollapseForm', () => {
@@ -960,6 +1084,31 @@ describe('ProCollapseForm', () => {
     })
 
     expect(wrapper.find(collapseLabel).text()).toBe('slot-label')
+  })
+
+  test.concurrent('show', async () => {
+    const wrapper = await mount({
+      template: '<pro-collapse-form :columns="columns" />',
+      setup() {
+        const columns = ref([...collapseColumns])
+        return { columns }
+      },
+    })
+
+    expect(wrapper.find('.pro-collapse-form').exists()).toBe(true)
+    expect(wrapper.find(collapseLabel).exists()).toBe(true)
+    expect(wrapper.find(collapseLabel).text()).toBe('Collapse')
+    const labels = getLabelList(wrapper)
+    expect(labels).toHaveLength(1)
+    expect(labels[0]).toBe('input')
+    const components = getComponentList(wrapper)
+    expect(components).toHaveLength(1)
+    expect(components[0]).toContain('el-input')
+
+    await (wrapper.vm.columns[0].show = false)
+    expect(wrapper.find(collapseLabel).exists()).toBe(false)
+    const newlabels = getLabelList(wrapper)
+    expect(newlabels).toHaveLength(0)
   })
 })
 
@@ -1075,6 +1224,35 @@ describe('ProStepsForm', () => {
     expect(wrapper.find(`${stepItem} .el-step__title`).text()).toBe(
       'slot-label'
     )
+  })
+
+  test.concurrent('show', async () => {
+    const wrapper = mount({
+      template: '<pro-steps-form v-model="form" :columns="columns" />',
+      setup() {
+        const form = ref()
+        const columns = ref(JSON.parse(JSON.stringify(stepsColumns)))
+        return { form, columns }
+      },
+    })
+
+    expect(wrapper.find(stepsTitle).exists()).toBe(true)
+    expect(wrapper.find(stepsMenu).exists()).toBe(true)
+    expect(wrapper.findAll(stepItem).length).toBe(2)
+    expect(wrapper.find(`${stepItem} .el-step__title`).text()).toBe('Steps1')
+    expect(wrapper.find(`${stepItem}:last-child .el-step__title`).text()).toBe(
+      'Steps2'
+    )
+    const labels = getLabelList(wrapper)
+    expect(labels).toHaveLength(1)
+
+    await (wrapper.vm.columns[0].show = false)
+    expect(wrapper.find(stepsTitle).exists()).toBe(true)
+    expect(wrapper.find(stepsMenu).exists()).toBe(true)
+    expect(wrapper.findAll(stepItem).length).toBe(1)
+    expect(wrapper.find(`${stepItem} .el-step__title`).text()).toBe('Steps2')
+    const newLabels = getLabelList(wrapper)
+    expect(newLabels).toHaveLength(0)
   })
 })
 
@@ -1531,6 +1709,66 @@ describe('Form', () => {
     await wrapper.find(addClass).trigger('click')
     expect(wrapper.vm.form).toHaveLength(2)
     expect(wrapper.find(addClass).exists()).toBe(false)
+  })
+
+  test.concurrent('show', async () => {
+    const wrapper = await mount({
+      template: `
+      <pro-form
+        v-model="form"
+        :columns="columns"
+      />`,
+      setup() {
+        const form = ref({})
+        const show = ref(true)
+        const _columns = computed(() =>
+          defineFormColumns([
+            {
+              label: 'input',
+              prop: 'input',
+              component: 'el-input',
+              show: show.value,
+            },
+            {
+              label: 'group',
+              prop: 'group',
+              show: show.value,
+              children: columns,
+            },
+            {
+              label: 'steps',
+              prop: 'steps',
+              show: show.value,
+              children: columns,
+            },
+            {
+              label: 'array',
+              prop: 'array',
+              show: show.value,
+              children: columns,
+            },
+            {
+              label: 'tabs',
+              prop: 'tabs',
+              show: show.value,
+              children: columns,
+            },
+          ])
+        )
+        return { form, columns: _columns, show }
+      },
+    })
+
+    expect(getFormList(wrapper)).toHaveLength(5)
+    expect(getLabelList(wrapper)).toContain('input')
+    expect(getLabelList(wrapper)).toContain('group')
+    expect(getLabelList(wrapper)).toContain('steps')
+    expect(getLabelList(wrapper)).toContain('array')
+    expect(getLabelList(wrapper)).toContain('tabs')
+    expect(getFormList(wrapper)[0].find('input').exists()).toBe(true)
+
+    await (wrapper.vm.show = false)
+    expect(getFormList(wrapper)).toHaveLength(0)
   })
 
   // test.concurrent('event', async () => {

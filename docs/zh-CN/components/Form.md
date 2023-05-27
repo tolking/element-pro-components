@@ -105,6 +105,14 @@ meta:
 @/demo/Form/dynamically.vue
 :::
 
+### 联动表单
+
+通过控制 `columns` 中的 `show` 字段可以动态控制表单的显示，很容易实现联动表单
+
+::: demo
+@/demo/Form/show.vue
+:::
+
 ### 栅格布局
 
 与使用 `el-row` 和 `el-col` 组件相同 (`el-row` 对应 `pro-form`；`el-col` 对应 `columns`)，通过相关配置可以自由地组合布局。**当 `inline` 为 `true` 时无效**
@@ -219,6 +227,7 @@ meta:
 | label         | 标签文本                                                                  | string             | -                                         | -      |
 | component     | 当前项对应的组件，可以直接传入局部组件                                    | string / Component | -                                         | -      |
 | props         | 传递的对应的组件的参数                                                    | object             | -                                         | -      |
+| show          | 是否在表单中显示当前项                                                    | boolean            | -                                         | true   |
 | children      | 分组表单或子表单内容                                                      | array              | -                                         | -      |
 | type          | children 内部表单的类型                                                   | string             | array / group / tabs / collapse / steps   | array  |
 | max           | 限制 `type=array` 时子表单的最大数量                                      | number             | -                                         | -      |

@@ -19,6 +19,8 @@ export default defineComponent({
     }
 
     function createDefault(item: GroupFormColumn) {
+      if (item.show === false) return null
+
       return [
         h(
           'div',

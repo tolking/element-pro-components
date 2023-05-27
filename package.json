@@ -90,7 +90,7 @@
     "execa": "^5.1.1",
     "fast-glob": "^3.2.12",
     "husky": "^8.0.1",
-    "jsdom": "^20.0.1",
+    "jsdom": "^22.0.0",
     "lint-staged": "^13.0.3",
     "markdown-it-anchor": "^8.6.5",
     "markdown-it-container": "^3.0.0",
@@ -107,7 +107,7 @@
     "vite": "^3.1.8",
     "vite-plugin-pwa": "^0.13.1",
     "vite-plugin-vue-markdown": "^0.22.1",
-    "vitest": "^0.23.4",
+    "vitest": "^0.31.1",
     "vue-tsc": "^0.40.13",
     "workbox-window": "^6.5.4"
   },
