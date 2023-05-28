@@ -1,5 +1,19 @@
 # Changelog
 
+### 1.2.10
+
+feat
+
+- Form: add show attribute to column (#459)
+
+fix
+
+- Crud: the size of button is overwritten (#460)
+
+perf
+
+- Table: optimize rendering of hidden table column (#456)
+
 ### 1.2.9
 
 feat
