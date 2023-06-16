@@ -52,6 +52,7 @@ describe('Descriptions', () => {
     })
     const vm = wrapper.vm as unknown as { columns: IDescriptionsColumns }
 
+    expect(wrapper.find(headerClass).exists()).toBeFalsy()
     expect(getLabelList(wrapper)).toContain('Date')
     expect(getPropList(wrapper)).toContain('2016-05-03')
     expect(getLabelList(wrapper)).toContain('Name')
