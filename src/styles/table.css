@@ -1,3 +1,3 @@
 .pro-table .el-pagination {
-  padding-top: 16px;
+  padding-top: calc(var(--el-component-size) / 2);
 }

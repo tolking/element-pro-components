@@ -6,14 +6,14 @@
     padding-top: 4px;
     padding-bottom: 4px;
     height: auto;
-    min-height: 34px;
+    min-height: var(var(--el-component-size) + 2);
     line-height: normal;
     & .filter-routes-title,
     & .filter-routes-info {
       margin: 0;
     }
     & .filter-routes-info {
-      font-size: 12px;
+      font-size: var(--el-font-size-extra-small);
       color: var(--el-color-info);
     }
   }
