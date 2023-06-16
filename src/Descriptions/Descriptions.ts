@@ -84,13 +84,23 @@ export default defineComponent({
       )
     }
 
-    return () =>
-      h(ElDescriptions, mergeProps(config, { class: 'pro-descriptions' }), {
+    return () => {
+      const children: Record<string, unknown> = {
         default: () => [createDefault(), slots.default && slots.default()],
-        title: () =>
-          slots['title'] ? slots['title']({ size: props.size }) : null,
-        extra: () =>
-          slots['extra'] ? slots['extra']({ size: props.size }) : null,
-      })
+      }
+
+      if (slots['title']) {
+        children.title = () => slots['title']?.({ size: props.size })
+      }
+      if (slots['extra']) {
+        children.extra = () => slots['extra']?.({ size: props.size })
+      }
+
+      return h(
+        ElDescriptions,
+        mergeProps(config, { class: 'pro-descriptions' }),
+        children
+      )
+    }
   },
 })
