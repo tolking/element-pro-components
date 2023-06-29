@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, resolveComponent } from 'vue'
-import { isFunction, isObject, isString } from '../utils/index'
+import { isArray, isFunction, isObject, isString } from '../utils/index'
 import { formComponentProps } from './props'
 import type { DefineComponent, Slot } from 'vue'
 import type { StringObject } from '../types/index'
@@ -25,10 +25,19 @@ export default defineComponent({
     }
 
     function getProps() {
+      let prop = 'modelValue'
+      let event = 'onUpdate:modelValue'
+
+      if (props.modelKey && isArray(props.modelKey)) {
+        [prop, event] = props.modelKey
+      } else if (props.modelKey) {
+        prop = props.modelKey
+        event = `onUpdate:${props.modelKey}`
+      }
+
       const _props: StringObject = mergeProps(attrs, {
-        modelValue: props.modelValue,
-        'onUpdate:modelValue': (value: unknown) =>
-          emit('update:modelValue', value),
+        [prop]: props.modelValue,
+        [event]: (value: unknown) => emit('update:modelValue', value),
       })
 
       if (isString(props.is) && nativeComponents.includes(props.is)) {

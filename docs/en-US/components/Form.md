@@ -59,6 +59,14 @@ Local component can be passed directly through `component` in `columns` attribut
 @/demo/Form/local.vue
 :::
 
+### Configure the v-model arguments for component
+
+By default, the ProForm component only supports components that bind values through `v-model`. If you need to use other arguments to bind values, you can configure it through `modelKey`.
+
+::: demo In addition to supporting strings, modelKey also supports passing in `[prop, event]` (`prop` is used to configure the parameters of the bound value, `event` is used to configure the event of the bound value)
+@/demo/Form/modelKey.vue
+:::
+
 ### Slots
 
 ::: tip Tip
@@ -227,6 +235,7 @@ The function `defineFormColumns` supports passing in a Generics type to infer th
 | label         | label text                                                                                             | string                                      | -                                         | -       |
 | component     | binding component                                                                                      | string                                      | -                                         | -       |
 | props         | transfer `props` to the current component                                                              | object                                      | -                                         | -       |
+| modelKey      | the arguments name bound to the `v-model` of the current component                                     | string / [string, string]                   | -                                         | -       |
 | children      | group form or sub-form content                                                                         | array                                       | -                                         | -       |
 | type          | type of children internal forms                                                                        | string                                      | array / group / tabs / collapse / steps   | array   |
 | max           | limit the maximum number of `type=array`                                                               | number                                      | -                                         | -       |

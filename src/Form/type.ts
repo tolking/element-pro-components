@@ -44,6 +44,8 @@ export interface FormColumn<T = ExternalParam>
     Partial<Omit<ColProps, 'tag'>> {
   /** component name */
   component?: string | ColumnComponent
+  /** bind v-model arguments, default modelValue */
+  modelKey?: string
   /** props for component */
   props?: UnknownObject & { slots?: ColumnPropsSlots }
   /** the type of sub-form */
