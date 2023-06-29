@@ -133,6 +133,9 @@ describe('Layout', () => {
           <template #footer>
             <p class="footer">footer</p>
           </template>
+          <template #collapse-button="{ collapse }">
+            <span class="collapse-button">collapse-button-{{ collapse }}</span>
+          </template>
           <template #header-left>
             <span class="header-left">header-left</span>
           </template>
@@ -151,6 +154,9 @@ describe('Layout', () => {
 
     expect(wrapper.find('.pro-layout .logo').text()).toBe('logo-false')
     expect(wrapper.find('.pro-layout .footer').text()).toBe('footer')
+    expect(wrapper.find('.pro-layout .collapse-button').text()).toBe(
+      'collapse-button-false'
+    )
     expect(wrapper.find('.pro-layout .header-left').text()).toBe('header-left')
     expect(wrapper.find('.pro-layout .header-right').text()).toBe(
       'header-right'

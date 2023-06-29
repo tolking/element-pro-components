@@ -12,6 +12,7 @@ import {
   ElCard,
   ElSwitch,
   ElTooltip,
+  ElIcon,
   ID_INJECTION_KEY,
 } from 'element-plus'
 import ElementPro from 'element-pro-components'
@@ -49,6 +50,7 @@ export function createApp(): {
     .use(ElCard)
     .use(ElSwitch)
     .use(ElTooltip)
+    .use(ElIcon)
     .component('IconExternalLink', IconExternalLink)
     .component('ProCode', ProCode)
     .use(ElementPro)

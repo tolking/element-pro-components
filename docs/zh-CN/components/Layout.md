@@ -137,12 +137,13 @@ meta:
 
 ### 插槽
 
-| 插槽名        | 说明                                                         |
-| :------------ | :----------------------------------------------------------- |
-| default       | 自定义实现 RouterView                                        |
-| logo          | 自定义 Logo，参数为 { collapse } collapse-当前菜单栏是否折叠 |
-| menu          | 控制菜单显示内容，参数为 { meta, path, redirect } 等         |
-| footer        | 页脚内容                                                     |
-| header-left   | 头部左侧内容                                                 |
-| header-right  | 头部右侧内容                                                 |
-| header-bottom | 头部下面内容                                                 |
+| 插槽名          | 说明                                                         |
+| :-------------- | :----------------------------------------------------------- |
+| default         | 自定义实现 RouterView                                        |
+| logo            | 自定义 Logo，参数为 { collapse } collapse-当前菜单栏是否折叠 |
+| menu            | 控制菜单显示内容，参数为 { meta, path, redirect } 等         |
+| footer          | 页脚内容                                                     |
+| collapse-button | 折叠菜单按钮内容                                             |
+| header-left     | 头部左侧内容                                                 |
+| header-right    | 头部右侧内容                                                 |
+| header-bottom   | 头部下面内容                                                 |

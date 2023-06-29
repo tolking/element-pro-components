@@ -137,12 +137,13 @@ Custom RouterView by the default slot
 
 ### Slots
 
-| Name          | Description                                                       |
-| :------------ | :---------------------------------------------------------------- |
-| default       | custom implementation RouterView                                  |
-| logo          | control logo display content, parameters { collapse }             |
-| menu          | control menu display content, parameters { meta, path, redirect } |
-| footer        | control the footer of page display content                        |
-| header-left   | control the header left display content                           |
-| header-right  | control the header right display content                          |
-| header-bottom | control the header bottom display content                         |
+| Name            | Description                                                       |
+| :-------------- | :---------------------------------------------------------------- |
+| default         | custom implementation RouterView                                  |
+| logo            | control logo display content, parameters { collapse }             |
+| menu            | control menu display content, parameters { meta, path, redirect } |
+| footer          | control the footer of page display content                        |
+| collapse-button | control the collapse button display content                       |
+| header-left     | control the header left display content                           |
+| header-right    | control the header right display content                          |
+| header-bottom   | control the header bottom display content                         |
