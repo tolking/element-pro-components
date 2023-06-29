@@ -117,7 +117,11 @@ export default defineComponent({
           )
         )
       }
-      if (mode.value === 'vertical') {
+      if (mode.value === 'vertical' && slots['collapse-button']) {
+        list = list.concat(
+          slots['collapse-button']({ collapse: collapse.value, toggleShow })
+        )
+      } else if (mode.value === 'vertical') {
         list.push(createMenuButton())
       } else {
         list.push(createMenu())

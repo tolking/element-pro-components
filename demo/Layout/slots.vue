@@ -16,6 +16,15 @@
     <template #footer>
       <p>footer</p>
     </template>
+    <template #collapse-button="{ collapse, toggleShow }">
+      <el-icon
+        :size="30"
+        @click="toggleShow"
+      >
+        <Expand v-if="collapse" />
+        <Fold v-else />
+      </el-icon>
+    </template>
     <template #header-left>
       <span>header-left</span>
     </template>
@@ -33,8 +42,13 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { Expand, Fold } from '@element-plus/icons-vue'
 
 export default defineComponent({
+  components: {
+    Expand,
+    Fold,
+  },
   setup() {
     const mode = ref('vertical')
     const data = [
