@@ -104,6 +104,7 @@ export default defineComponent({
             mergeProps(item.value.props || {}, {
               is: item.value.component,
               modelValue: currentValue,
+              modelKey: item.value.modelKey,
               'onUpdate:modelValue': update,
             })
           )

@@ -5,6 +5,8 @@ import {
   shallowRef,
   markRaw,
   computed,
+  defineComponent,
+  h,
 } from 'vue'
 import { config, mount, VueWrapper } from '@vue/test-utils'
 import { ElInput, ElSwitch } from 'element-plus'
@@ -24,6 +26,26 @@ import {
 import type { IFormColumns, IFormMenuColumns, FormColumn } from './index'
 import type { Mutable } from '../types/index'
 
+const MyInput = defineComponent({
+  name: 'MyInput',
+  props: {
+    value: {
+      type: String,
+      default: '',
+    },
+  },
+  emits: ['update:value'],
+  setup(props, { emit }) {
+    return () =>
+      h('input', {
+        class: 'my-input',
+        value: props.value,
+        onInput: (e: { target: { value: string } }) =>
+          emit('update:value', e.target.value),
+      })
+  },
+})
+
 config.global.components = {
   ProArrayForm,
   ProGroupForm,
@@ -36,6 +58,7 @@ config.global.components = {
   ProForm,
   ElInput,
   ElSwitch,
+  MyInput,
 }
 
 const columns: IFormColumns = [
@@ -210,6 +233,23 @@ describe('ProFormComponent', () => {
     expect(wrapper.find('div').exists()).toBe(true)
     expect(wrapper.find('div').text()).toBe('slots')
   })
+
+  test.concurrent('modelKey', async () => {
+    const wrapper = await mount({
+      template:
+        '<pro-form-component v-model="form" is="my-input" modelKey="value" />',
+      setup() {
+        const form = ref()
+        return { form }
+      },
+    })
+
+    expect(wrapper.find('.my-input').exists()).toBe(true)
+
+    await wrapper.find('.my-input').setValue('value')
+    expect(wrapper.find('input').element.value).toBe('value')
+    expect(wrapper.vm.form).toBe('value')
+  })
 })
 
 describe('ProFormItem', () => {
@@ -295,6 +335,43 @@ describe('ProFormItem', () => {
 
     await (wrapper.vm.columns[0].show = false)
     expect(wrapper.find('.el-input').exists()).toBe(false)
+  })
+
+  test.concurrent('modelKey', async () => {
+    const wrapper = await mount({
+      template: '<pro-form-item v-model="form" :item="columns[0]" />',
+      setup() {
+        const form = ref()
+        const columns = ref(
+          defineFormColumns([
+            {
+              label: 'input',
+              prop: 'input',
+              component: 'my-input',
+              modelKey: 'value',
+            },
+          ])
+        )
+        return { form, columns }
+      },
+    })
+
+    expect(wrapper.find('.my-input').exists()).toBe(true)
+    expect(wrapper.find('.el-form-item__label').text()).toBe('input')
+
+    await wrapper.find('.my-input').setValue('value')
+    expect(wrapper.find('input').element.value).toBe('value')
+    expect(wrapper.vm.form).toEqual({ input: 'value' })
+
+    await (wrapper.vm.columns[0].modelKey = 'modelValue')
+    await wrapper.find('.my-input').setValue('modelValue')
+    expect(wrapper.find('input').element.value).toBe('modelValue')
+    expect(wrapper.vm.form).not.toEqual({ input: 'modelValue' })
+
+    await (wrapper.vm.columns[0].modelKey = ['value', 'onUpdate:value'])
+    await wrapper.find('.my-input').setValue('my-input')
+    expect(wrapper.find('input').element.value).toBe('my-input')
+    expect(wrapper.vm.form).toEqual({ input: 'my-input' })
   })
 })
 
@@ -1453,6 +1530,7 @@ describe('Form', () => {
     interface Form {
       input: string
       switch: boolean
+      input1: string
     }
 
     const wrapper = mount({
@@ -1461,6 +1539,7 @@ describe('Form', () => {
         const form = ref<Form>({
           input: '123',
           switch: false,
+          input1: 'abc',
         })
         const columns: IFormColumns<Form> = [
           {
@@ -1473,14 +1552,23 @@ describe('Form', () => {
             prop: 'switch',
             component: 'el-switch',
           },
+          {
+            label: 'MyInput',
+            prop: 'input1',
+            component: 'my-input',
+            modelKey: 'value',
+          },
         ]
         return { form, columns }
       },
     })
 
-    expect(getFormList(wrapper)).toHaveLength(2)
+    expect(getFormList(wrapper)).toHaveLength(3)
     expect(wrapper.find('input').element.value).toBe('123')
     expect(wrapper.find('.el-switch').classes()).not.toContain('is-checked')
+    expect(
+      (wrapper.find('input.my-input').element as HTMLInputElement).value
+    ).toBe('abc')
 
     await wrapper.find('.el-switch').trigger('click')
     expect(wrapper.vm.form.switch).toBeTruthy()
@@ -1489,9 +1577,19 @@ describe('Form', () => {
     await wrapper.find('input').setValue('value')
     expect(wrapper.vm.form.input).toBe('value')
 
-    await (wrapper.vm.form = { input: 'input', switch: false })
+    await wrapper.find('input.my-input').setValue('value1')
+    expect(wrapper.vm.form.input1).toBe('value1')
+
+    await (wrapper.vm.form = {
+      input: 'input',
+      switch: false,
+      input1: 'input1',
+    })
     expect(wrapper.find('input').element.value).toBe('input')
     expect(wrapper.find('.el-switch').classes()).not.toContain('is-checked')
+    expect(
+      (wrapper.find('input.my-input').element as HTMLInputElement).value
+    ).toBe('input1')
   })
 
   test.concurrent('menu', async () => {

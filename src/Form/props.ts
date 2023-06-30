@@ -58,6 +58,7 @@ export const formComponentProps = {
     type: [String, Object] as PropType<string | Component>,
     require: true,
   },
+  modelKey: [String, Array] as PropType<string | [string, string]>,
   slots: [Function, Object, String] as PropType<ColumnPropsSlots>,
 }
 
