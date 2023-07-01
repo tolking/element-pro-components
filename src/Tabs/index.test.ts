@@ -29,4 +29,20 @@ describe('Tabs', () => {
     expect(getTabList(wrapper)[0].text()).toBe('Home')
     expect(getTabList(wrapper)[0].element.id).toBe('tab-/index')
   })
+
+  test.concurrent('slot', async () => {
+    const wrapper = await _mount({
+      template: `<pro-tabs>
+        <template #label="{ title, path }">
+          <span class="title">{{ title }}</span>
+          <span class="path">{{ path }}</span>
+        </template>
+      </pro-tabs>`,
+    })
+
+    expect(wrapper.find('.pro-tabs').exists()).toBe(true)
+    expect(getTabList(wrapper)).toHaveLength(1)
+    expect(wrapper.find('.title').text()).toBe('Home')
+    expect(wrapper.find('.path').text()).toBe('/index')
+  })
 })
