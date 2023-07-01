@@ -1,13 +1,15 @@
 import { tabsProps } from './props'
 import type { Ref } from 'vue'
-import type { RouteLocationNormalizedLoaded, RouteRecordName } from 'vue-router'
+import type {
+  RouteLocationNormalizedLoaded,
+  RouteMeta,
+  RouteRecordName,
+} from 'vue-router'
 import type { Awaitable } from '@vueuse/core'
 import type { IDefineProps } from '../types/index'
 
-export interface ITab {
+export interface ITab extends RouteMeta {
   path: string
-  title?: string
-  hidden?: boolean
   name?: RouteRecordName | null
 }
 
