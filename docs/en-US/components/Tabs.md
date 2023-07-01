@@ -57,6 +57,14 @@ Do something before the tab switch with the `before-leave` hook. If `false` is r
 @/demo/Tabs/before-leave.vue
 :::
 
+### Slots
+
+Customize the label content of the tab through `label`
+
+::: demo
+@/demo/Tabs/slots.vue
+:::
+
 ### Props
 
 | Name              | Description                                                                                                                             | Type                                                  | Accepted Values             | Default |
@@ -82,3 +90,9 @@ Do something before the tab switch with the `before-leave` hook. If `false` is r
 | ---------- | ------------------------- | -------------------------- |
 | close      | close some tab from tabs  | path (the router of close) |
 | closeOther | close other tab from tabs | -                          |
+
+### Slots
+
+| Name  | Description                            | Type                          |
+| ----- | -------------------------------------- | ----------------------------- |
+| label | customize the label content of the tab | { ...route.meta, path, name } |
