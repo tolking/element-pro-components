@@ -6,7 +6,7 @@ import { tabsProps } from './props'
 export default defineComponent({
   name: 'ProTabs',
   props: tabsProps,
-  setup(props, { expose }) {
+  setup(props, { expose, slots }) {
     const { active, list, to, close, closeOther } = useTabs(props)
 
     expose({
@@ -14,6 +14,18 @@ export default defineComponent({
       close,
       closeOther,
     })
+
+    function createDefault() {
+      return list.value.map((item) => {
+        return h(
+          ElTabPane,
+          { name: item.path, label: item.title },
+          slots.label
+            ? { label: () => slots.label && slots.label(item) }
+            : undefined
+        )
+      })
+    }
 
     return () =>
       h(
@@ -25,10 +37,7 @@ export default defineComponent({
           onTabChange: to,
           onTabRemove: close,
         }),
-        () =>
-          list.value.map((item) =>
-            h(ElTabPane, { name: item.path, label: item.title })
-          )
+        () => createDefault()
       )
   },
 })

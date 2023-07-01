@@ -17,9 +17,6 @@ export function useTabs(props: ITabsProps): UseTabs {
   watch(
     () => route.path,
     async (path, oldPath) => {
-      const title = route.meta?.title || ''
-      const hidden = route.meta?.hidden
-
       if (oldPath && !props.keepHiddenRoute) {
         const item = list.value.find((item) => item.path === oldPath)
         item?.hidden && close(oldPath)
@@ -35,13 +32,13 @@ export function useTabs(props: ITabsProps): UseTabs {
             closeOther,
           })
           if (canAdd !== false) {
-            addTab({ title, path, hidden, name: route.name })
+            addTab({ ...route.meta, path, name: route.name })
           }
         } catch {
           throwWarn('[ProTabs] Failed to execute beforeAdd function')
         }
       } else {
-        addTab({ title, path, hidden, name: route.name })
+        addTab({ ...route.meta, path, name: route.name })
       }
     },
     { immediate: true }
