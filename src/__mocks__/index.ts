@@ -1,8 +1,8 @@
-import { vi } from 'vitest'
+import { Mock, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { useRouter, useRoute, RouteRecordRaw } from 'vue-router'
 
-export function initRouter(list = routes) {
+export function initRouter(list = routes): { push: Mock } {
   const push = vi.fn()
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
