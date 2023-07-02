@@ -1,5 +1,21 @@
 # Changelog
 
+### 1.2.11
+
+feat
+
+- Layout: add collapse-button slot (#472)
+- Form: support custom v-model arguments (#473)
+- Tabs: add label slot (#474)
+
+fix
+
+- Descriptions: avoid render header when without slot (#467)
+
+other
+
+- optimize CSS variables (#468)
+
 ### 1.2.10
 
 feat

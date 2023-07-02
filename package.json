@@ -1,6 +1,6 @@
 {
   "name": "element-pro-components",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "description": "a component library for Vue 3 base on element-plus",
   "main": "lib/index.umd.js",
   "module": "lib/index.es.js",
