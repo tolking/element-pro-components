@@ -1,1 +1,0 @@
-import{_ as e}from"./index.be536dea.js";import{af as o,o as c,U as n}from"./modules-vue.c0d24afb.js";const _={};function s(a,t){const r=o("pro-breadcrumb");return c(),n(r)}const f=e(_,[["render",s]]),m={};function p(a,t){const r=o("pro-breadcrumb");return c(),n(r,{separator:">"})}const u=e(m,[["render",p]]);export{f as B,u as a};
