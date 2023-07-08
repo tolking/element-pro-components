@@ -102,6 +102,7 @@ export default defineComponent({
           showDialog.value = false
           type.value !== 'detail' &&
             formColumns.value?.length &&
+            formRef.value &&
             resetForm(true)
           done()
         }
@@ -159,28 +160,33 @@ export default defineComponent({
     })
 
     function createSearch() {
-      if (!searchColumns.value?.length) return null
-      return h(
-        ProForm,
-        {
-          modelValue: props.search,
+      const _props = {
+        modelValue: props.search,
+        columns: searchColumns.value,
+        menu: searchMenu.value,
+        rules: props.searchRules,
+        size: props.size,
+        inline: true,
+        class: 'pro-crud-search',
+        'onUpdate:modelValue': upSearchData,
+        'onAdd-item': addItem,
+        'onRemove-item': removeItem,
+        'onTab-change': tabsChange,
+        'onCollapse-change': collapseChange,
+        'onStep-change': stepChange,
+        onSubmit: searchForm,
+        onReset: searchReset,
+      }
+
+      if (slots['crud-search'])
+        return slots['crud-search']({
+          props: _props,
           columns: searchColumns.value,
           menu: searchMenu.value,
-          rules: props.searchRules,
-          size: props.size,
-          inline: true,
-          class: 'pro-crud-search',
-          'onUpdate:modelValue': upSearchData,
-          'onAdd-item': addItem,
-          'onRemove-item': removeItem,
-          'onTab-change': tabsChange,
-          'onCollapse-change': collapseChange,
-          'onStep-change': stepChange,
-          onSubmit: searchForm,
-          onReset: searchReset,
-        },
-        searchSlots
-      )
+        })
+      if (!searchColumns.value?.length) return null
+
+      return h(ProForm, _props, searchSlots)
     }
 
     function createMenu() {
@@ -224,19 +230,27 @@ export default defineComponent({
       const menuSlots = showMenu
         ? { menu: (scope: TableMenuScope) => createTableMenu(scope) }
         : {}
+      const _props = mergeProps(tableProps, attrs.value, {
+        ref: table,
+        menu: menuColumns.value,
+        columns: tableColumns.value,
+        class: 'pro-crud-table',
+        'onUpdate:pageSize': sizeChange,
+        'onUpdate:currentPage': currentChange,
+      })
 
-      return h(
-        ProTable,
-        mergeProps(tableProps, attrs.value, {
-          ref: table,
-          menu: menuColumns.value,
+      if (slots['crud-table']) {
+        return slots['crud-table']({
+          props: _props,
+          size: props.size,
           columns: tableColumns.value,
-          class: 'pro-crud-table',
-          'onUpdate:pageSize': sizeChange,
-          'onUpdate:currentPage': currentChange,
-        }),
-        Object.assign({}, tableSlots, menuSlots)
-      )
+          menu: menuColumns.value,
+          showMenu,
+          createTableMenu,
+        })
+      }
+
+      return h(ProTable, _props, Object.assign({}, tableSlots, menuSlots))
     }
 
     function createTableMenu(scope: TableMenuScope) {
@@ -297,52 +311,70 @@ export default defineComponent({
     }
 
     function createForm() {
-      if (!formColumns.value?.length) return null
-      return h(
-        ProForm,
-        mergeProps(formProps, attrs.value, {
-          ref: formRef,
+      const _props = mergeProps(formProps, attrs.value, {
+        ref: formRef,
+        columns: formColumns.value,
+        menu: menuColumns.value,
+        class: 'pro-crud-form',
+        'onUpdate:modelValue': update,
+        'onAdd-item': addItem,
+        'onRemove-item': removeItem,
+        'onTab-change': tabsChange,
+        'onCollapse-change': collapseChange,
+        'onStep-change': stepChange,
+        onSubmit: submitForm,
+        onReset: resetForm,
+      })
+
+      if (slots['crud-form']) {
+        return slots['crud-form']({
+          props: _props,
           columns: formColumns.value,
           menu: menuColumns.value,
-          class: 'pro-crud-form',
-          'onUpdate:modelValue': update,
-          'onAdd-item': addItem,
-          'onRemove-item': removeItem,
-          'onTab-change': tabsChange,
-          'onCollapse-change': collapseChange,
-          'onStep-change': stepChange,
-          onSubmit: submitForm,
-          onReset: resetForm,
-        }),
-        formSlots
-      )
+        })
+      }
+      if (!formColumns.value?.length) return null
+
+      return h(ProForm, _props, formSlots)
     }
 
     function createDescriptions() {
-      if (!detailColumns.value?.length) return null
-      return h(
-        ProDescriptions,
-        mergeProps(descriptionsProps, {
+      const _props = mergeProps(descriptionsProps, {
+        columns: detailColumns.value,
+        class: 'pro-crud-detail',
+      })
+
+      if (slots['crud-detail']) {
+        return slots['crud-detail']({
+          props: _props,
+          size: props.size,
           columns: detailColumns.value,
-          class: 'pro-crud-detail',
-        }),
-        detailSlots
-      )
+        })
+      }
+      if (!detailColumns.value?.length) return null
+
+      return h(ProDescriptions, _props, detailSlots)
     }
 
     function createDialog() {
-      return h(
-        ElDialog,
-        mergeProps(dialogProps, bindDialog.value, {
-          modelValue: showDialog.value,
-        }) as DialogProps,
-        () => [
-          slots['dialog-top'] && slots['dialog-top']({ type: type.value }),
-          type.value === 'detail' ? createDescriptions() : createForm(),
-          slots['dialog-bottom'] &&
-            slots['dialog-bottom']({ type: type.value }),
-        ]
-      )
+      const _props = mergeProps(dialogProps, bindDialog.value, {
+        modelValue: showDialog.value,
+      }) as DialogProps
+
+      if (slots['crud-dialog']) {
+        return slots['crud-dialog']({
+          props: _props,
+          type: type.value,
+          createDescriptions,
+          createForm,
+        })
+      }
+
+      return h(ElDialog, _props, () => [
+        slots['dialog-top'] && slots['dialog-top']({ type: type.value }),
+        type.value === 'detail' ? createDescriptions() : createForm(),
+        slots['dialog-bottom'] && slots['dialog-bottom']({ type: type.value }),
+      ])
     }
 
     return () =>
