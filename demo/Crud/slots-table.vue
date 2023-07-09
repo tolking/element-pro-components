@@ -13,83 +13,64 @@
     @submit="submit"
     @delete="deleteRow"
   >
-    <template #menu-left="{ size }">
-      <el-button
-        :size="size"
-        type="primary"
-      >
-        menu-left
-      </el-button>
-    </template>
-    <template #menu-right="{ size }">
-      <el-button
-        :size="size"
-        type="danger"
-      >
-        menu-right
-      </el-button>
-    </template>
-    <template #menu="{ size }">
-      <el-button
-        :size="size"
-        type="success"
-        link
-      >
-        More
-      </el-button>
-    </template>
-    <template #search-menu-right="{ size }">
-      <el-button
-        :size="size"
-        type="success"
-      >
-        search-menu-right
-      </el-button>
-    </template>
-    <template #action>
-      <el-button
-        :icon="Refresh"
-        circle
-        style="margin-right: 8px"
+    <template #crud-table="{ showMenu, createTableMenu }">
+      <section class="list">
+        <div
+          v-for="item in data"
+          :key="item.name"
+          class="item"
+        >
+          <div class="item-content">
+            <el-image
+              :src="item.avatar"
+              fit="cover"
+              class="item-avatar"
+            />
+            <div class="item-info">
+              <p class="name">
+                {{ item.name }}
+              </p>
+              <p>address: {{ item.address }}</p>
+              <p>creation date: {{ item.date }}</p>
+            </div>
+          </div>
+          <div class="item-menu">
+            <component
+              :is="() => createTableMenu({ row: item })"
+              v-if="showMenu"
+            />
+          </div>
+        </div>
+      </section>
+      <el-pagination
+        v-model:current-page="currentPage"
+        v-model:page-size="pageSize"
+        :total="total"
       />
-      <pro-column-setting v-model="columns" />
     </template>
-    <template #dialog-top="{ type }">
-      <p style="text-align: center">
-        dialog-top {{ type }}
-      </p>
-    </template>
-    <template #dialog-bottom="{ type }">
-      <p
-        v-if="type === 'detail'"
-        style="text-align: center"
-      >
-        only appears in the detail
-      </p>
-    </template>
-    <template #form-name>
-      <span>form slot</span>
-    </template>
-    <template #detail-name="{ item, size }">
-      <el-tag :size="size">
-        {{ item?.name }}
-      </el-tag>
-    </template>
-    <template #table-name="{ row, size }">
-      <el-tag :size="size">
-        {{ row?.name }}
-      </el-tag>
-    </template>
-    <template #table-name-header="{ column }">
-      <s>{{ column.label }}</s>
+    <template #crud-detail>
+      <div class="detail">
+        <el-image
+          :src="detail.avatar"
+          fit="cover"
+          class="item-avatar"
+        />
+        <div class="item-info">
+          <p class="name">
+            {{ detail.name }}
+          </p>
+          <p>address: {{ detail.address }}</p>
+          <p>creation date: {{ detail.date }}</p>
+        </div>
+      </div>
     </template>
   </pro-crud>
 </template>
 
 <script>
-import { defineComponent, h, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import { Clock, Refresh } from '@element-plus/icons-vue'
+import { Refresh } from '@element-plus/icons-vue'
 import {
   defineCrudColumns,
   defineCrudSubmit,
@@ -101,6 +82,9 @@ export default defineComponent({
   setup() {
     const form = ref({})
     const serachForm = ref({})
+    const currentPage = ref(1)
+    const pageSize = ref(10)
+    const total = ref(2)
     const detail = ref({})
     const columns = ref(
       defineCrudColumns([
@@ -112,13 +96,6 @@ export default defineComponent({
           edit: true,
           search: true,
           detail: true,
-          render: '--',
-          props: {
-            slots: {
-              suffix: () =>
-                h('span', { className: 'el-input__icon' }, h(Clock)),
-            },
-          },
         },
         {
           label: 'Name',
@@ -134,19 +111,20 @@ export default defineComponent({
           component: 'el-input',
           add: true,
           edit: true,
-          render: (row) => h('em', null, row.address),
         },
       ])
     )
     const data = ref([
       {
+        avatar: 'https://avatars.githubusercontent.com/u/23313167?v=4',
         date: '2016-05-03',
-        name: 'Tom',
+        name: 'qiang',
         address: 'No. 189, Grove St, Los Angeles',
       },
       {
+        avatar: 'https://avatars.githubusercontent.com/u/23313167?v=4',
         date: '2016-05-02',
-        name: 'Tom',
+        name: 'qiang',
         address: 'No. 189, Grove St, Los Angeles',
       },
     ])
@@ -189,6 +167,9 @@ export default defineComponent({
       columns,
       serachForm,
       data,
+      currentPage,
+      pageSize,
+      total,
       detail,
       beforeOpen,
       search,
@@ -199,8 +180,48 @@ export default defineComponent({
 })
 </script>
 
-<style>
-.el-input__icon {
-  width: 14px;
+<style scoped>
+.list {
+  margin-top: calc(var(--el-component-size) / 2);
+}
+.list .item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(var(--el-component-size) / 2) 0;
+}
+.list .item .item-content {
+  display: flex;
+}
+.list .item .item-content .item-avatar {
+  margin-right: var(--el-component-size);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.item-info p {
+  margin: 0;
+  padding: 0;
+}
+.item-info .name {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.detail {
+  display: flex;
+  justify-content: center;
+}
+.detail .item-avatar {
+  margin-right: 100px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
 }
 </style>

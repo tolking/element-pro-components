@@ -1,7 +1,7 @@
 import { describe, test, expect, afterEach, vi, afterAll } from 'vitest'
 import { ComponentPublicInstance, ref } from 'vue'
 import { config, mount, VueWrapper } from '@vue/test-utils'
-import { ElInput, ElSwitch, ElTableColumn } from 'element-plus'
+import { ElInput, ElSwitch, ElTableColumn, ElDrawer } from 'element-plus'
 import ProCrud from './Crud'
 import { doubleWait, tableData } from '../__mocks__/index'
 import type { ICrudColumns, ICrudMenuColumns } from './index'
@@ -17,6 +17,7 @@ config.global.components = {
   ElTableColumn,
   ElInput,
   ElSwitch,
+  ElDrawer,
 }
 
 const commonColumns: ICrudColumns<Form> = [
@@ -613,6 +614,127 @@ describe('Crud', () => {
       'dialog-bottom-detail'
     )
     await wrapper.find(dialogClose).trigger('click')
+  })
+
+  test.concurrent('crud slots', async () => {
+    const wrapper = await mount({
+      template: `
+        <pro-crud
+          :columns="columns"
+          :data="data"
+          :detail="data[0]"
+          :menu="{ label: 'Label' }"
+          :append-to-body="false"
+        >
+          <template #crud-search>
+            <p class="crud-search">crud-search slot</p>
+          </template>
+          <template #crud-table="{ createTableMenu }">
+            <div
+              v-for="item in data"
+              :key="item.date"
+            >
+              <p class="crud-table">{{ item.name }}</p>
+              <div class="crud-menu">
+                <component :is="() => createTableMenu({ row: item })" />
+              </div>
+            </div>
+          </template>
+          <template #crud-form>
+            <p class="crud-form">crud-form slot</p>
+          </template>
+          <template #crud-detail>
+            <p class="crud-detail">crud-detail slot</p>
+          </template>
+        </pro-crud>
+      `,
+      setup() {
+        const columns = [
+          {
+            label: 'Slot',
+            prop: 'slot',
+            component: 'el-switch',
+            form: true,
+            search: true,
+            detail: true,
+          },
+        ]
+
+        return { columns, data: tableData }
+      },
+    })
+    await doubleWait()
+
+    expect(wrapper.find('.pro-crud .crud-search').text()).toBe(
+      'crud-search slot'
+    )
+    const btns = wrapper.findAll('.pro-crud .crud-menu .el-button')
+    expect(btns).toHaveLength(3 * tableData.length)
+    expect(btns[0].text()).toBe('Edit')
+    expect(btns[1].text()).toBe('View')
+    expect(btns[2].text()).toBe('Delete')
+    expect(wrapper.find('.pro-crud .crud-table').text()).toBe('Tom')
+
+    await btns[1].trigger('click')
+    expect(wrapper.find('.pro-crud .crud-detail').text()).toBe(
+      'crud-detail slot'
+    )
+    await wrapper.find(dialogClose).trigger('click')
+
+    await wrapper.find(addClass).trigger('click')
+    expect(wrapper.find('.pro-crud .crud-form').text()).toBe('crud-form slot')
+  })
+
+  test.concurrent('crud-dialog slots', async () => {
+    const wrapper = await mount({
+      template: `
+        <pro-crud
+          :columns="columns"
+          :data="data"
+          :detail="data[0]"
+          :menu="{ label: 'Label' }"
+          :append-to-body="false"
+        >
+          <template #crud-dialog="{ type, props, createDescriptions, createForm }">
+            <el-drawer v-bind="props">
+              <component :is="type === 'detail' ? createDescriptions() : createForm()" />
+            </el-drawer>
+          </template>
+        </pro-crud>
+      `,
+      setup() {
+        const columns = [
+          {
+            label: 'Slot',
+            prop: 'slot',
+            component: 'el-switch',
+            form: true,
+            search: true,
+            detail: true,
+          },
+        ]
+
+        return { columns, data: tableData }
+      },
+    })
+    await doubleWait()
+
+    const closeBtn = wrapper.find('.pro-crud .el-drawer__close-btn')
+
+    await wrapper.find(addClass).trigger('click')
+    expect(wrapper.find('.pro-crud .el-drawer').exists()).toBe(true)
+    expect(wrapper.find('.pro-crud .el-drawer .el-form').exists()).toBe(true)
+    await closeBtn.trigger('click')
+
+    await wrapper.find(menuClass + ':nth-child(1)').trigger('click')
+    expect(wrapper.find('.pro-crud .el-drawer').exists()).toBe(true)
+    expect(wrapper.find('.pro-crud .el-form').exists()).toBe(true)
+    await closeBtn.trigger('click')
+
+    await wrapper.find(menuClass + ':nth-child(2)').trigger('click')
+    expect(wrapper.find('.pro-crud .el-drawer').exists()).toBe(true)
+    expect(wrapper.find('.pro-crud .el-descriptions').exists()).toBe(true)
+    closeBtn.trigger('click')
   })
 
   test.concurrent('size', async () => {

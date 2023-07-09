@@ -113,6 +113,30 @@ Crud 组件是 <pro-link to="/zh-CN/components/table">Table</pro-link> <pro-link
 @/demo/Crud/slots.vue
 :::
 
+### 自定义表单内容
+
+一些情况下默认表单可能无法满足需求，可以通过 `crud-search` `crud-form` 插槽可以自定义表单内容
+
+::: demo
+@/demo/Crud/slots-form.vue
+:::
+
+### 自定义列表内容
+
+组件内部默认使用 `ProTable` 渲染列表，但对于一些特殊情况，使用 `ProTable` 并不能够更好的展现数据。通过 `crud-table` 插槽可以自定义列表内容
+
+::: demo
+@/demo/Crud/slots-table.vue
+:::
+
+### 自定义弹窗
+
+组件内部默认使用 `ElDialog` 作为弹窗，可以通过 `crud-dialog` 插槽实现自定义弹窗
+
+::: demo
+@/demo/Crud/slots-dialog.vue
+:::
+
 ### TypeScript
 
 `defineCrudColumns` 支持传入一个泛型用来推断 `prop` 值
@@ -427,6 +451,11 @@ Crud columns 支持 <pro-link to="/zh-CN/components/table#columns">Table columns
 
 | 名称                | 说明                                     | 类型                                                                             |
 | :------------------ | :--------------------------------------- | :------------------------------------------------------------------------------- |
+| crud-table          | 自定义表格内容                           | { props, size, columns, menu, showMenu, createTableMenu }                        |
+| crud-dialog         | 自定义弹窗                               | { props, type, createForm, createDescriptions }                                  |
+| crud-search         | 自定义搜索栏内容                         | { props, columns, menu }                                                         |
+| crud-form           | 自定义表单内容                           | { props, columns, menu }                                                         |
+| crud-detail         | 自定义描述内容                           | { props, columns, size }                                                         |
 | menu-left           | 新增按钮左侧                             | { size }                                                                         |
 | menu-right          | 新增按钮右侧                             | { size }                                                                         |
 | action              | 头部右侧操作栏                           | { size }                                                                         |

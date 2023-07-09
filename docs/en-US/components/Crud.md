@@ -113,6 +113,30 @@ Use simple <pro-link to="https://vuejs.org/guide/render-function.html">render-fu
 @/demo/Crud/slots.vue
 :::
 
+### Custom Form Content
+
+Use `crud-search` `crud-form` slot to customize form content.
+
+::: demo
+@/demo/Crud/slots-form.vue
+:::
+
+### Custom Table Content
+
+The component defaults to using `ProTable` to render the list, but for some special cases, using `ProTable` cannot better display the data. You can customize the list content through the `crud-table` slot.
+
+::: demo
+@/demo/Crud/slots-table.vue
+:::
+
+### Custom Dialog
+
+The component defaults to using `ElDialog` as the dialog, you can customize the dialog through the `crud-dialog` slot
+
+::: demo
+@/demo/Crud/slots-dialog.vue
+:::
+
 ### TypeScript
 
 The function `defineCrudColumns` supports passing in a Generics type to infer the value of `prop`
@@ -428,6 +452,11 @@ Other attributes are the same as <pro-link to="/en-US/components/table#columns">
 
 | Name                | Description                                        | Type                                                                             |
 | :------------------ | :------------------------------------------------- | :------------------------------------------------------------------------------- |
+| crud-table          | custom Table content                               | { props, size, columns, menu, showMenu, createTableMenu }                        |
+| crud-dialog         | custom dialog                                      | { props, type, createForm, createDescriptions }                                  |
+| crud-search         | custom search content                              | { props, columns, menu }                                                         |
+| crud-form           | custom form content                                | { props, columns, menu }                                                         |
+| crud-detail         | custom detail content                              | { props, columns, size }                                                         |
 | menu-left           | control the menu left display content              | { size }                                                                         |
 | menu-right          | control the menu right display content             | { size }                                                                         |
 | action              | control the menu right of the menu display content | { size }                                                                         |
