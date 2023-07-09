@@ -6,6 +6,7 @@
     :menu="{ label: 'Operations' }"
     :data="data"
     :detail="detail"
+    :column="1"
     :before-open="beforeOpen"
     selection
     label-width="100px"
@@ -13,83 +14,20 @@
     @submit="submit"
     @delete="deleteRow"
   >
-    <template #menu-left="{ size }">
-      <el-button
-        :size="size"
-        type="primary"
-      >
-        menu-left
-      </el-button>
-    </template>
-    <template #menu-right="{ size }">
-      <el-button
-        :size="size"
-        type="danger"
-      >
-        menu-right
-      </el-button>
-    </template>
-    <template #menu="{ size }">
-      <el-button
-        :size="size"
-        type="success"
-        link
-      >
-        More
-      </el-button>
-    </template>
-    <template #search-menu-right="{ size }">
-      <el-button
-        :size="size"
-        type="success"
-      >
-        search-menu-right
-      </el-button>
-    </template>
-    <template #action>
-      <el-button
-        :icon="Refresh"
-        circle
-        style="margin-right: 8px"
-      />
-      <pro-column-setting v-model="columns" />
-    </template>
-    <template #dialog-top="{ type }">
-      <p style="text-align: center">
-        dialog-top {{ type }}
-      </p>
-    </template>
-    <template #dialog-bottom="{ type }">
-      <p
-        v-if="type === 'detail'"
-        style="text-align: center"
-      >
-        only appears in the detail
-      </p>
-    </template>
-    <template #form-name>
-      <span>form slot</span>
-    </template>
-    <template #detail-name="{ item, size }">
-      <el-tag :size="size">
-        {{ item?.name }}
-      </el-tag>
-    </template>
-    <template #table-name="{ row, size }">
-      <el-tag :size="size">
-        {{ row?.name }}
-      </el-tag>
-    </template>
-    <template #table-name-header="{ column }">
-      <s>{{ column.label }}</s>
+    <template #crud-dialog="{ type, props, createDescriptions, createForm }">
+      <el-drawer v-bind="props">
+        <component
+          :is="type === 'detail' ? createDescriptions() : createForm()"
+        />
+      </el-drawer>
     </template>
   </pro-crud>
 </template>
 
 <script>
-import { defineComponent, h, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import { Clock, Refresh } from '@element-plus/icons-vue'
+import { Refresh } from '@element-plus/icons-vue'
 import {
   defineCrudColumns,
   defineCrudSubmit,
@@ -112,13 +50,6 @@ export default defineComponent({
           edit: true,
           search: true,
           detail: true,
-          render: '--',
-          props: {
-            slots: {
-              suffix: () =>
-                h('span', { className: 'el-input__icon' }, h(Clock)),
-            },
-          },
         },
         {
           label: 'Name',
@@ -134,7 +65,6 @@ export default defineComponent({
           component: 'el-input',
           add: true,
           edit: true,
-          render: (row) => h('em', null, row.address),
         },
       ])
     )
