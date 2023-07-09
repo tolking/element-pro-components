@@ -54,94 +54,116 @@ const enUS: RouteRecordRaw[] = [
     meta: { title: 'Components', icon: markRaw(TakeawayBox) },
     children: [
       {
-        path: '/en-US/components/layout',
-        component: () => import('../../en-US/components/Layout.md'),
-        meta: { title: 'Layout' },
+        path: '',
+        redirect: '/zh-CN/components/layout',
+        meta: { title: 'Layout components', group: true },
+        children: [
+          {
+            path: '/en-US/components/layout',
+            component: () => import('../../en-US/components/Layout.md'),
+            meta: { title: 'Layout' },
+          },
+          {
+            path: '/en-US/components/card',
+            component: () => import('../../en-US/components/Card.md'),
+            meta: { title: 'Card' },
+          },
+          {
+            path: '/en-US/components/menu',
+            component: () => import('../../en-US/components/Menu.md'),
+            meta: { title: 'Menu' },
+          },
+          {
+            path: '/en-US/components/filter-routes',
+            component: () => import('../../en-US/components/FilterRoutes.md'),
+            meta: { title: 'FilterRoutes' },
+          },
+          {
+            path: '/en-US/components/breadcrumb',
+            component: () => import('../../en-US/components/Breadcrumb.md'),
+            meta: { title: 'Breadcrumb' },
+          },
+          {
+            path: '/en-US/components/tabs',
+            component: () => import('../../en-US/components/Tabs.md'),
+            meta: { title: 'Tabs' },
+          },
+          {
+            path: '/en-US/components/link',
+            component: () => import('../../en-US/components/Link.md'),
+            meta: { title: 'Link' },
+          },
+        ],
       },
       {
-        path: '/en-US/components/card',
-        component: () => import('../../en-US/components/Card.md'),
-        meta: { title: 'Card' },
+        path: '',
+        redirect: '/zh-CN/components/layout',
+        meta: { title: 'Form components', group: true },
+        children: [
+          {
+            path: '/en-US/components/form',
+            component: () => import('../../en-US/components/Form.md'),
+            meta: { title: 'Form' },
+          },
+          {
+            path: '/en-US/components/radio',
+            component: () => import('../../en-US/components/Radio.md'),
+            meta: { title: 'Radio' },
+          },
+          {
+            path: '/en-US/components/checkbox',
+            component: () => import('../../en-US/components/Checkbox.md'),
+            meta: { title: 'Checkbox' },
+          },
+          {
+            path: '/en-US/components/select',
+            component: () => import('../../en-US/components/Select.md'),
+            meta: { title: 'Select' },
+          },
+          {
+            path: '/en-US/components/tree-select',
+            component: () => import('../../en-US/components/TreeSelect.md'),
+            meta: { title: 'TreeSelect' },
+          },
+          {
+            path: '/en-US/components/input-tag',
+            component: () => import('../../en-US/components/InputTag.md'),
+            meta: { title: 'InputTag' },
+          },
+          {
+            path: '/en-US/components/autocomplete-tag',
+            component: () =>
+              import('../../en-US/components/AutocompleteTag.md'),
+            meta: { title: 'AutocompleteTag' },
+          },
+        ],
       },
       {
-        path: '/en-US/components/menu',
-        component: () => import('../../en-US/components/Menu.md'),
-        meta: { title: 'Menu' },
-      },
-      {
-        path: '/en-US/components/filter-routes',
-        component: () => import('../../en-US/components/FilterRoutes.md'),
-        meta: { title: 'FilterRoutes' },
-      },
-      {
-        path: '/en-US/components/breadcrumb',
-        component: () => import('../../en-US/components/Breadcrumb.md'),
-        meta: { title: 'Breadcrumb' },
-      },
-      {
-        path: '/en-US/components/tabs',
-        component: () => import('../../en-US/components/Tabs.md'),
-        meta: { title: 'Tabs' },
-      },
-      {
-        path: '/en-US/components/link',
-        component: () => import('../../en-US/components/Link.md'),
-        meta: { title: 'Link' },
-      },
-      {
-        path: '/en-US/components/form',
-        component: () => import('../../en-US/components/Form.md'),
-        meta: { title: 'Form' },
-      },
-      {
-        path: '/en-US/components/radio',
-        component: () => import('../../en-US/components/Radio.md'),
-        meta: { title: 'Radio' },
-      },
-      {
-        path: '/en-US/components/checkbox',
-        component: () => import('../../en-US/components/Checkbox.md'),
-        meta: { title: 'Checkbox' },
-      },
-      {
-        path: '/en-US/components/select',
-        component: () => import('../../en-US/components/Select.md'),
-        meta: { title: 'Select' },
-      },
-      {
-        path: '/en-US/components/tree-select',
-        component: () => import('../../en-US/components/TreeSelect.md'),
-        meta: { title: 'TreeSelect' },
-      },
-      {
-        path: '/en-US/components/input-tag',
-        component: () => import('../../en-US/components/InputTag.md'),
-        meta: { title: 'InputTag' },
-      },
-      {
-        path: '/en-US/components/autocomplete-tag',
-        component: () => import('../../en-US/components/AutocompleteTag.md'),
-        meta: { title: 'AutocompleteTag' },
-      },
-      {
-        path: '/en-US/components/table',
-        component: () => import('../../en-US/components/Table.md'),
-        meta: { title: 'Table' },
-      },
-      {
-        path: '/en-US/components/crud',
-        component: () => import('../../en-US/components/Crud.md'),
-        meta: { title: 'Crud' },
-      },
-      {
-        path: '/en-US/components/column-setting',
-        component: () => import('../../en-US/components/ColumnSetting.md'),
-        meta: { title: 'ColumnSetting' },
-      },
-      {
-        path: '/en-US/components/descriptions',
-        component: () => import('../../en-US/components/Descriptions.md'),
-        meta: { title: 'Descriptions' },
+        path: '',
+        redirect: '/zh-CN/components/layout',
+        meta: { title: 'Data components', group: true },
+        children: [
+          {
+            path: '/en-US/components/table',
+            component: () => import('../../en-US/components/Table.md'),
+            meta: { title: 'Table' },
+          },
+          {
+            path: '/en-US/components/crud',
+            component: () => import('../../en-US/components/Crud.md'),
+            meta: { title: 'Crud' },
+          },
+          {
+            path: '/en-US/components/column-setting',
+            component: () => import('../../en-US/components/ColumnSetting.md'),
+            meta: { title: 'ColumnSetting' },
+          },
+          {
+            path: '/en-US/components/descriptions',
+            component: () => import('../../en-US/components/Descriptions.md'),
+            meta: { title: 'Descriptions' },
+          },
+        ],
       },
     ],
   },
