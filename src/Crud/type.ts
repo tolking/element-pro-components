@@ -127,7 +127,14 @@ export type ICrudSubmit = (
 
 export type ICrudProps = IDefineProps<typeof crudProps>
 export type ICrudEmits = IDefineEmits<typeof crudEmits>
-export type ICrudExpose<T = UnknownObject> = IFormExpose & ITableExpose<T>
+export interface ICrudExpose<T = UnknownObject>
+  extends IFormExpose,
+    ITableExpose<T> {
+  /** open the dialog */
+  openDialog: (type: ICrudDialogType, row?: UnknownObject) => void
+  /** close the dialog */
+  closeDialog: () => void
+}
 
 /**
  * Type helper to make it easier to define columns

@@ -819,6 +819,44 @@ describe('Crud', () => {
       'el-button--small'
     )
   })
+
+  test.concurrent('expose', async () => {
+    const wrapper = await mount({
+      template: `
+        <pro-crud
+          ref="crudRef"
+          :columns="columns"
+          :data="data"
+        />
+      `,
+      setup() {
+        const crudRef = ref()
+        const columns = commonColumns
+
+        return { crudRef, columns, data: tableData }
+      },
+    })
+    await doubleWait()
+
+    expect(wrapper.vm.crudRef).not.toBeUndefined()
+    expect(wrapper.vm.crudRef).not.toBeNull()
+    expect(wrapper.vm.crudRef.clearSelection).toBeTruthy()
+    expect(wrapper.vm.crudRef.toggleRowSelection).toBeTruthy()
+    expect(wrapper.vm.crudRef.toggleAllSelection).toBeTruthy()
+    expect(wrapper.vm.crudRef.toggleRowExpansion).toBeTruthy()
+    expect(wrapper.vm.crudRef.setCurrentRow).toBeTruthy()
+    expect(wrapper.vm.crudRef.clearSort).toBeTruthy()
+    expect(wrapper.vm.crudRef.clearFilter).toBeTruthy()
+    expect(wrapper.vm.crudRef.doLayout).toBeTruthy()
+    expect(wrapper.vm.crudRef.sort).toBeTruthy()
+    expect(wrapper.vm.crudRef.validate).toBeTruthy()
+    expect(wrapper.vm.crudRef.resetFields).toBeTruthy()
+    expect(wrapper.vm.crudRef.scrollToField).toBeTruthy()
+    expect(wrapper.vm.crudRef.clearValidate).toBeTruthy()
+    expect(wrapper.vm.crudRef.validateField).toBeTruthy()
+    expect(wrapper.vm.crudRef.openDialog).toBeTruthy()
+    expect(wrapper.vm.crudRef.closeDialog).toBeTruthy()
+  })
 })
 
 afterAll(() => {
