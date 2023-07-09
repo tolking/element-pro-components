@@ -1,5 +1,12 @@
 # Changelog
 
+### 1.2.12
+
+feat
+
+- Crud: add some slots `crud-table` `crud-dialog` `crud-search` `crud-form` `crud-detail` (#478)
+- Crud: add expose function openDialog and closeDialog (#479)
+
 ### 1.2.11
 
 feat
