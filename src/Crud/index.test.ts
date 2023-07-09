@@ -719,26 +719,22 @@ describe('Crud', () => {
     })
     await doubleWait()
 
+    const closeBtn = wrapper.find('.pro-crud .el-drawer__close-btn')
+
     await wrapper.find(addClass).trigger('click')
     expect(wrapper.find('.pro-crud .el-drawer').exists()).toBe(true)
     expect(wrapper.find('.pro-crud .el-drawer .el-form').exists()).toBe(true)
-    await wrapper
-      .find('.pro-crud .pro-crud-dialog .el-drawer__close-btn')
-      .trigger('click')
+    await closeBtn.trigger('click')
 
     await wrapper.find(menuClass + ':nth-child(1)').trigger('click')
     expect(wrapper.find('.pro-crud .el-drawer').exists()).toBe(true)
     expect(wrapper.find('.pro-crud .el-form').exists()).toBe(true)
-    await wrapper
-      .find('.pro-crud .pro-crud-dialog .el-drawer__close-btn')
-      .trigger('click')
+    await closeBtn.trigger('click')
 
     await wrapper.find(menuClass + ':nth-child(2)').trigger('click')
     expect(wrapper.find('.pro-crud .el-drawer').exists()).toBe(true)
     expect(wrapper.find('.pro-crud .el-descriptions').exists()).toBe(true)
-    await wrapper
-      .find('.pro-crud .pro-crud-dialog .el-drawer__close-btn')
-      .trigger('click')
+    closeBtn.trigger('click')
   })
 
   test.concurrent('size', async () => {
