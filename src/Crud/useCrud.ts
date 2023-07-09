@@ -155,6 +155,7 @@ export function useCrudForm(
   type: Ref<ICrudDialogType>
   formColumns: Ref<IFormColumns | undefined>
   openDialog: (type: ICrudDialogType, row?: UnknownObject) => void
+  closeDialog: () => void
   submitForm: IFormSubmit
 } & UseFormInjectEmitsCallback {
   const { addColumns, editColumns, formColumns } = useCrudColumns(props)
@@ -193,12 +194,17 @@ export function useCrudForm(
       : done()
   }
 
+  function closeDialog() {
+    showDialog.value = false
+  }
+
   return {
     ...injectEmits,
     showDialog,
     type,
     formColumns: currentFormColumns,
     openDialog,
+    closeDialog,
     submitForm,
   }
 }

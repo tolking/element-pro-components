@@ -105,6 +105,14 @@ Set `before-open` or `before-close` attribute to enable perform an operation bef
 @/demo/Crud/dialog.vue
 :::
 
+### Open Dialog
+
+By using the `openDialog` method exposed by the component, you can open the dialog
+
+::: demo
+@/demo/Crud/dialog-open.vue
+:::
+
 ### Slots
 
 Use simple <pro-link to="https://vuejs.org/guide/render-function.html">render-function</pro-link> by `render` in `columns`. or directly add some slot with `[prop]` in the template.
@@ -447,6 +455,8 @@ Other attributes are the same as <pro-link to="/en-US/components/table#columns">
 | resetFields        | reset all the fields and remove validation result                                                                                                                                                                                                                                | -                                                                          |
 | scrollToField      | Scroll to the specified form field                                                                                                                                                                                                                                               | Function(prop: string)                                                     |
 | clearValidate      | clear validation message for certain fields. The parameter is prop name or an array of prop names of the form items whose validation messages will be removed. When omitted, all fields' validation messages will be cleared                                                     | Function(props: string \| array)                                           |
+| openDialog         | open dialog                                                                                                                                                                                                                                                                      | Function(type: ICrudDialogType, row?: UnknownObject)                       |
+| closeDialog        | close dialog                                                                                                                                                                                                                                                                     | -                                                                          |
 
 ### Slots
 

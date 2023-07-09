@@ -105,6 +105,14 @@ Crud 组件是 <pro-link to="/zh-CN/components/table">Table</pro-link> <pro-link
 @/demo/Crud/dialog.vue
 :::
 
+### 打开弹窗
+
+通过组件暴露的 `openDialog` 方法可以打开弹窗
+
+::: demo
+@/demo/Crud/dialog-open.vue
+:::
+
 ### 插槽
 
 在 `columns` 中配置 `render` 可以使用简单的 <pro-link to="https://staging-cn.vuejs.org/guide/render-function.html">渲染函数</pro-link>。或者直接在模版中增加带 `[prop]` 相关的插槽
@@ -446,6 +454,8 @@ Crud columns 支持 <pro-link to="/zh-CN/components/table#columns">Table columns
 | resetFields        | 对整个表单进行重置，将所有字段值重置为初始值并移除校验结果                                                                                                           | -                                                                          |
 | scrollToField      | 滚动到指定表单字段                                                                                                                                                   | Function(prop: string)                                                     |
 | clearValidate      | 移除表单项的校验结果。传入待移除的表单项的 prop 属性或者 prop 组成的数组，如不传则移除整个表单的校验结果                                                             | Function(props: array \| string)                                           |
+| openDialog         | 打开弹窗                                                                                                                                                             | Function(type: ICrudDialogType, row?: UnknownObject)                       |
+| closeDialog        | 关闭弹窗                                                                                                                                                             | -                                                                          |
 
 ### 插槽
 

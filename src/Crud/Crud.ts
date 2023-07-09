@@ -73,6 +73,7 @@ export default defineComponent({
       type,
       formColumns,
       openDialog,
+      closeDialog,
       submitForm,
       addItem,
       removeItem,
@@ -157,6 +158,8 @@ export default defineComponent({
       scrollToField,
       clearValidate,
       validateField,
+      openDialog,
+      closeDialog,
     })
 
     function createSearch() {
