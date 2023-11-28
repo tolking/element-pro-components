@@ -1,0 +1,29 @@
+name: Test build
+
+on:
+  workflow_run:
+    workflows: ['Test']
+    types: [completed]
+
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: Install
+        run: pnpm i
+
+      - name: Test build
+        run: pnpm build
+
+      - name: Test build docs
+        run: pnpm build:docs
