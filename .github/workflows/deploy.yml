@@ -1,9 +1,12 @@
-name: build docs
+name: Deploy docs
 
 on:
   workflow_dispatch:
   release:
     types: [ created ]
+  push:
+    tags:
+      - 'v**'
 
 jobs:
   build-and-deploy:
@@ -11,17 +14,18 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: latest
 
-      - name: Install and Build
-        run: |
-          pnpm install
-          pnpm run build:docs
+      - name: Install
+        run: pnpm i
+
+      - name: Build
+        run: pnpm build:docs
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.6.2

@@ -1,4 +1,4 @@
-name: test
+name: Test
 
 on:
   pull_request:
@@ -6,19 +6,30 @@ on:
 
 jobs:
   test:
+    strategy:
+      matrix:
+        node-version: [18, 20, 21]
+      fail-fast: false
+
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: latest
 
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+
       - name: Install
-        run: pnpm install
+        run: pnpm i
 
       - name: Lint and Type Check
         run: pnpm check
