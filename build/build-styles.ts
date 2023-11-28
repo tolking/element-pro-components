@@ -1,4 +1,4 @@
-import { readFile, readFileSync } from 'fs'
+import { readFile, readFileSync } from 'node:fs'
 import fg from 'fast-glob'
 import postcss from 'postcss'
 import postcssImport from 'postcss-import'

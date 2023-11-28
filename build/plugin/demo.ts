@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'fs'
+import { existsSync, readFileSync } from 'node:fs'
 import markdown from 'markdown-it'
 import { camelize } from '../utils'
 import highlight from './highlight'

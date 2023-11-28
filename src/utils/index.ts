@@ -4,14 +4,12 @@ export {
   has,
   pick as objectPick,
   omit as objectOmit,
-} from 'lodash-unified'
-export {
   isBoolean,
   isObject,
   isFunction,
   isString,
   isNumber,
-} from '@vueuse/core'
+} from 'lodash-unified'
 export * from './filter'
 export * from './helper'
 export * from './util'

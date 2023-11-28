@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Markdown from 'vite-plugin-vue-markdown'
@@ -18,20 +18,6 @@ export default defineConfig({
   resolve: {
     alias: {
       'element-pro-components': resolve(__dirname, 'src'),
-    },
-  },
-  ssr: {
-    format: 'cjs',
-  },
-  build: {
-    rollupOptions: {
-      output: {
-        inlineDynamicImports: false,
-        manualChunks: {
-          'modules-vue': ['vue', 'vue-router'],
-          'modules-element-plus': ['element-plus'],
-        },
-      },
     },
   },
   plugins: [
