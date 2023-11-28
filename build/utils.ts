@@ -1,4 +1,5 @@
-import { resolve } from 'path'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import {
   copyFileSync,
   mkdir,
@@ -8,10 +9,13 @@ import {
   statSync,
   unlinkSync,
   rmdirSync,
-} from 'fs'
-import execa from 'execa'
+} from 'node:fs'
+import { execa } from 'execa'
 
 export function toAbsolute(path: string): string {
+  const __filename = fileURLToPath(import.meta.url)
+  const __dirname = dirname(__filename)
+
   return resolve(__dirname, path)
 }
 

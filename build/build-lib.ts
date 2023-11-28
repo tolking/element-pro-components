@@ -10,7 +10,7 @@ export default defineConfig({
     lib: {
       entry: toAbsolute('../src/index.ts'),
       name: camelize(name),
-      fileName: (format) => `index.${format}.js`,
+      fileName: 'index',
     },
     rollupOptions: {
       output: {
@@ -22,7 +22,7 @@ export default defineConfig({
       },
       external: (id: string) =>
         /^(vue|@vue|@vueuse|element-plus|@element-plus|lodash-unified)/.test(
-          id
+          id,
         ),
     },
   },

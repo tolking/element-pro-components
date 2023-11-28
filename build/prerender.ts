@@ -1,4 +1,4 @@
-import { readFileSync, unlinkSync } from 'fs'
+import { readFileSync } from 'node:fs'
 import fg from 'fast-glob'
 import { SitemapStream, streamToPromise } from 'sitemap'
 import {
@@ -8,11 +8,11 @@ import {
   rmdirRecursive,
 } from './utils'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const manifest = require(toAbsolute('../dist/ssr-manifest.json'))
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { render } = require(toAbsolute('../dist/.cache/entry-server.js'))
+const manifest = JSON.parse(
+  readFileSync(toAbsolute('../dist/.vite/ssr-manifest.json'), 'utf-8'),
+)
 const template = readFileSync(toAbsolute('../dist/index.html'), 'utf-8')
+const { render } = await import(toAbsolute('../dist/.cache/entry-server.js'))
 const files = fg.sync('docs/**/*.md')
 
 ;(async () => {
@@ -24,7 +24,7 @@ const files = fg.sync('docs/**/*.md')
       .replace(/\.(vue|md)$/, '')
       .replace(/index$/, '')
       .replace(/\/([^/]*)$/, (item) =>
-        item.replace(/\B([A-Z])/g, '-$1').toLowerCase()
+        item.replace(/\B([A-Z])/g, '-$1').toLowerCase(),
       )
     const filePath = toAbsolute(`../dist${url.replace(/\/$/, '/index')}.html`)
     const lang = url.match(/^\/([\w|-]*)\//)
@@ -53,6 +53,6 @@ const files = fg.sync('docs/**/*.md')
     writeFileRecursive(filePath, data.toString())
     console.log('build-sitemap:', filePath)
   })
-  unlinkSync(toAbsolute('../dist/ssr-manifest.json'))
+  rmdirRecursive(toAbsolute('../dist/.vite'))
   rmdirRecursive(toAbsolute('../dist/.cache'))
 })()

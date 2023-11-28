@@ -1,6 +1,6 @@
 import { App, createApp as _createApp, createSSRApp } from 'vue'
 import { createRouter } from './router/index'
-import { createHead, HeadClient } from '@vueuse/head'
+import { createHead, type VueHeadClient, type MergeHead } from '@unhead/vue'
 import {
   ElConfigProvider,
   ElButton,
@@ -31,7 +31,7 @@ import type { Router } from 'vue-router'
 export function createApp(): {
   app: App<Element>
   router: Router
-  head: HeadClient
+  head: VueHeadClient<MergeHead>
 } {
   const app =
     import.meta.env.MODE === 'production'

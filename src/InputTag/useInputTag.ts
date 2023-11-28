@@ -36,7 +36,7 @@ export interface InputTagCore {
 
 export function useInputTag(
   props: IInputTagProps | IAutocompleteTagProps,
-  emit: IInputTagEmits | IAutocompleteTagEmits
+  emit: IInputTagEmits | IAutocompleteTagEmits,
 ): InputTagCore {
   const attrs = useAttrs()
   const size = useSize()
@@ -46,7 +46,7 @@ export function useInputTag(
     'hit',
     'color',
     'effect',
-    'disableTransitions'
+    'disableTransitions',
   )
   const commonKeys = Object.keys(inputTagCommonProps) as CommonKeys
   const inputProps = reactiveOmit(props, ...commonKeys, 'size')
@@ -67,7 +67,7 @@ export function useInputTag(
   })
   const closable = computed(() => {
     const disabled = useDisabled()
-    return !(props.readonly || disabled.value) ?? true
+    return !(props.readonly || disabled.value)
   })
 
   function add(isBlur?: unknown) {
