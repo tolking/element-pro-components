@@ -9,7 +9,7 @@ import type { IRadioProps } from './index'
 export function createDefault<T>(
   props: IRadioProps,
   component: T,
-  className: string
+  className: string,
 ): () => VNode {
   const { getLabel, getValue, getName, getDisabled } = useDataConfig()
   const emitValue = useEmitValue()
@@ -28,12 +28,12 @@ export function createDefault<T>(
             component as DefineComponent,
             {
               name: getName(item),
-              label: getValue(item),
+              value: getValue(item),
               disabled: getDisabled(item),
             },
-            () => getLabel(item)
+            () => getLabel(item),
           )
-        })
+        }),
     )
 }
 
