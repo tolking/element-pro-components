@@ -43,7 +43,7 @@ const getHeaderList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   getHeader(wrapper).map((item) => item.find('.cell').text())
 const getHeaderClass = (
   wrapper: VueWrapper<ComponentPublicInstance>,
-  index = 0
+  index = 0,
 ) => getHeader(wrapper)[index].classes()
 const bodyClass = '.pro-table .el-table__body-wrapper .el-table__body tbody tr'
 const getBody = (wrapper: VueWrapper<ComponentPublicInstance>) =>
@@ -60,7 +60,7 @@ const getPager = (wrapper: VueWrapper<ComponentPublicInstance>, classes = '') =>
   wrapper.find('.pro-table .el-pagination .el-pager .number' + classes)
 const getSizesItem = (classes = '') =>
   document.querySelector(
-    '.el-select__popper .el-select-dropdown__item' + classes
+    '.el-select__popper .el-select-dropdown__item' + classes,
   )
 const appendClass =
   '.pro-table .el-table__body-wrapper .el-table__append-wrapper .append'
@@ -258,16 +258,16 @@ describe('Table', () => {
 
     await (vm.pageSize = 10)
     await wrapper
-      .find('.el-pagination .el-pagination__sizes .select-trigger')
+      .find('.el-pagination .el-pagination__sizes .el-select__wrapper')
       .trigger('click')
-    expect(getSizesItem('.selected')?.innerHTML).toMatch(/10/)
+    expect(getSizesItem('.is-selected')?.innerHTML).toMatch(/10/)
 
     await (vm.layout = 'sizes, prev, pager, next')
     expect(wrapper.find('.el-pagination .el-pagination__total').exists()).toBe(
-      false
+      false,
     )
     expect(wrapper.find('.el-pagination .el-pagination__jump').exists()).toBe(
-      false
+      false,
     )
 
     await (vm.total = 0)

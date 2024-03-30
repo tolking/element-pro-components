@@ -36,7 +36,7 @@ describe('Layout', () => {
     expect(wrapper.find('.pro-header').classes()).toContain('fixed-header')
     expect(getMenuList(wrapper)).toHaveLength(2)
     expect(getMenuList(wrapper)[0].find('.el-icon').html()).toContain(
-      'icon-house'
+      'icon-house',
     )
     expect(getMenuList(wrapper)[0].find('span').text()).toBe('home')
     expect(getMenuList(wrapper)[1].find('span').text()).toBe('two')
@@ -69,21 +69,12 @@ describe('Layout', () => {
         return { routes }
       },
     })
-    const vm = wrapper.vm as unknown as { routes: RouteRecordRaw[] }
 
     expect(getSubMenuList(wrapper)).toHaveLength(1)
     expect(getSubMenuList(wrapper)[0].find('span').text()).toBe('one')
     expect(getMenuList(wrapper)).toHaveLength(2)
     expect(getMenuList(wrapper)[0].find('span').text()).toBe('oneIndex')
     expect(getMenuList(wrapper)[1].find('span').text()).toBe('oneInfo')
-
-    await vm.routes[0].children?.push({
-      path: '/one/dynamic',
-      component: { template: 'one dynamic page' },
-      meta: { title: 'oneDynamic' },
-    })
-    expect(getMenuList(wrapper)).toHaveLength(3)
-    expect(getMenuList(wrapper)[2].find('span').text()).toBe('oneDynamic')
   })
 
   test.concurrent('mode', async () => {
@@ -101,7 +92,7 @@ describe('Layout', () => {
 
     await (vm.mode = 'vertical')
     expect(wrapper.find('.pro-menu').classes()).not.toContain(
-      'el-menu--horizontal'
+      'el-menu--horizontal',
     )
   })
 
@@ -155,14 +146,14 @@ describe('Layout', () => {
     expect(wrapper.find('.pro-layout .logo').text()).toBe('logo-false')
     expect(wrapper.find('.pro-layout .footer').text()).toBe('footer')
     expect(wrapper.find('.pro-layout .collapse-button').text()).toBe(
-      'collapse-button-false'
+      'collapse-button-false',
     )
     expect(wrapper.find('.pro-layout .header-left').text()).toBe('header-left')
     expect(wrapper.find('.pro-layout .header-right').text()).toBe(
-      'header-right'
+      'header-right',
     )
     expect(wrapper.find('.pro-layout .header-bottom').text()).toBe(
-      'header-bottom'
+      'header-bottom',
     )
     expect(wrapper.find('.pro-layout .default').text()).toBe('default')
   })

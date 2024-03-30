@@ -24,7 +24,7 @@ import {
   defineFormColumns,
 } from './index'
 import type { IFormColumns, IFormMenuColumns, FormColumn } from './index'
-import type { Mutable } from '../types/index'
+import type { ExternalParam, Mutable } from '../types/index'
 
 const MyInput = defineComponent({
   name: 'MyInput',
@@ -141,13 +141,13 @@ const getLabelList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   getFormList(wrapper).map((item) => item.find('.el-form-item__label').text())
 const getComponentList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   getFormList(wrapper).map((item) =>
-    item.find('.el-form-item__content div').classes()
+    item.find('.el-form-item__content div').classes(),
   )
 const getFormBtnList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   wrapper.findAll(buttonClass).map((item) => item.text())
 const getFormContent = (
   wrapper: VueWrapper<ComponentPublicInstance>,
-  className = ''
+  className = '',
 ) =>
   wrapper.find('.pro-form .pro-form-item .el-form-item__content ' + className)
 
@@ -329,11 +329,12 @@ describe('ProFormItem', () => {
         return { form, columns }
       },
     })
+    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     expect(wrapper.find('.el-input').exists()).toBe(true)
     expect(wrapper.find('.el-form-item__label').text()).toBe('input')
 
-    await (wrapper.vm.columns[0].show = false)
+    await (vm.columns[0].show = false)
     expect(wrapper.find('.el-input').exists()).toBe(false)
   })
 
@@ -350,11 +351,12 @@ describe('ProFormItem', () => {
               component: 'my-input',
               modelKey: 'value',
             },
-          ])
+          ]),
         )
         return { form, columns }
       },
     })
+    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     expect(wrapper.find('.my-input').exists()).toBe(true)
     expect(wrapper.find('.el-form-item__label').text()).toBe('input')
@@ -363,12 +365,12 @@ describe('ProFormItem', () => {
     expect(wrapper.find('input').element.value).toBe('value')
     expect(wrapper.vm.form).toEqual({ input: 'value' })
 
-    await (wrapper.vm.columns[0].modelKey = 'modelValue')
+    await (vm.columns[0].modelKey = 'modelValue')
     await wrapper.find('.my-input').setValue('modelValue')
     expect(wrapper.find('input').element.value).toBe('modelValue')
     expect(wrapper.vm.form).not.toEqual({ input: 'modelValue' })
 
-    await (wrapper.vm.columns[0].modelKey = ['value', 'onUpdate:value'])
+    await (vm.columns[0].modelKey = ['value', 'onUpdate:value'])
     await wrapper.find('.my-input').setValue('my-input')
     expect(wrapper.find('input').element.value).toBe('my-input')
     expect(wrapper.vm.form).toEqual({ input: 'my-input' })
@@ -424,11 +426,12 @@ describe('ProFormList', () => {
               prop: 'key5',
               component: 'el-input',
             },
-          ])
+          ]),
         )
         return { form, columns }
       },
     })
+    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     const labels = getLabelList(wrapper)
     expect(labels.length).toBe(6)
@@ -436,7 +439,7 @@ describe('ProFormList', () => {
       expect(item).toBe(String(index))
     })
 
-    await wrapper.vm.columns.push({
+    await vm.columns.push({
       label: 'new one',
       prop: 'now',
       component: 'el-input',
@@ -445,7 +448,7 @@ describe('ProFormList', () => {
     expect(newlabels.length).toBe(7)
     expect(newlabels[6]).toBe('new one')
 
-    await (wrapper.vm.columns[0].show = false)
+    await (vm.columns[0].show = false)
     const showlabels = getLabelList(wrapper)
     expect(showlabels.length).toBe(6)
     expect(showlabels[0]).toBe('1')
@@ -464,6 +467,10 @@ describe('ProFormList', () => {
         return { form, columns }
       },
     })
+    const vm = wrapper.vm as unknown as {
+      form: { input: string }[]
+      columns: IFormColumns
+    }
 
     expect(wrapper.find(arrayClass).exists()).toBe(false)
     expect(wrapper.find(addClass).exists()).toBe(true)
@@ -472,16 +479,16 @@ describe('ProFormList', () => {
     expect(wrapper.vm.form).toHaveLength(1)
     expect(wrapper.find(arrayClass).exists()).toBe(true)
     expect(wrapper.findAll(`${arrayContentClass} .pro-form-item`)).toHaveLength(
-      1
+      1,
     )
     expect(
       wrapper
         .find(`${arrayContentClass} .pro-form-item .el-form-item__content div`)
-        .classes()
+        .classes(),
     ).toContain('el-input')
 
     await wrapper.find('input').setValue('value')
-    expect(wrapper.vm.form[0].input).toBe('value')
+    expect(vm.form[0].input).toBe('value')
 
     config.global.provide = {}
   })
@@ -519,11 +526,12 @@ describe('ProFormList', () => {
               type: 'group',
               children: columns,
             },
-          ])
+          ]),
         )
         return { columns: _columns }
       },
     })
+    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     const getItem = (n: number) => wrapper.find(`.el-col-24:nth-child(${n})`)
     const list = wrapper.findAll('.el-col-24').map((item) => item.classes())
@@ -538,7 +546,7 @@ describe('ProFormList', () => {
     expect(list[6]).toContain('pro-group-form-title')
     expect(getItem(7).text()).toBe('group-3')
 
-    await wrapper.vm.columns.push({
+    await vm.columns.push({
       label: 'new one',
       type: 'group',
       children: columns,
@@ -569,7 +577,7 @@ describe('ProFormList', () => {
               type: 'tabs',
               children: columns,
             },
-          ])
+          ]),
         )
         return { columns: _columns }
       },
@@ -604,7 +612,7 @@ describe('ProFormList', () => {
               component: 'el-input',
               class: 'input-1',
             },
-          ])
+          ]),
         )
         return { columns: _columns }
       },
@@ -633,7 +641,7 @@ describe('ProFormList', () => {
               type: 'steps',
               children: columns,
             },
-          ])
+          ]),
         )
         return { columns: _columns }
       },
@@ -682,7 +690,7 @@ describe('ProFormList', () => {
               type: 'tabs',
               children: columns,
             },
-          ])
+          ]),
         )
         return { columns: _columns }
       },
@@ -741,6 +749,7 @@ describe('ArrayForm', () => {
         return { form, columns: ref([...columns]) }
       },
     })
+    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     expect(wrapper.find(arrayClass).exists()).toBe(false)
     expect(wrapper.find(addClass).exists()).toBe(true)
@@ -749,29 +758,29 @@ describe('ArrayForm', () => {
     expect(wrapper.vm.form).toHaveLength(1)
     expect(wrapper.find(arrayClass).exists()).toBe(true)
     expect(wrapper.findAll(`${arrayContentClass} .pro-form-item`)).toHaveLength(
-      1
+      1,
     )
     expect(
       wrapper
         .find(`${arrayContentClass} .pro-form-item .el-form-item__content div`)
-        .classes()
+        .classes(),
     ).toContain('el-input')
 
-    await wrapper.vm.columns.push({
+    await vm.columns.push({
       label: 'textarea',
       prop: 'textarea',
       component: 'el-input',
       props: { type: 'textarea' },
     })
     expect(wrapper.findAll(`${arrayContentClass} .pro-form-item`)).toHaveLength(
-      2
+      2,
     )
     expect(
       wrapper
         .find(
-          `${arrayContentClass} .pro-form-item:nth-child(2) .el-form-item__content div`
+          `${arrayContentClass} .pro-form-item:nth-child(2) .el-form-item__content div`,
         )
-        .classes()
+        .classes(),
     ).toContain('el-textarea')
 
     await wrapper.find(deleteClass).trigger('click')
@@ -792,11 +801,15 @@ describe('ArrayForm', () => {
         return { form, columns: ref([...columns]) }
       },
     })
+    const vm = wrapper.vm as unknown as {
+      form: Array<{ input: string }>
+      columns: IFormColumns
+    }
 
     expect(wrapper.find('input').element.value).toBe('test')
 
     await wrapper.find('input').setValue('value')
-    expect(wrapper.vm.form[0].input).toBe('value')
+    expect(vm.form[0].input).toBe('value')
   })
 
   test.concurrent('max', async () => {
@@ -842,19 +855,20 @@ describe('ArrayForm', () => {
               prop: 'input',
               component: 'el-input',
             },
-          ])
+          ]),
         )
         return { form, columns: _columns }
       },
     })
+    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     expect(wrapper.findAll(`${arrayContentClass} .pro-form-item`)).toHaveLength(
-      1
+      1,
     )
 
-    await (wrapper.vm.columns[0].show = false)
+    await (vm.columns[0].show = false)
     expect(wrapper.findAll(`${arrayContentClass} .pro-form-item`)).toHaveLength(
-      0
+      0,
     )
   })
 })
@@ -912,11 +926,15 @@ describe('ProGroupForm', () => {
         return { form, columns: groupColumns }
       },
     })
+    const vm = wrapper.vm as unknown as {
+      form: { input: string }
+      columns: IFormColumns
+    }
 
     expect(wrapper.find('input').element.value).toBe('test')
 
     await wrapper.find('input').setValue('value')
-    expect(wrapper.vm.form.input).toBe('value')
+    expect(vm.form.input).toBe('value')
   })
 
   test.concurrent('slots', async () => {
@@ -947,6 +965,7 @@ describe('ProGroupForm', () => {
         return { columns }
       },
     })
+    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     expect(wrapper.find(groupTitle).exists()).toBe(true)
     expect(wrapper.find(groupTitle).text()).toBe('Group')
@@ -957,7 +976,7 @@ describe('ProGroupForm', () => {
     expect(components).toHaveLength(1)
     expect(components[0]).toContain('el-input')
 
-    await (wrapper.vm.columns[0].show = false)
+    await (vm.columns[0].show = false)
     expect(wrapper.find(groupTitle).exists()).toBe(false)
     const newlabels = getLabelList(wrapper)
     expect(newlabels).toHaveLength(0)
@@ -1022,11 +1041,15 @@ describe('ProTabsForm', () => {
         return { form, columns: tabsColumns }
       },
     })
+    const vm = wrapper.vm as unknown as {
+      form: { input: string }
+      columns: IFormColumns
+    }
 
     expect(wrapper.find('input').element.value).toBe('test')
 
     await wrapper.find('input').setValue('value')
-    expect(wrapper.vm.form.input).toBe('value')
+    expect(vm.form.input).toBe('value')
   })
 
   test.concurrent('slots', async () => {
@@ -1058,6 +1081,7 @@ describe('ProTabsForm', () => {
         return { columns }
       },
     })
+    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     expect(wrapper.find('.pro-tabs-form').exists()).toBe(true)
     expect(wrapper.find(tabLabel).exists()).toBe(true)
@@ -1072,7 +1096,7 @@ describe('ProTabsForm', () => {
     expect(components[0]).toContain('el-input')
     expect(components[1]).toContain('el-input')
 
-    await (wrapper.vm.columns[0].show = false)
+    await (vm.columns[0].show = false)
     expect(wrapper.find(tabLabel).exists()).toBe(true)
     expect(wrapper.find(tabLabel).text()).toBe('Tab2')
     const newlabels = getLabelList(wrapper)
@@ -1136,11 +1160,15 @@ describe('ProCollapseForm', () => {
         return { form, columns: collapseColumns }
       },
     })
+    const vm = wrapper.vm as unknown as {
+      form: { input: string }
+      columns: IFormColumns
+    }
 
     expect(wrapper.find('input').element.value).toBe('test')
 
     await wrapper.find('input').setValue('value')
-    expect(wrapper.vm.form.input).toBe('value')
+    expect(vm.form.input).toBe('value')
   })
 
   test.concurrent('slots', async () => {
@@ -1171,6 +1199,7 @@ describe('ProCollapseForm', () => {
         return { columns }
       },
     })
+    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     expect(wrapper.find('.pro-collapse-form').exists()).toBe(true)
     expect(wrapper.find(collapseLabel).exists()).toBe(true)
@@ -1182,7 +1211,7 @@ describe('ProCollapseForm', () => {
     expect(components).toHaveLength(1)
     expect(components[0]).toContain('el-input')
 
-    await (wrapper.vm.columns[0].show = false)
+    await (vm.columns[0].show = false)
     expect(wrapper.find(collapseLabel).exists()).toBe(false)
     const newlabels = getLabelList(wrapper)
     expect(newlabels).toHaveLength(0)
@@ -1242,7 +1271,7 @@ describe('ProStepsForm', () => {
     expect(wrapper.findAll(stepItem).length).toBe(2)
     expect(wrapper.find(`${stepItem} .el-step__title`).text()).toBe('Steps1')
     expect(wrapper.find(`${stepItem}:last-child .el-step__title`).text()).toBe(
-      'Steps2'
+      'Steps2',
     )
     const labels = getLabelList(wrapper)
     expect(labels).toHaveLength(1)
@@ -1251,10 +1280,10 @@ describe('ProStepsForm', () => {
     expect(components).toHaveLength(1)
     expect(components[0]).toContain('el-input')
     expect(wrapper.find(`${stepsMenu} .el-button`).classes()).toContain(
-      'is-disabled'
+      'is-disabled',
     )
     expect(
-      wrapper.find(`${stepsMenu} .el-button:nth-child(2)`).classes()
+      wrapper.find(`${stepsMenu} .el-button:nth-child(2)`).classes(),
     ).not.toContain('is-disabled')
     expect(wrapper.find(stepHead).classes()).not.toContain('is-finish')
 
@@ -1274,11 +1303,15 @@ describe('ProStepsForm', () => {
         return { form, columns: stepsColumns }
       },
     })
+    const vm = wrapper.vm as unknown as {
+      form: { input: string }
+      columns: IFormColumns
+    }
 
     expect(wrapper.find('input').element.value).toBe('test')
 
     await wrapper.find('input').setValue('value')
-    expect(wrapper.vm.form.input).toBe('value')
+    expect(vm.form.input).toBe('value')
   })
 
   test.concurrent('slots', async () => {
@@ -1299,7 +1332,7 @@ describe('ProStepsForm', () => {
     })
 
     expect(wrapper.find(`${stepItem} .el-step__title`).text()).toBe(
-      'slot-label'
+      'slot-label',
     )
   })
 
@@ -1312,18 +1345,19 @@ describe('ProStepsForm', () => {
         return { form, columns }
       },
     })
+    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     expect(wrapper.find(stepsTitle).exists()).toBe(true)
     expect(wrapper.find(stepsMenu).exists()).toBe(true)
     expect(wrapper.findAll(stepItem).length).toBe(2)
     expect(wrapper.find(`${stepItem} .el-step__title`).text()).toBe('Steps1')
     expect(wrapper.find(`${stepItem}:last-child .el-step__title`).text()).toBe(
-      'Steps2'
+      'Steps2',
     )
     const labels = getLabelList(wrapper)
     expect(labels).toHaveLength(1)
 
-    await (wrapper.vm.columns[0].show = false)
+    await (vm.columns[0].show = false)
     expect(wrapper.find(stepsTitle).exists()).toBe(true)
     expect(wrapper.find(stepsMenu).exists()).toBe(true)
     expect(wrapper.findAll(stepItem).length).toBe(1)
@@ -1346,12 +1380,13 @@ describe('Form', () => {
         return { form, columns: ref([...columns]) }
       },
     })
+    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getLabelList(wrapper)).toContain('input')
     expect(getComponentList(wrapper)[0]).toContain('el-input')
 
-    await wrapper.vm.columns.push({
+    await vm.columns.push({
       label: 'textarea',
       prop: 'textarea',
       component: 'el-input',
@@ -1362,20 +1397,20 @@ describe('Form', () => {
     expect(getLabelList(wrapper)).toContain('textarea')
     expect(getComponentList(wrapper)[1]).toContain('el-textarea')
 
-    await wrapper.vm.columns.splice(0, 1)
+    await vm.columns.splice(0, 1)
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getLabelList(wrapper)).not.toContain('input')
     expect(getLabelList(wrapper)).toContain('textarea')
     expect(getComponentList(wrapper)[0]).not.toContain('el-input')
     expect(getComponentList(wrapper)[0]).toContain('el-textarea')
 
-    await (wrapper.vm.columns[0].props = { text: true })
+    await (vm.columns[0].props = { text: true })
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getComponentList(wrapper)[0]).not.toContain('el-textarea')
     expect(getComponentList(wrapper)[0]).toContain('el-input')
 
-    await ((wrapper.vm.columns[0].component = 'el-switch'),
-    (wrapper.vm.columns[0].props = undefined))
+    await ((vm.columns[0].component = 'el-switch'),
+    (vm.columns[0].props = undefined))
     expect(getComponentList(wrapper)[0]).not.toContain('el-input')
     expect(getComponentList(wrapper)[0]).toContain('el-switch')
   })
@@ -1412,6 +1447,7 @@ describe('Form', () => {
         return { form, columns: _columns }
       },
     })
+    const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     expect(getFormContent(wrapper, arrayClass).exists()).toBe(false)
     expect(getFormContent(wrapper, addClass).exists()).toBe(true)
@@ -1419,7 +1455,7 @@ describe('Form', () => {
     await getFormContent(wrapper, addClass).trigger('click')
     expect(getFormContent(wrapper, arrayClass).exists()).toBe(true)
 
-    await (wrapper.vm.columns = columns)
+    await (vm.columns = columns)
     expect(getFormContent(wrapper, arrayClass).exists()).toBe(false)
     expect(getFormContent(wrapper, addClass).exists()).toBe(false)
   })
@@ -1562,25 +1598,29 @@ describe('Form', () => {
         return { form, columns }
       },
     })
+    const vm = wrapper.vm as unknown as {
+      form: { input: string; switch: boolean; input1: string }
+      columns: IFormColumns
+    }
 
     expect(getFormList(wrapper)).toHaveLength(3)
     expect(wrapper.find('input').element.value).toBe('123')
     expect(wrapper.find('.el-switch').classes()).not.toContain('is-checked')
     expect(
-      (wrapper.find('input.my-input').element as HTMLInputElement).value
+      (wrapper.find('input.my-input').element as HTMLInputElement).value,
     ).toBe('abc')
 
     await wrapper.find('.el-switch').trigger('click')
-    expect(wrapper.vm.form.switch).toBeTruthy()
+    expect(vm.form.switch).toBeTruthy()
     expect(wrapper.find('.el-switch').classes()).toContain('is-checked')
 
     await wrapper.find('input').setValue('value')
-    expect(wrapper.vm.form.input).toBe('value')
+    expect(vm.form.input).toBe('value')
 
     await wrapper.find('input.my-input').setValue('value1')
-    expect(wrapper.vm.form.input1).toBe('value1')
+    expect(vm.form.input1).toBe('value1')
 
-    await (wrapper.vm.form = {
+    await (vm.form = {
       input: 'input',
       switch: false,
       input1: 'input1',
@@ -1588,7 +1628,7 @@ describe('Form', () => {
     expect(wrapper.find('input').element.value).toBe('input')
     expect(wrapper.find('.el-switch').classes()).not.toContain('is-checked')
     expect(
-      (wrapper.find('input.my-input').element as HTMLInputElement).value
+      (wrapper.find('input.my-input').element as HTMLInputElement).value,
     ).toBe('input1')
   })
 
@@ -1605,19 +1645,21 @@ describe('Form', () => {
     expect(getFormBtnList(wrapper)).toContain('Submit')
     expect(getFormBtnList(wrapper)).toContain('Reset')
 
-    await (wrapper.vm.menu.submitText = 'submit')
+    await wrapper.setProps({
+      menu: {
+        submitText: 'submit',
+        reset: false,
+        submitProps: { type: 'danger' },
+      },
+    } as ExternalParam)
     expect(getFormBtnList(wrapper)).toContain('submit')
-
-    await (wrapper.vm.menu.submitProps = { type: 'danger' })
     expect(
       wrapper
         .find(
-          '.pro-form .el-form-item:last-child .el-form-item__content button.el-button--danger'
+          '.pro-form .el-form-item:last-child .el-form-item__content button.el-button--danger',
         )
-        .exists()
+        .exists(),
     ).toBeTruthy()
-
-    await (wrapper.vm.menu.reset = false)
     expect(getFormBtnList(wrapper)).not.toContain('Reset')
   })
 
@@ -1745,14 +1787,14 @@ describe('Form', () => {
 
     await getFormList(wrapper)[0].find('input').setValue('object value')
     expect(getFormList(wrapper)[0].find('input').element.value).toEqual(
-      'object value'
+      'object value',
     )
     await getFormList(wrapper)[0].find('input').trigger('object value')
     expect(vm.form.a.b.c).toBe('object value')
 
     await getFormList(wrapper)[1].find('input').setValue('array value')
     expect(getFormList(wrapper)[1].find('input').element.value).toEqual(
-      'array value'
+      'array value',
     )
     await getFormList(wrapper)[1].find('input').trigger('array value')
     expect(vm.form.b[0]).toBe('array value')
@@ -1766,6 +1808,7 @@ describe('Form', () => {
         return { form, columns }
       },
     })
+    const vm = wrapper.vm as unknown as { form: { input: string }[] }
 
     expect(wrapper.find(arrayClass).exists()).toBe(false)
     expect(wrapper.find(addClass).exists()).toBe(true)
@@ -1774,16 +1817,16 @@ describe('Form', () => {
     expect(wrapper.vm.form).toHaveLength(1)
     expect(wrapper.find(arrayClass).exists()).toBe(true)
     expect(wrapper.findAll(`${arrayContentClass} .pro-form-item`)).toHaveLength(
-      1
+      1,
     )
     expect(
       wrapper
         .find(`${arrayContentClass} .pro-form-item .el-form-item__content div`)
-        .classes()
+        .classes(),
     ).toContain('el-input')
 
     await wrapper.find('input').setValue('value')
-    expect(wrapper.vm.form[0].input).toBe('value')
+    expect(vm.form[0].input).toBe('value')
   })
 
   test.concurrent('array & max', async () => {
@@ -1851,11 +1894,12 @@ describe('Form', () => {
               show: show.value,
               children: columns,
             },
-          ])
+          ]),
         )
         return { form, columns: _columns, show }
       },
     })
+    const vm = wrapper.vm as unknown as { show: boolean }
 
     expect(getFormList(wrapper)).toHaveLength(5)
     expect(getLabelList(wrapper)).toContain('input')
@@ -1865,7 +1909,7 @@ describe('Form', () => {
     expect(getLabelList(wrapper)).toContain('tabs')
     expect(getFormList(wrapper)[0].find('input').exists()).toBe(true)
 
-    await (wrapper.vm.show = false)
+    await (vm.show = false)
     expect(getFormList(wrapper)).toHaveLength(0)
   })
 
