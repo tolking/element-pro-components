@@ -1,7 +1,7 @@
 import { defineComponent, h, inject, Slot, VNode } from 'vue'
 import { ElTableColumn } from 'element-plus'
 import { useTableBind } from './useTable'
-import { get, isFunction, throwWarn } from '../utils/index'
+import { get, isFunction } from '../utils/index'
 import { tableItemProps } from './props'
 import ProTableItem from './TableItem'
 import type { TableColumn, ITableColumns, TableColumnsProps } from './type'
@@ -23,15 +23,6 @@ export default defineComponent({
           ...scope,
           size: props.size,
         })
-      } else if (slots[`${props.item.prop}-header`]) {
-        // NOTE: Remove this on next major release
-        throwWarn(
-          `[ProTable] the [prop]-header slot will to remove, use 'table-[prop]-header' replace ${props.item.prop}-header`
-        )
-        return (slots[`${props.item.prop}-header`] as Slot)({
-          ...scope,
-          size: props.size,
-        })
       } else {
         return props.item.label
       }
@@ -50,21 +41,13 @@ export default defineComponent({
           (slots[`table-${props.item.prop}`] as Slot)({
             ...scope,
             size: props.size,
-          })
-        )
-      } else if (slots[props.item.prop]) {
-        // NOTE: Remove this on next major release
-        throwWarn(
-          `[ProTable] the [prop] slot will to remove, use 'table-[prop]' replace ${props.item.prop}`
-        )
-        list.push(
-          (slots[props.item.prop] as Slot)({ ...scope, size: props.size })
+          }),
         )
       } else if (props.item.render) {
         list.push(
           isFunction(props.item.render)
             ? props.item.render(scope.row)
-            : String(props.item.render)
+            : String(props.item.render),
         )
       } else {
         list.push(get(scope.row, props.item.prop, '') as string)
