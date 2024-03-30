@@ -40,7 +40,7 @@ export default defineComponent({
       'config',
       'onlySelectLeaf',
       'checkStrictly',
-      ...treeKeys
+      ...treeKeys,
     )
 
     function createTree() {
@@ -70,10 +70,8 @@ export default defineComponent({
             {
               default: ({ node, data }: TreeScope) => {
                 if (slots.default) {
-                  // NOTE: Remove `data` on next major release
                   return slots.default({
                     node,
-                    data,
                     item: data,
                     multiple: props.multiple,
                   })
@@ -83,12 +81,12 @@ export default defineComponent({
                     {
                       class: node.disabled ? 'is-disabled' : '',
                     },
-                    node.label
+                    node.label,
                   )
                 }
               },
-            }
-          )
+            },
+          ),
       )
     }
 
@@ -117,7 +115,7 @@ export default defineComponent({
           onRemoveTag: remove,
           onClear: clear,
         }),
-        () => [createTree(), createList()]
+        () => [createTree(), createList()],
       )
   },
 })

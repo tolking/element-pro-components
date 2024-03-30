@@ -22,8 +22,7 @@ export default defineComponent({
           label: getLabel(item),
           disabled: getDisabled(item),
         },
-        // NOTE: Remove `data: item` on next major release
-        () => slots.default && slots.default({ item, data: item })
+        () => slots.default && slots.default({ item }),
       )
     }
 
@@ -35,7 +34,7 @@ export default defineComponent({
           return h(ElOptionGroup, { label: getLabel(item) }, () =>
             children?.map((child: SelectDataItem[]) => {
               return createOption(child)
-            })
+            }),
           )
         } else {
           return createOption(item)
@@ -50,7 +49,7 @@ export default defineComponent({
           class: 'pro-select',
           'onUpdate:modelValue': emitValue,
         }),
-        () => createDefault()
+        () => createDefault(),
       )
   },
 })
