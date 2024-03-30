@@ -20,6 +20,7 @@ import type {
   IFormItemProps,
   UseFormProvideConfig,
   UseFormInjectEmitsCallback,
+  FormColumn,
 } from './index'
 
 export const formMenu: IFormMenuColumns = {
@@ -33,7 +34,7 @@ export const formMenu: IFormMenuColumns = {
 }
 
 export function useFormMenu(
-  props: Pick<IFormProps, 'menu'>
+  props: Pick<IFormProps, 'menu'>,
 ): ComputedRef<IFormMenuColumns> {
   return computed(() => {
     const menu = { ...formMenu }
@@ -88,7 +89,7 @@ export function useFormMethods(emit: IFormEmits): {
 
   function validateField(
     props: MaybeArray<string>,
-    cb: IFormValidateFieldCallback
+    cb: IFormValidateFieldCallback,
   ) {
     formRef.value.validateField(props, cb)
   }
@@ -145,7 +146,7 @@ export function useFormProvide(content: UseFormProvideConfig) {
 }
 
 export function useFormInjectEmits(
-  emit: IFormEmits
+  emit: IFormEmits,
 ): UseFormInjectEmitsCallback {
   function addItem(indexes: number[]) {
     emit('add-item', indexes)
@@ -182,7 +183,7 @@ export function useFormInject() {
 
 export function useArrayForm(
   props: Pick<IArrayFormProps, 'modelValue' | 'columns' | 'max'>,
-  emit: IArrayFormEmits
+  emit: IArrayFormEmits,
 ): {
   showAdd: ComputedRef<boolean>
   add: (indexes: number[]) => void
@@ -233,7 +234,7 @@ export function useArrayForm(
 export function useCreateLabel(props: Pick<IFormItemProps, 'indexes'>) {
   const form = useFormInject()
 
-  function createLabel(item: GroupFormColumn) {
+  function createLabel(item: GroupFormColumn | FormColumn) {
     if (form?.slots[`form-${item.prop}-label`]) {
       return (form?.slots[`form-${item.prop}-label`] as Slot)({
         item: item,

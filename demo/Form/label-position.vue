@@ -20,7 +20,7 @@ import { defineFormColumns, defineFormSubmit } from 'element-pro-components'
 
 export default defineComponent({
   setup() {
-    const labelPosition = ref(undefined)
+    const labelPosition = ref('left')
     const form = ref({})
     const columns = defineFormColumns([
       {
@@ -35,7 +35,6 @@ export default defineComponent({
       },
     ])
     const data = [
-      { label: 'Default', value: undefined },
       { label: 'Left', value: 'left' },
       { label: 'Right', value: 'right' },
       { label: 'Top', value: 'top' },
