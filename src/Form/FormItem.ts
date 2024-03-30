@@ -1,8 +1,8 @@
 import { defineComponent, h, Slot, VNode, mergeProps, toRef } from 'vue'
 import { ElFormItem, useSize } from 'element-plus'
 import { useCol } from '../composables/index'
-import { get, set, has, throwWarn } from '../utils/index'
-import { useFormInject } from './useForm'
+import { get, set, has } from '../utils/index'
+import { useCreateLabel, useFormInject } from './useForm'
 import { getFormItemBind } from './utils'
 import { formItemProps, formItemEmits } from './props'
 import ProFormList from './FormList'
@@ -17,27 +17,11 @@ export default defineComponent({
     const item = toRef(props, 'item')
     const form = useFormInject()
     const size = useSize()
+    const createLabel = useCreateLabel(props)
     const { colStyle, colClass } = useCol(item)
 
     function update(value: unknown) {
       emit('update:modelValue', set(props.modelValue, item.value.prop, value))
-    }
-
-    function createLabel() {
-      if (form?.slots[`form-${item.value.prop}-label`]) {
-        return (form?.slots[`form-${item.value.prop}-label`] as Slot)({
-          item: item.value,
-          indexes: props.indexes,
-        })
-      } else if (form?.slots[`${item.value.prop}-label`]) {
-        // NOTE: Remove this on next major release
-        throwWarn(
-          `[ProForm] the [prop]-label slot will to remove, use 'form-[prop]-label' replace ${item.value.prop}-label`
-        )
-        return (form?.slots[`${item.value.prop}-label`] as Slot)({
-          item: item.value,
-        })
-      }
     }
 
     function createError(scope: UnknownObject) {
@@ -46,15 +30,6 @@ export default defineComponent({
           ...scope,
           item: item.value,
           indexes: props.indexes,
-        })
-      } else if (form?.slots[`${item.value.prop}-error`]) {
-        // NOTE: Remove this on next major release
-        throwWarn(
-          `[ProForm] the [prop]-error slot will to remove, use 'form-[prop]-error' replace ${item.value.prop}-error`
-        )
-        return (form?.slots[`${item.value.prop}-error`] as Slot)({
-          ...scope,
-          item: item.value,
         })
       }
     }
@@ -74,7 +49,7 @@ export default defineComponent({
             max: props.item.max,
             type: props.item.type || 'array',
             'onUpdate:modelValue': update,
-          })
+          }),
         )
       } else if (form?.slots[`form-${item.value.prop}`]) {
         list = list.concat(
@@ -83,19 +58,7 @@ export default defineComponent({
             indexes: props.indexes,
             value: currentValue,
             setValue: update,
-          })
-        )
-      } else if (form?.slots[item.value.prop]) {
-        // NOTE: Remove this on next major release
-        throwWarn(
-          `[ProForm] the [prop] slot will to remove, use 'form-[prop]' replace ${item.value.prop}`
-        )
-        list = list.concat(
-          (form?.slots[item.value.prop] as Slot)({
-            item,
-            value: currentValue,
-            setValue: update,
-          })
+          }),
         )
       } else if (item.value.component) {
         list.push(
@@ -106,8 +69,8 @@ export default defineComponent({
               modelValue: currentValue,
               modelKey: item.value.modelKey,
               'onUpdate:modelValue': update,
-            })
-          )
+            }),
+          ),
         )
       }
 
@@ -125,10 +88,10 @@ export default defineComponent({
               class: ['pro-form-item', !form?.props.inline && colClass.value],
             }),
             {
-              label: () => createLabel(),
+              label: () => createLabel(item.value),
               error: (scope: UnknownObject) => createError(scope),
               default: () => createDefault(),
-            }
+            },
           )
   },
 })
