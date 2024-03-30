@@ -4,7 +4,8 @@ import { config, mount, VueWrapper } from '@vue/test-utils'
 import { ElInput, ElSwitch, ElTableColumn, ElDrawer } from 'element-plus'
 import ProCrud from './Crud'
 import { doubleWait, tableData } from '../__mocks__/index'
-import type { ICrudColumns, ICrudMenuColumns } from './index'
+import type { ICrudColumns, ICrudExpose, ICrudMenuColumns } from './index'
+import type { ExternalParam } from '../types/index'
 
 interface Form {
   date?: string
@@ -81,7 +82,7 @@ const getSearchLabelList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   getSearchList(wrapper).map((item) => item.find('.el-form-item__label').text())
 const getSearchComponentList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   getSearchList(wrapper).map((item) =>
-    item.find('.el-form-item__content div').classes()
+    item.find('.el-form-item__content div').classes(),
   )
 const getFormList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   wrapper.findAll('.pro-crud .pro-crud-dialog .pro-crud-form .pro-form-item')
@@ -89,17 +90,17 @@ const getLabelList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   getFormList(wrapper).map((item) => item.find('.el-form-item__label').text())
 const getComponentList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   getFormList(wrapper).map((item) =>
-    item.find('.el-form-item__content div').classes()
+    item.find('.el-form-item__content div').classes(),
   )
 const getDetailList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   wrapper.findAll(detailCellClass)
 const getDetailLabelList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   getDetailList(wrapper).map((item) =>
-    item.find('.el-descriptions__label').text()
+    item.find('.el-descriptions__label').text(),
   )
 const getDetailValueList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   getDetailList(wrapper).map((item) =>
-    item.find('.el-descriptions__content').text()
+    item.find('.el-descriptions__content').text(),
   )
 
 describe('Crud', () => {
@@ -127,6 +128,7 @@ describe('Crud', () => {
         return { form, searchForm, columns, data: tableData }
       },
     })
+    const vm = wrapper.vm as unknown as { columns: ICrudColumns<Form> }
     await doubleWait()
 
     expect(getHeaderList(wrapper)).toHaveLength(3)
@@ -164,7 +166,7 @@ describe('Crud', () => {
     expect(getDetailLabelList(wrapper)).not.toContain('Address')
     await wrapper.find(dialogClose).trigger('click')
 
-    await (wrapper.vm.columns[0] = {
+    await (vm.columns[0] = {
       label: 'Date-label',
       prop: 'date',
       component: 'el-switch',
@@ -198,7 +200,7 @@ describe('Crud', () => {
     expect(getDetailLabelList(wrapper)).not.toContain('Address')
     await wrapper.find(dialogClose).trigger('click')
 
-    await (wrapper.vm.columns[0].search = true)
+    await (vm.columns[0].search = true)
     expect(getSearchList(wrapper)).toHaveLength(1)
     expect(getSearchLabelList(wrapper)).toContain('Date-label')
     expect(getSearchComponentList(wrapper)[0]).toContain('el-switch')
@@ -249,7 +251,7 @@ describe('Crud', () => {
     expect(wrapper.find(addClass).text()).toBe('add-text')
     expect(wrapper.find(searchClass).text()).toBe('search-text')
     expect(wrapper.find(searchClass + ':nth-child(2)').text()).toBe(
-      'reset-text'
+      'reset-text',
     )
     expect(wrapper.find(menuClass).text()).toBe('edit-text')
     expect(wrapper.find(menuClass + ':nth-child(2)').text()).toBe('detail-text')
@@ -257,19 +259,19 @@ describe('Crud', () => {
     expect(wrapper.find(menuClass).classes()).toContain('is-plain')
     expect(wrapper.find(menuClass).classes()).toContain('el-button--default')
     expect(wrapper.find(menuClass + ':nth-child(2)').classes()).toContain(
-      'el-button--success'
+      'el-button--success',
     )
     expect(wrapper.find(menuClass + ':last-child').classes()).toContain(
-      'el-button--danger'
+      'el-button--danger',
     )
-
-    await (wrapper.vm.menu.addText = 'add')
-    expect(wrapper.find(addClass).text()).toBe('add')
 
     await wrapper.find(addClass).trigger('click')
     expect(wrapper.find(formClass).text()).toBe('submit-text')
     expect(wrapper.find(formClass + ':nth-child(2)').text()).toBe('reset-text')
     await wrapper.find(dialogClose).trigger('click')
+
+    await wrapper.setProps({ menu: { addText: 'add' } } as ExternalParam)
+    expect(wrapper.find(addClass).text()).toBe('add')
   })
 
   test.concurrent('menu click', async () => {
@@ -347,6 +349,7 @@ describe('Crud', () => {
         return { form, searchForm, columns: commonColumns, data: tableData }
       },
     })
+    const vm = wrapper.vm as unknown as { form: Form; searchForm: Form }
     await doubleWait()
 
     const formInput =
@@ -356,7 +359,7 @@ describe('Crud', () => {
     expect(wrapper.find<HTMLInputElement>(formInput).element.value).toBe('date')
 
     await wrapper.find(formInput).setValue('value')
-    expect(wrapper.vm.form.date).toBe('value')
+    expect(vm.form.date).toBe('value')
     await wrapper.find(dialogClose).trigger('click')
   })
 
@@ -379,17 +382,18 @@ describe('Crud', () => {
         return { form, searchForm, columns: commonColumns, data: tableData }
       },
     })
+    const vm = wrapper.vm as unknown as { searchForm: Form }
     await doubleWait()
 
     const searchInput =
       '.pro-crud .pro-crud-search .pro-form-item .el-form-item__content input'
 
     expect(wrapper.find<HTMLInputElement>(searchInput).element.value).toBe(
-      'date'
+      'date',
     )
 
     await wrapper.find(searchInput).setValue('value')
-    expect(wrapper.vm.searchForm.date).toBe('value')
+    expect(vm.searchForm.date).toBe('value')
   })
 
   test.concurrent('detail', async () => {
@@ -409,6 +413,7 @@ describe('Crud', () => {
         return { detail, columns: commonColumns, data: tableData }
       },
     })
+    const vm = wrapper.vm as unknown as { detail: Form }
     await doubleWait()
 
     await wrapper.find(menuClass + ':nth-child(2)').trigger('click')
@@ -419,10 +424,10 @@ describe('Crud', () => {
     expect(getDetailValueList(wrapper)).not.toContain('Tom')
     expect(wrapper.find(detailCellClass).attributes('colspan')).toBe('2')
     expect(
-      wrapper.find(detailCellClass + ':nth-child(2)').attributes('colspan')
+      wrapper.find(detailCellClass + ':nth-child(2)').attributes('colspan'),
     ).toBe('1')
 
-    await (wrapper.vm.detail = tableData[0])
+    await (vm.detail = tableData[0])
     expect(getDetailValueList(wrapper)).toContain('2016-05-03')
     expect(getDetailValueList(wrapper)).toContain('Tom')
     await wrapper.find(dialogClose).trigger('click')
@@ -548,20 +553,20 @@ describe('Crud', () => {
     expect(wrapper.find(searchClass + ':nth-child(2)').text()).toBe('Search')
     expect(wrapper.find(searchClass + ':nth-child(3)').text()).toBe('Reset')
     expect(wrapper.find(searchClass + ':nth-child(4)').text()).toBe(
-      'search-menu-right'
+      'search-menu-right',
     )
     expect(getSearchList(wrapper)).toHaveLength(1)
     expect(getSearchLabelList(wrapper)).toContain('search-slot-label')
     expect(getSearchComponentList(wrapper)[0]).toContain('search-slot')
     expect(wrapper.find('.pro-crud .pro-crud-search .search').text()).toBe(
-      'search slot'
+      'search slot',
     )
 
     expect(wrapper.find(addClass).text()).toBe('menu-left')
     expect(wrapper.find(addClass + ':nth-child(2)').text()).toBe('Add')
     expect(wrapper.find(addClass + ':nth-child(3)').text()).toBe('menu-right')
     expect(wrapper.find('.pro-crud .pro-crud-menu .action').text()).toBe(
-      'action slot'
+      'action slot',
     )
 
     expect(getHeaderList(wrapper)).toHaveLength(4)
@@ -578,19 +583,19 @@ describe('Crud', () => {
     expect(wrapper.find(formClass + ':nth-child(2)').text()).toBe('Submit')
     expect(wrapper.find(formClass + ':nth-child(3)').text()).toBe('Reset')
     expect(wrapper.find(formClass + ':nth-child(4)').text()).toBe(
-      'form-menu-right'
+      'form-menu-right',
     )
     expect(getFormList(wrapper)).toHaveLength(1)
     expect(getLabelList(wrapper)).toContain('slot-label')
     expect(getComponentList(wrapper)[0]).toContain('form-slot')
     expect(wrapper.find(dialogBody + ' .pro-crud-form .form').text()).toBe(
-      'form slot'
+      'form slot',
     )
     expect(wrapper.find(dialogBody + ' .dialog-top').text()).toBe(
-      'dialog-top-add'
+      'dialog-top-add',
     )
     expect(wrapper.find(dialogBody + ' .dialog-bottom').text()).toBe(
-      'dialog-bottom-add'
+      'dialog-bottom-add',
     )
     await wrapper.find(dialogClose).trigger('click')
 
@@ -598,20 +603,20 @@ describe('Crud', () => {
     expect(
       wrapper
         .find(detailClass + ' .el-descriptions__header .el-descriptions__title')
-        .text()
+        .text(),
     ).toBe('detail-title')
     expect(
       wrapper
         .find(detailClass + ' .el-descriptions__header .el-descriptions__extra')
-        .text()
+        .text(),
     ).toBe('detail-extra')
     expect(getDetailLabelList(wrapper)).toContain('detail-slot-label')
     expect(getDetailValueList(wrapper)[0]).toMatch(/^@detail-/)
     expect(wrapper.find(dialogBody + ' .dialog-top').text()).toBe(
-      'dialog-top-detail'
+      'dialog-top-detail',
     )
     expect(wrapper.find(dialogBody + ' .dialog-bottom').text()).toBe(
-      'dialog-bottom-detail'
+      'dialog-bottom-detail',
     )
     await wrapper.find(dialogClose).trigger('click')
   })
@@ -666,7 +671,7 @@ describe('Crud', () => {
     await doubleWait()
 
     expect(wrapper.find('.pro-crud .crud-search').text()).toBe(
-      'crud-search slot'
+      'crud-search slot',
     )
     const btns = wrapper.findAll('.pro-crud .crud-menu .el-button')
     expect(btns).toHaveLength(3 * tableData.length)
@@ -677,7 +682,7 @@ describe('Crud', () => {
 
     await btns[1].trigger('click')
     expect(wrapper.find('.pro-crud .crud-detail').text()).toBe(
-      'crud-detail slot'
+      'crud-detail slot',
     )
     await wrapper.find(dialogClose).trigger('click')
 
@@ -766,57 +771,58 @@ describe('Crud', () => {
         }
       },
     })
+    const vm = wrapper.vm as unknown as { size: string }
     await doubleWait()
 
     expect(wrapper.find('.pro-crud .el-form').classes()).toContain(
-      'el-form--large'
+      'el-form--large',
     )
     expect(
-      wrapper.find('.pro-crud .pro-crud-table .el-table').classes()
+      wrapper.find('.pro-crud .pro-crud-table .el-table').classes(),
     ).toContain('el-table--large')
     expect(wrapper.find(addClass).classes()).toContain('el-button--small')
     expect(wrapper.find(searchClass).classes()).toContain('el-button--small')
     expect(
       wrapper
         .find(
-          '.pro-crud .pro-crud-table .el-table__body-wrapper .el-table__body .el-table__row td:last-child .cell button'
+          '.pro-crud .pro-crud-table .el-table__body-wrapper .el-table__body .el-table__row td:last-child .cell button',
         )
-        .classes()
+        .classes(),
     ).toContain('el-button--small')
     expect(wrapper.find(menuClass + ':nth-child(2)').classes()).toContain(
-      'el-button--small'
+      'el-button--small',
     )
     expect(wrapper.find(menuClass + ':nth-child(3)').classes()).toContain(
-      'el-button--small'
+      'el-button--small',
     )
 
-    await (wrapper.vm.size = 'small')
+    await (vm.size = 'small')
     expect(wrapper.find('.pro-crud .el-form').classes()).not.toContain(
-      'el-form--large'
+      'el-form--large',
     )
     expect(wrapper.find('.pro-crud .el-form').classes()).toContain(
-      'el-form--small'
+      'el-form--small',
     )
     expect(
-      wrapper.find('.pro-crud .pro-crud-table .el-table').classes()
+      wrapper.find('.pro-crud .pro-crud-table .el-table').classes(),
     ).not.toContain('el-table--large')
     expect(
-      wrapper.find('.pro-crud .pro-crud-table .el-table').classes()
+      wrapper.find('.pro-crud .pro-crud-table .el-table').classes(),
     ).toContain('el-table--small')
     expect(wrapper.find(addClass).classes()).toContain('el-button--small')
     expect(wrapper.find(searchClass).classes()).toContain('el-button--small')
     expect(
       wrapper
         .find(
-          '.pro-crud .pro-crud-table .el-table__body-wrapper .el-table__body .el-table__row td:last-child .cell button'
+          '.pro-crud .pro-crud-table .el-table__body-wrapper .el-table__body .el-table__row td:last-child .cell button',
         )
-        .classes()
+        .classes(),
     ).toContain('el-button--small')
     expect(wrapper.find(menuClass + ':nth-child(2)').classes()).toContain(
-      'el-button--small'
+      'el-button--small',
     )
     expect(wrapper.find(menuClass + ':nth-child(3)').classes()).toContain(
-      'el-button--small'
+      'el-button--small',
     )
   })
 
@@ -836,26 +842,27 @@ describe('Crud', () => {
         return { crudRef, columns, data: tableData }
       },
     })
+    const vm = wrapper.vm as unknown as { crudRef: ICrudExpose }
     await doubleWait()
 
     expect(wrapper.vm.crudRef).not.toBeUndefined()
     expect(wrapper.vm.crudRef).not.toBeNull()
-    expect(wrapper.vm.crudRef.clearSelection).toBeTruthy()
-    expect(wrapper.vm.crudRef.toggleRowSelection).toBeTruthy()
-    expect(wrapper.vm.crudRef.toggleAllSelection).toBeTruthy()
-    expect(wrapper.vm.crudRef.toggleRowExpansion).toBeTruthy()
-    expect(wrapper.vm.crudRef.setCurrentRow).toBeTruthy()
-    expect(wrapper.vm.crudRef.clearSort).toBeTruthy()
-    expect(wrapper.vm.crudRef.clearFilter).toBeTruthy()
-    expect(wrapper.vm.crudRef.doLayout).toBeTruthy()
-    expect(wrapper.vm.crudRef.sort).toBeTruthy()
-    expect(wrapper.vm.crudRef.validate).toBeTruthy()
-    expect(wrapper.vm.crudRef.resetFields).toBeTruthy()
-    expect(wrapper.vm.crudRef.scrollToField).toBeTruthy()
-    expect(wrapper.vm.crudRef.clearValidate).toBeTruthy()
-    expect(wrapper.vm.crudRef.validateField).toBeTruthy()
-    expect(wrapper.vm.crudRef.openDialog).toBeTruthy()
-    expect(wrapper.vm.crudRef.closeDialog).toBeTruthy()
+    expect(vm.crudRef.clearSelection).toBeTruthy()
+    expect(vm.crudRef.toggleRowSelection).toBeTruthy()
+    expect(vm.crudRef.toggleAllSelection).toBeTruthy()
+    expect(vm.crudRef.toggleRowExpansion).toBeTruthy()
+    expect(vm.crudRef.setCurrentRow).toBeTruthy()
+    expect(vm.crudRef.clearSort).toBeTruthy()
+    expect(vm.crudRef.clearFilter).toBeTruthy()
+    expect(vm.crudRef.doLayout).toBeTruthy()
+    expect(vm.crudRef.sort).toBeTruthy()
+    expect(vm.crudRef.validate).toBeTruthy()
+    expect(vm.crudRef.resetFields).toBeTruthy()
+    expect(vm.crudRef.scrollToField).toBeTruthy()
+    expect(vm.crudRef.clearValidate).toBeTruthy()
+    expect(vm.crudRef.validateField).toBeTruthy()
+    expect(vm.crudRef.openDialog).toBeTruthy()
+    expect(vm.crudRef.closeDialog).toBeTruthy()
   })
 })
 

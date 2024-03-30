@@ -4,6 +4,7 @@ import { config, mount, VueWrapper } from '@vue/test-utils'
 import ProMenu from './Menu'
 import { initRouter } from '../__mocks__/index'
 import type { RouteRecordRaw } from 'vue-router'
+import { ExternalParam } from 'src/types'
 
 config.global.components = { ProMenu }
 initRouter()
@@ -38,41 +39,40 @@ describe('Menu', () => {
   })
 
   test.concurrent('routes', async () => {
-    const wrapper = mount({
-      template: '<pro-menu :routes="routes"/>',
-      setup() {
-        const routes: RouteRecordRaw[] = [
+    const routes: RouteRecordRaw[] = [
+      {
+        path: '/one',
+        component: { template: 'one page' },
+        meta: { title: 'one' },
+        children: [
           {
-            path: '/one',
-            component: { template: 'one page' },
-            meta: { title: 'one' },
+            path: '/one/index',
+            component: { template: 'one index page' },
+            meta: { title: 'oneIndex' },
+          },
+          {
+            path: '/one/info',
+            component: { template: 'one info page' },
+            meta: { title: 'oneInfo' },
             children: [
               {
-                path: '/one/index',
-                component: { template: 'one index page' },
-                meta: { title: 'oneIndex' },
+                path: '/two/index',
+                component: { template: 'two page' },
+                meta: { title: 'twoIndex' },
               },
               {
-                path: '/one/info',
-                component: { template: 'one info page' },
-                meta: { title: 'oneInfo' },
-                children: [
-                  {
-                    path: '/two/index',
-                    component: { template: 'two page' },
-                    meta: { title: 'twoIndex' },
-                  },
-                  {
-                    path: '/two/info',
-                    component: { template: 'two page' },
-                    meta: { title: 'twoInfo' },
-                  },
-                ],
+                path: '/two/info',
+                component: { template: 'two page' },
+                meta: { title: 'twoInfo' },
               },
             ],
           },
-        ]
-
+        ],
+      },
+    ]
+    const wrapper = mount({
+      template: '<pro-menu :routes="routes"/>',
+      setup() {
         return { routes }
       },
     })
@@ -88,11 +88,12 @@ describe('Menu', () => {
     expect(menuList[1].find('span').text()).toBe('twoIndex')
     expect(menuList[2].find('span').text()).toBe('twoInfo')
 
-    await wrapper.vm.routes[0].children?.push({
+    routes[0].children?.push({
       path: '/one/dynamic',
       component: { template: 'one dynamic page' },
       meta: { title: 'oneDynamic' },
     })
+    await wrapper.setProps({ routes: routes } as ExternalParam)
     const newMenuList = getMenuList(wrapper)
     expect(newMenuList).toHaveLength(4)
     expect(newMenuList[3].find('span').text()).toBe('oneDynamic')

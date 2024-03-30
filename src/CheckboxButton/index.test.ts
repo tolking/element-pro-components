@@ -26,6 +26,10 @@ describe('CheckboxButton', () => {
         return { value, data: dicList }
       },
     })
+    const vm = wrapper.vm as unknown as {
+      value: string[]
+      data: { value: string; label: string }[]
+    }
 
     /** init */
     expect(getList(wrapper)).toContain('javascript')
@@ -37,7 +41,7 @@ describe('CheckboxButton', () => {
     expect(getList(wrapper, '.is-checked')).not.toContain('dart')
 
     /** change model-value */
-    await wrapper.vm.value.push('Dart')
+    await vm.value.push('Dart')
     expect(getList(wrapper, '.is-checked')).toContain('dart')
   })
 
@@ -50,9 +54,13 @@ describe('CheckboxButton', () => {
         return { value, data }
       },
     })
+    const vm = wrapper.vm as unknown as {
+      value: string[]
+      data: { value: string; label: string }[]
+    }
 
     expect(getList(wrapper)).not.toContain('vue')
-    await wrapper.vm.data.push({ value: 'Vue', label: 'vue' })
+    await vm.data.push({ value: 'Vue', label: 'vue' })
     expect(getList(wrapper)).toContain('vue')
   })
 
@@ -66,13 +74,17 @@ describe('CheckboxButton', () => {
         return { value, data: dictConfigList, config }
       },
     })
+    const vm = wrapper.vm as unknown as {
+      value: number[]
+      data: { value: string; label: string }[]
+    }
 
     const list = getList(wrapper)
     ;['a', 'b', 'c', 'd', 'e'].forEach((item) => {
       expect(list).toContain(item)
     })
 
-    await wrapper.vm.value.push(3)
+    await vm.value.push(3)
     expect(getList(wrapper, '.is-checked')).toContain('a')
     expect(getList(wrapper, '.is-checked')).toContain('d')
   })

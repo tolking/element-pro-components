@@ -7,12 +7,12 @@ import { dicList, dictConfigList } from '../__mocks__/index'
 config.global.components = { ProSelect }
 
 const getInputValue = (wrapper: VueWrapper<ComponentPublicInstance>) =>
-  wrapper.find<HTMLInputElement>('.el-input__inner').element.value
+  wrapper.find<HTMLInputElement>('.el-select__placeholder').text()
 const getOptions = () =>
   Array.from(
     document.querySelectorAll<HTMLElement>(
-      'body > div:last-child .el-select-dropdown__item'
-    )
+      'body > div:last-child .el-select-dropdown__item',
+    ),
   )
 
 describe('Select', () => {
@@ -33,26 +33,30 @@ describe('Select', () => {
         return { value, data: dicList }
       },
     })
+    const vm = wrapper.vm as unknown as {
+      value: string
+      data: { value: string; label: string }[]
+    }
 
     // init
-    await wrapper.find('.select-trigger').trigger('click')
+    await wrapper.find('.el-select__wrapper').trigger('click')
     const options = getOptions()
-    expect(wrapper.vm.value).toBe('')
-    expect(getInputValue(wrapper)).toBe('')
+    expect(vm.value).toBe('')
+    expect(getInputValue(wrapper)).toBe('Select')
 
     options[2].click()
     await nextTick()
-    expect(wrapper.vm.value).toBe('Python')
+    expect(vm.value).toBe('Python')
     expect(getInputValue(wrapper)).toBe('python')
 
     options[4].click()
     await nextTick()
-    expect(wrapper.vm.value).toBe('V')
+    expect(vm.value).toBe('V')
     expect(getInputValue(wrapper)).toBe('v')
 
     // change model-value
-    await (wrapper.vm.value = 'Dart')
-    expect(wrapper.vm.value).toBe('Dart')
+    await (vm.value = 'Dart')
+    expect(vm.value).toBe('Dart')
     expect(getInputValue(wrapper)).toBe('dart')
   })
 
@@ -70,9 +74,13 @@ describe('Select', () => {
         return { value, data }
       },
     })
+    const vm = wrapper.vm as unknown as {
+      value: string
+      data: { value: string; label: string }[]
+    }
 
-    await wrapper.vm.data.push({ value: 'Vue', label: 'vue' })
-    await wrapper.find('.select-trigger').trigger('click')
+    await vm.data.push({ value: 'Vue', label: 'vue' })
+    await wrapper.find('.el-select__wrapper').trigger('click')
     const options = getOptions()
 
     options[5].click()
@@ -89,7 +97,7 @@ describe('Select', () => {
       },
     })
 
-    await wrapper.find('.select-trigger').trigger('click')
+    await wrapper.find('.el-select__wrapper').trigger('click')
     const options = getOptions()
     const list = options.map((item) => item.querySelector('span')?.innerHTML)
     ;['a', 'b', 'c', 'd', 'e'].forEach((item) => {

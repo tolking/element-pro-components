@@ -26,6 +26,7 @@ describe('RadioButton', () => {
         return { value, data: dicList }
       },
     })
+    const vm = wrapper.vm as unknown as { value: string }
 
     /** init */
     expect(getList(wrapper)).toContain('javascript')
@@ -37,7 +38,7 @@ describe('RadioButton', () => {
     expect(getList(wrapper, '.is-active')).not.toContain('dart')
 
     /** change model-value */
-    await (wrapper.vm.value = 'Dart')
+    await (vm.value = 'Dart')
     expect(getList(wrapper, '.is-active')).toContain('dart')
   })
 
@@ -50,9 +51,13 @@ describe('RadioButton', () => {
         return { value, data }
       },
     })
+    const vm = wrapper.vm as unknown as {
+      value: string
+      data: { value: string; label: string }[]
+    }
 
     expect(getList(wrapper)).not.toContain('vue')
-    await wrapper.vm.data.push({ value: 'Vue', label: 'vue' })
+    await vm.data.push({ value: 'Vue', label: 'vue' })
     expect(getList(wrapper)).toContain('vue')
   })
 
@@ -66,6 +71,7 @@ describe('RadioButton', () => {
         return { value, data: dictConfigList, config }
       },
     })
+    const vm = wrapper.vm as unknown as { value: number }
 
     const list = getList(wrapper)
     ;['a', 'b', 'c', 'd', 'e'].forEach((item) => {
@@ -73,7 +79,7 @@ describe('RadioButton', () => {
     })
     expect(getList(wrapper, '.is-active')).toContain('a')
 
-    await (wrapper.vm.value = 3)
+    await (vm.value = 3)
     expect(getList(wrapper, '.is-active')).toContain('d')
   })
 })
