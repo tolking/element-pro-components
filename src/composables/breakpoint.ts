@@ -1,41 +1,15 @@
 import { Ref, computed } from 'vue'
-import {
-  createSharedComposable,
-  useBreakpoints,
-  useWindowSize,
-} from '@vueuse/core'
-import { getScreenSize, throwWarn } from '../utils/index'
+import { createSharedComposable, useBreakpoints } from '@vueuse/core'
 import type { IScreenSize } from '../types/index'
-
-/**
- * @deprecated Use `useCurrentBreakpoint` replace this.
- *
- * Gets the responsive breakpoint of the current screen
- */
-export const useSharedBreakpoint = createSharedComposable(() => {
-  throwWarn(
-    'the function useSharedBreakpoint will to remove, replace it with useCurrentBreakpoint'
-  )
-  const { width } = useWindowSize()
-
-  return computed(() => {
-    return getScreenSize(width.value)
-  })
-})
 
 /**
  * Reactive viewport breakpoints
  *
  * `sm`: 768, `md`: 992, `lg`: 1200, `xl`: 1920
  */
-export const useSharedBreakpoints = createSharedComposable(() => {
-  return useBreakpoints({
-    sm: 768,
-    md: 992,
-    lg: 1200,
-    xl: 1920,
-  })
-})
+export const useSharedBreakpoints = createSharedComposable<
+  () => ReturnType<typeof useBreakpoints<'sm' | 'md' | 'lg' | 'xl'>>
+>(() => useBreakpoints({ sm: 768, md: 992, lg: 1200, xl: 1920 }))
 
 /**
  * The breakpoint at which the current media query is located
@@ -69,7 +43,7 @@ export function useCurrentBreakpoint(): Ref<IScreenSize> {
  * @param config the config of width
  */
 export function useBreakpointWidth(
-  config?: Partial<Record<IScreenSize, string>>
+  config?: Partial<Record<IScreenSize, string>>,
 ): Ref<string> {
   const breakpoint = useCurrentBreakpoint()
   const sizeWidth = Object.assign(
@@ -80,7 +54,7 @@ export function useBreakpointWidth(
       lg: '60%',
       xl: '50%',
     },
-    config || {}
+    config || {},
   )
 
   return computed(() => sizeWidth[breakpoint.value])

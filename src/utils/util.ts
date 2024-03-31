@@ -1,46 +1,7 @@
 import { Fragment } from 'vue'
-import { cloneDeep, merge } from 'lodash-unified'
 import { isObject } from './index'
 import type { Component, VNode } from 'vue'
-import type {
-  IScreenSize,
-  UnknownObject,
-  IDefinePlugin,
-  ExternalParam,
-} from '../types/index'
-
-/**
- * @deprecated determine the current screen size
- * @param width current screen width
- */
-export function getScreenSize(width: number): IScreenSize {
-  throwWarn('the function getScreenSize will to remove')
-  if (width >= 1920) {
-    return 'xl'
-  } else if (width >= 1200) {
-    return 'lg'
-  } else if (width >= 992) {
-    return 'md'
-  } else if (width >= 768) {
-    return 'sm'
-  } else {
-    return 'xs'
-  }
-}
-
-/**
- * @deprecated NOTE: This function may be removed in the future
- * deep merge two objects
- * @param obj1 object 1
- * @param obj2 object 2
- */
-export function objectDeepMerge<T = UnknownObject, Q = T>(
-  obj1: T,
-  obj2: Q
-): T & Q {
-  const _obj = cloneDeep(obj1) as T & Q
-  return merge(_obj, obj2)
-}
+import type { IDefinePlugin, ExternalParam } from '../types/index'
 
 /**
  * Check the integrity of the url
@@ -73,7 +34,7 @@ export function isUndefined(value: unknown): value is undefined {
  */
 export function findNodeByName(
   list: VNode[] | undefined,
-  name: string
+  name: string,
 ): VNode | undefined {
   return list?.find((item) => {
     if (item.type === Fragment || item.type === 'template') {
@@ -92,7 +53,7 @@ export function findNodeByName(
  * @param plugin the vue components and plugin
  */
 export function withInstall<T extends { name: string }>(
-  plugin: T
+  plugin: T,
 ): IDefinePlugin<T> {
   const _plugin = plugin as IDefinePlugin<T>
 
