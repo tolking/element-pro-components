@@ -1,12 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import {
-  isURL,
-  objectDeepMerge,
-  objectPick,
-  objectOmit,
-  filterDeep,
-  filterFlat,
-} from './index'
+import { isURL, objectPick, objectOmit, filterDeep, filterFlat } from './index'
 import { slotList, SlotItem } from '../__mocks__/index'
 
 describe('all utils', () => {
@@ -20,22 +13,6 @@ describe('all utils', () => {
     test.concurrent('isURL /children', () => {
       expect(isURL('/children')).toBeFalsy()
     })
-  })
-
-  test.concurrent('objectDeepMerge', () => {
-    expect(objectDeepMerge({}, {})).toEqual({})
-    expect(objectDeepMerge({ a: 'a' }, {})).toEqual({ a: 'a' })
-    expect(objectDeepMerge({}, { b: 'b' })).toEqual({ b: 'b' })
-    expect(objectDeepMerge({ a: 'a' }, { b: 'b' })).toEqual({ a: 'a', b: 'b' })
-    expect(objectDeepMerge({ a: undefined }, { a: { b: 'b' } })).toEqual({
-      a: { b: 'b' },
-    })
-    expect(
-      objectDeepMerge({ a: { b: 'b' } }, { a: { b: 'b1', c: 'c' } })
-    ).toEqual({ a: { b: 'b1', c: 'c' } })
-    expect(
-      objectDeepMerge({ a: { b: 'b', c: 'c' } }, { a: { b: 'b1' } })
-    ).toEqual({ a: { b: 'b1', c: 'c' } })
   })
 
   test.concurrent('objectPick', () => {
@@ -111,7 +88,7 @@ describe('all utils', () => {
       slotList,
       'slot',
       true,
-      (item) => item.label
+      (item) => item.label,
     )
     expect(list2).toHaveLength(4)
     expect(list2[0]).toBe('label1')
