@@ -35,15 +35,15 @@ meta:
 @/demo/Layout/routes.vue
 :::
 
-### 自定义过度动画
+### 自定义过渡动画
 
-通过配置 `transition` 实现定义过度动画
+通过配置 `transition` 实现定义过渡动画
 
 ::: tip 提示
 当配置 `transition` 后，由于 `Transition` 组件限制，页面必须仅有一个根元素
 :::
 
-::: demo 可以通过路由中 `meta.transition` 配置当前路由的过度动画
+::: demo 可以通过路由中 `meta.transition` 配置当前路由的过渡动画
 @/demo/Layout/transition.vue
 :::
 
@@ -112,7 +112,7 @@ meta:
 | 参数                | 说明                                                    | 类型                    | 可选值                | 默认值                 |
 | :------------------ | :------------------------------------------------------ | :---------------------- | :-------------------- | :--------------------- |
 | fixed-header        | 是否固定页面头部                                        | boolean                 | -                     | true                   |
-| transition          | 定义页面过度渐变动画                                    | string                  | -                     | -                      |
+| transition          | 定义页面过渡渐变动画                                    | string                  | -                     | -                      |
 | keep-alive          | 是否启用缓存页面                                        | boolean                 | -                     | false                  |
 | include             | 匹配需要缓存页面的 name，当 keep-alive 为 true 时生效   | string / array / RegExp | -                     | -                      |
 | exclude             | 匹配不需要缓存页面的 name，当 keep-alive 为 true 时生效 | string / array / RegExp | -                     | -                      |
