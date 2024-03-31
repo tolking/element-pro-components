@@ -1,7 +1,7 @@
 import { defineComponent, h, mergeProps, Slot } from 'vue'
 import { reactiveOmit } from '@vueuse/core'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
-import { get, isFunction, throwWarn } from '../utils/index'
+import { get, isFunction } from '../utils/index'
 import { descriptionsProps } from './props'
 import type { DescriptionsColumn } from './type'
 
@@ -14,7 +14,7 @@ export default defineComponent({
       'columns',
       'detail',
       'align',
-      'labelAlign'
+      'labelAlign',
     )
 
     function createDetail(item: DescriptionsColumn) {
@@ -22,17 +22,6 @@ export default defineComponent({
         return (slots[`detail-${item.prop}`] as Slot)({
           size: props.size,
           item: props.detail,
-        })
-      } else if (slots[item.prop]) {
-        // NOTE: Remove `detail: props.detail` on next major release
-        // NOTE: Remove this on next major release
-        throwWarn(
-          `[ProDescriptions] the [prop] slot will to remove, use 'detail-[prop]' replace ${item.prop}`
-        )
-        return (slots[item.prop] as Slot)({
-          size: props.size,
-          item: props.detail,
-          detail: props.detail,
         })
       } else if (item.render) {
         return isFunction(item.render)
@@ -46,15 +35,6 @@ export default defineComponent({
     function createLabel(item: DescriptionsColumn) {
       if (slots[`detail-${item.prop}-label`]) {
         return (slots[`detail-${item.prop}-label`] as Slot)({
-          size: props.size,
-          item,
-        })
-      } else if (slots[`${item.prop}-label`]) {
-        // NOTE: Remove this on next major release
-        throwWarn(
-          `[ProDescriptions] the [prop]-label slot will to remove, use 'detail-[prop]-label' replace ${item.prop}-label`
-        )
-        return (slots[`${item.prop}-label`] as Slot)({
           size: props.size,
           item,
         })
@@ -79,8 +59,8 @@ export default defineComponent({
           {
             default: () => createDetail(item),
             label: () => createLabel(item),
-          }
-        )
+          },
+        ),
       )
     }
 
@@ -99,7 +79,7 @@ export default defineComponent({
       return h(
         ElDescriptions,
         mergeProps(config, { class: 'pro-descriptions' }),
-        children
+        children,
       )
     }
   },
