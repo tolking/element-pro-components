@@ -1,5 +1,22 @@
 # Changelog
 
+### 1.3.0
+
+feat
+
+- Radro: sync label prop to value (#504)
+- Checkbox: sync label prop to value (#508)
+
+other
+
+- change the type to module (#496)
+- Select: remove the slot parameter data (#505)
+- Table: remove the deprecated slots (#506)
+- Form: remove the deprecated slots (#507)
+- Crud: remove the deprecated slots (#509)
+- Descriptions: remove the deprecated slots (#510)
+- remove the deprecated function (#511)
+
 ### 1.2.12
 
 feat
