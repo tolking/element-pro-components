@@ -1,6 +1,6 @@
 import { computed, ref, useSlots, Ref, Slot } from 'vue'
 import { useLocale } from 'element-plus'
-import { isFunction, isObject, filterDeep, throwWarn } from '../utils/index'
+import { isFunction, isObject, filterDeep } from '../utils/index'
 import { formMenu, useFormInjectEmits } from '../Form/index'
 import type { UnknownObject, ExternalParam } from '../types/index'
 import type {
@@ -29,7 +29,7 @@ type CrudColumns =
   | 'detailColumns'
 
 export function useCrudMenu(
-  props: Readonly<{ menu?: ICrudMenuColumns | boolean }>
+  props: Readonly<{ menu?: ICrudMenuColumns | boolean }>,
 ): Ref<ICrudMenuColumns> {
   return computed(() => {
     const { t } = useLocale()
@@ -85,7 +85,7 @@ export function useCrudMenu(
 }
 
 export function useCrudColumns(
-  props: Readonly<Pick<ICrudProps, CrudColumns>>
+  props: Readonly<Pick<ICrudProps, CrudColumns>>,
 ): {
   searchColumns: Ref<IFormColumns | undefined>
   tableColumns: Ref<ITableColumns | undefined>
@@ -98,8 +98,8 @@ export function useCrudColumns(
     return props.searchColumns
       ? props.searchColumns
       : props.columns
-      ? filterDeep(props.columns, 'search')
-      : undefined
+        ? filterDeep(props.columns, 'search')
+        : undefined
   })
   const tableColumns = computed(() => {
     return props.tableColumns || props.columns
@@ -108,32 +108,32 @@ export function useCrudColumns(
     return props.addColumns
       ? props.addColumns
       : props.columns
-      ? filterDeep(props.columns, 'add')
-      : undefined
+        ? filterDeep(props.columns, 'add')
+        : undefined
   })
   const editColumns = computed(() => {
     return props.editColumns
       ? props.editColumns
       : props.columns
-      ? filterDeep(props.columns, 'edit')
-      : undefined
+        ? filterDeep(props.columns, 'edit')
+        : undefined
   })
   const formColumns = computed(() => {
     return props.formColumns
       ? props.formColumns
       : props.columns
-      ? filterDeep(props.columns, 'form')
-      : undefined
+        ? filterDeep(props.columns, 'form')
+        : undefined
   })
   const detailColumns = computed(() => {
     return props.detailColumns
       ? props.detailColumns
       : props.columns
-      ? filterDeep(props.columns, 'detail', true, (item) => ({
-          ...item,
-          span: item.detailSpan,
-        }))
-      : undefined
+        ? filterDeep(props.columns, 'detail', true, (item) => ({
+            ...item,
+            span: item.detailSpan,
+          }))
+        : undefined
   })
 
   return {
@@ -149,7 +149,7 @@ export function useCrudColumns(
 export function useCrudForm(
   props: Readonly<Pick<ICrudProps, CrudColumns | 'beforeOpen'>>,
   emit: ICrudEmits,
-  resetForm: (reset?: boolean) => void
+  resetForm: (reset?: boolean) => void,
 ): {
   showDialog: Ref<boolean>
   type: Ref<ICrudDialogType>
@@ -167,8 +167,8 @@ export function useCrudForm(
     return formColumns.value && formColumns.value.length
       ? formColumns.value
       : type.value === 'add'
-      ? addColumns.value
-      : editColumns.value
+        ? addColumns.value
+        : editColumns.value
   })
   const submitForm: IFormSubmit = (done, isValid, invalidFields) => {
     function close() {
@@ -210,7 +210,7 @@ export function useCrudForm(
 }
 
 export function useCrudSearchMenu(
-  menuColumns: Ref<ICrudMenuColumns>
+  menuColumns: Ref<ICrudMenuColumns>,
 ): Ref<IFormMenuColumns> {
   return computed<IFormMenuColumns>(() => ({
     submit: menuColumns.value.search,
@@ -269,7 +269,6 @@ export function useCrudSlots(): {
   for (const key in slots) {
     const item = slots[key]
 
-    // NOTE: Remove `/\w+-header$/` `/^append$/` `/^expand$/` `/\w+-error$/` `/\w+-label$/` on next major release
     if (/^search/.test(key)) {
       const _key =
         key.replace(/^search-?/, searchKey.includes(key) ? '' : 'form-') ||
@@ -290,31 +289,6 @@ export function useCrudSlots(): {
         ? key.replace(/^detail-?/, '') || 'default'
         : key
       detailSlots[_key] = item
-    } else if (/\w+-header$/.test(key)) {
-      throwWarn(
-        `[ProCrud] the [prop]-header slot will to remove, use 'table-[prop]-header' replace ${key}`
-      )
-      tableSlots[key] = item
-    } else if (/^append$/.test(key)) {
-      throwWarn(
-        `[ProCrud] the append slot will to remove, use 'table-append' replace ${key}`
-      )
-      tableSlots[key] = item
-    } else if (/^expand$/.test(key)) {
-      throwWarn(
-        `[ProCrud] the expand slot will to remove, use 'table-expand' replace ${key}`
-      )
-      tableSlots[key] = item
-    } else if (/\w+-error$/.test(key)) {
-      throwWarn(
-        `[ProCrud] the [prop]-error slot will to remove, use 'form-[prop]-error' replace ${key}`
-      )
-      formSlots[key] = item
-    } else if (/\w+-label$/.test(key)) {
-      throwWarn(
-        `[ProCrud] the [prop]-label slot will to remove, use 'form-[prop]-label' replace ${key}`
-      )
-      formSlots[key] = item
     }
   }
 
