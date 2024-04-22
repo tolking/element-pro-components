@@ -7,12 +7,14 @@ import {
   KeepAlive,
   VNode,
   mergeProps,
-  KeepAliveProps,
 } from 'vue'
 import { RouterView, RouteLocationNormalizedLoaded } from 'vue-router'
-import { reactivePick } from '@vueuse/core'
 import { ElScrollbar, useAttrs } from 'element-plus'
-import { useCurrentBreakpoint, useShow } from '../composables/index'
+import {
+  useCurrentBreakpoint,
+  useShow,
+  useSplitReactive,
+} from '../composables/index'
 import { layoutProps, menuKeys } from './props'
 import { ProMenu } from '../Menu/index'
 
@@ -26,13 +28,11 @@ export default defineComponent({
   props: layoutProps,
   setup(props, { slots }) {
     const { mode, fixedHeader } = toRefs(props)
-    const menuConfig = reactivePick(props, ...menuKeys)
-    const keepAliveConfig = reactivePick(
-      props,
+    const [menuConfig, keepAliveConfig] = useSplitReactive(props, menuKeys, [
       'include',
       'exclude',
-      'max'
-    ) as KeepAliveProps
+      'max',
+    ])
     const attrs = useAttrs()
     const breakpoint = useCurrentBreakpoint()
     const { show, toggleShow } = useShow(props.collapse)
@@ -57,7 +57,7 @@ export default defineComponent({
           collapse: collapse.value,
           onSelect: closeAside,
         }),
-        menuSlots
+        menuSlots,
       )
     }
 
@@ -72,7 +72,7 @@ export default defineComponent({
           h('span', { class: 'line' }),
           h('span', { class: 'line' }),
           h('span', { class: 'line' }),
-        ]
+        ],
       )
     }
 
@@ -96,12 +96,12 @@ export default defineComponent({
                 h(
                   'div',
                   { class: 'pro-aside-logo' },
-                  slots.logo({ collapse: collapse.value })
+                  slots.logo({ collapse: collapse.value }),
                 ),
               h(ElScrollbar, null, () => createMenu()),
-            ]
+            ],
           ),
-        ]
+        ],
       )
     }
 
@@ -113,13 +113,13 @@ export default defineComponent({
           h(
             'div',
             { class: 'pro-aside-logo' },
-            slots.logo({ collapse: undefined })
-          )
+            slots.logo({ collapse: undefined }),
+          ),
         )
       }
       if (mode.value === 'vertical' && slots['collapse-button']) {
         list = list.concat(
-          slots['collapse-button']({ collapse: collapse.value, toggleShow })
+          slots['collapse-button']({ collapse: collapse.value, toggleShow }),
         )
       } else if (mode.value === 'vertical') {
         list.push(createMenuButton())
@@ -140,7 +140,7 @@ export default defineComponent({
               h('div', { class: 'header-slot' }, slots['header-right']()),
           ]),
           slots['header-bottom'] && slots['header-bottom'](),
-        ]
+        ],
       )
     }
 
@@ -163,11 +163,11 @@ export default defineComponent({
                     appear: true,
                     name: route?.meta?.transition ?? props.transition,
                   },
-                  () => withKeepAlive
+                  () => withKeepAlive,
                 )
               : withKeepAlive
           },
-        }
+        },
       )
     }
 
@@ -193,7 +193,7 @@ export default defineComponent({
             mode.value === 'vertical' ? 'layout-aside' : 'layout-topmenu',
           ],
         },
-        createDefault()
+        createDefault(),
       )
   },
 })

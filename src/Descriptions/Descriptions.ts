@@ -1,6 +1,6 @@
 import { defineComponent, h, mergeProps, Slot } from 'vue'
-import { reactiveOmit } from '@vueuse/core'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
+import { useSplitReactive } from '../composables/index'
 import { get, isFunction } from '../utils/index'
 import { descriptionsProps } from './props'
 import type { DescriptionsColumn } from './type'
@@ -9,13 +9,14 @@ export default defineComponent({
   name: 'ProDescriptions',
   props: descriptionsProps,
   setup(props, { slots }) {
-    const config = reactiveOmit(
-      props,
-      'columns',
+    const [config] = useSplitReactive(props, [
       'detail',
-      'align',
-      'labelAlign',
-    )
+      'border',
+      'direction',
+      'size',
+      'title',
+      'extra',
+    ])
 
     function createDetail(item: DescriptionsColumn) {
       if (slots[`detail-${item.prop}`]) {

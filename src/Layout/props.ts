@@ -1,3 +1,4 @@
+import { PropType } from 'vue'
 import { menuProps } from '../Menu/props'
 
 type MenuKeys = Array<keyof typeof menuProps>
@@ -12,7 +13,11 @@ export const layoutProps = {
   },
   transition: String,
   keepAlive: Boolean,
-  include: [String, RegExp, Array],
-  exclude: [String, RegExp, Array],
+  include: [String, RegExp, Array] as PropType<
+    string | RegExp | (string | RegExp)[]
+  >,
+  exclude: [String, RegExp, Array] as PropType<
+    string | RegExp | (string | RegExp)[]
+  >,
   max: [String, Number],
 }

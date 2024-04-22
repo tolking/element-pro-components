@@ -1,7 +1,6 @@
 import { computed, defineComponent, h, VNode, Slot, mergeProps } from 'vue'
-import { reactivePick } from '@vueuse/core'
 import { ElDialog, ElButton, useAttrs, DialogProps } from 'element-plus'
-import { useBreakpointWidth } from '../composables/index'
+import { useBreakpointWidth, useSplitReactive } from '../composables/index'
 import {
   useCrudColumns,
   useCrudMenu,
@@ -38,11 +37,8 @@ export default defineComponent({
   props: crudProps,
   emits: crudEmits,
   setup(props, { slots, emit, expose }) {
-    const formProps = reactivePick(props, ...formKeys)
-    const tableProps = reactivePick(props, ...tableKeys)
-    const descriptionsProps = reactivePick(props, ...descriptionsKeys)
-    const dialogProps = reactivePick(props, ...dialogKeys)
-
+    const [formProps, tableProps, descriptionsProps, dialogProps] =
+      useSplitReactive(props, formKeys, tableKeys, descriptionsKeys, dialogKeys)
     const { searchColumns, tableColumns, detailColumns } = useCrudColumns(props)
     const menuColumns = useCrudMenu(props)
     const {
@@ -94,8 +90,8 @@ export default defineComponent({
           ? type.value === 'detail'
             ? menuColumns.value.detailText
             : type.value === 'add'
-            ? menuColumns.value.addText
-            : menuColumns.value.editText
+              ? menuColumns.value.addText
+              : menuColumns.value.editText
           : type.value)
 
       function beforeClose(done: () => void) {
@@ -205,8 +201,8 @@ export default defineComponent({
             mergeProps({ size: props.size }, menuColumns.value.addProps || {}, {
               onClick: () => openDialog('add'),
             }),
-            () => menuColumns.value?.addText || ''
-          )
+            () => menuColumns.value?.addText || '',
+          ),
         )
       }
       if (slots['menu-right']) {
@@ -218,7 +214,7 @@ export default defineComponent({
         h(
           'div',
           { class: 'pro-menu-item' },
-          slots.action ? slots.action({ size: props.size }) : undefined
+          slots.action ? slots.action({ size: props.size }) : undefined,
         ),
       ])
     }
@@ -271,10 +267,10 @@ export default defineComponent({
                   event.stopPropagation()
                   openDialog('edit', scope.row)
                 },
-              }
+              },
             ),
-            () => menuColumns.value?.editText || ''
-          )
+            () => menuColumns.value?.editText || '',
+          ),
         )
       }
       if (props.menu && checkDetail(scope.row)) {
@@ -289,10 +285,10 @@ export default defineComponent({
                   event.stopPropagation()
                   openDialog('detail', scope.row)
                 },
-              }
+              },
             ),
-            () => menuColumns.value?.detailText || ''
-          )
+            () => menuColumns.value?.detailText || '',
+          ),
         )
       }
       if (props.menu && checkDel(scope.row)) {
@@ -302,8 +298,8 @@ export default defineComponent({
             mergeProps({ size: props.size }, menuColumns.value.delProps || {}, {
               onClick: (event: Event) => delRow(event, scope.row),
             }),
-            () => menuColumns.value?.delText || ''
-          )
+            () => menuColumns.value?.delText || '',
+          ),
         )
       }
       if (slots.menu) {

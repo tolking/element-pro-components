@@ -5,6 +5,8 @@ import type { ExternalParam } from '../types/index'
 import type { ICrudColumns } from '../Crud/index'
 import type { ITableColumns } from '../Table/index'
 
+type TreeKeys = Array<keyof typeof treeProps>
+
 export const treeProps = {
   emptyText: String,
   renderAfterExpand: Boolean,
@@ -18,6 +20,8 @@ export const treeProps = {
   indent: Number,
   icon: [String, Object] as PropType<string | Component>,
 }
+
+export const treeKeys = Object.keys(treeProps) as TreeKeys
 
 export const columnSettingProps = {
   ...treeProps,
