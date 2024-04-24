@@ -1,13 +1,13 @@
 import { defineComponent, h, toRefs, VNode, provide, mergeProps } from 'vue'
-import { reactiveOmit, reactivePick } from '@vueuse/core'
 import { ElTable, ElTableColumn, ElPagination, useAttrs } from 'element-plus'
+import { useSplitReactive } from '../composables/index'
 import {
   useTableBind,
   useTableDefaultBind,
   useTableMethods,
   usePagination,
 } from './useTable'
-import { tableProps, tableEmits, paginationKeys } from './props'
+import { tableProps, tableEmits, paginationKeys, tableKeys } from './props'
 import ProTableItem from './TableItem'
 import type { StringObject } from '../types/index'
 import type {
@@ -28,7 +28,7 @@ export default defineComponent({
     const defaultBind = useTableDefaultBind(props)
     const bindSelection = useTableBind<ITableSelectionColumns>(
       selection,
-      defaultBind
+      defaultBind,
     )
     const bindExpand = useTableBind<ITableExpandColumns>(expand, defaultBind)
     const bindIndex = useTableBind<ITableIndexColumns>(index, defaultBind)
@@ -46,14 +46,12 @@ export default defineComponent({
       doLayout,
       sort,
     } = useTableMethods()
-    const tableConfig = reactiveOmit(
+
+    const [tableConfig, paginationConfig] = useSplitReactive(
       props,
-      ...paginationKeys,
-      'showOverflowTooltip',
-      'align',
-      'headerAlign'
+      tableKeys,
+      paginationKeys,
     )
-    const paginationConfig = reactivePick(props, ...paginationKeys)
 
     provide('defaultBind', defaultBind)
 
@@ -76,20 +74,20 @@ export default defineComponent({
         list.push(
           h(
             ElTableColumn,
-            mergeProps(bindSelection.value, { type: 'selection' })
-          )
+            mergeProps(bindSelection.value, { type: 'selection' }),
+          ),
         )
       }
       if (expand.value !== false && slots.expand) {
         list.push(
           h(ElTableColumn, mergeProps(bindExpand.value, { type: 'expand' }), {
             default: (scope: unknown) => slots.expand && slots.expand(scope),
-          })
+          }),
         )
       }
       if (index.value) {
         list.push(
-          h(ElTableColumn, mergeProps(bindIndex.value, { type: 'index' }))
+          h(ElTableColumn, mergeProps(bindIndex.value, { type: 'index' })),
         )
       }
       if (props.columns) {
@@ -108,7 +106,7 @@ export default defineComponent({
           h(ElTableColumn, mergeProps(bindMenu.value, { type: 'menu' }), {
             default: (scope: StringObject) =>
               slots.menu && slots.menu({ ...scope, size: props.size }),
-          })
+          }),
         )
       }
 
@@ -122,14 +120,14 @@ export default defineComponent({
         {
           default: () => createColumn(),
           append: slots.append,
-        }
+        },
       )
       const paginationNode = h(
         ElPagination,
         mergeProps(paginationConfig, {
           'onUpdate:pageSize': sizeChange,
           'onUpdate:currentPage': currentChange,
-        })
+        }),
       )
 
       return [tableNode, props.total ? paginationNode : null]

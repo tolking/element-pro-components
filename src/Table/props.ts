@@ -13,6 +13,7 @@ import type {
   ITableMenuColumns,
   ITableColumns,
   TableColumn,
+  ITableProps,
 } from './type'
 
 type PaginationKeys = Array<keyof typeof paginationProps>
@@ -144,3 +145,13 @@ export const tableEmits = {
   'update:pageSize': (size: number) => isNumber(size),
   load: () => true,
 }
+
+export const tableKeys = Object.keys(tableProps).filter(
+  (key) =>
+    ![
+      ...paginationKeys,
+      'showOverflowTooltip',
+      'align',
+      'headerAlign',
+    ].includes(key),
+) as Array<keyof ITableProps>

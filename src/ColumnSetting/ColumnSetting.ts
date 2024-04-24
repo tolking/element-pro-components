@@ -7,11 +7,11 @@ import {
   ref,
   watch,
 } from 'vue'
-import { reactiveOmit } from '@vueuse/core'
 import { ElDropdown, ElDropdownMenu, ElButton, ElTree } from 'element-plus'
 import { Setting } from '@element-plus/icons-vue'
+import { useSplitReactive } from '../composables/index'
 import { filterFlat } from '../utils/index'
-import { columnSettingProps, columnSettingEmits } from './props'
+import { columnSettingProps, columnSettingEmits, treeKeys } from './props'
 import type { ICrudColumns, CrudColumn } from '../Crud/index'
 import type { ITableColumns, TableColumn } from '../Table/index'
 
@@ -25,13 +25,11 @@ export default defineComponent({
   emits: columnSettingEmits,
   setup(props, { emit, slots }) {
     const { modelValue } = toRefs(props)
-    const config = reactiveOmit(
-      props,
-      'modelValue',
-      'trigger',
-      'placement',
-      'size'
-    )
+    const [config] = useSplitReactive(props, [
+      ...treeKeys,
+      'highlightCurrent',
+      'filterNodeMethod',
+    ])
 
     const treeRef = ref<TreeInstance>()
     const checkedKeys = computed(() => {
@@ -39,7 +37,7 @@ export default defineComponent({
         props.modelValue,
         'hide',
         false,
-        (item) => item.prop as string
+        (item) => item.prop as string,
       )
     })
 
@@ -48,7 +46,7 @@ export default defineComponent({
       (value) => {
         treeRef.value?.setCheckedKeys(value)
       },
-      { deep: true }
+      { deep: true },
     )
 
     function handleDropEnd() {
@@ -85,8 +83,8 @@ export default defineComponent({
             class: 'pro-column-setting-tree',
             onNodeDragEnd: handleDropEnd,
             onCheck: handleCheckChange,
-          })
-        )
+          }),
+        ),
       )
     }
 
@@ -101,7 +99,7 @@ export default defineComponent({
         {
           default: () => createButton(),
           dropdown: () => createMenu(),
-        }
+        },
       )
   },
 })

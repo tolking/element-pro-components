@@ -1,8 +1,11 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { reactiveOmit } from '@vueuse/core'
 import { ElRadioGroup, ElRadio } from 'element-plus'
-import { useDataConfig, useEmitValue } from '../composables/index'
-import { radioProps, radioEmits } from './props'
+import {
+  useDataConfig,
+  useEmitValue,
+  useSplitReactive,
+} from '../composables/index'
+import { radioProps, radioEmits, radioKeys } from './props'
 import type { DefineComponent, VNode } from 'vue'
 import type { IRadioProps } from './index'
 
@@ -13,7 +16,7 @@ export function createDefault<T>(
 ): () => VNode {
   const { getLabel, getValue, getName, getDisabled } = useDataConfig()
   const emitValue = useEmitValue()
-  const config = reactiveOmit(props, 'data', 'config')
+  const [config] = useSplitReactive(props, radioKeys)
 
   return () =>
     h(

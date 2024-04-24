@@ -2,6 +2,8 @@ import { tagProps, inputProps } from 'element-plus'
 import { isArray, isString, objectOmit } from '../utils/index'
 import type { PropType } from 'vue'
 
+export type TagKeys = Array<keyof typeof _tagProps>
+
 const _tagProps = objectOmit(tagProps, 'closable')
 const _inputProps = objectOmit(
   inputProps,
@@ -9,7 +11,7 @@ const _inputProps = objectOmit(
   'type',
   'resize',
   'autosize',
-  'showPassword'
+  'showPassword',
 )
 
 export const inputTagCommonProps = {
@@ -21,6 +23,8 @@ export const inputTagCommonProps = {
     default: 'enter',
   },
 }
+
+export const tagKeys = Object.keys(_tagProps) as TagKeys
 
 export const inputTagProps = {
   ...inputTagCommonProps,

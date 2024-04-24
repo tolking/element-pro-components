@@ -18,8 +18,12 @@ const _selectProps = objectPick(
   'suffixIcon',
   'effect',
   'persistent',
-  'validateEvent'
+  'validateEvent',
 )
+
+export const selectKeys = Object.keys(_selectProps) as Array<
+  keyof typeof _selectProps
+>
 
 export const filterRoutesProps = {
   ..._selectProps,

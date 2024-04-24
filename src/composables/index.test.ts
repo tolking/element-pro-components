@@ -1,5 +1,5 @@
 import { describe, test, expect, afterEach } from 'vitest'
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import {
   useShow,
@@ -8,6 +8,7 @@ import {
   useBreakpointWidth,
   useRow,
   useCol,
+  useSplitReactive,
 } from './index'
 
 const _mount = (options: Record<string, unknown>) =>
@@ -96,7 +97,7 @@ describe('some composables', () => {
           return { rowClass, rowStyle }
         },
       })
-      const vm = (wrapper.vm as unknown) as {
+      const vm = wrapper.vm as unknown as {
         rowClass: string[]
         rowStyle: { marginLeft: string; marginRight: string }
       }
@@ -115,7 +116,7 @@ describe('some composables', () => {
           return { rowClass, rowStyle }
         },
       })
-      const vm = (wrapper.vm as unknown) as {
+      const vm = wrapper.vm as unknown as {
         rowClass: string[]
         rowStyle: { marginLeft: string; marginRight: string }
       }
@@ -135,7 +136,7 @@ describe('some composables', () => {
           return { colClass, colStyle }
         },
       })
-      const vm = (wrapper.vm as unknown) as {
+      const vm = wrapper.vm as unknown as {
         colClass: string[]
         colStyle: { marginLeft?: string; marginRight?: string }
       }
@@ -152,7 +153,7 @@ describe('some composables', () => {
           return { colClass }
         },
       })
-      const vm = (wrapper.vm as unknown) as { colClass: string[] }
+      const vm = wrapper.vm as unknown as { colClass: string[] }
 
       expect(vm.colClass).toContain('el-col')
       expect(vm.colClass).toContain('el-col-offset-4')
@@ -165,7 +166,7 @@ describe('some composables', () => {
           return { colClass }
         },
       })
-      const vm = (wrapper.vm as unknown) as { colClass: string[] }
+      const vm = wrapper.vm as unknown as { colClass: string[] }
 
       expect(vm.colClass).toContain('el-col')
       expect(vm.colClass).toContain('el-col-xs-4')
@@ -178,11 +179,72 @@ describe('some composables', () => {
           return { colClass }
         },
       })
-      const vm = (wrapper.vm as unknown) as { colClass: string[] }
+      const vm = wrapper.vm as unknown as { colClass: string[] }
 
       expect(vm.colClass).toContain('el-col')
       expect(vm.colClass).toContain('el-col-sm-4')
       expect(vm.colClass).toContain('el-col-sm-pull-2')
+    })
+  })
+
+  describe('useSplitReactive', () => {
+    test.concurrent('reactive', async () => {
+      const props = reactive({ a: 4, b: 'b' })
+      const [config] = useSplitReactive(props, ['a'])
+
+      expect('a' in config).toBe(true)
+      expect(config.a).toBe(props.a)
+      expect('b' in config).toBe(false)
+
+      await (props.a = 5)
+      expect(config.a).toBe(props.a)
+      expect(config.a).toBe(5)
+    })
+
+    test.concurrent('multiple', async () => {
+      const props = reactive({ a: 1, b: 'b', c: [1] })
+      const [config1, config2, config3] = useSplitReactive(
+        props,
+        ['a', 'b'],
+        ['b', 'c'],
+        ['c'],
+      )
+
+      expect('a' in config1).toBe(true)
+      expect('b' in config1).toBe(true)
+      expect('c' in config1).toBe(false)
+
+      expect('a' in config2).toBe(false)
+      expect('b' in config2).toBe(true)
+      expect('c' in config2).toBe(true)
+
+      expect('a' in config3).toBe(false)
+      expect('b' in config3).toBe(false)
+      expect('c' in config3).toBe(true)
+
+      await (props.b = 'test')
+      expect(config1.b).toBe(props.b)
+      expect(config2.b).toBe(props.b)
+      expect(config1.b).toBe('test')
+    })
+
+    test.concurrent('double', async () => {
+      const props = reactive({ a: 1, b: 'b', c: [1] })
+      const [data] = useSplitReactive(props, ['a', 'b'])
+      const [config] = useSplitReactive(data, ['a'])
+
+      expect('a' in config).toBe(true)
+      expect(config.a).toBe(props.a)
+      expect('b' in config).toBe(false)
+
+      await (props.a = 5)
+      expect(config.a).toBe(props.a)
+      expect(config.a).toBe(5)
+
+      await (data.a = 6)
+      expect(props.a).toBe(5)
+      expect(data.a).toBe(6)
+      expect(config.a).toBe(6)
     })
   })
 })

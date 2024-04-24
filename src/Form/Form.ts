@@ -1,7 +1,10 @@
 import { computed, defineComponent, h, mergeProps, ref, VNode } from 'vue'
-import { reactivePick } from '@vueuse/core'
 import { ElForm, ElFormItem, ElButton } from 'element-plus'
-import { useCurrentBreakpoint, useRow } from '../composables/index'
+import {
+  useCurrentBreakpoint,
+  useRow,
+  useSplitReactive,
+} from '../composables/index'
 import { useFormProvide, useFormMethods, useFormMenu } from './useForm'
 import { formProps, formEmits, formKeys } from './props'
 import ProFormList from './FormList'
@@ -11,7 +14,7 @@ export default defineComponent({
   props: formProps,
   emits: formEmits,
   setup(props, { slots, emit, expose }) {
-    const config = reactivePick(props, ...formKeys)
+    const [config] = useSplitReactive(props, formKeys)
     const {
       formRef,
       loading,
@@ -59,7 +62,7 @@ export default defineComponent({
         mergeProps(props, {
           type: props.array ? 'array' : undefined,
           'onUpdate:modelValue': update,
-        })
+        }),
       )
     }
 
@@ -78,8 +81,8 @@ export default defineComponent({
               disabled: disabled.value,
               onClick: submitForm,
             }),
-            () => menu.value.submitText
-          )
+            () => menu.value.submitText,
+          ),
         )
       }
       if (menu.value.reset) {
@@ -90,8 +93,8 @@ export default defineComponent({
               disabled: loading.value,
               onClick: () => resetForm(),
             }),
-            () => menu.value.resetText
-          )
+            () => menu.value.resetText,
+          ),
         )
       }
       if (slots['menu-right']) {
@@ -101,7 +104,7 @@ export default defineComponent({
       return h(
         ElFormItem,
         { class: 'pro-form-menu', style: menuStyle.value },
-        () => list
+        () => list,
       )
     }
 
@@ -122,7 +125,7 @@ export default defineComponent({
             e.preventDefault()
           },
         }),
-        () => [createColumns(), slots.default && slots.default(), createMenu()]
+        () => [createColumns(), slots.default && slots.default(), createMenu()],
       )
   },
 })

@@ -3,13 +3,14 @@ import { ElAutocomplete } from 'element-plus'
 import { useInputTag, inputTagEmits } from '../InputTag/index'
 import { createDefault } from '../InputTag/InputTag'
 import { autocompleteTagProps } from './props'
+import type { IAutocompleteTagProps } from './index'
 
 export default defineComponent({
   name: 'ProAutocompleteTag',
   props: autocompleteTagProps,
   emits: inputTagEmits,
   setup(props, { emit }) {
-    const core = useInputTag(props, emit)
+    const core = useInputTag<IAutocompleteTagProps>(props, emit)
 
     return () =>
       h(
@@ -22,7 +23,10 @@ export default defineComponent({
           ],
           onClick: core.inputRef.value?.focus,
         },
-        createDefault<typeof ElAutocomplete>(ElAutocomplete, core)
+        createDefault<typeof ElAutocomplete, IAutocompleteTagProps>(
+          ElAutocomplete,
+          core,
+        ),
       )
   },
 })
