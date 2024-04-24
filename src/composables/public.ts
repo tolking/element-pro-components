@@ -43,13 +43,11 @@ export function useEmitValue(
   return emitValue
 }
 
-type UseSplitReactive<T extends object, K extends Array<keyof T>[]> = [
-  ...{
-    [P in keyof K]: P extends `${number}`
-      ? UnwrapNestedRefs<Pick<T, Extract<K[P], Array<keyof T>>[number]>>
-      : never
-  },
-]
+type UseSplitReactive<T extends object, K extends Array<keyof T>[]> = {
+  [P in keyof K]: P extends `${number}`
+    ? UnwrapNestedRefs<Pick<T, Extract<K[P], Array<keyof T>>[number]>>
+    : never
+}
 
 /**
  * split reactive object to multiple reactive objects

@@ -10,8 +10,8 @@ export default defineComponent({
   props: descriptionsProps,
   setup(props, { slots }) {
     const [config] = useSplitReactive(props, [
-      'detail',
       'border',
+      'column',
       'direction',
       'size',
       'title',
