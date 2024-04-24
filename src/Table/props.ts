@@ -1,6 +1,6 @@
 import { paginationProps } from 'element-plus'
 import { isNumber } from '../utils/index'
-import type { PropType, CSSProperties } from 'vue'
+import type { PropType, CSSProperties, Component } from 'vue'
 import type { ComponentSize } from 'element-plus'
 import type {
   TableProps,
@@ -22,6 +22,14 @@ export const paginationKeys = Object.keys(paginationProps) as PaginationKeys
 
 export const tableProps = {
   ...paginationProps,
+  prevIcon: {
+    type: [String, Object, Function] as PropType<string | Component>,
+    default: undefined,
+  },
+  nextIcon: {
+    type: [String, Object, Function] as PropType<string | Component>,
+    default: undefined,
+  },
   selection: {
     type: [Boolean, Object] as PropType<boolean | ITableSelectionColumns>,
     default: false,
