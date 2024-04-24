@@ -7,7 +7,9 @@ import {
 } from '../utils/index'
 import type { Component, PropType } from 'vue'
 import type { ComponentSize } from 'element-plus'
-import type { SelectConfig, SelectDataItem } from './type'
+import type { ISelectProps, SelectConfig, SelectDataItem } from './type'
+
+type SelectKeys = Array<Exclude<keyof ISelectProps, 'data' | 'config'>>
 
 export const selectDataProps = {
   data: {
@@ -82,7 +84,7 @@ export const selectProps = {
 
 export const selectEmits = {
   'update:modelValue': (
-    value?: Array<unknown> | string | number | boolean | object
+    value?: Array<unknown> | string | number | boolean | object,
   ) =>
     isArray(value) ||
     isString(value) ||
@@ -90,3 +92,7 @@ export const selectEmits = {
     isBoolean(value) ||
     isObject(value),
 }
+
+export const selectKeys = Object.keys(selectProps).filter(
+  (key) => !['data', 'config'].includes(key),
+) as SelectKeys

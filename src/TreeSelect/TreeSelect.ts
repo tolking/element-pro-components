@@ -1,9 +1,8 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { reactiveOmit, reactivePick } from '@vueuse/core'
 import { ElSelect, ElOption, ElTree, useAttrs } from 'element-plus'
-import { useDataConfig } from '../composables/index'
+import { useDataConfig, useSplitReactive } from '../composables/index'
 import { useTreeSelect } from './useTreeSelect'
-import { treeSelectProps, treeKeys, treeSelectEmits } from './props'
+import { treeSelectProps, treeKeys, treeSelectEmits, selectKeys } from './props'
 import type { SelectDataItem } from '../Select/type'
 
 interface TreeScope {
@@ -33,14 +32,10 @@ export default defineComponent({
       clear,
     } = useTreeSelect(props, emit)
     const { config, getLabel, getValue, getDisabled } = useDataConfig()
-    const treeProps = reactivePick(props, ...treeKeys, 'data')
-    const selectProps = reactiveOmit(
+    const [treeProps, selectProps] = useSplitReactive(
       props,
-      'data',
-      'config',
-      'onlySelectLeaf',
-      'checkStrictly',
-      ...treeKeys,
+      [...treeKeys, 'data'],
+      selectKeys,
     )
 
     function createTree() {

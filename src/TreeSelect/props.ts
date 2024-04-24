@@ -8,6 +8,23 @@ import { treeProps } from '../ColumnSetting/props'
 import type { PropType } from 'vue'
 import type { LoadFunction } from 'element-plus/es/components/tree/src/tree.type'
 import type { ExternalParam, MaybeArray, UnknownObject } from '../types/index'
+import type { ITreeSelectProps } from './index'
+
+type TreeKeys = Array<keyof typeof treeSelectProps>
+type SelectKeys = Array<
+  Exclude<
+    keyof ITreeSelectProps,
+    TreeKeys[number] | 'data' | 'config' | 'onlySelectLeaf' | 'checkStrictly'
+  >
+>
+
+export const treeKeys = Object.keys(treeProps).concat([
+  'currentNodeKey',
+  'renderContent',
+  'draggable',
+  'lazy',
+  'load',
+]) as TreeKeys
 
 export const treeSelectProps = {
   ...selectDataProps,
@@ -26,16 +43,6 @@ export const treeSelectProps = {
   load: Function as PropType<LoadFunction>,
 }
 
-type TreeKeys = Array<keyof typeof treeSelectProps>
-
-export const treeKeys = Object.keys(treeProps).concat([
-  'currentNodeKey',
-  'renderContent',
-  'draggable',
-  'lazy',
-  'load',
-]) as TreeKeys
-
 export const treeSelectEmits = {
   ...selectEmits,
   clear: () => true,
@@ -47,3 +54,14 @@ export const treeSelectEmits = {
   'check-change': (item?: ExternalParam, node?: unknown, self?: unknown) =>
     true,
 }
+
+export const selectKeys = Object.keys(treeSelectProps).filter(
+  (key) =>
+    ![
+      ...treeKeys,
+      'data',
+      'config',
+      'onlySelectLeaf',
+      'checkStrictly',
+    ].includes(key),
+) as SelectKeys

@@ -1,10 +1,9 @@
 import { computed, defineComponent, h, mergeProps, ref } from 'vue'
 import { useRouter, RouteRecordRaw } from 'vue-router'
-import { reactiveOmit } from '@vueuse/core'
-import { useCurrentRoutes } from '../composables/index'
+import { useCurrentRoutes, useSplitReactive } from '../composables/index'
 import { filterDeep, filterFlat } from '../utils/index'
 import { ProSelect, SelectDataItem } from '../Select/index'
-import { filterRoutesProps } from './props'
+import { filterRoutesProps, selectKeys } from './props'
 
 export default defineComponent({
   name: 'ProFilterRoutes',
@@ -12,7 +11,7 @@ export default defineComponent({
   setup(props, { slots }) {
     const router = useRouter()
     const routes = useCurrentRoutes()
-    const config = reactiveOmit(props, 'routes')
+    const [config] = useSplitReactive(props, selectKeys)
 
     const value = ref('')
 
@@ -20,7 +19,7 @@ export default defineComponent({
       const list = filterDeep<RouteRecordRaw[]>(
         routes.value,
         'meta.hidden',
-        false
+        false,
       )
       return filterFlat<RouteRecordRaw[], SelectDataItem[]>(
         list,
@@ -29,7 +28,7 @@ export default defineComponent({
         (item) => ({
           label: item.meta?.title || item.path,
           value: item.path,
-        })
+        }),
       )
     })
 
@@ -60,7 +59,7 @@ export default defineComponent({
           popperClass: 'pro-filter-routes-popper',
           'onUpdate:modelValue': handleSerach,
         }),
-        { default: createDefault }
+        { default: createDefault },
       )
   },
 })

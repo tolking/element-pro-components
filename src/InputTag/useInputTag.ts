@@ -1,7 +1,7 @@
-import { computed, Ref, ref } from 'vue'
-import { reactiveOmit, reactivePick } from '@vueuse/core'
+import { computed, Ref, ref, UnwrapNestedRefs } from 'vue'
 import { useAttrs, useDisabled, useSize } from 'element-plus'
-import { inputTagCommonProps } from '../InputTag/props'
+import { useSplitReactive } from '../composables/index'
+import { tagKeys } from './props'
 import type {
   ComponentSize,
   InputInstance,
@@ -12,14 +12,34 @@ import type {
   IAutocompleteTagProps,
   IAutocompleteTagEmits,
 } from '../AutocompleteTag/index'
+import type { TagKeys } from './props'
 
-type CommonKeys = Array<keyof typeof inputTagCommonProps>
+type InputKeys<T> = Array<
+  Exclude<keyof T, TagKeys[number] | 'modelValue' | 'max' | 'trigger' | 'size'>
+>
 
-export interface InputTagCore {
+export interface InputTagCore<T> {
   attrs: Ref<Record<string, unknown>>
   size: Ref<ComponentSize | undefined>
-  tagProps: Partial<IInputTagProps>
-  inputProps: Partial<IInputTagProps>
+  tagProps: UnwrapNestedRefs<Pick<T, Extract<TagKeys, (keyof T)[]>[number]>>
+  inputProps: UnwrapNestedRefs<
+    Pick<
+      T,
+      Exclude<
+        keyof T,
+        | 'type'
+        | 'disableTransitions'
+        | 'hit'
+        | 'color'
+        | 'size'
+        | 'effect'
+        | 'round'
+        | 'modelValue'
+        | 'max'
+        | 'trigger'
+      >
+    >
+  >
   inputRef: Ref<InputInstance | AutocompleteInstance | undefined>
   input: Ref<string>
   focused: Ref<boolean>
@@ -34,22 +54,19 @@ export interface InputTagCore {
   focus: () => void
 }
 
-export function useInputTag(
-  props: IInputTagProps | IAutocompleteTagProps,
+export function useInputTag<T extends IInputTagProps | IAutocompleteTagProps>(
+  props: T,
   emit: IInputTagEmits | IAutocompleteTagEmits,
-): InputTagCore {
+): InputTagCore<T> {
   const attrs = useAttrs()
   const size = useSize()
-  const tagProps = reactivePick(
-    props,
-    'type',
-    'hit',
-    'color',
-    'effect',
-    'disableTransitions',
-  )
-  const commonKeys = Object.keys(inputTagCommonProps) as CommonKeys
-  const inputProps = reactiveOmit(props, ...commonKeys, 'size')
+
+  const inputKeys = Object.keys(props).filter(
+    (key) =>
+      ![...tagKeys, 'modelValue', 'max', 'trigger', 'size'].includes(key),
+  ) as InputKeys<T>
+  const [tagProps, inputProps] = useSplitReactive(props, tagKeys, inputKeys)
+
   const inputRef = ref<InputInstance | AutocompleteInstance | undefined>()
   const input = ref('')
   const focused = ref(false)

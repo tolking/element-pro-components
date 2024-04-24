@@ -1,8 +1,11 @@
 import { defineComponent, h, mergeProps, VNode } from 'vue'
-import { reactiveOmit } from '@vueuse/core'
 import { ElSelect, ElOptionGroup, ElOption } from 'element-plus'
-import { useDataConfig, useEmitValue } from '../composables/index'
-import { selectProps, selectEmits } from './props'
+import {
+  useDataConfig,
+  useEmitValue,
+  useSplitReactive,
+} from '../composables/index'
+import { selectProps, selectEmits, selectKeys } from './props'
 import type { SelectDataItem } from './index'
 
 export default defineComponent({
@@ -12,7 +15,7 @@ export default defineComponent({
   setup(props, { slots }) {
     const { getLabel, getValue, getDisabled, getChildren } = useDataConfig()
     const emitValue = useEmitValue()
-    const config = reactiveOmit(props, 'data', 'config')
+    const [config] = useSplitReactive(props, selectKeys)
 
     function createOption(item: SelectDataItem): VNode {
       return h(
@@ -31,10 +34,13 @@ export default defineComponent({
         const children = getChildren(item)
 
         if (children?.length) {
-          return h(ElOptionGroup, { label: getLabel(item) }, () =>
-            children?.map((child: SelectDataItem[]) => {
-              return createOption(child)
-            }),
+          return h(
+            ElOptionGroup,
+            { label: getLabel(item) },
+            () =>
+              children?.map((child: SelectDataItem[]) => {
+                return createOption(child)
+              }),
           )
         } else {
           return createOption(item)

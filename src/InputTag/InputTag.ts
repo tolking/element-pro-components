@@ -3,8 +3,13 @@ import { ElInput, ElTag } from 'element-plus'
 import { useInputTag, InputTagCore } from './useInputTag'
 import { inputTagProps, inputTagEmits } from './props'
 import type { DefineComponent, VNode } from 'vue'
+import type { IInputTagProps } from './index'
+import type { IAutocompleteTagProps } from '../AutocompleteTag/index'
 
-export function createDefault<T>(component: T, core: InputTagCore): VNode[] {
+export function createDefault<
+  T,
+  Q extends IInputTagProps | IAutocompleteTagProps,
+>(component: T, core: InputTagCore<Q>): VNode[] {
   const vNode: VNode[] = core.list.value.map((item, index) =>
     h(
       ElTag,
@@ -14,8 +19,8 @@ export function createDefault<T>(component: T, core: InputTagCore): VNode[] {
         class: core.selectedTag.value === index && 'is-selecte',
         onClose: () => core.close(index),
       }),
-      () => item
-    )
+      () => item,
+    ),
   )
   vNode.push(
     h(
@@ -31,8 +36,8 @@ export function createDefault<T>(component: T, core: InputTagCore): VNode[] {
         onBlur: () => core.add(true),
         onKeyup: core.keyup,
         'onUpdate:modelValue': core.change,
-      })
-    )
+      }),
+    ),
   )
   return vNode
 }
@@ -42,7 +47,7 @@ export default defineComponent({
   props: inputTagProps,
   emits: inputTagEmits,
   setup(props, { emit }) {
-    const core = useInputTag(props, emit)
+    const core = useInputTag<IInputTagProps>(props, emit)
 
     return () =>
       h(
@@ -51,7 +56,7 @@ export default defineComponent({
           class: ['pro-input-tag', core.focused.value && 'is-focus'],
           onClick: core.inputRef.value?.focus,
         },
-        createDefault<typeof ElInput>(ElInput, core)
+        createDefault<typeof ElInput, IInputTagProps>(ElInput, core),
       )
   },
 })
