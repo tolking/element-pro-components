@@ -5,6 +5,7 @@ import { inputTagProps, inputTagEmits } from './props'
 import type { DefineComponent, VNode } from 'vue'
 import type { IInputTagProps } from './index'
 import type { IAutocompleteTagProps } from '../AutocompleteTag/index'
+import type { StringObject } from '../types/index'
 
 export function createDefault<
   T,
@@ -13,7 +14,7 @@ export function createDefault<
   const vNode: VNode[] = core.list.value.map((item, index) =>
     h(
       ElTag,
-      mergeProps(core.tagProps as InputTagCore<IInputTagProps>['tagProps'], {
+      mergeProps(core.tagProps as StringObject, {
         size: core.size.value,
         closable: core.closable.value,
         class: core.selectedTag.value === index && 'is-selecte',
@@ -25,22 +26,18 @@ export function createDefault<
   vNode.push(
     h(
       component as DefineComponent,
-      mergeProps(
-        core.inputProps as InputTagCore<IInputTagProps>['inputProps'],
-        core.attrs.value,
-        {
-          ref: core.inputRef,
-          modelValue: core.input.value,
-          size: core.size.value,
-          disabled: core.disabled.value,
-          type: 'text',
-          onSelect: core.add,
-          onFocus: core.focus,
-          onBlur: () => core.add(true),
-          onKeyup: core.keyup,
-          'onUpdate:modelValue': core.change,
-        },
-      ),
+      mergeProps(core.inputProps as StringObject, core.attrs.value, {
+        ref: core.inputRef,
+        modelValue: core.input.value,
+        size: core.size.value,
+        disabled: core.disabled.value,
+        type: 'text',
+        onSelect: core.add,
+        onFocus: core.focus,
+        onBlur: () => core.add(true),
+        onKeyup: core.keyup,
+        'onUpdate:modelValue': core.change,
+      }),
     ),
   )
   return vNode
