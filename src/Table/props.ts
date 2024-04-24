@@ -1,6 +1,6 @@
 import { paginationProps } from 'element-plus'
 import { isNumber } from '../utils/index'
-import type { PropType, CSSProperties } from 'vue'
+import type { PropType, CSSProperties, Component } from 'vue'
 import type { ComponentSize } from 'element-plus'
 import type {
   TableProps,
@@ -13,6 +13,7 @@ import type {
   ITableMenuColumns,
   ITableColumns,
   TableColumn,
+  ITableProps,
 } from './type'
 
 type PaginationKeys = Array<keyof typeof paginationProps>
@@ -21,6 +22,14 @@ export const paginationKeys = Object.keys(paginationProps) as PaginationKeys
 
 export const tableProps = {
   ...paginationProps,
+  prevIcon: {
+    type: [String, Object, Function] as PropType<string | Component>,
+    default: undefined,
+  },
+  nextIcon: {
+    type: [String, Object, Function] as PropType<string | Component>,
+    default: undefined,
+  },
   selection: {
     type: [Boolean, Object] as PropType<boolean | ITableSelectionColumns>,
     default: false,
@@ -144,3 +153,13 @@ export const tableEmits = {
   'update:pageSize': (size: number) => isNumber(size),
   load: () => true,
 }
+
+export const tableKeys = Object.keys(tableProps).filter(
+  (key) =>
+    ![
+      ...paginationKeys,
+      'showOverflowTooltip',
+      'align',
+      'headerAlign',
+    ].includes(key),
+) as Array<keyof ITableProps>

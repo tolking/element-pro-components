@@ -7,7 +7,7 @@ import {
   useTableMethods,
   usePagination,
 } from './useTable'
-import { tableProps, tableEmits, paginationKeys } from './props'
+import { tableProps, tableEmits, paginationKeys, tableKeys } from './props'
 import ProTableItem from './TableItem'
 import type { StringObject } from '../types/index'
 import type {
@@ -15,7 +15,6 @@ import type {
   ITableExpandColumns,
   ITableIndexColumns,
   ITableMenuColumns,
-  ITableProps,
 } from './type'
 
 export default defineComponent({
@@ -48,15 +47,6 @@ export default defineComponent({
       sort,
     } = useTableMethods()
 
-    const tableKeys = Object.keys(props).filter(
-      (key) =>
-        ![
-          ...paginationKeys,
-          'showOverflowTooltip',
-          'align',
-          'headerAlign',
-        ].includes(key),
-    ) as Array<keyof ITableProps>
     const [tableConfig, paginationConfig] = useSplitReactive(
       props,
       tableKeys,
