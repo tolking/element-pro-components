@@ -1,5 +1,15 @@
 # Changelog
 
+### 1.3.1
+
+refactor
+
+- use useSplitReactive to replace reactiveOmit and reactivePick (#515)
+
+fix
+
+- Table | Crud: warn error about prevIcon and nextIcon (#516)
+
 ### 1.3.0
 
 feat
