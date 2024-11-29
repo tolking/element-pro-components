@@ -1,7 +1,7 @@
-import { computed } from 'vue'
+import { computed, useSlots } from 'vue'
 import { useLocale } from 'element-plus'
 import { useFormInjectEmits } from '../Form/useForm'
-import type { ComputedRef } from 'vue'
+import type { ComputedRef, Slot } from 'vue'
 import type {
   IFormColumns,
   IFormMenuColumns,
@@ -93,4 +93,18 @@ export function useSearch(
     columns,
     submitForm,
   }
+}
+
+export function useSearchSlots() {
+  const slots = useSlots()
+  const searchSlots: Record<string, Slot | undefined> = {}
+
+  for (const key in slots) {
+    const item = slots[key]
+    const _key = key.replace(/^search-/, 'form-')
+
+    searchSlots[_key] = item
+  }
+
+  return searchSlots
 }

@@ -1,14 +1,15 @@
 import { defineComponent, h } from 'vue'
 import { ProForm, useFormMethods } from '../Form/index'
 import { searchProps, searchEmits } from './props'
-import { useSearch, useSearchMenu } from './useSearch'
+import { useSearch, useSearchMenu, useSearchSlots } from './useSearch'
 
 export default defineComponent({
   name: 'ProSearch',
   props: searchProps,
   emits: searchEmits,
-  setup(props, { emit, expose, slots }) {
+  setup(props, { emit, expose }) {
     const menuColumns = useSearchMenu(props)
+    const slots = useSearchSlots()
     const {
       columns,
       addItem,
@@ -45,6 +46,7 @@ export default defineComponent({
           ref: formRef,
           columns: columns.value,
           menu: menuColumns.value,
+          inline: false,
           class: 'pro-search',
           'onUpdate:modelValue': update,
           'onAdd-item': addItem,
