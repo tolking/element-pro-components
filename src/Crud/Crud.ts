@@ -162,7 +162,7 @@ export default defineComponent({
     function createSearch() {
       if (props.searchRules) {
         throwWarn(
-          'The `searchRules` attribute will be removed in the next major version, please use `searchProps` instead',
+          '[ProCrud] The `searchRules` attribute will be removed in the next major version, please use `searchProps` instead',
         )
       }
 
