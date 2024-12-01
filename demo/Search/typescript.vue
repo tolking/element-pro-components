@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import { markRaw, ref } from 'vue'
-import { ElMessage, ElSwitch } from 'element-plus'
+import { ElDatePicker, ElMessage } from 'element-plus'
 import {
   defineSearchColumns,
   defineSearchSubmit,
@@ -18,7 +18,7 @@ import {
 
 interface Search {
   name?: string
-  status?: boolean
+  date?: string[]
 }
 
 const search = ref<Search>({})
@@ -36,13 +36,12 @@ const columns = defineSearchColumns<Search>([
     }),
   },
   {
-    label: 'Status',
-    prop: 'status',
-    component: markRaw(ElSwitch),
-    props: defineComponentProps<typeof ElSwitch>({
-      inlinePrompt: true,
-      activeText: 'Y',
-      inactiveText: 'N',
+    label: 'Date',
+    prop: 'date',
+    component: markRaw(ElDatePicker),
+    props: defineComponentProps<typeof ElDatePicker>({
+      type: 'daterange',
+      style: 'width: 100%',
     }),
   },
 ])

@@ -65,6 +65,7 @@ export function useSearch(
   const injectEmits = useFormInjectEmits(emit)
 
   const columns = computed(() => {
+    if (props.inline) return props.columns
     return withColProps(props.columns)
   })
 

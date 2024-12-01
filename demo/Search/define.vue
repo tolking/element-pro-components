@@ -19,11 +19,11 @@ import {
 
 export default defineComponent({
   setup() {
+    const search = ref({})
     const menu = defineSearchMenuColumns({
       submitText: 'Create',
       reset: false,
     })
-    const search = ref({})
     const columns = defineSearchColumns([
       {
         label: 'Name',
@@ -34,6 +34,15 @@ export default defineComponent({
         label: 'Address',
         prop: 'address',
         component: 'el-input',
+      },
+      {
+        label: 'Date',
+        prop: 'date',
+        component: 'el-date-picker',
+        props: {
+          type: 'date',
+          style: 'width: 100%',
+        },
       },
     ])
     const submit = defineSearchSubmit((done, isValid, invalidFields) => {

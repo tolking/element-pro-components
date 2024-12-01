@@ -25,6 +25,15 @@ export default defineComponent({
         prop: 'address',
         component: 'el-input',
       },
+      {
+        label: 'Date',
+        prop: 'date',
+        component: 'el-date-picker',
+        props: {
+          type: 'date',
+          style: 'width: 100%',
+        },
+      },
     ]
     const submit = (done, isValid, invalidFields) => {
       ElMessage(`submit: ${isValid}`)

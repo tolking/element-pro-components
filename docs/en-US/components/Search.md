@@ -2,15 +2,19 @@
 title: Search
 meta:
   - name: description
-    content: 封装搜索组件实现通过配置动态生成表单
+    content: Encapsulate search components to dynamically generate forms through columns
 ---
 
 # Search
 
-> 封装搜索组件实现通过配置动态生成表单
+> Encapsulate search components to dynamically generate forms through columns
 
-::: tip 提示
-Search 组件基于 <pro-link to="/zh-CN/components/form">Form</pro-link> 组件实现，唯一的区别是 Search 组件会为 columns 属性的每一个值增加默认布局参数 `{ xs: 24, md: 12, lg: 8, xl: 6 }`
+::: tip
+The Search component is based on the <pro-link to="/components/form">Form</pro-link> component.
+
+The main difference is that the Search component will add default layout parameters `{ xs: 24, md: 12, lg: 8, xl: 6 }` for each value of the columns attribute;
+
+In addition, the slot related to [prop] is changed from `form-[prop]` to `search-[prop]`
 :::
 
 ## Use
@@ -29,6 +33,14 @@ Use the `defineSearchColumns` `defineSearchMenuColumns` `defineSearchSubmit` to 
 @/demo/Search/define.vue
 :::
 
+### Slots
+
+Directly add some slot with `search-[prop]` in the template
+
+::: demo
+@/demo/Search/slots.vue
+:::
+
 ### TypeScript
 
 The function `defineSearchColumns` supports passing in a Generics type to infer the value of `prop`, The function `defineComponentProps` supports passing in a Generics type to help input the `props` value
@@ -39,29 +51,30 @@ The function `defineSearchColumns` supports passing in a Generics type to infer 
 
 ### Props
 
-| Name                    | Description                                                                                                                       | Type           | Options                                                              | Default |
-| :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------- | :------------- | :------------------------------------------------------------------- | :------ |
-| v-model                 | binding value                                                                                                                     | object / array | -                                                                    | -       |
-| columns                 | to generate form components, reference `columns`                                                                                  | array          | -                                                                    | -       |
-| menu                    | config the menu content, reference `menu`                                                                                         | object         | -                                                                    | -       |
-| rules                   | validation rules of form                                                                                                          | object         | -                                                                    | -       |
-| inline                  | whether the form is inline                                                                                                        | boolean        | -                                                                    | false   |
-| array                   | whether the form is ArrayForm                                                                                                     | boolean        |                                                                      | -       |
-| max                     | limit the maximum number of ArrayForm component                                                                                   | number         | -                                                                    | -       |
-| label-position          | position of label. If set to 'left' or 'right', `label-width` prop is also required                                               | string         | right / left / top                                                   | right   |
-| label-width             | width of label, e.g. '50px'. All its direct child form items will inherit this value. Width `auto` is supported.                  | string         | -                                                                    | -       |
-| label-suffix            | suffix of the label                                                                                                               | string         | -                                                                    | -       |
-| hide-required-asterisk  | whether required fields should have a red asterisk (star) beside their labels                                                     | boolean        | -                                                                    | false   |
-| show-message            | whether to show the error message                                                                                                 | boolean        | -                                                                    | true    |
-| inline-message          | whether to display the error message inline with the form item                                                                    | boolean        | -                                                                    | false   |
-| status-icon             | whether to display an icon indicating the validation result                                                                       | boolean        | -                                                                    | false   |
-| validate-on-rule-change | whether to trigger validation when the `rules` prop is changed                                                                    | boolean        | -                                                                    | true    |
-| size                    | control the size of components in this form                                                                                       | string         | large / default /small                                               | -       |
-| disabled                | whether to disabled all components in this form. If set to true, it cannot be overridden by its inner components' `disabled` prop | boolean        | -                                                                    | false   |
-| scroll-to-error         | When validation fails, scroll to the first error form entry                                                                       | boolean        | -                                                                    | false   |
-| gutter                  | grid spacing                                                                                                                      | number         | -                                                                    | 0       |
-| justify                 | horizontal alignment of flex layout                                                                                               | string         | start / end / center / space-around / space-between / spacing-evenly | start   |
-| align                   | vertical alignment of flex layout                                                                                                 | string         | top / middle / bottom                                                | top     |
+| Name                    | Description                                                                                                                       | Type           | Options                                                              | Default                          |
+| :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------- | :------------- | :------------------------------------------------------------------- | :------------------------------- |
+| v-model                 | binding value                                                                                                                     | object / array | -                                                                    | -                                |
+| columns                 | to generate form components, reference `columns`                                                                                  | array          | -                                                                    | -                                |
+| menu                    | config the menu content, reference `menu`                                                                                         | object         | -                                                                    | -                                |
+| config                  | default layout config for each column                                                                                             | object         | -                                                                    | { xs: 24, md: 12, lg: 8, xl: 6 } |
+| rules                   | validation rules of form                                                                                                          | object         | -                                                                    | -                                |
+| inline                  | whether the form is inline                                                                                                        | boolean        | -                                                                    | false                            |
+| array                   | whether the form is ArrayForm                                                                                                     | boolean        |                                                                      | -                                |
+| max                     | limit the maximum number of ArrayForm component                                                                                   | number         | -                                                                    | -                                |
+| label-position          | position of label. If set to 'left' or 'right', `label-width` prop is also required                                               | string         | right / left / top                                                   | right                            |
+| label-width             | width of label, e.g. '50px'. All its direct child form items will inherit this value. Width `auto` is supported.                  | string         | -                                                                    | -                                |
+| label-suffix            | suffix of the label                                                                                                               | string         | -                                                                    | -                                |
+| hide-required-asterisk  | whether required fields should have a red asterisk (star) beside their labels                                                     | boolean        | -                                                                    | false                            |
+| show-message            | whether to show the error message                                                                                                 | boolean        | -                                                                    | true                             |
+| inline-message          | whether to display the error message inline with the form item                                                                    | boolean        | -                                                                    | false                            |
+| status-icon             | whether to display an icon indicating the validation result                                                                       | boolean        | -                                                                    | false                            |
+| validate-on-rule-change | whether to trigger validation when the `rules` prop is changed                                                                    | boolean        | -                                                                    | true                             |
+| size                    | control the size of components in this form                                                                                       | string         | large / default /small                                               | -                                |
+| disabled                | whether to disabled all components in this form. If set to true, it cannot be overridden by its inner components' `disabled` prop | boolean        | -                                                                    | false                            |
+| scroll-to-error         | When validation fails, scroll to the first error form entry                                                                       | boolean        | -                                                                    | false                            |
+| gutter                  | grid spacing                                                                                                                      | number         | -                                                                    | 0                                |
+| justify                 | horizontal alignment of flex layout                                                                                               | string         | start / end / center / space-around / space-between / spacing-evenly | start                            |
+| align                   | vertical alignment of flex layout                                                                                                 | string         | top / middle / bottom                                                | top                              |
 
 #### columns
 
@@ -118,7 +131,7 @@ props: {
 | Name        | Description                                       | Type    | Default             |
 | :---------- | :------------------------------------------------ | :------ | :------------------ |
 | submit      | whether to display a submit button                | boolean | true                |
-| submitText  | the text of submit button                         | string  | Submit              |
+| submitText  | the text of submit button                         | string  | Search              |
 | submitProps | the props of submit button, reference `el-button` | object  | { type: 'primary' } |
 | reset       | Whether to display a reset button                 | boolean | true                |
 | resetText   | the text of reset button                          | string  | Reset               |
@@ -153,14 +166,14 @@ props: {
 
 ### Slots
 
-| Name              | Description                              | Type                                                                             |
-| :---------------- | :--------------------------------------- | :------------------------------------------------------------------------------- |
-| -                 | anything inserted before the menu        | -                                                                                |
-| menu-left         | control the menu left display content    | { loading: boolean }                                                             |
-| menu-right        | control the menu right display content   | { loading: boolean }                                                             |
-| form-[prop]       | control the `Item` display content       | { item: object, indexes?: number[], value: any, setValue: (value: any) => void } |
-| form-[prop]-label | control the `Item` label display content | { item: object, indexes?: number[] }                                             |
-| form-[prop]-error | control the `Item` error display content | { error, item: object, indexes?: number[] }                                      |
+| Name                | Description                              | Type                                                                             |
+| :------------------ | :--------------------------------------- | :------------------------------------------------------------------------------- |
+| -                   | anything inserted before the menu        | -                                                                                |
+| menu-left           | control the menu left display content    | { loading: boolean }                                                             |
+| menu-right          | control the menu right display content   | { loading: boolean }                                                             |
+| search-[prop]       | control the `Item` display content       | { item: object, indexes?: number[], value: any, setValue: (value: any) => void } |
+| search-[prop]-label | control the `Item` label display content | { item: object, indexes?: number[] }                                             |
+| search-[prop]-error | control the `Item` error display content | { error, item: object, indexes?: number[] }                                      |
 
 ::: tip Tip
 [prop] the prop of columns
