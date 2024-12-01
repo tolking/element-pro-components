@@ -4,6 +4,7 @@
     v-model:search="serachForm"
     :columns="columns"
     :menu="{ label: 'Operations' }"
+    :search-props="{ labelWidth: '80px' }"
     :data="data"
     :detail="detail"
     :before-open="beforeOpen"

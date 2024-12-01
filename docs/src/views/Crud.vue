@@ -12,6 +12,7 @@
       :total="total"
       :menu="menu"
       :size="componentsSize"
+      :search-props="{ labelWidth: '100px' }"
       :before-open="beforeOpen"
       :before-close="beforeClose"
       selection
@@ -144,12 +145,14 @@ const columns = ref<ICrudColumns<DataItem>>([
     add: true,
     edit: true,
     detail: true,
+    search: true,
     // hide: true,
   },
   {
     label: 'Address',
     prop: 'address',
     component: 'el-input',
+    search: true,
     detail: true,
   },
 ])

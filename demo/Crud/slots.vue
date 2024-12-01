@@ -4,6 +4,7 @@
     v-model:search="serachForm"
     :columns="columns"
     :menu="{ label: 'Operations' }"
+    :search-props="{ labelWidth: '80px' }"
     :data="data"
     :detail="detail"
     :before-open="beforeOpen"
@@ -136,7 +137,7 @@ export default defineComponent({
           edit: true,
           render: (row) => h('em', null, row.address),
         },
-      ])
+      ]),
     )
     const data = ref([
       {
@@ -175,7 +176,7 @@ export default defineComponent({
         setTimeout(() => {
           isValid ? close() : done()
         }, 1000)
-      }
+      },
     )
 
     const deleteRow = (row) => {

@@ -270,9 +270,9 @@ export function useCrudSlots(): {
     const item = slots[key]
 
     if (/^search/.test(key)) {
-      const _key =
-        key.replace(/^search-?/, searchKey.includes(key) ? '' : 'form-') ||
-        'default'
+      const _key = searchKey.includes(key)
+        ? key.replace(/^search-?/, '') || 'default'
+        : key
       searchSlots[_key] = item
     } else if (/^table/.test(key)) {
       const _key = tableKey.includes(key)

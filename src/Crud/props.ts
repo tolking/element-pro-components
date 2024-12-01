@@ -21,6 +21,7 @@ import type {
   ICrudBeforeOpen,
   ICrudBeforeClose,
   ICrudDialogType,
+  ICrudSearchProps,
 } from './type'
 
 type FormKeys = Array<keyof typeof formProps>
@@ -36,7 +37,7 @@ const _dialogProps = objectOmit(dialogProps, 'modelValue')
 export const formKeys = Object.keys(_formProps) as FormKeys
 export const tableKeys = Object.keys(_tableProps) as TableKeys
 export const descriptionsKeys = Object.keys(
-  _descriptionsProps
+  _descriptionsProps,
 ) as DescriptionsKeys
 export const dialogKeys = Object.keys(_dialogProps) as DialogKeys
 
@@ -54,6 +55,10 @@ export const crudProps = {
   detailColumns: Array as PropType<IDescriptionsColumns>,
   menu: [Boolean, Object] as PropType<boolean | ICrudMenuColumns>,
   search: Object,
+  searchProps: Object as PropType<ICrudSearchProps>,
+  /**
+   * @deprecated The `searchRules` attribute will be removed in the next major version, please use `searchProps` instead
+   */
   searchRules: Object as PropType<IFormProps['rules']>,
   beforeOpen: Function as PropType<ICrudBeforeOpen>,
   beforeClose: Function as PropType<ICrudBeforeClose>,
@@ -67,7 +72,7 @@ export const crudEmits = {
     done: () => void,
     type: ICrudDialogType,
     isValid: boolean,
-    invalidFields?: InvalidFields
+    invalidFields?: InvalidFields,
   ) =>
     isFunction(close) &&
     isFunction(done) &&
