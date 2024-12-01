@@ -49,6 +49,7 @@ export default defineComponent({
     useFormProvide({ props, emit, slots, formRef, disabled })
 
     expose({
+      ...formRef.value,
       validate,
       resetFields,
       scrollToField,

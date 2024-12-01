@@ -1,7 +1,12 @@
 import { defineComponent, h } from 'vue'
 import { ProForm, useFormMethods } from '../Form/index'
 import { searchProps, searchEmits } from './props'
-import { useSearch, useSearchMenu, useSearchSlots } from './useSearch'
+import {
+  useSearch,
+  useSearchMenu,
+  useSearchMenuWidth,
+  useSearchSlots,
+} from './useSearch'
 
 export default defineComponent({
   name: 'ProSearch',
@@ -29,8 +34,10 @@ export default defineComponent({
       update,
       resetForm,
     } = useFormMethods(emit)
+    useSearchMenuWidth(formRef)
 
     expose({
+      ...formRef.value,
       validate,
       resetFields,
       scrollToField,
