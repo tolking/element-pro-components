@@ -11,7 +11,7 @@ import {
 } from './useCrud'
 import { useTableMethods, usePagination } from '../Table/useTable'
 import { useFormMethods } from '../Form/useForm'
-import { isFunction } from '../utils/index'
+import { isFunction, throwWarn } from '../utils/index'
 import {
   crudProps,
   crudEmits,
@@ -20,6 +20,7 @@ import {
   dialogKeys,
   descriptionsKeys,
 } from './props'
+import { ProSearch } from '../Serach/index'
 import { ProForm } from '../Form/index'
 import { ProTable } from '../Table/index'
 import { ProDescriptions } from '../Descriptions/index'
@@ -159,13 +160,19 @@ export default defineComponent({
     })
 
     function createSearch() {
+      if (props.searchRules) {
+        throwWarn(
+          'The `searchRules` attribute will be removed in the next major version, please use `searchProps` instead',
+        )
+      }
+
       const _props = {
+        rules: props.searchRules,
+        ...props.searchProps,
         modelValue: props.search,
         columns: searchColumns.value,
         menu: searchMenu.value,
-        rules: props.searchRules,
         size: props.size,
-        inline: true,
         class: 'pro-crud-search',
         'onUpdate:modelValue': upSearchData,
         'onAdd-item': addItem,
@@ -185,7 +192,7 @@ export default defineComponent({
         })
       if (!searchColumns.value?.length) return null
 
-      return h(ProForm, _props, searchSlots)
+      return h(ProSearch, _props, searchSlots)
     }
 
     function createMenu() {

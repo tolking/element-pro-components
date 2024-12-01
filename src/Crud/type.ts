@@ -15,6 +15,7 @@ import type {
   IFormSubmit,
   InvalidFields,
 } from '../Form/index'
+import type { ISearchProps } from '../Serach/type'
 import type {
   TableColumn,
   ITableMenuColumns,
@@ -110,19 +111,24 @@ export type ICrudDialogType = 'add' | 'edit' | 'detail'
 export type ICrudBeforeOpen<T = ExternalParam> = (
   done: () => void,
   type: ICrudDialogType,
-  row?: T
+  row?: T,
 ) => void
 
 export type ICrudBeforeClose = (done: () => void) => void
 
 export type ICrudSearch = IFormSubmit
 
+export type ICrudSearchProps = Omit<
+  ISearchProps,
+  'modelValue' | 'columns' | 'menu' | 'size'
+>
+
 export type ICrudSubmit = (
   close: () => void,
   done: () => void,
   type: ICrudDialogType,
   isValid: boolean,
-  invalidFields?: InvalidFields
+  invalidFields?: InvalidFields,
 ) => void
 
 export type ICrudProps = IDefineProps<typeof crudProps>
@@ -141,7 +147,7 @@ export interface ICrudExpose<T = UnknownObject>
  * @param columns the columns of Crud
  */
 export function defineCrudColumns<T = ExternalParam>(
-  columns: ICrudColumns<T>
+  columns: ICrudColumns<T>,
 ): ICrudColumns<T> {
   return columns
 }
@@ -151,7 +157,7 @@ export function defineCrudColumns<T = ExternalParam>(
  * @param columns the columns of Menu
  */
 export function defineCrudMenuColumns<T = ExternalParam>(
-  columns: ICrudMenuColumns<T>
+  columns: ICrudMenuColumns<T>,
 ): ICrudMenuColumns<T> {
   return columns
 }
@@ -161,7 +167,7 @@ export function defineCrudMenuColumns<T = ExternalParam>(
  * @param fun function
  */
 export function defineCrudBeforeOpen<T = ExternalParam>(
-  fun: ICrudBeforeOpen<T>
+  fun: ICrudBeforeOpen<T>,
 ): ICrudBeforeOpen<T> {
   return fun
 }

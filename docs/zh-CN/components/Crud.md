@@ -10,7 +10,7 @@ meta:
 > 封装表格组件和表单组件实现通过配置动态生成 Crud 页面，支持表格和表单组件的全部属性
 
 ::: tip 提示
-Crud 组件是 <pro-link to="/zh-CN/components/table">Table</pro-link> <pro-link to="/zh-CN/components/form">Form</pro-link> <pro-link to="/zh-CN/components/descriptions">Descriptions</pro-link> 的合并，在使用前最好先熟悉这些组件使用
+Crud 组件是 <pro-link to="/zh-CN/components/table">Table</pro-link> <pro-link to="/zh-CN/components/form">Form</pro-link> <pro-link to="/zh-CN/components/search">Search</pro-link> <pro-link to="/zh-CN/components/descriptions">Descriptions</pro-link> 的合并，在使用前最好先熟悉这些组件使用
 :::
 
 ## 使用
@@ -167,7 +167,7 @@ Crud 组件是 <pro-link to="/zh-CN/components/table">Table</pro-link> <pro-link
 | table-columns           | 自动生成表格的参数，参考 Table columns                                                                                       | array                                                   | -                                                                        | 从 `columns` 中获取                                  |
 | detail-columns          | 自动生成描述详情的参数，参考 Descriptions columns                                                                            | array                                                   | -                                                                        | 从 `columns` 中获取                                  |
 | menu                    | 按钮配置参考下面 `menu`                                                                                                      | object                                                  | -                                                                        | -                                                    |
-| search-rules            | 搜索表单验证规则                                                                                                             | object                                                  | -                                                                        | -                                                    |
+| search-props            | 搜索表单属性                                                                                                                 | object                                                  | -                                                                        | -                                                    |
 | data                    | 显示的数据                                                                                                                   | array                                                   | -                                                                        | -                                                    |
 | selection               | 显示多选框，支持 columns 的配置                                                                                              | boolean / object                                        | -                                                                        | false                                                |
 | index                   | 显示索引，支持 columns 的配置                                                                                                | boolean / object                                        | -                                                                        | false                                                |

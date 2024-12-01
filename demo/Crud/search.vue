@@ -3,6 +3,7 @@
     v-model:search="serachForm"
     :columns="columns"
     :search-columns="searchColumns"
+    :search-props="{ gutter: 40 }"
     @search="search"
     @search-reset="reset"
   />
@@ -14,7 +15,7 @@ import { ElMessage } from 'element-plus'
 import {
   defineCrudColumns,
   defineCrudSearch,
-  defineFormColumns,
+  defineSearchColumns,
 } from 'element-pro-components'
 
 export default defineComponent({
@@ -34,7 +35,7 @@ export default defineComponent({
         prop: 'address',
       },
     ])
-    const searchColumns = defineFormColumns([
+    const searchColumns = defineSearchColumns([
       {
         label: 'Name',
         prop: 'name',

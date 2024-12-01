@@ -6,6 +6,7 @@
     :menu="menu"
     :data="data"
     :detail="detail"
+    :search-props="{ labelWidth: '80px' }"
     :before-open="beforeOpen"
     label-width="100px"
     @search="search"
