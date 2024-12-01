@@ -1,0 +1,12 @@
+.pro-search.pro-form {
+  & .pro-form-menu {
+    flex: 1 1 200px;
+    justify-content: flex-end;
+    width: auto;
+    margin-bottom: 18px;
+    & .el-form-item__content {
+      flex: none;
+      margin-left: 0 !important;
+    }
+  }
+}

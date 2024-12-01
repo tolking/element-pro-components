@@ -13,6 +13,12 @@ const lang: Record<string, Language & Record<string, string | TranslatePair>> =
           prev: 'Prev',
           next: 'Next',
         },
+        search: {
+          submit: 'Search',
+          reset: 'Reset',
+          prev: 'Prev',
+          next: 'Next',
+        },
         crud: {
           add: 'Add',
           edit: 'Edit',
@@ -49,6 +55,12 @@ const lang: Record<string, Language & Record<string, string | TranslatePair>> =
       pro: {
         form: {
           submit: '提交',
+          reset: '重置',
+          prev: '上一步',
+          next: '下一步',
+        },
+        search: {
+          submit: '搜索',
           reset: '重置',
           prev: '上一步',
           next: '下一步',

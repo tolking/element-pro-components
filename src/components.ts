@@ -15,6 +15,7 @@ export * from './Menu/index'
 export * from './Radio/index'
 export * from './RadioButton/index'
 export * from './Select/index'
+export * from './Serach/index'
 export * from './Table/index'
 export * from './Tabs/index'
 export * from './TreeSelect/index'
@@ -36,6 +37,7 @@ import { ProMenu } from './Menu/index'
 import { ProRadio } from './Radio/index'
 import { ProRadioButton } from './RadioButton/index'
 import { ProSelect } from './Select/index'
+import { ProSearch } from './Serach/index'
 import { ProTable } from './Table/index'
 import { ProTabs } from './Tabs/index'
 import { ProTreeSelect } from './TreeSelect/index'
@@ -59,6 +61,7 @@ export default {
   ProRadio,
   ProRadioButton,
   ProSelect,
+  ProSearch,
   ProTable,
   ProTabs,
   ProTreeSelect,
@@ -85,6 +88,7 @@ declare module '@vue/runtime-core' {
     ProRadio: typeof ProRadio
     ProRadioButton: typeof ProRadioButton
     ProSelect: typeof ProSelect
+    ProSearch: typeof ProSearch
     ProTable: typeof ProTable
     ProTabs: typeof ProTabs
     ProTreeSelect: typeof ProTreeSelect
