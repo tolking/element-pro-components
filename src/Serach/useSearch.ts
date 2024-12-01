@@ -1,9 +1,11 @@
 import { computed, useSlots } from 'vue'
+import { useResizeObserver } from '@vueuse/core'
 import { useLocale } from 'element-plus'
 import { useFormInjectEmits } from '../Form/useForm'
-import type { ComputedRef, Slot } from 'vue'
+import type { ComputedRef, Ref, Slot } from 'vue'
 import type {
   IFormColumns,
+  IFormExpose,
   IFormMenuColumns,
   IFormSubmit,
   UseFormInjectEmitsCallback,
@@ -108,4 +110,21 @@ export function useSearchSlots() {
   }
 
   return searchSlots
+}
+
+export function useSearchMenuWidth(ref: Ref<IFormExpose>) {
+  const menuRef = computed(() => {
+    const el = (ref.value as unknown as { $el: HTMLFormElement }).$el
+    return el?.querySelector<HTMLElement>('.pro-form-menu')
+  })
+
+  useResizeObserver(menuRef, () => {
+    if (!menuRef.value) return
+    const menuContent = menuRef.value.querySelector('div')
+    const width = menuContent?.getBoundingClientRect().width
+
+    if (width) {
+      menuRef.value.style.minWidth = `${width}px`
+    }
+  })
 }
