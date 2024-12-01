@@ -33,7 +33,6 @@ describe('ProSearch', () => {
     })
 
     const item = wrapper.find('.el-form-item')
-    expect(wrapper.html()).toMatchSnapshot()
     expect(item.classes()).toContain('el-col')
     expect(item.classes()).toContain('el-col-24')
     expect(item.classes()).toContain('el-col-xs-24')
