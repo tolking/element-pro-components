@@ -36,9 +36,10 @@ export const formMenu: IFormMenuColumns = {
 export function useFormMenu(
   props: Pick<IFormProps, 'menu'>,
 ): ComputedRef<IFormMenuColumns> {
+  const { t } = useLocale()
+
   return computed(() => {
     const menu = { ...formMenu }
-    const { t } = useLocale()
     const submitText = t('pro.form.submit')
     const resetText = t('pro.form.reset')
     const prevText = t('pro.form.prev')
