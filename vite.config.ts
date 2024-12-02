@@ -1,7 +1,7 @@
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import Markdown from 'vite-plugin-vue-markdown'
+import Markdown from 'unplugin-vue-markdown/vite'
 import container from 'markdown-it-container'
 import { VitePWA } from 'vite-plugin-pwa'
 import anchor from 'markdown-it-anchor'
