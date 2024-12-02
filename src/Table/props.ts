@@ -157,7 +157,7 @@ export const tableEmits = {
 export const tableKeys = Object.keys(tableProps).filter(
   (key) =>
     ![
-      ...paginationKeys,
+      ...paginationKeys.filter((key) => key !== 'size'),
       'showOverflowTooltip',
       'align',
       'headerAlign',
