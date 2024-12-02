@@ -9,7 +9,7 @@
       <el-button>menu-right</el-button>
     </template>
     <template #search-slot-label>
-      <el-badge>name</el-badge>
+      <span>name</span>
     </template>
     <template #search-slot="{ value, setValue }">
       <el-input

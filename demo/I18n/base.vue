@@ -7,6 +7,12 @@
     Switch lang
   </el-button>
   <el-config-provider :locale="toggle ? locale1 : locale2">
+    <pro-search
+      v-model="serachForm"
+      :columns="serachColumns"
+      label-width="100px"
+      @submit="submit"
+    />
     <pro-form
       v-model="form"
       :columns="formColumns"
@@ -20,6 +26,7 @@
       :columns="columns"
       :form-columns="formColumns"
       :menu="{ label: 'Operations' }"
+      :search-props="{ labelWidth: '100px' }"
       :data="data"
       :detail="detail"
       :before-open="beforeOpen"
@@ -36,6 +43,7 @@ import {
   defineFormSubmit,
   defineCrudColumns,
   defineCrudBeforeOpen,
+  defineSearchColumns,
 } from 'element-pro-components'
 
 export default defineComponent({
@@ -45,6 +53,12 @@ export default defineComponent({
       pro: {
         form: {
           submit: 'Submit',
+          reset: 'Reset',
+          prev: 'Prev',
+          next: 'Next',
+        },
+        search: {
+          submit: 'Search',
           reset: 'Reset',
           prev: 'Prev',
           next: 'Next',
@@ -70,6 +84,12 @@ export default defineComponent({
       pro: {
         form: {
           submit: '提交',
+          reset: '重置',
+          prev: '上一步',
+          next: '下一步',
+        },
+        search: {
+          submit: '搜索',
           reset: '重置',
           prev: '上一步',
           next: '下一步',
@@ -134,6 +154,23 @@ export default defineComponent({
         ],
       },
     ])
+    const serachColumns = defineSearchColumns([
+      {
+        label: 'Date',
+        prop: 'date',
+        component: 'el-input',
+      },
+      {
+        label: 'Name',
+        prop: 'name',
+        component: 'el-input',
+      },
+      {
+        label: 'Address',
+        prop: 'address',
+        component: 'el-input',
+      },
+    ])
     const columns = defineCrudColumns([
       {
         label: 'Date',
@@ -194,6 +231,7 @@ export default defineComponent({
       detail,
       columns,
       formColumns,
+      serachColumns,
       toggle,
       locale1,
       locale2,

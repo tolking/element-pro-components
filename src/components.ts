@@ -69,7 +69,7 @@ export default {
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   export interface GlobalComponents {
     ProAutocompleteTag: typeof ProAutocompleteTag
     ProBreadcrumb: typeof ProBreadcrumb

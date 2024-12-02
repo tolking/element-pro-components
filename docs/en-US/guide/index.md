@@ -11,7 +11,7 @@ You can refer to the [template project](https://github.com/tolking/element-admin
 
 ## Ready
 
-You may need the vue3 version of the scaffolding tool before you start
+You may need the vue3 version of the scaffolding tool before you start, and you need to install [element-plus](https://element-plus.org/) in advance.
 
 - [vite](https://vitejs.dev/)
 - [vue-cli](https://cli.vuejs.org/)
@@ -118,18 +118,7 @@ Component list reference [components](https://github.com/tolking/element-pro-com
 In addition to components, you can also use some internal [utils](https://github.com/tolking/element-pro-components/blob/master/src/utils/) or [composables](https://github.com/tolking/element-pro-components/blob/master/src/composables/)
 :::
 
-## ~~Global config~~
-
-::: danger Danger
-Since `1.0.0`, The global configuration has been removed, it is recommended to use related components to pass parameters or internationalization
-:::
-
-## Start using
-
-::: tip Tip
-Document example based on [Composition API](https://v3.vuejs.org/guide/composition-api-introduction.html), If you are not familiar with the syntax, please visit the official document
-
-If you use VS Code to develop, cooperate with [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) to provide complete components, prop, and event completion. example: input `<pro-` will list all components
+## TypeScript
 
 If you use VS Code with typescript to develop, It is recommended to use plug-in [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar). Just add the global component type definition to the `tsconfig.json` file
 
@@ -158,6 +147,3 @@ You can also add to the global type definition file, eg: env.d.ts
 ```
 
 If you use webstorm to develop, complete components, prop, and event completions
-:::
-
-<<< @/docs/src/layout/Layout.vue

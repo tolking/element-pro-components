@@ -17,6 +17,7 @@ import {
   ElImage,
   ElPagination,
   ID_INJECTION_KEY,
+  ZINDEX_INJECTION_KEY,
 } from 'element-plus'
 import ElementPro from 'element-pro-components'
 import IconExternalLink from './components/IconExternalLink.vue'
@@ -60,6 +61,7 @@ export function createApp(): {
     .component('IconExternalLink', IconExternalLink)
     .component('ProCode', ProCode)
     .use(ElementPro)
+    .provide(ZINDEX_INJECTION_KEY, { current: 0 })
     .provide(ID_INJECTION_KEY, {
       prefix: 1024,
       current: 0,
