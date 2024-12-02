@@ -25,9 +25,10 @@ export const searchMenu: IFormMenuColumns = {
 export function useSearchMenu(
   props: Pick<ISearchProps, 'menu'>,
 ): ComputedRef<IFormMenuColumns> {
+  const { t } = useLocale()
+
   return computed(() => {
     const menu = { ...searchMenu }
-    const { t } = useLocale()
     const submitText = t('pro.search.submit')
     const resetText = t('pro.search.reset')
     const prevText = t('pro.search.prev')

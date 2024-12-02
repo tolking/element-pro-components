@@ -31,8 +31,9 @@ type CrudColumns =
 export function useCrudMenu(
   props: Readonly<{ menu?: ICrudMenuColumns | boolean }>,
 ): Ref<ICrudMenuColumns> {
+  const { t } = useLocale()
+
   return computed(() => {
-    const { t } = useLocale()
     const menu: ICrudMenuColumns = {
       ...formMenu,
       add: true,
