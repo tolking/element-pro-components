@@ -8,6 +8,13 @@ import type {
 import type { Awaitable } from '@vueuse/core'
 import type { IDefineProps } from '../types/index'
 
+export interface ITabContextmenuProps {
+  refresh?: boolean
+  left?: boolean
+  right?: boolean
+  others?: boolean
+}
+
 export interface ITab extends RouteMeta {
   path: string
   name?: RouteRecordName | null

@@ -45,4 +45,35 @@ describe('Tabs', () => {
     expect(wrapper.find('.title').text()).toBe('Home')
     expect(wrapper.find('.path').text()).toBe('/index')
   })
+
+  test.concurrent('contextmenu', async () => {
+    const wrapper = await _mount({
+      template: '<pro-tabs contextmenu />',
+    })
+
+    const list = getTabList(wrapper)
+    expect(list[0].find('.el-dropdown').exists()).toBe(true)
+
+    await list[0].find('.el-dropdown').trigger('contextmenu')
+    const menu = document.querySelectorAll('.el-dropdown-menu__item')
+    expect(menu).toHaveLength(3)
+    expect(menu[0].textContent).toBe('Close Left')
+    expect(menu[1].textContent).toBe('Close Right')
+    expect(menu[2].textContent).toBe('Close Others')
+  })
+
+  test.concurrent('refreshPath', async () => {
+    const wrapper = await _mount({
+      template: '<pro-tabs contextmenu refreshPath="/refresh" />',
+    })
+
+    const list = getTabList(wrapper)
+    await list[0].find('.el-dropdown').trigger('contextmenu')
+    const menu = document.querySelectorAll('.el-dropdown-menu__item')
+    expect(menu).toHaveLength(4)
+    expect(menu[0].textContent).toBe('Refresh')
+    expect(menu[1].textContent).toBe('Close Left')
+    expect(menu[2].textContent).toBe('Close Right')
+    expect(menu[3].textContent).toBe('Close Others')
+  })
 })

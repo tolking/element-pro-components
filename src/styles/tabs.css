@@ -20,4 +20,16 @@
   & .el-tabs__content {
     padding: 0;
   }
+
+  & .el-tabs__item {
+    &.is-active,
+    &:hover {
+      .el-dropdown .el-tooltip__trigger {
+        color: var(--el-color-primary);
+      }
+    }
+    & .el-dropdown .el-tooltip__trigger {
+      line-height: var(--el-tabs-header-height);
+    }
+  }
 }

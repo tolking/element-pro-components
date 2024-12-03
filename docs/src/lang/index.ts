@@ -33,6 +33,12 @@ const lang: Record<string, Language & Record<string, string | TranslatePair>> =
           searchPrev: 'Prev',
           searchNext: 'Next',
         },
+        tabs: {
+          refresh: 'Refresh',
+          left: 'Close Left',
+          right: 'Close Right',
+          others: 'Close Others',
+        },
       },
       docs: {
         code: {
@@ -78,6 +84,12 @@ const lang: Record<string, Language & Record<string, string | TranslatePair>> =
           searchReset: '重置',
           searchPrev: '上一步',
           searchNext: '下一步',
+        },
+        tabs: {
+          refresh: '刷新',
+          left: '关闭左侧',
+          right: '关闭右侧',
+          others: '关闭其他',
         },
       },
       docs: {

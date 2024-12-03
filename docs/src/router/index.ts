@@ -4,13 +4,29 @@ import {
   createWebHistory,
   Router,
 } from 'vue-router'
+import BaseLayout from '../layout/Layout.vue'
 import enUS from './en-US'
 import zhCN from './zh-CN'
 import dev from './dev'
 import { langs } from '../utils/index'
 import type { RouteRecordRaw } from 'vue-router'
 
-const routes: RouteRecordRaw[] = [...enUS, ...zhCN]
+const routes: RouteRecordRaw[] = [
+  {
+    path: '/dev/refresh',
+    component: BaseLayout,
+    meta: { hidden: true },
+    children: [
+      {
+        path: '/dev/refresh',
+        component: () => import('../layout/Refresh.vue'),
+        meta: { hidden: true },
+      },
+    ],
+  },
+  ...enUS,
+  ...zhCN,
+]
 
 export function createRouter(): Router {
   const baseUrl = import.meta.env.BASE_URL
