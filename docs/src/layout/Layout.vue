@@ -27,7 +27,11 @@
       <nav-header />
     </template>
     <template #header-bottom>
-      <pro-tabs ref="tabs" />
+      <pro-tabs
+        ref="tabs"
+        contextmenu
+        refresh-path="/dev/refresh"
+      />
     </template>
   </pro-layout>
   <pwa-popup />

@@ -65,16 +65,36 @@ Customize the label content of the tab through `label`
 @/demo/Tabs/slots.vue
 :::
 
+### Contextmenu
+
+Since 1.4.0, the Tabs component supports displaying the right-click menu through the `contextmenu` configuration
+
+::: tip
+If you enable the `refresh` feature, you need to configure the `refreshPath` attribute additionally and add the corresponding route information to vue-router
+:::
+
+::: details Reference route configuration
+
+<<< @/docs/src/router/index.ts
+
+:::
+
+::: demo
+@/demo/Tabs/contextmenu.vue
+:::
+
 ### Props
 
-| Name              | Description                                                                                                                             | Type                                                  | Accepted Values             | Default |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | --------------------------- | ------- |
-| type              | type of Tab                                                                                                                             | string                                                | card / border-card          | -       |
-| tab-position      | position of tabs                                                                                                                        | string                                                | top / right / bottom / left | top     |
-| stretch           | whether width of tab automatically fits its container                                                                                   | boolean                                               | -                           | false   |
-| keep-hidden-route | Whether to keep the route with the hidden flag, it is automatically closed by default                                                   | boolean                                               | -                           | false   |
-| before-add        | hook function before add tab. If `false` is returned or a `Promise` is returned and then is rejected, add will be prevented             | Function({ route, oldPath, list, close, closeOther }) | -                           | -       |
-| before-leave      | hook function before switching tab. If `false` is returned or a `Promise` is returned and then is rejected, switching will be prevented | Function(activeName, oldActiveName)                   | -                           | -       |
+| Name              | Description                                                                                                                             | Type                                                                                        | Accepted Values             | Default |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | --------------------------- | ------- |
+| type              | type of Tab                                                                                                                             | string                                                                                      | card / border-card          | -       |
+| tab-position      | position of tabs                                                                                                                        | string                                                                                      | top / right / bottom / left | top     |
+| stretch           | whether width of tab automatically fits its container                                                                                   | boolean                                                                                     | -                           | false   |
+| keep-hidden-route | Whether to keep the route with the hidden flag, it is automatically closed by default                                                   | boolean                                                                                     | -                           | false   |
+| contextmenu       | The right-click menu configuration                                                                                                      | boolean / object ({ refresh?: boolean, left?: boolean, right?: boolean, others?: boolean }) | -                           | false   |
+| refreshPath       | Refresh path, used to refresh the tab page                                                                                              | string                                                                                      | -                           | -       |
+| before-add        | hook function before add tab. If `false` is returned or a `Promise` is returned and then is rejected, add will be prevented             | Function({ route, oldPath, list, close, closeOther })                                       | -                           | -       |
+| before-leave      | hook function before switching tab. If `false` is returned or a `Promise` is returned and then is rejected, switching will be prevented | Function(activeName, oldActiveName)                                                         | -                           | -       |
 
 ## Events
 

@@ -65,16 +65,36 @@ meta:
 @/demo/Tabs/slots.vue
 :::
 
+### 右键菜单
+
+自 1.4.0 起，Tabs 组件支持通过配置 `contextmenu` 展示右键菜单
+
+::: tip 提示
+如果启用 `refresh` 功能，需要额外配置 `refreshPath` 属性，并向 vue-router 中增加对应路由信息
+:::
+
+::: details 参考路由配置
+
+<<< @/docs/src/router/index.ts
+
+:::
+
+::: demo
+@/demo/Tabs/contextmenu.vue
+:::
+
 ### 配置
 
-| 参数              | 说明                                                                        | 类型                                                  | 可选值                      | 默认值 |
-| ----------------- | --------------------------------------------------------------------------- | ----------------------------------------------------- | --------------------------- | ------ |
-| type              | 风格类型                                                                    | string                                                | card / border-card          | -      |
-| tab-position      | 标签位置                                                                    | string                                                | top / right / bottom / left | top    |
-| stretch           | 标签的宽度是否自撑开                                                        | boolean                                               | -                           | false  |
-| keep-hidden-route | 是否保持具有 hidden 标识的路由存在，默认自动关闭                            | boolean                                               | -                           | false  |
-| before-add        | 增加标签之前的钩子，若返回 false 或者返回 Promise 且被 reject，则阻止增加。 | Function({ route, oldPath, list, close, closeOther }) | -                           | -      |
-| before-leave      | 切换标签之前的钩子，若返回 false 或者返回 Promise 且被 reject，则阻止切换。 | Function(activeName, oldActiveName)                   | -                           | -      |
+| 参数              | 说明                                                                        | 类型                                                                                        | 可选值                      | 默认值 |
+| ----------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | --------------------------- | ------ |
+| type              | 风格类型                                                                    | string                                                                                      | card / border-card          | -      |
+| tab-position      | 标签位置                                                                    | string                                                                                      | top / right / bottom / left | top    |
+| stretch           | 标签的宽度是否自撑开                                                        | boolean                                                                                     | -                           | false  |
+| keep-hidden-route | 是否保持具有 hidden 标识的路由存在，默认自动关闭                            | boolean                                                                                     | -                           | false  |
+| contextmenu       | 右键菜单配置                                                                | boolean / object ({ refresh?: boolean, left?: boolean, right?: boolean, others?: boolean }) | -                           | false  |
+| refreshPath       | 刷新路径，用于刷新标签页                                                    | string                                                                                      | -                           | -      |
+| before-add        | 增加标签之前的钩子，若返回 false 或者返回 Promise 且被 reject，则阻止增加。 | Function({ route, oldPath, list, close, closeOther })                                       | -                           | -      |
+| before-leave      | 切换标签之前的钩子，若返回 false 或者返回 Promise 且被 reject，则阻止切换。 | Function(activeName, oldActiveName)                                                         | -                           | -      |
 
 ### 事件
 
