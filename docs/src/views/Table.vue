@@ -9,7 +9,6 @@
       :index="index"
       :menu="menu"
       selection
-      small
       align="center"
       size="small"
       @cell-click="test"
@@ -134,7 +133,7 @@ const data = [
   },
 ]
 
-function test(row: unknown) {
+function test(row?: unknown) {
   console.log(row)
 }
 </script>
