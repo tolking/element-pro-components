@@ -9,6 +9,10 @@ meta:
 
 > Enter an array of tags
 
+::: tip Tip
+You can choose ElInputTag instead of this component
+:::
+
 ## Use
 
 ### Basic Use

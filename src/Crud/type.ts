@@ -118,9 +118,8 @@ export type ICrudBeforeClose = (done: () => void) => void
 
 export type ICrudSearch = IFormSubmit
 
-export type ICrudSearchProps = Omit<
-  ISearchProps,
-  'modelValue' | 'columns' | 'menu' | 'size'
+export type ICrudSearchProps = Partial<
+  Omit<ISearchProps, 'modelValue' | 'columns' | 'menu' | 'size'>
 >
 
 export type ICrudSubmit = (
