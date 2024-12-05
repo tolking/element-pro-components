@@ -11,7 +11,7 @@ You can refer to the [template project](https://github.com/tolking/element-admin
 
 ## Ready
 
-You may need the vue3 version of the scaffolding tool before you start, and you need to install [element-plus](https://element-plus.org/) in advance.
+You may need the vue3 version of the scaffolding tool before you start, and you need to install [vue](https://vuejs.org/), [vue-router](https://router.vuejs.org/), [element-plus](https://element-plus.org/) in advance.
 
 - [vite](https://vitejs.dev/)
 - [vue-cli](https://cli.vuejs.org/)
