@@ -15,7 +15,7 @@ import type {
   IFormSubmit,
   InvalidFields,
 } from '../Form/index'
-import type { ISearchProps } from '../Serach/type'
+import type { ISearchProps } from '../Search/type'
 import type {
   TableColumn,
   ITableMenuColumns,

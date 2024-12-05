@@ -32,7 +32,7 @@ export default defineComponent({
       )
     })
 
-    function handleSerach(path: string) {
+    function handleSearch(path: string) {
       value.value = path
       router.push(path)
     }
@@ -57,7 +57,7 @@ export default defineComponent({
           filterable: true,
           class: 'pro-filter-routes',
           popperClass: 'pro-filter-routes-popper',
-          'onUpdate:modelValue': handleSerach,
+          'onUpdate:modelValue': handleSearch,
         }),
         { default: createDefault },
       )

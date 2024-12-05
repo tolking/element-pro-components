@@ -1,7 +1,7 @@
 <template>
   <pro-crud
     v-model="form"
-    v-model:search="serachForm"
+    v-model:search="searchForm"
     :columns="columns"
     :table-columns="tableColumns"
     :menu="{ label: 'Operations' }"
@@ -28,7 +28,7 @@ import {
 export default defineComponent({
   setup() {
     const form = ref({})
-    const serachForm = ref({})
+    const searchForm = ref({})
     const detail = ref({})
     const columns = defineCrudColumns([
       {
@@ -101,7 +101,7 @@ export default defineComponent({
         setTimeout(() => {
           isValid ? close() : done()
         }, 1000)
-      }
+      },
     )
 
     const reset = () => {
@@ -114,7 +114,7 @@ export default defineComponent({
 
     return {
       form,
-      serachForm,
+      searchForm,
       columns,
       tableColumns,
       data,

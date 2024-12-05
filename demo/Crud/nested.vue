@@ -1,7 +1,7 @@
 <template>
   <pro-crud
     v-model="form"
-    v-model:search="serachForm"
+    v-model:search="searchForm"
     :columns="columns"
     :menu="{ label: 'Operations' }"
     :search-props="{ labelWidth: '80px' }"
@@ -28,7 +28,7 @@ import {
 export default defineComponent({
   setup() {
     const form = ref({ 'a.b': undefined })
-    const serachForm = ref({ 'a.b': undefined })
+    const searchForm = ref({ 'a.b': undefined })
     const detail = ref({})
     const columns = defineCrudColumns([
       {
@@ -77,7 +77,7 @@ export default defineComponent({
 
     const search = defineCrudSearch((done, isValid, invalidFields) => {
       ElMessage(`search: ${isValid}`)
-      console.log('search', serachForm.value, isValid, invalidFields)
+      console.log('search', searchForm.value, isValid, invalidFields)
       setTimeout(() => {
         done()
       }, 1000)
@@ -100,7 +100,7 @@ export default defineComponent({
 
     return {
       form,
-      serachForm,
+      searchForm,
       data,
       detail,
       columns,

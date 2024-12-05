@@ -3,7 +3,7 @@
     <pro-crud
       ref="crud"
       v-model="form"
-      v-model:search="serachForm"
+      v-model:search="searchForm"
       v-model:current-page="currentPage"
       v-model:page-size="pageSize"
       :columns="columns"
@@ -107,13 +107,13 @@ interface DataItem {
   address: string
 }
 
-type SerachForm = Pick<DataItem, 'date'>
+type SearchForm = Pick<DataItem, 'date'>
 type CrudForm = Pick<DataItem, 'date' | 'name'>
 
 const componentsSize = ref<ComponentSize>('large')
 const crud = ref<ICrudExpose<DataItem>>({} as ICrudExpose<DataItem>)
 const form = ref<CrudForm>({} as CrudForm)
-const serachForm = ref<SerachForm>({} as SerachForm)
+const searchForm = ref<SearchForm>({} as SearchForm)
 const detail = ref({})
 const menu = ref<ICrudMenuColumns<DataItem>>({
   addProps: { icon: markRaw(Plus) },
@@ -190,7 +190,7 @@ const beforeOpen: ICrudBeforeOpen<CrudForm | undefined> = (done, type, row) => {
 }
 
 const search: ICrudSearch = (done, isValid, invalidFields) => {
-  console.log('search', serachForm.value, isValid, invalidFields)
+  console.log('search', searchForm.value, isValid, invalidFields)
   setTimeout(() => {
     done()
   }, 1000)
