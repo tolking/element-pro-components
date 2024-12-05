@@ -87,14 +87,13 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useClipboard } from '@vueuse/core'
-import { useLocale } from 'element-plus'
 import {
   CaretTop,
   CaretBottom,
   DocumentCopy,
   VideoPlay,
 } from '@element-plus/icons-vue'
-import { useShow } from 'element-pro-components'
+import { useShow, useLocale } from 'element-pro-components'
 import { github } from '../utils/index'
 import { useStackBlitz } from '../composables/index'
 

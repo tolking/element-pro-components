@@ -3,6 +3,7 @@
   "compilerOptions": {
     "jsx": "preserve",
     "paths": {
+      "element-pro-components/lib/*": ["./src/*"],
       "element-pro-components": ["./src/index"]
     }
   },

@@ -1,7 +1,8 @@
 import { computed, nextTick, Ref, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { DropdownInstance, useLocale } from 'element-plus'
+import { useLocale } from '../composables/index'
 import { isFunction, isObject, throwWarn } from '../utils/index'
+import type { DropdownInstance } from 'element-plus'
 import type { ITabsProps, ITabsExpose, ITab } from './type'
 
 interface UseTabs extends ITabsExpose {
@@ -15,34 +16,13 @@ interface UseTabs extends ITabsExpose {
 
 export function useTabsMenu() {
   const { t } = useLocale()
-  const menu = {
-    refresh: 'Refresh',
-    left: 'Close Left',
-    right: 'Close Right',
-    others: 'Close Others',
-  }
 
-  return computed(() => {
-    const refresh = t('pro.tabs.refresh')
-    const left = t('pro.tabs.left')
-    const right = t('pro.tabs.right')
-    const others = t('pro.tabs.others')
-
-    if (refresh && refresh !== 'pro.tabs.refresh') {
-      menu.refresh = refresh
-    }
-    if (left && left !== 'pro.tabs.left') {
-      menu.left = left
-    }
-    if (right && right !== 'pro.tabs.right') {
-      menu.right = right
-    }
-    if (others && others !== 'pro.tabs.others') {
-      menu.others = others
-    }
-
-    return menu
-  })
+  return computed(() => ({
+    refresh: t('pro.tabs.refresh'),
+    left: t('pro.tabs.left'),
+    right: t('pro.tabs.right'),
+    others: t('pro.tabs.others'),
+  }))
 }
 
 export function useTabs(props: ITabsProps): UseTabs {

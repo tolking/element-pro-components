@@ -18,6 +18,7 @@ export default defineConfig({
   server: { port: 3000 },
   resolve: {
     alias: {
+      'element-pro-components/lib': resolve(__dirname, 'src'),
       'element-pro-components': resolve(__dirname, 'src'),
     },
   },

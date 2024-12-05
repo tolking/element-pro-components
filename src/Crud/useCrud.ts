@@ -1,8 +1,8 @@
 import { computed, ref, useSlots, Ref, Slot } from 'vue'
-import { useLocale } from 'element-plus'
+import { useLocale } from '../composables/index'
 import { isFunction, isObject, filterDeep } from '../utils/index'
 import { formMenu, useFormInjectEmits } from '../Form/index'
-import type { UnknownObject, ExternalParam } from '../types/index'
+import type { UnknownObject } from '../types/index'
 import type {
   IFormColumns,
   IFormEmits,
@@ -37,49 +37,29 @@ export function useCrudMenu(
     const menu: ICrudMenuColumns = {
       ...formMenu,
       add: true,
-      addText: 'Add',
       addProps: { type: 'primary' },
       edit: true,
-      editText: 'Edit',
       editProps: { link: true, type: 'primary' },
       detail: true,
-      detailText: 'View',
       detailProps: { link: true, type: 'info' },
       del: true,
-      delText: 'Delete',
       delProps: { link: true, type: 'danger' },
       search: true,
-      searchText: 'Search',
       searchProps: { type: 'primary' },
       searchReset: true,
-      searchResetText: 'Reset',
-      searchPrevText: 'Prev',
-      searchNextText: 'Next',
+      addText: t('pro.crud.add'),
+      editText: t('pro.crud.edit'),
+      detailText: t('pro.crud.detail'),
+      delText: t('pro.crud.del'),
+      submitText: t('pro.crud.submit'),
+      resetText: t('pro.crud.reset'),
+      prevText: t('pro.crud.prev'),
+      nextText: t('pro.crud.next'),
+      searchText: t('pro.crud.search'),
+      searchResetText: t('pro.crud.reset'),
+      searchPrevText: t('pro.crud.prev'),
+      searchNextText: t('pro.crud.next'),
     }
-    const menuList = [
-      'add',
-      'edit',
-      'detail',
-      'del',
-      'submit',
-      'reset',
-      'prev',
-      'next',
-      'search',
-      'searchReset',
-      'searchPrev',
-      'searchNext',
-    ]
-
-    menuList.forEach((item) => {
-      const menuKey = `pro.crud.${item}`
-      const menuText = t(menuKey)
-
-      if (menuText && menuText !== menuKey) {
-        const key = `${item}Text` as keyof ICrudMenuColumns
-        menu[key] = menuText as ExternalParam
-      }
-    })
 
     return isObject(props.menu) ? Object.assign({}, menu, props.menu) : menu
   })

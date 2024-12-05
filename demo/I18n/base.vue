@@ -6,7 +6,7 @@
   >
     Switch lang
   </el-button>
-  <el-config-provider :locale="toggle ? locale1 : locale2">
+  <el-config-provider :locale="toggle ? en : zhCN">
     <pro-search
       v-model="searchForm"
       :columns="searchColumns"
@@ -45,72 +45,11 @@ import {
   defineCrudBeforeOpen,
   defineSearchColumns,
 } from 'element-pro-components'
+import en from 'element-pro-components/lib/locale/en'
+import zhCN from 'element-pro-components/lib/locale/zh-cn'
 
 export default defineComponent({
   setup() {
-    const locale1 = {
-      name: 'en',
-      pro: {
-        form: {
-          submit: 'Submit',
-          reset: 'Reset',
-          prev: 'Prev',
-          next: 'Next',
-        },
-        search: {
-          submit: 'Search',
-          reset: 'Reset',
-          prev: 'Prev',
-          next: 'Next',
-        },
-        crud: {
-          add: 'Add',
-          edit: 'Edit',
-          detail: 'Detail',
-          del: 'Delete',
-          submit: 'Submit',
-          reset: 'Reset',
-          prev: 'Prev',
-          next: 'Next',
-          search: 'Search',
-          searchReset: 'Reset',
-          searchPrev: 'Prev',
-          searchNext: 'Next',
-        },
-      },
-    }
-    const locale2 = {
-      name: 'zh-cn',
-      pro: {
-        form: {
-          submit: '提交',
-          reset: '重置',
-          prev: '上一步',
-          next: '下一步',
-        },
-        search: {
-          submit: '搜索',
-          reset: '重置',
-          prev: '上一步',
-          next: '下一步',
-        },
-        crud: {
-          add: '新增',
-          edit: '编辑',
-          detail: '查看',
-          del: '删除',
-          submit: '提交',
-          reset: '重置',
-          prev: '上一步',
-          next: '下一步',
-          search: '搜索',
-          searchReset: '重置',
-          searchPrev: '上一步',
-          searchNext: '下一步',
-        },
-      },
-    }
-
     const form = ref({})
     const searchForm = ref({})
     const detail = ref({})
@@ -233,8 +172,8 @@ export default defineComponent({
       formColumns,
       searchColumns,
       toggle,
-      locale1,
-      locale2,
+      en,
+      zhCN,
       data,
       beforeOpen,
       submit,

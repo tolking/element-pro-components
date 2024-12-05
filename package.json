@@ -23,9 +23,10 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:lib && npm run build:helper && npm run build:styles && npm run build:types",
+    "build": "npm run build:lib && npm run build:locale && npm run build:helper && npm run build:styles && npm run build:types",
     "build:lib": "rimraf lib && vite build -c build/build-lib.ts",
-    "build:types": "rimraf types && vue-tsc --declaration --emitDeclarationOnly",
+    "build:locale": "rimraf lib/locale && vite build -c build/build-locale.ts",
+    "build:types": "rimraf types && vue-tsc --declaration --emitDeclarationOnly && esno build/sync-types.ts",
     "build:helper": "esno build/build-helper.ts",
     "build:styles": "rimraf lib/styles && esno build/build-styles.ts",
     "build:docs": "rimraf dist && npm run build:manifest && npm run build:ssr && esno build/prerender.ts",

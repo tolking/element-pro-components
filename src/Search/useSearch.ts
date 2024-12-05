@@ -1,6 +1,6 @@
 import { computed, useSlots } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
-import { useLocale } from 'element-plus'
+import { useLocale } from '../composables/index'
 import { useFormInjectEmits } from '../Form/useForm'
 import type { ComputedRef, Ref, Slot } from 'vue'
 import type {
@@ -14,12 +14,8 @@ import type { ISearchProps, ISearchEmits, ISearchConfigProp } from './type'
 
 export const searchMenu: IFormMenuColumns = {
   submit: true,
-  submitText: 'Search',
   submitProps: { type: 'primary' },
   reset: true,
-  resetText: 'Reset',
-  prevText: 'Prev',
-  nextText: 'Next',
 }
 
 export function useSearchMenu(
@@ -28,23 +24,12 @@ export function useSearchMenu(
   const { t } = useLocale()
 
   return computed(() => {
-    const menu = { ...searchMenu }
-    const submitText = t('pro.search.submit')
-    const resetText = t('pro.search.reset')
-    const prevText = t('pro.search.prev')
-    const nextText = t('pro.search.next')
-
-    if (submitText && submitText !== 'pro.search.submit') {
-      menu.submitText = submitText
-    }
-    if (resetText && resetText !== 'pro.search.reset') {
-      menu.resetText = resetText
-    }
-    if (prevText && prevText !== 'pro.search.prev') {
-      menu.prevText = prevText
-    }
-    if (nextText && nextText !== 'pro.search.next') {
-      menu.nextText = nextText
+    const menu = {
+      ...searchMenu,
+      searchMenu: t('pro.search.submit'),
+      resetText: t('pro.search.reset'),
+      prevText: t('pro.search.prev'),
+      nextText: t('pro.search.next'),
     }
 
     return props.menu ? Object.assign({}, menu, props.menu) : menu
