@@ -1,6 +1,6 @@
 <template>
   <pro-crud
-    v-model:search="serachForm"
+    v-model:search="searchForm"
     :columns="columns"
     :search-columns="searchColumns"
     :search-props="{ gutter: 40 }"
@@ -20,7 +20,7 @@ import {
 
 export default defineComponent({
   setup() {
-    const serachForm = ref({})
+    const searchForm = ref({})
     const columns = defineCrudColumns([
       {
         label: 'Date',
@@ -56,7 +56,7 @@ export default defineComponent({
 
     const search = defineCrudSearch((done, isValid, invalidFields) => {
       ElMessage(`search: ${isValid}`)
-      console.log('search', serachForm.value, isValid, invalidFields)
+      console.log('search', searchForm.value, isValid, invalidFields)
       setTimeout(() => {
         done()
       }, 1000)
@@ -68,7 +68,7 @@ export default defineComponent({
     }
 
     return {
-      serachForm,
+      searchForm,
       columns,
       searchColumns,
       search,

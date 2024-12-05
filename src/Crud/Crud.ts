@@ -20,7 +20,7 @@ import {
   dialogKeys,
   descriptionsKeys,
 } from './props'
-import { ProSearch } from '../Serach/index'
+import { ProSearch } from '../Search/index'
 import { ProForm } from '../Form/index'
 import { ProTable } from '../Table/index'
 import { ProDescriptions } from '../Descriptions/index'

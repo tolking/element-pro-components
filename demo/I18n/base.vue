@@ -8,8 +8,8 @@
   </el-button>
   <el-config-provider :locale="toggle ? locale1 : locale2">
     <pro-search
-      v-model="serachForm"
-      :columns="serachColumns"
+      v-model="searchForm"
+      :columns="searchColumns"
       label-width="100px"
       @submit="submit"
     />
@@ -22,7 +22,7 @@
     <div style="height: 40px" />
     <pro-crud
       v-model="form"
-      v-model:search="serachForm"
+      v-model:search="searchForm"
       :columns="columns"
       :form-columns="formColumns"
       :menu="{ label: 'Operations' }"
@@ -112,7 +112,7 @@ export default defineComponent({
     }
 
     const form = ref({})
-    const serachForm = ref({})
+    const searchForm = ref({})
     const detail = ref({})
     const toggle = ref(true)
 
@@ -154,7 +154,7 @@ export default defineComponent({
         ],
       },
     ])
-    const serachColumns = defineSearchColumns([
+    const searchColumns = defineSearchColumns([
       {
         label: 'Date',
         prop: 'date',
@@ -227,11 +227,11 @@ export default defineComponent({
 
     return {
       form,
-      serachForm,
+      searchForm,
       detail,
       columns,
       formColumns,
-      serachColumns,
+      searchColumns,
       toggle,
       locale1,
       locale2,

@@ -1,7 +1,7 @@
 <template>
   <pro-crud
     v-model="form"
-    v-model:search="serachForm"
+    v-model:search="searchForm"
     :columns="columns"
     :menu="menu"
     :data="data"
@@ -33,7 +33,7 @@ interface DataItem {
 }
 
 const form = ref({})
-const serachForm = ref({})
+const searchForm = ref({})
 const detail = ref({})
 const menu = defineCrudMenuColumns<DataItem>({
   label: 'Operations',
@@ -92,7 +92,7 @@ const beforeOpen = defineCrudBeforeOpen<DataItem>((done, type, row) => {
 
 const search = defineCrudSearch((done, isValid, invalidFields) => {
   ElMessage(`search: ${isValid}`)
-  console.log('search', serachForm.value, isValid, invalidFields)
+  console.log('search', searchForm.value, isValid, invalidFields)
   setTimeout(() => {
     done()
   }, 1000)
