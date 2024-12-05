@@ -11,7 +11,7 @@ meta:
 
 ## 准备
 
-在开始前你可能需要 vue3 版本脚手架工具，同时需要提前安装 [element-plus](https://element-plus.org/)
+在开始前你可能需要 vue3 版本脚手架工具，同时需要提前安装 [vue](https://vuejs.org/) [vue-router](https://router.vuejs.org/) [element-plus](https://element-plus.org/)
 
 - [vite](https://vitejs.dev/)
 - [vue-cli](https://cli.vuejs.org/zh/)
