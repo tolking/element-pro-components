@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useLocale } from 'element-plus'
+import { useLocale } from 'element-pro-components'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 
 const { t } = useLocale()

@@ -1,6 +1,5 @@
 import { computed, shallowRef, provide, inject } from 'vue'
-import { useLocale } from 'element-plus'
-import { useShow } from '../composables/index'
+import { useShow, useLocale } from '../composables/index'
 import { isBoolean } from '../utils/index'
 import type { ComputedRef, Ref, InjectionKey, Slot } from 'vue'
 import type { CollapseModelValue, TabPaneName } from 'element-plus'
@@ -25,12 +24,8 @@ import type {
 
 export const formMenu: IFormMenuColumns = {
   submit: true,
-  submitText: 'Submit',
   submitProps: { type: 'primary' },
   reset: true,
-  resetText: 'Reset',
-  prevText: 'Prev',
-  nextText: 'Next',
 }
 
 export function useFormMenu(
@@ -39,23 +34,12 @@ export function useFormMenu(
   const { t } = useLocale()
 
   return computed(() => {
-    const menu = { ...formMenu }
-    const submitText = t('pro.form.submit')
-    const resetText = t('pro.form.reset')
-    const prevText = t('pro.form.prev')
-    const nextText = t('pro.form.next')
-
-    if (submitText && submitText !== 'pro.form.submit') {
-      menu.submitText = submitText
-    }
-    if (resetText && resetText !== 'pro.form.reset') {
-      menu.resetText = resetText
-    }
-    if (prevText && prevText !== 'pro.form.prev') {
-      menu.prevText = prevText
-    }
-    if (nextText && nextText !== 'pro.form.next') {
-      menu.nextText = nextText
+    const menu = {
+      ...formMenu,
+      submitText: t('pro.form.submit'),
+      resetText: t('pro.form.reset'),
+      prevText: t('pro.form.prev'),
+      nextText: t('pro.form.next'),
     }
 
     return props.menu ? Object.assign({}, menu, props.menu) : menu
