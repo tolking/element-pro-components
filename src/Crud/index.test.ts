@@ -676,7 +676,7 @@ describe('Crud', () => {
     const btns = wrapper.findAll('.pro-crud .crud-menu .el-button')
     expect(btns).toHaveLength(3 * tableData.length)
     expect(btns[0].text()).toBe('Edit')
-    expect(btns[1].text()).toBe('View')
+    expect(btns[1].text()).toBe('Detail')
     expect(btns[2].text()).toBe('Delete')
     expect(wrapper.find('.pro-crud .crud-table').text()).toBe('Tom')
 
