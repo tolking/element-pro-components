@@ -1,23 +1,9 @@
 <template>
-  <pro-layout
-    :routes="routes"
-    transition="el-fade-in"
-  >
+  <pro-layout :routes="routes" transition="el-fade-in">
     <template #logo="{ collapse }">
-      <transition
-        name="el-zoom-in-top"
-        mode="out-in"
-      >
-        <img
-          v-if="collapse"
-          src="/logo.svg"
-          alt="logo"
-          class="logo-img"
-        >
-        <span
-          v-else
-          class="logo-title"
-        > element-pro-components </span>
+      <transition name="el-zoom-in-top" mode="out-in">
+        <img v-if="collapse" src="/logo.svg" alt="logo" class="logo-img" />
+        <span v-else class="logo-title"> element-pro-components </span>
       </transition>
     </template>
     <template #header-left>
@@ -27,11 +13,7 @@
       <nav-header />
     </template>
     <template #header-bottom>
-      <pro-tabs
-        ref="tabs"
-        contextmenu
-        refresh-path="/dev/refresh"
-      />
+      <pro-tabs ref="tabs" contextmenu refresh-path="/dev/refresh" />
     </template>
   </pro-layout>
   <pwa-popup />

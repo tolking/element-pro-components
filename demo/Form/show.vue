@@ -54,7 +54,7 @@ export default defineComponent({
             getContentColumn(form.value.plan === 'pro'),
           ],
         },
-      ])
+      ]),
     )
     const submit = defineFormSubmit((done, isValid, invalidFields) => {
       ElMessage(`submit: ${isValid}`)

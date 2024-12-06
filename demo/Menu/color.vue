@@ -9,11 +9,7 @@
     :data="list"
     style="margin-bottom: 16px"
   />
-  <pro-menu
-    :mode="mode"
-    :collapse="collapse"
-    class="docs-menu"
-  />
+  <pro-menu :mode="mode" :collapse="collapse" class="docs-menu" />
 </template>
 
 <script>

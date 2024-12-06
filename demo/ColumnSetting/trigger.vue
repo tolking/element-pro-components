@@ -11,10 +11,7 @@
     @delete="deleteRow"
   >
     <template #action>
-      <pro-column-setting
-        v-model="tableColumns"
-        trigger="click"
-      />
+      <pro-column-setting v-model="tableColumns" trigger="click" />
     </template>
   </pro-crud>
 </template>

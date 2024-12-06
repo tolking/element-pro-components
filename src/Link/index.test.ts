@@ -22,7 +22,7 @@ describe('Link', () => {
         return { to }
       },
     })
-    const vm = (wrapper.vm as unknown) as { to: string }
+    const vm = wrapper.vm as unknown as { to: string }
 
     expect(wrapper.find('span').exists()).toBe(true)
     expect(wrapper.find('.pro-link').text()).toBe('link')

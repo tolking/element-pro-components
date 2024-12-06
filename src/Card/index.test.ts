@@ -29,10 +29,10 @@ describe('Card', () => {
 
     expect(wrapper.find('.pro-card .pro-card__body').text()).toBe('default')
     expect(wrapper.find('.pro-card .pro-card__body').classes()).not.toContain(
-      'el-row'
+      'el-row',
     )
     expect(wrapper.find('.pro-card .pro-card__body').classes()).not.toContain(
-      'is-direction-row'
+      'is-direction-row',
     )
   })
 
@@ -62,7 +62,7 @@ describe('Card', () => {
     })
 
     expect(wrapper.find('.pro-card .pro-card__body').attributes('style')).toBe(
-      'width: 100px;'
+      'width: 100px;',
     )
   })
 
@@ -74,7 +74,7 @@ describe('Card', () => {
         return { shadow }
       },
     })
-    const vm = (wrapper.vm as unknown) as { shadow: string }
+    const vm = wrapper.vm as unknown as { shadow: string }
 
     expect(wrapper.find('.pro-card').classes()).toContain('is-always-shadow')
 
@@ -104,7 +104,7 @@ describe('Card', () => {
     })
 
     expect(
-      wrapper.find('.pro-card.nested .pro-card__body').classes()
+      wrapper.find('.pro-card.nested .pro-card__body').classes(),
     ).toContain('el-row')
   })
 
@@ -119,15 +119,17 @@ describe('Card', () => {
     })
 
     expect(
-      wrapper.find('.pro-card.nested .pro-card__body .el-col').classes()
+      wrapper.find('.pro-card.nested .pro-card__body .el-col').classes(),
     ).toContain('el-col-10')
     expect(
       wrapper
         .find('.pro-card.nested .pro-card__body .el-col')
-        .attributes('style')
+        .attributes('style'),
     ).toBe('padding-left: 20px; padding-right: 20px;')
     expect(
-      wrapper.find('.pro-card.nested .pro-card__body .card').attributes('style')
+      wrapper
+        .find('.pro-card.nested .pro-card__body .card')
+        .attributes('style'),
     ).toBe('margin-left: 20px; margin-right: 20px;')
   })
 
@@ -144,18 +146,18 @@ describe('Card', () => {
         return { direction }
       },
     })
-    const vm = (wrapper.vm as unknown) as { direction: string }
+    const vm = wrapper.vm as unknown as { direction: string }
 
     expect(wrapper.find('.pro-card .pro-card__body').classes()).toContain(
-      'el-row'
+      'el-row',
     )
     expect(wrapper.find('.pro-card .pro-card__body').classes()).toContain(
-      'is-direction-row'
+      'is-direction-row',
     )
 
     await (vm.direction = 'column')
     expect(wrapper.find('.pro-card .pro-card__body').classes()).toContain(
-      'is-direction-column'
+      'is-direction-column',
     )
   })
 
@@ -172,7 +174,7 @@ describe('Card', () => {
         return { split }
       },
     })
-    const vm = (wrapper.vm as unknown) as { split: boolean }
+    const vm = wrapper.vm as unknown as { split: boolean }
 
     expect(wrapper.find('.pro-card').classes()).not.toContain('is-split')
 

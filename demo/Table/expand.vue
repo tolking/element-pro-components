@@ -1,8 +1,5 @@
 <template>
-  <pro-table
-    :data="data"
-    :columns="columns"
-  >
+  <pro-table :data="data" :columns="columns">
     <template #expand="{ row }">
       {{ row }}
     </template>

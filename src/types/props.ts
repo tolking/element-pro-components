@@ -45,10 +45,10 @@ export type ExtractComponentProps<T extends ColumnComponent> =
   T extends ComponentInstance
     ? ExtractProps<T>
     : T extends keyof GlobalComponents
-    ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      ExtractProps<GlobalComponents[T]>
-    : UnknownObject
+      ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        ExtractProps<GlobalComponents[T]>
+      : UnknownObject
 
 /**
  * Type helper to make it easier to define props of component
@@ -78,7 +78,7 @@ export type ExtractComponentProps<T extends ColumnComponent> =
  * ```
  */
 export function defineComponentProps<T extends ColumnComponent>(
-  props: ExtractComponentProps<T> & { slots?: ColumnPropsSlots }
+  props: ExtractComponentProps<T> & { slots?: ColumnPropsSlots },
 ): ExtractComponentProps<T> & { slots?: ColumnPropsSlots } {
   return props
 }

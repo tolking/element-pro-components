@@ -48,7 +48,7 @@ describe('TreeSelect', () => {
     const disableList = getDisableList(wrapper)
 
     expect(
-      wrapper.find('.pro-tree-select-tree .el-tree-node').exists()
+      wrapper.find('.pro-tree-select-tree .el-tree-node').exists(),
     ).toBeTruthy()
     expect(list).toContain('1')
     expect(list).toContain('1-1')
@@ -81,10 +81,10 @@ describe('TreeSelect', () => {
 
     const list = getMultipleDisableList(wrapper)
     expect(
-      wrapper.find('.pro-tree-select-tree .el-tree-node').exists()
+      wrapper.find('.pro-tree-select-tree .el-tree-node').exists(),
     ).toBeTruthy()
     expect(
-      wrapper.find('.pro-tree-select-tree .el-tree-node .el-checkbox').exists()
+      wrapper.find('.pro-tree-select-tree .el-tree-node .el-checkbox').exists(),
     ).toBeTruthy()
     expect(list).toContain('1')
     expect(list).toContain('1-1')

@@ -129,7 +129,7 @@ export type ITableEmits = IDefineEmits<typeof tableEmits>
  * @param columns the columns of Table
  */
 export function defineTableColumns<T = ExternalParam>(
-  columns: ITableColumns<T>
+  columns: ITableColumns<T>,
 ): ITableColumns<T> {
   return columns
 }
@@ -139,7 +139,7 @@ export function defineTableColumns<T = ExternalParam>(
  * @param columns the columns of Menu
  */
 export function defineTableMenuColumns(
-  columns: ITableMenuColumns
+  columns: ITableMenuColumns,
 ): ITableMenuColumns {
   return columns
 }
@@ -149,7 +149,7 @@ export function defineTableMenuColumns(
  * @param columns the columns of Selection
  */
 export function defineTableSelectionColumns<T = ExternalParam>(
-  columns: ITableSelectionColumns<T>
+  columns: ITableSelectionColumns<T>,
 ): ITableSelectionColumns<T> {
   return columns
 }
@@ -159,7 +159,7 @@ export function defineTableSelectionColumns<T = ExternalParam>(
  * @param columns the columns of Index
  */
 export function defineTableIndexColumns(
-  columns: ITableIndexColumns
+  columns: ITableIndexColumns,
 ): ITableIndexColumns {
   return columns
 }
@@ -169,7 +169,7 @@ export function defineTableIndexColumns(
  * @param columns the columns of Expand
  */
 export function defineTableExpandColumns<T = ExternalParam>(
-  columns: ITableExpandColumns<T>
+  columns: ITableExpandColumns<T>,
 ): ITableExpandColumns<T> {
   return columns
 }

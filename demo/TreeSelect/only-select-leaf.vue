@@ -1,10 +1,5 @@
 <template>
-  <pro-tree-select
-    v-model="select"
-    :data="data"
-    multiple
-    only-select-leaf
-  />
+  <pro-tree-select v-model="select" :data="data" multiple only-select-leaf />
 </template>
 
 <script>

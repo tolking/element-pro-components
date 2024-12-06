@@ -1,9 +1,5 @@
 <template>
-  <pro-tree-select
-    v-model="select"
-    :data="data"
-    clearable
-  />
+  <pro-tree-select v-model="select" :data="data" clearable />
 </template>
 
 <script>

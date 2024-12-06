@@ -3,14 +3,8 @@
     <div class="source">
       <slot name="source" />
     </div>
-    <div
-      ref="meta"
-      class="meta"
-    >
-      <div
-        v-if="$slots.description"
-        class="description"
-      >
+    <div ref="meta" class="meta">
+      <div v-if="$slots.description" class="description">
         <slot name="description" />
       </div>
       <div class="language-html">
@@ -22,21 +16,12 @@
       class="control"
       @click="toggleShow"
     >
-      <caret-top
-        v-if="show"
-        class="control-icon"
-      />
-      <caret-bottom
-        v-else
-        class="control-icon"
-      />
+      <caret-top v-if="show" class="control-icon" />
+      <caret-bottom v-else class="control-icon" />
       <span class="control-text">
         {{ show ? t('docs.code.hide') : t('docs.code.show') }}
       </span>
-      <div
-        class="control-btn"
-        @click.stop
-      >
+      <div class="control-btn" @click.stop>
         <el-tooltip
           :content="t('docs.code.edit')"
           :trigger="['hover', 'focus']"
@@ -54,10 +39,7 @@
           :trigger="['hover', 'focus']"
           :trigger-keys="[]"
         >
-          <pro-link
-            :to="link"
-            class="btn-icon"
-          >
+          <pro-link :to="link" class="btn-icon">
             <svg viewBox="0 0 24 24">
               <path
                 fill="currentColor"

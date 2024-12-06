@@ -30,7 +30,7 @@ const getList = () => {
     .querySelectorAll('.pro-column-setting-tree .el-tree-node')
     .forEach((item) => {
       const value = item.querySelector(
-        '.el-tree-node__content .el-tree-node__label'
+        '.el-tree-node__content .el-tree-node__label',
       )?.innerHTML
       value && list.push(value)
     })

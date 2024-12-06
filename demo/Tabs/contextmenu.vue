@@ -1,9 +1,5 @@
 <template>
-  <pro-tabs
-    ref="childTabs"
-    contextmenu
-    refresh-path="/dev/refresh"
-  />
+  <pro-tabs ref="childTabs" contextmenu refresh-path="/dev/refresh" />
 </template>
 
 <script>

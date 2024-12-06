@@ -27,14 +27,14 @@ export default defineComponent({
           mergeProps(getGroupFormItemBind(item), attrs, {
             class: ['pro-group-form-title', !form?.props.inline && 'el-col-24'],
           }),
-          createLabel(item)
+          createLabel(item),
         ),
         h(
           ProFormList,
           mergeProps(props, {
             columns: item.children,
             'onUpdate:modelValue': update,
-          })
+          }),
         ),
       ]
     }

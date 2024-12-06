@@ -12,10 +12,7 @@
       <span>name</span>
     </template>
     <template #search-slot="{ value, setValue }">
-      <el-input
-        :value="value"
-        @change="setValue"
-      >
+      <el-input :value="value" @change="setValue">
         <template #prefix>
           <el-icon>
             <element-plus />

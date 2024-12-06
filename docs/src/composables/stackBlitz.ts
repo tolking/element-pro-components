@@ -45,7 +45,7 @@ import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
 import ElementPro from 'element-pro-components'
 import Demo from './Demo.vue'
-${needRouter ? 'import router from \'./router\'' : ''}
+${needRouter ? "import router from './router'" : ''}
 import 'element-plus/dist/index.css'
 import 'element-pro-components/lib/styles/index'
 
@@ -102,7 +102,7 @@ export default defineComponent({
 `
 
 export function useStackBlitz(
-  props: Readonly<{ link: string; content: string }>
+  props: Readonly<{ link: string; content: string }>,
 ) {
   const { link, content } = toRefs(props)
   const name = reactiveComputed(() => {
@@ -114,6 +114,7 @@ export function useStackBlitz(
         demoName: result[2],
       }
     } else {
+      // eslint-disable-next-line no-console
       console.error(`The demo file path is invalid: ${link.value}.
       The correct path should be: @/demo/'componentName'/'demoName'.vue`)
       return {
@@ -124,7 +125,7 @@ export function useStackBlitz(
   })
   const needRouter = computed(() => {
     return ['Layout', 'Menu', 'FilterRoutes', 'Breadcrumb', 'Tabs'].includes(
-      name.componentName
+      name.componentName,
     )
   })
 

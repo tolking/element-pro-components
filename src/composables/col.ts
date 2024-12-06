@@ -11,7 +11,7 @@ interface ColSizeObject {
 }
 
 export function useCol(
-  props: Readonly<IColProps> | IColProps | Ref<IColProps>
+  props: Readonly<IColProps> | IColProps | Ref<IColProps>,
 ): {
   colStyle: ComputedRef<{
     paddingLeft?: string
@@ -68,7 +68,7 @@ export function useCol(
           ret.push(
             _prop !== 'span'
               ? `el-col-${size}-${_prop}-${sizeProps[_prop]}`
-              : `el-col-${size}-${sizeProps[_prop]}`
+              : `el-col-${size}-${sizeProps[_prop]}`,
           )
         })
       }

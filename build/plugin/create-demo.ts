@@ -1,15 +1,18 @@
 import { existsSync, readFileSync } from 'node:fs'
-import markdown from 'markdown-it'
 import { camelize } from '../utils'
 import highlight from './highlight'
-import type Token from 'markdown-it/lib/token'
+import type MarkdownItContainer from 'markdown-it-container'
+import type MarkdownIt from 'markdown-it'
 
 let scripts: string[] = []
 let count = 0
 let isFirst = true
 
-export default {
-  render: (tokens: Token[], idx: number): string => {
+export default function createDemoContainer(md: MarkdownIt) {
+  const render: MarkdownItContainer.ContainerOpts['render'] = (
+    tokens,
+    idx: number,
+  ) => {
     const { nesting, info = '' } = tokens[idx]
 
     if (nesting === 1) {
@@ -23,7 +26,7 @@ export default {
 
       const matchedInfo = info.trim().match(/^demo\s+(.*)$/)
       const description = matchedInfo && matchedInfo[1]
-      const descTemplate = markdown().render(description || '')
+      const descTemplate = md.render(description || '')
       const link = tokens[idx + 2].content.trim()
       const componentName = link.replace(/^@\/demo\/(.*).vue/, (_, $1) => {
         return $1.replace(/\//g, '-').toLocaleLowerCase()
@@ -60,5 +63,12 @@ export default {
         return '</pro-code>'
       }
     }
-  },
+  }
+
+  return {
+    validate(params) {
+      return !!params.trim().match(/^demo\s*(.*)$/)
+    },
+    render,
+  }
 }

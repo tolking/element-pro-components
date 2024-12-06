@@ -23,7 +23,7 @@ export default defineComponent({
         return h(
           'div',
           { class: 'pro-card__header' },
-          slots.header ? slots.header() : props.header
+          slots.header ? slots.header() : props.header,
         )
       } else {
         return undefined
@@ -44,9 +44,9 @@ export default defineComponent({
                 `is-direction-${props.direction}`,
             ],
             style: isNestedCard.value && rowStyle.value,
-          }
+          },
         ),
-        defaultSlot.value
+        defaultSlot.value,
       )
     }
 
@@ -66,7 +66,7 @@ export default defineComponent({
               marginRight: `${gutter.value / 2}px`,
             },
         },
-        [createHeader(), createBody()]
+        [createHeader(), createBody()],
       )
     }
 
@@ -78,7 +78,7 @@ export default defineComponent({
             class: colClass.value,
             style: colStyle.value,
           },
-          createDefault()
+          createDefault(),
         )
       } else {
         return createDefault()

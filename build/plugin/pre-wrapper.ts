@@ -1,8 +1,8 @@
 // copy from [vitepress](https://github.com/vuejs/vitepress)
+// MIT License Copyright (c) 2019-present, Yuxi (Evan) You
 import MarkdownIt from 'markdown-it'
 
 export default (md: MarkdownIt): void => {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const fence = md.renderer.rules.fence!
   md.renderer.rules.fence = (...args) => {
     const [tokens, idx] = args

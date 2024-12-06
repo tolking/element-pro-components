@@ -1,6 +1,3 @@
 <template>
-  <pro-layout
-    transition="el-fade-in"
-    class="docs-layout"
-  />
+  <pro-layout transition="el-fade-in" class="docs-layout" />
 </template>

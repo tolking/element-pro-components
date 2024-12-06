@@ -1,8 +1,5 @@
 <template>
-  <pro-checkbox
-    v-model="checkbox"
-    :data="data"
-  />
+  <pro-checkbox v-model="checkbox" :data="data" />
 </template>
 
 <script>

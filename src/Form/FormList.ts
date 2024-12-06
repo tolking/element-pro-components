@@ -47,7 +47,7 @@ export default defineComponent({
             prefix: props.prefix,
             indexes: props.indexes,
             'onUpdate:modelValue': update,
-          })
+          }),
         )
         cacheType = undefined
         left = right
@@ -80,7 +80,7 @@ export default defineComponent({
               indexes: props.indexes,
               prefix,
               'onUpdate:modelValue': update,
-            })
+            }),
           )
 
           left++

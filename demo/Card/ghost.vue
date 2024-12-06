@@ -1,8 +1,6 @@
 <template>
   <el-switch v-model="ghost" />
-  <pro-card :ghost="ghost">
-    Content
-  </pro-card>
+  <pro-card :ghost="ghost"> Content </pro-card>
 </template>
 
 <script>

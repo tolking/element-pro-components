@@ -3,10 +3,7 @@
     v-model="columns"
     style="float: right; margin-bottom: 10px"
   />
-  <pro-table
-    :data="data"
-    :columns="columns"
-  />
+  <pro-table :data="data" :columns="columns" />
 </template>
 
 <script>

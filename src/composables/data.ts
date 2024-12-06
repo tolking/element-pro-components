@@ -23,7 +23,7 @@ export function useDataConfig(): {
   const componentConfig = useProp<Readonly<SelectConfig>>('config')
 
   const config = computed(() =>
-    Object.assign(defaultConfig, componentConfig.value)
+    Object.assign(defaultConfig, componentConfig.value),
   )
 
   const getLabel = (item: SelectDataItem) => get(item, config.value.label)

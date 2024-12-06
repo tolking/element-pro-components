@@ -3,12 +3,7 @@
     <span class="el-form-item__label">Use outside the ProForm</span>
     <my-input v-model:value="form.value" />
   </div>
-  <pro-form
-    v-model="form"
-    :columns="columns"
-    inline
-    @submit="submit"
-  />
+  <pro-form v-model="form" :columns="columns" inline @submit="submit" />
 </template>
 
 <script>

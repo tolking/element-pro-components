@@ -56,7 +56,7 @@ export default defineComponent({
           return h(
             ElMenuItem,
             { index: item.children?.[0].path || item.path },
-            () => createDefault(item)
+            () => createDefault(item),
           )
         } else if (showItem) {
           return h(
@@ -66,7 +66,7 @@ export default defineComponent({
               title: () =>
                 createDefault({ meta: item?.meta } as RouteRecordRaw),
               default: () => createList(item?.children),
-            }
+            },
           )
         } else {
           return undefined
@@ -81,7 +81,7 @@ export default defineComponent({
           defaultActive: route?.path,
           class: 'pro-menu',
         }),
-        () => createList(routes.value)
+        () => createList(routes.value),
       )
   },
 })

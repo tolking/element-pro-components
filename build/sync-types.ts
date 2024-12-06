@@ -6,7 +6,7 @@ function transform(input: string) {
   copyFileRecursive(input, outDir)
 }
 
-(() => {
+;(() => {
   fg.sync([
     toAbsolute('../types/locale/*'),
     toAbsolute('../types/styles/*'),

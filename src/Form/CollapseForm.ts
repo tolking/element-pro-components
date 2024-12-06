@@ -38,9 +38,9 @@ export default defineComponent({
                 mergeProps(props, {
                   columns: item.children,
                   'onUpdate:modelValue': update,
-                })
+                }),
               ),
-          }
+          },
         )
       })
     }
@@ -54,7 +54,7 @@ export default defineComponent({
           onChange: form?.collapseChange,
           'onUpdate:modelValue': (value) => (active.value = value),
         },
-        () => createDefault()
+        () => createDefault(),
       )
   },
 })

@@ -1,8 +1,5 @@
 <template>
-  <pro-tree-select
-    v-model="select"
-    :data="data"
-  >
+  <pro-tree-select v-model="select" :data="data">
     <template #default="{ node, item, multiple }">
       <p
         :class="node.disabled && !multiple ? 'is-disabled' : ''"

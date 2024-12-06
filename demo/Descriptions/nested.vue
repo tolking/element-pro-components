@@ -1,9 +1,5 @@
 <template>
-  <pro-descriptions
-    :columns="columns"
-    :detail="detail"
-    :column="1"
-  />
+  <pro-descriptions :columns="columns" :detail="detail" :column="1" />
 </template>
 
 <script>

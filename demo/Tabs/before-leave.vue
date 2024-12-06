@@ -1,8 +1,5 @@
 <template>
-  <pro-tabs
-    ref="childTabs"
-    :before-leave="beforeLeave"
-  />
+  <pro-tabs ref="childTabs" :before-leave="beforeLeave" />
 </template>
 
 <script>

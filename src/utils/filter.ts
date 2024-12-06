@@ -12,7 +12,7 @@ export function filterDeep<T extends Array<ExternalParam>>(
   list: T,
   key: string,
   value = true,
-  reItem?: (item: T[number]) => T[number]
+  reItem?: (item: T[number]) => T[number],
 ): T {
   const _list = [] as unknown as T
 
@@ -40,27 +40,30 @@ export function filterDeep<T extends Array<ExternalParam>>(
  */
 export function filterFlat<
   T extends Array<ExternalParam>,
-  Q extends unknown[] = T
+  Q extends unknown[] = T,
 >(
   list: T,
   key: string,
   value = true,
-  reItem?: (item: T[number]) => Q[number]
+  reItem?: (item: T[number]) => Q[number],
 ): Q {
   if (!isArray(list)) return [] as unknown as Q
 
-  return list.reduce((all, item) => {
-    const _item = { ...item }
-    const checkValue = get(_item, key)
-    let _list = [] as unknown as Q
+  return list.reduce(
+    (all, item) => {
+      const _item = { ...item }
+      const checkValue = get(_item, key)
+      let _list = [] as unknown as Q
 
-    if (_item.children && _item.children.length) {
-      _list = filterFlat(_item.children, key, value, reItem)
-      _item.children = undefined
-    }
-    if (!!checkValue === value) {
-      _list.unshift(isFunction(reItem) ? reItem(_item) : _item)
-    }
-    return [...all, ..._list] as Q
-  }, [] as unknown as Q)
+      if (_item.children && _item.children.length) {
+        _list = filterFlat(_item.children, key, value, reItem)
+        _item.children = undefined
+      }
+      if (!!checkValue === value) {
+        _list.unshift(isFunction(reItem) ? reItem(_item) : _item)
+      }
+      return [...all, ..._list] as Q
+    },
+    [] as unknown as Q,
+  )
 }

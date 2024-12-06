@@ -21,7 +21,7 @@ interface ITreeStore extends TreeStore {
 
 export function useTreeSelect(
   props: ITreeSelectProps,
-  emit: ITreeSelectEmits
+  emit: ITreeSelectEmits,
 ): {
   tree: Ref<ITreeStore>
   expandedKeys?: ComputedRef<(string | number)[] | undefined>
@@ -52,7 +52,7 @@ export function useTreeSelect(
   }
 
   onMounted(() => {
-    (props.multiple
+    ;(props.multiple
       ? (props.modelValue as Array<string | number>)?.length
       : props.modelValue) && setDefaultValue()
   })

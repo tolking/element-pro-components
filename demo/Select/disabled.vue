@@ -1,8 +1,5 @@
 <template>
-  <pro-select
-    v-model="select"
-    :data="list"
-  />
+  <pro-select v-model="select" :data="list" />
 </template>
 
 <script>

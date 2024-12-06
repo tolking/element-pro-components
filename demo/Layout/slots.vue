@@ -1,13 +1,6 @@
 <template>
-  <pro-radio-button
-    v-model="mode"
-    :data="data"
-    style="margin-bottom: 16px"
-  />
-  <pro-layout
-    :mode="mode"
-    class="docs-layout"
-  >
+  <pro-radio-button v-model="mode" :data="data" style="margin-bottom: 16px" />
+  <pro-layout :mode="mode" class="docs-layout">
     <template #logo="{ collapse }">
       <span style="line-height: 54px">
         {{ collapse ? 'L' : 'logo' }}
@@ -17,10 +10,7 @@
       <p>footer</p>
     </template>
     <template #collapse-button="{ collapse, toggleShow }">
-      <el-icon
-        :size="30"
-        @click="toggleShow"
-      >
+      <el-icon :size="30" @click="toggleShow">
         <Expand v-if="collapse" />
         <Fold v-else />
       </el-icon>

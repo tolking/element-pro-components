@@ -11,7 +11,7 @@ export default defineComponent({
     return createDefault<typeof ElRadioButton>(
       props,
       ElRadioButton,
-      'pro-radio-button'
+      'pro-radio-button',
     )
   },
 })

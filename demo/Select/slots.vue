@@ -1,9 +1,5 @@
 <template>
-  <pro-select
-    v-model="select"
-    :data="data"
-    :config="config"
-  >
+  <pro-select v-model="select" :data="data" :config="config">
     <template #default="{ item }">
       <span>{{ item.label }}</span>
       <span style="float: right">{{ item.value }}</span>

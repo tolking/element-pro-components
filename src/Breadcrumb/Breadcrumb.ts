@@ -13,9 +13,9 @@ export default defineComponent({
       h(ElBreadcrumb, mergeProps(props, { class: 'pro-breadcrumb' }), () =>
         route.matched.map((item) =>
           h(ElBreadcrumbItem, null, () =>
-            h(ProLink, { to: item.path }, () => item.meta?.title)
-          )
-        )
+            h(ProLink, { to: item.path }, () => item.meta?.title),
+          ),
+        ),
       )
   },
 })

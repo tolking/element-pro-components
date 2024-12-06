@@ -1,17 +1,7 @@
 <template>
-  <pro-table
-    :data="data"
-    :columns="columns"
-    :menu="menu"
-  >
+  <pro-table :data="data" :columns="columns" :menu="menu">
     <template #menu="{ size }">
-      <el-button
-        :size="size"
-        type="primary"
-        link
-      >
-        Detail
-      </el-button>
+      <el-button :size="size" type="primary" link> Detail </el-button>
     </template>
   </pro-table>
 </template>

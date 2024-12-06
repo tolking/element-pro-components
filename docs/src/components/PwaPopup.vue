@@ -1,25 +1,13 @@
 <template>
   <transition name="pwa-update-popup">
-    <el-card
-      v-if="needRefresh"
-      shadow="always"
-      class="pwa-popup"
-      role="alert"
-    >
+    <el-card v-if="needRefresh" shadow="always" class="pwa-popup" role="alert">
       <p class="pwa-popup-text">
         {{ t('docs.pwa.message') }}
       </p>
-      <el-button
-        type="primary"
-        plain
-        @click="updateServiceWorker()"
-      >
+      <el-button type="primary" plain @click="updateServiceWorker()">
         {{ t('docs.pwa.refresh') }}
       </el-button>
-      <el-button
-        plain
-        @click="needRefresh = false"
-      >
+      <el-button plain @click="needRefresh = false">
         {{ t('docs.pwa.close') }}
       </el-button>
     </el-card>

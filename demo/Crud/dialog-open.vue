@@ -9,32 +9,18 @@
     label-width="100px"
   >
     <template #menu-right="{ size }">
-      <el-button
-        :size="size"
-        @click="crudRef.openDialog('add')"
-      >
+      <el-button :size="size" @click="crudRef.openDialog('add')">
         open
       </el-button>
-      <el-button
-        :size="size"
-        @click="crudRef.openDialog('edit', data[0])"
-      >
+      <el-button :size="size" @click="crudRef.openDialog('edit', data[0])">
         edit
       </el-button>
-      <el-button
-        :size="size"
-        @click="crudRef.openDialog('detail', data[0])"
-      >
+      <el-button :size="size" @click="crudRef.openDialog('detail', data[0])">
         detail
       </el-button>
     </template>
     <template #form-menu-right="{ size }">
-      <el-button
-        :size="size"
-        @click="crudRef.closeDialog()"
-      >
-        close
-      </el-button>
+      <el-button :size="size" @click="crudRef.closeDialog()"> close </el-button>
     </template>
   </pro-crud>
 </template>

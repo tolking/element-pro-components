@@ -33,8 +33,8 @@ export default defineComponent({
               prefix,
               'onUpdate:modelValue': (value: UnknownObject) =>
                 update(value, index),
-            })
-          )
+            }),
+          ),
         ),
         h(ElButton, {
           icon: markRaw(Minus),
@@ -60,7 +60,7 @@ export default defineComponent({
             circle: true,
             class: 'form-btn-add',
             onClick: () => add(props.indexes || []),
-          })
+          }),
         )
 
       return list

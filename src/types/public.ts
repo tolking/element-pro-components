@@ -29,10 +29,10 @@ export type ObjectValueType<T> = T[keyof T]
 export type FilterObject<T> = T extends object[]
   ? T[number]
   : T extends unknown[]
-  ? never
-  : T extends object
-  ? T
-  : never
+    ? never
+    : T extends object
+      ? T
+      : never
 
 type NestedPath<T extends 'array' | 'object', P, C = undefined> = `${P &
   string}${T extends 'array' ? `[${number}]` : ''}${C extends string
@@ -42,10 +42,10 @@ type NestedPath<T extends 'array' | 'object', P, C = undefined> = `${P &
 type DeepNested<K extends string, V> = V extends object[]
   ? NestedPath<'array', K, DeepPath<V[number]> | undefined>
   : V extends unknown[]
-  ? NestedPath<'array', K>
-  : V extends object
-  ? NestedPath<'object', K, DeepPath<V>>
-  : never
+    ? NestedPath<'array', K>
+    : V extends object
+      ? NestedPath<'object', K, DeepPath<V>>
+      : never
 
 /**
  * Get the deep key path of the object
@@ -70,15 +70,17 @@ export type DeepPath<T extends object> = {
   [Q in keyof T]-?: Q | DeepNested<Q & string, NonNullable<T[Q]>>
 }[keyof T]
 
-export type ColumnProp<T> = IsAny<T> extends true
-  ? string
-  : FilterObject<T> extends never
-  ? string
-  : DeepPath<FilterObject<T>>
+export type ColumnProp<T> =
+  IsAny<T> extends true
+    ? string
+    : FilterObject<T> extends never
+      ? string
+      : DeepPath<FilterObject<T>>
 
-export type FormColumnChildren<T> = IsAny<T> extends true
-  ? T
-  : UnionToIntersection<FilterObject<ObjectValueType<FilterObject<T>>>>
+export type FormColumnChildren<T> =
+  IsAny<T> extends true
+    ? T
+    : UnionToIntersection<FilterObject<ObjectValueType<FilterObject<T>>>>
 
 export type IScreenSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 

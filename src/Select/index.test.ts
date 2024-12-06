@@ -20,7 +20,7 @@ describe('Select', () => {
     document.body.innerHTML = ''
   })
 
-  test.concurrent('test modelValue', async () => {
+  test('test modelValue', async () => {
     const wrapper = mount({
       template: `
         <pro-select
@@ -60,7 +60,7 @@ describe('Select', () => {
     expect(getInputValue(wrapper)).toBe('dart')
   })
 
-  test.concurrent('change data', async () => {
+  test('change data', async () => {
     const wrapper = mount({
       template: `
         <pro-select
@@ -87,7 +87,7 @@ describe('Select', () => {
     expect(wrapper.vm.value).toBe('Vue')
   })
 
-  test.concurrent('config', async () => {
+  test('config', async () => {
     const wrapper = mount({
       template: '<pro-select v-model="value" :data="data" :config="config" />',
       setup() {

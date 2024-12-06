@@ -38,7 +38,7 @@ export default defineComponent({
           prop: 'switch',
           component: markRaw(ElSwitch),
         },
-      ])
+      ]),
     )
     const submit = defineFormSubmit((done, isValid, invalidFields) => {
       ElMessage(`submit: ${isValid}`)
