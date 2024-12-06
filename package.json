@@ -11,7 +11,17 @@
       "import": "./lib/index.js",
       "require": "./lib/index.umd.cjs"
     },
-    "./lib/": "./lib/"
+    "./lib/locale/*": {
+      "types": "./lib/locale/*.d.ts",
+      "import": "./lib/locale/*.js",
+      "require": "./lib/locale/*.cjs"
+    },
+    "./lib/styles/*": {
+      "types": "./lib/styles/*.d.ts",
+      "import": "./lib/styles/*.js",
+      "require": "./lib/styles/*.cjs"
+    },
+    "./*": "./*"
   },
   "types": "types/index.d.ts",
   "style": "lib/styles/index.css",
