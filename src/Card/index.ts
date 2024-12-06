@@ -1,8 +1,8 @@
 import { withInstall } from '../utils/index'
 import Card from './Card'
 import { cardProps } from './props'
-import type { IDefineProps } from '../types/index'
+import type { IDefinePlugin, IDefineProps } from '../types/index'
 
 export { cardProps } from './props'
-export const ProCard = withInstall(Card)
+export const ProCard: IDefinePlugin<typeof Card> = withInstall(Card)
 export type ICardProps = IDefineProps<typeof cardProps>

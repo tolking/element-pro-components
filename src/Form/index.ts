@@ -1,5 +1,6 @@
 import { withInstall } from '../utils/index'
 import Form from './Form'
+import type { IDefinePlugin } from '../types/index'
 
 export * from './useForm'
 export * from './type'
@@ -25,4 +26,4 @@ export {
   collapseFormEmits,
   stepsFormEmits,
 } from './props'
-export const ProForm = withInstall(Form)
+export const ProForm: IDefinePlugin<typeof Form> = withInstall(Form)
