@@ -1,17 +1,10 @@
 <template>
-  <pro-descriptions
-    :columns="columns"
-    :detail="detail"
-    border
-    size="small"
-  >
+  <pro-descriptions :columns="columns" :detail="detail" border size="small">
     <template #title>
       <span>title</span>
     </template>
     <template #extra="{ size }">
-      <el-button :size="size">
-        extra
-      </el-button>
+      <el-button :size="size"> extra </el-button>
     </template>
     <template #detail-name="{ item, size }">
       <el-tag :size="size">

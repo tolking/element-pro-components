@@ -14,9 +14,9 @@ const _mount = (options: Record<string, unknown>) =>
 const getOptions = () =>
   Array.from(
     document.querySelectorAll<HTMLElement>(
-      '.pro-filter-routes-popper .el-select-dropdown__item'
+      '.pro-filter-routes-popper .el-select-dropdown__item',
     ),
-    (item) => item.innerHTML
+    (item) => item.innerHTML,
   )
 
 describe('FilterRoutes', () => {
@@ -24,7 +24,7 @@ describe('FilterRoutes', () => {
     document.body.innerHTML = ''
   })
 
-  test.concurrent('empt', async () => {
+  test('empt', async () => {
     const wrapper = _mount({
       template: '<pro-filter-routes />',
     })
@@ -41,7 +41,7 @@ describe('FilterRoutes', () => {
     expect(options[2]).toMatch('/two/info')
   })
 
-  test.concurrent('routes', async () => {
+  test('routes', async () => {
     _mount({
       template: '<pro-filter-routes :routes="routes" />',
       setup() {
@@ -79,7 +79,7 @@ describe('FilterRoutes', () => {
     expect(options[2]).toMatch('/one/info')
   })
 
-  test.concurrent('slots', () => {
+  test('slots', () => {
     _mount({
       template: `
         <pro-filter-routes>

@@ -69,6 +69,7 @@ export function withInstall<T extends { name: string }>(
  * @param err warn message
  */
 export function throwWarn(err: string) {
+  // eslint-disable-next-line no-console
   console.warn(`[ElementProComponents Warn]: ${err}`)
 }
 

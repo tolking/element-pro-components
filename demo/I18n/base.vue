@@ -1,9 +1,5 @@
 <template>
-  <el-button
-    type="primary"
-    style="margin-bottom: 20px"
-    @click="toggleLocale"
-  >
+  <el-button type="primary" style="margin-bottom: 20px" @click="toggleLocale">
     Switch lang
   </el-button>
   <el-config-provider :locale="toggle ? en : zhCN">

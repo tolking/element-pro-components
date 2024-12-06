@@ -1,13 +1,6 @@
 <template>
-  <pro-radio-button
-    v-model="mode"
-    :data="data"
-    style="margin-bottom: 16px"
-  />
-  <pro-menu
-    :mode="mode"
-    class="docs-menu"
-  />
+  <pro-radio-button v-model="mode" :data="data" style="margin-bottom: 16px" />
+  <pro-menu :mode="mode" class="docs-menu" />
 </template>
 
 <script>

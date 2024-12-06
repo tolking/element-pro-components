@@ -1,8 +1,12 @@
 import type MarkdownIt from 'markdown-it'
-import type Renderer from 'markdown-it/lib/renderer'
+
+type RenderRule = Exclude<
+  MarkdownIt['renderer']['rules']['container'],
+  undefined
+>
 
 export default (md: MarkdownIt): void => {
-  const renderToken: Renderer.RenderRule = (tokens, idx, options, env, self) =>
+  const renderToken: RenderRule = (tokens, idx, options, env, self) =>
     self.renderToken(tokens, idx, options)
   const defaultLinkOpenRenderer = md.renderer.rules.link_open || renderToken
   const defaultLinkCloseRenderer = md.renderer.rules.link_close || renderToken
@@ -30,7 +34,7 @@ export default (md: MarkdownIt): void => {
       return `<icon-external-link class="link-icon" />${self.renderToken(
         tokens,
         idx,
-        options
+        options,
       )}`
     }
 

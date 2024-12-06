@@ -28,6 +28,8 @@ describe('Tabs', () => {
     expect(getTabList(wrapper)).toHaveLength(1)
     expect(getTabList(wrapper)[0].text()).toBe('Home')
     expect(getTabList(wrapper)[0].element.id).toBe('tab-/index')
+
+    wrapper.unmount()
   })
 
   test.concurrent('slot', async () => {
@@ -44,9 +46,11 @@ describe('Tabs', () => {
     expect(getTabList(wrapper)).toHaveLength(1)
     expect(wrapper.find('.title').text()).toBe('Home')
     expect(wrapper.find('.path').text()).toBe('/index')
+
+    wrapper.unmount()
   })
 
-  test.concurrent('contextmenu', async () => {
+  test('contextmenu', async () => {
     const wrapper = await _mount({
       template: '<pro-tabs contextmenu />',
     })
@@ -60,9 +64,11 @@ describe('Tabs', () => {
     expect(menu[0].textContent).toBe('Close Left')
     expect(menu[1].textContent).toBe('Close Right')
     expect(menu[2].textContent).toBe('Close Others')
+
+    wrapper.unmount()
   })
 
-  test.concurrent('refreshPath', async () => {
+  test('refreshPath', async () => {
     const wrapper = await _mount({
       template: '<pro-tabs contextmenu refreshPath="/refresh" />',
     })
@@ -75,5 +81,7 @@ describe('Tabs', () => {
     expect(menu[1].textContent).toBe('Close Left')
     expect(menu[2].textContent).toBe('Close Right')
     expect(menu[3].textContent).toBe('Close Others')
+
+    wrapper.unmount()
   })
 })

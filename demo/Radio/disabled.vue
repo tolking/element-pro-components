@@ -1,8 +1,5 @@
 <template>
-  <pro-radio
-    v-model="radio"
-    :data="list"
-  />
+  <pro-radio v-model="radio" :data="list" />
 </template>
 
 <script>

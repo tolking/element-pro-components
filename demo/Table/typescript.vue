@@ -1,9 +1,5 @@
 <template>
-  <pro-table
-    :data="data"
-    :columns="columns"
-    :menu="menu"
-  />
+  <pro-table :data="data" :columns="columns" :menu="menu" />
 </template>
 
 <script setup lang="ts">

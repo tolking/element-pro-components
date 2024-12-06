@@ -7,20 +7,10 @@
     @submit="submit"
   >
     <template #menu-left>
-      <el-button
-        v-show="columns.length < 5"
-        @click="add"
-      >
-        Add One
-      </el-button>
+      <el-button v-show="columns.length < 5" @click="add"> Add One </el-button>
     </template>
     <template #menu-right>
-      <el-button
-        v-show="columns.length"
-        @click="del"
-      >
-        Delete One
-      </el-button>
+      <el-button v-show="columns.length" @click="del"> Delete One </el-button>
     </template>
   </pro-form>
 </template>
@@ -49,7 +39,7 @@ export default defineComponent({
           prop: 'prop0',
           component: 'el-input',
         },
-      ])
+      ]),
     )
     const submit = defineFormSubmit((done, isValid, invalidFields) => {
       ElMessage(`submit: ${isValid}`)

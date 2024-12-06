@@ -133,7 +133,7 @@ describe('InputTag', () => {
     // change color
     await (vm.color = 'rgb(125, 233, 45)')
     expect(wrapper.find('.el-tag').attributes('style')).toContain(
-      'background-color: rgb(125, 233, 45);'
+      'background-color: rgb(125, 233, 45);',
     )
 
     // change effect
@@ -170,7 +170,7 @@ describe('InputTag', () => {
 
     expect(getList(wrapper)).toHaveLength(3)
     expect(wrapper.find('.el-tag:last-child').classes()).not.toContain(
-      'is-selecte'
+      'is-selecte',
     )
 
     const input = wrapper.find('input')

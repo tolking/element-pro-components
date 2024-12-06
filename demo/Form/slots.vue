@@ -16,15 +16,8 @@
         action=""
         class="avatar-uploader"
       >
-        <img
-          v-if="value"
-          :src="value"
-          class="avatar"
-        >
-        <plus
-          v-else
-          class="icon-uploader"
-        />
+        <img v-if="value" :src="value" class="avatar" />
+        <plus v-else class="icon-uploader" />
       </el-upload>
     </template>
   </pro-form>

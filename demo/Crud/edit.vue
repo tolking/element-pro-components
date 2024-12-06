@@ -87,7 +87,7 @@ export default defineComponent({
         setTimeout(() => {
           isValid ? close() : done()
         }, 1000)
-      }
+      },
     )
 
     const reset = () => {

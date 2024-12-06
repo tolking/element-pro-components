@@ -15,56 +15,26 @@
     @delete="deleteRow"
   >
     <template #menu-left="{ size }">
-      <el-button
-        :size="size"
-        type="primary"
-      >
-        menu-left
-      </el-button>
+      <el-button :size="size" type="primary"> menu-left </el-button>
     </template>
     <template #menu-right="{ size }">
-      <el-button
-        :size="size"
-        type="danger"
-      >
-        menu-right
-      </el-button>
+      <el-button :size="size" type="danger"> menu-right </el-button>
     </template>
     <template #menu="{ size }">
-      <el-button
-        :size="size"
-        type="success"
-        link
-      >
-        More
-      </el-button>
+      <el-button :size="size" type="success" link> More </el-button>
     </template>
     <template #search-menu-right="{ size }">
-      <el-button
-        :size="size"
-        type="success"
-      >
-        search-menu-right
-      </el-button>
+      <el-button :size="size" type="success"> search-menu-right </el-button>
     </template>
     <template #action>
-      <el-button
-        :icon="Refresh"
-        circle
-        style="margin-right: 8px"
-      />
+      <el-button :icon="Refresh" circle style="margin-right: 8px" />
       <pro-column-setting v-model="columns" />
     </template>
     <template #dialog-top="{ type }">
-      <p style="text-align: center">
-        dialog-top {{ type }}
-      </p>
+      <p style="text-align: center">dialog-top {{ type }}</p>
     </template>
     <template #dialog-bottom="{ type }">
-      <p
-        v-if="type === 'detail'"
-        style="text-align: center"
-      >
+      <p v-if="type === 'detail'" style="text-align: center">
         only appears in the detail
       </p>
     </template>

@@ -34,13 +34,10 @@ export default defineComponent({
         const children = getChildren(item)
 
         if (children?.length) {
-          return h(
-            ElOptionGroup,
-            { label: getLabel(item) },
-            () =>
-              children?.map((child: SelectDataItem[]) => {
-                return createOption(child)
-              }),
+          return h(ElOptionGroup, { label: getLabel(item) }, () =>
+            children?.map((child: SelectDataItem[]) => {
+              return createOption(child)
+            }),
           )
         } else {
           return createOption(item)

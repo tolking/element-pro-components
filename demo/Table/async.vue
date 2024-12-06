@@ -1,28 +1,10 @@
 <template>
   <div style="margin-bottom: 20px">
-    <el-button
-      type="primary"
-      @click="createTable"
-    >
-      Load Table
-    </el-button>
-    <el-button
-      type="info"
-      @click="createDict"
-    >
-      Load Dict
-    </el-button>
-    <el-button
-      type="danger"
-      @click="destroyTable"
-    >
-      Destroy
-    </el-button>
+    <el-button type="primary" @click="createTable"> Load Table </el-button>
+    <el-button type="info" @click="createDict"> Load Dict </el-button>
+    <el-button type="danger" @click="destroyTable"> Destroy </el-button>
   </div>
-  <pro-table
-    :data="data"
-    :columns="columns"
-  />
+  <pro-table :data="data" :columns="columns" />
 </template>
 
 <script>

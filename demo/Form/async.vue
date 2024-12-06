@@ -1,23 +1,8 @@
 <template>
   <div style="margin-bottom: 20px">
-    <el-button
-      type="primary"
-      @click="createForm"
-    >
-      Load Form
-    </el-button>
-    <el-button
-      type="info"
-      @click="createDict"
-    >
-      Load Dict
-    </el-button>
-    <el-button
-      type="danger"
-      @click="destroyForm"
-    >
-      Destroy
-    </el-button>
+    <el-button type="primary" @click="createForm"> Load Form </el-button>
+    <el-button type="info" @click="createDict"> Load Dict </el-button>
+    <el-button type="danger" @click="destroyForm"> Destroy </el-button>
   </div>
   <pro-form
     v-model="form"

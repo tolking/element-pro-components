@@ -10,7 +10,7 @@ import type {
 import type { ITableEmits, TableColumnsProps, ITableExpose } from './index'
 
 export function useTableDefaultBind(
-  props: Readonly<TableColumnsProps>
+  props: Readonly<TableColumnsProps>,
 ): ComputedRef<TableColumnsProps> {
   return computed(() => ({
     showOverflowTooltip: props.showOverflowTooltip || false,
@@ -21,7 +21,7 @@ export function useTableDefaultBind(
 
 export function useTableBind<T extends Record<string, ExternalParam>>(
   currentBind?: MaybeRef<boolean | undefined | T>,
-  defaultBind?: MaybeRef<TableColumnsProps>
+  defaultBind?: MaybeRef<TableColumnsProps>,
 ): ComputedRef<StringObject> {
   return computed(() => {
     const _currentBind = unref(currentBind)

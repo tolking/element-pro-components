@@ -33,7 +33,7 @@ export type IDescriptionsProps = IDefineProps<typeof descriptionsProps>
  * @param columns the columns of Descriptions
  */
 export function defineDescriptionsColumns<T = ExternalParam>(
-  columns: IDescriptionsColumns<T>
+  columns: IDescriptionsColumns<T>,
 ): IDescriptionsColumns<T> {
   return columns
 }

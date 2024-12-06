@@ -24,7 +24,7 @@ export default defineComponent({
           ? list.filter((i) => {
               return i.value.indexOf(queryString.toLowerCase()) === 0
             })
-          : list
+          : list,
       )
     }
 

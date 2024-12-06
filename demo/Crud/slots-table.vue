@@ -16,17 +16,9 @@
   >
     <template #crud-table="{ showMenu, createTableMenu }">
       <section class="list">
-        <div
-          v-for="item in data"
-          :key="item.name"
-          class="item"
-        >
+        <div v-for="item in data" :key="item.name" class="item">
           <div class="item-content">
-            <el-image
-              :src="item.avatar"
-              fit="cover"
-              class="item-avatar"
-            />
+            <el-image :src="item.avatar" fit="cover" class="item-avatar" />
             <div class="item-info">
               <p class="name">
                 {{ item.name }}
@@ -51,11 +43,7 @@
     </template>
     <template #crud-detail>
       <div class="detail">
-        <el-image
-          :src="detail.avatar"
-          fit="cover"
-          class="item-avatar"
-        />
+        <el-image :src="detail.avatar" fit="cover" class="item-avatar" />
         <div class="item-info">
           <p class="name">
             {{ detail.name }}

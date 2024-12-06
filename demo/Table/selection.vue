@@ -1,9 +1,5 @@
 <template>
-  <pro-table
-    :data="data"
-    :columns="columns"
-    selection
-  />
+  <pro-table :data="data" :columns="columns" selection />
 </template>
 
 <script>

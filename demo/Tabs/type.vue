@@ -1,13 +1,6 @@
 <template>
-  <pro-radio-button
-    v-model="type"
-    :data="data"
-    style="margin-bottom: 16px"
-  />
-  <pro-tabs
-    ref="childTabs"
-    :type="type"
-  />
+  <pro-radio-button v-model="type" :data="data" style="margin-bottom: 16px" />
+  <pro-tabs ref="childTabs" :type="type" />
 </template>
 
 <script>

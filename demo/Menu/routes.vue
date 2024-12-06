@@ -1,8 +1,5 @@
 <template>
-  <pro-menu
-    :routes="routes"
-    class="docs-menu"
-  />
+  <pro-menu :routes="routes" class="docs-menu" />
 </template>
 
 <script>

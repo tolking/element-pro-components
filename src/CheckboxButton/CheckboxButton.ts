@@ -11,7 +11,7 @@ export default defineComponent({
     return createDefault<typeof ElCheckboxButton>(
       props,
       ElCheckboxButton,
-      'pro-checkbox-button'
+      'pro-checkbox-button',
     )
   },
 })

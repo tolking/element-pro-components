@@ -1,9 +1,6 @@
 <template>
   <el-switch v-model="hide" />
-  <pro-table
-    :data="data"
-    :columns="columns"
-  />
+  <pro-table :data="data" :columns="columns" />
 </template>
 
 <script>
@@ -28,7 +25,7 @@ export default defineComponent({
           label: 'Address',
           prop: 'address',
         },
-      ])
+      ]),
     )
     const data = [
       {

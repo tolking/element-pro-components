@@ -22,10 +22,7 @@
       />
     </template>
     <template #crud-form="{ props }">
-      <pro-form
-        v-bind="props"
-        :inline="true"
-      />
+      <pro-form v-bind="props" :inline="true" />
     </template>
   </pro-crud>
 </template>

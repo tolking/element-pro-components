@@ -1,8 +1,5 @@
 <template>
-  <pro-table
-    :data="data"
-    :columns="columns"
-  >
+  <pro-table :data="data" :columns="columns">
     <template #table-name-header="{ column }">
       <s>{{ column.label }}</s>
     </template>

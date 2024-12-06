@@ -1,5 +1,3 @@
 <template>
-  <pro-card header="header">
-    Content
-  </pro-card>
+  <pro-card header="header"> Content </pro-card>
 </template>

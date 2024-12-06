@@ -70,9 +70,9 @@ export default defineComponent({
             return h(
               ElStep,
               mergeProps(getGroupFormItemBind(item), { title: item.label }),
-              { title: () => createLabel(item) }
+              { title: () => createLabel(item) },
             )
-          })
+          }),
       )
     }
 
@@ -87,7 +87,7 @@ export default defineComponent({
         mergeProps(props, {
           columns: item.children,
           'onUpdate:modelValue': update,
-        })
+        }),
       )
     }
 
@@ -100,7 +100,7 @@ export default defineComponent({
             disabled: !active.value,
             onClick: () => handleClick(-1),
           }),
-          () => menu.value.prevText
+          () => menu.value.prevText,
         ),
         h(
           ElButton,
@@ -108,7 +108,7 @@ export default defineComponent({
             disabled: active.value + 1 === props.columns?.length,
             onClick: () => handleClick(1),
           }),
-          () => menu.value.nextText
+          () => menu.value.nextText,
         ),
       ])
     }

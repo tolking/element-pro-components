@@ -26,10 +26,7 @@
       @submit="submitForm"
     >
       <template #form-address="{ value, setValue }">
-        <pro-input-tag
-          :model-value="value"
-          @update:model-value="setValue"
-        />
+        <pro-input-tag :model-value="value" @update:model-value="setValue" />
       </template>
     </pro-form>
   </pro-card>
@@ -325,7 +322,7 @@ function querySearch(queryString: string, cb: (...arg: unknown[]) => void) {
       ? list.filter((i) => {
           return i.value.indexOf(queryString.toLowerCase()) === 0
         })
-      : list
+      : list,
   )
 }
 </script>

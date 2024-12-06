@@ -1,17 +1,10 @@
 <template>
-  <pro-tabs
-    ref="childTabs"
-    style="margin-bottom: 15px"
-  />
+  <pro-tabs ref="childTabs" style="margin-bottom: 15px" />
   <el-button @click="childTabs.close('/en-US/guide/')">
     Close homepage
   </el-button>
-  <el-button @click="childTabs.closeOther">
-    Close otherpage
-  </el-button>
-  <el-button @click="asyncList">
-    async
-  </el-button>
+  <el-button @click="childTabs.closeOther"> Close otherpage </el-button>
+  <el-button @click="asyncList"> async </el-button>
 </template>
 
 <script>

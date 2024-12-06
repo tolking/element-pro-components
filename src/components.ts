@@ -67,8 +67,6 @@ export default {
   ProTreeSelect,
 } as Record<string, Plugin>
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 declare module 'vue' {
   export interface GlobalComponents {
     ProAutocompleteTag: typeof ProAutocompleteTag

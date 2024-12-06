@@ -1,9 +1,5 @@
 <template>
-  <pro-select
-    v-model="select"
-    :data="data"
-    multiple
-  />
+  <pro-select v-model="select" :data="data" multiple />
 </template>
 
 <script>

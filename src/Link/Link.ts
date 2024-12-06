@@ -34,7 +34,7 @@ export default defineComponent({
       h(
         resolveDynamicComponent(type.value) as DefineComponent,
         mergeProps(attr.value, { class: 'pro-link' }),
-        slots
+        slots,
       )
   },
 })

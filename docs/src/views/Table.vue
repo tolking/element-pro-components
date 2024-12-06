@@ -21,15 +21,9 @@
         <i class="el-icon-time" />
         <span>{{ column.label }}</span>
       </template>
-      <template #table-date="{ row }">
-        - {{ row.date }} -
-      </template>
+      <template #table-date="{ row }"> - {{ row.date }} - </template>
       <template #menu="{ size, row }">
-        <el-button
-          :size="size"
-          text
-          @click="test(row)"
-        >
+        <el-button :size="size" text @click="test(row)">
           test{{ size }}
         </el-button>
       </template>
@@ -41,9 +35,7 @@
       :columns="columns1"
       :total="total"
     >
-      <template #table-name="{ row }">
-        - {{ row.name }} -
-      </template>
+      <template #table-name="{ row }"> - {{ row.name }} - </template>
     </pro-table>
   </pro-card>
 </template>

@@ -32,28 +32,13 @@
         {{ row }}
       </template>
       <template #action="{ size }">
-        <pro-column-setting
-          v-model="columns"
-          :size="size"
-          trigger="click"
-        />
+        <pro-column-setting v-model="columns" :size="size" trigger="click" />
       </template>
       <template #menu-right="{ size }">
-        <el-button
-          :size="size"
-          @click="changeSize"
-        >
-          change size
-        </el-button>
+        <el-button :size="size" @click="changeSize"> change size </el-button>
       </template>
       <template #menu="{ size, row }">
-        <el-button
-          :size="size"
-          link
-          @click="deleteRow(row)"
-        >
-          More
-        </el-button>
+        <el-button :size="size" link @click="deleteRow(row)"> More </el-button>
       </template>
       <template #search-date-label>
         <span>search slot</span>
@@ -75,14 +60,10 @@
         </el-tag>
       </template>
       <template #form-menu-left="{ loading }">
-        <el-button :loading="loading">
-          Prev
-        </el-button>
+        <el-button :loading="loading"> Prev </el-button>
       </template>
       <template #form-menu-right="{ loading }">
-        <el-button :loading="loading">
-          Next
-        </el-button>
+        <el-button :loading="loading"> Next </el-button>
       </template>
     </pro-crud>
   </pro-card>

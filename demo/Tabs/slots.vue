@@ -2,10 +2,7 @@
   <pro-tabs>
     <template #label="{ icon, title }">
       <div class="tabs-label-content">
-        <el-icon
-          :size="16"
-          class="label-icon"
-        >
+        <el-icon :size="16" class="label-icon">
           <component :is="icon" />
         </el-icon>
         <span>{{ title.toUpperCase() }}</span>

@@ -4,9 +4,7 @@ import type { RowProps } from 'element-plus'
 
 type IRowProps = Partial<Omit<RowProps, 'tag'>>
 
-export function useRow(
-  props: Readonly<IRowProps> | IRowProps
-): {
+export function useRow(props: Readonly<IRowProps> | IRowProps): {
   rowStyle: ComputedRef<{
     marginLeft: string
     marginRight: string

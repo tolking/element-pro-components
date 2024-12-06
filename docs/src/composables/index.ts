@@ -13,7 +13,7 @@ export function useLang(): Ref<string> {
       const _path = path.match(/^\/([\w|-]*)\//)
       lang.value = _path && _path[1] !== 'dev' ? _path[1] : langs[0].key
     },
-    { immediate: true }
+    { immediate: true },
   )
 
   return lang

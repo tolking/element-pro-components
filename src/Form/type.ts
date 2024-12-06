@@ -113,7 +113,7 @@ export type IFormMenuColumns = FormMenu
 export type IFormSubmit = (
   done: () => void,
   isValid: boolean,
-  invalidFields?: InvalidFields
+  invalidFields?: InvalidFields,
 ) => void
 
 export interface IFormValidateCallback {
@@ -137,7 +137,7 @@ export interface IFormExpose {
   /** validate one or several form items */
   validateField: (
     props: MaybeArray<string>,
-    cb: IFormValidateFieldCallback
+    cb: IFormValidateFieldCallback,
   ) => void
 }
 
@@ -176,7 +176,7 @@ export type IStepsFormEmits = IDefineEmits<typeof stepsFormEmits>
  * @param columns the columns of Form
  */
 export function defineFormColumns<T = ExternalParam>(
-  columns: IFormColumns<T>
+  columns: IFormColumns<T>,
 ): IFormColumns<T> {
   return columns
 }
@@ -186,7 +186,7 @@ export function defineFormColumns<T = ExternalParam>(
  * @param columns the columns of Form menu
  */
 export function defineFormMenuColumns(
-  columns: IFormMenuColumns
+  columns: IFormMenuColumns,
 ): IFormMenuColumns {
   return columns
 }

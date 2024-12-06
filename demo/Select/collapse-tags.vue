@@ -1,12 +1,7 @@
 <template>
   <div>
     <span>collapse-tags: </span>
-    <pro-select
-      v-model="select"
-      :data="data"
-      multiple
-      collapse-tags
-    />
+    <pro-select v-model="select" :data="data" multiple collapse-tags />
   </div>
   <div>
     <span>collapse-tags-tooltip: </span>

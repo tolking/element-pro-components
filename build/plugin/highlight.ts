@@ -1,4 +1,5 @@
 // copy from [vitepress](https://github.com/vuejs/vitepress)
+// MIT License Copyright (c) 2019-present, Yuxi (Evan) You
 import prism from 'prismjs'
 import loadLanguages from 'prismjs/components/index'
 import escapeHtml from 'escape-html'

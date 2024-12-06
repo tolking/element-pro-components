@@ -1,13 +1,7 @@
 <template>
-  <pro-menu
-    :routes="routes"
-    class="docs-menu"
-  >
+  <pro-menu :routes="routes" class="docs-menu">
     <template #default="item">
-      <i
-        v-if="item.meta?.icon"
-        :class="item.meta.icon"
-      />
+      <i v-if="item.meta?.icon" :class="item.meta.icon" />
       <span v-if="item.meta?.title">
         {{ item.meta.title }}
       </span>

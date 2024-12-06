@@ -1,17 +1,10 @@
 import container from 'markdown-it-container'
-import type Token from 'markdown-it/lib/token'
 
-type ContainerArgs = [
-  typeof container,
-  string,
-  {
-    render(tokens: Token[], idx: number): string
-  }
-]
+type ContainerArgs = [typeof container, string, container.ContainerOpts]
 
 export default function createContainer(
   klass: string,
-  defaultTitle: string
+  defaultTitle: string,
 ): ContainerArgs {
   return [
     container,

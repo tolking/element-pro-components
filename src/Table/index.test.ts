@@ -219,7 +219,7 @@ describe('Table', () => {
     expect(getHeaderList(wrapper)).not.toContain('-Menu')
   })
 
-  test.concurrent('pagination', async () => {
+  test('pagination', async () => {
     const wrapper = await _mount({
       template: `
         <pro-table

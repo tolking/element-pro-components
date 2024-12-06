@@ -130,10 +130,10 @@ describe('Descriptions', () => {
     expect(getLabelList(wrapper)).toContain('default')
     expect(getPropList(wrapper)).toContain('default slot')
     expect(wrapper.find(headerClass + ' .el-descriptions__title').text()).toBe(
-      'slot-title'
+      'slot-title',
     )
     expect(wrapper.find(headerClass + ' .el-descriptions__extra').text()).toBe(
-      'slot-extra'
+      'slot-extra',
     )
   })
 

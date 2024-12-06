@@ -47,7 +47,7 @@ function transform(input: string) {
   }
 }
 
-(() => {
+;(() => {
   fg.sync(toAbsolute('../src/styles/*')).map(transform)
   console.log('build-styles done')
 })()

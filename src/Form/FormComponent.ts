@@ -29,7 +29,7 @@ export default defineComponent({
       let event = 'onUpdate:modelValue'
 
       if (props.modelKey && isArray(props.modelKey)) {
-        [prop, event] = props.modelKey
+        ;[prop, event] = props.modelKey
       } else if (props.modelKey) {
         prop = props.modelKey
         event = `onUpdate:${props.modelKey}`

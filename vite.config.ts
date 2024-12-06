@@ -7,11 +7,10 @@ import { VitePWA } from 'vite-plugin-pwa'
 import anchor from 'markdown-it-anchor'
 import highlight from './build/plugin/highlight'
 import snippet from './build/plugin/snippet'
-import demo from './build/plugin/demo'
+import createDemoContainer from './build/plugin/create-demo'
 import createContainer from './build/plugin/create-container'
 import externalLinkIcon from './build/plugin/external-link-icon'
 import preWrapper from './build/plugin/pre-wrapper'
-import type Token from 'markdown-it/lib/token'
 
 export default defineConfig({
   root: resolve(__dirname, 'docs'),
@@ -37,7 +36,7 @@ export default defineConfig({
       markdownItSetup(md) {
         md.use(snippet)
           .use(preWrapper)
-          .use(container, 'demo', demo)
+          .use(container, 'demo', createDemoContainer(md))
           .use(externalLinkIcon)
           .use(anchor, {
             slugify: (str) => str.replace(/[ ]/g, '-').toLowerCase(),
@@ -47,11 +46,11 @@ export default defineConfig({
           .use(...createContainer('warning', 'WARNING'))
           .use(...createContainer('danger', 'WARNING'))
           .use(container, 'v-pre', {
-            render: (tokens: Token[], idx: number) =>
+            render: (tokens, idx: number) =>
               tokens[idx].nesting === 1 ? '<div v-pre>\n' : '</div>\n',
           })
           .use(container, 'details', {
-            render: (tokens: Token[], idx: number) => {
+            render: (tokens, idx: number) => {
               const info = tokens[idx].info.trim().slice(7).trim() // 7 = 'details'.length
               return tokens[idx].nesting === 1
                 ? `<details class="custom-block details">${

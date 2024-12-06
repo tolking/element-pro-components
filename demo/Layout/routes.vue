@@ -1,8 +1,5 @@
 <template>
-  <pro-layout
-    :routes="routes"
-    class="docs-layout"
-  />
+  <pro-layout :routes="routes" class="docs-layout" />
 </template>
 
 <script>

@@ -1,8 +1,5 @@
 <template>
-  <pro-radio-button
-    v-model="radiobutton"
-    :data="data"
-  />
+  <pro-radio-button v-model="radiobutton" :data="data" />
 </template>
 
 <script>
