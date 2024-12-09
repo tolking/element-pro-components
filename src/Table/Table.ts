@@ -93,7 +93,11 @@ export default defineComponent({
       if (props.columns) {
         const tableItem = props.columns.map((item) => {
           if (item.hide) return null
-          return h(ProTableItem, { item, size: props.size }, slots)
+          return h(
+            ProTableItem,
+            { item, key: item.prop, size: props.size },
+            slots,
+          )
         })
 
         list = list.concat(tableItem)

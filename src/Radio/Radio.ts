@@ -30,6 +30,7 @@ export function createDefault<T>(
           return h(
             component as DefineComponent,
             {
+              key: getValue(item),
               name: getName(item),
               value: getValue(item),
               disabled: getDisabled(item),

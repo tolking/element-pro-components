@@ -33,7 +33,11 @@ export default defineComponent({
 
       if (props.item.children && props.item.children.length) {
         const child = (props.item.children as ITableColumns).map((item) => {
-          return h(ProTableItem, { item, size: props.size }, slots)
+          return h(
+            ProTableItem,
+            { item, key: item.prop, size: props.size },
+            slots,
+          )
         })
         list.push(child)
       } else if (slots[`table-${props.item.prop}`]) {

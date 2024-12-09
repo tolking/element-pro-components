@@ -54,6 +54,7 @@ export default defineComponent({
           ElDescriptionsItem,
           {
             ...item,
+            key: item.prop,
             align: item.align ?? props.align,
             labelAlign: item.labelAlign ?? props.labelAlign,
           },

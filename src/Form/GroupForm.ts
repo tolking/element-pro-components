@@ -18,13 +18,14 @@ export default defineComponent({
       emit('update:modelValue', value)
     }
 
-    function createDefault(item: GroupFormColumn) {
+    function createDefault(item: GroupFormColumn, index: number) {
       if (item.show === false) return null
 
       return [
         h(
           'div',
           mergeProps(getGroupFormItemBind(item), attrs, {
+            key: item.prop || index,
             class: ['pro-group-form-title', !form?.props.inline && 'el-col-24'],
           }),
           createLabel(item),
