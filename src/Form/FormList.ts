@@ -42,6 +42,7 @@ export default defineComponent({
 
         list.push(
           h(componentsMap[cacheType], {
+            key: `${left}__${right}`,
             modelValue: props.modelValue,
             columns,
             prefix: props.prefix,
@@ -75,6 +76,7 @@ export default defineComponent({
           cacheType && sliceGroup()
           list.push(
             h(ProFormItem, {
+              key: item.prop,
               modelValue: props.modelValue,
               item,
               indexes: props.indexes,

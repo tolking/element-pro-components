@@ -65,11 +65,14 @@ export default defineComponent({
           class: ['pro-steps-form', !form?.props.inline && 'el-col-24'],
         }),
         () =>
-          props.columns?.map((item) => {
+          props.columns?.map((item, index) => {
             if (item.show === false) return null
             return h(
               ElStep,
-              mergeProps(getGroupFormItemBind(item), { title: item.label }),
+              mergeProps(getGroupFormItemBind(item), {
+                key: item.prop || index,
+                title: item.label,
+              }),
               { title: () => createLabel(item) },
             )
           }),

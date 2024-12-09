@@ -28,8 +28,9 @@ export default defineComponent({
         return h(
           ElTabPane,
           mergeProps(getGroupFormItemBind(item), {
+            key: item.prop || index,
             label: item.label,
-            name: item.prop ?? index,
+            name: item.prop || index,
             class: !form?.props.inline && rowClass.value,
             style: !props.inline ? rowStyle.value : null,
           }),

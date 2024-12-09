@@ -88,6 +88,7 @@ export default defineComponent({
     function createList() {
       return list.value.map((item) => {
         return h(ElOption, {
+          key: getValue(item),
           value: getValue(item),
           label: getLabel(item),
           disabled: getDisabled(item),

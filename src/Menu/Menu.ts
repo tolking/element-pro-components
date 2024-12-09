@@ -17,20 +17,6 @@ export default defineComponent({
     const route = useRoute()
     const routes = useCurrentRoutes()
 
-    function createDefault(item: RouteRecordRaw) {
-      if (slots.default) {
-        return slots.default(item)
-      } else {
-        return [
-          item.meta?.icon &&
-            h(resolveDynamicComponent(item.meta.icon) as DefineComponent, {
-              class: 'el-icon',
-            }),
-          item.meta?.title && h('span', item.meta.title),
-        ]
-      }
-    }
-
     function hasMultiChild(item: RouteRecordRaw) {
       if (!item.children) return false
 
@@ -47,21 +33,32 @@ export default defineComponent({
       return count >= 2
     }
 
+    function createDefault(item: RouteRecordRaw) {
+      if (slots.default) {
+        return slots.default(item)
+      } else {
+        return [
+          item.meta?.icon &&
+            h(resolveDynamicComponent(item.meta.icon) as DefineComponent, {
+              class: 'el-icon',
+            }),
+          item.meta?.title && h('span', item.meta.title),
+        ]
+      }
+    }
+
     function createList(list?: RouteRecordRaw[]) {
       if (!list) return undefined
-      return list.map((item) => {
+      return list.map((item, index) => {
         const showItem = item && !item.meta?.hidden
 
         if (showItem && !hasMultiChild(item)) {
-          return h(
-            ElMenuItem,
-            { index: item.children?.[0].path || item.path },
-            () => createDefault(item),
-          )
+          const key = item.children?.[0].path || item.path || String(index)
+          return h(ElMenuItem, { key, index: key }, () => createDefault(item))
         } else if (showItem) {
           return h(
             item.meta?.group ? ElMenuItemGroup : ElSubMenu,
-            { index: item.path },
+            { key: item.path || index, index: item.path || index },
             {
               title: () =>
                 createDefault({ meta: item?.meta } as RouteRecordRaw),

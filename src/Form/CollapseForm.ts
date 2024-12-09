@@ -27,8 +27,9 @@ export default defineComponent({
         return h(
           ElCollapseItem,
           mergeProps(getGroupFormItemBind(item), {
+            key: item.prop || index,
             title: item.label,
-            name: item.prop ?? index,
+            name: item.prop || index,
           }),
           {
             title: () => createLabel(item),

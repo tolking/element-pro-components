@@ -21,6 +21,7 @@ export default defineComponent({
       return h(
         ElOption,
         {
+          key: getValue(item),
           value: getValue(item),
           label: getLabel(item),
           disabled: getDisabled(item),

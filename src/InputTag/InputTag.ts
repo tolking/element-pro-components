@@ -15,6 +15,7 @@ export function createDefault<
     h(
       ElTag,
       mergeProps(core.tagProps as StringObject, {
+        key: index,
         size: core.size.value,
         closable: core.closable.value,
         class: core.selectedTag.value === index && 'is-selecte',

@@ -19,7 +19,7 @@ export default defineComponent({
       const indexes = [...(props.indexes || []), index]
       const prefix = withPoint(props.prefix, String(index))
 
-      return h('div', { class: 'pro-array-form' }, [
+      return h('div', { key: indexes.join('_'), class: 'pro-array-form' }, [
         h(
           'div',
           {
