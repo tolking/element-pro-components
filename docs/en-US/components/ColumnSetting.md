@@ -87,6 +87,6 @@ Supports operations on grouping table head, and columns can be dragged into or o
 
 ### Slots
 
-| Name    | Description                                    |
-| :------ | :--------------------------------------------- |
-| default | custom the trigger button, parameters { size } |
+| Name    | Description               | Type     |
+| :------ | :------------------------ | :------- |
+| default | custom the trigger button | { size } |

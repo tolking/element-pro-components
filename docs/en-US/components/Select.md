@@ -112,17 +112,17 @@ Set `children` in `data` will automatic generate the children options (If there 
 
 ### Events
 
-| Name           | Description                                                   | Parameters                                |
-| -------------- | ------------------------------------------------------------- | ----------------------------------------- |
-| change         | triggers when the selected value changes                      | current selected value                    |
-| visible-change | triggers when the dropdown appears/disappears                 | true when it appears, and false otherwise |
-| remove-tag     | triggers when a tag is removed in multiple mode               | removed tag value                         |
-| clear          | triggers when the clear icon is clicked in a clearable Select | —                                         |
-| blur           | triggers when Input blurs                                     | (event: Event)                            |
-| focus          | triggers when Input focuses                                   | (event: Event)                            |
+| Name           | Description                                                   | Type                        |
+| -------------- | ------------------------------------------------------------- | --------------------------- |
+| change         | triggers when the selected value changes                      | (value: any) => void        |
+| visible-change | triggers when the dropdown appears/disappears                 | (visible: boolean) => void  |
+| remove-tag     | triggers when a tag is removed in multiple mode               | (tagValue: any) => void     |
+| clear          | triggers when the clear icon is clicked in a clearable Select | () => void                  |
+| blur           | triggers when Input blurs                                     | (event: FocusEvent) => void |
+| focus          | triggers when Input focuses                                   | (event: FocusEvent) => void |
 
 ### Slots
 
-| Name | Description                               |
-| ---- | ----------------------------------------- |
-| -    | Custom content. The parameter is { item } |
+| Name | Description    | Type     |
+| ---- | -------------- | -------- |
+| -    | Custom content | { item } |

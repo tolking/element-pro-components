@@ -98,18 +98,18 @@ If you enable the `refresh` feature, you need to configure the `refreshPath` att
 
 ## Events
 
-| Name       | Description                                | Parameters                             |
-| ---------- | ------------------------------------------ | -------------------------------------- |
-| tab-click  | triggers when a tab is clicked             | (pane: `TabsPaneContext`, ev: `Event`) |
-| tab-change | triggers when `activeName` is changed      | (path name)                            |
-| tab-remove | triggers when tab-remove button is clicked | (path name)                            |
+| Name       | Description                                | Type                                       |
+| ---------- | ------------------------------------------ | ------------------------------------------ |
+| tab-click  | triggers when a tab is clicked             | (pane: TabsPaneContext, ev: Event) => void |
+| tab-change | triggers when `activeName` is changed      | (name: TabPaneName) => void                |
+| tab-remove | triggers when tab-remove button is clicked | (name: TabPaneName) => void                |
 
 ### Methods
 
-| Name       | Description               | Parameters                 |
-| ---------- | ------------------------- | -------------------------- |
-| close      | close some tab from tabs  | path (the router of close) |
-| closeOther | close other tab from tabs | -                          |
+| Name       | Description               | Type                   |
+| ---------- | ------------------------- | ---------------------- |
+| close      | close some tab from tabs  | (path: string) => void |
+| closeOther | close other tab from tabs | () => void             |
 
 ### Slots
 
