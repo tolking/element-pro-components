@@ -89,14 +89,14 @@ Starting from `0.12.0`, the internal menu will be implemented using svgicon by d
 
 ## Events
 
-| Name   | Description                               | Parameters                                                                                            |
-| ------ | ----------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| select | callback function when menu is activated  | index: index of activated menu, indexPath: index path of activated menu, item: the selected menu item |
-| open   | callback function when sub-menu expands   | index: index of expanded sub-menu, indexPath: index path of expanded sub-menu                         |
-| close  | callback function when sub-menu collapses | index: index of collapsed sub-menu, indexPath: index path of collapsed sub-menu                       |
+| Name   | Description                               | Type                             |
+| ------ | ----------------------------------------- | -------------------------------- |
+| select | callback function when menu is activated  | (index, indexPath, item) => void |
+| open   | callback function when sub-menu expands   | (index, indexPath, item) => void |
+| close  | callback function when sub-menu collapses | (index, indexPath, item) => void |
 
 ### Slots
 
-| Name | Description                                                       |
-| :--- | :---------------------------------------------------------------- |
-| -    | Control menu display content, parameters { meta, path, redirect } |
+| Name | Description                  | Type                     |
+| :--- | :--------------------------- | :----------------------- |
+| -    | Control menu display content | { meta, path, redirect } |

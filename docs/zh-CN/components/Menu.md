@@ -89,14 +89,14 @@ meta:
 
 ### 事件
 
-| 事件名 | 说明                | 参数                                                                            |
-| ------ | ------------------- | ------------------------------------------------------------------------------- |
-| select | 菜单激活回调        | index: 选中菜单项的 index, indexPath: 选中菜单项的 index path, item: 选中菜单项 |
-| open   | sub-menu 展开的回调 | index: 打开的 sub-menu 的 index, indexPath: 打开的 sub-menu 的 index path       |
-| close  | sub-menu 收起的回调 | index: 收起的 sub-menu 的 index, indexPath: 收起的 sub-menu 的 index path       |
+| 事件名 | 说明                | 类型                             |
+| ------ | ------------------- | -------------------------------- |
+| select | 菜单激活回调        | (index, indexPath, item) => void |
+| open   | sub-menu 展开的回调 | (index, indexPath, item) => void |
+| close  | sub-menu 收起的回调 | (index, indexPath, item) => void |
 
 ### 插槽
 
-| 名称 | 说明                                                 |
-| :--- | :--------------------------------------------------- |
-| -    | 控制菜单显示内容，参数为 { meta, path, redirect } 等 |
+| 名称 | 说明             | 类型                     |
+| :--- | :--------------- | :----------------------- |
+| -    | 控制菜单显示内容 | { meta, path, redirect } |

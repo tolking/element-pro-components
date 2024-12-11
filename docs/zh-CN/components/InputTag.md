@@ -83,8 +83,8 @@ meta:
 
 ### 事件
 
-| 事件名     | 说明               | 参数            |
-| ---------- | ------------------ | --------------- |
-| input      | Input 值改变时触发 | (value: string) |
-| tag-add    | 新增 tag 时触发    | (value: string) |
-| tag-remove | 关闭 tag 时触发    | (value: string) |
+| 事件名     | 说明               | 类型                    |
+| ---------- | ------------------ | ----------------------- |
+| input      | Input 值改变时触发 | (value: string) => void |
+| tag-add    | 新增 tag 时触发    | (value: string) => void |
+| tag-remove | 关闭 tag 时触发    | (value: string) => void |

@@ -129,21 +129,21 @@ Custom RouterView by the default slot
 
 ## Events
 
-| Name   | Description                               | Parameters                                                                                            |
-| ------ | ----------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| select | callback function when menu is activated  | index: index of activated menu, indexPath: index path of activated menu, item: the selected menu item |
-| open   | callback function when sub-menu expands   | index: index of expanded sub-menu, indexPath: index path of expanded sub-menu                         |
-| close  | callback function when sub-menu collapses | index: index of collapsed sub-menu, indexPath: index path of collapsed sub-menu                       |
+| Name   | Description                               | Type                             |
+| ------ | ----------------------------------------- | -------------------------------- |
+| select | callback function when menu is activated  | (index, indexPath, item) => void |
+| open   | callback function when sub-menu expands   | (index, indexPath, item) => void |
+| close  | callback function when sub-menu collapses | (index, indexPath, item) => void |
 
 ### Slots
 
-| Name            | Description                                                       |
-| :-------------- | :---------------------------------------------------------------- |
-| default         | custom implementation RouterView                                  |
-| logo            | control logo display content, parameters { collapse }             |
-| menu            | control menu display content, parameters { meta, path, redirect } |
-| footer          | control the footer of page display content                        |
-| collapse-button | control the collapse button display content                       |
-| header-left     | control the header left display content                           |
-| header-right    | control the header right display content                          |
-| header-bottom   | control the header bottom display content                         |
+| Name            | Description                                 | Type                     |
+| :-------------- | :------------------------------------------ | :----------------------- |
+| default         | custom implementation RouterView            | -                        |
+| logo            | control logo display content                | { collapse }             |
+| menu            | control menu display content                | { meta, path, redirect } |
+| footer          | control the footer of page display content  | -                        |
+| collapse-button | control the collapse button display content | -                        |
+| header-left     | control the header left display content     | -                        |
+| header-right    | control the header right display content    | -                        |
+| header-bottom   | control the header bottom display content   | -                        |

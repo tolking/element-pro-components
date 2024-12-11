@@ -63,18 +63,19 @@ The function `defineDescriptionsColumns` supports passing in a Generics type to 
 
 ### Props
 
-| Name        | Description                                                                                                                                 | Type    | Options                | Default    |
-| :---------- | :------------------------------------------------------------------------------------------------------------------------------------------ | :------ | :--------------------- | :--------- |
-| columns     | to generate descriptions list, reference `columns`                                                                                          | array   | -                      | -          |
-| detail      | detail data of display                                                                                                                      | object  | -                      | -          |
-| border      | with or without border                                                                                                                      | boolean | -                      | false      |
-| column      | numbers of `Descriptions Item` in one line                                                                                                  | number  | -                      | 3          |
-| direction   | direction of list                                                                                                                           | string  | vertical / horizontal  | horizontal |
-| size        | size of list                                                                                                                                | string  | large / default /small | -          |
-| title       | title text, display on the top left                                                                                                         | string  | -                      | -          |
-| extra       | extra text, display on the top right                                                                                                        | string  | -                      | -          |
-| align       | column content alignment (If no `border`, effective for both label and content)                                                             | string  | left / center / right  | left       |
-| label-align | column label alignment, if omitted, the value of the above `align` attribute will be applied (If no `border`, please use `align` attribute) | string  | left / center / right  | -          |
+| Name        | Description                                                                                                                                 | Type            | Options                | Default    |
+| :---------- | :------------------------------------------------------------------------------------------------------------------------------------------ | :-------------- | :--------------------- | :--------- |
+| columns     | to generate descriptions list, reference `columns`                                                                                          | array           | -                      | -          |
+| detail      | detail data of display                                                                                                                      | object          | -                      | -          |
+| border      | with or without border                                                                                                                      | boolean         | -                      | false      |
+| column      | numbers of `Descriptions Item` in one line                                                                                                  | number          | -                      | 3          |
+| direction   | direction of list                                                                                                                           | string          | vertical / horizontal  | horizontal |
+| size        | size of list                                                                                                                                | string          | large / default /small | -          |
+| title       | title text, display on the top left                                                                                                         | string          | -                      | -          |
+| extra       | extra text, display on the top right                                                                                                        | string          | -                      | -          |
+| align       | column content alignment (If no `border`, effective for both label and content)                                                             | string          | left / center / right  | left       |
+| label-width | label width of every column                                                                                                                 | string / number | -                      | -          |
+| label-align | column label alignment, if omitted, the value of the above `align` attribute will be applied (If no `border`, please use `align` attribute) | string          | left / center / right  | -          |
 
 ### columns
 
@@ -83,9 +84,11 @@ The function `defineDescriptionsColumns` supports passing in a Generics type to 
 | prop           | the key of detail                                                                                                                                                                            | string           | -                     | -       |
 | label          | label text                                                                                                                                                                                   | string           | -                     | -       |
 | span           | colspan of column                                                                                                                                                                            | number           | -                     | 1       |
+| rowspan        | the number of rows a cell should span                                                                                                                                                        | number           | -                     | 1       |
 | width          | column width, the width of the same column in different rows is set by the max value (If no `border`, width contains label and content)                                                      | string           | -                     | -       |
 | minWidth       | column minimum width, columns with `width` has a fixed width, while columns with `min-width` has a width that is distributed in proportion (If no`border`, width contains label and content) | string           | -                     | -       |
 | align          | column content alignment (If no `border`, effective for both label and content)                                                                                                              | string           | left / center / right | left    |
+| labelWidth     | column label width, if not set, it will be the same as the width of the column. Higher priority than the `label-width` of `Descriptions`                                                     | string / number  | -                     | -       |
 | labelAlign     | column label alignment, if omitted, the value of the above `align` attribute will be applied (If no `border`, please use `align` attribute)                                                  | string           | left / center / right | -       |
 | className      | column content custom class name                                                                                                                                                             | string           | -                     | -       |
 | labelClassName | column label custom class name                                                                                                                                                               | string           | -                     | -       |
@@ -94,13 +97,13 @@ The function `defineDescriptionsColumns` supports passing in a Generics type to 
 
 ## Slots
 
-| Name                | Description                                                         |
-| ------------------- | ------------------------------------------------------------------- |
-| -                   | insert more descriptions information at the end                     |
-| title               | custom title, display on the top left, parameters { size }          |
-| extra               | custom extra area, display on the top right, parameters { size }    |
-| detail-[prop]       | control the `Item` display content, parameters { size, item }       |
-| detail-[prop]-label | control the `Item` label display content, parameters { size, item } |
+| Name                | Description                                     | Type           |
+| ------------------- | ----------------------------------------------- | :------------- |
+| -                   | insert more descriptions information at the end | -              |
+| title               | custom title, display on the top left           | { size }       |
+| extra               | custom extra area, display on the top right     | { size }       |
+| detail-[prop]       | control the `Item` display content              | { size, item } |
+| detail-[prop]-label | control the `Item` label display content        | { size, item } |
 
 ::: tip Tip
 [prop] the prop of columns

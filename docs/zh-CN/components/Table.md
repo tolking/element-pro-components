@@ -155,6 +155,8 @@ meta:
 | expand-row-keys         | Table 目前的展开行，与 row-key 配合使用                                                                                      | array                                                   | -                                                                        | -                                                    |
 | default-sort            | 默认的排序列的 prop 和顺序                                                                                                   | Object                                                  | `order`: ascending, descending                                           | ascending                                            |
 | tooltip-effect          | tooltip `effect` 属性                                                                                                        | string                                                  | dark / light                                                             | -                                                    |
+| tooltip-options         | 溢出 tooltip 的选项, [参见下述 tooltip 组件](tooltip.html#attributes)                                                        | object                                                  | -                                                                        | -                                                    |
+| append-filter-panel-to  | 挂载到哪个 DOM 元素                                                                                                          | string                                                  | —                                                                        | -                                                    |
 | show-summary            | 是否在表尾显示合计行                                                                                                         | boolean                                                 | -                                                                        | false                                                |
 | sum-text                | 合计行第一列的文本                                                                                                           | string                                                  | -                                                                        | 合计                                                 |
 | summary-method          | 自定义的合计计算方法                                                                                                         | Function({ columns, data })                             | -                                                                        | -                                                    |
@@ -166,7 +168,9 @@ meta:
 | tree-props              | 渲染嵌套数据的配置选项                                                                                                       | Object                                                  | -                                                                        | { hasChildren: 'hasChildren', children: 'children' } |
 | table-layout            | 设置表格单元、行和列的布局方式                                                                                               | string                                                  | fixed / auto                                                             | fixed                                                |
 | scrollbar-always-on     | 总是显示滚动条                                                                                                               | boolean                                                 | —                                                                        | false                                                |
+| show-overflow-tooltip   | 是否隐藏额外内容并在单元格悬停时使用 Tooltip 显示它们。这将影响全部列的展示，详请参考 [tooltip-options](#table-attributes)   | boolean / object                                        | -                                                                        | —                                                    |
 | flexible                | 确保主轴的最小尺寸                                                                                                           | boolean                                                 | —                                                                        | false                                                |
+| scrollbar-tabindex      | body 的滚动条的包裹容器 tabindex                                                                                             | string / number                                         | -                                                                        | —                                                    |
 | v-model:current-page    | 当前页数                                                                                                                     | number                                                  | -                                                                        | -                                                    |
 | v-model:page-size       | 每页显示条目个数                                                                                                             | number                                                  | -                                                                        | -                                                    |
 | total                   | 总条目数                                                                                                                     | number                                                  | -                                                                        | -                                                    |
@@ -220,51 +224,51 @@ meta:
 
 ### 事件
 
-| 事件名             | 说明                                                                                                                                         | 参数                              |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| load               | pageSize 和 currentPage 改变时会触发                                                                                                         | -                                 |
-| select             | 当用户手动勾选数据行的 Checkbox 时触发的事件                                                                                                 | selection, row                    |
-| select-all         | 当用户手动勾选全选 Checkbox 时触发的事件                                                                                                     | selection                         |
-| selection-change   | 当选择项发生变化时会触发该事件                                                                                                               | selection                         |
-| cell-mouse-enter   | 当单元格 hover 进入时会触发该事件                                                                                                            | row, column, cell, event          |
-| cell-mouse-leave   | 当单元格 hover 退出时会触发该事件                                                                                                            | row, column, cell, event          |
-| cell-click         | 当某个单元格被点击时会触发该事件                                                                                                             | row, column, cell, event          |
-| cell-dblclick      | 当某个单元格被双击击时会触发该事件                                                                                                           | row, column, cell, event          |
-| row-click          | 当某一行被点击时会触发该事件                                                                                                                 | row, column, event                |
-| row-contextmenu    | 当某一行被鼠标右键点击时会触发该事件                                                                                                         | row, column, event                |
-| row-dblclick       | 当某一行被双击时会触发该事件                                                                                                                 | row, column, event                |
-| header-click       | 当某一列的表头被点击时会触发该事件                                                                                                           | column, event                     |
-| header-contextmenu | 当某一列的表头被鼠标右键点击时触发该事件                                                                                                     | column, event                     |
-| sort-change        | 当表格的排序条件发生变化的时候会触发该事件                                                                                                   | { column, prop, order }           |
-| filter-change      | 当表格的筛选条件发生变化的时候会触发该事件，参数的值是一个对象，对象的 key 是 column 的 columnKey，对应的 value 为用户选择的筛选条件的数组。 | filters                           |
-| current-change     | 当表格的当前行发生变化的时候会触发该事件，如果要高亮当前行，请打开表格的 highlight-current-row 属性                                          | currentRow, oldCurrentRow         |
-| header-dragend     | 当拖动表头改变了列的宽度的时候会触发该事件                                                                                                   | newWidth, oldWidth, column, event |
-| expand-change      | 当用户对某一行展开或者关闭的时候会触发该事件（展开行时，回调的第二个参数为 expandedRows；树形表格时第二参数为 expanded）                     | row, (expandedRows \| expanded)   |
+| 事件名             | 说明                                                                                                                                         | 类型                                                                            |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| load               | pageSize 和 currentPage 改变时会触发                                                                                                         | () => void                                                                      |
+| select             | 当用户手动勾选数据行的 Checkbox 时触发的事件                                                                                                 | (selection: any[], row: any) => void                                            |
+| select-all         | 当用户手动勾选全选 Checkbox 时触发的事件                                                                                                     | (selection: any[]) => void                                                      |
+| selection-change   | 当选择项发生变化时会触发该事件                                                                                                               | (newSelection: any[]) => void                                                   |
+| cell-mouse-enter   | 当单元格 hover 进入时会触发该事件                                                                                                            | (row: any, column: any, cell: HTMLTableCellElement, event: Event) => void       |
+| cell-mouse-leave   | 当单元格 hover 退出时会触发该事件                                                                                                            | (row: any, column: any, cell: HTMLTableCellElement, event: Event) => void       |
+| cell-click         | 当某个单元格被点击时会触发该事件                                                                                                             | (row: any, column: any, cell: HTMLTableCellElement, event: Event) => void       |
+| cell-dblclick      | 当某个单元格被双击击时会触发该事件                                                                                                           | (row: any, column: any, cell: HTMLTableCellElement, event: Event) => void       |
+| row-click          | 当某一行被点击时会触发该事件                                                                                                                 | (row: any, column: any, event: Event) => void                                   |
+| row-contextmenu    | 当某一行被鼠标右键点击时会触发该事件                                                                                                         | (row: any, column: any, event: Event) => void                                   |
+| row-dblclick       | 当某一行被双击时会触发该事件                                                                                                                 | (row: any, column: any, event: Event) => void                                   |
+| header-click       | 当某一列的表头被点击时会触发该事件                                                                                                           | (column: any, event: Event) => void                                             |
+| header-contextmenu | 当某一列的表头被鼠标右键点击时触发该事件                                                                                                     | (column: any, event: Event) => void                                             |
+| sort-change        | 当表格的排序条件发生变化的时候会触发该事件                                                                                                   | (data: {column: any, prop: string, order: any }) => void                        |
+| filter-change      | 当表格的筛选条件发生变化的时候会触发该事件，参数的值是一个对象，对象的 key 是 column 的 columnKey，对应的 value 为用户选择的筛选条件的数组。 | (newFilters: any) => void                                                       |
+| current-change     | 当表格的当前行发生变化的时候会触发该事件，如果要高亮当前行，请打开表格的 highlight-current-row 属性                                          | (currentRow: any, oldCurrentRow: any) => void                                   |
+| header-dragend     | 当拖动表头改变了列的宽度的时候会触发该事件                                                                                                   | (newWidth: number, oldWidth: number, column: any, event: MouseEvent) => void    |
+| expand-change      | 当用户对某一行展开或者关闭的时候会触发该事件（展开行时，回调的第二个参数为 expandedRows；树形表格时第二参数为 expanded）                     | (row: any, expandedRows: any[]) => void & (row: any, expanded: boolean) => void |
 
 ### 方法
 
-| 方法名             | 说明                                                                                                                    | 参数                        |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------- | --------------------------- |
-| clearSelection     | 用于多选表格，清空用户的选择                                                                                            | -                           |
-| toggleRowSelection | 用于多选表格，切换某一行的选中状态，如果使用了第二个参数，则是设置这一行选中与否（selected 为 true 则选中）             | row, selected               |
-| toggleAllSelection | 用于多选表格，切换全选和全不选                                                                                          | -                           |
-| toggleRowExpansion | 用于可展开表格与树形表格，切换某一行的展开状态，如果使用了第二个参数，则是设置这一行展开与否（expanded 为 true 则展开） | row, expanded               |
-| setCurrentRow      | 用于单选表格，设定某一行为选中行，如果调用时不加参数，则会取消目前高亮行的选中状态。                                    | row                         |
-| clearSort          | 用于清空排序条件，数据会恢复成未排序的状态                                                                              | -                           |
-| clearFilter        | 不传入参数时用于清空所有过滤条件，数据会恢复成未过滤的状态，也可传入由 columnKey 组成的数组以清除指定列的过滤条件       | columnKey                   |
-| doLayout           | 对 Table 进行重新布局。当 Table 或其祖先元素由隐藏切换为显示时，可能需要调用此方法                                      | -                           |
-| sort               | 手动对 Table 进行排序。参数`prop`属性指定排序列，`order`指定排序顺序。                                                  | prop: string, order: string |
+| 方法名             | 说明                                                                                                                    | 类型                                                            |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| clearSelection     | 用于多选表格，清空用户的选择                                                                                            | () => void                                                      |
+| toggleRowSelection | 用于多选表格，切换某一行的选中状态，如果使用了第二个参数，则是设置这一行选中与否（selected 为 true 则选中）             | (row: any, selected?: boolean, ignoreSelectable = true) => void |
+| toggleAllSelection | 用于多选表格，切换全选和全不选                                                                                          | () => void                                                      |
+| toggleRowExpansion | 用于可展开表格与树形表格，切换某一行的展开状态，如果使用了第二个参数，则是设置这一行展开与否（expanded 为 true 则展开） | (row: any, expanded?: boolean) => void                          |
+| setCurrentRow      | 用于单选表格，设定某一行为选中行，如果调用时不加参数，则会取消目前高亮行的选中状态。                                    | (row: any) => void                                              |
+| clearSort          | 用于清空排序条件，数据会恢复成未排序的状态                                                                              | () => void                                                      |
+| clearFilter        | 不传入参数时用于清空所有过滤条件，数据会恢复成未过滤的状态，也可传入由 columnKey 组成的数组以清除指定列的过滤条件       | (columnKeys?: string[]) => void                                 |
+| doLayout           | 对 Table 进行重新布局。当 Table 或其祖先元素由隐藏切换为显示时，可能需要调用此方法                                      | () => void                                                      |
+| sort               | 手动对 Table 进行排序。参数`prop`属性指定排序列，`order`指定排序顺序。                                                  | (prop: string, order: string) => void                           |
 
 ### 插槽
 
-| 名称                | 说明                                                     |
-| :------------------ | :------------------------------------------------------- |
-| -                   | 在右侧菜单前插入的任意内容                               |
-| menu                | 表格右侧自定义按钮，参数为 { size, row, column, $index } |
-| expand              | 当前这列展开显示的内容，参数为 { row, column, $index }   |
-| append              | 插入至表格最后一行之后的内容                             |
-| table-[prop]        | 当前这列的内容，参数为 { size, row, column, $index }     |
-| table-[prop]-header | 当前这列表头的内容，参数为 { size, column, $index }      |
+| 名称                | 说明                         | 类型                          |
+| :------------------ | :--------------------------- | :---------------------------- |
+| -                   | 在右侧菜单前插入的任意内容   | -                             |
+| menu                | 表格右侧自定义按钮           | { size, row, column, $index } |
+| expand              | 当前这列展开显示的内容       | { row, column, $index }       |
+| append              | 插入至表格最后一行之后的内容 | -                             |
+| table-[prop]        | 当前这列的内容               | { size, row, column, $index } |
+| table-[prop]-header | 当前这列表头的内容           | { size, column, $index }      |
 
 ::: tip 提示
 [prop] 为 columns 中定义的 prop

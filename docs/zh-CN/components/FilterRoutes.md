@@ -57,13 +57,14 @@ meta:
 
 ### 事件
 
-| 名称           | 说明                                     | 回调参数                      |
-| -------------- | ---------------------------------------- | ----------------------------- |
-| change         | 选中值发生变化时触发                     | 目前的选中值                  |
-| visible-change | 下拉框出现/隐藏时触发                    | 出现则为 true，隐藏则为 false |
-| clear          | 可清空的单选模式下用户点击清空按钮时触发 | —                             |
-| blur           | 当 input 失去焦点时触发                  | (event: Event)                |
-| focus          | 当 input 获得焦点时触发                  | (event: Event)                |
+| 名称           | 说明                                     | 类型                        |
+| -------------- | ---------------------------------------- | --------------------------- |
+| change         | 选中值发生变化时触发                     | (value: any) => void        |
+| visible-change | 下拉框出现/隐藏时触发                    | (visible: boolean) => void  |
+| remove-tag     | 多选模式下移除 tag 时触发                | (tagValue: any) => void     |
+| clear          | 可清空的单选模式下用户点击清空按钮时触发 | () => void                  |
+| blur           | 当 input 失去焦点时触发                  | (event: FocusEvent) => void |
+| focus          | 当 input 获得焦点时触发                  | (event: FocusEvent) => void |
 
 ### 插槽
 

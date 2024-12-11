@@ -51,8 +51,8 @@ When using `pro-autocomplete-tag`, most attribute of `ElAutocomplete` are suppor
 
 ## Events
 
-| Name       | Description                           | Parameters      |
-| ---------- | ------------------------------------- | --------------- |
-| input      | triggers when the Input value change  | (value: string) |
-| tag-add    | triggers when add a tag               | (value: string) |
-| tag-remove | triggers when close button is clicked | (value: string) |
+| Name       | Description                           | Type                    |
+| ---------- | ------------------------------------- | ----------------------- |
+| input      | triggers when the Input value change  | (value: string) => void |
+| tag-add    | triggers when add a tag               | (value: string) => void |
+| tag-remove | triggers when close button is clicked | (value: string) => void |

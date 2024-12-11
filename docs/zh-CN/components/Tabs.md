@@ -98,18 +98,18 @@ meta:
 
 ### 事件
 
-| 事件名     | 说明                    | 参数                                   |
-| ---------- | ----------------------- | -------------------------------------- |
-| tab-click  | tab 被选中时触发        | (pane: `TabsPaneContext`, ev: `Event`) |
-| tab-change | `activeName` 变动后触发 | (path name)                            |
-| tab-remove | 关闭时触发              | (path name)                            |
+| 事件名     | 说明                    | 类型                                       |
+| ---------- | ----------------------- | ------------------------------------------ |
+| tab-click  | tab 被选中时触发        | (pane: TabsPaneContext, ev: Event) => void |
+| tab-change | `activeName` 变动后触发 | (name: TabPaneName) => void                |
+| tab-remove | 关闭时触发              | (name: TabPaneName) => void                |
 
 ### 方法
 
-| 方法名     | 说明                               | 参数                      |
-| ---------- | ---------------------------------- | ------------------------- |
-| close      | 从 tabs 中关闭指定路由的页面       | path (需要关闭页面的路由) |
-| closeOther | 从 tabs 中关闭除当前路由的其它路由 | -                         |
+| 方法名     | 说明                               | 类型                   |
+| ---------- | ---------------------------------- | ---------------------- |
+| close      | 从 tabs 中关闭指定路由的页面       | (path: string) => void |
+| closeOther | 从 tabs 中关闭除当前路由的其它路由 | () => void             |
 
 ### 插槽
 

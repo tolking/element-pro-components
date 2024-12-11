@@ -151,13 +151,13 @@ Same like `ElTree`, set `lazy` and `load` attribute to enable lazy mode
 
 | Name             | Description                                                   | Parameters                                                                                                                                                                                       |
 | ---------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| change           | triggers when the selected value changes                      | current selected value                                                                                                                                                                           |
-| visible-change   | triggers when the dropdown appears/disappears                 | true when it appears, and false otherwise                                                                                                                                                        |
-| remove-tag       | triggers when a tag is removed in multiple mode               | removed tag value                                                                                                                                                                                |
-| clear            | triggers when the clear icon is clicked in a clearable Select | —                                                                                                                                                                                                |
-| blur             | triggers when Input blurs                                     | (event: Event)                                                                                                                                                                                   |
-| focus            | triggers when Input focuses                                   | (event: Event)                                                                                                                                                                                   |
-| node-click       | triggers when a node is clicked                               | three parameters: node object corresponding to the node clicked, `node` property of TreeNode, TreeNode itself                                                                                    |
+| change           | triggers when the selected value changes                      | (value: any) => void                                                                                                                                                                             |
+| visible-change   | triggers when the dropdown appears/disappears                 | (visible: boolean) => void                                                                                                                                                                       |
+| remove-tag       | triggers when a tag is removed in multiple mode               | (tagValue: any) => void                                                                                                                                                                          |
+| clear            | triggers when the clear icon is clicked in a clearable Select | () => void                                                                                                                                                                                       |
+| blur             | triggers when Input blurs                                     | (event: FocusEvent) => void                                                                                                                                                                      |
+| focus            | triggers when Input focuses                                   | (event: FocusEvent) => void                                                                                                                                                                      |
+| node-click       | triggers when a node is clicked                               | four parameters: node object corresponding to the node clicked, `node` property of TreeNode, TreeNode itself, event object                                                                       |
 | node-contextmenu | triggers when a node is clicked by right button               | four parameters: event, node object corresponding to the node clicked, `node` property of TreeNode, TreeNode itself                                                                              |
 | check-change     | triggers when the selected state of the node changes          | three parameters: node object corresponding to the node whose selected state is changed, whether the node is selected, whether node's subtree has selected nodes                                 |
 | check            | triggers after clicking the checkbox of a node                | two parameters: node object corresponding to the node that is checked / unchecked, tree checked status object which has four props: checkedNodes, checkedKeys, halfCheckedNodes, halfCheckedKeys |
@@ -173,6 +173,6 @@ Same like `ElTree`, set `lazy` and `load` attribute to enable lazy mode
 
 ### Slots
 
-| Name | Description                                                                    |
-| ---- | ------------------------------------------------------------------------------ |
-| -    | Custom content for tree nodes. The scope parameter is { node, item, multiple } |
+| Name | Description                   | Type                     |
+| ---- | ----------------------------- | ------------------------ |
+| -    | Custom content for tree nodes | { node, item, multiple } |

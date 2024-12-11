@@ -60,9 +60,9 @@ use `pro-checkbox-button` then checkbox with button styles
 
 ### Checkbox Events
 
-| Name   | Description                             | Parameters        |
-| ------ | --------------------------------------- | ----------------- |
-| change | triggers when the binding value changes | the updated value |
+| Name   | Description                             | Type                                  |
+| ------ | --------------------------------------- | ------------------------------------- |
+| change | triggers when the binding value changes | (value: string[] \| number[]) => void |
 
 ## CheckboxButton
 
@@ -85,6 +85,6 @@ use `pro-checkbox-button` then checkbox with button styles
 
 ### CheckboxButton Events
 
-| Name   | Description                             | Parameters        |
-| ------ | --------------------------------------- | ----------------- |
-| change | triggers when the binding value changes | the updated value |
+| Name   | Description                             | Type                                  |
+| ------ | --------------------------------------- | ------------------------------------- |
+| change | triggers when the binding value changes | (value: string[] \| number[]) => void |
