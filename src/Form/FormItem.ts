@@ -1,7 +1,7 @@
 import { defineComponent, h, mergeProps, computed } from 'vue'
 import { ElFormItem, useSize } from 'element-plus'
 import { useCol } from '../composables/index'
-import { get, set, has, throwWarn } from '../utils/index'
+import { get, set, has, throwWarn, isArray } from '../utils/index'
 import { useCreateLabel, useFormInject } from './useForm'
 import { getFormItemBind } from './utils'
 import { formItemProps, formItemEmits } from './props'
@@ -23,7 +23,13 @@ export default defineComponent({
     const modelProps = computed(() => {
       const list = props.item.models ?? [
         props.item.modelKey
-          ? { prop: props.item.prop, key: props.item.modelKey }
+          ? isArray(props.item.modelKey)
+            ? {
+                prop: props.item.prop,
+                key: props.item.modelKey[0],
+                event: props.item.modelKey[1],
+              }
+            : { prop: props.item.prop, key: props.item.modelKey }
           : { prop: props.item.prop, key: 'modelValue' },
       ]
 

@@ -61,7 +61,7 @@ export interface FormColumn<T = ExternalParam>
    *
    * bind v-model arguments, default modelValue
    */
-  modelKey?: string
+  modelKey?: string | [string, string]
   /** bind v-model arguments, support binding multiple arguments */
   models?: Array<{
     /** keys of model that passed to form */
