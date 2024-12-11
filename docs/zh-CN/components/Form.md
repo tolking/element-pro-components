@@ -61,10 +61,16 @@ meta:
 
 ### 配置组件绑定的 v-model 参数
 
-默认情况下 ProForm 组件仅支持使用 `v-model` 绑定值的组件，如果需要使用其他参数绑定值，可以通过 `modelKey` 配置
+默认情况下 ProForm 组件仅支持使用 `v-model` 绑定值的组件，如果需要使用其他参数绑定值，可以通过 `models` 配置。当指定 `models` 时，`prop` 属性会被忽略（`v-model` 实现的绑定将无效），需要额外向 `models` 中传入 `{ prop: [prop], key: 'modelValue' }` 来实现绑定。
 
-::: demo modelKey 除了支持字符串，还支持传入 `[prop, event]` (`prop` 用于配置绑定值的参数，`event` 用于配置绑定值的事件)
-@/demo/Form/modelKey.vue
+另外 `models` 也可以用来为一个组件绑定多个参数
+
+::: tip 提示
+从 `1.4.0` 起，`modelKey` 属性已废弃，请使用 `models` 属性替代
+:::
+
+::: demo prop: 绑定的字段名, key: 用于配置 v-model 的参数, event: 用于配置绑定值的事件
+@/demo/Form/models.vue
 :::
 
 ### 使用插槽
@@ -230,40 +236,40 @@ meta:
 
 #### columns
 
-| 参数          | 说明                                                                                                        | 类型                      | 可选值                                    | 默认值 |
-| :------------ | :---------------------------------------------------------------------------------------------------------- | :------------------------ | :---------------------------------------- | :----- |
-| prop          | v-model 绑定的字段名 (**需要是唯一值**)                                                                     | string                    | -                                         | -      |
-| label         | 标签文本                                                                                                    | string                    | -                                         | -      |
-| component     | 当前项对应的组件，可以直接传入局部组件                                                                      | string / Component        | -                                         | -      |
-| props         | 传递的对应的组件的参数                                                                                      | object                    | -                                         | -      |
-| modelKey      | 当前项对应的组件的 `v-model` 绑定的字段名                                                                   | string / [string, string] | -                                         | -      |
-| children      | 分组表单或子表单内容                                                                                        | array                     | -                                         | -      |
-| type          | children 内部表单的类型                                                                                     | string                    | array / group / tabs / collapse / steps   | array  |
-| max           | 限制 `type=array` 时子表单的最大数量                                                                        | number                    | -                                         | -      |
-| show          | 是否在表单中显示当前项                                                                                      | boolean                   | -                                         | true   |
-| labelWidth    | 表单域标签的宽度，例如 '50px' 或 'auto'                                                                     | string                    | -                                         | -      |
-| labelPosition | 表单域标签的位置， 当设置为 left 或 right 时，则也需要设置 label-width 属性 默认会继承 Form的label-position | string                    | left / right / top                        | -      |
-| required      | 是否必填，如不设置，则会根据校验规则自动生成                                                                | boolean                   | -                                         | false  |
-| rules         | 表单验证规则                                                                                                | object / array            | -                                         | -      |
-| error         | 表单域验证错误信息, 设置该值会使表单验证状态变为`error`，并显示该错误信息                                   | string                    | -                                         | -      |
-| showMessage   | 是否显示校验错误信息                                                                                        | boolean                   | -                                         | true   |
-| inlineMessage | 以行内形式展示校验信息                                                                                      | boolean                   | -                                         | false  |
-| size          | 用于控制该表单域下组件的尺寸                                                                                | string                    | large / default /small                    | -      |
-| span          | 栅格占据的列数                                                                                              | number                    | -                                         | 24     |
-| offset        | 栅格左侧的间隔格数                                                                                          | number                    | -                                         | 0      |
-| push          | 栅格向右移动格数                                                                                            | number                    | -                                         | 0      |
-| pull          | 栅格向左移动格数                                                                                            | number                    | -                                         | 0      |
-| xs            | `<768px` 响应式栅格数或者栅格属性对象                                                                       | number / object           | -                                         | -      |
-| sm            | `≥768px` 响应式栅格数或者栅格属性对象                                                                       | number / object           | -                                         | -      |
-| md            | `≥992px` 响应式栅格数或者栅格属性对象                                                                       | number / object           | -                                         | -      |
-| lg            | `≥1200px` 响应式栅格数或者栅格属性对象                                                                      | number / object           | -                                         | -      |
-| xl            | `≥1920px` 响应式栅格数或者栅格属性对象                                                                      | number / object           | -                                         | -      |
-| disabled      | 是否禁用, 当 `type=tabs` 或者 `type=collapse` 时生效                                                        | boolean                   | —                                         | false  |
-| closable      | 标签是否可关闭, 当 `type=tabs` 时生效                                                                       | boolean                   | —                                         | false  |
-| lazy          | 标签是否延迟渲染, 当 `type=tabs` 时生效                                                                     | boolean                   | —                                         | false  |
-| description   | 分步描述文案, 当 `type=steps` 时生效                                                                        | string                    | —                                         | —      |
-| icon          | 自定义分步图标, 当 `type=steps` 时生效                                                                      | string / Component        | —                                         | —      |
-| status        | 设置当前步骤的状态, 当 `type=steps` 时生效                                                                  | string                    | wait / process / finish / error / success | —      |
+| 参数          | 说明                                                                                                        | 类型               | 可选值                                    | 默认值 |
+| :------------ | :---------------------------------------------------------------------------------------------------------- | :----------------- | :---------------------------------------- | :----- |
+| prop          | v-model 绑定的字段名 (**需要是唯一值**)                                                                     | string             | -                                         | -      |
+| label         | 标签文本                                                                                                    | string             | -                                         | -      |
+| component     | 当前项对应的组件，可以直接传入局部组件                                                                      | string / Component | -                                         | -      |
+| props         | 传递的对应的组件的参数                                                                                      | object             | -                                         | -      |
+| models        | 配置当前项对应的组件的 `v-model` 绑定的参数 (Array<{ prop, key, event }>)                                   | array              | -                                         | -      |
+| children      | 分组表单或子表单内容                                                                                        | array              | -                                         | -      |
+| type          | children 内部表单的类型                                                                                     | string             | array / group / tabs / collapse / steps   | array  |
+| max           | 限制 `type=array` 时子表单的最大数量                                                                        | number             | -                                         | -      |
+| show          | 是否在表单中显示当前项                                                                                      | boolean            | -                                         | true   |
+| labelWidth    | 表单域标签的宽度，例如 '50px' 或 'auto'                                                                     | string             | -                                         | -      |
+| labelPosition | 表单域标签的位置， 当设置为 left 或 right 时，则也需要设置 label-width 属性 默认会继承 Form的label-position | string             | left / right / top                        | -      |
+| required      | 是否必填，如不设置，则会根据校验规则自动生成                                                                | boolean            | -                                         | false  |
+| rules         | 表单验证规则                                                                                                | object / array     | -                                         | -      |
+| error         | 表单域验证错误信息, 设置该值会使表单验证状态变为`error`，并显示该错误信息                                   | string             | -                                         | -      |
+| showMessage   | 是否显示校验错误信息                                                                                        | boolean            | -                                         | true   |
+| inlineMessage | 以行内形式展示校验信息                                                                                      | boolean            | -                                         | false  |
+| size          | 用于控制该表单域下组件的尺寸                                                                                | string             | large / default /small                    | -      |
+| span          | 栅格占据的列数                                                                                              | number             | -                                         | 24     |
+| offset        | 栅格左侧的间隔格数                                                                                          | number             | -                                         | 0      |
+| push          | 栅格向右移动格数                                                                                            | number             | -                                         | 0      |
+| pull          | 栅格向左移动格数                                                                                            | number             | -                                         | 0      |
+| xs            | `<768px` 响应式栅格数或者栅格属性对象                                                                       | number / object    | -                                         | -      |
+| sm            | `≥768px` 响应式栅格数或者栅格属性对象                                                                       | number / object    | -                                         | -      |
+| md            | `≥992px` 响应式栅格数或者栅格属性对象                                                                       | number / object    | -                                         | -      |
+| lg            | `≥1200px` 响应式栅格数或者栅格属性对象                                                                      | number / object    | -                                         | -      |
+| xl            | `≥1920px` 响应式栅格数或者栅格属性对象                                                                      | number / object    | -                                         | -      |
+| disabled      | 是否禁用, 当 `type=tabs` 或者 `type=collapse` 时生效                                                        | boolean            | —                                         | false  |
+| closable      | 标签是否可关闭, 当 `type=tabs` 时生效                                                                       | boolean            | —                                         | false  |
+| lazy          | 标签是否延迟渲染, 当 `type=tabs` 时生效                                                                     | boolean            | —                                         | false  |
+| description   | 分步描述文案, 当 `type=steps` 时生效                                                                        | string             | —                                         | —      |
+| icon          | 自定义分步图标, 当 `type=steps` 时生效                                                                      | string / Component | —                                         | —      |
+| status        | 设置当前步骤的状态, 当 `type=steps` 时生效                                                                  | string             | wait / process / finish / error / success | —      |
 
 ::: tip 关于 props
 props 的属性将全部传递给 component 指定的组件

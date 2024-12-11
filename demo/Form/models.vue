@@ -38,7 +38,7 @@ export default defineComponent({
         label: 'Use in the ProForm',
         prop: 'value',
         component: markRaw(MyInput),
-        modelKey: 'value', // or ['value', 'onUpdate:value']
+        models: [{ prop: 'value', key: 'value', event: 'update:value' }],
       },
     ])
     const submit = defineFormSubmit((done, isValid, invalidFields) => {
