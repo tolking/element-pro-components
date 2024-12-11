@@ -29,20 +29,32 @@ import type { ExternalParam, Mutable } from '../types/index'
 const MyInput = defineComponent({
   name: 'MyInput',
   props: {
-    value: {
+    start: {
+      type: String,
+      default: '',
+    },
+    end: {
       type: String,
       default: '',
     },
   },
-  emits: ['update:value'],
+  emits: ['update:start', 'update:end'],
   setup(props, { emit }) {
     return () =>
-      h('input', {
-        class: 'my-input',
-        value: props.value,
-        onInput: (e: { target: { value: string } }) =>
-          emit('update:value', e.target.value),
-      })
+      h('div', [
+        h('input', {
+          class: 'my-input',
+          value: props.start,
+          onInput: (e: { target: { value: string } }) =>
+            emit('update:start', e.target.value),
+        }),
+        h('input', {
+          class: 'my-input-end',
+          value: props.end,
+          onInput: (e: { target: { value: string } }) =>
+            emit('update:end', e.target.value),
+        }),
+      ])
   },
 })
 
@@ -234,21 +246,25 @@ describe('ProFormComponent', () => {
     expect(wrapper.find('div').text()).toBe('slots')
   })
 
-  test.concurrent('modelKey', async () => {
+  test.concurrent('binding multiple arguments', async () => {
     const wrapper = await mount({
       template:
-        '<pro-form-component v-model="form" is="my-input" modelKey="value" />',
+        '<pro-form-component v-model:start="form.start" v-model:end="form.end" is="my-input" />',
       setup() {
-        const form = ref()
+        const form = ref({})
         return { form }
       },
     })
 
     expect(wrapper.find('.my-input').exists()).toBe(true)
+    expect(wrapper.find('.my-input-end').exists()).toBe(true)
 
-    await wrapper.find('.my-input').setValue('value')
-    expect(wrapper.find('input').element.value).toBe('value')
-    expect(wrapper.vm.form).toBe('value')
+    await wrapper.find('.my-input').setValue('start')
+    expect(wrapper.find('input').element.value).toBe('start')
+    expect(wrapper.vm.form).toEqual({ start: 'start' })
+
+    await wrapper.find('.my-input-end').setValue('end')
+    expect(wrapper.vm.form).toEqual({ start: 'start', end: 'end' })
   })
 })
 
@@ -338,18 +354,21 @@ describe('ProFormItem', () => {
     expect(wrapper.find('.el-input').exists()).toBe(false)
   })
 
-  test.concurrent('modelKey', async () => {
+  test.concurrent('models', async () => {
     const wrapper = await mount({
       template: '<pro-form-item v-model="form" :item="columns[0]" />',
       setup() {
-        const form = ref()
+        const form = ref({})
         const columns = ref(
           defineFormColumns([
             {
               label: 'input',
               prop: 'input',
               component: 'my-input',
-              modelKey: 'value',
+              models: [
+                { prop: 'start', key: 'start' },
+                { prop: 'end', key: 'end' },
+              ],
             },
           ]),
         )
@@ -359,21 +378,20 @@ describe('ProFormItem', () => {
     const vm = wrapper.vm as unknown as { columns: IFormColumns }
 
     expect(wrapper.find('.my-input').exists()).toBe(true)
+    expect(wrapper.find('.my-input-end').exists()).toBe(true)
     expect(wrapper.find('.el-form-item__label').text()).toBe('input')
 
-    await wrapper.find('.my-input').setValue('value')
-    expect(wrapper.find('input').element.value).toBe('value')
-    expect(wrapper.vm.form).toEqual({ input: 'value' })
+    await wrapper.find('.my-input').setValue('start')
+    expect(wrapper.find('input').element.value).toBe('start')
+    expect(wrapper.vm.form).toEqual({ start: 'start' })
 
-    await (vm.columns[0].modelKey = 'modelValue')
+    await wrapper.find('.my-input-end').setValue('end')
+    expect(wrapper.vm.form).toMatchObject({ end: 'end' })
+
+    await (vm.columns[0].models = undefined)
     await wrapper.find('.my-input').setValue('modelValue')
     expect(wrapper.find('input').element.value).toBe('modelValue')
-    expect(wrapper.vm.form).not.toEqual({ input: 'modelValue' })
-
-    await (vm.columns[0].modelKey = ['value', 'onUpdate:value'])
-    await wrapper.find('.my-input').setValue('my-input')
-    expect(wrapper.find('input').element.value).toBe('my-input')
-    expect(wrapper.vm.form).toEqual({ input: 'my-input' })
+    expect(wrapper.vm.form).not.toMatchObject({ input: 'modelValue' })
   })
 })
 
@@ -1567,6 +1585,7 @@ describe('Form', () => {
       input: string
       switch: boolean
       input1: string
+      end?: string
     }
 
     const wrapper = mount({
@@ -1576,6 +1595,7 @@ describe('Form', () => {
           input: '123',
           switch: false,
           input1: 'abc',
+          end: undefined,
         })
         const columns: IFormColumns<Form> = [
           {
@@ -1592,14 +1612,17 @@ describe('Form', () => {
             label: 'MyInput',
             prop: 'input1',
             component: 'my-input',
-            modelKey: 'value',
+            models: [
+              { prop: 'input1', key: 'start' },
+              { prop: 'end', key: 'end' },
+            ],
           },
         ]
         return { form, columns }
       },
     })
     const vm = wrapper.vm as unknown as {
-      form: { input: string; switch: boolean; input1: string }
+      form: Form
       columns: IFormColumns
     }
 
@@ -1620,6 +1643,9 @@ describe('Form', () => {
     await wrapper.find('input.my-input').setValue('value1')
     expect(vm.form.input1).toBe('value1')
 
+    await wrapper.find('input.my-input-end').setValue('value2')
+    expect(vm.form.end).toBe('value2')
+
     await (vm.form = {
       input: 'input',
       switch: false,
@@ -1630,6 +1656,9 @@ describe('Form', () => {
     expect(
       (wrapper.find('input.my-input').element as HTMLInputElement).value,
     ).toBe('input1')
+    expect(
+      (wrapper.find('input.my-input-end').element as HTMLInputElement).value,
+    ).toBe('')
   })
 
   test.concurrent('menu', async () => {

@@ -61,10 +61,16 @@ Local component can be passed directly through `component` in `columns` attribut
 
 ### Configure the v-model arguments for component
 
-By default, the ProForm component only supports components that bind values through `v-model`. If you need to use other arguments to bind values, you can configure it through `modelKey`.
+By default, the ProForm component only supports components that bind values through `v-model`. If you need to use other arguments to bind values, you can configure it through `models`. When `models` is specified, the `prop` attribute will be ignored (the binding implemented by `v-model` will be invalid), and you need to pass `{ prop: [prop], key: 'modelValue' }` to `models` to implement the binding.
 
-::: demo In addition to supporting strings, modelKey also supports passing in `[prop, event]` (`prop` is used to configure the parameters of the bound value, `event` is used to configure the event of the bound value)
-@/demo/Form/modelKey.vue
+In addition, `models` can also be used to bind multiple parameters to a component
+
+::: tip
+Since `1.4.0`, the `modelKey` attribute has been deprecated, please use the `models` attribute instead
+:::
+
+::: demo prop: the name of the bound field, key: the parameter used to configure v-model, event: the event used to configure the bound value
+@/demo/Form/models.vue
 :::
 
 ### Slots
@@ -236,7 +242,7 @@ The function `defineFormColumns` supports passing in a Generics type to infer th
 | label         | label text                                                                                                                              | string                                      | -                                         | -       |
 | component     | binding component                                                                                                                       | string                                      | -                                         | -       |
 | props         | transfer `props` to the current component                                                                                               | object                                      | -                                         | -       |
-| modelKey      | the arguments name bound to the `v-model` of the current component                                                                      | string / [string, string]                   | -                                         | -       |
+| models        | Configure the `v-model` binding parameters of the component corresponding to the current item (Array<{ prop, key, event }>)             | array                                       | -                                         | -       |
 | children      | group form or sub-form content                                                                                                          | array                                       | -                                         | -       |
 | type          | type of children internal forms                                                                                                         | string                                      | array / group / tabs / collapse / steps   | array   |
 | max           | limit the maximum number of `type=array`                                                                                                | number                                      | -                                         | -       |

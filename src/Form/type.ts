@@ -44,8 +44,6 @@ export interface FormColumn<T = ExternalParam>
     Partial<Omit<ColProps, 'tag'>> {
   /** component name */
   component?: string | ColumnComponent
-  /** bind v-model arguments, default modelValue */
-  modelKey?: string
   /** props for component */
   props?: UnknownObject & { slots?: ColumnPropsSlots }
   /** the type of sub-form */
@@ -58,6 +56,21 @@ export interface FormColumn<T = ExternalParam>
   prop: ColumnProp<T>
   /** whether to display the current column */
   show?: boolean
+  /**
+   * @deprecated The `modelKey` attribute will be removed in the next major version, please use `models` instead
+   *
+   * bind v-model arguments, default modelValue
+   */
+  modelKey?: string
+  /** bind v-model arguments, support binding multiple arguments */
+  models?: Array<{
+    /** keys of model that passed to form */
+    prop: string
+    /** bind v-model arguments */
+    key: string
+    /** bind v-model event, default `onUpdate:${key}` */
+    event?: string
+  }>
 }
 
 export type GroupFormType = 'group' | 'tabs' | 'collapse' | 'steps'

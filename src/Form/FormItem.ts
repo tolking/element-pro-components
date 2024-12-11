@@ -1,12 +1,13 @@
-import { defineComponent, h, Slot, VNode, mergeProps, toRef } from 'vue'
+import { defineComponent, h, mergeProps, computed } from 'vue'
 import { ElFormItem, useSize } from 'element-plus'
 import { useCol } from '../composables/index'
-import { get, set, has } from '../utils/index'
+import { get, set, has, throwWarn } from '../utils/index'
 import { useCreateLabel, useFormInject } from './useForm'
 import { getFormItemBind } from './utils'
 import { formItemProps, formItemEmits } from './props'
 import ProFormList from './FormList'
 import ProFormComponent from './FormComponent'
+import type { Slot, VNode } from 'vue'
 import type { UnknownObject } from '../types/index'
 
 export default defineComponent({
@@ -14,29 +15,51 @@ export default defineComponent({
   props: formItemProps,
   emits: formItemEmits,
   setup(props, { emit }) {
-    const item = toRef(props, 'item')
     const form = useFormInject()
     const size = useSize()
     const createLabel = useCreateLabel(props)
-    const { colStyle, colClass } = useCol(item)
+    const { colStyle, colClass } = useCol(props.item)
+
+    const modelProps = computed(() => {
+      const list = props.item.models ?? [
+        props.item.modelKey
+          ? { prop: props.item.prop, key: props.item.modelKey }
+          : { prop: props.item.prop, key: 'modelValue' },
+      ]
+
+      return list.reduce((all, model) => {
+        return {
+          ...all,
+          [model.key]: get(props.modelValue, model.prop, undefined),
+          [model.event ?? `onUpdate:${model.key}`]: (value: unknown) =>
+            emit('update:modelValue', set(props.modelValue, model.prop, value)),
+        }
+      }, {})
+    })
+
+    if (props.item.modelKey) {
+      throwWarn(
+        `[ProForm] The 'modelKey' attribute will be removed in the next major version, please use 'models' instead`,
+      )
+    }
 
     function update(value: unknown) {
-      emit('update:modelValue', set(props.modelValue, item.value.prop, value))
+      emit('update:modelValue', set(props.modelValue, props.item.prop, value))
     }
 
     function createError(scope: UnknownObject) {
-      if (form?.slots[`form-${item.value.prop}-error`]) {
-        return (form?.slots[`form-${item.value.prop}-error`] as Slot)({
+      if (form?.slots[`form-${props.item.prop}-error`]) {
+        return (form?.slots[`form-${props.item.prop}-error`] as Slot)({
           ...scope,
-          item: item.value,
+          item: props.item,
           indexes: props.indexes,
         })
       }
     }
 
     function createDefault() {
-      !has(props.modelValue, item.value.prop) && update(undefined)
-      const currentValue = get(props.modelValue, item.value.prop, undefined)
+      !has(props.modelValue, props.item.prop) && update(undefined)
+      const currentValue = get(props.modelValue, props.item.prop, undefined)
       let list: VNode[] = []
 
       if (props.item.children?.length) {
@@ -51,24 +74,23 @@ export default defineComponent({
             'onUpdate:modelValue': update,
           }),
         )
-      } else if (form?.slots[`form-${item.value.prop}`]) {
+      } else if (form?.slots[`form-${props.item.prop}`]) {
         list = list.concat(
-          (form?.slots[`form-${item.value.prop}`] as Slot)({
-            item: item.value,
+          (form?.slots[`form-${props.item.prop}`] as Slot)({
+            ...modelProps.value,
+            item: props.item,
             indexes: props.indexes,
             value: currentValue,
             setValue: update,
           }),
         )
-      } else if (item.value.component) {
+      } else if (props.item.component) {
         list.push(
           h(
             ProFormComponent,
-            mergeProps(item.value.props || {}, {
-              is: item.value.component,
-              modelValue: currentValue,
-              modelKey: item.value.modelKey,
-              'onUpdate:modelValue': update,
+            mergeProps(props.item.props || {}, {
+              ...modelProps.value,
+              is: props.item.component,
             }),
           ),
         )
@@ -78,17 +100,17 @@ export default defineComponent({
     }
 
     return () =>
-      item.value.show === false
+      props.item.show === false
         ? null
         : h(
             ElFormItem,
-            mergeProps({ size: size.value }, getFormItemBind(item.value), {
+            mergeProps({ size: size.value }, getFormItemBind(props.item), {
               prop: props.prefix,
               style: !form?.props.inline ? colStyle.value : undefined,
               class: ['pro-form-item', !form?.props.inline && colClass.value],
             }),
             {
-              label: () => createLabel(item.value),
+              label: () => createLabel(props.item),
               error: (scope: UnknownObject) => createError(scope),
               default: () => createDefault(),
             },
