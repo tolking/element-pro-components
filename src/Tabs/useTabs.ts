@@ -2,23 +2,17 @@ import { computed, nextTick, Ref, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useLocale } from '../composables/index'
 import { isFunction, isObject, throwWarn } from '../utils/index'
-import type { RouteLocationNormalizedLoadedGeneric } from 'vue-router'
+import type { RouteLocationNormalizedLoaded } from 'vue-router'
 import type { DropdownInstance } from 'element-plus'
 import type { ITabsProps, ITabsExpose } from './type'
 
 interface UseTabs extends ITabsExpose {
   active: Ref<string>
   to: (path: string) => void
-  refresh: (item: RouteLocationNormalizedLoadedGeneric) => void
-  closeLeft: (item: RouteLocationNormalizedLoadedGeneric, index: number) => void
-  closeRight: (
-    item: RouteLocationNormalizedLoadedGeneric,
-    index: number,
-  ) => void
-  closeOthers: (
-    item: RouteLocationNormalizedLoadedGeneric,
-    index: number,
-  ) => void
+  refresh: (item: RouteLocationNormalizedLoaded) => void
+  closeLeft: (item: RouteLocationNormalizedLoaded, index: number) => void
+  closeRight: (item: RouteLocationNormalizedLoaded, index: number) => void
+  closeOthers: (item: RouteLocationNormalizedLoaded, index: number) => void
 }
 
 export function useTabsMenu() {
@@ -36,7 +30,7 @@ export function useTabs(props: ITabsProps): UseTabs {
   const route = useRoute()
   const router = useRouter()
   const active = ref('')
-  const list = ref<RouteLocationNormalizedLoadedGeneric[]>([])
+  const list = ref<RouteLocationNormalizedLoaded[]>([])
 
   watch(
     () => route.path,
@@ -64,13 +58,13 @@ export function useTabs(props: ITabsProps): UseTabs {
       }
 
       if (canAdd !== false) {
-        addTab(route)
+        addTab({ ...route })
       }
     },
     { immediate: true },
   )
 
-  function addTab(tab: RouteLocationNormalizedLoadedGeneric) {
+  function addTab(tab: RouteLocationNormalizedLoaded) {
     !list.value.find((item) => item.path === tab.path) && list.value.push(tab)
     active.value = tab.path
   }
@@ -87,7 +81,7 @@ export function useTabs(props: ITabsProps): UseTabs {
     }
   }
 
-  function refresh(item: RouteLocationNormalizedLoadedGeneric) {
+  function refresh(item: RouteLocationNormalizedLoaded) {
     if (!props.refreshPath) return
     const path = item.path
     const index = list.value.findIndex((item) => item.path === path)
@@ -121,26 +115,17 @@ export function useTabs(props: ITabsProps): UseTabs {
     list.value = item ? [item] : []
   }
 
-  function closeLeft(
-    item: RouteLocationNormalizedLoadedGeneric,
-    index: number,
-  ) {
+  function closeLeft(item: RouteLocationNormalizedLoaded, index: number) {
     list.value.splice(0, index)
     to(item.path)
   }
 
-  function closeRight(
-    item: RouteLocationNormalizedLoadedGeneric,
-    index: number,
-  ) {
+  function closeRight(item: RouteLocationNormalizedLoaded, index: number) {
     list.value.splice(index + 1)
     to(item.path)
   }
 
-  function closeOthers(
-    item: RouteLocationNormalizedLoadedGeneric,
-    index: number,
-  ) {
+  function closeOthers(item: RouteLocationNormalizedLoaded, index: number) {
     list.value = list.value.filter((_, i) => i === index)
     to(item.path)
   }
@@ -226,7 +211,7 @@ export function useTabsDropdown({
 
   function handleCommand(
     command: string,
-    item: RouteLocationNormalizedLoadedGeneric,
+    item: RouteLocationNormalizedLoaded,
     index: number,
   ) {
     switch (command) {

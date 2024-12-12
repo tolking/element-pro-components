@@ -10,7 +10,7 @@ import { Back, Close, Refresh, Right } from '@element-plus/icons-vue'
 import { useTabs, useTabsDropdown, useTabsMenu } from './useTabs'
 import { tabsProps } from './props'
 import type { VNode } from 'vue'
-import type { RouteLocationNormalizedLoadedGeneric } from 'vue-router'
+import type { RouteLocationNormalizedLoaded } from 'vue-router'
 
 export default defineComponent({
   name: 'ProTabs',
@@ -50,7 +50,7 @@ export default defineComponent({
     })
 
     function createDropdown(
-      item: RouteLocationNormalizedLoadedGeneric,
+      item: RouteLocationNormalizedLoaded,
       index: number,
     ) {
       const menuList: VNode[] = []
@@ -125,7 +125,7 @@ export default defineComponent({
       )
     }
 
-    function createItemSlot(item: RouteLocationNormalizedLoadedGeneric) {
+    function createItemSlot(item: RouteLocationNormalizedLoaded) {
       return slots.label
         ? slots.label({ ...item.meta, ...item }) // TODO: change to `item` in the next major version
         : item.meta.title
