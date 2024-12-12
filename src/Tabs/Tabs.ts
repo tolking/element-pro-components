@@ -10,7 +10,7 @@ import { Back, Close, Refresh, Right } from '@element-plus/icons-vue'
 import { useTabs, useTabsDropdown, useTabsMenu } from './useTabs'
 import { tabsProps } from './props'
 import type { VNode } from 'vue'
-import type { ITab } from './type'
+import type { RouteLocationNormalizedLoadedGeneric } from 'vue-router'
 
 export default defineComponent({
   name: 'ProTabs',
@@ -49,7 +49,10 @@ export default defineComponent({
       closeOther,
     })
 
-    function createDropdown(item: ITab, index: number) {
+    function createDropdown(
+      item: RouteLocationNormalizedLoadedGeneric,
+      index: number,
+    ) {
       const menuList: VNode[] = []
 
       if (contextmenu.value?.refresh && props.refreshPath) {
@@ -122,15 +125,17 @@ export default defineComponent({
       )
     }
 
-    function createItemSlot(item: ITab) {
-      return slots.label ? slots.label(item) : item.title
+    function createItemSlot(item: RouteLocationNormalizedLoadedGeneric) {
+      return slots.label
+        ? slots.label({ ...item.meta, ...item }) // TODO: change to `item` in the next major version
+        : item.meta.title
     }
 
     function createDefault() {
       return list.value.map((item, index) => {
         return h(
           ElTabPane,
-          { key: item.path, name: item.path, label: item.title },
+          { key: item.path, name: item.path, label: item.meta.title },
           {
             label: () =>
               props.contextmenu

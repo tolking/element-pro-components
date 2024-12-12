@@ -61,6 +61,10 @@ Do something before the tab switch with the `before-leave` hook. If `false` is r
 
 Customize the label content of the tab through `label`
 
+::: tip
+Since 1.4.0, the `label` slot parameter has been changed to `RouteLocationNormalizedLoadedGeneric`
+:::
+
 ::: demo
 @/demo/Tabs/slots.vue
 :::
@@ -106,13 +110,14 @@ If you enable the `refresh` feature, you need to configure the `refreshPath` att
 
 ### Methods
 
-| Name       | Description               | Type                   |
-| ---------- | ------------------------- | ---------------------- |
-| close      | close some tab from tabs  | (path: string) => void |
-| closeOther | close other tab from tabs | () => void             |
+| Name       | Description               | Type                                        |
+| ---------- | ------------------------- | ------------------------------------------- |
+| list       | access history list       | Ref<RouteLocationNormalizedLoadedGeneric[]> |
+| close      | close some tab from tabs  | (path: string) => void                      |
+| closeOther | close other tab from tabs | () => void                                  |
 
 ### Slots
 
-| Name  | Description                            | Type                          |
-| ----- | -------------------------------------- | ----------------------------- |
-| label | customize the label content of the tab | { ...route.meta, path, name } |
+| Name  | Description                            | Type                                 |
+| ----- | -------------------------------------- | ------------------------------------ |
+| label | customize the label content of the tab | RouteLocationNormalizedLoadedGeneric |
