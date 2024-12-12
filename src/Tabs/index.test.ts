@@ -35,8 +35,8 @@ describe('Tabs', () => {
   test.concurrent('slot', async () => {
     const wrapper = await _mount({
       template: `<pro-tabs>
-        <template #label="{ title, path }">
-          <span class="title">{{ title }}</span>
+        <template #label="{ meta, path }">
+          <span class="title">{{ meta.title }}</span>
           <span class="path">{{ path }}</span>
         </template>
       </pro-tabs>`,

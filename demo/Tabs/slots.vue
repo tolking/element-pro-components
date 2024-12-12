@@ -1,11 +1,11 @@
 <template>
   <pro-tabs>
-    <template #label="{ icon, title }">
+    <template #label="{ icon, meta }">
       <div class="tabs-label-content">
         <el-icon :size="16" class="label-icon">
           <component :is="icon" />
         </el-icon>
-        <span>{{ title.toUpperCase() }}</span>
+        <span>{{ meta.title.toUpperCase() }}</span>
       </div>
     </template>
   </pro-tabs>

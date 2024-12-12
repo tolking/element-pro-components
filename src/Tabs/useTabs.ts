@@ -2,16 +2,23 @@ import { computed, nextTick, Ref, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useLocale } from '../composables/index'
 import { isFunction, isObject, throwWarn } from '../utils/index'
+import type { RouteLocationNormalizedLoadedGeneric } from 'vue-router'
 import type { DropdownInstance } from 'element-plus'
-import type { ITabsProps, ITabsExpose, ITab } from './type'
+import type { ITabsProps, ITabsExpose } from './type'
 
 interface UseTabs extends ITabsExpose {
   active: Ref<string>
   to: (path: string) => void
-  refresh: (item: ITab) => void
-  closeLeft: (item: ITab, index: number) => void
-  closeRight: (item: ITab, index: number) => void
-  closeOthers: (item: ITab, index: number) => void
+  refresh: (item: RouteLocationNormalizedLoadedGeneric) => void
+  closeLeft: (item: RouteLocationNormalizedLoadedGeneric, index: number) => void
+  closeRight: (
+    item: RouteLocationNormalizedLoadedGeneric,
+    index: number,
+  ) => void
+  closeOthers: (
+    item: RouteLocationNormalizedLoadedGeneric,
+    index: number,
+  ) => void
 }
 
 export function useTabsMenu() {
@@ -29,7 +36,7 @@ export function useTabs(props: ITabsProps): UseTabs {
   const route = useRoute()
   const router = useRouter()
   const active = ref('')
-  const list = ref<ITab[]>([])
+  const list = ref<RouteLocationNormalizedLoadedGeneric[]>([])
 
   watch(
     () => route.path,
@@ -37,46 +44,62 @@ export function useTabs(props: ITabsProps): UseTabs {
       if (path === props.refreshPath) return
       if (oldPath && !props.keepHiddenRoute) {
         const item = list.value.find((item) => item.path === oldPath)
-        item?.hidden && close(oldPath)
+        item?.meta?.hidden && close(oldPath)
       }
+      let canAdd: boolean | void = true
 
       if (isFunction(props.beforeAdd)) {
         try {
-          const canAdd = await props.beforeAdd({
+          canAdd = await props.beforeAdd({
             route,
             oldPath,
             list,
             close,
             closeOther,
           })
-          if (canAdd !== false) {
-            addTab({ ...route.meta, path, name: route.name })
-          }
         } catch {
           throwWarn('[ProTabs] Failed to execute beforeAdd function')
+          canAdd = false
         }
-      } else {
-        addTab({ ...route.meta, path, name: route.name })
+      }
+
+      if (canAdd !== false) {
+        addTab(route)
       }
     },
     { immediate: true },
   )
 
-  function addTab(tab: ITab) {
+  function addTab(tab: RouteLocationNormalizedLoadedGeneric) {
     !list.value.find((item) => item.path === tab.path) && list.value.push(tab)
     active.value = tab.path
   }
 
   function to(path: string) {
     if (path !== route.path) {
-      router.push(path)
+      const item = list.value.find((item) => item.path === path)
+
+      router.push({
+        path,
+        query: item?.query,
+        hash: item?.hash,
+      })
     }
   }
 
-  function refresh(item: ITab) {
+  function refresh(item: RouteLocationNormalizedLoadedGeneric) {
     if (!props.refreshPath) return
-    router.push(props.refreshPath).then(() => {
-      router.push(item.path)
+    const path = item.path
+    const index = list.value.findIndex((item) => item.path === path)
+    list.value.splice(index, 1)
+
+    router.replace(props.refreshPath).then(() => {
+      list.value.splice(index, 0, item)
+      router.replace({
+        path,
+        query: item?.query,
+        hash: item?.hash,
+      })
     })
   }
 
@@ -94,21 +117,30 @@ export function useTabs(props: ITabsProps): UseTabs {
   }
 
   function closeOther() {
-    const title = route.meta?.title || ''
-    list.value = [{ title, path: active.value }]
+    const item = list.value.find((item) => item.path === route.path)
+    list.value = item ? [item] : []
   }
 
-  function closeLeft(item: ITab, index: number) {
+  function closeLeft(
+    item: RouteLocationNormalizedLoadedGeneric,
+    index: number,
+  ) {
     list.value.splice(0, index)
     to(item.path)
   }
 
-  function closeRight(item: ITab, index: number) {
+  function closeRight(
+    item: RouteLocationNormalizedLoadedGeneric,
+    index: number,
+  ) {
     list.value.splice(index + 1)
     to(item.path)
   }
 
-  function closeOthers(item: ITab, index: number) {
+  function closeOthers(
+    item: RouteLocationNormalizedLoadedGeneric,
+    index: number,
+  ) {
     list.value = list.value.filter((_, i) => i === index)
     to(item.path)
   }
@@ -192,7 +224,11 @@ export function useTabsDropdown({
     })
   }
 
-  function handleCommand(command: string, item: ITab, index: number) {
+  function handleCommand(
+    command: string,
+    item: RouteLocationNormalizedLoadedGeneric,
+    index: number,
+  ) {
     switch (command) {
       case 'refresh':
         refresh(item)
