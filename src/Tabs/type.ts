@@ -1,6 +1,6 @@
 import { tabsProps } from './props'
 import type { Ref } from 'vue'
-import type { RouteLocationNormalizedLoadedGeneric } from 'vue-router'
+import type { RouteLocationNormalizedLoaded } from 'vue-router'
 import type { Awaitable } from '@vueuse/core'
 import type { IDefineProps } from '../types/index'
 
@@ -12,14 +12,14 @@ export interface ITabContextmenuProps {
 }
 
 export interface ITabsExpose {
-  list: Ref<RouteLocationNormalizedLoadedGeneric[]>
+  list: Ref<RouteLocationNormalizedLoaded[]>
   close: (path: string) => void
   closeOther: () => void
 }
 
 interface BeforeAddArg extends ITabsExpose {
   oldPath?: string
-  route: RouteLocationNormalizedLoadedGeneric
+  route: RouteLocationNormalizedLoaded
 }
 
 export type ITabsBeforeAdd = (arg: BeforeAddArg) => Awaitable<boolean | void>
