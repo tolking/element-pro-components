@@ -62,7 +62,7 @@ meta:
 通过 `label` 自定义标签页的标题内容
 
 ::: tip 提示
-自 1.4.0 起，`label` 插槽参数更改为 `RouteLocationNormalizedLoadedGeneric` 类型
+自 1.4.0 起，`label` 插槽参数更改为 `RouteLocationNormalizedLoaded` 类型
 :::
 
 ::: demo
@@ -110,14 +110,14 @@ meta:
 
 ### 方法
 
-| 方法名     | 说明                               | 类型                                        |
-| ---------- | ---------------------------------- | ------------------------------------------- |
-| list       | 浏览记录                           | Ref<RouteLocationNormalizedLoadedGeneric[]> |
-| close      | 从 tabs 中关闭指定路由的页面       | (path: string) => void                      |
-| closeOther | 从 tabs 中关闭除当前路由的其它路由 | () => void                                  |
+| 方法名     | 说明                               | 类型                                 |
+| ---------- | ---------------------------------- | ------------------------------------ |
+| list       | 浏览记录                           | Ref<RouteLocationNormalizedLoaded[]> |
+| close      | 从 tabs 中关闭指定路由的页面       | (path: string) => void               |
+| closeOther | 从 tabs 中关闭除当前路由的其它路由 | () => void                           |
 
 ### 插槽
 
-| 名称  | 说明           | 类型                                 |
-| ----- | -------------- | ------------------------------------ |
-| label | 自定义标题内容 | RouteLocationNormalizedLoadedGeneric |
+| 名称  | 说明           | 类型                          |
+| ----- | -------------- | ----------------------------- |
+| label | 自定义标题内容 | RouteLocationNormalizedLoaded |
