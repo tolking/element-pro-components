@@ -1,6 +1,52 @@
 # Changelog
 
-### 1.3.1
+## 1.4.0
+
+breaking changes
+
+- Crud: Remove searchRules attribute, please use :search-props="{ rules: ... }" instead (#528)
+- move element-plus and vue-router to peerDependencies (#530) (#536)
+- Form: remove modelKey attribute (#544)
+- Tabs: the label slot parameter has been changed to RouteLocationNormalizedLoaded (#546)
+
+feat
+
+- Search: add new components Search (#527) (#529) (#537)
+- Crud: refactor search (#528) (#535)
+- Tabs: add contextmenu prop (#534)
+- add multi-language files (#538)
+- add key fro list VNode (#542)
+- Form: add models attribute (#544)
+- Tabs: add query and hash when jumping (#546) (#547)
+
+fix
+
+- Crud: the menu styles (#533)
+- error when switching to multiple languages (#531)
+
+other
+
+- add breakpoint debugging config for VS Code (#532)
+- optimize the export type of components (#539) (#541) (#545)
+- docs: update (#543)
+- docs: optimize multi-language switching logic (#548)
+
+### migration guide
+
+Compare [1.3.1...v1.4.0](https://github.com/tolking/element-pro-components/compare/v1.3.1...v1.4.0)
+
+- Crud: searchRules -> :search-props="{ rules: [searchRules] }"
+- Form: modelKey -> models: [{ prop: [prop], key: [modelKey] }]
+- Tabs:
+
+```diff
+- <template #label="{ icon, title }">
++ <template #label="{ icon, meta }">
+-  <span>{{ title }}</span>
++  <span>{{ meta.title }}</span>
+```
+
+## 1.3.1
 
 refactor
 
@@ -10,7 +56,7 @@ fix
 
 - Table | Crud: warn error about prevIcon and nextIcon (#516)
 
-### 1.3.0
+## 1.3.0
 
 feat
 
@@ -27,14 +73,14 @@ other
 - Descriptions: remove the deprecated slots (#510)
 - remove the deprecated function (#511)
 
-### 1.2.12
+## 1.2.12
 
 feat
 
 - Crud: add some slots `crud-table` `crud-dialog` `crud-search` `crud-form` `crud-detail` (#478)
 - Crud: add expose function openDialog and closeDialog (#479)
 
-### 1.2.11
+## 1.2.11
 
 feat
 
@@ -50,7 +96,7 @@ other
 
 - optimize CSS variables (#468)
 
-### 1.2.10
+## 1.2.10
 
 feat
 
@@ -64,7 +110,7 @@ perf
 
 - Table: optimize rendering of hidden table column (#456)
 
-### 1.2.9
+## 1.2.9
 
 feat
 
@@ -72,7 +118,7 @@ feat
 - add ElementProResolver from unplugin-vue-components (#447)
 - type: add type helper defineComponentProps (#445)
 
-### 1.2.8
+## 1.2.8
 
 fix
 
@@ -89,7 +135,7 @@ other
 - Form: optimization type (#438)
 - update README (#439)
 
-### 1.2.7
+## 1.2.7
 
 feat
 
@@ -100,13 +146,13 @@ fix
 - Form: the style link error (#426)
 - optimize SSG about teleports (#428)
 
-### 1.2.6
+## 1.2.6
 
 fix
 
 - build: missing the code prompt file (#422)
 
-### 1.2.5
+## 1.2.5
 
 feat
 
@@ -125,7 +171,7 @@ other
 - docs: optimize SSG about teleports (#419)
 - docs: optimize document directory (#420)
 
-### 1.2.4
+## 1.2.4
 
 feat
 
@@ -139,7 +185,7 @@ fix
 - FilterRoutes: optimization styles (#397)
 - Tabs: name attribute is not added when using beforeAdd (#407)
 
-### 1.2.3
+## 1.2.3
 
 feat
 
