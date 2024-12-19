@@ -1,6 +1,7 @@
 import { defineComponent, h, markRaw, mergeProps, VNode } from 'vue'
 import { ElButton } from 'element-plus'
 import { Plus, Minus } from '@element-plus/icons-vue'
+import { useLocale } from '../composables/index'
 import { isArray, withPoint } from '../utils/index'
 import { useArrayForm, useFormInject } from './useForm'
 import { arrayFormProps, arrayFormEmits } from './props'
@@ -13,6 +14,7 @@ export default defineComponent({
   emits: arrayFormEmits,
   setup(props, { emit }) {
     const form = useFormInject()
+    const { t } = useLocale()
     const { showAdd, add, remove, update } = useArrayForm(props, emit)
 
     function createDefault(value: UnknownObject, index: number) {
@@ -41,6 +43,7 @@ export default defineComponent({
           type: 'danger',
           circle: true,
           class: 'form-btn-delete',
+          ariaLabel: t('pro.form.ariaDel'),
           onClick: () => remove(index, indexes),
         }),
       ])
@@ -59,6 +62,7 @@ export default defineComponent({
             type: 'primary',
             circle: true,
             class: 'form-btn-add',
+            ariaLabel: t('pro.form.ariaAdd'),
             onClick: () => add(props.indexes || []),
           }),
         )
