@@ -63,7 +63,7 @@ export default defineComponent({
       doLayout,
       sort,
     } = useTableMethods()
-    const { sizeChange, currentChange } = usePagination(emit)
+    const { sizeChange, currentChange, handleLoad } = usePagination(emit)
     const { formRef, update, resetForm } = useFormMethods(
       emit as unknown as IFormEmits,
     )
@@ -247,6 +247,7 @@ export default defineComponent({
         class: 'pro-crud-table',
         'onUpdate:pageSize': sizeChange,
         'onUpdate:currentPage': currentChange,
+        onLoad: handleLoad,
       })
 
       if (slots['crud-table']) {

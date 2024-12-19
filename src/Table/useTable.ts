@@ -95,19 +95,23 @@ export function useTableMethods<T = UnknownObject>(): {
 export function usePagination(emit: ITableEmits): {
   sizeChange: (size: number) => void
   currentChange: (current: number) => void
+  handleLoad: () => void
 } {
   function sizeChange(size: number) {
     emit('update:pageSize', size)
-    emit('load')
   }
 
   function currentChange(current: number) {
     emit('update:currentPage', current)
+  }
+
+  function handleLoad() {
     emit('load')
   }
 
   return {
     sizeChange,
     currentChange,
+    handleLoad,
   }
 }
