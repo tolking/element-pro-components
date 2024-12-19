@@ -33,7 +33,7 @@ export default defineComponent({
     const bindExpand = useTableBind<ITableExpandColumns>(expand, defaultBind)
     const bindIndex = useTableBind<ITableIndexColumns>(index, defaultBind)
     const bindMenu = useTableBind<ITableMenuColumns>(menu, defaultBind)
-    const { sizeChange, currentChange } = usePagination(emit)
+    const { sizeChange, currentChange, handleLoad } = usePagination(emit)
     const {
       table,
       clearSelection,
@@ -131,6 +131,7 @@ export default defineComponent({
         mergeProps(paginationConfig, {
           'onUpdate:pageSize': sizeChange,
           'onUpdate:currentPage': currentChange,
+          onChange: handleLoad,
         }),
       )
 
