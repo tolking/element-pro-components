@@ -73,6 +73,16 @@ meta:
 @/demo/Form/models.vue
 :::
 
+### Ref
+
+::: tip 提示
+从 `1.4.1` 起，支持通过 `ref` 绑定组件实例
+:::
+
+::: demo
+@/demo/Form/ref.vue
+:::
+
 ### 使用插槽
 
 ::: tip 提示
@@ -277,9 +287,11 @@ props 的属性将全部传递给 component 指定的组件
 - 对于存在连字符的属性，可以通过字符串包裹或者转换为驼峰结构
 - 通过 `slots` 可以向组件传递简单的[渲染函数](https://v3.cn.vuejs.org/guide/render-function.html)
 - **对于事件需要通过 `on[Event]` 驼峰这种形式绑定。如：`change` -> `onChange`, `input` -> `onInput`**
+- 从 `1.4.1` 起，可以通过 ref 绑定组件实例
 
 ```js
 props: {
+  ref: searchRef,
   clearable: true,
   'prefix-icon': 'el-icon-search',
   suffixIcon: 'el-icon-date',

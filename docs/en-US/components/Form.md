@@ -73,6 +73,16 @@ Since `1.4.0`, the `modelKey` attribute has been deprecated, please use the `mod
 @/demo/Form/models.vue
 :::
 
+### Ref
+
+::: tip
+Since `1.4.1`, support binding component instances through `ref`
+:::
+
+::: demo
+@/demo/Form/ref.vue
+:::
+
 ### Slots
 
 ::: tip Tip
@@ -272,13 +282,23 @@ The function `defineFormColumns` supports passing in a Generics type to infer th
 | status        | current status, work on `type=steps`                                                                                                    | string                                      | wait / process / finish / error / success | —       |
 
 ::: tip about props
-The props attribute will all be passed to the component. **For events need to be bound by `on[Event]`. example: `change` -> `onChange`, `input` -> `onInput`**
+The props attribute will all be passed to the component.
+
+- For attributes with hyphens, you can wrap them in strings or convert them to camelCase
+- Through `slots`, you can pass simple [render functions](https://v3.vuejs.org/guide/render-function.html)
+- **For events need to be bound by `on[Event]`. example: `change` -> `onChange`, `input` -> `onInput`**
+- Since `1.4.1`, support binding component instances through `ref`
 
 ```js
 props: {
+  ref: searchRef,
   clearable: true,
   'prefix-icon': 'el-icon-search',
   suffixIcon: 'el-icon-date',
+  slots: {
+    prefix: () => h('i', { className: 'el-input__icon el-icon-search' }),
+    append: () => 'Search'
+  },
   onChange: e => console.log(e),
 }
 ```

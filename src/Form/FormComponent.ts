@@ -1,4 +1,12 @@
-import { defineComponent, h, mergeProps, resolveComponent } from 'vue'
+import {
+  defineComponent,
+  h,
+  mergeProps,
+  onMounted,
+  reactive,
+  ref,
+  resolveComponent,
+} from 'vue'
 import { isFunction, isObject, isString } from '../utils/index'
 import { formComponentProps } from './props'
 import type { DefineComponent, Slot } from 'vue'
@@ -14,8 +22,16 @@ interface TargetEvent {
 export default defineComponent({
   name: 'ProFormComponent',
   props: formComponentProps,
-  setup(props, { attrs, emit }) {
+  setup(props, { attrs, emit, expose }) {
     const nativeComponents = ['input', 'textarea', 'select']
+    const componentRef = ref<StringObject>({})
+    const componentExpose = reactive<StringObject>({})
+
+    onMounted(() => {
+      Object.assign(componentExpose, componentRef.value)
+    })
+
+    expose(componentExpose)
 
     function getComponent() {
       return isString(props.is) && !nativeComponents.includes(props.is)
@@ -24,7 +40,7 @@ export default defineComponent({
     }
 
     function getProps() {
-      const _props: StringObject = mergeProps({}, attrs)
+      const _props: StringObject = mergeProps({ ref: componentRef }, attrs)
 
       if (isString(props.is) && nativeComponents.includes(props.is)) {
         if (
