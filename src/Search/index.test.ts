@@ -136,6 +136,48 @@ describe('ProSearch', () => {
 
     wrapper.unmount()
   })
+
+  test.concurrent('expose', async () => {
+    const wrapper = await mount({
+      template: `
+        <pro-search
+          ref="searchRef"
+          v-model="search"
+          :columns="columns"
+        />`,
+      setup() {
+        const search = ref({})
+        const searchRef = ref()
+        const searchItemRef = ref()
+        const inputRef = ref()
+        const _columns = [
+          {
+            ...columns[0],
+            ref: searchItemRef,
+            props: { ref: inputRef },
+          },
+        ]
+        return { search, columns: _columns, searchRef, searchItemRef, inputRef }
+      },
+    })
+
+    expect(wrapper.find('.el-input').exists()).toBe(true)
+    expect(Object.keys(wrapper.vm.inputRef)).not.toHaveLength(0)
+    expect(wrapper.vm.inputRef).toHaveProperty('focus')
+    expect(wrapper.vm.inputRef).toHaveProperty('blur')
+
+    expect(Object.keys(wrapper.vm.searchItemRef)).not.toHaveLength(0)
+    expect(wrapper.vm.searchItemRef).toHaveProperty('validate')
+    expect(wrapper.vm.searchItemRef).toHaveProperty('resetField')
+    expect(wrapper.vm.searchItemRef).toHaveProperty('clearValidate')
+    expect(wrapper.vm.searchItemRef).toHaveProperty('validateState')
+
+    expect(Object.keys(wrapper.vm.searchRef)).not.toHaveLength(0)
+    expect(wrapper.vm.searchRef).toHaveProperty('validate')
+    expect(wrapper.vm.searchRef).toHaveProperty('validateField')
+    expect(wrapper.vm.searchRef).toHaveProperty('resetFields')
+    expect(wrapper.vm.searchRef).toHaveProperty('clearValidate')
+  })
 })
 
 afterAll(() => {

@@ -135,6 +135,8 @@ export type ICrudEmits = IDefineEmits<typeof crudEmits>
 export interface ICrudExpose<T = UnknownObject>
   extends IFormExpose,
     ITableExpose<T> {
+  searchRef: IFormExpose
+  formRef: IFormExpose
   /** open the dialog */
   openDialog: (type: ICrudDialogType, row?: UnknownObject) => void
   /** close the dialog */

@@ -21,12 +21,12 @@ import type {
   TabPaneProps,
   CollapseItemProps,
   StepProps,
+  FormInstance,
 } from 'element-plus'
 import type {
   IDefineProps,
   IDefineEmits,
   UnknownObject,
-  MaybeArray,
   ExternalParam,
   Mutable,
   ColumnProp,
@@ -138,27 +138,13 @@ export interface IFormValidateFieldCallback {
 }
 
 /** Form Expose Methods */
-export interface IFormExpose {
-  /** validate the whole form. Takes a callback as a param. After validation, the callback will be executed with two params: a boolean indicating if the validation has passed, and an object containing all fields that fail the validation. Returns a promise if callback is omitted */
-  validate: (callback?: IFormValidateCallback) => Promise<boolean>
-  /** reset all the fields and remove validation result */
-  resetFields: () => void
-  /** Scroll to the specified form field */
-  scrollToField: (prop: string) => void
-  /** clear validation message for certain fields. The parameter is prop name or an array of prop names of the form items whose validation messages will be removed. When omitted, all fields' validation messages will be cleared */
-  clearValidate: (props?: MaybeArray<string>) => void
-  /** validate one or several form items */
-  validateField: (
-    props: MaybeArray<string>,
-    cb: IFormValidateFieldCallback,
-  ) => void
-}
+export type IFormExpose = FormInstance
 
 export interface UseFormProvideConfig {
   props: IFormProps
   emit: IFormEmits
   slots: Readonly<Slots>
-  formRef: Ref<IFormExpose>
+  formRef: Ref<FormInstance>
   /** disabled submit */
   disabled: Ref<boolean>
 }
