@@ -6,6 +6,8 @@ export default {
       reset: 'Reset',
       prev: 'Prev',
       next: 'Next',
+      ariaAdd: 'Add a row of data',
+      ariaDel: 'Delete this row of data',
     },
     search: {
       submit: 'Search',
