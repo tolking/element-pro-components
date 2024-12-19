@@ -266,6 +266,23 @@ describe('ProFormComponent', () => {
     await wrapper.find('.my-input-end').setValue('end')
     expect(wrapper.vm.form).toEqual({ start: 'start', end: 'end' })
   })
+
+  test.concurrent('expose', async () => {
+    const wrapper = await mount({
+      template:
+        '<pro-form-component ref="inputRef" v-model="form" is="el-input" />',
+      setup() {
+        const form = ref()
+        const inputRef = ref()
+        return { form, inputRef }
+      },
+    })
+
+    expect(wrapper.find('.el-input').exists()).toBe(true)
+    expect(Object.keys(wrapper.vm.inputRef)).not.toHaveLength(0)
+    expect(wrapper.vm.inputRef).toHaveProperty('focus')
+    expect(wrapper.vm.inputRef).toHaveProperty('blur')
+  })
 })
 
 describe('ProFormItem', () => {
@@ -392,6 +409,34 @@ describe('ProFormItem', () => {
     await wrapper.find('.my-input').setValue('modelValue')
     expect(wrapper.find('input').element.value).toBe('modelValue')
     expect(wrapper.vm.form).not.toMatchObject({ input: 'modelValue' })
+  })
+
+  test.concurrent('expose', async () => {
+    const wrapper = await mount({
+      template: '<pro-form-item v-model="form" :item="column" />',
+      setup() {
+        const form = ref()
+        const formItemRef = ref()
+        const inputRef = ref()
+        const column = {
+          ...columns[0],
+          ref: formItemRef,
+          props: { ref: inputRef },
+        }
+        return { form, formItemRef, inputRef, column }
+      },
+    })
+
+    expect(wrapper.find('.el-input').exists()).toBe(true)
+    expect(Object.keys(wrapper.vm.inputRef)).not.toHaveLength(0)
+    expect(wrapper.vm.inputRef).toHaveProperty('focus')
+    expect(wrapper.vm.inputRef).toHaveProperty('blur')
+
+    expect(Object.keys(wrapper.vm.formItemRef)).not.toHaveLength(0)
+    expect(wrapper.vm.formItemRef).toHaveProperty('validate')
+    expect(wrapper.vm.formItemRef).toHaveProperty('resetField')
+    expect(wrapper.vm.formItemRef).toHaveProperty('clearValidate')
+    expect(wrapper.vm.formItemRef).toHaveProperty('validateState')
   })
 })
 
@@ -1940,6 +1985,48 @@ describe('Form', () => {
 
     await (vm.show = false)
     expect(getFormList(wrapper)).toHaveLength(0)
+  })
+
+  test.concurrent('expose', async () => {
+    const wrapper = await mount({
+      template: `
+      <pro-form
+        ref="formRef"
+        v-model="form"
+        :columns="columns"
+      />`,
+      setup() {
+        const form = ref({})
+        const formRef = ref()
+        const formItemRef = ref()
+        const inputRef = ref()
+        const _columns = [
+          {
+            ...columns[0],
+            ref: formItemRef,
+            props: { ref: inputRef },
+          },
+        ]
+        return { form, columns: _columns, formRef, formItemRef, inputRef }
+      },
+    })
+
+    expect(wrapper.find('.el-input').exists()).toBe(true)
+    expect(Object.keys(wrapper.vm.inputRef)).not.toHaveLength(0)
+    expect(wrapper.vm.inputRef).toHaveProperty('focus')
+    expect(wrapper.vm.inputRef).toHaveProperty('blur')
+
+    expect(Object.keys(wrapper.vm.formItemRef)).not.toHaveLength(0)
+    expect(wrapper.vm.formItemRef).toHaveProperty('validate')
+    expect(wrapper.vm.formItemRef).toHaveProperty('resetField')
+    expect(wrapper.vm.formItemRef).toHaveProperty('clearValidate')
+    expect(wrapper.vm.formItemRef).toHaveProperty('validateState')
+
+    expect(Object.keys(wrapper.vm.formRef)).not.toHaveLength(0)
+    expect(wrapper.vm.formRef).toHaveProperty('validate')
+    expect(wrapper.vm.formRef).toHaveProperty('validateField')
+    expect(wrapper.vm.formRef).toHaveProperty('resetFields')
+    expect(wrapper.vm.formRef).toHaveProperty('clearValidate')
   })
 
   // test.concurrent('event', async () => {

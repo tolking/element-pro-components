@@ -32,7 +32,7 @@ import type {
   ColumnProp,
   FormColumnChildren,
   ColumnComponent,
-  ColumnPropsSlots,
+  ColumnCommonProp,
 } from '../types/index'
 
 export interface InvalidFields {
@@ -45,7 +45,7 @@ export interface FormColumn<T = ExternalParam>
   /** component name */
   component?: string | ColumnComponent
   /** props for component */
-  props?: UnknownObject & { slots?: ColumnPropsSlots }
+  props?: UnknownObject & ColumnCommonProp
   /** the type of sub-form */
   type?: 'array'
   /** sub-form */

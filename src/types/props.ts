@@ -1,4 +1,4 @@
-import type { Component, GlobalComponents } from 'vue'
+import type { Component, GlobalComponents, VNodeRef } from 'vue'
 import type { UnknownObject, UnknownFunction } from './index'
 
 type ComponentInstance = Component & { new (...args: unknown[]): unknown }
@@ -6,6 +6,11 @@ type ComponentInstance = Component & { new (...args: unknown[]): unknown }
 export type ColumnComponent = ComponentInstance | keyof GlobalComponents
 
 export type ColumnPropsSlots = string | UnknownObject | UnknownFunction
+
+export interface ColumnCommonProp {
+  ref?: VNodeRef
+  slots?: ColumnPropsSlots
+}
 
 type ExtractProps<T extends ComponentInstance> = InstanceType<T>['$props']
 
@@ -78,7 +83,7 @@ export type ExtractComponentProps<T extends ColumnComponent> =
  * ```
  */
 export function defineComponentProps<T extends ColumnComponent>(
-  props: ExtractComponentProps<T> & { slots?: ColumnPropsSlots },
-): ExtractComponentProps<T> & { slots?: ColumnPropsSlots } {
+  props: ExtractComponentProps<T> & ColumnCommonProp,
+): ExtractComponentProps<T> & ColumnCommonProp {
   return props
 }
