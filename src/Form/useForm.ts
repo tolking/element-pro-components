@@ -1,14 +1,12 @@
-import { computed, shallowRef, provide, inject } from 'vue'
+import { computed, shallowRef, provide, inject, reactive, onMounted } from 'vue'
 import { useShow, useLocale } from '../composables/index'
 import { isBoolean } from '../utils/index'
 import type { ComputedRef, Ref, InjectionKey, Slot } from 'vue'
 import type { CollapseModelValue, TabPaneName } from 'element-plus'
-import type { UnknownObject, MaybeArray } from '../types/index'
+import type { UnknownObject } from '../types/index'
 import type {
   IFormEmits,
   IFormExpose,
-  IFormValidateCallback,
-  IFormValidateFieldCallback,
   IFormMenuColumns,
   InvalidFields,
   IFormContext,
@@ -48,36 +46,19 @@ export function useFormMenu(
 
 export function useFormMethods(emit: IFormEmits): {
   formRef: Ref<IFormExpose>
+  formExpose: IFormExpose
   loading: Ref<boolean>
   update: (value: UnknownObject) => void
   submitForm: () => void
   resetForm: (reset?: boolean) => void
-} & IFormExpose {
+} {
   const formRef = shallowRef<IFormExpose>({} as IFormExpose)
+  const formExpose = reactive<IFormExpose>({} as IFormExpose)
   const { show, toggleShow } = useShow()
 
-  function validate(callback?: IFormValidateCallback) {
-    return formRef.value.validate(callback)
-  }
-
-  function resetFields() {
-    formRef.value.resetFields()
-  }
-
-  function scrollToField(prop: string) {
-    formRef.value.scrollToField(prop)
-  }
-
-  function clearValidate(props?: MaybeArray<string>) {
-    formRef.value.clearValidate(props)
-  }
-
-  function validateField(
-    props: MaybeArray<string>,
-    cb: IFormValidateFieldCallback,
-  ) {
-    formRef.value.validateField(props, cb)
-  }
+  onMounted(() => {
+    Object.assign(formExpose, formRef.value)
+  })
 
   function update(value?: UnknownObject | UnknownObject[]) {
     emit('update:modelValue', value)
@@ -103,18 +84,14 @@ export function useFormMethods(emit: IFormEmits): {
     if (isBoolean(reset) && reset) {
       update(undefined)
     }
-    resetFields()
+    formRef.value?.resetFields()
     emit('reset')
   }
 
   return {
     formRef,
+    formExpose,
     loading: show,
-    validate,
-    resetFields,
-    scrollToField,
-    clearValidate,
-    validateField,
     update,
     submitForm,
     resetForm,

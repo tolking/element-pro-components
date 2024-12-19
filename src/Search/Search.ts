@@ -24,26 +24,11 @@ export default defineComponent({
       stepChange,
       submitForm,
     } = useSearch(props, emit)
-    const {
-      formRef,
-      validate,
-      resetFields,
-      clearValidate,
-      scrollToField,
-      validateField,
-      update,
-      resetForm,
-    } = useFormMethods(emit)
+    const { formRef, formExpose, update, resetForm } = useFormMethods(emit)
+
     useSearchMenuWidth(formRef)
 
-    expose({
-      ...formRef.value,
-      validate,
-      resetFields,
-      scrollToField,
-      clearValidate,
-      validateField,
-    })
+    expose(formExpose)
 
     return () =>
       h(

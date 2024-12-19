@@ -15,18 +15,8 @@ export default defineComponent({
   emits: formEmits,
   setup(props, { slots, emit, expose }) {
     const [config] = useSplitReactive(props, formKeys)
-    const {
-      formRef,
-      loading,
-      validate,
-      resetFields,
-      scrollToField,
-      clearValidate,
-      validateField,
-      update,
-      submitForm,
-      resetForm,
-    } = useFormMethods(emit)
+    const { formRef, formExpose, loading, update, submitForm, resetForm } =
+      useFormMethods(emit)
     const menu = useFormMenu(props)
     const { rowStyle, rowClass } = useRow(props)
     const breakpoint = useCurrentBreakpoint()
@@ -48,14 +38,7 @@ export default defineComponent({
 
     useFormProvide({ props, emit, slots, formRef, disabled })
 
-    expose({
-      ...formRef.value,
-      validate,
-      resetFields,
-      scrollToField,
-      clearValidate,
-      validateField,
-    })
+    expose(formExpose)
 
     function createColumns() {
       return h(

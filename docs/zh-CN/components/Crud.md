@@ -459,6 +459,8 @@ Crud columns 支持 <pro-link to="/zh-CN/components/table#columns">Table columns
 | clearValidate      | 移除表单项的校验结果。传入待移除的表单项的 prop 属性或者 prop 组成的数组，如不传则移除整个表单的校验结果                                                             | (props?: string \| string[]) => void                                                  |
 | openDialog         | 打开弹窗                                                                                                                                                             | (type: ICrudDialogType, row?: UnknownObject) => void                                  |
 | closeDialog        | 关闭弹窗                                                                                                                                                             | () => void                                                                            |
+| searchRef          | 获取搜索表单实例                                                                                                                                                     | IFormExpose                                                                           |
+| formRef            | 获取表单实例                                                                                                                                                         | IFormExpose                                                                           |
 
 ### 插槽
 

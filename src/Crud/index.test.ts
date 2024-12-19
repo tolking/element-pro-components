@@ -833,6 +833,8 @@ describe('Crud', () => {
           ref="crudRef"
           :columns="columns"
           :data="data"
+          :menu="{}"
+          :append-to-body="false"
         />
       `,
       setup() {
@@ -856,13 +858,16 @@ describe('Crud', () => {
     expect(vm.crudRef.clearFilter).toBeTruthy()
     expect(vm.crudRef.doLayout).toBeTruthy()
     expect(vm.crudRef.sort).toBeTruthy()
+    expect(vm.crudRef.openDialog).toBeTruthy()
+    expect(vm.crudRef.closeDialog).toBeTruthy()
+    expect(vm.crudRef.validate).toBeFalsy()
+
+    await wrapper.find(addClass).trigger('click')
     expect(vm.crudRef.validate).toBeTruthy()
     expect(vm.crudRef.resetFields).toBeTruthy()
     expect(vm.crudRef.scrollToField).toBeTruthy()
     expect(vm.crudRef.clearValidate).toBeTruthy()
     expect(vm.crudRef.validateField).toBeTruthy()
-    expect(vm.crudRef.openDialog).toBeTruthy()
-    expect(vm.crudRef.closeDialog).toBeTruthy()
   })
 })
 

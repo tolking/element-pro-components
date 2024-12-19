@@ -1,4 +1,13 @@
-import { computed, defineComponent, h, VNode, Slot, mergeProps } from 'vue'
+import {
+  computed,
+  defineComponent,
+  h,
+  VNode,
+  Slot,
+  mergeProps,
+  reactive,
+  ref,
+} from 'vue'
 import { ElDialog, ElButton, useAttrs, DialogProps } from 'element-plus'
 import { useBreakpointWidth, useSplitReactive } from '../composables/index'
 import {
@@ -55,16 +64,9 @@ export default defineComponent({
       sort,
     } = useTableMethods()
     const { sizeChange, currentChange } = usePagination(emit)
-    const {
-      formRef,
-      validate,
-      resetFields,
-      clearValidate,
-      scrollToField,
-      validateField,
-      update,
-      resetForm,
-    } = useFormMethods(emit as unknown as IFormEmits)
+    const { formRef, update, resetForm } = useFormMethods(
+      emit as unknown as IFormEmits,
+    )
     const {
       showDialog,
       type,
@@ -84,6 +86,24 @@ export default defineComponent({
 
     const attrs = useAttrs()
     const dialogWidth = useBreakpointWidth()
+
+    const searchRef = ref()
+    const crudExpose = reactive({
+      searchRef,
+      formRef,
+      clearSelection,
+      toggleRowSelection,
+      toggleAllSelection,
+      toggleRowExpansion,
+      setCurrentRow,
+      clearSort,
+      clearFilter,
+      doLayout,
+      sort,
+      openDialog,
+      closeDialog,
+    })
+
     const bindDialog = computed(() => {
       const title =
         props.title ||
@@ -117,6 +137,8 @@ export default defineComponent({
       }
     })
 
+    expose(crudExpose)
+
     function checkDetail(row: StringObject) {
       return isFunction(menuColumns.value.detail)
         ? menuColumns.value.detail(row)
@@ -140,25 +162,6 @@ export default defineComponent({
       emit('delete', row)
     }
 
-    expose({
-      clearSelection,
-      toggleRowSelection,
-      toggleAllSelection,
-      toggleRowExpansion,
-      setCurrentRow,
-      clearSort,
-      clearFilter,
-      doLayout,
-      sort,
-      validate,
-      resetFields,
-      scrollToField,
-      clearValidate,
-      validateField,
-      openDialog,
-      closeDialog,
-    })
-
     function createSearch() {
       if (props.searchRules) {
         throwWarn(
@@ -167,6 +170,7 @@ export default defineComponent({
       }
 
       const _props = {
+        ref: searchRef,
         rules: props.searchRules,
         ...props.searchProps,
         modelValue: props.search,
@@ -317,6 +321,8 @@ export default defineComponent({
     }
 
     function createForm() {
+      Object.assign(crudExpose, formRef.value)
+
       const _props = mergeProps(formProps, attrs.value, {
         ref: formRef,
         columns: formColumns.value,
