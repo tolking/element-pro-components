@@ -1,4 +1,5 @@
 import {
+  computed,
   defineComponent,
   h,
   mergeProps,
@@ -9,7 +10,7 @@ import {
 } from 'vue'
 import { isFunction, isObject, isString } from '../utils/index'
 import { formComponentProps } from './props'
-import type { DefineComponent, Slot } from 'vue'
+import type { Slot } from 'vue'
 import type { StringObject } from '../types/index'
 
 interface TargetEvent {
@@ -27,19 +28,12 @@ export default defineComponent({
     const componentRef = ref<StringObject>({})
     const componentExpose = reactive<StringObject>({})
 
-    onMounted(() => {
-      Object.assign(componentExpose, componentRef.value)
-    })
-
-    expose(componentExpose)
-
-    function getComponent() {
+    const type = computed(() => {
       return isString(props.is) && !nativeComponents.includes(props.is)
         ? resolveComponent(props.is)
-        : props.is
-    }
-
-    function getProps() {
+        : props.is!
+    })
+    const componentProps = computed(() => {
       const _props: StringObject = mergeProps({ ref: componentRef }, attrs)
 
       if (isString(props.is) && nativeComponents.includes(props.is)) {
@@ -59,9 +53,8 @@ export default defineComponent({
         _props.modelValue = undefined
       }
       return _props
-    }
-
-    function getSlots() {
+    })
+    const children = computed(() => {
       if (isFunction(props.slots)) {
         return props.slots as Slot
       } else if (isObject(props.slots)) {
@@ -78,8 +71,14 @@ export default defineComponent({
       } else {
         return undefined
       }
-    }
+    })
 
-    return () => h(getComponent() as DefineComponent, getProps(), getSlots())
+    onMounted(() => {
+      Object.assign(componentExpose, componentRef.value)
+    })
+
+    expose(componentExpose)
+
+    return () => h(type.value, componentProps.value, children.value)
   },
 })
