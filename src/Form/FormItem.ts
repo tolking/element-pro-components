@@ -97,6 +97,9 @@ export default defineComponent({
             mergeProps(props.item.props || {}, {
               ...modelProps.value,
               is: props.item.component,
+              // Replace ref with _ref to avoid binding to ProFormComponent
+              ref: undefined,
+              _ref: props.item.props?.ref,
             }),
           ),
         )

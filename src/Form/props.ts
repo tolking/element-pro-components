@@ -10,7 +10,7 @@ import {
   isString,
   isNumber,
 } from '../utils/index'
-import type { Component, PropType } from 'vue'
+import type { Component, PropType, VNodeRef } from 'vue'
 import type { CollapseModelValue, TabPaneName } from 'element-plus'
 import type {
   ColumnPropsSlots,
@@ -57,6 +57,7 @@ export const formComponentProps = {
     type: [String, Object] as PropType<string | Component>,
     require: true,
   },
+  _ref: [String, Object, Function] as PropType<VNodeRef>,
   slots: [Function, Object, String] as PropType<ColumnPropsSlots>,
 }
 

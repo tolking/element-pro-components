@@ -270,7 +270,7 @@ describe('ProFormComponent', () => {
   test.concurrent('expose', async () => {
     const wrapper = await mount({
       template:
-        '<pro-form-component ref="inputRef" v-model="form" is="el-input" />',
+        '<pro-form-component :_ref="(el) => inputRef = el" v-model="form" is="el-input" />',
       setup() {
         const form = ref()
         const inputRef = ref()
