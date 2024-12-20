@@ -424,4 +424,26 @@ describe('Table', () => {
     expect(getBodyItem(wrapper, 1)[1]).toBe('nested value d in b')
     expect(getBodyItem(wrapper, 1)[2]).toBe('nested value in array')
   })
+
+  test.concurrent('expose', async () => {
+    const wrapper = await _mount({
+      template: '<pro-table ref="tableRef" :columns="columns" />',
+      setup() {
+        const tableRef = ref()
+        return { columns, tableRef }
+      },
+    })
+
+    expect(Object.keys(wrapper.vm.tableRef)).not.toHaveLength(0)
+    expect(wrapper.vm.tableRef).toHaveProperty('clearSelection')
+    expect(wrapper.vm.tableRef).toHaveProperty('getSelectionRows')
+    expect(wrapper.vm.tableRef).toHaveProperty('toggleRowSelection')
+    expect(wrapper.vm.tableRef).toHaveProperty('toggleAllSelection')
+    expect(wrapper.vm.tableRef).toHaveProperty('toggleRowExpansion')
+    expect(wrapper.vm.tableRef).toHaveProperty('setCurrentRow')
+    expect(wrapper.vm.tableRef).toHaveProperty('clearSort')
+    expect(wrapper.vm.tableRef).toHaveProperty('clearFilter')
+    expect(wrapper.vm.tableRef).toHaveProperty('doLayout')
+    expect(wrapper.vm.tableRef).toHaveProperty('sort')
+  })
 })

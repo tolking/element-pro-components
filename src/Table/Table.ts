@@ -34,18 +34,7 @@ export default defineComponent({
     const bindIndex = useTableBind<ITableIndexColumns>(index, defaultBind)
     const bindMenu = useTableBind<ITableMenuColumns>(menu, defaultBind)
     const { sizeChange, currentChange, handleLoad } = usePagination(emit)
-    const {
-      table,
-      clearSelection,
-      toggleRowSelection,
-      toggleAllSelection,
-      toggleRowExpansion,
-      setCurrentRow,
-      clearSort,
-      clearFilter,
-      doLayout,
-      sort,
-    } = useTableMethods()
+    const { tableRef, tableExpose } = useTableMethods()
 
     const [tableConfig, paginationConfig] = useSplitReactive(
       props,
@@ -55,17 +44,7 @@ export default defineComponent({
 
     provide('defaultBind', defaultBind)
 
-    expose({
-      clearSelection,
-      toggleRowSelection,
-      toggleAllSelection,
-      toggleRowExpansion,
-      setCurrentRow,
-      clearSort,
-      clearFilter,
-      doLayout,
-      sort,
-    })
+    expose(tableExpose)
 
     function createColumn() {
       let list: Array<VNode | null> = []
@@ -120,7 +99,7 @@ export default defineComponent({
     function createDefault() {
       const tableNode = h(
         ElTable,
-        mergeProps(tableConfig, attrs.value, { ref: table }),
+        mergeProps(tableConfig, attrs.value, { ref: tableRef }),
         {
           default: () => createColumn(),
           append: slots.append,

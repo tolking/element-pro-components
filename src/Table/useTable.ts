@@ -1,10 +1,18 @@
-import { ComputedRef, computed, Ref, unref, shallowRef } from 'vue'
+import {
+  ComputedRef,
+  computed,
+  Ref,
+  unref,
+  shallowRef,
+  reactive,
+  onMounted,
+} from 'vue'
+import { pick } from 'lodash-unified'
 import { isObject } from '../utils/index'
 import type {
   UnknownObject,
   StringObject,
   MaybeRef,
-  MaybeArray,
   ExternalParam,
 } from '../types/index'
 import type { ITableEmits, TableColumnsProps, ITableExpose } from './index'
@@ -38,57 +46,37 @@ export function useTableBind<T extends Record<string, ExternalParam>>(
 }
 
 export function useTableMethods<T = UnknownObject>(): {
-  table: Ref<ITableExpose<T>>
-} & ITableExpose<T> {
-  const table = shallowRef<ITableExpose<T>>({} as ITableExpose<T>)
+  tableRef: Ref<ITableExpose<T>>
+  tableExpose: ITableExpose<T>
+} {
+  const tableRef = shallowRef<ITableExpose<T>>({} as ITableExpose<T>)
+  const tableExpose = reactive<ITableExpose<T>>({} as ITableExpose<T>)
+  // table methods
+  const keys = [
+    'clearSelection',
+    'getSelectionRows',
+    'toggleRowSelection',
+    'toggleAllSelection',
+    'toggleRowExpansion',
+    'setCurrentRow',
+    'clearSort',
+    'clearFilter',
+    'doLayout',
+    'sort',
+    'scrollTo',
+    'setScrollTop',
+    'setScrollLeft',
+    'columns',
+    'updateKeyChildren',
+  ]
 
-  function clearSelection() {
-    table.value.clearSelection()
-  }
-
-  function toggleRowSelection(row: T, selected?: boolean) {
-    table.value.toggleRowSelection(row, selected)
-  }
-
-  function toggleAllSelection() {
-    table.value.toggleAllSelection()
-  }
-
-  function toggleRowExpansion(row: T, expanded?: boolean) {
-    table.value.toggleRowExpansion(row, expanded)
-  }
-
-  function setCurrentRow(row?: T) {
-    table.value.setCurrentRow(row)
-  }
-
-  function clearSort() {
-    table.value.clearSort()
-  }
-
-  function clearFilter(columnKeys?: MaybeArray<string>) {
-    table.value.clearFilter(columnKeys)
-  }
-
-  function doLayout() {
-    table.value.doLayout()
-  }
-
-  function sort(prop: string, order: string) {
-    table.value.sort(prop, order)
-  }
+  onMounted(() => {
+    Object.assign(tableExpose, pick(tableRef.value, keys))
+  })
 
   return {
-    table,
-    clearSelection,
-    toggleRowSelection,
-    toggleAllSelection,
-    toggleRowExpansion,
-    setCurrentRow,
-    clearSort,
-    clearFilter,
-    doLayout,
-    sort,
+    tableRef,
+    tableExpose,
   }
 }
 
