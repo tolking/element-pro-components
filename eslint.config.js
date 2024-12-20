@@ -27,6 +27,21 @@ export default tseslint.config(
       quotes: ['error', 'single'],
       semi: ['error', 'never'],
       'vue/multi-word-component-names': 'off',
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            { name: 'lodash', message: 'Use lodash-unified instead.' },
+            { name: 'lodash-es', message: 'Use lodash-unified instead.' },
+          ],
+          patterns: [
+            {
+              group: ['lodash/*', 'lodash-es/*'],
+              message: 'Use lodash-unified instead.',
+            },
+          ],
+        },
+      ],
     },
   },
   {

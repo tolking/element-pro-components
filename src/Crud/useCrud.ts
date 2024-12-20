@@ -1,7 +1,7 @@
-import { computed, ref, useSlots, Ref, Slot } from 'vue'
+import { computed, ref, useSlots, Ref, Slot, reactive, onMounted } from 'vue'
 import { useLocale } from '../composables/index'
 import { isFunction, isObject, filterDeep } from '../utils/index'
-import { formMenu, useFormInjectEmits } from '../Form/index'
+import { formMenu, useFormInjectEmits, useFormMethods } from '../Form/index'
 import type { UnknownObject } from '../types/index'
 import type {
   IFormColumns,
@@ -10,7 +10,7 @@ import type {
   IFormSubmit,
   UseFormInjectEmitsCallback,
 } from '../Form/index'
-import type { ITableColumns } from '../Table/index'
+import { useTableMethods, type ITableColumns } from '../Table/index'
 import type { IDescriptionsColumns } from '../Descriptions/index'
 import type {
   ICrudProps,
@@ -124,6 +124,41 @@ export function useCrudColumns(
     editColumns,
     formColumns,
     detailColumns,
+  }
+}
+
+export function useCrudMethods({
+  emit,
+  openDialog,
+  closeDialog,
+}: {
+  emit: ICrudEmits
+  openDialog: (type: ICrudDialogType, row?: UnknownObject) => void
+  closeDialog: () => void
+}) {
+  const searchRef = ref()
+  const { tableRef, tableExpose } = useTableMethods()
+  const { formRef, update, resetForm } = useFormMethods(
+    emit as unknown as IFormEmits,
+  )
+  const crudExpose = reactive({
+    searchRef,
+    formRef,
+    openDialog,
+    closeDialog,
+  })
+
+  onMounted(() => {
+    Object.assign(crudExpose, tableExpose)
+  })
+
+  return {
+    searchRef,
+    tableRef,
+    formRef,
+    update,
+    resetForm,
+    crudExpose,
   }
 }
 

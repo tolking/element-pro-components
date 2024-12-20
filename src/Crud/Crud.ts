@@ -1,13 +1,4 @@
-import {
-  computed,
-  defineComponent,
-  h,
-  VNode,
-  Slot,
-  mergeProps,
-  reactive,
-  ref,
-} from 'vue'
+import { computed, defineComponent, h, VNode, Slot, mergeProps } from 'vue'
 import { ElDialog, ElButton, useAttrs, DialogProps } from 'element-plus'
 import { useBreakpointWidth, useSplitReactive } from '../composables/index'
 import {
@@ -17,9 +8,9 @@ import {
   useCrudSearchMenu,
   useCrudSearchForm,
   useCrudSlots,
+  useCrudMethods,
 } from './useCrud'
-import { useTableMethods, usePagination } from '../Table/useTable'
-import { useFormMethods } from '../Form/useForm'
+import { usePagination } from '../Table/useTable'
 import { isFunction, throwWarn } from '../utils/index'
 import {
   crudProps,
@@ -35,7 +26,6 @@ import { ProTable } from '../Table/index'
 import { ProDescriptions } from '../Descriptions/index'
 import type { ComponentSize } from 'element-plus'
 import type { StringObject, UnknownObject } from '../types/index'
-import type { IFormEmits } from '../Form/index'
 
 interface TableMenuScope {
   row: StringObject
@@ -51,22 +41,13 @@ export default defineComponent({
       useSplitReactive(props, formKeys, tableKeys, descriptionsKeys, dialogKeys)
     const { searchColumns, tableColumns, detailColumns } = useCrudColumns(props)
     const menuColumns = useCrudMenu(props)
-    const {
-      table,
-      clearSelection,
-      toggleRowSelection,
-      toggleAllSelection,
-      toggleRowExpansion,
-      setCurrentRow,
-      clearSort,
-      clearFilter,
-      doLayout,
-      sort,
-    } = useTableMethods()
+    const { searchRef, tableRef, formRef, update, resetForm, crudExpose } =
+      useCrudMethods({
+        emit,
+        openDialog: (...arg) => openDialog(...arg),
+        closeDialog: () => closeDialog(),
+      })
     const { sizeChange, currentChange, handleLoad } = usePagination(emit)
-    const { formRef, update, resetForm } = useFormMethods(
-      emit as unknown as IFormEmits,
-    )
     const {
       showDialog,
       type,
@@ -86,23 +67,6 @@ export default defineComponent({
 
     const attrs = useAttrs()
     const dialogWidth = useBreakpointWidth()
-
-    const searchRef = ref()
-    const crudExpose = reactive({
-      searchRef,
-      formRef,
-      clearSelection,
-      toggleRowSelection,
-      toggleAllSelection,
-      toggleRowExpansion,
-      setCurrentRow,
-      clearSort,
-      clearFilter,
-      doLayout,
-      sort,
-      openDialog,
-      closeDialog,
-    })
 
     const bindDialog = computed(() => {
       const title =
@@ -241,7 +205,7 @@ export default defineComponent({
         ? { menu: (scope: TableMenuScope) => createTableMenu(scope) }
         : {}
       const _props = mergeProps(tableProps, attrs.value, {
-        ref: table,
+        ref: tableRef,
         menu: menuColumns.value,
         columns: tableColumns.value,
         class: 'pro-crud-table',
