@@ -1,6 +1,7 @@
 import { defineComponent, h, toRefs, VNode, provide, mergeProps } from 'vue'
 import { ElTable, ElTableColumn, ElPagination, useAttrs } from 'element-plus'
 import { useSplitReactive } from '../composables/index'
+import { isUndefined } from '../utils/index'
 import {
   useTableBind,
   useTableDefaultBind,
@@ -114,7 +115,12 @@ export default defineComponent({
         }),
       )
 
-      return [tableNode, props.total ? paginationNode : null]
+      return [
+        tableNode,
+        !isUndefined(props.total) || !isUndefined(props.pageCount)
+          ? paginationNode
+          : null,
+      ]
     }
 
     return () => h('div', { class: 'pro-table' }, createDefault())

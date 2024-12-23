@@ -228,18 +228,21 @@ describe('Table', () => {
           :layout="layout"
           :columns="columns"
           :total="total"
+          :page-count="pageCount"
         />
       `,
       setup() {
         const total = ref(50)
+        const pageCount = ref<number>()
         const currentPage = ref(1)
         const pageSize = ref(10)
         const layout = ref('prev, pager, next, sizes')
-        return { columns, total, currentPage, pageSize, layout }
+        return { columns, total, pageCount, currentPage, pageSize, layout }
       },
     })
     const vm = wrapper.vm as unknown as {
-      total: number
+      total?: number
+      pageCount?: number
       currentPage: number
       pageSize: number
       layout: string
@@ -271,7 +274,13 @@ describe('Table', () => {
     )
 
     await (vm.total = 0)
+    expect(wrapper.find('.el-pagination').exists()).toBe(true)
+
+    await (vm.total = undefined)
     expect(wrapper.find('.el-pagination').exists()).toBe(false)
+
+    await (vm.pageCount = 5)
+    expect(wrapper.find('.el-pagination').exists()).toBe(true)
   })
 
   test.concurrent('align', async () => {
