@@ -9,9 +9,10 @@ import {
   mergeProps,
 } from 'vue'
 import { RouterView, RouteLocationNormalizedLoaded } from 'vue-router'
-import { ElScrollbar, useAttrs } from 'element-plus'
+import { ElScrollbar, useAttrs, useId } from 'element-plus'
 import {
   useCurrentBreakpoint,
+  useLocale,
   useShow,
   useSplitReactive,
 } from '../composables/index'
@@ -36,6 +37,9 @@ export default defineComponent({
     const attrs = useAttrs()
     const breakpoint = useCurrentBreakpoint()
     const { show, toggleShow } = useShow(props.collapse)
+    const { t } = useLocale()
+    const id = useId()
+
     const collapse = computed(() => {
       return breakpoint.value === 'xs' ? false : show.value
     })
@@ -63,8 +67,13 @@ export default defineComponent({
 
     function createMenuButton() {
       return h(
-        'span',
+        'button',
         {
+          type: 'button',
+          ariaDisabled: false,
+          ariaControls: id.value,
+          ariaExpanded: !collapse.value,
+          ariaLabel: t('pro.layout.ariaToggle'),
           class: ['header-fold-btn', collapse.value && 'is-active'],
           onClick: toggleShow,
         },
@@ -79,11 +88,14 @@ export default defineComponent({
     function createAside() {
       return h(
         'aside',
-        { class: ['pro-aside', show.value && 'aside-collapse'] },
+        {
+          id: id.value,
+          class: ['pro-aside', show.value && 'aside-collapse'],
+        },
         [
           h('div', { class: 'mask', onClick: toggleShow }),
           h(
-            'div',
+            'nav',
             {
               class: [
                 'pro-aside-wrapper',

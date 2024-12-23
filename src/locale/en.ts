@@ -35,5 +35,8 @@ export default {
       right: 'Close Right',
       others: 'Close Others',
     },
+    layout: {
+      ariaToggle: 'Toggle sidebar menu content',
+    },
   },
 }

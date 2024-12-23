@@ -35,5 +35,8 @@ export default {
       right: '关闭右侧',
       others: '关闭其他',
     },
+    layout: {
+      ariaToggle: '切换侧边栏菜单内容',
+    },
   },
 }
