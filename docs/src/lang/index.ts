@@ -23,6 +23,11 @@ const lang: Record<string, Language & Record<string, string | TranslatePair>> =
           refresh: 'Refresh',
           close: 'Close',
         },
+        header: {
+          theme: 'Switch theme',
+          lang: 'Switch language',
+          github: 'View source on Github',
+        },
       },
     },
     'zh-CN': {
@@ -41,6 +46,11 @@ const lang: Record<string, Language & Record<string, string | TranslatePair>> =
           message: '发现新内容可用',
           refresh: '刷新',
           close: '关闭',
+        },
+        header: {
+          theme: '切换浅色/深色模式',
+          lang: '切换语言',
+          github: '去 Github 查看源码',
         },
       },
     },
