@@ -1,1 +1,0 @@
-import{_ as c,r as e,o,c as n}from"./index-BypRYKmK.js";const _={};function s(a,t){const r=e("pro-breadcrumb");return o(),n(r)}const d=c(_,[["render",s]]),m={};function p(a,t){const r=e("pro-breadcrumb");return o(),n(r,{separator:">"})}const u=c(m,[["render",p]]);export{d as B,u as a};
