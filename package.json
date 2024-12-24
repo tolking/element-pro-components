@@ -1,6 +1,6 @@
 {
   "name": "element-pro-components",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "a component library for Vue 3 base on element-plus",
   "type": "module",
   "main": "lib/index.umd.cjs",
@@ -47,6 +47,7 @@
     "build:docs": "rimraf dist && npm run build:manifest && npm run build:ssr && esno build/prerender.ts",
     "build:manifest": "vite build --ssrManifest --base=/element-pro-components/ --outDir ../dist",
     "build:ssr": "vite build --ssr src/entry-server.ts --base=/element-pro-components/ --outDir ../dist/.cache",
+    "preview": "vite preview --base=/element-pro-components/ --outDir ../dist",
     "check": "npm run lint:test && vue-tsc --noEmit",
     "test": "vitest",
     "lint": "eslint . --fix",
