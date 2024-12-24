@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.4.1
+
+feat
+
+- Form: support binding component instances through ref (#550) (#555)
+- Form: optimize ProFormComponent (#551)
+
+fix
+
+- Table: the load triggered multiple times when page-size is changed (#554)
+- Table: pagination are not displayed when using pageCount (#558)
+
+other
+
+- Form: add aria-label for ArrayForm (#552)
+- Form: simplify expose related code (#553)
+- Table: simplify expose related code (#556)
+- Layout: a11y enhancements for fold button (#557)
+
 ## 1.4.0
 
 breaking changes
