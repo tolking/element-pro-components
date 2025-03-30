@@ -1,6 +1,6 @@
 import { App, createApp as _createApp, createSSRApp } from 'vue'
 import { createRouter } from './router/index'
-import { createHead, type VueHeadClient, type MergeHead } from '@unhead/vue'
+import { createHead } from '@unhead/vue/client'
 import {
   ElConfigProvider,
   ElButton,
@@ -28,6 +28,7 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 import 'element-pro-components/styles/index.css'
 import './styles/index.css'
 import type { Router } from 'vue-router'
+import type { VueHeadClient, MergeHead } from '@unhead/vue'
 
 export function createApp(): {
   app: App<Element>
@@ -39,7 +40,7 @@ export function createApp(): {
       ? createSSRApp(Layout)
       : _createApp(Layout)
   const router = createRouter()
-  const head = createHead()
+  const head = createHead() as unknown as VueHeadClient<MergeHead>
 
   app
     .use(router)
