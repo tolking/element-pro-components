@@ -37,7 +37,7 @@ importers:
         specifier: ^3.9.0
         version: 3.9.0(@algolia/client-search@5.23.0)(search-insights@2.13.0)
       '@eslint/js':
-        specifier: 9.23.0
+        specifier: ^9.23.0
         version: 9.23.0
       '@stackblitz/sdk':
         specifier: ^1.11.0
