@@ -43,7 +43,7 @@ export interface FormColumn<T = ExternalParam>
   extends Mutable<Partial<Omit<FormItemProps, 'prop'>>>,
     Partial<Omit<ColProps, 'tag'>> {
   /** component name */
-  component?: string | ColumnComponent
+  component?: ColumnComponent | (string & NonNullable<unknown>)
   /** props for component */
   props?: UnknownObject & ColumnCommonProp
   /** the type of sub-form */
