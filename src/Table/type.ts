@@ -26,9 +26,9 @@ export interface TableCommonColumn<T = ExternalParam>
   /** column label */
   label?: string
   /** column width */
-  width?: string
+  width?: string | number
   /** column minimum width. Columns with width has a fixed width, while columns with min-width has a width that is distributed in proportion */
-  minWidth?: string
+  minWidth?: string | number
   /** whether column is fixed at `left` `right` */
   fixed?: boolean | 'left' | 'right'
   /** render function for table header of this column */
